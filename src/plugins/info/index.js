@@ -5,7 +5,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
-    let character = msg.split(/(?<=^\S+)\s/).slice(1)
+    let character = msg.split(/(?<=^\S+)\s/).slice(1);
     let request = require('request').defaults({ encoding: null });
     let weapon_url = 'https://upload-bbs.mihoyo.com/upload/2021/04/28/75276545/553459116f6aa3e12e4323393ee24b6d_5571196186126561969.png';
     let talent_url = 'https://upload-bbs.mihoyo.com/upload/2021/04/28/75276545/d0a500156192bc55b14e623806615f93_6219160940681956086.png';

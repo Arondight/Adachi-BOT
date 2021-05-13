@@ -9,7 +9,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
-    let character = msg.split(/(?<=^\S+)\s/).slice(1)
+    let character = msg.split(/(?<=^\S+)\s/).slice(1);
 
     if (!(await hasAuth(userID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);

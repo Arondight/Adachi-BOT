@@ -22,7 +22,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let sendID  = type === 'group' ? groupID : userID;
     let name    = Message.sender.nickname;
-    let cmd     = msg.split(/(?<=^\S+)\s/).slice(1)
+    let cmd     = msg.split(/(?<=^\S+)\s/).slice(1);
 
     await userInitialize(userID);
 
