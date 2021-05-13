@@ -9,7 +9,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
-    let character = msg.match(/[\u4e00-\u9fa5]{1,10}/g);
+    let character = msg.split(/(?<=^\S+)\s/).slice(1)
 
     if (!(await hasAuth(userID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);
@@ -17,7 +17,7 @@ module.exports = async Message => {
     }
 
     if (!(await isInside('character', 'user', 'userID', userID))) {
-        await bot.sendMessage(sendID, "请先使用 #gq 或 #uid 指定需要查询的账号", type);
+        await bot.sendMessage(sendID, "请先使用【米游社】或【UID】指定需要查询的账号", type);
         return;
     }
     if (!character || character.length > 1) {

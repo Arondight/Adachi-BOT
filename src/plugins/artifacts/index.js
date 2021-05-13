@@ -20,7 +20,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let sendID  = type === 'group' ? groupID : userID;
     let name    = Message.sender.nickname;
-    let cmd     = msg.match(/\d+/g), data;
+    let cmd     = msg.split(/(?<=^\S+)\s/).slice(1)
 
     await userInitialize(userID);
 
@@ -30,18 +30,18 @@ module.exports = async Message => {
     }
 
     if (cmd === null) {
-        if (msg.includes('#i')) {
+        if (msg.includes('强化')) {
             const { initial, fortified } = await get('artifact', 'user', { userID });
             if (JSON.stringify(initial) !== '{}') {
                 data = fortified;
             } else {
-                await bot.sendMessage(sendID, "请先使用 #r 抽取一个圣遗物后再使用该命令", type);
+                await bot.sendMessage(sendID, "请先使用【圣遗物】抽取一个圣遗物后再使用该命令", type);
                 return;
             }
-        } else if (msg.includes('#r')) {
+        } else if (msg.includes('圣遗物')) {
             await getArtifact(userID,-1);
             data = (await get('artifact', 'user', { userID })).initial;
-        } else if (msg.includes('#d')) {
+        } else if (msg.includes('副本')) {
             await bot.sendMessage(sendID, domainInfo(), type);
             return;
         }
@@ -49,7 +49,7 @@ module.exports = async Message => {
         await getArtifact(userID, parseInt(cmd[0]));
         data = (await get('artifact', 'user', { userID })).initial;
     } else {
-        await bot.sendMessage(sendID, "请正确输入秘境id", type);
+        await bot.sendMessage(sendID, "请正确输入副本ID", type);
     }
 
     await render(data, 'genshin-artifact', sendID, type);

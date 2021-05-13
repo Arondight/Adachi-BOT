@@ -16,7 +16,7 @@ module.exports = Message => {
         case msg.includes('d'):
             dice(sendID, msg, type);
             break;
-        case msg.includes('#help'):
+        case msg.includes('help'):
             help(sendID, type);
             break;
         case msg.includes('#repo'):
@@ -25,7 +25,7 @@ module.exports = Message => {
         case msg.includes('#fb'):
             feedback(sendID, name, msg, type, userID);
             break;
-        case msg.includes('#rhelp'):
+        case msg.includes('管理'):
             master(sendID, type);
             break;
     }

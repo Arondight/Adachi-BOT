@@ -28,7 +28,7 @@ const getID = async ( msg, userID ) => {
     } else if (await isInside('map', 'user', 'userID', userID)) {
         return (await get('map', 'user', { userID })).mhyID;
     } else {
-        errInfo = "您还未绑定米游社通行证，请使用 #s + id";
+        errInfo = "您还未绑定米游社通行证，请使用 【绑定 + 米游社通行证ID】";
     }
 
     return errInfo;

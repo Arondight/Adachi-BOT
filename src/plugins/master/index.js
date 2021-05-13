@@ -61,22 +61,22 @@ module.exports = async Message => {
     }
 
     switch (true) {
-        case msg.includes('#fba'):
+        case msg.includes('反馈权限'):
             await setFeedbackAuth(msg, sendID, type);
             break;
-        case msg.includes('#wa'):
+        case msg.includes('十连权限'):
             await setGachaAuth(msg, sendID, type);
             break;
-        case msg.includes('#ra'):
+        case msg.includes('圣遗物权限'):
             await setArtifactAuth(msg, sendID, type);
             break;
-        case msg.includes('#qa'):
+        case msg.includes('UID权限'):
             await setQueryGameInfoAuth(msg, sendID, type);
             break;
-        case msg.includes('#ifa'):
+        case msg.includes('角色信息权限'):
             await setCharacterOverviewAuth(msg, sendID, type);
             break;
-        case msg.includes('#rw'):
+        case msg.includes('刷新卡池'):
             await refreshWishDetail(sendID, type);
             break;
     }
