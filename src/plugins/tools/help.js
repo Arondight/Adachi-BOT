@@ -1,6 +1,5 @@
 const helpMessage =
-`命令列表：
-
+`命令：
 1.  绑定   <米游社通行证ID>
 2.  改绑   <米游社通行证ID>
 3.  米游社 [米游社通行证ID]  -> 查询米游社ID的角色信息
@@ -17,7 +16,9 @@ const helpMessage =
 14. 周本                     -> 查询周本材料信息
 15. 管理                     -> 查询管理命令
 
-<> 表示必填，[] 表示可选，可选项不填通常约定自己、上一个或随机`;
+参数：
+1. <> 表示必填，[] 表示可选，前面需加空格
+2. 可选项不填通常约定自己、上一个或随机`;
 
 module.exports = async ( id, type ) => {
     await bot.sendMessage(id, helpMessage, type);
