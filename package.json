@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "image-cache": "^1.0.1",
     "lodash": "^4.17.21",
     "lowdb": "^1.0.0",
     "node-fetch": "^2.6.1",
