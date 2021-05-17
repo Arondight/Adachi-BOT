@@ -1,5 +1,5 @@
 const { basePromise, detailPromise, characterPromise } = require('../../utils/detail');
-const { get, isInside } = require('../../utils/database');
+const { get, isInside, getID } = require('../../utils/database');
 const { hasAuth, sendPrompt } = require('../../utils/auth');
 const render = require('../../utils/render');
 
@@ -7,32 +7,6 @@ const generateImage = async ( uid, id, type ) => {
     const data = await get('info', 'user', { uid });
     await render(data, 'genshin-card', id, type);
 }
-
-const getID = async ( msg, userID ) => {
-    let id = msg.match(/\d+/g);
-    let errInfo = '';
-
-    if (msg.includes('CQ:at')) {
-        let atID = parseInt(id[0]);
-        if (await isInside('map', 'user', 'userID', atID)) {
-            return (await get('map', 'user', { userID: atID })).mhyID;
-        } else {
-            errInfo = "用户 " + atID + " 暂未绑定米游社通行证";
-        }
-    } else if (id !== null) {
-        if (id.length > 1) {
-            errInfo = "输入通行证不合法";
-        } else {
-            return parseInt(id[0]);
-        }
-    } else if (await isInside('map', 'user', 'userID', userID)) {
-        return (await get('map', 'user', { userID })).mhyID;
-    } else {
-        errInfo = "您还未绑定米游社通行证，请使用 【绑定 + 米游社通行证ID】";
-    }
-
-    return errInfo;
-};
 
 module.exports = async Message => {
     let msg     = Message.raw_message;

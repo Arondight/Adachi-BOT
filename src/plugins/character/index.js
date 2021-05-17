@@ -1,4 +1,5 @@
-const { get, isInside } = require('../../utils/database');
+const { basePromise } = require('../../utils/detail');
+const { get, isInside, getID } = require('../../utils/database');
 const { hasAuth, sendPrompt } = require('../../utils/auth');
 const render = require('../../utils/render');
 
@@ -9,29 +10,40 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
+    let dbInfo  = await getID(msg, userID);
     let character = msg.split(/(?<=^\S+)\s/).slice(1);
+    let uid, data;
 
     if (!(await hasAuth(userID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);
         return;
     }
 
-    if (!(await isInside('character', 'user', 'userID', userID))) {
-        await bot.sendMessage(sendID, "请先使用【米游社】或【UID】指定需要查询的账号", type);
+    if (typeof dbInfo === 'string') {
+        await bot.sendMessage(sendID, dbInfo.toString(), type);
         return;
     }
+
     if (!character || character.length > 1) {
         await bot.sendMessage(sendID, "请正确输入角色名称", type);
         return;
     }
 
-    const { uid } = await get('character', 'user', { userID });
-    const { avatars } = await get('info', 'user', { uid });
-    let data = avatars.find(el => el.name === character[0]);
+    try {
+        const baseInfo = await basePromise(dbInfo, userID);
+        uid = baseInfo[0];
+        const { avatars } = await get('info', 'user', { uid });
+        data = avatars.find(el => el.name === character[0]);
 
-    if (!data) {
-        await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确或该用户是否拥有该角色", type);
-        return;
+        if (!data) {
+            await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确或该用户是否拥有该角色", type);
+            return;
+        }
+    } catch (errInfo) {
+        if (errInfo !== '') {
+            await bot.sendMessage(sendID, errInfo, type);
+            return;
+        }
     }
 
     await render({ uid, data }, 'genshin-character', sendID, type);
