@@ -19,7 +19,7 @@ const baseInfo = {
     template: '#base-info',
     data() {
         return {
-            numberCN: ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖', '拾']
+            numberCN: ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
         }
     },
     props: {
