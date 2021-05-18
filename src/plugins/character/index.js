@@ -36,7 +36,7 @@ module.exports = async Message => {
         data = avatars.find(el => el.name === character[0]);
 
         if (!data) {
-            await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确或该用户是否拥有该角色", type);
+            await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确或您是否拥有该角色", type);
             return;
         }
     } catch (errInfo) {
