@@ -39,7 +39,7 @@ exports.basePromise = async ( mhyID, userID ) => {
             reject("米游社接口报错: " + message);
             return;
         } else if (!data.list || data.list.length === 0) {
-            reject("未查询到角色数据，请检查米哈游通行证（非UID）是否有误或是否设置角色信息公开");
+            reject("未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开");
             return;
         }
 
