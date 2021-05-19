@@ -30,7 +30,7 @@
 #  - ^#test
 
 card:
-  - ^米游社 *(\[CQ:at,qq=)?([0-9]*)
+  - ^米游社 *(\[CQ:at,qq=)?([0-9]*)$
 package:
   - ^UID +[0-9]+$
 save:
