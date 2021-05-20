@@ -76,7 +76,10 @@
 			<img src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/element.png" alt="ERROR"/>
 			<img class="profile" :src="avatar.icon" alt="ERROR"/>
 			<div class="avatar-info">
-				<p class="name">{{avatar.name}}</p>
+				<div>
+					<h1 class="name">{{avatar.name}}</h1>
+					<h1 class="actived_constellation_num">命之座：{{avatar.actived_constellation_num}}层</h1>
+				</div>
 				<div>
 					<p class="level">Lv.{{avatar.level}}</p>
 					<p class="fetter">❤{{avatar.fetter}}</p>

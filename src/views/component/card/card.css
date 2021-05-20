@@ -142,8 +142,17 @@ img {
     display: inline-block;
 }
 
+.avatar-info h1 {
+    font-weight: normal;
+}
+
 .avatar-info .name {
     font-size: 20px;
+    color: rgb(64, 64, 64);
+}
+
+.avatar-info .actived_constellation_num {
+    font-size: 15px;
     color: rgb(64, 64, 64);
 }
 
