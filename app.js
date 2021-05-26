@@ -60,6 +60,7 @@ run().then(() => {
     const plugins = loadPlugins();
     let repeat = repeatProb ? repeatProb : 0;
 
+    bot.logger.info("群消息复读的概率为 " + repeat + "%");
     ++repeat;
 
     bot.on("message.group", async msgData => {
