@@ -1,4 +1,4 @@
-const dice = require('./dice');
+const roll = require('./roll');
 const help = require('./help');
 const repo = require('./repo');
 const feedback = require('./feedback');
@@ -13,8 +13,8 @@ module.exports = Message => {
     let sendID  = type === 'group' ? groupID : userID;
 
     switch (true) {
-        case msg.includes('d'):
-            dice(sendID, msg, type);
+        case msg.includes('roll'):
+            roll(sendID, msg, type);
             break;
         case msg.includes('help'):
             help(sendID, type);
