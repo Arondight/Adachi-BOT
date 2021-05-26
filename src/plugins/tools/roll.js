@@ -1,6 +1,4 @@
-const getRandomInt = max => {
-    return Math.floor(Math.random() * max) + 1;
-};
+const getRandomInt = require('../../utils/rand.js');
 
 module.exports = async ( id, msg, type ) => {
     let cmd = msg.match(/[+-]?[0-9]+/g);

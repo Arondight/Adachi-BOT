@@ -1,6 +1,7 @@
 const { createClient } = require("oicq");
 const { loadPlugins, loadYML, processed } = require("./src/utils/load");
 const botEnvironment = require('./src/utils/init');
+const getRandomInt = require('./src/utils/rand.js');
 
 const Setting = loadYML('setting');
 
@@ -26,6 +27,7 @@ BOT.sendMaster = async ( id, msg, type ) => {
 
 global.bot = BOT;
 global.master = Setting['master'];
+global.repeatProb = parseInt(Setting['repeatProb']);
 
 const run = async () => {
     // 处理登录滑动验证码
@@ -56,12 +58,19 @@ const run = async () => {
 run().then(() => {
     botEnvironment();
     const plugins = loadPlugins();
+    let repeat = repeatProb ? repeatProb : 0;
 
-    bot.on("message.group", msgData => {
-        processed(msgData, plugins, 'group');
+    ++repeat;
+
+    bot.on("message.group", async msgData => {
+        if (!processed(msgData, plugins, 'group')) {
+            if (getRandomInt(100) < repeat) {
+                await bot.sendMessage(msgData.group_id, msgData.raw_message, 'group');
+            }
+        }
     });
 
-    bot.on("message.private", msgData => {
+    bot.on("message.private", async msgData => {
         processed(msgData, plugins, 'private');
     });
 });

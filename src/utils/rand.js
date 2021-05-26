@@ -8,3 +8,8 @@ module.exports = randomString = length => {
     }
     return result;
 };
+
+module.exports = getRandomInt = max => {
+    return Math.floor(Math.random() * max) + 1;
+};
+

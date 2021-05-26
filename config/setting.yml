@@ -1,4 +1,13 @@
+# Bot 账户
 account:
-  qq: your qq number
-  password: your password or password md5
-master: your master qq number
+  # QQ 号码
+  qq: 123456789
+  # QQ 密码
+  password: 123456789
+
+# 管理者 QQ
+master: 987654321
+
+# 复读消息的概率%，1-100，0 不复读
+repeatProb: 5
+

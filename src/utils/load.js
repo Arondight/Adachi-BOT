@@ -25,8 +25,11 @@ exports.processed = ( qqData, plugins, type ) => {
         const command = getCommand(qqData.raw_message);
         if (command){
             plugins[command]({ ...qqData, type });
+            return true;
         }
     }
+
+    return null;
 };
 
 const getCommand = msgData => {
