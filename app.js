@@ -1,7 +1,7 @@
 const { createClient } = require("oicq");
 const { loadPlugins, loadYML, processed } = require("./src/utils/load");
+const { getRandomInt } = require('./src/utils/rand');
 const botEnvironment = require('./src/utils/init');
-const getRandomInt = require('./src/utils/rand.js');
 
 const Setting = loadYML('setting');
 

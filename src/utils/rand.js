@@ -1,4 +1,4 @@
-module.exports = randomString = length => {
+exports.randomString = length => {
     let result              = '';
     let characters          = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let charactersLength    = characters.length;
@@ -9,7 +9,7 @@ module.exports = randomString = length => {
     return result;
 }
 
-exports = getRandomInt = max => {
+exports.getRandomInt = max => {
     return Math.floor(Math.random() * max) + 1;
 }
 

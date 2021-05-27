@@ -1,4 +1,4 @@
-const getRandomInt = require('../../utils/rand.js');
+const { getRandomInt } = require('../../utils/rand');
 
 module.exports = async ( id, msg, type ) => {
     let cmd = msg.match(/[+-]?[0-9]+/g);
