@@ -187,3 +187,7 @@ exports.domainInfo = () => {
 
     return domainsMsg;
 };
+
+exports.domainMax = () => {
+    return domains.length - 1;
+};

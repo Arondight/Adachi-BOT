@@ -1,4 +1,4 @@
-const { getArtifact, domainInfo } = require('./data.js');
+const { getArtifact, domainInfo, domainMax } = require('./data.js');
 const { get, isInside, push } = require('../../utils/database');
 const { hasAuth, sendPrompt } = require('../../utils/auth');
 const render = require('../../utils/render');
@@ -49,11 +49,12 @@ module.exports = async Message => {
     } else {
         id = arg.match(/\d+/g);
 
-        if (id) {
+        if (id && id < domainMax() + 1) {
             await getArtifact(userID, parseInt(id));
             data = (await get('artifact', 'user', { userID })).initial;
         }  else {
             await bot.sendMessage(sendID, "请正确输入副本ID", type);
+            return;
         }
     }
 
