@@ -19,10 +19,9 @@ body {
 
 .bg-info {
     position: fixed;
-    width: 700px;
-    top: 8px;
-    left: 8px;
-    font-size: 15px;
+    top: 20px;
+    left: 20px;
+    font-size: 35px;
     color: rgb(255, 255, 255);
 }
 
