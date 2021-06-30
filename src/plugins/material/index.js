@@ -10,9 +10,9 @@ module.exports = async Message => {
     let sendID  = type === 'group' ? groupID : userID;
     let character = msg.split(/(?<=^\S+)\s/).slice(1);
     let cacheDir  = path.join(path.resolve(__dirname, '..', '..', '..', 'data', 'image', 'material'), '/');
-    let weaponURL = 'https://upload-bbs.mihoyo.com/upload/2021/04/28/75276545/553459116f6aa3e12e4323393ee24b6d_5571196186126561969.png';
-    let talentURL = 'https://upload-bbs.mihoyo.com/upload/2021/04/28/75276545/d0a500156192bc55b14e623806615f93_6219160940681956086.png';
-    let weeklyURL = 'https://upload-bbs.mihoyo.com/upload/2021/04/28/75276545/acc156e0bbc8dbdcbc4a5c96f429c625_6103003511668528645.png';
+    let weaponURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75833613/78553111e3f705be9f430b4c0f9e3b77_4347243224656757262.png';
+    let talentURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75276545/364f013d1b924a9e0e17bfb916d5e5cd_7559214073741712253.png';
+    let weeklyURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75276545/e2f61dc58be38e8027644e373ab0e25b_6409837945255084893.png';
     let thisURL   = weeklyURL;
 
     imageCache.setOptions({
