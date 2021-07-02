@@ -10,7 +10,7 @@ const background = {
     },
     computed: {
         image() {
-            return "http://adachi-bot.oss-cn-beijing.aliyuncs.com/characters/card/" + this.character + ".png";
+            return "http://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/character/" + this.character + ".png";
         }
     }
 };
