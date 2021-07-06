@@ -157,40 +157,41 @@ artifacts:
 domains:
   -
     id: 0
-    name: "孤云凌霄之处"
-    product: [ 0, 9 ]
-#    product: [ 0, 9, 14 ]
-  -
-    id: 1
-    name: "芬德尼尔之顶"
-    product: [ 1, 5 ]
-#    product: [ 1, 5, 17, 18 ]
-  -
-    id: 2
-    name: "华池岩岫"
-    product: [ 2, 8 ]
-#    product: [ 2, 8, 17, 19 ]
-  -
-    id: 3
-    name: "无妄引咎迷宫"
-    product: [ 3, 6 ]
-#    product: [ 3, 6, 16, 18 ]
-  -
-    id: 4
-    name: "铭记之谷"
-    product: [ 7, 12 ]
-#    product: [ 7, 12, 20 ]
-  -
-    id: 5
-    name: "仲夏庭院"
-    product: [ 10, 11 ]
-#    product: [ 10, 11, 15 ]
-  -
-    id: 6
     name: "世界BOSS挑战"
     product: [ 4, 13 ]
 #    product: [ 4, 13, 21, 22, 23 ]
   -
+    id: 1
+    name: "仲夏庭院"
+    product: [ 10, 11 ]
+#    product: [ 10, 11, 15 ]
+  -
+    id: 2
+    name: "铭记之谷"
+    product: [ 7, 12 ]
+#    product: [ 7, 12, 20 ]
+  -
+    id: 3
+    name: "无妄引咎密宫"
+    product: [ 3, 6 ]
+#    product: [ 3, 6, 16, 18 ]
+  -
+    id: 4
+    name: "华池岩岫"
+    product: [ 2, 8 ]
+#    product: [ 2, 8, 17, 19 ]
+  -
+    id: 5
+    name: "孤云凌霄之处"
+    product: [ 0, 9 ]
+#    product: [ 0, 9, 14 ]
+  -
+    id: 6
+    name: "芬德尼尔之顶"
+    product: [ 1, 5 ]
+#    product: [ 1, 5, 17, 18 ]
+  -
     id: 7
     name: "山脊守望"
     product: [ 14, 15 ]
+
