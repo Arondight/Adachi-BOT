@@ -29,8 +29,7 @@ module.exports = async Message => {
         return hasKey(obj[level], ...rest)
     }
 
-    await request(
-    {
+    await request({
         url: api163,
         method: "POST",
         headers: {
@@ -55,10 +54,11 @@ module.exports = async Message => {
                     }
                 }]
                 await bot.sendMessage(sendID, jmusic, type);
-                return;
+            } else {
+                await bot.sendMessage(sendID, '没有查询到对应歌曲', type);
             }
         } else {
-            await bot.sendMessage(sendID, '没有查询到对应歌曲', type);
+            await bot.sendMessage(sendID, '歌曲查询出错', type);
         }
     })
 }
