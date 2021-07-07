@@ -47,8 +47,7 @@ gacha:
 tools:
   - ^roll *([+-]?\d+)?$
   - ^help *$
-  - ^#repo *$
-  - ^#fb +.*
+  - ^带个话 +.*
   - ^管理 *$
 master:
   - ^反馈权限 +\d+ +(on|off)$

@@ -13,17 +13,14 @@ module.exports = Message => {
     let sendID  = type === 'group' ? groupID : userID;
 
     switch (true) {
+        case msg.includes('带个话'):
+            feedback(sendID, name, msg, type, userID);
+            break;
         case msg.includes('roll'):
             roll(sendID, msg, type);
             break;
         case msg.includes('help'):
             help(sendID, type);
-            break;
-        case msg.includes('#repo'):
-            repo(sendID, type);
-            break;
-        case msg.includes('#fb'):
-            feedback(sendID, name, msg, type, userID);
             break;
         case msg.includes('管理'):
             master(sendID, type);
