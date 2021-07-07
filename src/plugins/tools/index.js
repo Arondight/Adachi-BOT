@@ -1,6 +1,5 @@
 const roll = require('./roll');
 const help = require('./help');
-const repo = require('./repo');
 const feedback = require('./feedback');
 const master = require('./master');
 
