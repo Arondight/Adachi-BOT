@@ -2,7 +2,7 @@
 
 ## 说明
 
-[原项目](https://github.com/SilveryStar/Adachi-BOT)[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
+[原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
 ## 使用
 
@@ -34,33 +34,21 @@ npm start
 > 有些样式已经变更，但是图片依然展示了旧的样式。
 
 <details>
-<summary>生成玩家信息卡片</summary>
+<summary>展示玩家信息</summary>
 <div align="center">
   <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CardExample.png" alt="ERROR">
 </div>
 </details>
 
 <details>
-<summary>生成玩家角色背包</summary>
+<summary>展示角色信息</summary>
 <div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/PackageExample.png" alt="ERROR">
-</div>
-</details>
-
-<details>
-<summary>生成角色信息卡片</summary>
-<div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/AnemoExample.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/PyroExample.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CryoExample.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/HydroExample.png" alt="ERROR">
   <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/ElectroExample.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/GeoExample.png" alt="ERROR">
 </div>
 </details>
 
 <details>
-<summary>随机圣遗物功能</summary>
+<summary>圣遗物掉落和强化</summary>
 <div align="center">
   <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/InitialActifact.png" alt="ERROR">
   <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/FortifiedArtifact.png" alt="ERROR">
@@ -68,23 +56,20 @@ npm start
 </details>
 
 <details>
-<summary>祈愿十连功能</summary>
+<summary>祈愿十连</summary>
 <div align="center">
   <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/IndefiniteGachaExample.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CharacterGachaExample.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/WeaponGachaExample.png" alt="ERROR">
 </div>
 </details>
 
 <details>
-<summary>查询角色基础信息</summary>
+<summary>查询角色官方数据</summary>
   <div align="center">
   <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CharacterOverviewFive.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CharacterOverviewFour.png" alt="ERROR">
 </div>
 </details>
 
 ## Licenses
 
-[MIT](https://github.com/SilveryStar/Adachi-BOT/blob/master/LICENSE)
+[MIT](LICENSE)
 
