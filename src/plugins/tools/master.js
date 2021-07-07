@@ -1,7 +1,7 @@
 const helpMessage =
 `命令列表：
 
-1. 反馈权限     <QQ> <on|off>
+1. 带话权限     <QQ> <on|off>
 2. 十连权限     <QQ> <on|off>
 3. 圣遗物权限   <QQ> <on|off>
 4. UID权限      <QQ> <on|off>

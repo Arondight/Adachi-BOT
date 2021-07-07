@@ -50,7 +50,7 @@ tools:
   - ^带个话 +.*
   - ^管理 *$
 master:
-  - ^反馈权限 +\d+ +(on|off)$
+  - ^带话权限 +\d+ +(on|off)$
   - ^十连权限 +\d+ +(on|off)$
   - ^圣遗物权限 +\d+ +(on|off)$
   - ^UID权限 +\d+ +(on|off)$

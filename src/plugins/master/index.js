@@ -15,7 +15,7 @@ const response = async (id, target, auth, type, isOn ) => {
 const setFeedbackAuth = async ( msg, id, type ) => {
     let [ target, isOn ] = parse(msg);
     await setAuth('feedback', target, isOn);
-    await response(id, target, '反馈', type, isOn ? '开启' : '关闭');
+    await response(id, target, '带话', type, isOn ? '开启' : '关闭');
 };
 
 const setGachaAuth = async ( msg, id, type ) => {
@@ -61,7 +61,7 @@ module.exports = async Message => {
     }
 
     switch (true) {
-        case msg.includes('反馈权限'):
+        case msg.includes('带话权限'):
             await setFeedbackAuth(msg, sendID, type);
             break;
         case msg.includes('十连权限'):
