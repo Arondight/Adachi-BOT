@@ -1,6 +1,6 @@
 const { getRandomInt } = require('../../utils/rand');
 
-module.exports = async ( id, msg, type ) => {
+module.exports = async ( id, name, msg, type, user ) => {
     let cmd = msg.match(/[+-]?[0-9]+/g);
 
     if (cmd == null) {
@@ -11,6 +11,6 @@ module.exports = async ( id, msg, type ) => {
         let max = parseInt(cmd[0]);
         let res = (max < 1) || (max > 100) ? '骰子面数应为不超过 100 的正整数'
                                                : '骰子的结果为: ' + getRandomInt(max);
-        await bot.sendMessage(id, res, type);
+        await bot.sendMessage(id, `${name}([CQ:at,qq=${user}])：\n${res}`, type);
     }
 }

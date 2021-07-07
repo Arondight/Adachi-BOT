@@ -1,5 +1,5 @@
-var querystring = require('querystring');
-var request = require('request');
+const querystring = require('querystring');
+const request = require('request');
 
 module.exports = async Message => {
     let msg     = Message.raw_message;

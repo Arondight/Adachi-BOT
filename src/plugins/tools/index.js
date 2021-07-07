@@ -16,7 +16,7 @@ module.exports = Message => {
             feedback(sendID, name, msg, type, userID);
             break;
         case msg.includes('roll'):
-            roll(sendID, msg, type);
+            roll(sendID, name, msg, type, userID);
             break;
         case msg.includes('help'):
             help(sendID, type);
