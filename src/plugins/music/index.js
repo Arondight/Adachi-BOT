@@ -1,65 +1,64 @@
-const querystring = require('querystring');
-const request = require('request');
-
-module.exports = async Message => {
-    let msg     = Message.raw_message;
-    let userID  = Message.user_id;
+export default async Message => {
+    let msg = Message.raw_message;
+    let userID = Message.user_id;
     let groupID = Message.group_id;
-    let type    = Message.type;
-    let name    = Message.sender.nickname;
-    let sendID  = type === 'group' ? groupID : userID;
+    let type = Message.type;
+    let name = Message.sender.nickname;
+    let sendID = type === 'group' ? groupID : userID;
     let keyword = msg.split(/(?<=^\S+)\s/).slice(1);
-    let api163 = 'http://music.163.com/api/search/get/';
-    let data163 = {
-        's':      keyword,
-        'type':   1,  // 1:单曲, 10:专辑, 100:歌手, 1000:歌单, 1002:用户, 1004:MV, 1006:歌词, 1009:电台, 1014:视频
-        'limit':  1,
-        'offset': 0
+
+    try {
+        let music_id = await qmusic(keyword)
+
+        jmusic = [
+            {
+                'type': 'music',
+                'data': {
+                    'type': "qq",
+                    'id': music_id
+                }
+            }];
+
+        await bot.sendMessage(sendID, jmusic, type);
+
     }
-    let form163 = querystring.stringify(data163);
-    let length163 = form163.length;
-    let hasKey = (obj, level,  ...rest) => {
-        if (obj === undefined) {
-            return false
-        }
-        if (rest.length == 0 && obj.hasOwnProperty(level)) {
-            return true
-        }
-
-        return hasKey(obj[level], ...rest)
+    catch (error) {
+        await bot.sendMessage(sendID, error.message, type);
     }
 
-    await request({
-        url: api163,
-        method: "POST",
-        headers: {
-            'Content-Length': length163,
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Referer': 'http://music.163.com',
-            'Cookie':  'appver=2.0.2'
-        },
-        body: form163
-    },
-    async (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-            jbody = JSON.parse(body);
-
-            if (hasKey(jbody, 'result', 'songs', 0, 'id')) {
-                jmusic = [
-                {
-                    'type': 'music',
-                    'data': {
-                        'type': 163,
-                        'id': jbody['result']['songs'][0]['id']
-                    }
-                }]
-                await bot.sendMessage(sendID, jmusic, type);
-            } else {
-                await bot.sendMessage(sendID, '没有查询到对应歌曲', type);
-            }
-        } else {
-            await bot.sendMessage(sendID, '歌曲查询出错', type);
-        }
-    })
 }
 
+async function qmusic(word) {
+    let qmusicapi = 'https://api.qq.jsososo.com/search/quick?key=' //第三方qq音乐api
+    // let musicuri = 'https://i.y.qq.com/v8/playsong.html?songid='
+    let query = qmusicapi + word
+
+    try {
+        let resp = await (await fetch(query, {
+            "credentials": "omit",
+            "headers": {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
+                "Upgrade-Insecure-Requests": "1",
+                "Pragma": "no-cache",
+                "Cache-Control": "no-cache"
+            },
+            "method": "GET",
+            "mode": "cors"
+        })).json()
+
+        console.log(resp)
+        if (resp.result == 100) {
+            if (resp.data.song.count != 0) {
+                return resp.data.song.itemlist[0].id
+            } else {
+                throw Error('搜不到歌曲')
+            }
+        } else {
+            throw Error('查询api出错：' + resp.result)
+        }
+    } catch (error) {
+        throw error
+    }
+}
