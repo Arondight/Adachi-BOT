@@ -9,7 +9,7 @@
 ### 部署
 
 ```
-git clone https://github.com/SilveryStar/Adachi-BOT.git
+git clone https://github.com/Arondight/Adachi-BOT.git
 cd Adachi-BOT
 npm install
 ```
