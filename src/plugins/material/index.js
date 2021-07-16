@@ -8,7 +8,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
-    let character = msg.split(/(?<=^\S+)\s/).slice(1);
+    let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
     let cacheDir  = path.join(path.resolve(__dirname, '..', '..', '..', 'data', 'image', 'material'), '/');
     let weaponURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75833613/78553111e3f705be9f430b4c0f9e3b77_4347243224656757262.png';
     let talentURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75276545/364f013d1b924a9e0e17bfb916d5e5cd_7559214073741712253.png';

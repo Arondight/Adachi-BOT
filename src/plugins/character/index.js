@@ -11,7 +11,7 @@ module.exports = async Message => {
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
     let dbInfo  = await getID(msg, userID);
-    let character = msg.split(/(?<=^\S+)\s/).slice(1);
+    let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
     let uid, data;
 
     if (!(await hasAuth(userID, 'query'))) {
