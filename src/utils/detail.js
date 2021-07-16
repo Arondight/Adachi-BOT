@@ -1,4 +1,4 @@
-const { getBase, getDetail, getCharacters } = require('./api');
+const { getBase, getDetail, getCharacters, getAbyDetail } = require('./api');
 const { get, isInside, push, update } = require('./database');
 const { loadYML } = require('./load');
 const lodash = require('lodash');
@@ -31,6 +31,29 @@ const increaseIndex = () => {
     index = index === cookiesNum - 1 ? 0 : index + 1;
 }
 
+exports.abyPromise = async (uid,server,schedule_type) => {
+    const { retcode, message, data } = await getAbyDetail(uid,schedule_type, server,cookies[index]);
+    return new Promise(async (resolve, reject) => {
+        if (retcode !== 0) {
+            reject("米游社接口报错: " + message);
+            return;
+        }
+
+        // let baseInfo = data.list.find(el => el['game_id'] === 2);
+        // let { game_role_id, nickname, region, level } = baseInfo;
+        // let uid = parseInt(game_role_id);
+        if (!(await isInside('aby', 'user', 'uid', uid))) {
+            let initData = {
+                uid, data:[]
+            };
+            await push('aby', 'user', initData);
+        }
+        await update('aby', 'user',{ uid },{data});
+
+        resolve(data);
+    });
+}
+
 exports.basePromise = async ( mhyID, userID ) => {
     const { retcode, message, data } = await getBase(mhyID, cookies[index]);
 
@@ -49,8 +72,6 @@ exports.basePromise = async ( mhyID, userID ) => {
 
         await userInitialize(userID, uid, nickname, level);
         await update('info', 'user', { uid }, {level, nickname});
-
-        resolve([uid, region]);
     });
 }
 
