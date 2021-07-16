@@ -1,6 +1,6 @@
 const querystring = require('querystring');
 const fetch = require('node-fetch')
-const { set } = require('../../utils/database');
+const { get, push, update } = require('../../utils/database');
 
 const MUSICSRC = {
     SRC_QQ:   'QQ',
