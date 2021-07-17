@@ -24,7 +24,7 @@ module.exports = async Message => {
         return;
     }
 
-    if (!character || character.length > 1) {
+    if (!character) {
         await bot.sendMessage(sendID, "请正确输入角色名称", type);
         return;
     }
@@ -33,7 +33,7 @@ module.exports = async Message => {
         const baseInfo = await basePromise(dbInfo, userID);
         uid = baseInfo[0];
         const { avatars } = await get('info', 'user', { uid });
-        data = avatars.find(el => el.name === character[0]);
+        data = avatars.find(el => el.name === character);
 
         if (!data) {
             await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确或您是否拥有该角色", type);

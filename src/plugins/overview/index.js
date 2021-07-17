@@ -17,13 +17,13 @@ module.exports = async Message => {
         return;
     }
 
-    if (!character || character.length > 1) {
+    if (!character) {
         await bot.sendMessage(sendID, "请正确输入角色名称", type);
         return;
     }
 
     try {
-        data = await getCharacterOverview(character[0]);
+        data = await getCharacterOverview(character);
     } catch (errInfo) {
         await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确", type);
         return;
