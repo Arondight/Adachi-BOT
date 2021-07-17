@@ -72,6 +72,8 @@ exports.basePromise = async ( mhyID, userID ) => {
 
         await userInitialize(userID, uid, nickname, level);
         await update('info', 'user', { uid }, {level, nickname});
+        
+        resolve([uid, region]);
     });
 }
 
