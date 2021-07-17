@@ -13,6 +13,7 @@ const databaseInitialize = () => {
     newDB('authority');
     newDB('gacha', { user: [], data: [] });
     newDB('music', { source: [] });
+    newDB('aby');
 };
 
 module.exports = async () => {

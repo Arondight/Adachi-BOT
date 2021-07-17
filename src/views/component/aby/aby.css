@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-family: GenshinUsedFont, monospace;
+}
+body {
+    width: 1454px;
+    height: 1684px;
+}
+
+.background {
+    z-index: -1;
+}
+.element {
+    position: relative;
+}
+.xelement {
+    position: relative;
+}
+img {
+    display: block;
+}
+.box {
+    display: flex;
+    position: absolute;
+}
+.reveal{
+    top:330px;
+    left: 65px;
+}
+
+
+.element .profile {
+    margin-left: 10px;
+    position: relative;
+    z-index: 1;
+    width: 60px;
+    left: 0px;
+}
+.element .avatar-info {
+    position: relative;
+    font-size:16px;
+    z-index: 1;
+    float: left;
+    left: -3px;
+    width: 91px;
+    text-align: center;
+}
+
+.xelement .profile {
+    margin-left: 10px;
+    position: relative;
+    z-index: 1;
+    width: 133px;
+    left: 13px;
+}
+
+
+.xelement .avatar-info {
+    position: relative;
+    font-size:22px;
+    z-index: 1;
+    float: left;
+    top: 10px;
+    left:  42px;
+    width: 91px;
+    text-align: center;
+}
+.box .tilte{
+    padding-top: 36px;
+    font-size:16px;
+}
+
+
+
+
+.profile {
+    position: absolute;
+    left: 82px;
+    width: 190px;
+}
+
+
+.title {
+    position: absolute;
+    font-size: 40px;
+    top: 65px;
+    left :50px;
+    height: 200px;
+}
+@font-face {
+    font-family: GenshinUsedFont;
+    src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
+
+.defeat
+{
+    position: absolute;
+    top: 515px;
+    left: 45px;
+}
+
+.take_damage
+{
+    position: absolute;
+    top: 580px;
+    left: 45px;
+}
+.normal_skill
+{
+    position: absolute;
+    top: 645px;
+    left: 45px;
+}
+.energy_skill
+{
+    position: absolute;
+    top: 710px;
+    left: 45px;
+}
+.damage
+{
+    position: absolute;
+    top: 775px;
+    left: 45px;
+}
