@@ -9,7 +9,7 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
-    let character = msg.split(/(?<=^\S+)\s/).slice(1);
+    let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
     let data;
 
     if (!(await hasAuth(userID, 'overview'))) {
