@@ -39,9 +39,6 @@ exports.abyPromise = async (uid,server,schedule_type) => {
             return;
         }
 
-        // let baseInfo = data.list.find(el => el['game_id'] === 2);
-        // let { game_role_id, nickname, region, level } = baseInfo;
-        // let uid = parseInt(game_role_id);
         if (!(await isInside('aby', 'user', 'uid', uid))) {
             let initData = {
                 uid, data:[]
@@ -67,6 +64,10 @@ exports.basePromise = async ( mhyID, userID ) => {
         }
 
         let baseInfo = data.list.find(el => el['game_id'] === 2);
+        if(!baseInfo){
+            reject("未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开");
+            return;
+        }
         let { game_role_id, nickname, region, level } = baseInfo;
         let uid = parseInt(game_role_id);
 
