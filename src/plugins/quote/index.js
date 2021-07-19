@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 module.exports = async Message => {
     let msg     = Message.raw_message;
     let userID  = Message.user_id;
@@ -5,9 +7,8 @@ module.exports = async Message => {
     let type    = Message.type;
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
-    let quote, from;
-    const headers = {
-        "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
+    let headers = {
+        "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0'
     }
 
     const response = await fetch('https://mao.coolrc.workers.dev/', {
@@ -16,7 +17,7 @@ module.exports = async Message => {
     });
 
     if (response.status == 200) {
-      { quote, from } = response.json();
+      let { quote, from } = await response.json();
       return await bot.sendMessage(sendID, quote + '\n' + from, type);
     }
 
