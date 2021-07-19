@@ -64,7 +64,7 @@ music:
   - ^点歌 +.+$
   - ^音乐源 +.+$
 overview:
-  - ^角色 +[\u4e00-\u9fa5]+$
+  - ^(角色|武器) +[\u4e00-\u9fa5]+$
 package:
   - ^UID +\d+$
 quote:
