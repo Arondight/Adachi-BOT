@@ -52,7 +52,7 @@
 </div>
 
 <div class="box energy_skill">
-	<div class="tilte">元素战技</div>
+	<div class="tilte">元素爆发</div>
 	<div class="element" v-for="(energy_skill,index) in energy_skill_rank" v-if="index < 14" :key="index">
 		<img class="profile" :src="energy_skill.avatar_icon" alt="ERROR"/>
 		<div class="avatar-info">{{energy_skill.value}}</div>
@@ -68,10 +68,10 @@
 <div class="box" style="position: absolute;top: 900px;">
 	<div class="floor" v-for="floor in floors" style="margin-left: 50px;" v-if="floor.index >= 9">
 		<div class="level" v-for="level in floor.levels">
-			
-		
+
+
 			<div class="battle" v-for="battle in level.battles" style="width: 300px;">
-				<div style="display: flex;"><div style="padding-top: 3px;width: 50px;display: flex;">{{floor.index}}-{{level.index}}<p v-if="battle.index==1" style="width: 10px;">上</p><p v-else style="width: 10px;">下</p></div><div style="width: 60px;display: flex;margin-left: 5px;"><div v-for="index in level.star">⭐</div></div><div style="padding-top: 3px;text-align: right;width: 190px;">{{formatDate(new Date(battle.timestamp * 1000), 'yyyy.MM.dd hh:mm:ss')}}</div></div> 
+				<div style="display: flex;"><div style="padding-top: 3px;width: 50px;display: flex;">{{floor.index}}-{{level.index}}<p v-if="battle.index==1" style="width: 10px;">上</p><p v-else style="width: 10px;">下</p></div><div style="width: 60px;display: flex;margin-left: 5px;"><div v-for="index in level.star">⭐</div></div><div style="padding-top: 3px;text-align: right;width: 190px;">{{formatDate(new Date(battle.timestamp * 1000), 'yyyy.MM.dd hh:mm:ss')}}</div></div>
 				<div style="display: flex;">
 				<div class="avatar" v-for="avatar in battle.avatars">
 				<img class="profile" :src="avatar.icon" alt="ERROR" style="margin-left: 10px;
