@@ -1,12 +1,12 @@
 const helpMessage =
 `命令列表：
 
-1. 带话权限     <QQ> <on|off>
-2. 十连权限     <QQ> <on|off>
-3. 圣遗物权限   <QQ> <on|off>
-4. UID权限      <QQ> <on|off>
-5. 角色权限     <QQ> <on|off>
-6. 刷新卡池`;
+🔘 带话权限     <QQ> <on|off>
+🔘 十连权限     <QQ> <on|off>
+🔘 圣遗物权限   <QQ> <on|off>
+🔘 UID权限      <QQ> <on|off>
+🔘 角色权限     <QQ> <on|off>
+🔘 刷新卡池`;
 
 module.exports = async ( id, type ) => {
     await bot.sendMessage(id, helpMessage, type);
