@@ -9,7 +9,8 @@ const __API = {
     FETCH_ROLE_CHARACTERS: 'https://api-takumi.mihoyo.com/game_record/genshin/api/character',
     FETCH_GACHA_LIST: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json',
     FETCH_GACHA_DETAIL: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json',
-    FETCH_ABY_DETAIL:'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss'
+    FETCH_ABY_DETAIL:'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
+    FETCH_INFO: "http://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/$.json",
 };
 
 const HEADERS = {
@@ -27,6 +28,21 @@ const getDS = () => {
         r = randomString(6),
         c = md5(`salt=${n}&t=${i}&r=${r}`);
     return `${i},${r},${c}`
+}
+
+exports.getInfo = (name) => {
+    return new Promise((resolve, reject) => {
+        requests({
+            method: 'GET',
+            url: __API.FETCH_INFO.replace( "$", encodeURI( name )),
+        })
+            .then(res => {
+                resolve(JSON.parse(res));
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
 }
 
 exports.getAbyDetail = (role_id,schedule_type, server, cookie) => {

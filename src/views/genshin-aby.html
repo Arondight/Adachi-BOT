@@ -60,7 +60,7 @@
 </div>
 <div class="box damage">
 	<div class="tilte">最强一击</div>
-	<div class="element" v-for="(damage,index) in damage_rank" v-if="index < 15" :key="index">
+	<div class="element" v-for="(damage,index) in damage_rank" v-if="index < 14" :key="index">
 		<img class="profile" :src="damage.avatar_icon" alt="ERROR"/>
 		<div class="avatar-info">{{damage.value}}</div>
 	</div>
