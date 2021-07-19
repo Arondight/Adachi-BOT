@@ -27,20 +27,17 @@
 #  - ^#ifa *[0-9]+ *(on|off)$
 #  - ^#rw *$
 
-card:
-  - ^米游社 *(\[CQ:at,qq=)?(\d*)$
-package:
-  - ^UID +\d+$
-save:
-  - ^(绑定|改绑) +\d+$
-character:
-  - ^我的 +[\u4e00-\u9fa5]+$
+aby:
+  - ^深渊 +\d+$
+  - ^上期深渊 +\d+$
 artifacts:
   - ^圣遗物 +(\d+)$
   - ^圣遗物 *$
   - ^(强化|副本) *$
-overview:
-  - ^角色 +[\u4e00-\u9fa5]+$
+card:
+  - ^米游社 *(\[CQ:at,qq=)?(\d*)$
+character:
+  - ^我的 +[\u4e00-\u9fa5]+$
 gacha:
   - ^十连 *$
   - ^卡池 +(常驻|角色|武器)
@@ -66,6 +63,11 @@ menu:
 music:
   - ^点歌 +.+$
   - ^音乐源 +.+$
-aby:
-  - ^深渊 +\d+$
-  - ^上期深渊 +\d+$
+overview:
+  - ^角色 +[\u4e00-\u9fa5]+$
+package:
+  - ^UID +\d+$
+quote:
+  - ^伟大的升华 *$
+save:
+  - ^(绑定|改绑) +\d+$
