@@ -1,32 +1,3 @@
-#card:
-#  - ^#gq *(\[CQ:at,qq=)?([0-9]*)
-#package:
-#  - ^#uid *[0-9]+$
-#save:
-#  - ^#(s|c) *[0-9]+$
-#character:
-#  - ^#a *[\u4e00-\u9fa5]+$
-#artifacts:
-#  - ^#(r|i|d) *([0-9]?|[0-9a-fA-F]{16})$
-#overview:
-#  - ^#info *[\u4e00-\u9fa5]+$
-#gacha:
-#  - ^#w *$
-#  - ^#t *(常驻|角色|武器)
-#tools:
-#  - ^.(r[0-9]+)?d[0-9]+$
-#  - ^#help *$
-#  - ^#repo *$
-#  - ^#fb +.*
-#  - ^#rhelp *$
-#master:
-#  - ^#fba *[0-9]+ *(on|off)$
-#  - ^#wa *[0-9]+ *(on|off)$
-#  - ^#ra *[0-9]+ *(on|off)$
-#  - ^#qa *[0-9]+ *(on|off)$
-#  - ^#ifa *[0-9]+ *(on|off)$
-#  - ^#rw *$
-
 aby:
   - ^深渊 +\d+$
   - ^上期深渊 +\d+$
@@ -71,3 +42,4 @@ quote:
   - ^伟大的升华 *$
 save:
   - ^(绑定|改绑) +\d+$
+
