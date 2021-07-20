@@ -1,509 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>genshin-overview</title>
+    <script src="../../data/js/vue.min.js"></script>
+    <style>
+      body {
+        width: 1026px;
+        height: 527px;
+      }
+    </style>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>genshin-overview</title>
-	<script src="../../data/js/vue.min.js"></script>
-	<style>
-		body {
-			width: 1026px;
-			height: 527px;
-		}
-	</style>
-</head>
+  <body>
+    <div id="app">
+      <div class="info-base">
+        <img
+          class="background"
+          src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/other/BaseBackground5.png"
+          alt="ERROR"
+        />
+        <img
+          :class="type === '角色' ? 'character' : 'weapon'"
+          :src="mainImage"
+          alt="ERROR"
+        />
+        <div class="content">
+          <p class="title-and-name">「{{ title }}·{{ name }}」</p>
+          <p class="introduce">{{ introduce }}</p>
+        </div>
+        <div class="dotted"></div>
+      </div>
+      <div class="weapon" v-if="type === '武器'">
+        <div class="access">
+          <p class="title">获取方式:</p>
+          <p class="content">{{ access }}</p>
+        </div>
+        <div class="data-block">
+          <img class="star-icon" :src="starIcon" alt="ERROR" />
+          <p class="value atk">{{ baseATK }}</p>
+          <p class="title atk">基础攻击力</p>
+          <p class="value main">{{ mainValue }}</p>
+          <p class="title main">{{ mainStat }}</p>
+        </div>
+        <p class="time">{{ time }}</p>
+        <div class="materials">
+          <div class="item-list">
+            <p class="title">突破材料:</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in ascension[0]"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+          <div class="item-list">
+            <p class="title"></p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in ascension[1]"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="skill">
+          <p class="name">{{ skillName }}</p>
+          <div class="content" v-html="skillContent"></div>
+        </div>
+      </div>
+      <div class="character" v-else>
+        <div class="base-info">
+          <div class="birthday">
+            <p class="title">生日:</p>
+            <p class="content">{{ birthday }}</p>
+          </div>
+          <div class="element">
+            <p class="title">神之眼:</p>
+            <p class="content">{{ element }}</p>
+          </div>
+          <div class="cv">
+            <p class="title">声优:</p>
+            <p class="content">{{ cv }}</p>
+          </div>
+          <div class="constellation-name">
+            <p class="title">命之座:</p>
+            <p class="content">{{ constellationName }}</p>
+          </div>
+        </div>
+        <div class="data-block">
+          <img class="star-icon" :src="starIcon" alt="ERROR" />
+          <p class="value atk">{{ baseATK }}</p>
+          <p class="title atk">基础攻击力</p>
+          <p class="value main">{{ mainValue }}</p>
+          <p class="title main">{{ mainStat }}</p>
+        </div>
+        <p class="time">{{ time }}</p>
+        <div class="materials">
+          <div class="item-list">
+            <p class="title">升级材料</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in levelUp"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
 
-<body>
-	
-	<div id="app">
+          <div class="item-list">
+            <p class="title">天赋材料</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in talent"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+          <div class="item-list">
+            <p class="title">突破材料</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in ascension"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="constellation">
+          <div class="box" v-for="i in 4">
+            <p class="level">{{ numCN[i-1] }}</p>
+            <p class="content">{{ constellations[i-1] }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			<div class="info-base">
-				<img class="background"
-					src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/other/BaseBackground5.png"
-					alt="ERROR" />
-				<img :class="type === '角色' ? 'character' : 'weapon'" :src="mainImage" alt="ERROR" />
-				<div class="content">
-					<p class="title-and-name">「{{ title }}·{{ name }}」</p>
-					<p class="introduce">{{ introduce }}</p>
-				</div>
-				<div class="dotted"></div>
-			</div>
-			<div class="weapon" v-if="type === '武器'">
-				<div class="access">
-					<p class="title">获取方式: </p>
-					<p class="content">{{ access }}</p>
-				</div>
-				<div class="data-block">
-					<img class="star-icon" :src="starIcon" alt="ERROR"/>
-					<p class="value atk">{{ baseATK }}</p>
-					<p class="title atk">基础攻击力</p>
-					<p class="value main">{{ mainValue }}</p>
-					<p class="title main">{{ mainStat }}</p>
-				</div>
-				<p class="time">{{ time }}</p>
-				<div class="materials">
-					<div class="item-list">
-						<p class="title">突破材料:</p>
-						<div class="list">
-							<img class="item" v-for="el in ascension[0]" :src="icon(el)" alt="ERROR"/>
-						</div>
-					</div>
-					<div class="item-list">
-						<p class="title"></p>
-						<div class="list">
-							<img class="item" v-for="el in ascension[1]" :src="icon(el)" alt="ERROR"/>
-						</div>
-					</div>
-				</div>
-				<div class="skill">
-					<p class="name">{{ skillName }}</p>
-					<div class="content" v-html="skillContent"></div>
-				</div>
-			</div>
-			<div class="character"  v-else>
-				<div class="base-info">
-					<div class="birthday">
-						<p class="title">生日: </p>
-						<p class="content">{{ birthday }}</p>
-					</div>
-					<div class="element">
-						<p class="title">神之眼: </p>
-						<p class="content">{{ element }}</p>
-					</div>
-					<div class="cv">
-						<p class="title">声优:</p>
-						<p class="content">{{ cv }}</p>
-					</div>
-					<div class="constellation-name">
-						<p class="title">命之座: </p>
-						<p class="content">{{ constellationName }}</p>
-					</div>
-				</div>
-				<div class="data-block">
-					<img class="star-icon" :src="starIcon" alt="ERROR"/>
-					<p class="value atk">{{ baseATK }}</p>
-					<p class="title atk">基础攻击力</p>
-					<p class="value main">{{ mainValue }}</p>
-					<p class="title main">{{ mainStat }}</p>
-				</div>
-				<p class="time">{{ time }}</p>
-				<div class="materials">
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          rarity: 0,
+          name: "",
+          id: 0,
+          title: "",
+          type: "",
+          introduce: "",
+          infoBackground: "",
+          mainImage: "",
 
+          skillName: "",
+          skillContent: "",
+          access: "",
 
-					<div class="item-list">
-						<p class="title">升级材料</p>
-						<div class="list">
-							<img class="item" v-for="el in levelUp" :src="icon(el)" alt="ERROR"/>
-						</div>
-					</div>
+          mainStat: "",
+          baseATK: 0,
+          mainValue: "",
+          birthday: "",
+          element: "",
+          constellationName: "",
+          cv: "",
+          ascension: [],
+          levelUp: [],
+          talent: [],
+          time: "",
+          constellations: "",
+          starIcon: "",
+          numCN: [],
+        },
+        methods: {
+          readJSON(file, callback) {
+            fetch(file).then((res) => {
+              return res.json().then((data) => {
+                callback(data);
+              });
+            });
+          },
+        },
+        mounted() {
+          this.readJSON("../../data/record/genshin-overview.json", (res) => {
+            this.rarity = res.rarity;
+            this.name = res.name;
+            this.id = res.id;
+            this.title = res.title;
+            this.type = res.type;
+            this.introduce = res.introduce;
+            this.infoBackground =
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/other/BaseBackground" +
+              res.rarity +
+              ".png";
+            this.mainImage =
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/" +
+              (res.type === "角色"
+                ? "character/" + res.id + ".png"
+                : "weapon/" + res.name + ".png");
 
-					<div class="item-list">
-						<p class="title">天赋材料</p>
-						<div class="list">
-							<img class="item" v-for="el in talent" :src="icon(el)" alt="ERROR"/>
-						</div>
-					</div>
-					<div class="item-list">
-						<p class="title">突破材料</p>
-						<div class="list">
-							<img class="item" v-for="el in ascension" :src="icon(el)" alt="ERROR"/>
-						</div>
-					</div>
-				</div>
-				<div class="constellation">
-					<div class="box" v-for="i in 4">
-						<p class="level">{{ numCN[i-1] }}</p>
-						<p class="content">{{ constellations[i-1] }}</p>
-					</div>
-				</div>
-			</div>
+            this.skillName = res.skillName;
+            this.skillContent = res.skillContent;
+            this.access = res.access;
 
+            this.mainStat = res.mainStat;
+            this.baseATK = res.baseATK;
+            this.mainValue = res.mainValue;
+            this.birthday = res.birthday;
+            this.element = res.element;
+            this.constellationName = res.constellationName;
+            this.cv = res.cv;
+            this.ascension = res.ascensionMaterials;
+            this.levelUp = res.levelUpMaterials;
+            this.talent = res.talentMaterials;
+            this.time = res.time;
+            this.constellations = res.constellations;
+            this.starIcon =
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/other/BaseStar" +
+              res.rarity +
+              ".png";
+            this.numCN = ["壹", "贰", "肆", "陆"];
 
-	</div>
+            if (this.rarity === 5) {
+              document.documentElement.style.setProperty(
+                "--styleColor",
+                "rgb(205, 167, 101)"
+              );
+              document.documentElement.style.setProperty(
+                "--backgroundColor",
+                "rgb(211, 200, 187)"
+              );
+              document.documentElement.style.setProperty(
+                "--dottedColor",
+                "rgb(198, 156, 80)"
+              );
+            } else if (this.rarity === 4) {
+              document.documentElement.style.setProperty(
+                "--styleColor",
+                "rgb(142, 115, 170)"
+              );
+              document.documentElement.style.setProperty(
+                "--backgroundColor",
+                "rgb(211, 211, 212)"
+              );
+              document.documentElement.style.setProperty(
+                "--dottedColor",
+                "rgb(72, 83, 101)"
+              );
+            } else {
+              document.documentElement.style.setProperty(
+                "--styleColor",
+                "rgb(98, 191, 218)"
+              );
+              document.documentElement.style.setProperty(
+                "--backgroundColor",
+                "rgb(210, 212, 225)"
+              );
+              document.documentElement.style.setProperty(
+                "--dottedColor",
+                "rgb(3, 149, 166"
+              );
+            }
+          });
+        },
+      });
 
-
-	<script>
-
-
-
-		new Vue({
-			el: '#app',
-			data: {
-				rarity:0,
-				name:"",
-				id:0,
-				title:"",
-				type:"",
-				introduce:"",
-				infoBackground:"",
-				mainImage :"",
-
-				skillName:"",
-				skillContent:"",
-				access:"",
-				
-				mainStat:"",
-				baseATK:0,
-				mainValue:"",
-				birthday:"",
-				element:"",
-				constellationName:"",
-				cv:"",
-				ascension:[],
-				levelUp:[],
-				talent:[],
-				time:"",
-				constellations:"",
-				starIcon:"",
-				numCN:[],
-			},
-			methods: {
-				readJSON(file, callback) {
-					fetch(file).then(res => {
-						return res.json().then(data => {
-							callback(data);
-						})
-					})
-				}
-			},
-			mounted() {
-				this.readJSON('../../data/record/genshin-overview.json', res => {
-					this.rarity = res.rarity;
-					this. name = res.name;
-					this. id = res.id;
-					this.title = res.title;
-					this.type = res.type;
-					this.introduce = res.introduce;
-					this.infoBackground = "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/other/BaseBackground"+res.rarity+".png";
-					this.mainImage = "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/"+(res.type === "角色" ? "character/"+res.id +".png": "weapon/" +res.name +".png");
-
-					this.skillName = res.skillName;
-					this.skillContent = res.skillContent;
-					this.access =res.access;
-
-					this.mainStat = res.mainStat;
-					this.baseATK = res.baseATK;
-					this.mainValue= res.mainValue;
-					this.birthday= res.birthday;
-					this.element= res.element;
-					this.constellationName= res.constellationName;
-					this.cv= res.cv;
-					this.ascension= res.ascensionMaterials;
-					this.levelUp= res.levelUpMaterials;
-					this.talent= res.talentMaterials;
-					this.time= res.time;
-					this.constellations= res.constellations;
-					this.starIcon =  "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/other/BaseStar"+res.rarity+".png";
-					this.numCN = [ "壹", "贰", "肆", "陆" ];
-
-
-					if (this.rarity === 5) {
-						document.documentElement.style.setProperty('--styleColor', 'rgb(205, 167, 101)');
-						document.documentElement.style.setProperty('--backgroundColor', 'rgb(211, 200, 187)');
-						document.documentElement.style.setProperty('--dottedColor', 'rgb(198, 156, 80)');
-					} else if (this.rarity === 4) {
-						document.documentElement.style.setProperty('--styleColor', 'rgb(142, 115, 170)');
-						document.documentElement.style.setProperty('--backgroundColor', 'rgb(211, 211, 212)');
-						document.documentElement.style.setProperty('--dottedColor', 'rgb(72, 83, 101)');
-					}
-					else {
-						document.documentElement.style.setProperty('--styleColor', 'rgb(98, 191, 218)');
-						document.documentElement.style.setProperty('--backgroundColor', 'rgb(210, 212, 225)');
-						document.documentElement.style.setProperty('--dottedColor', 'rgb(3, 149, 166');
-					}
-				});
-			}
-		});
-
-		function icon(name) {
-			return "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/image/"+ name +".png";
-		}
-	</script>
-
-</body>
-
+      function icon(name) {
+        return (
+          "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/image/" +
+          name +
+          ".png"
+        );
+      }
+    </script>
+  </body>
 </html>
 
 <style>
-	@font-face {
+  @font-face {
     font-family: HuaWen;
-    src: url( "../../data/font/HWXingKai.ttf" );
-}
-	.info-base .background {
-		position: absolute;
-	}
+    src: url("../../data/font/HWXingKai.ttf");
+  }
+  .info-base .background {
+    position: absolute;
+  }
 
-	.info-base .character {
-		position: absolute;
-		border-radius: 50%;
-		width: 367px;
-		top: 79px;
-		left: 113px;
-	}
+  .info-base .character {
+    position: absolute;
+    border-radius: 50%;
+    width: 367px;
+    top: 79px;
+    left: 113px;
+  }
 
-	.info-base .weapon {
-		position: absolute;
-		width: 412px;
-		top: 58px;
-		left: 89px;
-	}
+  .info-base .weapon {
+    position: absolute;
+    width: 412px;
+    top: 58px;
+    left: 89px;
+  }
 
-	.info-base .content {
-		position: absolute;
-		top: 14px;
-	}
+  .info-base .content {
+    position: absolute;
+    top: 14px;
+  }
 
-	.info-base .content .title-and-name {
-		position: absolute;
-		font-family: HuaWen, GenshinUsedFont, monospace;
-		color: var(--styleInfoColor);
-		font-size: 18pt;
-		top: 21px;
-		width: 600px;
-		left: 494px;
-	}
+  .info-base .content .title-and-name {
+    position: absolute;
+    font-family: HuaWen, GenshinUsedFont, monospace;
+    color: var(--styleInfoColor);
+    font-size: 18pt;
+    top: 21px;
+    width: 600px;
+    left: 494px;
+  }
 
-	.info-base .content .introduce {
-		position: absolute;
-		color: rgb(99, 112, 139);
-		left: 509px;
-		top: 48px;
-		font-size: 11.23pt;
-		width: 480px;
-	}
+  .info-base .content .introduce {
+    position: absolute;
+    color: rgb(99, 112, 139);
+    left: 509px;
+    top: 48px;
+    font-size: 11.23pt;
+    width: 480px;
+  }
 
-	.info-base .dotted {
-		position: absolute;
-		width: 474px;
-		left: 512px;
-		border-bottom: 2px dashed;
-		top: 104px;
-		color: var(--dottedColor);
-	}
+  .info-base .dotted {
+    position: absolute;
+    width: 474px;
+    left: 512px;
+    border-bottom: 2px dashed;
+    top: 104px;
+    color: var(--dottedColor);
+  }
 
-	.character {
-		position: absolute;
-		left: 512px;
-		top: 14px;
-	}
+  .character {
+    position: absolute;
+    left: 512px;
+    top: 14px;
+  }
 
-	.character .base-info {
-		position: relative;
-		width: 474px;
-		top: 96px;
-	}
+  .character .base-info {
+    position: relative;
+    width: 474px;
+    top: 96px;
+  }
 
-	.base-info .birthday,
-	.base-info .element,
-	.base-info .cv,
-	.base-info .constellation-name {
-		display: inline-block;
-		width: 237px;
-		margin-bottom: 5px;
-	}
+  .base-info .birthday,
+  .base-info .element,
+  .base-info .cv,
+  .base-info .constellation-name {
+    display: inline-block;
+    width: 237px;
+    margin-bottom: 5px;
+  }
 
-	.base-info .title,
-	.base-info .content {
-		position: relative;
-		display: inline-block;
-		font-size: 10.38pt;
-	}
+  .base-info .title,
+  .base-info .content {
+    position: relative;
+    display: inline-block;
+    font-size: 10.38pt;
+  }
 
-	.base-info .title {
-		margin-right: 9px;
-		color: rgb(81, 92, 113);
-	}
+  .base-info .title {
+    margin-right: 9px;
+    color: rgb(81, 92, 113);
+  }
 
-	.base-info .content {
-		color: rgb(116, 129, 156);
-	}
+  .base-info .content {
+    color: rgb(116, 129, 156);
+  }
 
-	.data-block {
-		position: relative;
-		width: 474px;
-		top: 95px;
-		height: 22px;
-		background-color: var(--backgroundColor);
-	}
+  .data-block {
+    position: relative;
+    width: 474px;
+    top: 95px;
+    height: 22px;
+    background-color: var(--backgroundColor);
+  }
 
-	.data-block .star-icon {
-		position: absolute;
-		height: 19px;
-		top: 1px;
-		left: 4px;
-		display: inline-block;
-		margin-right: 50px;
-	}
+  .data-block .star-icon {
+    position: absolute;
+    height: 19px;
+    top: 1px;
+    left: 4px;
+    display: inline-block;
+    margin-right: 50px;
+  }
 
-	.data-block .title,
-	.data-block .value {
-		position: relative;
-		display: inline-block;
-		float: right;
-	}
+  .data-block .title,
+  .data-block .value {
+    position: relative;
+    display: inline-block;
+    float: right;
+  }
 
-	.data-block .title {
-		font-size: 14px;
-		text-align: center;
-		top: 4px;
-		color: rgba(255, 255, 255, 0.75);
-	}
+  .data-block .title {
+    font-size: 14px;
+    text-align: center;
+    top: 4px;
+    color: rgba(255, 255, 255, 0.75);
+  }
 
-	.data-block .value {
-		font-size: 20px;
-		margin: 0 24px 0 12px;
-		color: rgb(255, 255, 255);
-	}
+  .data-block .value {
+    font-size: 20px;
+    margin: 0 24px 0 12px;
+    color: rgb(255, 255, 255);
+  }
 
-	.materials {
-		position: relative;
-		top: 103px;
-		left: 12px;
-	}
+  .materials {
+    position: relative;
+    top: 103px;
+    left: 12px;
+  }
 
-	.time {
-		position: absolute;
-		font-size: 11.15pt;
-		top: 216px;
-		left: 310px;
-		color: rgb(93, 105, 131);
-	}
+  .time {
+    position: absolute;
+    font-size: 11.15pt;
+    top: 216px;
+    left: 310px;
+    color: rgb(93, 105, 131);
+  }
 
-	.character .constellation {
-		position: relative;
-		color: rgb(93, 105, 131);
-		top: 107px;
-	}
+  .character .constellation {
+    position: relative;
+    color: rgb(93, 105, 131);
+    top: 107px;
+  }
 
-	.character .constellation .box {
-		display: table;
-	}
+  .character .constellation .box {
+    display: table;
+  }
 
-	.character .constellation .level {
-		position: relative;
-		display: table-cell;
-		font-size: 23pt;
-		width: 45px;
-		vertical-align: middle;
-		text-align: center;
-		font-family: HuaWen, monospace;
-	}
+  .character .constellation .level {
+    position: relative;
+    display: table-cell;
+    font-size: 23pt;
+    width: 45px;
+    vertical-align: middle;
+    text-align: center;
+    font-family: HuaWen, monospace;
+  }
 
-	.character .constellation .content {
-		position: relative;
-		display: table-cell;
-		vertical-align: middle;
-		height: 45px;
-		padding-left: 5px;
-		font-size: 10.46pt;
-		width: 416px;
-	}
+  .character .constellation .content {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    height: 45px;
+    padding-left: 5px;
+    font-size: 10.46pt;
+    width: 416px;
+  }
 
-	.weapon {
-		position: absolute;
-		left: 512px;
-		width: 450px;
-		top: 112px;
-	}
+  .weapon {
+    position: absolute;
+    left: 512px;
+    width: 450px;
+    top: 112px;
+  }
 
-	.weapon .access {
-		position: relative;
-		width: 100%;
-	}
+  .weapon .access {
+    position: relative;
+    width: 100%;
+  }
 
-	.weapon .access .title,
-	.weapon .access .content {
-		position: relative;
-		display: inline-block;
-		font-size: 10.38pt;
-	}
+  .weapon .access .title,
+  .weapon .access .content {
+    position: relative;
+    display: inline-block;
+    font-size: 10.38pt;
+  }
 
-	.weapon .access .title {
-		margin-right: 9px;
-		color: rgb(81, 92, 113);
-	}
+  .weapon .access .title {
+    margin-right: 9px;
+    color: rgb(81, 92, 113);
+  }
 
-	.weapon .access .content {
-		color: rgb(116, 129, 156);
-	}
+  .weapon .access .content {
+    color: rgb(116, 129, 156);
+  }
 
-	.weapon .data-block {
-		position: relative;
-		top: 6px;
-	}
+  .weapon .data-block {
+    position: relative;
+    top: 6px;
+  }
 
-	.weapon .materials {
-		position: relative;
-		top: 14px;
-	}
+  .weapon .materials {
+    position: relative;
+    top: 14px;
+  }
 
-	.weapon .time {
-		top: 62px;
-	}
+  .weapon .time {
+    top: 62px;
+  }
 
-	.weapon .skill {
-		position: relative;
-		top: 26px;
-		left: 9px;
-	}
+  .weapon .skill {
+    position: relative;
+    top: 26px;
+    left: 9px;
+  }
 
-	.weapon .skill .name {
-		position: relative;
-		font-size: 18.46pt;
-		font-family: HuaWen, GenshinUsedFont, monospace;
-		color: rgb(85, 97, 120);
-	}
+  .weapon .skill .name {
+    position: relative;
+    font-size: 18.46pt;
+    font-family: HuaWen, GenshinUsedFont, monospace;
+    color: rgb(85, 97, 120);
+  }
 
-	.weapon .skill .content {
-		position: relative;
-		width: auto;
-		word-break: break-all;
-		word-wrap: break-word;
-		color: rgb(118, 130, 157);
-		top: 7px;
-		left: 13px;
-	}
+  .weapon .skill .content {
+    position: relative;
+    width: auto;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: rgb(118, 130, 157);
+    top: 7px;
+    left: 13px;
+  }
 
-	.item-list {
-		position: relative;
-		height: 32px;
-		padding-bottom: 3px;
-	}
+  .item-list {
+    position: relative;
+    height: 32px;
+    padding-bottom: 3px;
+  }
 
-	.item-list .title {
-		position: absolute;
-		display: inline-block;
-		font-size: 11.15pt;
-		top: 7px;
-		color: rgb(93, 105, 131);
-	}
+  .item-list .title {
+    position: absolute;
+    display: inline-block;
+    font-size: 11.15pt;
+    top: 7px;
+    color: rgb(93, 105, 131);
+  }
 
-	.item-list .list {
-		position: relative;
-		display: inline-block;
-		height: 32px;
-		left: 83px;
-	}
+  .item-list .list {
+    position: relative;
+    display: inline-block;
+    height: 32px;
+    left: 83px;
+  }
 
-	.item-list .item {
-		display: inline-block;
-		height: 31px;
-		margin-right: 3px;
-		border-radius: 5px;
-	}
+  .item-list .item {
+    display: inline-block;
+    height: 31px;
+    margin-right: 3px;
+    border-radius: 5px;
+  }
 
-	* {
-		margin: 0;
-		padding: 0;
-	}
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
-	img {
-		display: block;
-	}
+  img {
+    display: block;
+  }
 
-	html {
-		height: 100%;
-		font-family: GenshinUsedFont, monospace;
-	}
-	
+  html {
+    height: 100%;
+    font-family: GenshinUsedFont, monospace;
+  }
 </style>

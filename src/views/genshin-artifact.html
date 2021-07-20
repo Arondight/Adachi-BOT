@@ -1,93 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>genshin-artifact</title>
-	<script src="../../data/js/vue.min.js"></script>
-	<link rel="stylesheet" href="./component/artifact/artifact.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>genshin-artifact</title>
+    <script src="../../data/js/vue.min.js"></script>
+    <link rel="stylesheet" href="./component/artifact/artifact.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <img
+          class="background"
+          src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/artifact.png"
+          alt="ERROR"
+        />
+        <div class="content">
+          <p class="name">{{base.name}}</p>
+          <p class="slot">{{Slot}}</p>
+          <div class="main">
+            <p class="property">{{statName}}</p>
+            <p class="data">{{statData}}</p>
+          </div>
+          <img
+            class="rarity"
+            src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/rarity.png"
+            alt="ERROR"
+          />
+          <img class="image" :src="artifactImage" alt="ERROR" />
+          <p class="level">+{{base.level}}</p>
+          <ul class="list" v-for="v in data">
+            <li class="element">{{v.name}}+{{v.data}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-<div id="app">
-	<div>
-		<img class="background" src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/artifact.png" alt="ERROR"/>
-		<div class="content">
-			<p class="name">{{base.name}}</p>
-			<p class="slot">{{Slot}}</p>
-			<div class="main">
-				<p class="property">{{statName}}</p>
-				<p class="data">{{statData}}</p>
-			</div>
-			<img class="rarity" src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/rarity.png" alt="ERROR"/>
-			<img class="image" :src="artifactImage" alt="ERROR"/>
-			<p class="level">+{{base.level}}</p>
-			<ul class="list" v-for="v in data">
-				<li class="element">{{v.name}}+{{v.data}}</li>
-			</ul>
-		</div>
-	</div>
-</div>
-
-<script>
-	new Vue({
-		el: '#app',
+    <script>
+      new Vue({
+        el: "#app",
         data: {
-            base: {},
-	        data: [],
-            mainStat: ""
+          base: {},
+          data: [],
+          mainStat: "",
         },
-		computed: {
-		    Slot() {
-		        let slotName = ['生之花', '死之羽', '时之沙', '空之杯', '理之冠'];
-		        return slotName[this.base.slot];
-		    },
-			statName() {
-                const propertyName = ['生命值', '生命值', '防御力', '防御力', '元素充能效率', '元素精通', '攻击力', '攻击力', '暴击伤害', '暴击率', '物理伤害加成', '风元素伤害加成', '冰元素伤害加成', '雷元素伤害加成', '岩元素伤害加成', '水元素伤害加成', '火元素伤害加成', '治疗加成'];
-				return propertyName[this.mainStat];
-            },
-            statData() {
-		        if (this.mainStat === 0) {
-		            return this.base.level === 0 ? 717 : 4780;
-		        } else if (this.mainStat === 6) {
-		            return this.base.level === 0 ? 47 : 311;
-		        } else if (this.mainStat === 5) {
-                    return this.base.level === 0 ? 28 : 187;
-		        } else if (this.mainStat === 4) {
-                    return this.base.level === 0 ? '8.7%' : '51.8%';
-                } else if (this.mainStat === 8) {
-		            return this.base.level === 0 ? '9.4%' : '62.2%';
-		        } else if (this.mainStat === 9) {
-                    return this.base.level === 0 ? '4.7%' : '31.1%';
-		        } else if (this.mainStat === 17) {
-                    return this.base.level === 0 ? '5.4%' : '35.9%';
-                } else if (this.mainStat === 3 || this.mainStat === 10) {
-                    return this.base.level === 0 ? '8.7%' : '58.3%';
-		        } else {
-                    return this.base.level === 0 ? '7.0%' : '46.6%';
-                }
-            },
-			artifactImage() {
-				return "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/artifact/" + this.base.artifactID + "/" + this.base.slot + ".png";
-			}
-		},
-		methods: {
-            readJSON(file, callback) {
-                fetch(file).then(res => {
-                    return res.json().then(data => {
-                        callback(data);
-                    })
-                })
+        computed: {
+          Slot() {
+            let slotName = ["生之花", "死之羽", "时之沙", "空之杯", "理之冠"];
+            return slotName[this.base.slot];
+          },
+          statName() {
+            const propertyName = [
+              "生命值",
+              "生命值",
+              "防御力",
+              "防御力",
+              "元素充能效率",
+              "元素精通",
+              "攻击力",
+              "攻击力",
+              "暴击伤害",
+              "暴击率",
+              "物理伤害加成",
+              "风元素伤害加成",
+              "冰元素伤害加成",
+              "雷元素伤害加成",
+              "岩元素伤害加成",
+              "水元素伤害加成",
+              "火元素伤害加成",
+              "治疗加成",
+            ];
+            return propertyName[this.mainStat];
+          },
+          statData() {
+            if (this.mainStat === 0) {
+              return this.base.level === 0 ? 717 : 4780;
+            } else if (this.mainStat === 6) {
+              return this.base.level === 0 ? 47 : 311;
+            } else if (this.mainStat === 5) {
+              return this.base.level === 0 ? 28 : 187;
+            } else if (this.mainStat === 4) {
+              return this.base.level === 0 ? "8.7%" : "51.8%";
+            } else if (this.mainStat === 8) {
+              return this.base.level === 0 ? "9.4%" : "62.2%";
+            } else if (this.mainStat === 9) {
+              return this.base.level === 0 ? "4.7%" : "31.1%";
+            } else if (this.mainStat === 17) {
+              return this.base.level === 0 ? "5.4%" : "35.9%";
+            } else if (this.mainStat === 3 || this.mainStat === 10) {
+              return this.base.level === 0 ? "8.7%" : "58.3%";
+            } else {
+              return this.base.level === 0 ? "7.0%" : "46.6%";
             }
-		},
-        mounted() {
-            this.readJSON('../../data/record/genshin-artifact.json', res => {
-                this.base = res.base;
-                this.data = res.data;
-                this.mainStat = res.mainStat;
+          },
+          artifactImage() {
+            return (
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/artifact/" +
+              this.base.artifactID +
+              "/" +
+              this.base.slot +
+              ".png"
+            );
+          },
+        },
+        methods: {
+          readJSON(file, callback) {
+            fetch(file).then((res) => {
+              return res.json().then((data) => {
+                callback(data);
+              });
             });
-		}
-	});
-</script>
-
-</body>
+          },
+        },
+        mounted() {
+          this.readJSON("../../data/record/genshin-artifact.json", (res) => {
+            this.base = res.base;
+            this.data = res.data;
+            this.mainStat = res.mainStat;
+          });
+        },
+      });
+    </script>
+  </body>
 </html>

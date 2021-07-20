@@ -1,174 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>genshin-gacha</title>
-	<script src="../../data/js/vue.min.js"></script>
-	<link rel="stylesheet" href="./component/gacha/gacha.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>genshin-gacha</title>
+    <script src="../../data/js/vue.min.js"></script>
+    <link rel="stylesheet" href="./component/gacha/gacha.css" />
+  </head>
+  <body>
+    <div id="app">
+      <background :user="user" :type="type"></background>
+      <gacha-box :data="gachaList"></gacha-box>
+    </div>
 
-<div id="app">
-	<background
-		:user="user"
-		:type="type"
-	></background>
-	<gacha-box
-		:data="gachaList"
-	></gacha-box>
-</div>
+    <template id="background">
+      <div class="background">
+        <img
+          src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/background.png"
+          alt="ERROR"
+        />
+        <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
+      </div>
+    </template>
 
-<template id="background">
-	<div class="background">
-		<img src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/background.png" alt="ERROR"/>
-		<p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
-	</div>
-</template>
+    <template id="gacha-result">
+      <div class="element">
+        <img class="star-background" :src="starBackground" alt="ERROR" />
+        <img class="star-image" :src="starImage" alt="ERROR" />
+        <div v-if="data.item_type === '武器'">
+          <img class="weapon-image" :src="weaponImage" alt="ERROR" />
+          <p class="weapon-name">{{data.item_name}}</p>
+        </div>
+        <div v-else>
+          <img class="character-image" :src="characterImage" alt="ERROR" />
+        </div>
+        <div class="times" v-if="data.times !== undefined">
+          「{{data.times}} 抽」
+        </div>
+      </div>
+    </template>
 
-<template id="gacha-result">
-	<div class="element">
-		<img class="star-background" :src="starBackground" alt="ERROR"/>
-		<img class="star-image" :src="starImage" alt="ERROR"/>
-		<div v-if="data.item_type === '武器'">
-			<img class="weapon-image" :src="weaponImage" alt="ERROR"/>
-			<p class="weapon-name">{{data.item_name}}</p>
-		</div>
-		<div v-else>
-			<img class="character-image" :src="characterImage" alt="ERROR"/>
-		</div>
-		<div class="times" v-if="data.times !== undefined">
-			「{{data.times}} 抽」
-		</div>
-	</div>
-</template>
+    <template id="gacha-box">
+      <div class="gacha">
+        <div class="gacha-box" v-for="data in data">
+          <gacha-result :data="data"></gacha-result>
+        </div>
+      </div>
+    </template>
 
-<template id="gacha-box">
-	<div class="gacha">
-		<div class="gacha-box" v-for="data in data">
-			<gacha-result
-				:data="data"
-			></gacha-result>
-		</div>
-	</div>
-</template>
+    <script>
+      const background = {
+        template: "#background",
+        props: ["user", "type"],
+        computed: {
+          time() {
+            let date = new Date();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let second = date.getSeconds();
 
-<script>
-	const background = {
-		template: '#background',
-		props: ['user', 'type'],
-		computed: {
-		    time() {
-		        let date = new Date();
-		        let month   = date.getMonth() + 1;
-		        let day     = date.getDate();
-		        let hour    = date.getHours();
-		        let minute  = date.getMinutes();
-		        let second  = date.getSeconds();
+            if (hour < 10) hour = "0" + hour;
+            if (minute < 10) minute = "0" + minute;
+            if (second < 10) second = "0" + second;
 
-		        if (hour < 10)      hour   = '0' + hour;
-		        if (minute < 10)    minute = '0' + minute;
-		        if (second < 10)    second = '0' + second;
+            return `${month}月${day}日${hour}:${minute}:${second}`;
+          },
+          wish() {
+            switch (this.type) {
+              case "indefinite":
+                return "常驻祈愿";
+              case "character":
+                return "角色祈愿";
+              case "weapon":
+                return "武器祈愿";
+            }
+          },
+        },
+      };
 
-		        return `${month}月${day}日${hour}:${minute}:${second}`;
-		    },
-			wish() {
-		        switch (this.type) {
-		            case 'indefinite':  return '常驻祈愿';
-		            case 'character':   return '角色祈愿';
-		            case 'weapon':      return '武器祈愿';
-		        }
-			}
-		}
-	};
-
-    const gachaResult = {
-        template: '#gacha-result',
-        props: ['data'],
+      const gachaResult = {
+        template: "#gacha-result",
+        props: ["data"],
         data() {
-            return {
-                starType: [
-                    'ThreeStar',
-                    'FourStar',
-                    'FiveStar'
-                ],
-                bgType: [
-                    'ThreeBackground',
-                    'FourBackground',
-                    'FiveBackground'
-                ]
-            };
+          return {
+            starType: ["ThreeStar", "FourStar", "FiveStar"],
+            bgType: ["ThreeBackground", "FourBackground", "FiveBackground"],
+          };
         },
         computed: {
-            starBackground() {
-                return 'http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/' + this.bgType[this.data.star - 3] + '.png';
-            },
-            starImage() {
-                return 'http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/' + this.starType[this.data.star - 3] + '.png';
-            },
-	        characterImage() {
-                return 'https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/wish/character/' + this.data.item_name + '.png';
-	        },
-            weaponImage() {
-                return 'https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/wish/weapon/' + this.data.item_name + '.png';
-            }
-        }
-    };
+          starBackground() {
+            return (
+              "http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
+              this.bgType[this.data.star - 3] +
+              ".png"
+            );
+          },
+          starImage() {
+            return (
+              "http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
+              this.starType[this.data.star - 3] +
+              ".png"
+            );
+          },
+          characterImage() {
+            return (
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/wish/character/" +
+              this.data.item_name +
+              ".png"
+            );
+          },
+          weaponImage() {
+            return (
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/wish/weapon/" +
+              this.data.item_name +
+              ".png"
+            );
+          },
+        },
+      };
 
-	const gachaBox = {
-	    template: '#gacha-box',
-		props: ['data'],
-		components: {
-	        gachaResult
-		}
-	};
+      const gachaBox = {
+        template: "#gacha-box",
+        props: ["data"],
+        components: {
+          gachaResult,
+        },
+      };
 
-	new Vue({
-		el: '#app',
-		data: {
-			gachaList: [
-				{
-                    star: 0,
-                    item_type: '',
-                    item_name: ''
-				}
-			],
-			type: '',
-			user: ''
-		},
-		components: {
-			background,
-            gachaBox
-		},
-		methods: {
-            readJSON(file, callback) {
-                fetch(file).then(res => {
-                    return res.json().then(data => {
-                        callback(data);
-                    })
-                })
+      new Vue({
+        el: "#app",
+        data: {
+          gachaList: [
+            {
+              star: 0,
+              item_type: "",
+              item_name: "",
             },
-			sortValue(type) {
-                return type === '角色' ? 1 : 0;
-			}
-		},
-		mounted() {
-            this.readJSON('../../data/record/genshin-gacha.json', res => {
-				this.gachaList = res.data;
-				this.type = res.type;
-				this.user = res.user;
-
-                this.gachaList.sort((x, y) => {
-                    let xv = this.sortValue(x.item_type);
-                    let yv = this.sortValue(y.item_type);
-                    if (x.star === y.star) {
-                        return yv - xv;
-                    } else {
-                        return y.star - x.star;
-                    }
-                });
+          ],
+          type: "",
+          user: "",
+        },
+        components: {
+          background,
+          gachaBox,
+        },
+        methods: {
+          readJSON(file, callback) {
+            fetch(file).then((res) => {
+              return res.json().then((data) => {
+                callback(data);
+              });
             });
-		}
-	});
-</script>
-</body>
+          },
+          sortValue(type) {
+            return type === "角色" ? 1 : 0;
+          },
+        },
+        mounted() {
+          this.readJSON("../../data/record/genshin-gacha.json", (res) => {
+            this.gachaList = res.data;
+            this.type = res.type;
+            this.user = res.user;
+
+            this.gachaList.sort((x, y) => {
+              let xv = this.sortValue(x.item_type);
+              let yv = this.sortValue(y.item_type);
+              if (x.star === y.star) {
+                return yv - xv;
+              } else {
+                return y.star - x.star;
+              }
+            });
+          });
+        },
+      });
+    </script>
+  </body>
 </html>

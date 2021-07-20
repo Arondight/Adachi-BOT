@@ -1,171 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>genshin-aby</title>
+    <script src="../../data/js/vue.min.js"></script>
+    <link rel="stylesheet" href="./component/aby/aby.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>genshin-aby</title>
-	<script src="../../data/js/vue.min.js"></script>
-	<link rel="stylesheet" href="./component/aby/aby.css">
-</head>
+  <body>
+    <div id="app">
+      <img
+        class="background"
+        src="./component/aby/background.png"
+        alt="ERROR"
+      />
+      <div class="title">
+        <p>深境螺旋战绩({{start_time}}-{{end_time}})</p>
+        <p>UID {{uid}}</p>
+        <p>战斗次数 {{total_battle_times}}</p>
+        <p>最深抵达 {{max_floor}}</p>
+        <p>{{total_star}}⭐</p>
+      </div>
+      <div class="box reveal">
+        <div
+          class="xelement"
+          v-for="(reveal,index) in reveal_rank"
+          v-if="index < 9"
+          :key="index"
+        >
+          <img class="profile" :src="reveal.avatar_icon" alt="ERROR" />
+          <div class="avatar-info">{{reveal.value}}次</div>
+        </div>
+      </div>
 
-<body>
+      <div class="box defeat">
+        <div class="tilte">最多击破</div>
+        <div
+          class="element"
+          v-for="(defeat,index) in defeat_rank"
+          v-if="index < 14"
+          :key="index"
+        >
+          <img class="profile" :src="defeat.avatar_icon" alt="ERROR" />
+          <div class="avatar-info">{{defeat.value}}</div>
+        </div>
+      </div>
 
-	<div id="app">
+      <div class="box take_damage">
+        <div class="tilte">承受伤害</div>
+        <div
+          class="element"
+          v-for="(take_damage,index)  in take_damage_rank"
+          v-if="index < 14"
+          :key="index"
+        >
+          <img class="profile" :src="take_damage.avatar_icon" alt="ERROR" />
+          <div class="avatar-info">{{take_damage.value}}</div>
+        </div>
+      </div>
 
-		<img class="background" src="./component/aby/background.png" alt="ERROR"/>
-		<div class="title">
-		<p>深境螺旋战绩({{start_time}}-{{end_time}})</p>
-		<p>UID {{uid}}</p>
-		<p>战斗次数 {{total_battle_times}}</p>
-		<p>最深抵达 {{max_floor}}</p>
-		<p>{{total_star}}⭐</p>
-	</div>
-		<div class="box reveal">
-		<div class="xelement" v-for="(reveal,index) in reveal_rank" v-if="index < 9" :key="index">
-			<img class="profile" :src="reveal.avatar_icon" alt="ERROR"/>
-			<div class="avatar-info">{{reveal.value}}次</div>
-		</div>
-	</div>
+      <div class="box normal_skill">
+        <div class="tilte">元素战技</div>
+        <div
+          class="element"
+          v-for="(normal_skill,index) in normal_skill_rank"
+          v-if="index < 14"
+          :key="index"
+        >
+          <img class="profile" :src="normal_skill.avatar_icon" alt="ERROR" />
+          <div class="avatar-info">{{normal_skill.value}}</div>
+        </div>
+      </div>
 
-	<div class="box defeat">
-		<div class="tilte">最多击破</div>
-		<div class="element" v-for="(defeat,index) in defeat_rank"  v-if="index < 14" :key="index">
-			<img class="profile" :src="defeat.avatar_icon" alt="ERROR"/>
-			<div class="avatar-info">{{defeat.value}}</div>
-		</div>
-</div>
+      <div class="box energy_skill">
+        <div class="tilte">元素爆发</div>
+        <div
+          class="element"
+          v-for="(energy_skill,index) in energy_skill_rank"
+          v-if="index < 14"
+          :key="index"
+        >
+          <img class="profile" :src="energy_skill.avatar_icon" alt="ERROR" />
+          <div class="avatar-info">{{energy_skill.value}}</div>
+        </div>
+      </div>
+      <div class="box damage">
+        <div class="tilte">最强一击</div>
+        <div
+          class="element"
+          v-for="(damage,index) in damage_rank"
+          v-if="index < 14"
+          :key="index"
+        >
+          <img class="profile" :src="damage.avatar_icon" alt="ERROR" />
+          <div class="avatar-info">{{damage.value}}</div>
+        </div>
+      </div>
+      <div class="box" style="position: absolute; top: 900px">
+        <div
+          class="floor"
+          v-for="floor in floors"
+          style="margin-left: 50px"
+          v-if="floor.index >= 9"
+        >
+          <div class="level" v-for="level in floor.levels">
+            <div
+              class="battle"
+              v-for="battle in level.battles"
+              style="width: 300px"
+            >
+              <div style="display: flex">
+                <div style="padding-top: 3px; width: 50px; display: flex">
+                  {{floor.index}}-{{level.index}}
+                  <p v-if="battle.index==1" style="width: 10px">上</p>
+                  <p v-else style="width: 10px">下</p>
+                </div>
+                <div style="width: 60px; display: flex; margin-left: 5px">
+                  <div v-for="index in level.star">⭐</div>
+                </div>
+                <div style="padding-top: 3px; text-align: right; width: 190px">
+                  {{formatDate(new Date(battle.timestamp * 1000), 'yyyy.MM.ddhh:mm:ss')}}
+                </div>
+              </div>
+              <div style="display: flex">
+                <div class="avatar" v-for="avatar in battle.avatars">
+                  <img
+                    class="profile"
+                    :src="avatar.icon"
+                    alt="ERROR"
+                    style="
+                      margin-left: 10px;
+                      position: relative;
+                      z-index: 1;
+                      width: 67px;
+                      left: 0px;
+                    "
+                  />
+                  <div
+                    class="avatar-info"
+                    style="margin-left: 10px; padding-left: 10px"
+                  >
+                    LV.{{avatar.level}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 
-<div class="box take_damage">
-	<div class="tilte">承受伤害</div>
-	<div class="element" v-for="(take_damage,index)  in take_damage_rank" v-if="index < 14" :key="index">
-		<img class="profile" :src="take_damage.avatar_icon" alt="ERROR"/>
-		<div class="avatar-info">{{take_damage.value}}</div>
-	</div>
-</div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        uid: 0,
+        start_time: "",
+        end_time: "",
+        total_battle_times: 0,
+        max_floor: "",
+        total_star: 0,
 
-<div class="box normal_skill">
-	<div class="tilte">元素战技</div>
-	<div class="element" v-for="(normal_skill,index) in normal_skill_rank" v-if="index < 14" :key="index">
-		<img class="profile" :src="normal_skill.avatar_icon" alt="ERROR"/>
-		<div class="avatar-info">{{normal_skill.value}}</div>
-	</div>
-</div>
+        reveal_rank: [],
+        defeat_rank: [],
+        take_damage_rank: [],
+        normal_skill_rank: [],
+        energy_skill_rank: [],
 
-<div class="box energy_skill">
-	<div class="tilte">元素爆发</div>
-	<div class="element" v-for="(energy_skill,index) in energy_skill_rank" v-if="index < 14" :key="index">
-		<img class="profile" :src="energy_skill.avatar_icon" alt="ERROR"/>
-		<div class="avatar-info">{{energy_skill.value}}</div>
-	</div>
-</div>
-<div class="box damage">
-	<div class="tilte">最强一击</div>
-	<div class="element" v-for="(damage,index) in damage_rank" v-if="index < 14" :key="index">
-		<img class="profile" :src="damage.avatar_icon" alt="ERROR"/>
-		<div class="avatar-info">{{damage.value}}</div>
-	</div>
-</div>
-<div class="box" style="position: absolute;top: 900px;">
-	<div class="floor" v-for="floor in floors" style="margin-left: 50px;" v-if="floor.index >= 9">
-		<div class="level" v-for="level in floor.levels">
+        damage_rank: [],
 
+        floors: [],
+      },
+      methods: {
+        readJSON(file, callback) {
+          fetch(file).then((res) => {
+            return res.json().then((data) => {
+              callback(data);
+            });
+          });
+        },
+      },
+      mounted() {
+        this.readJSON("../../data/record/genshin-aby.json", (res) => {
+          this.uid = res.uid;
+          this.start_time = formatDate(
+            new Date(res.data.start_time * 1000),
+            "yyyy.MM.dd"
+          );
+          this.end_time = formatDate(
+            new Date(res.data.end_time * 1000),
+            "yyyy.MM.dd"
+          );
+          this.total_battle_times = res.data.total_battle_times;
+          this.max_floor = res.data.max_floor;
+          this.total_star = res.data.total_star;
 
-			<div class="battle" v-for="battle in level.battles" style="width: 300px;">
-				<div style="display: flex;"><div style="padding-top: 3px;width: 50px;display: flex;">{{floor.index}}-{{level.index}}<p v-if="battle.index==1" style="width: 10px;">上</p><p v-else style="width: 10px;">下</p></div><div style="width: 60px;display: flex;margin-left: 5px;"><div v-for="index in level.star">⭐</div></div><div style="padding-top: 3px;text-align: right;width: 190px;">{{formatDate(new Date(battle.timestamp * 1000), 'yyyy.MM.dd hh:mm:ss')}}</div></div>
-				<div style="display: flex;">
-				<div class="avatar" v-for="avatar in battle.avatars">
-				<img class="profile" :src="avatar.icon" alt="ERROR" style="margin-left: 10px;
-				position: relative;
-				z-index: 1;
-				width: 67px;
-				left: 0px;"/>
-				<div class="avatar-info" style="margin-left: 10px;padding-left: 10px;">LV.{{avatar.level}}</div></div>
-			</div>
-			</div>
-		</div>
-	</div>
-</div>
+          this.reveal_rank = res.data.reveal_rank;
+          this.defeat_rank = res.data.defeat_rank;
+          this.take_damage_rank = res.data.take_damage_rank;
+          this.normal_skill_rank = res.data.normal_skill_rank;
+          this.energy_skill_rank = res.data.energy_skill_rank;
+          this.damage_rank = res.data.damage_rank;
 
+          this.floors = res.data.floors;
+        });
+      },
+    });
 
-
-
-</div>
-
-
-</body>
-
-
-<script>
-	new Vue({
-		el: '#app',
-		data: {
-			uid: 0,
-			start_time: '',
-			end_time: '',
-			total_battle_times: 0,
-			max_floor:'',
-			total_star:0,
-
-
-			reveal_rank:[],
-			defeat_rank:[],
-			take_damage_rank:[],
-			normal_skill_rank:[],
-			energy_skill_rank:[],
-
-			damage_rank:[],
-
-			floors:[]
-		},
-		methods: {
-			readJSON(file, callback) {
-				fetch(file).then(res => {
-					return res.json().then(data => {
-						callback(data);
-					})
-				})
-			}
-			},
-			mounted() {
-				this.readJSON('../../data/record/genshin-aby.json', res => {
-					this.uid = res.uid;
-					this.start_time = formatDate(new Date(res.data.start_time * 1000), 'yyyy.MM.dd');
-					this.end_time = formatDate(new Date(res.data.end_time * 1000), 'yyyy.MM.dd');
-					this.total_battle_times = res.data.total_battle_times;
-					this.max_floor = res.data.max_floor;
-					this.total_star = res.data.total_star;
-
-					this.reveal_rank = res.data.reveal_rank;
-					this.defeat_rank = res.data.defeat_rank;
-					this.take_damage_rank = res.data.take_damage_rank;
-					this.normal_skill_rank = res.data.normal_skill_rank;
-					this.energy_skill_rank = res.data.energy_skill_rank;
-					this.damage_rank = res.data.damage_rank;
-
-					this.floors = res.data.floors;
-				});
-			}
-		});
-
-		function formatDate(date, fmt) {
-				if (/(y+)/.test(fmt)) {
-					fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
-				}
-				let o = {
-					'M+': date.getMonth() + 1,
-					'd+': date.getDate(),
-					'h+': date.getHours(),
-					'm+': date.getMinutes(),
-					's+': date.getSeconds()
-				};
-				for (let k in o) {
-					if (new RegExp(`(${k})`).test(fmt)) {
-						let str = o[k] + '';
-						fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
-					}
-				}
-				return fmt;
-			}function padLeftZero(str) {
-				return ('00' + str).substr(str.length)}
-</script>
+    function formatDate(date, fmt) {
+      if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(
+          RegExp.$1,
+          (date.getFullYear() + "").substr(4 - RegExp.$1.length)
+        );
+      }
+      let o = {
+        "M+": date.getMonth() + 1,
+        "d+": date.getDate(),
+        "h+": date.getHours(),
+        "m+": date.getMinutes(),
+        "s+": date.getSeconds(),
+      };
+      for (let k in o) {
+        if (new RegExp(`(${k})`).test(fmt)) {
+          let str = o[k] + "";
+          fmt = fmt.replace(
+            RegExp.$1,
+            RegExp.$1.length === 1 ? str : padLeftZero(str)
+          );
+        }
+      }
+      return fmt;
+    }
+    function padLeftZero(str) {
+      return ("00" + str).substr(str.length);
+    }
+  </script>
 </html>
