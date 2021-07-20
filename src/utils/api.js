@@ -10,7 +10,7 @@ const __API = {
     FETCH_GACHA_LIST: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json',
     FETCH_GACHA_DETAIL: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json',
     FETCH_ABY_DETAIL:'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
-    FETCH_INFO: "http://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/$.json",
+    FETCH_INFO: "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/$.json",
 };
 
 const HEADERS = {
@@ -174,7 +174,7 @@ exports.getGachaDetail = gachaID => {
 
 exports.getCharacterOverview = async name => {
     return new Promise( (resolve, reject) => {
-        fetch(`http://adachi-bot.oss-cn-beijing.aliyuncs.com/baseinfo/overview/${encodeURI(name)}.json`)
+        fetch(`https://adachi-bot.oss-cn-beijing.aliyuncs.com/baseinfo/overview/${encodeURI(name)}.json`)
             .then(res => {
                 if (res.status === 404) {
                     reject('');

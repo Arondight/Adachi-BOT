@@ -15,7 +15,7 @@
     <template id="background">
       <div class="background">
         <img
-          src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/background.png"
+          src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/background.png"
           alt="ERROR"
         />
         <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
@@ -91,14 +91,14 @@
         computed: {
           starBackground() {
             return (
-              "http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
               this.bgType[this.data.star - 3] +
               ".png"
             );
           },
           starImage() {
             return (
-              "http://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
+              "https://adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
               this.starType[this.data.star - 3] +
               ".png"
             );

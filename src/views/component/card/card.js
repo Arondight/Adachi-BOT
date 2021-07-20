@@ -37,7 +37,7 @@ const upper = {
     computed: {
         Picture() {
             return (
-                "http://adachi-bot.oss-cn-beijing.aliyuncs.com/characters/profile/" +
+                "https://adachi-bot.oss-cn-beijing.aliyuncs.com/characters/profile/" +
                 this.profile +
                 ".png"
             );
@@ -128,7 +128,7 @@ const HomeMap = {
     },
     computed: {
         bgImg() {
-            return `http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/${this.data.name}.png`;
+            return `https://adachi-bot.oss-cn-beijing.aliyuncs.com/item/${this.data.name}.png`;
         },
     },
 };
