@@ -1,43 +1,59 @@
 const background = {
-    template: '#background',
+    template: "#background",
     props: {
         uid: {
-            type: Number
+            type: Number,
         },
         character: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     computed: {
         image() {
-            return "http://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/character/" + this.character + ".png";
-        }
-    }
+            return (
+                "http://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/character/" +
+                this.character +
+                ".png"
+            );
+        },
+    },
 };
 
 const baseInfo = {
-    template: '#base-info',
+    template: "#base-info",
     data() {
         return {
-            numberCN: ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
-        }
+            numberCN: [
+                "零",
+                "一",
+                "二",
+                "三",
+                "四",
+                "五",
+                "六",
+                "七",
+                "八",
+                "九",
+                "十",
+            ],
+        };
     },
     props: {
         name: {
-            type: String
+            type: String,
         },
         element: {
-            type: String
+            type: String,
         },
         level: {
-            type: Number
+            type: Number,
         },
         fetter: {
-            type: Number
+            type: Number,
         },
         constellation: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     computed: {
         fetterCN() {
@@ -45,57 +61,61 @@ const baseInfo = {
         },
         constellationCN() {
             return this.numberCN[this.constellation];
-        }
-    }
+        },
+    },
 };
 
 const artifact = {
-    template: '#artifact',
+    template: "#artifact",
     props: {
         detail: {
             type: Object,
             default() {
                 return {};
-            }
-        }
+            },
+        },
     },
     computed: {
         rarity() {
             let star = "★";
             return star.repeat(this.detail.rarity);
-        }
-    }
+        },
+    },
 };
 
 const emptyBox = {
-    template: '#empty-box',
-    props: ['pos'],
+    template: "#empty-box",
+    props: ["pos"],
     computed: {
         image() {
-            return "http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/" + this.pos + ".png";
-        }
-    }
+            return (
+                "http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/" +
+                this.pos +
+                ".png"
+            );
+        },
+    },
 };
 
 const reliquaries = {
-    template: '#reliquaries',
+    template: "#reliquaries",
     props: {
         artifacts: {
-            type: Array
-        }
+            type: Array,
+        },
     },
     components: {
         artifact,
-        emptyBox
-    }
+        emptyBox,
+    },
 };
 
 const weaponBox = {
-    template: '#weapon-box',
+    template: "#weapon-box",
     data() {
         return {
-            len: 0
-        }
+            len: 0,
+        };
     },
     props: {
         weapon: {
@@ -104,23 +124,23 @@ const weaponBox = {
                 return {
                     level: 1,
                     affix_level: 1,
-                    desc: '',
-                    name: ''
-                }
-            }
+                    desc: "",
+                    name: "",
+                };
+            },
         },
         len: {
             type: Number,
             default() {
                 return 0;
-            }
-        }
+            },
+        },
     },
     computed: {
         rarity() {
             let star = "★";
             console.log(this.len);
             return star.repeat(this.weapon.rarity);
-        }
-    }
+        },
+    },
 };
