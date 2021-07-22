@@ -1,310 +1,318 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  width: 1454px;
-  height: 100%;
-  font-family: GenshinUsedFont, monospace;
+    width: 1454px;
+    height: 100%;
+    font-family: GenshinUsedFont, monospace;
 }
 
 img {
-  display: block;
+    display: block;
 }
 
 .profile {
-  position: absolute;
-  top: 65px;
-  left: 82px;
-  width: 190px;
+    position: absolute;
+    top: 65px;
+    left: 82px;
+    width: 190px;
 }
 
 .base-info {
-  position: absolute;
-  text-align: center;
-  top: 124px;
-  left: 284px;
-  width: 280px;
+    position: absolute;
+    text-align: center;
+    top: 124px;
+    left: 284px;
+    width: 280px;
 }
 
 .base-info .nickname {
-  color: rgb(64, 64, 64);
-  font-size: 35px;
+    color: rgb(64, 64, 64);
+    font-size: 35px;
 }
 
 .base-info .uid {
-  color: rgb(0, 176, 80);
-  font-size: 23px;
+    color: rgb(0, 176, 80);
+    font-size: 23px;
 }
 
 .detail {
-  top: 294px;
-  position: absolute;
+    top: 294px;
+    position: absolute;
 }
 
 .stats {
-  color: rgb(64, 64, 64);
-  font-size: 32px;
-  padding-bottom: 10pt;
+    color: rgb(64, 64, 64);
+    font-size: 32px;
+    padding-bottom: 10pt;
 }
 
 .detail-left {
-  left: 285px;
+    left: 285px;
 }
 
 .detail-middle {
-  left: 626px;
+    left: 626px;
 }
 
 .detail-right {
-  left: 967px;
+    left: 967px;
 }
 
-.exploration {
-  position: absolute;
-  color: rgb(255, 255, 255);
-  font-size: 22px;
-  top: 717px;
-  width: 76px;
-  text-align: center;
-}
 
-.mondstadt-exp {
-  left: 133px;
-}
-
-.mondstadt-level {
-  left: 252px;
-}
-
-.liyue-exp {
-  left: 474px;
-}
-
-.liyue-level {
-  left: 593px;
-}
-
-.dragonspine-exp {
-  left: 814px;
-}
-
-.dragonspine-level {
-  left: 933px;
-}
 
 .box {
-  position: relative;
+    position: relative;
 }
 
 .avatar {
-  display: inline-block;
-  height: 243px;
-  margin-right: 13px;
-  margin-bottom: 5px;
+    display: inline-block;
+    height: 243px;
+    margin-right: 13px;
+    margin-bottom: 5px;
 }
 
 .avatar:first-child {
-  margin-left: 131px;
+    margin-left: 131px;
 }
 
 .backdrop {
-  position: absolute;
-  margin-top: -260px;
-  z-index: -1;
+    position: absolute;
+    margin-top: -260px;
+    z-index: -1;
 }
 
 .element {
-  position: relative;
+    position: relative;
 }
 
 .element .profile {
-  position: relative;
-  z-index: 1;
-  width: 133px;
-  top: -205px;
-  left: 13px;
+    position: relative;
+    z-index: 1;
+    width: 133px;
+    top: -205px;
+    left: 13px;
 }
 
 .element .avatar-info {
-  position: relative;
-  font-size: 3px;
-  z-index: 1;
-  float: left;
-  top: -195px;
-  left: 34px;
-  width: 91px;
-  text-align: center;
+    position: relative;
+    font-size: 3px;
+    z-index: 1;
+    float: left;
+    top: -195px;
+    left: 34px;
+    width: 91px;
+    text-align: center;
 }
 
 .avatar-info p {
-  display: inline-block;
+    display: inline-block;
 }
 
 .avatar-info .name {
-  font-size: 20px;
-  color: rgb(64, 64, 64);
+    font-size: 20px;
+    color: rgb(64, 64, 64);
 }
 
 .avatar-info .level {
-  color: rgb(0, 176, 80);
-  font-size: 16px;
-  margin-right: 2px;
+    color: rgb(0, 176, 80);
+    font-size: 16px;
+    margin-right: 2px;
 }
 
 .avatar-info .fetter {
-  color: rgb(231, 13, 177);
-  font-size: 16px;
-  margin-left: 2px;
+    color: rgb(231, 13, 177);
+    font-size: 16px;
+    margin-left: 2px;
 }
 
 .home {
-  position: absolute;
-  width: 296px;
-  height: 750px;
-  left: 1088px;
-  top: 64px;
-  border-radius: 20px;
-  background-color: rgb(228, 222, 213);
+    position: absolute;
+    width: 296px;
+    height: 750px;
+    left: 1088px;
+    top: 64px;
+    border-radius: 20px;
+    background-color: rgb(228, 222, 213);
 }
 
 .home-title {
-  position: relative;
-  font-size: 30px;
-  color: rgb(64, 64, 64);
-  width: 296px;
-  text-align: center;
-  top: 13px;
+    position: relative;
+    font-size: 30px;
+    color: rgb(64, 64, 64);
+    width: 296px;
+    text-align: center;
+    top: 13px;
 }
 
 .map {
-  position: relative;
-  top: 16px;
+    position: relative;
+    top: 16px;
 }
 
 .home-img {
-  width: 208px;
-  margin-bottom: 15px;
-  margin-left: 44px;
-  border-radius: 32px;
-  z-index: 1;
+    width: 208px;
+    margin-bottom: 15px;
+    margin-left: 44px;
+    border-radius: 32px;
+    z-index: 1;
 }
 
-.unlock,
-.locked {
-  position: absolute;
-  top: 0;
+.unlock, .locked {
+    position: absolute;
+    top: 0;
 }
 
 .map-block {
-  width: 208px;
-  height: 208px;
-  margin-left: 44px;
-  border-radius: 32px;
+    width: 208px;
+    height: 208px;
+    margin-left: 44px;
+    border-radius: 32px;
 }
 
 .lock-block {
-  background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .lock-img {
-  position: absolute;
-  height: 80px;
-  width: 66px;
-  top: 64px;
-  left: 115px;
+    position: absolute;
+    height: 80px;
+    width: 66px;
+    top: 64px;
+    left: 115px;
 }
 
 .unlock-block {
-  background-color: rgba(0, 0, 0, 0.22);
+    background-color: rgba(0, 0, 0, 0.22);
 }
 
 .unlock-content-block {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.3);
-  height: 122px;
-  top: -165px;
-  border-radius: 0;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 122px;
+    top: -165px;
+    border-radius: 0;
 }
 
 .map-content {
-  position: relative;
-  width: 208px;
-  text-align: center;
+    position: relative;
+    width: 208px;
+    text-align: center;
 }
 
 .map-level {
-  position: relative;
-  color: rgb(242, 210, 134);
-  padding-top: 14px;
-  font-size: 24px;
-  padding-bottom: 12px;
+    position: relative;
+    color: rgb(242, 210, 134);
+    padding-top: 14px;
+    font-size: 24px;
+    padding-bottom: 12px;
 }
 
 .map-comfort {
-  font-size: 22px;
-  color: rgb(255, 255, 255);
+    font-size: 22px;
+    color: rgb(255, 255, 255);
 }
 
 @font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
+    font-family: GenshinUsedFont;
+    src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
 .con {
-  position: absolute;
-  border-radius: 4px;
-  padding-top: 5px;
-  text-align: center;
-  width: 20px;
-  height: 25px;
-  top: 15px;
-  right: 15px;
-  z-index: 1000;
+    position: absolute;
+    border-radius:4px;
+    padding-top:5px;
+    text-align: center;
+    width: 20px;
+    height: 25px;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
 }
 
-.num {
-  background-color: black;
-  color: white;
+.num{
+    background-color: black;
+    color: white;
 }
 
-.num6 {
-  background-color: rgb(255, 115, 0);
-  color: black;
+.num6{
+    background-color: rgb(255, 115, 0);
+    color: black;
 }
 
-.element-border {
-  background-color: #f3efea;
-  width: 159px;
-  height: 220px;
-  border-radius: 18px;
+.element-border  {
+    background-color:#f3efea;
+    width: 159px;
+    height: 220px;
+    border-radius:18px;
 }
 
 .Anemo {
-  box-shadow: 0 0 5px rgb(0, 255, 42);
+    box-shadow:0 0 5px rgb(0, 255, 42);
 }
 
 .Pyro {
-  box-shadow: 0 0 5px rgb(255, 62, 62);
+    box-shadow:0 0 5px rgb(255, 62, 62);
 }
 
 .Hydro {
-  box-shadow: 0 0 5px rgb(0, 38, 255);
+    box-shadow:0 0 5px rgb(0, 38, 255);
 }
 
 .Electro {
-  box-shadow: 0 0 5px rgb(162, 0, 255);
+    box-shadow:0 0 5px rgb(162, 0, 255);
 }
 
 .Cryo {
-  box-shadow: 0 0 5px rgb(0, 204, 255);
+    box-shadow:0 0 5px rgb(0, 204, 255);
 }
 
 .Geo {
-  box-shadow: 0 0 5px rgba(255, 196, 0, 0.925);
+    box-shadow:0 0 5px rgba(255, 196, 0, 0.925);
 }
 
 .None {
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.925);
+    box-shadow:0 0 5px rgba(255, 255, 255, 0.925);
+}
+
+.explorationbox {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    top: 500px;
+    width: 1000px;
+    left: 67px;
+    text-align: center;
+}
+
+.explorationdiv {
+    display: flex;
+
+    font-size: 22px;
+    margin-top: 20px;
+    width: 1000px;
+    text-align: center;
+}
+.expbackground{
+    border-radius: 10px;
+    margin-left: 18px;
+    color: rgb(255, 255, 255);
+    background-color: #051225;
+    width: 480px;
+    height: 150px;
+}
+
+.expbackground img{
+    float: left;
+    width:150px;
+}
+
+.explist {
+    margin-top: 34px;
+    float: right;
+    font-size: 28px;
+    width: 330px;
+    left: 20px;
 }

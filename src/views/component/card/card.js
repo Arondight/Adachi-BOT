@@ -1,5 +1,5 @@
 const upper = {
-    template: "#upper",
+    template: '#upper',
     props: {
         uid: Number,
         nickname: String,
@@ -12,9 +12,11 @@ const upper = {
                     {
                         level: 0,
                         exploration_percentage: 0,
-                    },
+                        icon:"",
+                        offerings:[],
+                    }
                 ];
-            },
+            }
         },
         stats: {
             type: Object,
@@ -29,18 +31,14 @@ const upper = {
                     exquisite_chest_number: 0,
                     precious_chest_number: 0,
                     luxurious_chest_number: 0,
-                    spiral_abyss: "0-0",
+                    spiral_abyss: "0-0"
                 };
-            },
-        },
+            }
+        }
     },
     computed: {
         Picture() {
-            return (
-                "https://adachi-bot.oss-cn-beijing.aliyuncs.com/characters/profile/" +
-                this.profile +
-                ".png"
-            );
+            return "http://adachi-bot.oss-cn-beijing.aliyuncs.com/characters/profile/" + this.profile + ".png";
         },
         worldLevel() {
             if (this.level >= 55) {
@@ -64,24 +62,32 @@ const upper = {
             }
         },
         percentage() {
-            return (type) => {
+            return type => {
                 if (this.exploration[type]) {
                     return this.exploration[type].exploration_percentage / 10 + "%";
                 }
-            };
+            }
         },
         expLevel() {
-            return (type) => {
+            return type => {
                 if (this.exploration[type]) {
-                    return "Lv." + this.exploration[type].level;
+                    return this.exploration[type].level;
                 }
-            };
+            }
         },
-    },
+        icon() {
+            return type => {
+                if (this.exploration[type]) {
+                    return this.exploration[type].icon;
+                }
+            }
+        }
+        
+    }
 };
 
 const AvatarElement = {
-    template: "#avatar-element",
+    template: '#avatar-element',
     props: {
         avatar: {
             type: Object,
@@ -90,75 +96,75 @@ const AvatarElement = {
                     fetter: 0,
                     level: 0,
                     image: "",
-                    name: "",
-                };
-            },
-        },
-    },
-};
+                    name: ""
+                }
+            }
+        }
+    }
+}
 
 const middle = {
-    template: "#middle",
+    template: '#middle',
     props: {
         avatars: {
-            type: Array,
-        },
+            type: Array
+        }
     },
     components: {
-        AvatarElement,
-    },
+        AvatarElement
+    }
 };
 
 const bottom = {
-    template: "#bottom",
+    template: '#bottom'
 };
 
 const HomeMap = {
-    template: "#home-map",
+    template: '#home-map',
     props: {
         data: {
             type: Object,
             default() {
                 return {
-                    comfort_level_name: "",
-                    comfort_num: 0,
-                };
-            },
-        },
+                    comfort_level_name: '',
+                    comfort_num: 0
+                }
+            }
+        }
     },
     computed: {
         bgImg() {
-            return `https://adachi-bot.oss-cn-beijing.aliyuncs.com/item/${this.data.name}.png`;
-        },
-    },
+            return `http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/${this.data.name}.png`;
+        }
+    }
 };
 
 const home = {
-    template: "#home",
+    template: '#home',
     data() {
         return {
             island: {},
             hole: {},
-            mountain: {},
-        };
+            mountain: {}
+        }
     },
     props: {
-        maps: Object,
+        maps: Object
     },
     components: {
-        HomeMap,
+        HomeMap
     },
     methods: {
         findMap(type) {
-            let info = this.maps.find((el) => el.name === type);
+            let info = this.maps.find(el => el.name === type);
             return info ? info : { name: type, level: -1 };
-        },
+        }
     },
     watch: {
         maps() {
-            this.hole = this.findMap("罗浮洞");
-            this.mountain = this.findMap("翠黛峰");
-            this.island = this.findMap("清琼岛");
-        },
-    },
+            this.hole = this.findMap('罗浮洞');
+            this.mountain = this.findMap('翠黛峰');
+            this.island = this.findMap('清琼岛');
+        }
+    }
 };
