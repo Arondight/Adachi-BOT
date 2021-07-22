@@ -1,245 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>genshin-card</title>
-    <script src="../../data/js/vue.min.js"></script>
-    <script src="./component/card/card.js"></script>
-    <link rel="stylesheet" href="./component/card/card.css" />
-  </head>
-  <body>
-    <div id="app">
-      <upper
-        :uid="uid"
-        :nickname="nickname"
-        :level="level"
-        :stats="stats"
-        :exploration="explorations"
-        :profile="profile"
-      ></upper>
-      <home :maps="homes"></home>
-      <div class="avatars-box" v-for="avatars in avatarsData">
-        <middle :avatars="avatars"></middle>
-      </div>
-      <bottom></bottom>
-    </div>
 
-    <template id="upper">
-      <div>
-        <div class="background">
-          <img
-            src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-upper.png"
-            alt="ERROR"
-          />
-        </div>
-        <img :src="Picture" alt="ERROR" class="profile" />
-        <div class="base-info">
-          <p class="nickname">{{nickname}}</p>
-          <p class="uid">UID: {{uid}}</p>
-        </div>
-        <div class="levels">
-          <p class="adventure-level">{{level}}级</p>
-          <p class="world-level">世界等级{{worldLevel}}</p>
-        </div>
-        <div class="detail detail-left">
-          <p class="stats">{{stats.active_day_number}}</p>
-          <p class="stats">{{stats.achievement_number}}</p>
-          <p class="stats">{{stats.avatar_number}}</p>
-          <p class="stats">{{stats.spiral_abyss}}</p>
-        </div>
-        <div class="detail detail-middle">
-          <p class="stats">{{stats.common_chest_number}}</p>
-          <p class="stats">{{stats.exquisite_chest_number}}</p>
-          <p class="stats">{{stats.precious_chest_number}}</p>
-          <p class="stats">{{stats.luxurious_chest_number}}</p>
-        </div>
-        <div class="detail detail-right">
-          <p class="stats">{{stats.anemoculus_number}}</p>
-          <p class="stats">{{stats.geoculus_number}}</p>
-          <p class="stats">--</p>
-        </div>
-        <div class="exploration mondstadt-exp">{{percentage(1)}}</div>
-        <div class="exploration mondstadt-level">{{expLevel(1)}}</div>
-        <div class="exploration liyue-exp">{{percentage(2)}}</div>
-        <div class="exploration liyue-level">{{expLevel(2)}}</div>
-        <div class="exploration dragonspine-exp">{{percentage(0)}}</div>
-        <div class="exploration dragonspine-level">{{expLevel(0)}}</div>
-        <img
-          src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-package.png"
-          alt="ERROR"
-        />
-      </div>
-    </template>
+<head>
+	<meta charset="UTF-8">
+	<title>genshin-card</title>
+	<script src="../../data/js/vue.min.js"></script>
+	<script src="./component/card/card.js"></script>
+	<link rel="stylesheet" href="./component/card/card.css">
+</head>
 
-    <template id="avatar-element">
-      <div>
-        <div class="element">
-          <div
-            class="con num"
-            v-if="avatar.actived_constellation_num!=0&&avatar.actived_constellation_num<=5"
-          >
-            {{avatar.actived_constellation_num}}
-          </div>
-          <div class="con num6" v-else-if="avatar.actived_constellation_num==6">
-            {{avatar.actived_constellation_num}}
-          </div>
-          <!-- <img src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/module/element.png" alt="ERROR" class="Anemo"/> -->
-          <div class="element-border" :class="avatar.element"></div>
-          <img class="profile" :src="avatar.icon" alt="ERROR" />
-          <div class="avatar-info">
-            <p class="name">{{avatar.name}}</p>
-            <div>
-              <p class="level">Lv.{{avatar.level}}</p>
-              <p class="fetter" v-show="avatar.name!=='旅行者'">
-                ❤{{avatar.fetter}}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
+<body>
 
-    <template id="middle">
-      <div>
-        <div class="box">
-          <div class="avatar" v-for="avatar in avatars">
-            <avatar-element :avatar="avatar"></avatar-element>
-          </div>
-          <img
-            class="backdrop"
-            src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-middle.png"
-            alt="ERROR"
-          />
-        </div>
-      </div>
-    </template>
+	<div id="app">
+		<upper :uid="uid" :nickname="nickname" :level="level" :stats="stats" :exploration="explorations"
+			:profile="profile"></upper>
+		<home :maps="homes"></home>
+		<div class="avatars-box" v-for="avatars in avatarsData">
+			<middle :avatars="avatars"></middle>
+		</div>
+		<bottom></bottom>
+	</div>
 
-    <template id="bottom">
-      <div>
-        <div class="background">
-          <img
-            src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-bottom.png"
-            alt="ERROR"
-          />
-        </div>
-      </div>
-    </template>
+	<template id="upper">
+		<div>
+			<div class="background">
+				<img src="../views/component/card/card-new-upper.png" alt="ERROR" />
+			</div>
+			<img :src="Picture" alt="ERROR" class="profile">
+			<div class="base-info">
+				<p class="nickname">{{nickname}}</p>
+				<p class="uid">UID: {{uid}}</p>
+			</div>
+			<div class="levels">
+				<p class="adventure-level">{{level}}级</p>
+				<p class="world-level">世界等级{{worldLevel}}</p>
+			</div>
+			<div class="detail detail-left">
+				<p class="stats">{{stats.active_day_number}}</p>
+				<p class="stats">{{stats.achievement_number}}</p>
+				<p class="stats">{{stats.avatar_number}}</p>
+				<p class="stats">{{stats.spiral_abyss}}</p>
+			</div>
+			<div class="detail detail-middle">
+				<p class="stats">{{stats.common_chest_number}}</p>
+				<p class="stats">{{stats.exquisite_chest_number}}</p>
+				<p class="stats">{{stats.precious_chest_number}}</p>
+				<p class="stats">{{stats.luxurious_chest_number}}</p>
+			</div>
+			<div class="detail detail-right">
+				<p class="stats">{{stats.anemoculus_number}}</p>
+				<p class="stats">{{stats.geoculus_number}}</p>
+				<p class="stats">{{stats.electroculus_number}}</p>
+			</div>
+			<div class="explorationbox">
+			<div class="explorationdiv">
+				<div class="expbackground">
+					<img :src="icon(0)" alt="ERROR">
+					<div class="explist">
+						<div class="exploration daoqi-exp">探索度：{{percentage(0)}}</div>
+						<div class="exploration daoqi-level">声望等级：{{expLevel(0)}}级</div>
+						<div class="exploration daoqi-offerlevel">
+							{{exploration[0].offerings[0].name}}等级：{{exploration[0].offerings[0].level}}级</div>
+					</div>
+				</div>
 
-    <template id="home-map">
-      <div class="map">
-        <img class="home-img" :src="bgImg" alt="ERROR" />
-        <div class="unlock" v-if="data.level !== -1">
-          <div class="map-block unlock-block"></div>
-          <div class="map-block unlock-content-block">
-            <p class="map-content map-level">{{data.comfort_level_name}}</p>
-            <p class="map-content map-comfort">洞天仙力</p>
-            <p class="map-content map-comfort">{{data.comfort_num}}</p>
-          </div>
-        </div>
-        <div class="locked" v-else>
-          <div class="map-block lock-block"></div>
-          <img
-            class="lock-img"
-            src="https://adachi-bot.oss-cn-beijing.aliyuncs.com/item/lock.png"
-            alt="ERROR"
-          />
-        </div>
-      </div>
-    </template>
+				<div class="expbackground">
+					<img :src="icon(1)" alt="ERROR">
+					<div class="explist">
+						<div class="exploration dragonspine-exp">探索度：{{percentage(1)}}</div>
+						<div class="exploration dragonspine-offerlevel">
+							{{exploration[1].offerings[0].name}}等级：{{exploration[1].offerings[0].level}}级</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="explorationdiv">
+				<div class="expbackground">
+					<img :src="icon(2)" alt="ERROR">
+					<div class="explist">
+						<div class="exploration liyue-exp">探索度：{{percentage(2)}}</div>
+						<div class="exploration liyue-level">声望等级：{{expLevel(2)}}级</div>
+					</div>
+				</div>
+				<div class="expbackground">
+					<img :src="icon(3)"
+						alt="ERROR">
+						<div class="explist">
+					<div class="exploration mengde-exp">探索度：{{percentage(3)}}</div>
+					<div class="exploration mengde-level">声望等级：{{expLevel(3)}}级</div>
+				</div>
+			</div>
+			</div>
+		</div>
+			<img src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-package.png" alt="ERROR">
+		</div>
+	</template>
 
-    <template id="home">
-      <div class="home">
-        <p class="home-title">尘歌壶</p>
-        <div class="map">
-          <home-map :data="hole"></home-map>
-          <home-map :data="mountain"></home-map>
-          <home-map :data="island"></home-map>
-        </div>
-      </div>
-    </template>
+	<template id="avatar-element">
+		<div>
+			<div class="element">
+				<div class="con num" v-if="avatar.actived_constellation_num!=0&&avatar.actived_constellation_num<=5">
+					{{avatar.actived_constellation_num}}</div>
+				<div class="con num6" v-else-if="avatar.actived_constellation_num==6">
+					{{avatar.actived_constellation_num}}</div>
+				<!-- <img src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/element.png" alt="ERROR" class="Anemo"/> -->
+				<div class="element-border" :class="avatar.element"></div>
+				<img class="profile" :src="avatar.icon" alt="ERROR" />
+				<div class="avatar-info">
+					<p class="name">{{avatar.name}}</p>
+					<div>
+						<p class="level">Lv.{{avatar.level}}</p>
+						<p class="fetter" v-show="avatar.name!=='旅行者'">❤{{avatar.fetter}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
 
-    <script>
-      new Vue({
-        el: "#app",
-        data: {
-          retcode: 1,
-          nickname: "",
-          uid: 0,
-          level: 0,
-          profile: 0,
-          stats: {},
-          avatarsData: [],
-          explorations: [],
-          avatar_number: 0,
-          homes: [],
-        },
-        components: {
-          upper,
-          middle,
-          bottom,
-          home,
-        },
-        methods: {
-          cutArray(array, step) {
-            let newArray = [];
-            let index = 0,
-              len = array.length;
-            while (index < len) {
-              newArray.push(array.slice(index, (index += step)));
-            }
-            return newArray;
-          },
-          readJSON(file, callback) {
-            fetch(file).then((res) => {
-              return res.json().then((data) => {
-                callback(data);
-              });
-            });
-          },
-        },
-        mounted() {
-          this.readJSON("../../data/record/genshin-card.json", (res) => {
-            this.nickname = res.nickname;
-            this.uid = res.uid;
-            this.level = res.level;
+	<template id="middle">
+		<div>
+			<div class="box">
+				<div class="avatar" v-for="avatar in avatars">
+					<avatar-element :avatar="avatar"></avatar-element>
+				</div>
+				<img class="backdrop" src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-middle.png"
+					alt="ERROR" />
+			</div>
+		</div>
+	</template>
 
-            let avatarsList = res.avatars;
-            this.stats = res.stats;
-            this.homes = res.homes;
-            this.avatar_number = avatarsList.length;
-            this.explorations = res.explorations;
-            this.profile =
-              avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
+	<template id="bottom">
+		<div>
+			<div class="background">
+				<img src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/module/card-new-bottom.png" alt="ERROR" />
+			</div>
+		</div>
+	</template>
 
-            avatarsList.sort((x, y) => {
-              if (x.level === y.level) {
-                return y.fetter - x.fetter;
-              } else {
-                return y.level - x.level;
-              }
-            });
-            this.avatarsData = this.cutArray(avatarsList, 7);
-          });
-        },
-      });
-    </script>
-  </body>
+	<template id="home-map">
+		<div class="map">
+			<img class="home-img" :src="bgImg" alt="ERROR" />
+			<div class="unlock" v-if="data.level !== -1">
+				<div class="map-block unlock-block"></div>
+				<div class="map-block unlock-content-block">
+					<p class="map-content map-level">{{data.comfort_level_name}}</p>
+					<p class="map-content map-comfort">洞天仙力</p>
+					<p class="map-content map-comfort">{{data.comfort_num}}</p>
+				</div>
+			</div>
+			<div class="locked" v-else>
+				<div class="map-block lock-block"></div>
+				<img class="lock-img" src="http://adachi-bot.oss-cn-beijing.aliyuncs.com/item/lock.png" alt="ERROR" />
+			</div>
+		</div>
+	</template>
+
+	<template id="home">
+		<div class="home">
+			<p class="home-title">尘歌壶</p>
+			<div class="map">
+				<home-map :data="hole"></home-map>
+				<home-map :data="mountain"></home-map>
+				<home-map :data="island"></home-map>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				retcode: 1,
+				nickname: "",
+				uid: 0,
+				level: 0,
+				profile: 0,
+				stats: {},
+				avatarsData: [],
+				explorations: [],
+				avatar_number: 0,
+				homes: []
+			},
+			components: {
+				upper,
+				middle,
+				bottom,
+				home
+			},
+			methods: {
+				cutArray(array, step) {
+					let newArray = [];
+					let index = 0, len = array.length;
+					while (index < len) {
+						newArray.push(array.slice(index, index += step));
+					}
+					return newArray;
+				},
+				readJSON(file, callback) {
+					fetch(file).then(res => {
+						return res.json().then(data => {
+							callback(data);
+						})
+					})
+				}
+			},
+			mounted() {
+				this.readJSON('../../data/record/genshin-card.json', res => {
+					this.nickname = res.nickname;
+					this.uid = res.uid;
+					this.level = res.level;
+
+					let avatarsList = res.avatars;
+					this.stats = res.stats;
+					this.homes = res.homes;
+					this.avatar_number = avatarsList.length;
+					this.explorations = res.explorations;
+					this.profile = avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
+
+					avatarsList.sort((x, y) => {
+						if (x.level === y.level) {
+							return y.fetter - x.fetter;
+						} else {
+							return y.level - x.level;
+						}
+					});
+					this.avatarsData = this.cutArray(avatarsList, 7);
+				});
+			}
+		});
+	</script>
+
+</body>
+
 </html>
 
 <style>
-.levels {
-  position: absolute;
-  text-align: center;
-  color: rgb(50, 50, 50);
-  top: 118px;
-  left: 833px;
-}
+	.levels {
+		position: absolute;
+		text-align: center;
+		color: rgb(50, 50, 50);
+		top: 118px;
+		left: 833px;
+	}
 
-.levels .adventure-level {
-  font-size: 43px;
-}
+	.levels .adventure-level {
+		font-size: 43px;
+	}
 
-.levels .world-level {
-  font-size: 23px;
-}
+	.levels .world-level {
+		font-size: 23px;
+	}
 </style>
