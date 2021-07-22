@@ -9,9 +9,9 @@ module.exports = async Message => {
     let name    = Message.sender.nickname;
     let sendID  = type === 'group' ? groupID : userID;
     let cacheDir  = path.join(path.resolve(__dirname, '..', '..', '..', 'data', 'image', 'material'), '/');
-    let weaponURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75833613/78553111e3f705be9f430b4c0f9e3b77_4347243224656757262.png';
-    let talentURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75276545/364f013d1b924a9e0e17bfb916d5e5cd_7559214073741712253.png';
-    let weeklyURL = 'https://upload-bbs.mihoyo.com/upload/2021/06/29/75276545/e2f61dc58be38e8027644e373ab0e25b_6409837945255084893.png';
+    let weaponURL = 'https://upload-bbs.mihoyo.com/upload/2021/07/22/75833613/c09ceb516fe4ec34b124ddd77de659db_819114535348518207.png';
+    let talentURL = 'https://upload-bbs.mihoyo.com/upload/2021/07/22/75833613/0dd284b10c7541e960fe4f8fdabef14a_7320203396734694053.png';
+    let weeklyURL = 'https://upload-bbs.mihoyo.com/upload/2021/07/22/75833613/e447aac7cd51c5d034f6b278da5b6d94_6414867999308885693.png';
     let thisURL   = weeklyURL;
 
     imageCache.setOptions({
