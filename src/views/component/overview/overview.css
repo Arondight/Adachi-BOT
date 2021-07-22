@@ -1,10 +1,24 @@
-body {
-  width: 1026px;
-  height: 527px;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+}
+
+html {
+  height: 100%;
+  font-family: GenshinUsedFont, monospace;
+}
+
+@font-face {
+  font-family: GenshinUsedFont;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 @font-face {
   font-family: HuaWen;
-  src: url("../../data/font/HWXingKai.ttf");
+  src: url("../../../../data/font/HWXingKai.ttf");
 }
 .info-base .background {
   position: absolute;
@@ -66,16 +80,34 @@ body {
 
 .character .base-info {
   position: relative;
+  height: 50px;
   width: 474px;
   top: 96px;
 }
 
-.base-info .birthday,
-.base-info .element,
-.base-info .cv,
-.base-info .constellation-name {
-  display: inline-block;
+.base-info .birthday {
+  position: absolute;
   width: 237px;
+  margin-bottom: 5px;
+}
+.base-info .element {
+  position: absolute;
+  width: 237px;
+  left: 237px;
+  margin-bottom: 5px;
+}
+.base-info .cv {
+  position: absolute;
+  top: 23px;
+  width: 237px;
+  margin-bottom: 5px;
+}
+
+.base-info .constellation-name {
+  position: absolute;
+  width: 237px;
+  top: 23px;
+  left: 237px;
   margin-bottom: 5px;
 }
 
@@ -267,18 +299,4 @@ body {
   height: 31px;
   margin-right: 3px;
   border-radius: 5px;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-img {
-  display: block;
-}
-
-html {
-  height: 100%;
-  font-family: GenshinUsedFont, monospace;
 }
