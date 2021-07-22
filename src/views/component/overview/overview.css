@@ -1,3 +1,7 @@
+body {
+  width: 1026px;
+  height: 527px;
+}
 * {
   margin: 0;
   padding: 0;
