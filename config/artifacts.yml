@@ -101,13 +101,13 @@ artifacts:
   -
     id: 16
     maxRarity: 5
-    mainName: "追忆之注连"
-    subName: [ "羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面" ]
+    mainName: "绝缘之旗印"
+    subName: [ "明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜" ]
   -
     id: 17
     maxRarity: 5
-    mainName: "绝缘之旗印"
-    subName: [ "明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜" ]
+    mainName: "追忆之注连"
+    subName: [ "羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面" ]
 
 domains:
   -
@@ -144,6 +144,6 @@ domains:
     product: [ 14, 15 ]
   -
     id: 8
-    name: "椛染之庭（测试）"
+    name: "椛染之庭"
     product: [ 16, 17 ]
 
