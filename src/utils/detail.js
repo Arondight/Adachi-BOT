@@ -33,6 +33,7 @@ const increaseIndex = () => {
 
 exports.abyPromise = async (uid,server,schedule_type) => {
     const { retcode, message, data } = await getAbyDetail(uid,schedule_type, server,cookies[index]);
+    increaseIndex();
     return new Promise(async (resolve, reject) => {
         if (retcode !== 0) {
             reject("米游社接口报错: " + message);
@@ -53,7 +54,7 @@ exports.abyPromise = async (uid,server,schedule_type) => {
 
 exports.basePromise = async ( mhyID, userID ) => {
     const { retcode, message, data } = await getBase(mhyID, cookies[index]);
-
+    increaseIndex();
     return new Promise(async (resolve, reject) => {
         if (retcode !== 0) {
             reject("米游社接口报错: " + message);
