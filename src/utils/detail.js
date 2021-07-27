@@ -4,6 +4,7 @@ const { loadYML } = require('./load');
 const lodash = require('lodash');
 
 let index = 0;
+let abyindex =0;
 const { cookies } = loadYML('cookies');
 
 const userInitialize = async ( userID, uid, nickname, level ) => {
@@ -30,16 +31,19 @@ const increaseIndex = () => {
     let cookiesNum = cookies.length;
     index = index === cookiesNum - 1 ? 0 : index + 1;
 }
+const abyincreaseIndex = () => {
+    let cookiesNum = cookies.length;
+    abyindex = abyindex === cookiesNum - 1 ? 0 : index + 1;
+}
 
 exports.abyPromise = async (uid,server,schedule_type) => {
-    const { retcode, message, data } = await getAbyDetail(uid,schedule_type, server,cookies[index]);
-    increaseIndex();
+    const { retcode, message, data } = await getAbyDetail(uid,schedule_type, server,cookies[abyindex]);
+    abyincreaseIndex();
     return new Promise(async (resolve, reject) => {
         if (retcode !== 0) {
             reject("米游社接口报错: " + message);
             return;
         }
-
         if (!(await isInside('aby', 'user', 'uid', uid))) {
             let initData = {
                 uid, data:[]
@@ -47,14 +51,12 @@ exports.abyPromise = async (uid,server,schedule_type) => {
             await push('aby', 'user', initData);
         }
         await update('aby', 'user',{ uid },{data});
-
         resolve(data);
     });
 }
 
 exports.basePromise = async ( mhyID, userID ) => {
     const { retcode, message, data } = await getBase(mhyID, cookies[index]);
-    increaseIndex();
     return new Promise(async (resolve, reject) => {
         if (retcode !== 0) {
             reject("米游社接口报错: " + message);
