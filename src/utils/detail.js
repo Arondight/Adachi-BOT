@@ -33,7 +33,7 @@ const increaseIndex = () => {
 }
 const abyincreaseIndex = () => {
     let cookiesNum = cookies.length;
-    abyindex = abyindex === cookiesNum - 1 ? 0 : index + 1;
+    abyindex = abyindex === cookiesNum - 1 ? 0 : abyindex + 1;
 }
 
 exports.abyPromise = async (uid,server,schedule_type) => {
