@@ -29,7 +29,7 @@ exports.processed = ( qqData, plugins, type ) => {
         }
     }
 
-    return null;
+    return false;
 };
 
 const getCommand = msgData => {
