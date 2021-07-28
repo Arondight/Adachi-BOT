@@ -39,7 +39,7 @@ const setQueryGameInfoAuth = async ( msg, id, type ) => {
 const setCharacterOverviewAuth = async ( msg, id, type ) => {
     let [ target, isOn ] = parse(msg);
     await setAuth('overview', target, isOn);
-    await response(id, target, '查询角色信息', type, isOn ? '开启' : '关闭');
+    await response(id, target, '查询官方信息', type, isOn ? '开启' : '关闭');
 };
 
 const refreshWishDetail = async ( id, type ) => {
@@ -73,7 +73,7 @@ module.exports = async Message => {
         case msg.includes('UID权限'):
             await setQueryGameInfoAuth(msg, sendID, type);
             break;
-        case msg.includes('角色信息权限'):
+        case msg.includes('信息查询权限'):
             await setCharacterOverviewAuth(msg, sendID, type);
             break;
         case msg.includes('刷新卡池'):
