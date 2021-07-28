@@ -25,7 +25,7 @@ module.exports = async Message => {
 
     await userInitialize(userID);
 
-    if (!(await hasAuth(userID, 'artifact'))) {
+    if (!(await hasAuth(userID, 'artifact')) || !(await hasAuth(sendID, 'artifact'))) {
         await sendPrompt(sendID, name, '抽取圣遗物', type);
         return;
     }

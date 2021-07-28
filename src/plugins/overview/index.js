@@ -12,7 +12,7 @@ module.exports = async Message => {
     let msg = /[\u4e00-\u9fa5]+$/g.exec(Message.raw_message);
     let data;
 
-    if (!(await hasAuth(userID, 'overview'))) {
+    if (!(await hasAuth(userID, 'overview')) || !(await hasAuth(sendID, 'overview'))) {
         await sendPrompt(sendID, name, '查询角色信息', type);
         return;
     }

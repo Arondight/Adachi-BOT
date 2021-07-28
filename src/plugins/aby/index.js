@@ -33,7 +33,7 @@ module.exports = async Message => {
     let dbInfo  = getID(msg);
     let schedule_type = msg.includes('上期深渊')?'2':'1';
 
-    if (!(await hasAuth(userID, 'query'))) {
+    if (!(await hasAuth(userID, 'query')) || !(await hasAuth(sendID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);
         return;
     }

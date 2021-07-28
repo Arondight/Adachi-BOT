@@ -9,7 +9,7 @@ const parse = msg => {
 }
 
 const response = async (id, target, auth, type, isOn ) => {
-    await bot.sendMessage(id, `用户 ${target} 的 ${auth} 权限已${isOn}`, type);
+    await bot.sendMessage(id, `${target}的${auth}权限已${isOn}`, type);
 };
 
 const setFeedbackAuth = async ( msg, id, type ) => {
@@ -56,7 +56,7 @@ module.exports = async Message => {
     let sendID  = type === 'group' ? groupID : userID;
 
     if (!isMaster(userID)) {
-        await sendPrompt(sendID, name, '使用master命令', type);
+        await bot.sendMessage(sendID, `${name}([CQ:at,qq=${userID}])不能使用管理命令`, type);
         return;
     }
 

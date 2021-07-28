@@ -14,7 +14,7 @@ module.exports = async Message => {
     let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
     let uid, data;
 
-    if (!(await hasAuth(userID, 'query'))) {
+    if (!(await hasAuth(userID, 'query')) || !(await hasAuth(sendID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);
         return;
     }

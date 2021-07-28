@@ -17,7 +17,7 @@ module.exports = async Message => {
     let sendID  = type === 'group' ? groupID : userID;
     let dbInfo  = await getID(msg, userID), uid;
 
-    if (!(await hasAuth(userID, 'query'))) {
+    if (!(await hasAuth(userID, 'query')) || !(await hasAuth(sendID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);
         return;
     }
