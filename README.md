@@ -25,8 +25,18 @@ npm install
 
 ### 运行
 
+#### 手动运行
+
 ```
-npm start
+./node_modules/.bin/pm2 start ./app.js
+```
+
+#### 开机启动
+
+手动运行一次后执行。
+
+```
+sudo ./node_modules/.bin/pm2 startup
 ```
 
 ## 功能
