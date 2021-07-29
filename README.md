@@ -29,6 +29,7 @@ npm install
 
 ```
 ./node_modules/.bin/pm2 start ./app.js --name bot
+./node_modules/.bin/pm2 save
 ```
 
 #### 开机启动
