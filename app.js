@@ -4,9 +4,16 @@ const { getRandomInt } = require('./src/utils/rand');
 const botEnvironment = require('./src/utils/init');
 
 const Setting = loadYML('setting');
+const platform = 1;
+
+// 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
+if (Setting['account'].platform in [1, 2, 3, 4, 5]) {
+    platform = Setting['account'].platform;
+}
 
 let BOT = createClient(Setting['account'].qq, {
-    log_level: "debug"
+    log_level: "debug",
+    platform: platform
 });
 
 BOT.sendMessage = async ( id, msg, type ) => {

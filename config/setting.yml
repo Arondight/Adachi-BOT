@@ -4,6 +4,8 @@ account:
   qq: 123456789
   # QQ 密码
   password: 123456789
+  # 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
+  platform: 5
 
 # 管理者 QQ
 master: 987654321
