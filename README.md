@@ -20,7 +20,7 @@ npm install
 
 | 文件 | 作用 |
 | --- | --- |
-| [config/setting.yml](config/setting.yml) | QQ号相关 |
+| [config/setting.yml](config/setting.yml) | QQ号登录选项 |
 | [config/cookies.yml](config/cookies.yml) | 米游社Cookie |
 
 ### 运行
@@ -28,7 +28,7 @@ npm install
 #### 手动运行
 
 ```
-./node_modules/.bin/pm2 start ./app.js
+./node_modules/.bin/pm2 start ./app.js --name bot
 ```
 
 #### 开机启动
@@ -37,6 +37,13 @@ npm install
 
 ```
 sudo ./node_modules/.bin/pm2 startup
+```
+
+### 更新
+
+```
+git pull -p
+./node_modules/.bin/pm2 restart bot
 ```
 
 ## 功能
