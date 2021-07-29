@@ -1,3 +1,6 @@
+# pm2
+*.pm2/
+
 # Logs
 logs
 *.log

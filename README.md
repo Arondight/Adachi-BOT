@@ -27,24 +27,28 @@ npm install
 
 #### 手动运行
 
+进入`Adachi-BOT`项目所在目录。
+
 ```
-./node_modules/.bin/pm2 start ./app.js --name bot
-./node_modules/.bin/pm2 save
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 start ./app.js --name bot
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 save
 ```
 
 #### 开机启动
 
-手动运行一次后执行。
+进入`Adachi-BOT`项目所在目录。手动运行后执行。
 
 ```
-sudo ./node_modules/.bin/pm2 startup
+PM2_HOME=$(pwd)/bot.pm2 sudo ./node_modules/.bin/pm2 startup
 ```
 
 ### 更新
 
+进入`Adachi-BOT`项目所在目录。
+
 ```
 git pull -p
-./node_modules/.bin/pm2 restart bot
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
 ```
 
 ## 功能
