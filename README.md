@@ -39,7 +39,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 save
 进入`Adachi-BOT`项目所在目录。手动运行后执行。
 
 ```
-PM2_HOME=$(pwd)/bot.pm2 sudo ./node_modules/.bin/pm2 startup
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 startup
 ```
 
 ### 更新
