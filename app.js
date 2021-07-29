@@ -7,7 +7,7 @@ const Setting = loadYML('setting');
 const platform = 1;
 
 // 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
-if (Setting['account'].platform in [1, 2, 3, 4, 5]) {
+if ([1, 2, 3, 4, 5].includes(Setting['account'].platform)) {
     platform = Setting['account'].platform;
 }
 
