@@ -22,7 +22,7 @@ master:
   - ^十连权限 +\d+ +(on|off)$
   - ^圣遗物权限 +\d+ +(on|off)$
   - ^UID权限 +\d+ +(on|off)$
-  - ^信息查询权限 +\d+ +(on|off)$
+  - ^数据查询权限 +\d+ +(on|off)$
   - ^刷新卡池 *$
 material:
   - ^武器 *$

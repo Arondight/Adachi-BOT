@@ -73,7 +73,7 @@ module.exports = async Message => {
         case msg.includes('UID权限'):
             await setQueryGameInfoAuth(msg, sendID, type);
             break;
-        case msg.includes('信息查询权限'):
+        case msg.includes('数据查询权限'):
             await setCharacterOverviewAuth(msg, sendID, type);
             break;
         case msg.includes('刷新卡池'):

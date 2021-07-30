@@ -3,7 +3,7 @@ const helpMessage =
 🔘 十连权限 <QQ号|群号> <on|off>
 🔘 圣遗物权限 <QQ号|群号> <on|off>
 🔘 UID权限 <QQ号|群号> <on|off>
-🔘 信息查询权限 <QQ号|群号> <on|off>
+🔘 数据查询权限 <QQ号|群号> <on|off>
 🔘 刷新卡池`;
 
 module.exports = async ( id, type ) => {

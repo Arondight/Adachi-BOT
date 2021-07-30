@@ -51,6 +51,32 @@ git pull -p
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
 ```
 
+### 其他操作
+
+#### 查看状态
+
+进入`Adachi-BOT`项目所在目录。
+
+```
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 list bot
+```
+
+#### 查看日志
+
+进入`Adachi-BOT`项目所在目录。
+
+```
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 log bot
+```
+
+#### 手动停止
+
+进入`Adachi-BOT`项目所在目录。
+
+```
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
+```
+
 ## 功能
 
 ### 所有功能
@@ -86,31 +112,32 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
 </details>
 
 <details>
-<summary>展示角色信息</summary>
+<summary>查询我的角色</summary>
 <div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/ElectroExample.png" alt="ERROR">
+  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/anemo-character.png" alt="ERROR">
 </div>
 </details>
 
 <details>
 <summary>圣遗物掉落和强化</summary>
 <div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/InitialActifact.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/FortifiedArtifact.png" alt="ERROR">
+  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/artifact-init.png" alt="ERROR">
+  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/artifact-rein.png" alt="ERROR">
 </div>
 </details>
 
 <details>
 <summary>祈愿十连</summary>
 <div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/IndefiniteGachaExample.png" alt="ERROR">
+  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/character-wish.png" alt="ERROR">
 </div>
 </details>
 
 <details>
-<summary>查询角色官方数据</summary>
-  <div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CharacterOverviewFive.png" alt="ERROR">
+<summary>游戏数据查询</summary>
+<div align="center">
+  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/character-info-4.png" alt="ERROR">
+  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/weapon-info-4.png" alt="ERROR">
 </div>
 </details>
 
