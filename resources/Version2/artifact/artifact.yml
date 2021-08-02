@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+  <Code>NoSuchKey</Code>
+  <Message>The specified key does not exist.</Message>
+  <RequestId>6107A97AE80D013530CB8F29</RequestId>
+  <HostId>adachi-bot.oss-cn-beijing.aliyuncs.com</HostId>
+  <Key>artifact.yml/artifact.yml</Key>
+</Error>
