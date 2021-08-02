@@ -6,7 +6,7 @@
 
 RDIR=$(dirname $(readlink -f "$0"))
 API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
-CURL=('curl' '-C' '-')
+CURL=('curl' '-s' '-C' '-')
 
 # ==============================================================================
 # 此处请按照游戏进度实时更新。
@@ -141,7 +141,6 @@ MATERIALS=(
 # ==============================================================================
 # 如果你不知道在做什么，请勿改动此处
 # ==============================================================================
-#API_BASEINFO_OVERVIEW='baseinfo/overview'
 API_CHARACTER_PROFILE='characters/profile'
 API_GACHA_ITEMS='gacha/items'
 API_MODULE='module'
@@ -203,207 +202,110 @@ OTHER_FILES=(
 # ==============================================================================
 # 资源更新代码，可以不用看
 # ==============================================================================
+function fetch()
+{
+  local api="$1" && shift
+  local suffix="$1" && shift
+  local sources=($@)
+  local wdir="${RDIR}/${api}"
+  local upstream
+  local localpath
+
+  for src in "${sources[@]}"
+  do
+    upstream="${api}/${src}${suffix}"
+    localpath="${wdir}/${src}${suffix}"
+
+    mkdir -p $(dirname "$localpath")
+
+    echo "Fetch: ${upstream} => ${localpath}"
+    command "${CURL[@]}" "${API}/${upstream}" -o "$localpath"
+  done
+}
+
 function getOtherFiles()
 {
-  local wdir
-
-  for file in "${OTHER_FILES[@]}"
-  do
-    wdir="${RDIR}/$(dirname ${file})"
-    mkdir -p "$wdir"
-    command "${CURL[@]}" "${API}/${file}" \
-            -o "${RDIR}/${file}"
-  done
+  fetch '' '' "${OTHER_FILES[@]}"
 }
 
 function getGacha()
 {
-  local wdir
-
-  wdir="${RDIR}/${API_GACHA_ITEMS}"
-  mkdir -p "$wdir"
-
-  for file in "${API_GACHA_ITEMS_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API_GACHA_ITEMS}/${file}" \
-            -o "${wdir}/${file}"
-  done
+  fetch "$API_GACHA_ITEMS" '' "${API_GACHA_ITEMS_FILES[@]}"
 }
 
 function getMoudle()
 {
-  local wdir
-
-  wdir="${RDIR}/${API_MODULE}"
-  mkdir -p "$wdir"
-
-  for file in "${API_MODULE_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API_MODULE}/${file}" \
-            -o "${wdir}/${file}"
-  done
-
-  wdir="${RDIR}/${API2_MODULE}"
-  mkdir -p "$wdir"
-
-  for file in "${API2_MODULE_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_MODULE}/${file}" \
-            -o "${wdir}/${file}"
-  done
+  fetch "$API_MODULE" '' "${API_MODULE_FILES[@]}"
+  fetch "$API2_MODULE" '' "${API2_MODULE_FILES[@]}"
 }
-
 
 function getItem()
 {
-  local wdir
-
-  wdir="${RDIR}/${API_ITEM}"
-  mkdir -p "$wdir"
-
-  for file in "${API_ITEM_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API_ITEM}/${file}" \
-            -o "${wdir}/${file}"
-  done
-
-  for home in "${HOMES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API_ITEM}/${home}.png" \
-            -o "${wdir}/${home}.png"
-  done
+  fetch "$API_ITEM" '' "${API_ITEM_FILES[@]}"
+  fetch "$API_ITEM" '.png' "${HOMES[@]}"
 }
 
 function getInfo()
 {
-  local wdir
-  local suffix
-
-  wdir="${RDIR}/${API2_INFO_DOCS}"
-  mkdir -p "$wdir"
-
-  for info in "${CHARS[@]}" "${WEAPONS[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_INFO_DOCS}/${info}.json" \
-            -o "${wdir}/${info}.json"
-  done
-
-  wdir="${RDIR}/${API2_INFO_OTHER}"
-  mkdir -p "$wdir"
+  local files=()
 
   for star in $(seq 3 5)
   do
     for type in 'BaseBackground' 'BaseStar'
     do
-      command "${CURL[@]}" "${API}/${API2_INFO_OTHER}/${type}${star}.png" \
-              -o "${wdir}/${type}${star}.png"
+      files+=("${type}${star}.png")
     done
   done
 
-  wdir="${RDIR}/${API2_INFO_IMAGE}"
-  mkdir -p "$wdir"
-
-  for name in "${MATERIALS[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_INFO_IMAGE}/${name}.png" \
-            -o "${wdir}/${name}.png"
-  done
-
+  fetch "$API2_INFO_DOCS" '.json' "${CHARS[@]}"
+  fetch "$API2_INFO_DOCS" '.json' "${WEAPONS[@]}"
+  fetch "$API2_INFO_OTHER" '' "${files[@]}"
+  fetch "$API2_INFO_IMAGE" '.png' "${MATERIALS[@]}"
 }
 
 function getArtifacts()
 {
-  local wdir
-
-  wdir="${RDIR}/${API2_ARTIFACT}"
-  mkdir -p "$wdir"
-
-  for file in ${API2_ARTIFACT_FILES}
-  do
-    command "${CURL[@]}" "${API}/${API2_ARTIFACT_FILES}/${file}" \
-            -o "${wdir}/${file}"
-  done
+  local files=()
 
   for id in ${ARTIFACT_IDS[@]}
   do
-    mkdir -p "${wdir}/${id}"
-
     for slot in $(seq 0 4)
     do
-      command "${CURL[@]}" "${API}/${API2_ARTIFACT}/${id}/${slot}.png" \
-              -o "${wdir}/${id}/${slot}.png"
+      files+=("${id}/${slot}.png")
     done
   done
 
-  wdir="${RDIR}/${API2_ARTIFACT_OTHER}"
-  mkdir -p "$wdir"
-
-  for slot in $(seq 1 5)
-  do
-    command "${CURL[@]}" "${API}/${API2_ARTIFACT_OTHER}/${slot}.png" \
-            -o "${wdir}/${slot}.png"
-  done
-
-  for file in "${API2_ARTIFACT_OTHER_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_ARTIFACT_OTHER}/${file}" \
-            -o "${wdir}/${file}"
-  done
+  fetch "$API2_ARTIFACT" '' "${API2_ARTIFACT_FILES[@]}"
+  fetch "$API2_ARTIFACT" '' "${files[@]}"
+  fetch "$API2_ARTIFACT_OTHER" '.png' $(seq 1 5)
+  fetch "$API2_ARTIFACT_OTHER" '' "${API2_ARTIFACT_OTHER_FILES[@]}"
 }
 
 function getCharacter()
 {
-  local wdir
-
-  for api in "$API2_CHARACTER" "$API_CHARACTER_PROFILE"
-  do
-    wdir="${RDIR}/${api}"
-    mkdir -p "$wdir"
-
-    for id in "${CHARIDS[@]}"
-    do
-      command "${CURL[@]}" "${API}/${api}/${id}.png" \
-              -o "${wdir}/${id}.png"
-    done
-  done
+  fetch "$API_CHARACTER_PROFILE" '.png' "${CHARIDS[@]}"
+  fetch "$API2_CHARACTER" '.png' "${CHARIDS[@]}"
 }
 
 function getWish()
 {
-  local wdir
+  local files=()
 
-  wdir="${RDIR}/${API2_WISH_CONFIG}"
-  mkdir -p "$wdir"
-
-  for file in "${API2_WISH_CONFIG_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_WISH_CONFIG}/${file}" \
-            -o "${wdir}/${file}"
-  done
-
-  wdir="${RDIR}/${API2_WISH_CHARACTER}"
-  mkdir -p "$wdir"
-
-  for char in "${CHARS[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_WISH_CHARACTER}/${char}.png" \
-            -o "${wdir}/${char}.png"
-  done
-
-  wdir="${RDIR}/${API2_WISH_WEAPON}"
-  mkdir -p "$wdir"
-
+  fetch "$API2_WISH_CONFIG" '' "${API2_WISH_CONFIG_FILES[@]}"
+  fetch "$API2_WISH_CHARACTER" '.png' "${CHARS[@]}"
   # 这里不从 API2_WISH_CONFIG 中获取配置，服务端假定一切都不可信
-  for weapon in "${WEAPONS[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_WISH_WEAPON}/${weapon}.png" \
-            -o "${wdir}/${weapon}.png"
+  fetch "$API2_WISH_WEAPON" '.png' "${WEAPONS[@]}"
 
-    # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片
-    if [[ 'text/xml' == $(file --mime-type "${wdir}/${weapon}.png" | \
+  # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片，删除这些垃圾文件
+  files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
+
+  for file in "${files[@]}"
+  do
+    if [[ 'text/xml' == $(file --mime-type "$file" | \
                           cut -d: -f2 | tr -d '[:space:]') ]]
     then
-      rm -f "${wdir}/${weapon}.png"
+      echo "Delete: ${file}"
+      rm -f "$file"
     fi
   done
 }
@@ -426,21 +328,15 @@ function listXML()
 
 # MAIN
 {
-  set -x
-  {
-    getOtherFiles
-    getGacha
-    getMoudle
-    getItem
-    getInfo
-    getArtifacts
-    getCharacter
-    getWish
-  }
+  getOtherFiles
+  getGacha
+  getMoudle
+  getItem
+  getInfo
+  getArtifacts
+  getCharacter
+  getWish
 
-  set +x
-  {
-    listXML
-  }
+  listXML
 }
 
