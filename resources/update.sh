@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 # ==============================================================================
 # 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
 # 此脚本是为了将项目和原作者解绑。
@@ -10,12 +9,17 @@ API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 CURL=('curl' '-C' '-')
 
 # ==============================================================================
-# 此处请按照游戏进度实时更新
+# 此处请按照游戏进度实时更新。
 # ==============================================================================
 # 圣遗物，这里的 ID 查阅 config/artifacts.yml。
 # 我不确定原作者是否会依次递增，因此此处写成数组。
 ARTIFACT_IDS=(
   '1' '2' '3' '4' '5' '6' '7' '8' '9' '10' '11' '12' '13' '14' '15' '16' '17'
+)
+# ==============================================================================
+# 所有的洞天。
+HOMES=(
+  '罗浮洞'   '翠黛峰'   '清琼岛'
 )
 # ==============================================================================
 # 所有的游戏角色。
@@ -36,8 +40,8 @@ CHARS=(
   '钟离'     '阿贝多'   '凝光'     '诺艾尔'
 )
 # ==============================================================================
-# 所有的游戏角色ID。更新时请先运行 update.sh，随后在
-# resources/Version2/info/docs/角色.json 中查看 id 字段。
+# 所有的游戏角色ID。更新时请访问下面的 URL 查看 id 字段。
+# https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/角色名.json
 CHARIDS=(
   # 温迪     琴         魈         砂糖       枫原万叶
   '10000022' '10000003' '10000026' '10000043' '10000047'
@@ -120,9 +124,7 @@ MATERIALS=(
   '雷光棱镜'     '玄岩之塔'     '飓风之种'     '晶凝之华'
   '常燃火种'     '极寒之核'
   '净水之心'
-  '未熟之玉'
-  '魔偶机心'
-  '恒常机关之心'
+  '未熟之玉'     '魔偶机心'     '恒常机关之心'
   # 天赋本
   # 素材本
   '高塔孤王的残垣' '高塔孤王的断片' '高塔孤王的破瓦' '高塔孤王的碎梦'
@@ -139,15 +141,31 @@ MATERIALS=(
 # ==============================================================================
 # 如果你不知道在做什么，请勿改动此处
 # ==============================================================================
-API_MODULE='module'
+#API_BASEINFO_OVERVIEW='baseinfo/overview'
 API_CHARACTER_PROFILE='characters/profile'
+API_GACHA_ITEMS='gacha/items'
+API_MODULE='module'
+API_ITEM='item'
 API2_ARTIFACT='Version2/artifact'
 API2_ARTIFACT_OTHER='Version2/artifact/other'
 API2_CHARACTER='Version2/character'
 API2_MODULE='Version2/module'
 API2_INFO_DOCS='Version2/info/docs'
+API2_INFO_OTHER='Version2/info/other'
 API2_INFO_IMAGE='Version2/info/image'
+API2_WISH_CONFIG='Version2/wish/config'
+API2_WISH_CHARACTER='Version2/wish/character'
+API2_WISH_WEAPON='Version2/wish/weapon'
 
+API_GACHA_ITEMS_FILES=(
+  'ThreeStar.png'
+  'FourStar.png'
+  'FiveStar.png'
+  'ThreeBackground.png'
+  'FourBackground.png'
+  'FiveBackground.png'
+  'background.png'
+)
 API_MODULE_FILES=(
   'artifact.png'
   'card-new-bottom.png'
@@ -156,6 +174,10 @@ API_MODULE_FILES=(
   'card-new-upper.png'
   'element.png'
   'info-new-upper.png'
+)
+API_ITEM_FILES=(
+  'lock.png'
+  'rarity.png'
 )
 API2_ARTIFACT_OTHER_FILES=(
   'rarity.png'
@@ -170,19 +192,18 @@ API2_MODULE_FILES=(
   'card-package.png'
   'element.png'
 )
+API2_WISH_CONFIG_FILES=(
+  'weapon.json'
+  'character.json'
+)
 OTHER_FILES=(
-  # Arondight/Adachi-BOT
-  'item/lock.png'
-  'item/rarity.png'
-  # SilveryStar/Adachi-BOT
-  'item/lock.png'
   'Version2/slip/index.yml'
 )
 
 # ==============================================================================
-# 资源更新代码
+# 资源更新代码，可以不用看
 # ==============================================================================
-function getFiles()
+function getOtherFiles()
 {
   local wdir
 
@@ -192,6 +213,64 @@ function getFiles()
     mkdir -p "$wdir"
     command "${CURL[@]}" "${API}/${file}" \
             -o "${RDIR}/${file}"
+  done
+}
+
+function getGacha()
+{
+  local wdir
+
+  wdir="${RDIR}/${API_GACHA_ITEMS}"
+  mkdir -p "$wdir"
+
+  for file in "${API_GACHA_ITEMS_FILES[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API_GACHA_ITEMS}/${file}" \
+            -o "${wdir}/${file}"
+  done
+}
+
+function getMoudle()
+{
+  local wdir
+
+  wdir="${RDIR}/${API_MODULE}"
+  mkdir -p "$wdir"
+
+  for file in "${API_MODULE_FILES[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API_MODULE}/${file}" \
+            -o "${wdir}/${file}"
+  done
+
+  wdir="${RDIR}/${API2_MODULE}"
+  mkdir -p "$wdir"
+
+  for file in "${API2_MODULE_FILES[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API2_MODULE}/${file}" \
+            -o "${wdir}/${file}"
+  done
+}
+
+
+function getItem()
+{
+  local wdir
+
+  wdir="${RDIR}/${API_ITEM}"
+  mkdir -p "$wdir"
+
+  for file in "${API_ITEM_FILES[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API_ITEM}/${file}" \
+            -o "${wdir}/${file}"
+  done
+
+  for home in "${HOMES[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API_ITEM}/${home}.png" \
+            -o "${wdir}/${home}.png"
   done
 }
 
@@ -209,6 +288,18 @@ function getInfo()
             -o "${wdir}/${info}.json"
   done
 
+  wdir="${RDIR}/${API2_INFO_OTHER}"
+  mkdir -p "$wdir"
+
+  for star in $(seq 3 5)
+  do
+    for type in 'BaseBackground' 'BaseStar'
+    do
+      command "${CURL[@]}" "${API}/${API2_INFO_OTHER}/${type}${star}.png" \
+              -o "${wdir}/${type}${star}.png"
+    done
+  done
+
   wdir="${RDIR}/${API2_INFO_IMAGE}"
   mkdir -p "$wdir"
 
@@ -218,30 +309,6 @@ function getInfo()
             -o "${wdir}/${name}.png"
   done
 
-}
-
-function getMoudle()
-{
-  local wdir
-
-  wdir="${RDIR}/${API_MODULE}"
-  mkdir -p "$wdir"
-
-  for file in "${API_MODULE_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API_MODULE}/${file}" \
-            -o "${wdir}/${file}"
-  done
-
-
-  wdir="${RDIR}/${API2_MODULE}"
-  mkdir -p "$wdir"
-
-  for file in "${API2_MODULE_FILES[@]}"
-  do
-    command "${CURL[@]}" "${API}/${API2_MODULE}/${file}" \
-            -o "${wdir}/${file}"
-  done
 }
 
 function getArtifacts()
@@ -293,7 +360,7 @@ function getCharacter()
     wdir="${RDIR}/${api}"
     mkdir -p "$wdir"
 
-    for id in ${CHARIDS[@]}
+    for id in "${CHARIDS[@]}"
     do
       command "${CURL[@]}" "${API}/${api}/${id}.png" \
               -o "${wdir}/${id}.png"
@@ -301,12 +368,79 @@ function getCharacter()
   done
 }
 
+function getWish()
+{
+  local wdir
+
+  wdir="${RDIR}/${API2_WISH_CONFIG}"
+  mkdir -p "$wdir"
+
+  for file in "${API2_WISH_CONFIG_FILES[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API2_WISH_CONFIG}/${file}" \
+            -o "${wdir}/${file}"
+  done
+
+  wdir="${RDIR}/${API2_WISH_CHARACTER}"
+  mkdir -p "$wdir"
+
+  for char in "${CHARS[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API2_WISH_CHARACTER}/${char}.png" \
+            -o "${wdir}/${char}.png"
+  done
+
+  wdir="${RDIR}/${API2_WISH_WEAPON}"
+  mkdir -p "$wdir"
+
+  # 这里不从 API2_WISH_CONFIG 中获取配置，服务端假定一切都不可信
+  for weapon in "${WEAPONS[@]}"
+  do
+    command "${CURL[@]}" "${API}/${API2_WISH_WEAPON}/${weapon}.png" \
+            -o "${wdir}/${weapon}.png"
+
+    # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片
+    if [[ 'text/xml' == $(file --mime-type "${wdir}/${weapon}.png" | \
+                          cut -d: -f2 | tr -d '[:space:]') ]]
+    then
+      rm -f "${wdir}/${weapon}.png"
+    fi
+  done
+}
+
+function listXML()
+{
+  local files=($(find "$RDIR" -type f))
+
+  echo 'Here some XML files below:'
+
+  for file in "${files[@]}"
+  do
+    if [[ 'text/xml' == $(file --mime-type "$file" | \
+                          cut -d: -f2 | tr -d '[:space:]') ]]
+    then
+      echo "$file"
+    fi
+  done
+}
+
 # MAIN
 {
-  getFiles
-  getInfo
-  getMoudle
-  getArtifacts
-  getCharacter
+  set -x
+  {
+    getOtherFiles
+    getGacha
+    getMoudle
+    getItem
+    getInfo
+    getArtifacts
+    getCharacter
+    getWish
+  }
+
+  set +x
+  {
+    listXML
+  }
 }
 

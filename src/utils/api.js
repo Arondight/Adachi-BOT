@@ -172,15 +172,3 @@ exports.getGachaDetail = gachaID => {
     });
 }
 
-exports.getCharacterOverview = async name => {
-    return new Promise( (resolve, reject) => {
-        fetch(`https://adachi-bot.oss-cn-beijing.aliyuncs.com/baseinfo/overview/${encodeURI(name)}.json`)
-            .then(res => {
-                if (res.status === 404) {
-                    reject('');
-                } else {
-                    resolve(res.json());
-                }
-            });
-    });
-}
