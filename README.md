@@ -4,6 +4,8 @@
 
 [原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
+开发请查阅[手册](docs/README.md)。
+
 ## 使用
 
 ### 部署
@@ -53,6 +55,8 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
 
 ### 其他操作
 
+<details>
+
 #### 查看状态
 
 进入`Adachi-BOT`项目所在目录。
@@ -76,6 +80,8 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 log bot
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
 ```
+
+</details>
 
 ## 功能
 

@@ -27,6 +27,10 @@ Adachi-BOT
 2. 在`config/command.yml`中添加正则匹配
 3. 如有需要，在`src/utils/init.js`中加载数据库
 
+## 资源
+
+使用`resources/update.sh`从原作者的服务端更新资源，使用时确保已经完整阅读脚本注释。
+
 ## 数据库
 
 本项目数据库简易封装了[lowDB](https://github.com/typicode/lowdb)。你也可以根据需要在`src/utils/database.js`中定义自己的方法。
