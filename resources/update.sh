@@ -138,7 +138,6 @@ MATERIALS=(
   '「繁荣」的教导' '「繁荣」的指引' '「繁荣」的哲学'
   '「黄金」的教导' '「黄金」的指引' '「黄金」的哲学'
   '「风雅」的教导' '「风雅」的指引' '「风雅」的哲学'
-
   # 武器本
   '高塔孤王的残垣' '高塔孤王的断片' '高塔孤王的破瓦' '高塔孤王的碎梦'
   '孤云寒林的光砂' '孤云寒林的辉岩' '孤云寒林的神体' '孤云寒林的圣骸'
@@ -236,6 +235,33 @@ function fetch()
   done
 }
 
+function dealXML()
+{
+  local cmd="$1" && shift
+  local msg="$1" && shift
+  local files=($@)
+  local found=0
+
+  for file in "${files[@]}"
+  do
+    if [[ 'text/xml' == $(file --mime-type "$file" | \
+                          cut -d: -f2 | tr -d '[:space:]') ]]
+    then
+      found=1
+
+      if [[ -n "$msg" ]]
+      then
+        echo "$msg: ${file}"
+      fi
+
+      env -iS "$cmd" "$file"
+    fi
+  done
+
+  # Here return an error code, 1-255, but it is enough
+  return "$found"
+}
+
 function getOtherFiles()
 {
   fetch '' '' "${OTHER_FILES[@]}"
@@ -311,16 +337,7 @@ function getWish()
 
   # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片，删除这些垃圾文件
   files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
-
-  for file in "${files[@]}"
-  do
-    if [[ 'text/xml' == $(file --mime-type "$file" | \
-                          cut -d: -f2 | tr -d '[:space:]') ]]
-    then
-      echo "Delete: ${file}"
-      rm -f "$file"
-    fi
-  done
+  dealXML 'rm -f' 'Delete' "${files[@]}"
 }
 
 function listXML()
@@ -330,15 +347,8 @@ function listXML()
 
   echo 'Here some XML files below:'
 
-  for file in "${files[@]}"
-  do
-    if [[ 'text/xml' == $(file --mime-type "$file" | \
-                          cut -d: -f2 | tr -d '[:space:]') ]]
-    then
-      hasXML=1
-      echo "$file"
-    fi
-  done
+  dealXML 'echo' '' "${files[@]}"
+  hasXML="$?"
 
   if [[ 0 -eq "$hasXML" ]]
   then
