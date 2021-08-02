@@ -313,6 +313,7 @@ function getWish()
 function listXML()
 {
   local files=($(find "$RDIR" -type f))
+  local hasXML=0
 
   echo 'Here some XML files below:'
 
@@ -321,9 +322,15 @@ function listXML()
     if [[ 'text/xml' == $(file --mime-type "$file" | \
                           cut -d: -f2 | tr -d '[:space:]') ]]
     then
+      hasXML=1
       echo "$file"
     fi
   done
+
+  if [[ 0 -eq "$hasXML" ]]
+  then
+    echo "No XML files found, everything is perfect."
+  fi
 }
 
 # MAIN
