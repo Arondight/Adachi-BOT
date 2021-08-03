@@ -11,7 +11,7 @@ const background = {
     computed: {
         image() {
             return (
-                "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/character/" +
+                "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/character/" +
                 this.character +
                 ".png"
             );
@@ -89,7 +89,7 @@ const emptyBox = {
     computed: {
         image() {
             return (
-                "https://adachi-bot.oss-cn-beijing.aliyuncs.com/item/" +
+                "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/item/" +
                 this.pos +
                 ".png"
             );

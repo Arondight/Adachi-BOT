@@ -10,7 +10,7 @@ const __API = {
     FETCH_GACHA_LIST: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json',
     FETCH_GACHA_DETAIL: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json',
     FETCH_ABY_DETAIL:'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
-    FETCH_INFO: "https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/$.json",
+    FETCH_INFO: "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/$.json",
 };
 
 const HEADERS = {
