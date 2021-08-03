@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
-# 此脚本是为了将项目和原作者解绑。
+# 此脚本是为了将项目和原作者解绑，最终复制一个和原作者相同的 OSS。
 # ==============================================================================
 
 RDIR=$(dirname $(readlink -f "$0"))
+# 此为原作者维护的 OSS，这里作为数据源更新本地数据。
 API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 CURL=('curl' '-s' '-C' '-')
 
@@ -161,6 +162,7 @@ API2_ARTIFACT='Version2/artifact'
 API2_ARTIFACT_OTHER='Version2/artifact/other'
 API2_CHARACTER='Version2/character'
 API2_MODULE='Version2/module'
+API2_WEAPON='Version2/weapon'
 API2_INFO_DOCS='Version2/info/docs'
 API2_INFO_OTHER='Version2/info/other'
 API2_INFO_IMAGE='Version2/info/image'
@@ -278,6 +280,11 @@ function getMoudle()
   fetch "$API2_MODULE" '' "${API2_MODULE_FILES[@]}"
 }
 
+function getWeapon()
+{
+  fetch "$API2_WEAPON" '.png' "${WEAPONS[@]}"
+}
+
 function getItem()
 {
   fetch "$API_ITEM" '' "${API_ITEM_FILES[@]}"
@@ -360,6 +367,7 @@ function listXML()
   getOtherFiles
   getGacha
   getMoudle
+  getWeapon
   getItem
   getInfo
   getArtifacts
