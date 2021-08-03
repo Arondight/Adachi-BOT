@@ -16,6 +16,26 @@ cd ./Adachi-BOT/
 npm install
 ```
 
+如果`puppeteer`模块下载`Chromium`失败，那么`Adachi-BOT`将无法正常运行……
+
+<details>
+
+此时你有两种选择。
+
+其一，通过任意合法途径获得一个可以访问国际互联网的`http`代理，然后执行以下命令。
+
+```
+npm_config_proxy=http://<ip>:<port> npm install
+```
+
+其二，尝试改用`Firefox`，执行以下命令。
+
+```
+PUPPETEER_PRODUCT=firefox npm install
+```
+
+</details>
+
 ### 配置
 
 需要编辑以下文件，根据注释填入合适的配置。
@@ -86,6 +106,8 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
 ## 功能
 
 ### 所有功能
+
+> 具体命令请查看(src/plugins/tools/help.js)[src/plugins/tools/help.js]。
 
 | 功能 | 形式 |
 | --- | --- |
