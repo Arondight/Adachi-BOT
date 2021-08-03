@@ -43,7 +43,11 @@ module.exports = async Message => {
         return;
     }
     try {
-        await abyPromise(...dbInfo,schedule_type);
+        const abyInfo = await abyPromise(...dbInfo,schedule_type);
+        if (!abyInfo) {
+            await bot.sendMessage(sendID, '未查询到深渊数据', type);
+            return;
+        }
     } catch (errInfo) {
         if (errInfo !== '') {
             await bot.sendMessage(sendID, errInfo, type);
