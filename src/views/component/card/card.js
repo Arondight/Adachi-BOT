@@ -38,7 +38,7 @@ const upper = {
     },
     computed: {
         Picture() {
-            return "http://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/characters/profile/" + this.profile + ".png";
+            return "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/characters/profile/" + this.profile + ".png";
         },
         worldLevel() {
             if (this.level >= 55) {
@@ -134,7 +134,7 @@ const HomeMap = {
     },
     computed: {
         bgImg() {
-            return `http://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/item/${this.data.name}.png`;
+            return `https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/item/${this.data.name}.png`;
         }
     }
 };

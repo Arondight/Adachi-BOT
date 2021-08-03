@@ -82,7 +82,7 @@ const musicQQ = async (keyword) => {
 }
 
 const music163 = async (keyword) => {
-    let url = 'http://music.163.com/api/search/get/';
+    let url = 'https://music.163.com/api/search/get/';
     let form = {
         's':      keyword,
         'type':   1,  // 1:单曲, 10:专辑, 100:歌手, 1000:歌单, 1002:用户, 1004:MV, 1006:歌词, 1009:电台, 1014:视频
@@ -93,7 +93,7 @@ const music163 = async (keyword) => {
     let headers = {
         'Content-Length': body.length,
         'Content-Type':   'application/x-www-form-urlencoded',
-        'Referer':        'http://music.163.com',
+        'Referer':        'https://music.163.com',
         'Cookie':         'appver=2.0.2'
     }
     let jbody = await doPost(url, headers, body);
