@@ -3,9 +3,9 @@
 # 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
 # 此脚本是为了将项目和原作者解绑，最终复制一个和原作者相同的 OSS。
 # ==============================================================================
-
 RDIR=$(dirname $(readlink -f "$0"))
 # 此为原作者维护的 OSS，这里作为数据源更新本地数据。
+# 脚本假定数据源不可信，所有的请求都不会依赖于某次请求的结果。
 API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 CURL=('curl' '-s' '-C' '-')
 
@@ -15,7 +15,7 @@ CURL=('curl' '-s' '-C' '-')
 # 圣遗物，这里的 ID 查阅 config/artifacts.yml。
 # 我不确定原作者是否会依次递增，因此此处写成数组。
 ARTIFACT_IDS=(
-  '1' '2' '3' '4' '5' '6' '7' '8' '9' '10' '11' '12' '13' '14' '15' '16' '17'
+  $(seq 1 17)
 )
 # ==============================================================================
 # 所有的洞天。
@@ -216,6 +216,17 @@ OTHER_FILES=(
 # ==============================================================================
 # 资源更新代码
 # ==============================================================================
+function check()
+{
+  if ! (type 'curl' >/dev/null 2>&1)
+  then
+    echo 'No curl command found.' >&2
+    return 1
+  fi
+
+  return 0
+}
+
 function fetch()
 {
   local api="$1" && shift
@@ -339,7 +350,6 @@ function getWish()
 
   fetch "$API2_WISH_CONFIG" '' "${API2_WISH_CONFIG_FILES[@]}"
   fetch "$API2_WISH_CHARACTER" '.png' "${CHARS[@]}"
-  # 这里不从 API2_WISH_CONFIG 中获取配置，服务端假定一切都不可信
   fetch "$API2_WISH_WEAPON" '.png' "${WEAPONS[@]}"
   # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片，删除这些垃圾文件
   files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
@@ -364,6 +374,8 @@ function listXML()
 
 # MAIN
 {
+  check || exit 1
+
   getOtherFiles
   getGacha
   getMoudle
