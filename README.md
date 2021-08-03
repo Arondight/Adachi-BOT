@@ -107,7 +107,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
 
 ### 所有功能
 
-> 具体命令请查看(src/plugins/tools/help.js)[src/plugins/tools/help.js]。
+> 具体命令请查看[src/plugins/tools/help.js](src/plugins/tools/help.js)。
 
 | 功能 | 形式 |
 | --- | --- |
