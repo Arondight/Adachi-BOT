@@ -10,6 +10,28 @@
 
 ### 部署
 
+#### 准备环境
+
+首先你需要有一份较新的Node.js。
+
+##### CentOS、RHEL
+
+```
+sudo yum -y remove nodejs
+curl -fsSL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+sudo yum -y install nodejs
+```
+
+##### Ubuntu、Debian
+
+```
+sudo -y apt remove nodejs
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo -y apt install nodejs
+```
+
+#### 部署项目
+
 ```
 git clone https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
@@ -24,11 +46,11 @@ npm install
 
 其一，使用系统自带的`Chromium`，这里以`CentOS`为例，执行以下命令。
 
-> 这里需要找到`Chromium`的二进制文件路径，而非启动脚本的路径。
+> 这里需要找到`Chromium`的二进制可执行文件路径，而非启动脚本或其链接的路径。
 
 ```
-yum install epel-release
-yum install chromium
+yum -y install epel-release
+yum -y install chromium
 grep PUPPETEER_EXECUTABLE_PATH ~/.bashrc || ( echo 'export PUPPETEER_EXECUTABLE_PATH=/usr/lib64/chromium-browser/chromium-browser' | tee -a ~/.bashrc )
 source ~/.bashrc
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
