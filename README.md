@@ -63,6 +63,8 @@ PUPPETEER_PRODUCT=firefox npm install
 
 进入`Adachi-BOT`项目所在目录。
 
+> 首次运行需要先执行`npm start`，完成QQ的新设备认证，随后`Ctrl+C`停止机器人，然后再执行以下命令。
+
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 start ./app.js --name bot
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 save
