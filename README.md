@@ -25,9 +25,9 @@ sudo yum -y install nodejs
 ##### Ubuntu、Debian
 
 ```
-sudo -y apt remove nodejs
+sudo apt -y remove nodejs
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo -y apt install nodejs
+sudo apt -y install nodejs
 ```
 
 #### 部署项目
