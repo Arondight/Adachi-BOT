@@ -20,15 +20,27 @@ npm install
 
 <details>
 
-此时你有两种选择。
+此时你有三种选择。首先删除`./node_modules/`目录。
 
-其一，通过任意合法途径获得一个可以访问国际互联网的`http`代理，然后执行以下命令。
+其一，使用系统自带的`Chromium`，这里以`CentOS`为例，执行以下命令。
+
+> 这里需要找到`Chromium`的二进制文件路径，而非启动脚本的路径。
+
+```
+yum install epel-release
+yum install chromium
+grep PUPPETEER_EXECUTABLE_PATH ~/.bashrc || ( echo 'export PUPPETEER_EXECUTABLE_PATH=/usr/lib64/chromium-browser/chromium-browser' | tee -a ~/.bashrc )
+source ~/.bashrc
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
+```
+
+其二，通过任意合法途径获得一个可以访问国际互联网的`http`代理，然后执行以下命令。
 
 ```
 npm_config_proxy=http://<ip>:<port> npm install
 ```
 
-其二，尝试改用`Firefox`，执行以下命令。
+其三，尝试改用`Firefox`，执行以下命令。
 
 ```
 PUPPETEER_PRODUCT=firefox npm install
