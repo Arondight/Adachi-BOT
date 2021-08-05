@@ -8,6 +8,8 @@ RDIR=$(dirname $(readlink -f "$0"))
 # 脚本假定数据源不可信，所有的请求都不会依赖于某次请求的结果。
 API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 CURL=('curl' '-s' '-C' '-')
+# 此本项目的资源文件，将会覆盖同名的原作者资源文件
+CUSTOM_RES=$(readlink -f "${RDIR}/../resources_custom/")
 
 # ==============================================================================
 # 所有的游戏资源
@@ -355,6 +357,14 @@ function getWish()
   dealXML 'rm -f' 'Delete' "${files[@]}"
 }
 
+# ==============================================================================
+# 后期处理
+# ==============================================================================
+function syncCustom()
+{
+  cp -rf "$CUSTOM_RES"/* "$RDIR"
+}
+
 function listXML()
 {
   local files=($(find "$RDIR" -type f))
@@ -385,6 +395,7 @@ function listXML()
   getCharacter
   getWish
 
+  syncCustom
   listXML
 }
 
