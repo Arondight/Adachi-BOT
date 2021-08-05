@@ -4,7 +4,7 @@ const path = require('path');
 
 exports.newServer = port => {
     http.createServer((req, res) => {
-        let url = req.url;
+        let url = decodeURI(req.url);
         let file = path.resolve(__dirname, '..', '..') + url;
 
         fs.readFile(file, (err, data) => {
