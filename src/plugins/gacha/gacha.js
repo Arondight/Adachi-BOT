@@ -78,20 +78,31 @@ const getStar = async ( userID, choice ) => {
 
 const gachaOnce = async ( userID, choice, table ) => {
     const star  = await getStar(userID, choice);
-    const up    = await getIsUp(userID, star, choice);
+    let up = await getIsUp(userID, star), result;
     const times = five;
-    await updateCounter(userID, star, up, choice);
-
-    let result;
+    let { path } = await get('gacha', 'user', { userID });
+    if (star === 5 && choice === 302 && path['course']!== null && path['fate'] === 2){
+        result = table['upFiveStar'][path['course']];
+        path['fate'] = 0;
+        up = 1;
+        await update('gacha', 'user', { userID }, { path });
+        await updateCounter(userID, star, up);
+        return { ...result, star: 5, times };
+    }
+    await updateCounter(userID, star, up);
 
     if (star === 5) {
-        if (up) {
-            const index = getRandomInt(table['upFiveStar'].length) - 1;
-            result = table['upFiveStar'][index];
-        } else {
-            const index = getRandomInt(table['nonUpFiveStar'].length) - 1;
-            result = table['nonUpFiveStar'][index];
-        }
+            if (up) {
+              const index = getRandomInt(table['upFiveStar'].length) - 1;
+              result = table['upFiveStar'][index];
+              if (choice === 302 && path['course']!== null)
+                  path['fate'] = (index === path['course'])? 0 : path['fate']+1;
+            } else {
+              const index = getRandomInt(table['nonUpFiveStar'].length) - 1;
+              result = table['nonUpFiveStar'][index];
+              if (choice === 302 && path['course']!== null) path['fate']++;
+            }
+            if (choice === 302 && path['course']!== null) await update('gacha', 'user', { userID }, { path });
         return { ...result, star: 5, times };
     } else if (star === 4) {
         if (up) {
@@ -113,6 +124,8 @@ const gachaOnce = async ( userID, choice, table ) => {
 const gachaTenTimes = async ( userID, nickname ) => {
     const { choice } = await get('gacha', 'user', { userID });
     const gachaTable = await get('gacha', 'data', { gacha_type: choice });
+    
+
     ( { name, five, four, isUp } = await getChoiceData(userID, choice) );
 
     let result = { data: [], type: name, user: nickname }, data = {};
