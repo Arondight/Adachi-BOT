@@ -56,7 +56,7 @@ module.exports = async Message => {
     let sendID  = type === 'group' ? groupID : userID;
 
     if (!isMaster(userID)) {
-        await bot.sendMessage(sendID, `${name}([CQ:at,qq=${userID}])不能使用管理命令`, type);
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 不能使用管理命令`, type);
         return;
     }
 

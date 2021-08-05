@@ -36,7 +36,7 @@ module.exports = async Message => {
             if (JSON.stringify(initial) !== '{}') {
                 data = fortified;
             } else {
-                await bot.sendMessage(sendID, "请先使用【圣遗物】抽取一个圣遗物后再使用该命令", type);
+                await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请先使用【圣遗物】抽取一个圣遗物后再【强化】`, type);
                 return;
             }
         } else if (cmd.includes('圣遗物')) {
@@ -53,7 +53,7 @@ module.exports = async Message => {
             await getArtifact(userID, parseInt(id));
             data = (await get('artifact', 'user', { userID })).initial;
         }  else {
-            await bot.sendMessage(sendID, "请正确输入副本ID", type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入副本ID`, type);
             return;
         }
     }

@@ -28,7 +28,7 @@ BOT.sendMaster = async ( id, msg, type ) => {
     if (typeof Setting['master'] === 'number') {
         await BOT.sendPrivateMsg(Setting['master'], msg);
     } else {
-        await BOT.sendMessage(id, '该 bot 未设置主人', type);
+        await BOT.sendMessage(id, '未设置我的主人', type);
     }
 }
 
@@ -82,3 +82,4 @@ run().then(() => {
         processed(msgData, plugins, 'private');
     });
 });
+

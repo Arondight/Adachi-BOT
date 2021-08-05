@@ -33,17 +33,17 @@ module.exports = async Message => {
 
     if (msg.includes('卡池')) {
         if (!cmd) {
-            await bot.sendMessage(sendID, '请正确输入卡池名称', type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入卡池名称`, type);
         } else {
             let choice;
             switch (cmd) {
                 case '常驻': choice = 200; break;
                 case '角色': choice = 301; break;
                 case '武器': choice = 302; break;
-                default: await bot.sendMessage(sendID, '未知卡池名称', type); return;
+                default: await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 未知卡池名称`, type); return;
             }
             await update('gacha', 'user', { userID }, { choice });
-            await bot.sendMessage(sendID, `${name}([CQ:at,qq=${userID}])：您的卡池已切换至: ` + cmd, type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您的卡池已切换至: ` + cmd, type);
         }
     } else if (msg.includes('十连')) {
         let data = await getGachaResult(userID, name);

@@ -18,9 +18,9 @@ module.exports = async Message => {
 
     if (response.status == 200) {
       let { quote, from } = await response.json();
-      return await bot.sendMessage(sendID, quote + '\n' + from, type);
+      return await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + quote + '\n' + from, type);
     }
 
-    await bot.sendMessage(sendID, '伟大的升华！', type);
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 伟大的升华！`, type);
 }
 
