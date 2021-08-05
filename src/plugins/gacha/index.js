@@ -43,7 +43,7 @@ module.exports = async Message => {
                 default: await bot.sendMessage(sendID, '未知卡池名称', type); return;
             }
             await update('gacha', 'user', { userID }, { choice });
-            await bot.sendMessage(sendID, '卡池已切换至: ' + cmd, type);
+            await bot.sendMessage(sendID, '${name}([CQ:at,qq=${user}])：您的卡池已切换至: ' + cmd, type);
         }
     } else if (msg.includes('十连')) {
         let data = await getGachaResult(userID, name);
