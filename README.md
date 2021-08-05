@@ -12,7 +12,9 @@
 
 #### 准备环境
 
-首先你需要有一份较新的Node.js。
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，机器人无法在较低版本的 Node.js 上运行。
+
+<details>
 
 ##### CentOS、RHEL
 
@@ -29,6 +31,8 @@ sudo apt -y remove nodejs
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt -y install nodejs
 ```
+
+</details>
 
 #### 部署项目
 
