@@ -15,7 +15,7 @@
     <template id="background">
       <div class="background">
         <img
-          src="https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/background.png"
+          src="http://localhost:9934/resources/gacha/items/background.png"
           alt="ERROR"
         />
         <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
@@ -91,28 +91,28 @@
         computed: {
           starBackground() {
             return (
-              "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
+              "http://localhost:9934/resources/gacha/items/" +
               this.bgType[this.data.star - 3] +
               ".png"
             );
           },
           starImage() {
             return (
-              "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/gacha/items/" +
+              "http://localhost:9934/resources/gacha/items/" +
               this.starType[this.data.star - 3] +
               ".png"
             );
           },
           characterImage() {
             return (
-              "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/wish/character/" +
+              "http://localhost:9934/resources/Version2/wish/character/" +
               this.data.item_name +
               ".png"
             );
           },
           weaponImage() {
             return (
-              "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/wish/weapon/" +
+              "http://localhost:9934/resources/Version2/wish/weapon/" +
               this.data.item_name +
               ".png"
             );
