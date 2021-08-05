@@ -1,4 +1,6 @@
 const { get, update } = require('../../utils/database');
+const element = require('../../../resources/Version2/wish/config/character.json');
+const types = require('../../../resources/Version2/wish/config/weapon.json');
 
 const getRandomInt = (max = 10000) => {
     return Math.floor(Math.random() * max) + 1;
@@ -132,6 +134,7 @@ const gachaTenTimes = async ( userID, nickname ) => {
 
     for (let i = 1; i <= 10; ++i) {
         let res = await gachaOnce(userID, choice, gachaTable);
+        res['type'] =( res['item_type'] === '武器' ? types:element)[res['item_name']];
         result.data.push(res);
     }
 
