@@ -78,11 +78,10 @@ const getStar = async ( userID, choice ) => {
 
 const gachaOnce = async ( userID, choice, table ) => {
     const star  = await getStar(userID, choice);
-    let up    = await getIsUp(userID, star);
-    let result;
+    let up = await getIsUp(userID, star), result;
     const times = five;
-    let {path} = await get('gacha', 'user', { userID });
-    if (star === 5 && choice === 301 && path['fate'] === 2){
+    let { path } = await get('gacha', 'user', { userID });
+    if (star === 5 && choice === 302 && path['course']!== null && path['fate'] === 2){
         result = table['upFiveStar'][path['course']];
         path['fate'] = 0;
         up = 1;
@@ -96,14 +95,14 @@ const gachaOnce = async ( userID, choice, table ) => {
             if (up) {
               const index = getRandomInt(table['upFiveStar'].length) - 1;
               result = table['upFiveStar'][index];
-              if (choice === 301)
+              if (choice === 302 && path['course']!== null)
                   path['fate'] = (index === path['course'])? 0 : path['fate']+1;
             } else {
               const index = getRandomInt(table['nonUpFiveStar'].length) - 1;
               result = table['nonUpFiveStar'][index];
-              if (choice === 301) path['fate']++;
+              if (choice === 302 && path['course']!== null) path['fate']++;
             }
-            if (choice === 301) await update('gacha', 'user', { userID }, { path });
+            if (choice === 302 && path['course']!== null) await update('gacha', 'user', { userID }, { path });
         return { ...result, star: 5, times };
     } else if (star === 4) {
         if (up) {

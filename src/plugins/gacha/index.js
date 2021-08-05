@@ -52,12 +52,20 @@ module.exports = async Message => {
         }
         const table = await get('gacha', 'data', { gacha_type: 302 });
         const {path} = await get('gacha', 'user', { userID });
-        
-        await bot.sendMessage(sendID, '当前定轨 '+table['upFiveStar'][path['course']]['item_name']+'\n命定值 '+path.fate, type);
+        if (path['course'] === null)
+          await bot.sendMessage(sendID, '当前未指定定轨武器', type);
+        else
+          await bot.sendMessage(sendID, '当前定轨 '+table['upFiveStar'][path['course']]['item_name']+'\n命定值 '+path['fate'], type);
     } else if (msg.includes('定轨')) {
         const { choice } = await get('gacha', 'user', { userID });
         if (choice!==302){
           await bot.sendMessage(sendID, '当前卡池非武器池', type);
+          return;
+        }
+        if (cmd === "无") {
+          let path = { course:null, fate: 0};
+          await update('gacha', 'user', { userID }, { path });
+          await bot.sendMessage(sendID, '已取消定轨', type);
           return;
         }
         let id = -1;
