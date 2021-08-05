@@ -4,7 +4,7 @@
 
 [原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
-开发请查阅[手册](docs/README.md)。
+插件开发和资源文件制作请查阅[手册](docs/README.md)。
 
 ## 使用
 
@@ -167,7 +167,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
 
 ### 所有功能
 
-> 具体命令请查看[src/plugins/tools/help.js](src/plugins/tools/help.js)。
+> 具体命令请查看[这里](src/plugins/tools/help.js)。
 
 | 功能 | 形式 |
 | --- | --- |

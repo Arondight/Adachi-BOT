@@ -1,31 +1,66 @@
 # 开发指引
 
-## 结构
+## 目录结构
 
 ```
 Adachi-BOT
-├─ config
-│  ├─ artifact.yml          圣遗物配置
-│  ├─ cookies.yml           cookie设置
-│  ├─ command.yml           命令正则
-│  └─ setting.yml           基本配置
-├─ data                     资源目录
-│  ├─ record                数据缓存
-│  ├─ db                    数据库文件
-│  ├─ font                  字体资源
-│  └─ js                    外部资源
-├─ src                      源码目录
-│  ├─ plugins               插件代码
-│  ├─ utils                 工具代码
-│  └─ views                 前端代码
-└─ app.js                   程序入口
+├── app.js                      # 主程序
+├── config
+│   ├── artifacts.yml           # 圣遗物配置
+│   ├── command.yml             # 命令入口
+├── data
+│   ├── db                      # 数据库文件
+│   ├── font
+│   └── js
+├── docs
+├── resources                   // 资源文件（实际使用）
+│   ├── characters
+│   │   └── profile             # 角色头像，在【米游社】、【UID】左上角被使用
+│   ├── gacha
+│   │   └── items               # 抽卡背景，在【十连】中被使用
+│   ├── item                    # 一些零碎图片
+│   ├── module                  # 游戏信息展示框图，在【米游社】、【UID】中被使用
+│   └── Version2
+│       ├── artifact            # 所有的圣遗物套图，在【圣遗物】中被使用
+│       ├── character           # 角色立绘，在【角色】中被使用
+│       ├── info
+│       │   ├── docs            # 角色信息数据
+│       │   ├── image           # 升级素材图片，在【角色】、【武器】中被使用
+│       │   └── other           # 游戏信息展示框图，在【角色】、【武器】中被使用
+│       ├── module              # 圣遗物展示框图
+│       ├── slip
+│       ├── weapon              # 武器立绘，在【武器】中被使用
+│       └── wish
+│           ├── character       # 角色抽卡图片，在【十连】中被使用
+│           ├── config          # 角色和武器数据
+│           └── weapon          # 武器抽卡图片，在【十连】中被使用
+├── resources_custom            // 此目录组织和 resources 完全一致，会覆盖 resource 中的同路径资源
+└── src
+    ├── plugins                 # 插件
+    ├── utils                   # 库
+    └── views                   # Vue.js
 ```
 
-## 插件
+## 插件开发
 
 1. 在`src/plugins`目录下创建插件目录
 2. 在`config/command.yml`中添加正则匹配
 3. 如有需要，在`src/utils/init.js`中加载数据库
+
+## 资源文件
+
+### 资源目录
+
+#### resources
+
+此目录是实际使用的资源目录，其中有一个脚本`update.sh`，会做两件事。
+
+1. 向原作者的 OSS 请求资源文件并按路径保存到此目录。
+2. 复制`resources_custom`目录下的文件，覆盖到此目录中的对应路径。
+
+#### resources\_custom
+
+此项目制作的资源文件，应当按照目录组织存放到此处，会覆盖到`resources`目录下的对应路径。
 
 ## 数据库
 
