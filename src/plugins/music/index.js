@@ -17,7 +17,7 @@ module.exports = async Message => {
             ret = await musicID(msg, src);
 
             if (ret in errMsg) {
-                return await bot.sendMessage(sendID, errMsg[ret], type);
+                return await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errMsg[ret], type);
             }
 
             await bot.sendMessage(sendID, ret, type);

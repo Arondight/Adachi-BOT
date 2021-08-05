@@ -11,7 +11,7 @@
       <div>
         <img
           class="background"
-          src="https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/module/artifact.png"
+          src="http://localhost:9934/resources/module/artifact.png"
           alt="ERROR"
         />
         <div class="content">
@@ -23,7 +23,7 @@
           </div>
           <img
             class="rarity"
-            src="https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/item/rarity.png"
+            src="http://localhost:9934/resources/item/rarity.png"
             alt="ERROR"
           />
           <img class="image" :src="artifactImage" alt="ERROR" />
@@ -94,7 +94,7 @@
           },
           artifactImage() {
             return (
-              "https://arondight-adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/artifact/" +
+              "http://localhost:9934/resources/Version2/artifact/" +
               this.base.artifactID +
               "/" +
               this.base.slot +

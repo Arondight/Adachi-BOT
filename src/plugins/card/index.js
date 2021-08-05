@@ -34,7 +34,7 @@ module.exports = async Message => {
         await characterPromise(...baseInfo, detailInfo);
     } catch (errInfo) {
         if (errInfo !== '') {
-            await bot.sendMessage(sendID, errInfo, type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
             return;
         }
     }

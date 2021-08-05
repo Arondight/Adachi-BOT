@@ -10,6 +10,32 @@
 
 ### 部署
 
+#### 准备环境
+
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，机器人无法在较低版本的 Node.js 上运行。
+
+<details>
+
+##### CentOS、RHEL
+
+```
+sudo yum -y remove nodejs
+curl -fsSL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+sudo yum -y install nodejs
+```
+
+##### Ubuntu、Debian
+
+```
+sudo apt -y remove nodejs
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt -y install nodejs
+```
+
+</details>
+
+#### 部署项目
+
 ```
 git clone https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
@@ -24,11 +50,11 @@ npm install
 
 其一，使用系统自带的`Chromium`，这里以`CentOS`为例，执行以下命令。
 
-> 这里需要找到`Chromium`的二进制文件路径，而非启动脚本的路径。
+> 这里需要找到`Chromium`的二进制可执行文件路径，而非启动脚本或其链接的路径。
 
 ```
-yum install epel-release
-yum install chromium
+yum -y install epel-release
+yum -y install chromium
 grep PUPPETEER_EXECUTABLE_PATH ~/.bashrc || ( echo 'export PUPPETEER_EXECUTABLE_PATH=/usr/lib64/chromium-browser/chromium-browser' | tee -a ~/.bashrc )
 source ~/.bashrc
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
@@ -45,6 +71,26 @@ npm_config_proxy=http://<ip>:<port> npm install
 ```
 PUPPETEER_PRODUCT=firefox npm install
 ```
+
+</details>
+
+#### 安全问题
+
+<details>
+
+`Adachi-BOT`会在`9934`端口启用一个`http://`文件服务，并使用`http://localhost:9934`访问资源文件。这可能会造成一些安全问题，建议使用防火墙管控一下`9934`端口。因为访问资源文件使用了本地回环，所以防火墙不会影响机器人的正常运行。
+
+这里以`CentOS`为例，演示如何使用防火墙管控`9934`端口，执行以下命令。
+
+```
+sudo yum -y install firewalld
+sudo systemctl enable --now firewalld.service
+sudo firewall-cmd --remove-port=9934/tcp --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-all
+```
+
+> 配置防火墙可能会对你的其他服务产生影响，你需要手动配置（`--add-port`、`--add-service`）白名单来开启所需端口。
 
 </details>
 

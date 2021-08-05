@@ -20,12 +20,12 @@ module.exports = async Message => {
     }
 
     if (typeof dbInfo === 'string') {
-        await bot.sendMessage(sendID, dbInfo.toString(), type);
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + dbInfo.toString(), type);
         return;
     }
 
     if (!character) {
-        await bot.sendMessage(sendID, "请正确输入角色名称", type);
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入角色名称`, type);
         return;
     }
 
@@ -36,12 +36,12 @@ module.exports = async Message => {
         data = avatars.find(el => el.name === character);
 
         if (!data) {
-            await bot.sendMessage(sendID, "查询失败，请检查角色名称是否正确或您是否拥有该角色", type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 查询失败，请检查角色名称是否正确或您是否拥有该角色`, type);
             return;
         }
     } catch (errInfo) {
         if (errInfo !== '') {
-            await bot.sendMessage(sendID, errInfo, type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
             return;
         }
     }

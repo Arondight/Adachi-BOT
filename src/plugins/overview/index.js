@@ -13,21 +13,22 @@ module.exports = async Message => {
     let data;
 
     if (!(await hasAuth(userID, 'overview')) || !(await hasAuth(sendID, 'overview'))) {
-        await sendPrompt(sendID, name, '查询角色信息', type);
+        await sendPrompt(sendID, name, '查询游戏数据', type);
         return;
     }
 
     if (!msg) {
-        await bot.sendMessage(sendID, "请正确输入名称", type);
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入名称`, type);
         return;
     }
 
     try {
         data = await getInfo(msg);
     } catch (errInfo) {
-        await bot.sendMessage(sendID, "查询失败，请检查名称是否正确", type);
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确`, type);
         return;
     }
 
     await render(data, 'genshin-overview', sendID, type);
 }
+

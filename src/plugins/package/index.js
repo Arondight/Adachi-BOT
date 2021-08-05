@@ -38,7 +38,7 @@ module.exports = async Message => {
     }
 
     if (typeof dbInfo === 'string') {
-        await bot.sendMessage(sendID, dbInfo.toString(), type);
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + dbInfo.toString(), type);
         return;
     }
 
@@ -47,7 +47,7 @@ module.exports = async Message => {
         await characterPromise(...dbInfo, detailInfo)
     } catch (errInfo) {
         if (errInfo !== '') {
-            await bot.sendMessage(sendID, errInfo, type);
+            await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
             return;
         }
     }
