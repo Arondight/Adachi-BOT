@@ -1,4 +1,4 @@
-const { push, isInside, update } = require('../../utils/database');
+const { get, push, isInside, update } = require('../../utils/database');
 const { hasAuth, sendPrompt } = require('../../utils/auth');
 const render = require('../../utils/render');
 const getGachaResult = require('./gacha');
@@ -10,7 +10,8 @@ const userInitialize = async userID => {
             choice: 301,
             indefinite: { five: 1, four: 1, isUp: undefined },
             character:  { five: 1, four: 1, isUp: 0 },
-            weapon:     { five: 1, four: 1, isUp: null }
+            weapon:     { five: 1, four: 1, isUp: null },
+            path: { course: null, fate: 0}
         });
     }
 };
@@ -32,21 +33,48 @@ module.exports = async Message => {
     }
 
     if (msg.includes('卡池')) {
-        if (!cmd) {
-            await bot.sendMessage(sendID, '请正确输入卡池名称', type);
-        } else {
-            let choice;
-            switch (cmd) {
-                case '常驻': choice = 200; break;
-                case '角色': choice = 301; break;
-                case '武器': choice = 302; break;
-                default: await bot.sendMessage(sendID, '未知卡池名称', type); return;
-            }
-            await update('gacha', 'user', { userID }, { choice });
-            await bot.sendMessage(sendID, '卡池已切换至: ' + cmd, type);
+        let choice;
+        switch (cmd) {
+            case '常驻': choice = 200; break;
+            case '角色': choice = 301; break;
+            case '武器': choice = 302; break;
         }
+        await update('gacha', 'user', { userID }, { choice });
+        await bot.sendMessage(sendID, '卡池已切换至: ' + cmd, type);
     } else if (msg.includes('十连')) {
         let data = await getGachaResult(userID, name);
         await render(data, 'genshin-gacha', sendID, type);
+    } else if (msg.includes('查看定轨')) {
+        const { choice } = await get('gacha', 'user', { userID });
+        if (choice!==302){
+          await bot.sendMessage(sendID, '当前卡池非武器池', type);
+          return;
+        }
+        const table = await get('gacha', 'data', { gacha_type: 302 });
+        const {path} = await get('gacha', 'user', { userID });
+        
+        await bot.sendMessage(sendID, '当前定轨 '+table['upFiveStar'][path['course']]['item_name']+'\n命定值 '+path.fate, type);
+    } else if (msg.includes('定轨')) {
+        const { choice } = await get('gacha', 'user', { userID });
+        if (choice!==302){
+          await bot.sendMessage(sendID, '当前卡池非武器池', type);
+          return;
+        }
+        let id = -1;
+        const table = await get('gacha', 'data', { gacha_type: 302 });
+        for(let i=0;i<table['upFiveStar'].length;i++){
+            if (table['upFiveStar'][i]['item_name'] === cmd){
+              id = i;
+              break;
+            }
+        }
+        if (id === -1){
+          await bot.sendMessage(sendID, '非 up 武器', type);
+          return;
+        } else {
+          await bot.sendMessage(sendID, '定轨 ' + cmd + ' 成功，命定值已清零', type);
+          let path = { course: id, fate: 0 };
+          await update('gacha', 'user', { userID }, { path });
+        }
     }
 }
