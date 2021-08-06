@@ -16,7 +16,7 @@ let BOT = createClient(Setting['account'].qq, {
     platform: platform
 });
 
-BOT.sendMessage = async ( id, msg, type ) => {
+BOT.sendMessage = async (id, msg, type) => {
     if (type === 'group') {
         await BOT.sendGroupMsg(id, msg);
     } else if (type === 'private') {
@@ -24,7 +24,7 @@ BOT.sendMessage = async ( id, msg, type ) => {
     }
 };
 
-BOT.sendMaster = async ( id, msg, type ) => {
+BOT.sendMaster = async (id, msg, type) => {
     if (typeof Setting['master'] === 'number') {
         await BOT.sendPrivateMsg(Setting['master'], msg);
     } else {

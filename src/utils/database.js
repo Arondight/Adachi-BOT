@@ -4,32 +4,32 @@ const path = require('path');
 
 const db = [];
 
-exports.newDB = ( name, defaultElement = { user: [] } ) => {
+exports.newDB = (name, defaultElement = { user: [] }) => {
     db[name] = low(new FileSync(path.resolve(__dirname, '..', '..', 'data', 'db', name + '.json')));
     db[name].defaults(defaultElement).write();
 }
 
-const isInside = exports.isInside = async ( name, key, index, value ) => {
+const isInside = exports.isInside = async (name, key, index, value) => {
     return db[name].get(key).map(index).value().includes(value);
 };
 
-const get = exports.get = async ( name, key, index ) => {
+const get = exports.get = async (name, key, index) => {
     return db[name].get(key).find(index).value();
 };
 
-const update = exports.update = async ( name, key, index, data ) => {
+const update = exports.update = async (name, key, index, data) => {
     db[name].get(key).find(index).assign(data).write();
 };
 
-const push = exports.push = async ( name, key, data ) => {
+const push = exports.push = async (name, key, data) => {
     db[name].get(key).push(data).write();
 };
 
-const set = exports.set = async ( name, key, data ) => {
+const set = exports.set = async (name, key, data) => {
     db[name].set(key, data).write();
 }
 
-exports.getID = async ( msg, userID ) => {
+exports.getID = async (msg, userID) => {
     let id = msg.match(/\d+/g);
     let errInfo = '';
 

@@ -4,11 +4,11 @@ const { getID } = require('../../utils/database');
 const render = require('../../utils/render');
 
 module.exports = async Message => {
-    let userID  = Message.user_id;
+    let userID = Message.user_id;
     let groupID = Message.group_id;
-    let type    = Message.type;
-    let name    = Message.sender.nickname;
-    let sendID  = type === 'group' ? groupID : userID;
+    let type = Message.type;
+    let name = Message.sender.nickname;
+    let sendID = type === 'group' ? groupID : userID;
     let msg = /[\u4e00-\u9fa5]+$/g.exec(Message.raw_message);
     let data;
 

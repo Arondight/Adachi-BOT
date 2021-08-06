@@ -1,218 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>genshin-overview</title>
+    <script src="../../data/js/vue.min.js"></script>
+    <link rel="stylesheet" href="./component/overview/overview.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>genshin-overview</title>
-	<script src="../../data/js/vue.min.js"></script>
-	<link rel="stylesheet" href="./component/overview/overview.css">
-</head>
+  <body>
+    <div id="app">
+      <div class="info-base">
+        <img class="background" :src="infoBackground" alt="ERROR" />
+        <img
+          :class="type === '角色' ? 'character' : 'weapon'"
+          :src="mainImage"
+          alt="ERROR"
+        />
+        <div class="content">
+          <p class="title-and-name">「{{ title }}·{{ name }}」</p>
+          <p class="introduce">{{ introduce }}</p>
+        </div>
+        <div class="dotted"></div>
+      </div>
+      <div class="weapon" v-if="type === '武器'">
+        <div class="access">
+          <p class="title">获取方式:</p>
+          <p class="content">{{ access }}</p>
+        </div>
+        <div class="data-block">
+          <img class="star-icon" :src="starIcon" alt="ERROR" />
+          <p class="value atk">{{ baseATK }}</p>
+          <p class="title atk">基础攻击力</p>
+          <p class="value main">{{ mainValue }}</p>
+          <p class="title main">{{ mainStat }}</p>
+        </div>
+        <p class="time">{{ time }}</p>
+        <div class="materials">
+          <div class="item-list">
+            <p class="title">突破材料:</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in ascension[0]"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+          <div class="item-list">
+            <p class="title"></p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in ascension[1]"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="skill">
+          <p class="name">{{ skillName }}</p>
+          <div class="content" v-html="skillContent"></div>
+        </div>
+      </div>
+      <div class="character" v-else>
+        <div class="base-info">
+          <div class="birthday">
+            <p class="title">生日:</p>
+            <p class="content">{{ birthday }}</p>
+          </div>
+          <div class="element">
+            <p class="title">神之眼:</p>
+            <p class="content">{{ element }}</p>
+          </div>
+          <div class="cv">
+            <p class="title">声优:</p>
+            <p class="content">{{ cv }}</p>
+          </div>
+          <div class="constellation-name">
+            <p class="title">命之座:</p>
+            <p class="content">{{ constellationName }}</p>
+          </div>
+        </div>
+        <div class="data-block">
+          <img class="star-icon" :src="starIcon" alt="ERROR" />
+          <p class="value atk">{{ baseATK }}</p>
+          <p class="title atk">基础攻击力</p>
+          <p class="value main">{{ mainValue }}</p>
+          <p class="title main">{{ mainStat }}</p>
+        </div>
+        <p class="time">{{ time }}</p>
+        <div class="materials">
+          <div class="item-list">
+            <p class="title">升级材料</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in levelUp"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
 
-<body>
+          <div class="item-list">
+            <p class="title">天赋材料</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in talent"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+          <div class="item-list">
+            <p class="title">突破材料</p>
+            <div class="list">
+              <img
+                class="item"
+                v-for="el in ascension"
+                :src="icon(el)"
+                alt="ERROR"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="constellation">
+          <div class="box" v-for="i in 4">
+            <p class="level">{{ numCN[i-1] }}</p>
+            <p class="content">{{ constellations[i-1] }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<div id="app">
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          rarity: 0,
+          name: "",
+          id: 0,
+          title: "",
+          type: "",
+          introduce: "",
+          infoBackground: "",
+          mainImage: "",
 
-		<div class="info-base">
-			<img class="background" :src="infoBackground" alt="ERROR" />
-			<img :class="type === '角色' ? 'character' : 'weapon'" :src="mainImage" alt="ERROR" />
-			<div class="content">
-				<p class="title-and-name">「{{ title }}·{{ name }}」</p>
-				<p class="introduce">{{ introduce }}</p>
-			</div>
-			<div class="dotted"></div>
-		</div>
-		<div class="weapon" v-if="type === '武器'">
-			<div class="access">
-				<p class="title">获取方式: </p>
-				<p class="content">{{ access }}</p>
-			</div>
-			<div class="data-block">
-				<img class="star-icon" :src="starIcon" alt="ERROR" />
-				<p class="value atk">{{ baseATK }}</p>
-				<p class="title atk">基础攻击力</p>
-				<p class="value main">{{ mainValue }}</p>
-				<p class="title main">{{ mainStat }}</p>
-			</div>
-			<p class="time">{{ time }}</p>
-			<div class="materials">
-				<div class="item-list">
-					<p class="title">突破材料:</p>
-					<div class="list">
-						<img class="item" v-for="el in ascension[0]" :src="icon(el)" alt="ERROR" />
-					</div>
-				</div>
-				<div class="item-list">
-					<p class="title"></p>
-					<div class="list">
-						<img class="item" v-for="el in ascension[1]" :src="icon(el)" alt="ERROR" />
-					</div>
-				</div>
-			</div>
-			<div class="skill">
-				<p class="name">{{ skillName }}</p>
-				<div class="content" v-html="skillContent"></div>
-			</div>
-		</div>
-		<div class="character" v-else>
-			<div class="base-info">
-				<div class="birthday">
-					<p class="title">生日: </p>
-					<p class="content">{{ birthday }}</p>
-				</div>
-				<div class="element">
-					<p class="title">神之眼: </p>
-					<p class="content">{{ element }}</p>
-				</div>
-				<div class="cv">
-					<p class="title">声优:</p>
-					<p class="content">{{ cv }}</p>
-				</div>
-				<div class="constellation-name">
-					<p class="title">命之座: </p>
-					<p class="content">{{ constellationName }}</p>
-				</div>
-			</div>
-			<div class="data-block">
-				<img class="star-icon" :src="starIcon" alt="ERROR" />
-				<p class="value atk">{{ baseATK }}</p>
-				<p class="title atk">基础攻击力</p>
-				<p class="value main">{{ mainValue }}</p>
-				<p class="title main">{{ mainStat }}</p>
-			</div>
-			<p class="time">{{ time }}</p>
-			<div class="materials">
+          skillName: "",
+          skillContent: "",
+          access: "",
 
+          mainStat: "",
+          baseATK: 0,
+          mainValue: "",
+          birthday: "",
+          element: "",
+          constellationName: "",
+          cv: "",
+          ascension: [],
+          levelUp: [],
+          talent: [],
+          time: "",
+          constellations: "",
+          starIcon: "",
+          numCN: [],
+        },
+        methods: {
+          readJSON(file, callback) {
+            fetch(file).then((res) => {
+              return res.json().then((data) => {
+                callback(data);
+              });
+            });
+          },
+        },
+        mounted() {
+          this.readJSON("../../data/record/genshin-overview.json", (res) => {
+            this.rarity = res.rarity;
+            this.name = res.name;
+            this.id = res.id;
+            this.title = res.title;
+            this.type = res.type;
+            this.introduce = res.introduce;
+            this.infoBackground =
+              "http://localhost:9934/resources/Version2/info/other/BaseBackground" +
+              res.rarity +
+              ".png";
+            this.mainImage =
+              "http://localhost:9934/resources/Version2/" +
+              (res.type === "角色"
+                ? "character/" + res.id + ".png"
+                : "weapon/" + res.name + ".png");
 
-				<div class="item-list">
-					<p class="title">升级材料</p>
-					<div class="list">
-						<img class="item" v-for="el in levelUp" :src="icon(el)" alt="ERROR" />
-					</div>
-				</div>
+            this.skillName = res.skillName;
+            this.skillContent = res.skillContent;
+            this.access = res.access;
 
-				<div class="item-list">
-					<p class="title">天赋材料</p>
-					<div class="list">
-						<img class="item" v-for="el in talent" :src="icon(el)" alt="ERROR" />
-					</div>
-				</div>
-				<div class="item-list">
-					<p class="title">突破材料</p>
-					<div class="list">
-						<img class="item" v-for="el in ascension" :src="icon(el)" alt="ERROR" />
-					</div>
-				</div>
-			</div>
-			<div class="constellation">
-				<div class="box" v-for="i in 4">
-					<p class="level">{{ numCN[i-1] }}</p>
-					<p class="content">{{ constellations[i-1] }}</p>
-				</div>
-			</div>
-		</div>
+            this.mainStat = res.mainStat;
+            this.baseATK = res.baseATK;
+            this.mainValue = res.mainValue;
+            this.birthday = res.birthday;
+            this.element = res.element;
+            this.constellationName = res.constellationName;
+            this.cv = res.cv;
+            this.ascension = res.ascensionMaterials;
+            this.levelUp = res.levelUpMaterials;
+            this.talent = res.talentMaterials;
+            this.time = res.time;
+            this.constellations = res.constellations;
+            this.starIcon =
+              "http://localhost:9934/resources/Version2/info/other/BaseStar" +
+              res.rarity +
+              ".png";
+            this.numCN = ["一", "二", "四", "六"];
 
+            if (this.rarity === 5) {
+              document.documentElement.style.setProperty(
+                "--styleColor",
+                "rgb(205, 167, 101)"
+              );
+              document.documentElement.style.setProperty(
+                "--backgroundColor",
+                "rgb(211, 200, 187)"
+              );
+              document.documentElement.style.setProperty(
+                "--dottedColor",
+                "rgb(198, 156, 80)"
+              );
+            } else if (this.rarity === 4) {
+              document.documentElement.style.setProperty(
+                "--styleColor",
+                "rgb(142, 115, 170)"
+              );
+              document.documentElement.style.setProperty(
+                "--backgroundColor",
+                "rgb(211, 211, 212)"
+              );
+              document.documentElement.style.setProperty(
+                "--dottedColor",
+                "rgb(72, 83, 101)"
+              );
+            } else {
+              document.documentElement.style.setProperty(
+                "--styleColor",
+                "rgb(98, 191, 218)"
+              );
+              document.documentElement.style.setProperty(
+                "--backgroundColor",
+                "rgb(210, 212, 225)"
+              );
+              document.documentElement.style.setProperty(
+                "--dottedColor",
+                "rgb(3, 149, 166"
+              );
+            }
+          });
+        },
+      });
 
-	</div>
-
-
-	<script>
-
-
-
-		new Vue({
-			el: '#app',
-			data: {
-				rarity: 0,
-				name: "",
-				id: 0,
-				title: "",
-				type: "",
-				introduce: "",
-				infoBackground: "",
-				mainImage: "",
-
-				skillName: "",
-				skillContent: "",
-				access: "",
-
-				mainStat: "",
-				baseATK: 0,
-				mainValue: "",
-				birthday: "",
-				element: "",
-				constellationName: "",
-				cv: "",
-				ascension: [],
-				levelUp: [],
-				talent: [],
-				time: "",
-				constellations: "",
-				starIcon: "",
-				numCN: [],
-			},
-			methods: {
-				readJSON(file, callback) {
-					fetch(file).then(res => {
-						return res.json().then(data => {
-							callback(data);
-						})
-					})
-				}
-			},
-			mounted() {
-				this.readJSON('../../data/record/genshin-overview.json', res => {
-					this.rarity = res.rarity;
-					this.name = res.name;
-					this.id = res.id;
-					this.title = res.title;
-					this.type = res.type;
-					this.introduce = res.introduce;
-					this.infoBackground = "http://localhost:9934/resources/Version2/info/other/BaseBackground" + res.rarity + ".png";
-					this.mainImage = "http://localhost:9934/resources/Version2/" + (res.type === "角色" ? "character/" + res.id + ".png" : "weapon/" + res.name + ".png");
-
-					this.skillName = res.skillName;
-					this.skillContent = res.skillContent;
-					this.access = res.access;
-
-					this.mainStat = res.mainStat;
-					this.baseATK = res.baseATK;
-					this.mainValue = res.mainValue;
-					this.birthday = res.birthday;
-					this.element = res.element;
-					this.constellationName = res.constellationName;
-					this.cv = res.cv;
-					this.ascension = res.ascensionMaterials;
-					this.levelUp = res.levelUpMaterials;
-					this.talent = res.talentMaterials;
-					this.time = res.time;
-					this.constellations = res.constellations;
-					this.starIcon = "http://localhost:9934/resources/Version2/info/other/BaseStar" + res.rarity + ".png";
-					this.numCN = ["一", "二", "四", "六"];
-
-
-					if (this.rarity === 5) {
-						document.documentElement.style.setProperty('--styleColor', 'rgb(205, 167, 101)');
-						document.documentElement.style.setProperty('--backgroundColor', 'rgb(211, 200, 187)');
-						document.documentElement.style.setProperty('--dottedColor', 'rgb(198, 156, 80)');
-					} else if (this.rarity === 4) {
-						document.documentElement.style.setProperty('--styleColor', 'rgb(142, 115, 170)');
-						document.documentElement.style.setProperty('--backgroundColor', 'rgb(211, 211, 212)');
-						document.documentElement.style.setProperty('--dottedColor', 'rgb(72, 83, 101)');
-					}
-					else {
-						document.documentElement.style.setProperty('--styleColor', 'rgb(98, 191, 218)');
-						document.documentElement.style.setProperty('--backgroundColor', 'rgb(210, 212, 225)');
-						document.documentElement.style.setProperty('--dottedColor', 'rgb(3, 149, 166');
-					}
-				});
-			}
-		});
-
-		function icon(name) {
-			return "http://localhost:9934/resources/Version2/info/image/" + name + ".png";
-		}
-	</script>
-
-</body>
-
+      function icon(name) {
+        return (
+          "http://localhost:9934/resources/Version2/info/image/" + name + ".png"
+        );
+      }
+    </script>
+  </body>
 </html>

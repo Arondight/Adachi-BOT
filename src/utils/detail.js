@@ -4,10 +4,10 @@ const { loadYML } = require('./load');
 const lodash = require('lodash');
 
 let index = 0;
-let abyindex =0;
+let abyindex = 0;
 const { cookies } = loadYML('cookies');
 
-const userInitialize = async ( userID, uid, nickname, level ) => {
+const userInitialize = async (userID, uid, nickname, level) => {
     if (!(await isInside('character', 'user', 'userID', userID))) {
         await push('character', 'user', { userID, uid: 0 });
     }
@@ -36,8 +36,8 @@ const abyincreaseIndex = () => {
     abyindex = abyindex === cookiesNum - 1 ? 0 : abyindex + 1;
 }
 
-exports.abyPromise = async (uid,server,schedule_type) => {
-    const { retcode, message, data } = await getAbyDetail(uid,schedule_type, server,cookies[abyindex]);
+exports.abyPromise = async (uid, server, schedule_type) => {
+    const { retcode, message, data } = await getAbyDetail(uid, schedule_type, server, cookies[abyindex]);
     abyincreaseIndex();
     return new Promise(async (resolve, reject) => {
         if (retcode !== 0) {
@@ -46,16 +46,16 @@ exports.abyPromise = async (uid,server,schedule_type) => {
         }
         if (!(await isInside('aby', 'user', 'uid', uid))) {
             let initData = {
-                uid, data:[]
+                uid, data: []
             };
             await push('aby', 'user', initData);
         }
-        await update('aby', 'user',{ uid },{data});
+        await update('aby', 'user', { uid }, { data });
         resolve(data);
     });
 }
 
-exports.basePromise = async ( mhyID, userID ) => {
+exports.basePromise = async (mhyID, userID) => {
     const { retcode, message, data } = await getBase(mhyID, cookies[index]);
     return new Promise(async (resolve, reject) => {
         if (retcode !== 0) {
@@ -67,7 +67,7 @@ exports.basePromise = async ( mhyID, userID ) => {
         }
 
         let baseInfo = data.list.find(el => el['game_id'] === 2);
-        if(!baseInfo){
+        if (!baseInfo) {
             reject("未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开");
             return;
         }
@@ -75,18 +75,18 @@ exports.basePromise = async ( mhyID, userID ) => {
         let uid = parseInt(game_role_id);
 
         await userInitialize(userID, uid, nickname, level);
-        await update('info', 'user', { uid }, {level, nickname});
-        
+        await update('info', 'user', { uid }, { level, nickname });
+
         resolve([uid, region]);
     });
 }
 
-exports.detailPromise = async ( uid, server, userID ) => {
+exports.detailPromise = async (uid, server, userID) => {
     await userInitialize(userID, uid, '', -1);
     await update('character', 'user', { userID }, { uid });
 
-    let nowTime   = new Date().valueOf();
-    let { time }  = await get('time', 'user', { uid });
+    let nowTime = new Date().valueOf();
+    let { time } = await get('time', 'user', { uid });
 
     if (nowTime - time < 60 * 60 * 1000) {
         bot.logger.info("用户 " + uid + " 在一小时内进行过查询操作，将返回上次数据");
@@ -116,10 +116,10 @@ exports.detailPromise = async ( uid, server, userID ) => {
         });
         await update('info', 'user', { uid }, {
             message,
-            retcode:        parseInt(retcode),
-            explorations:   data.world_explorations,
-            stats:          data.stats,
-            homes:          data.homes
+            retcode: parseInt(retcode),
+            explorations: data.world_explorations,
+            stats: data.stats,
+            homes: data.homes
         });
         bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
 
@@ -128,7 +128,7 @@ exports.detailPromise = async ( uid, server, userID ) => {
     });
 }
 
-exports.characterPromise = async ( uid, server, character_ids ) => {
+exports.characterPromise = async (uid, server, character_ids) => {
     const { retcode, message, data } = await getCharacters(uid, server, character_ids, cookies[index]);
     increaseIndex();
 
@@ -144,7 +144,7 @@ exports.characterPromise = async ( uid, server, character_ids ) => {
             if (characterList.hasOwnProperty(i)) {
                 let el = characterList[i];
 
-                let base   = lodash.omit(el, ['image', 'weapon', 'reliquaries', 'constellations']);
+                let base = lodash.omit(el, ['image', 'weapon', 'reliquaries', 'constellations']);
                 let weapon = lodash.omit(el.weapon, ['id', 'type', 'promote_level', 'type_name']);
                 let artifact = [], constellationNum = 0;
 
@@ -164,7 +164,7 @@ exports.characterPromise = async ( uid, server, character_ids ) => {
                     }
                 }
 
-                avatars.push({...base, weapon, artifact, constellationNum});
+                avatars.push({ ...base, weapon, artifact, constellationNum });
             }
         }
 

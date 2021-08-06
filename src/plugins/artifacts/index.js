@@ -14,13 +14,13 @@ const userInitialize = async userID => {
 };
 
 module.exports = async Message => {
-    let msg     = Message.raw_message;
-    let userID  = Message.user_id;
+    let msg = Message.raw_message;
+    let userID = Message.user_id;
     let groupID = Message.group_id;
-    let type    = Message.type;
-    let sendID  = type === 'group' ? groupID : userID;
-    let name    = Message.sender.nickname;
-    let [cmd, arg] =  msg.split(/(?<=^\S+)\s/).slice(0, 2);
+    let type = Message.type;
+    let sendID = type === 'group' ? groupID : userID;
+    let name = Message.sender.nickname;
+    let [cmd, arg] = msg.split(/(?<=^\S+)\s/).slice(0, 2);
     let data, id;
 
     await userInitialize(userID);
@@ -40,7 +40,7 @@ module.exports = async Message => {
                 return;
             }
         } else if (cmd.includes('圣遗物')) {
-            await getArtifact(userID,-1);
+            await getArtifact(userID, -1);
             data = (await get('artifact', 'user', { userID })).initial;
         } else if (cmd.includes('副本')) {
             await bot.sendMessage(sendID, domainInfo(), type);
@@ -52,7 +52,7 @@ module.exports = async Message => {
         if (id && id < domainMax() + 1) {
             await getArtifact(userID, parseInt(id));
             data = (await get('artifact', 'user', { userID })).initial;
-        }  else {
+        } else {
             await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入副本ID`, type);
             return;
         }

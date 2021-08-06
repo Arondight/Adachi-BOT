@@ -3,7 +3,7 @@ const { hasAuth, sendPrompt } = require('../../utils/auth');
 const { get } = require('../../utils/database');
 const render = require('../../utils/render');
 
-const generateImage = async ( uid, id, type ) => {
+const generateImage = async (uid, id, type) => {
     let data = await get('info', 'user', { uid });
     await render(data, 'genshin-info', id, type);
 }
@@ -24,13 +24,13 @@ const getID = msg => {
 }
 
 module.exports = async Message => {
-    let msg     = Message.raw_message;
-    let userID  = Message.user_id;
+    let msg = Message.raw_message;
+    let userID = Message.user_id;
     let groupID = Message.group_id;
-    let type    = Message.type;
-    let name    = Message.sender.nickname;
-    let sendID  = type === 'group' ? groupID : userID;
-    let dbInfo  = getID(msg);
+    let type = Message.type;
+    let name = Message.sender.nickname;
+    let sendID = type === 'group' ? groupID : userID;
+    let dbInfo = getID(msg);
 
     if (!(await hasAuth(userID, 'query')) || !(await hasAuth(sendID, 'query'))) {
         await sendPrompt(sendID, name, '查询游戏内信息', type);

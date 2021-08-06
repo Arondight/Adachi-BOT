@@ -3,8 +3,8 @@ const fetch = require('node-fetch')
 const { get, push, update } = require('../../utils/database');
 
 const MUSICSRC = {
-    SRC_QQ:   'QQ',
-    SRC_163:  '163'
+    SRC_QQ: 'QQ',
+    SRC_163: '163'
 }
 Object.freeze(MUSICSRC);
 
@@ -43,7 +43,7 @@ const doPost = async (url, headers, body) => {
     });
 
     if (response.status == 200) {
-      ret = response.json();
+        ret = response.json();
     }
 
     return ret;
@@ -53,13 +53,13 @@ const doPost = async (url, headers, body) => {
 const musicQQ = async (keyword) => {
     let url = 'https://api.qq.jsososo.com/search/quick';
     let form = {
-        'key':    keyword,
+        'key': keyword,
     }
     let body = querystring.stringify(form);
     let headers = {
         'Content-Length': body.length,
-        'Content-Type':   'application/x-www-form-urlencoded',
-        "User-Agent":     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
     }
     let jbody = await doPost(url, headers, body);
 
@@ -69,13 +69,13 @@ const musicQQ = async (keyword) => {
 
     if (hasKey(jbody, 'data', 'song', 'itemlist', 0, 'id')) {
         return [
-        {
-            'type': 'music',
-            'data': {
-                'type': 'qq',
-                'id': jbody['data']['song']['itemlist'][0]['id']
-            }
-        }]
+            {
+                'type': 'music',
+                'data': {
+                    'type': 'qq',
+                    'id': jbody['data']['song']['itemlist'][0]['id']
+                }
+            }]
     }
 
     return ERRCODE.ERR_404;
@@ -84,17 +84,17 @@ const musicQQ = async (keyword) => {
 const music163 = async (keyword) => {
     let url = 'https://music.163.com/api/search/get/';
     let form = {
-        's':      keyword,
-        'type':   1,  // 1:单曲, 10:专辑, 100:歌手, 1000:歌单, 1002:用户, 1004:MV, 1006:歌词, 1009:电台, 1014:视频
-        'limit':  1,
+        's': keyword,
+        'type': 1,  // 1:单曲, 10:专辑, 100:歌手, 1000:歌单, 1002:用户, 1004:MV, 1006:歌词, 1009:电台, 1014:视频
+        'limit': 1,
         'offset': 0
     }
     let body = querystring.stringify(form);
     let headers = {
         'Content-Length': body.length,
-        'Content-Type':   'application/x-www-form-urlencoded',
-        'Referer':        'https://music.163.com',
-        'Cookie':         'appver=2.0.2'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Referer': 'https://music.163.com',
+        'Cookie': 'appver=2.0.2'
     }
     let jbody = await doPost(url, headers, body);
 
@@ -104,23 +104,23 @@ const music163 = async (keyword) => {
 
     if (hasKey(jbody, 'result', 'songs', 0, 'id')) {
         return [
-        {
-            'type': 'music',
-            'data': {
-                'type': '163',
-                'id': jbody['result']['songs'][0]['id']
-            }
-        }]
+            {
+                'type': 'music',
+                'data': {
+                    'type': '163',
+                    'id': jbody['result']['songs'][0]['id']
+                }
+            }]
     }
 
     return ERRCODE.ERR_404;
 }
 
-exports.musicID = async ( msg, source ) => {
+exports.musicID = async (msg, source) => {
     let [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
-    const worker  = {
-        [MUSICSRC.SRC_QQ]:   musicQQ,
-        [MUSICSRC.SRC_163]:  music163
+    const worker = {
+        [MUSICSRC.SRC_QQ]: musicQQ,
+        [MUSICSRC.SRC_163]: music163
     }
 
     if (!(source in worker)) {
@@ -130,18 +130,18 @@ exports.musicID = async ( msg, source ) => {
     return await worker[source](keyword);
 }
 
-exports.musicSrc = async ( msg, id ) => {
+exports.musicSrc = async (msg, id) => {
     let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
-    let data = await get('music', 'source', { ID:id });
+    let data = await get('music', 'source', { ID: id });
 
     if (!(Object.values(MUSICSRC).includes(source))) {
         return false;
     }
 
     if (data === undefined) {
-        await push('music', 'source', { ID:id, Source:source });
+        await push('music', 'source', { ID: id, Source: source });
     } else {
-        await update('music', 'source', { ID:id }, { ...data, Source:source });
+        await update('music', 'source', { ID: id }, { ...data, Source: source });
     }
 
     return source;

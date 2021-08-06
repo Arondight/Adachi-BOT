@@ -6,12 +6,12 @@ const getRandomInt = (max = 10000) => {
     return Math.floor(Math.random() * max) + 1;
 };
 
-const getChoiceData = async ( userID, choice ) => {
+const getChoiceData = async (userID, choice) => {
     const { indefinite, character, weapon } = await get('gacha', 'user', { userID });
     switch (choice) {
         case 200: return { name: 'indefinite', ...indefinite };
-        case 301: return { name: 'character' , ...character };
-        case 302: return { name: 'weapon'    , ...weapon };
+        case 301: return { name: 'character', ...character };
+        case 302: return { name: 'weapon', ...weapon };
     }
 };
 
@@ -19,7 +19,7 @@ let name, five, four, isUp;
 
 // 数据参考: https://www.bilibili.com/read/cv10468091
 // 更新时间: 2021年4月21日23:17:26, 不保证概率更新的及时性
-const getFiveProb = ( counter, choice ) => {
+const getFiveProb = (counter, choice) => {
     if (choice === 200 || choice === 301) {
         return 60 + 600 * (counter > 73 ? counter - 73 : 0);
     } else {
@@ -31,7 +31,7 @@ const getFiveProb = ( counter, choice ) => {
     }
 };
 
-const getFourProb = ( counter, choice ) => {
+const getFourProb = (counter, choice) => {
     if (choice === 200 || choice === 301) {
         return 510 + 5100 * (counter > 8 ? counter - 8 : 0);
     } else {
@@ -43,47 +43,47 @@ const getFourProb = ( counter, choice ) => {
     }
 };
 
-const updateCounter = async ( userID, star, up ) => {
+const updateCounter = async (userID, star, up) => {
     if (star !== 5) {
         five = five + 1;
         four = star === 4 ? 1 : four + 1;
     } else if (isUp !== undefined && isUp !== null) {
         five = 1;
         four = four + 1;
-        isUp = up ? ( isUp > 0 ? isUp + 1 : 1 )
-                  : ( isUp > 0 ? -1 : isUp - 1 );
+        isUp = up ? (isUp > 0 ? isUp + 1 : 1)
+            : (isUp > 0 ? -1 : isUp - 1);
     } else {
         five = 1;
         four = four + 1;
     }
 };
 
-const getIsUp = async ( userID, star ) => {
+const getIsUp = async (userID, star) => {
     switch (isUp) {
-        case null:      return getRandomInt() <= 7500;
+        case null: return getRandomInt() <= 7500;
         case undefined: return false;
-        default:        return getRandomInt() <= 5000 || (star === 5 && isUp < 0);
+        default: return getRandomInt() <= 5000 || (star === 5 && isUp < 0);
     }
 };
 
-const getStar = async ( userID, choice ) => {
+const getStar = async (userID, choice) => {
     const value = getRandomInt();
-    const fiveProb  = getFiveProb(five, choice);
-    const fourProb  = getFourProb(four, choice) + fiveProb;
+    const fiveProb = getFiveProb(five, choice);
+    const fourProb = getFourProb(four, choice) + fiveProb;
 
     switch (true) {
         case value <= fiveProb: return 5;
         case value <= fourProb: return 4;
-        default:                return 3;
+        default: return 3;
     }
 };
 
-const gachaOnce = async ( userID, choice, table ) => {
-    const star  = await getStar(userID, choice);
+const gachaOnce = async (userID, choice, table) => {
+    const star = await getStar(userID, choice);
     let up = await getIsUp(userID, star), result;
     const times = five;
     let { path } = await get('gacha', 'user', { userID });
-    if (star === 5 && choice === 302 && path['course']!== null && path['fate'] === 2){
+    if (star === 5 && choice === 302 && path['course'] !== null && path['fate'] === 2) {
         result = table['upFiveStar'][path['course']];
         path['fate'] = 0;
         up = 1;
@@ -94,17 +94,17 @@ const gachaOnce = async ( userID, choice, table ) => {
     await updateCounter(userID, star, up);
 
     if (star === 5) {
-            if (up) {
-              const index = getRandomInt(table['upFiveStar'].length) - 1;
-              result = table['upFiveStar'][index];
-              if (choice === 302 && path['course']!== null)
-                  path['fate'] = (index === path['course'])? 0 : path['fate']+1;
-            } else {
-              const index = getRandomInt(table['nonUpFiveStar'].length) - 1;
-              result = table['nonUpFiveStar'][index];
-              if (choice === 302 && path['course']!== null) path['fate']++;
-            }
-            if (choice === 302 && path['course']!== null) await update('gacha', 'user', { userID }, { path });
+        if (up) {
+            const index = getRandomInt(table['upFiveStar'].length) - 1;
+            result = table['upFiveStar'][index];
+            if (choice === 302 && path['course'] !== null)
+                path['fate'] = (index === path['course']) ? 0 : path['fate'] + 1;
+        } else {
+            const index = getRandomInt(table['nonUpFiveStar'].length) - 1;
+            result = table['nonUpFiveStar'][index];
+            if (choice === 302 && path['course'] !== null) path['fate']++;
+        }
+        if (choice === 302 && path['course'] !== null) await update('gacha', 'user', { userID }, { path });
         return { ...result, star: 5, times };
     } else if (star === 4) {
         if (up) {
@@ -114,7 +114,7 @@ const gachaOnce = async ( userID, choice, table ) => {
             const index = getRandomInt(table['nonUpFourStar'].length) - 1;
             result = table['nonUpFourStar'][index];
         }
-        return  { ...result, star: 4 };
+        return { ...result, star: 4 };
     } else {
         const index = getRandomInt(table['threeStar'].length) - 1;
         result = table['threeStar'][index];
@@ -123,18 +123,18 @@ const gachaOnce = async ( userID, choice, table ) => {
 
 };
 
-const gachaTenTimes = async ( userID, nickname ) => {
+const gachaTenTimes = async (userID, nickname) => {
     const { choice } = await get('gacha', 'user', { userID });
     const gachaTable = await get('gacha', 'data', { gacha_type: choice });
-    
 
-    ( { name, five, four, isUp } = await getChoiceData(userID, choice) );
+
+    ({ name, five, four, isUp } = await getChoiceData(userID, choice));
 
     let result = { data: [], type: name, user: nickname }, data = {};
 
     for (let i = 1; i <= 10; ++i) {
         let res = await gachaOnce(userID, choice, gachaTable);
-        res['type'] =( res['item_type'] === '武器' ? types:element)[res['item_name']];
+        res['type'] = (res['item_type'] === '武器' ? types : element)[res['item_name']];
         result.data.push(res);
     }
 
@@ -144,6 +144,6 @@ const gachaTenTimes = async ( userID, nickname ) => {
     return result;
 };
 
-module.exports = async ( userID, nickname ) => {
+module.exports = async (userID, nickname) => {
     return await gachaTenTimes(userID, nickname);
 }

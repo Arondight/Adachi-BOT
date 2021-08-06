@@ -9,7 +9,7 @@ const __API = {
     FETCH_ROLE_CHARACTERS: 'https://api-takumi.mihoyo.com/game_record/genshin/api/character',
     FETCH_GACHA_LIST: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json',
     FETCH_GACHA_DETAIL: 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json',
-    FETCH_ABY_DETAIL:'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
+    FETCH_ABY_DETAIL: 'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
     FETCH_INFO: "http://localhost:9934/resources/Version2/info/docs/$.json",
 };
 
@@ -34,7 +34,7 @@ exports.getInfo = (name) => {
     return new Promise((resolve, reject) => {
         requests({
             method: 'GET',
-            url: __API.FETCH_INFO.replace( "$", encodeURI( name )),
+            url: __API.FETCH_INFO.replace("$", encodeURI(name)),
         })
             .then(res => {
                 resolve(JSON.parse(res));
@@ -45,7 +45,7 @@ exports.getInfo = (name) => {
     });
 }
 
-exports.getAbyDetail = (role_id,schedule_type, server, cookie) => {
+exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {
     return new Promise((resolve, reject) => {
         requests({
             method: "GET",
@@ -75,7 +75,7 @@ exports.getBase = (uid, cookie) => {
         requests({
             method: "GET",
             url: __API.FETCH_ROLE_ID,
-            qs: {uid},
+            qs: { uid },
             headers: {
                 ...HEADERS,
                 'DS': getDS(),

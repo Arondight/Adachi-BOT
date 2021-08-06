@@ -4,13 +4,13 @@ const { hasAuth, sendPrompt } = require('../../utils/auth');
 const render = require('../../utils/render');
 
 module.exports = async Message => {
-    let msg     = Message.raw_message;
-    let userID  = Message.user_id;
+    let msg = Message.raw_message;
+    let userID = Message.user_id;
     let groupID = Message.group_id;
-    let type    = Message.type;
-    let name    = Message.sender.nickname;
-    let sendID  = type === 'group' ? groupID : userID;
-    let dbInfo  = await getID(msg, userID);
+    let type = Message.type;
+    let name = Message.sender.nickname;
+    let sendID = type === 'group' ? groupID : userID;
+    let dbInfo = await getID(msg, userID);
     let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
     let uid, data;
 

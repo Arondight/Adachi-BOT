@@ -20,10 +20,10 @@ exports.loadPlugins = () => {
     return plugins;
 };
 
-exports.processed = ( qqData, plugins, type ) => {
+exports.processed = (qqData, plugins, type) => {
     if (qqData.message[0].type === 'text') {
         const command = getCommand(qqData.raw_message);
-        if (command){
+        if (command) {
             plugins[command]({ ...qqData, type });
             return true;
         }
@@ -36,7 +36,7 @@ const getCommand = msgData => {
     const commandConfig = loadYML('command');
 
     for (let command in commandConfig) {
-        if (commandConfig.hasOwnProperty(command)){
+        if (commandConfig.hasOwnProperty(command)) {
             for (let setting of commandConfig[command]) {
                 let reg = new RegExp(setting);
                 if (reg.test(msgData)) {

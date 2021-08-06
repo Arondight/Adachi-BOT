@@ -120,12 +120,10 @@
             );
           },
           typeImage() {
-		        const type = this.data.item_type === "武器" ? "type" : "element";
+            const type = this.data.item_type === "武器" ? "type" : "element";
             const name = this.data.type;
             return (
-              `http://localhost:9934/resources/gacha/${ type }/`+
-              name +
-              ".png"
+              `http://localhost:9934/resources/gacha/${type}/` + name + ".png"
             );
           },
         },

@@ -6,12 +6,12 @@ const parseData = async gachaID => {
     const data = await getGachaDetail(gachaID);
 
     let detail = {
-        gacha_type:     parseInt(data['gacha_type']),
-        upFourStar:     [],
-        upFiveStar:     [],
-        nonUpFourStar:  [],
-        nonUpFiveStar:  [],
-        threeStar:      []
+        gacha_type: parseInt(data['gacha_type']),
+        upFourStar: [],
+        upFiveStar: [],
+        nonUpFourStar: [],
+        nonUpFiveStar: [],
+        threeStar: []
     };
 
     data['r4_prob_list'].forEach(el => {
@@ -39,12 +39,12 @@ const parseData = async gachaID => {
 }
 
 exports.gachaUpdate = async () => {
-    const gachaInfo  = (await getGachaList()).data.list;
+    const gachaInfo = (await getGachaList()).data.list;
 
     if (gachaInfo[1] === undefined) {
         return;
     }
-    
+
     const getGachaCode = gachaID => {
         const gacha = gachaInfo.filter(el => el['gacha_type'] === gachaID);
         let maxTime = 0, tmpGacha;
@@ -59,8 +59,8 @@ exports.gachaUpdate = async () => {
     };
 
     const indefinite = await parseData(gachaInfo[0]['gacha_id']);
-    const character  = await parseData(getGachaCode(301));
-    const weapon     = await parseData(getGachaCode(302));
+    const character = await parseData(getGachaCode(301));
+    const weapon = await parseData(getGachaCode(302));
 
-    await set('gacha', 'data', [ indefinite, character, weapon ]);
+    await set('gacha', 'data', [indefinite, character, weapon]);
 }
