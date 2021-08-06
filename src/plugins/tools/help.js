@@ -1,5 +1,4 @@
-const helpMessage =
-    `🔘 绑定 <米游社通行证ID>
+const helpMessage = `🔘 绑定 <米游社通行证ID>
 🔘 改绑 <米游社通行证ID>
 🔘 米游社 [米游社通行证ID] 👉 查询并更新米游社ID的角色信息
 🔘 UID <游戏内UID> 👉 查询并更新此UID的角色信息
@@ -31,5 +30,5 @@ const helpMessage =
 📎 可选项不填通常约定自己、上一个或随机`;
 
 module.exports = async (id, type) => {
-    await bot.sendMessage(id, helpMessage, type);
-}
+  await bot.sendMessage(id, helpMessage, type);
+};
