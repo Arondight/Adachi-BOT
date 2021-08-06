@@ -18,7 +18,7 @@
           src="http://localhost:9934/resources/gacha/items/background.png"
           alt="ERROR"
         />
-        <p class="bg-info" style="z-index:9999">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
+        <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
       </div>
     </template>
 
@@ -28,11 +28,13 @@
         <img class="star-image" :src="starImage" alt="ERROR" />
         <div v-if="data.item_type === '武器'">
           <img class="weapon-image" :src="weaponImage" alt="ERROR" />
-          <p class="weapon-name">{{data.item_name}}</p>
+          <img class="weapon-image-shadow" :src="weaponImage" alt="ERROR" />
+          <!--<p class="weapon-name">{{data.item_name}}</p>-->
         </div>
         <div v-else>
           <img class="character-image" :src="characterImage" alt="ERROR" />
         </div>
+        <img class="type-image" :src="typeImage" alt="ERROR" />
         <div class="times" v-if="data.times !== undefined">
           「{{data.times}} 抽」
         </div>
@@ -117,6 +119,15 @@
               ".png"
             );
           },
+          typeImage() {
+		        const type = this.data.item_type === "武器" ? "type" : "element";
+            const name = this.data.type;
+            return (
+              `http://localhost:9934/resources/gacha/${ type }/`+
+              name +
+              ".png"
+            );
+          },
         },
       };
 
@@ -136,6 +147,7 @@
               star: 0,
               item_type: "",
               item_name: "",
+              type: "",
             },
           ],
           type: "",
