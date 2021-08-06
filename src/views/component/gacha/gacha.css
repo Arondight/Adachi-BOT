@@ -95,11 +95,11 @@ body {
 .times {
   position: absolute;
   z-index: 1;
-  width: 80px;
+  width: 100px;
   text-align: center;
-  font-size: 12px;
-  left: 16px;
-  top: 557px;
+  font-size: 20px;
+  left: 8px;
+  top: 380px;
   color: rgb(255, 255, 255);
   background-color: rgba(5, 5, 5, 0.3);
 }
