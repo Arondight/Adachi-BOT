@@ -133,6 +133,7 @@ env cp -rf ./{config,data}/ /tmp/
 git checkout ./
 git pull -p
 env cp -rf /tmp/{config,data}/ ./
+npm install
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
 ```
 
