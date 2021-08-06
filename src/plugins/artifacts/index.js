@@ -1,4 +1,4 @@
-const { getArtifact, domainInfo, domainMax } = require('./data.js');
+const { getArtifact, domainInfo, domainMax } = require('./artifacts.js');
 const { get, isInside, push } = require('../../utils/database');
 const { hasAuth, sendPrompt } = require('../../utils/auth');
 const render = require('../../utils/render');
