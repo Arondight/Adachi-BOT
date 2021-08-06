@@ -249,8 +249,9 @@ function fetch()
   done
 }
 
-function dealXML()
+function dealFIle()
 {
+  local type="$1" && shift
   local cmd="$1" && shift
   local msg="$1" && shift
   local files=($@)
@@ -258,22 +259,36 @@ function dealXML()
 
   for file in "${files[@]}"
   do
-    if [[ 'text/xml' == $(file --mime-type "$file" | \
-                          cut -d: -f2 | tr -d '[:space:]') ]]
+    if [[ -n "$type" ]]
     then
-      found=1
-
-      if [[ -n "$msg" ]]
+      if [[ "$type" != $(file --mime-type "$file" | \
+                            cut -d: -f2 | tr -d '[:space:]') ]]
       then
-        echo "$msg: ${file}"
+        continue
       fi
-
-      env -iS "$cmd" "$file"
     fi
+
+    found=1
+
+    if [[ -n "$msg" ]]
+    then
+      echo "$msg: ${file}"
+    fi
+
+    env -iS "$cmd" "$file"
   done
 
   # Here return an error code, 1-255, but it is enough
   return "$found"
+}
+
+function dealXML()
+{
+  local cmd="$1" && shift
+  local msg="$1" && shift
+  local files=($@)
+
+  dealFIle 'text/xml' "$cmd" "$msg" "${files[@]}"
 }
 
 function getOtherFiles()
@@ -362,7 +377,19 @@ function getWish()
 # ==============================================================================
 function syncCustom()
 {
-  cp -rf "$CUSTOM_RES"/* "$RDIR"
+  local files=($(find "$CUSTOM_RES" -type f))
+  local rpath
+  local thisdir
+
+  for file in "${files[@]}"
+  do
+    rpath="${file##${CUSTOM_RES}}"
+    thisdir="${RDIR}/$(dirname ${rpath})"
+
+    echo "Custom: ${rpath}"
+    mkdir -p "$thisdir"
+    cp -f "$file" "$thisdir"
+  done
 }
 
 function listXML()
