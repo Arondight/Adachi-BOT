@@ -278,8 +278,13 @@ function fetch()
     then
       if [[ -e "$localpath" ]]
       then
-        echo "Exist: ${upstream}"
-        continue
+        dealXML '' '' "$localpath"
+
+        if [[ 0 -eq "$?" ]]
+        then
+          echo "Exist: ${upstream}"
+          continue
+        fi
       fi
     fi
 
@@ -314,10 +319,14 @@ function dealFIle()
       echo "$msg: ${file}"
     fi
 
-    env -iS "$cmd" "$file"
+    if [[ -n "$cmd" ]]
+    then
+      env -iS "$cmd" "$file"
+    fi
   done
 
-  # Here return an error code, 1-255, but it is enough
+  # Bash returns an errcode here range 0 to 255,
+  # but we treat it as a boolean so it’s enough to use
   return "$found"
 }
 
@@ -328,6 +337,8 @@ function dealXML()
   local files=($@)
 
   dealFIle 'text/xml' "$cmd" "$msg" "${files[@]}"
+
+  return "$?"
 }
 
 function getOtherFiles()
