@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
 # 此脚本是为了将项目和原作者解绑，将资源文件本地化。
 # ==============================================================================
 RDIR=$(dirname $(readlink -f "$0"))
 # 此为原作者维护的 OSS，这里作为数据源更新本地数据。
+# 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
 # 脚本假定数据源不可信，所有的请求都不会依赖于某次请求的结果。
+# {
 API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
-CURL=('curl' '-s' '-C' '-')
+# }
 # 此本项目的资源文件，将会覆盖同名的原作者资源文件
+# {
 CUSTOM_RES=$(readlink -f "${RDIR}/../resources_custom/")
+# }
+CURL=('curl' '-s' '-C' '-')
 
 # ==============================================================================
 # 所有的游戏资源
@@ -27,12 +31,12 @@ HOMES=(
 # 所有的游戏角色。
 CHARS=(
   # 风
-  '温迪'     '琴'       '魈'       '砂糖'     '枫原万叶'
+  '温迪'     '琴'       '魈'       '砂糖'     '枫原万叶' '早柚'
   # 水
   '达达利亚' '莫娜'     '行秋'     '芭芭拉'
   # 火
   '迪卢克'   '可莉'     '胡桃'     '班尼特'   '香菱'     '安柏'     '辛焱'
-  '烟绯'
+  '烟绯'     '宵宫'
   # 冰
   '七七'     '甘雨'     '优菈'     '重云'     '迪奥娜'   '凯亚'     '罗莎莉亚'
   '神里绫华'
@@ -45,14 +49,14 @@ CHARS=(
 # 所有的游戏角色ID。新时需要请访问下面的 URL 查看 id 字段。
 # https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/角色名.json
 CHARIDS=(
-  # 温迪     琴         魈         砂糖       枫原万叶
+  # 温迪     琴         魈         砂糖       枫原万叶   早柚
   '10000022' '10000003' '10000026' '10000043' '10000047'
   # 达达利亚 莫娜       行秋       芭芭拉
   '10000033' '10000041' '10000025' '10000014'
   # 迪卢克   可莉       胡桃       班尼特     香菱       安柏       辛焱
   '10000016' '10000029' '10000046' '10000032' '10000023' '10000021' '10000044'
-  # 烟绯'
-  '10000048'
+  # 烟绯'    宵宫
+  '10000048' '10000050'
   # 七七     甘雨       优菈       重云       迪奥娜     凯亚       罗莎莉亚
   '10000035' '10000037' '10000051' '10000036' '10000039' '10000015' '10000045'
   # 神里绫华
@@ -123,7 +127,7 @@ MATERIALS=(
   '雾虚花粉'     '雾虚草囊'     '雾虚灯芯'
   '新兵的徽记'   '士官的徽记'   '尉官的徽记'
   # 世界 BOSS
-  '雷光棱镜'     '玄岩之塔'     '飓风之种'     '晶凝之华'
+  '雷光棱镜'     '玄岩之塔'     '飓风之种'     '晶凝之华'     '阴燃之珠'
   '常燃火种'     '极寒之核'
   '净水之心'
   '未熟之玉'     '魔偶机心'     '恒常机关之心'
@@ -140,21 +144,23 @@ MATERIALS=(
   '「繁荣」的教导' '「繁荣」的指引' '「繁荣」的哲学'
   '「黄金」的教导' '「黄金」的指引' '「黄金」的哲学'
   '「风雅」的教导' '「风雅」的指引' '「风雅」的哲学'
+  '「浮世」的教导' '「浮世」的指引' '「浮世」的哲学'
+  '「天光」的教导' '「天光」的指引' '「天光」的哲学'
   # 武器本
   '高塔孤王的残垣' '高塔孤王的断片' '高塔孤王的破瓦' '高塔孤王的碎梦'
-  '孤云寒林的光砂' '孤云寒林的辉岩' '孤云寒林的神体' '孤云寒林的圣骸'
-  '今昔剧画之鬼人' '今昔剧画之虎啮' '今昔剧画之恶尉' '今昔剧画之一角'
-  '凛风奔狼的断牙' '凛风奔狼的怀乡' '凛风奔狼的裂齿' '凛风奔狼的始龀'
-  '鸣神御灵的欢喜' '鸣神御灵的明慧' '鸣神御灵的亲爱' '鸣神御灵的勇武'
-  '漆黑陨铁的一角' '漆黑陨铁的一块' '漆黑陨铁的一粒' '漆黑陨铁的一片'
   '狮牙斗士的枷锁' '狮牙斗士的理想' '狮牙斗士的镣铐' '狮牙斗士的铁链'
+  '凛风奔狼的断牙' '凛风奔狼的怀乡' '凛风奔狼的裂齿' '凛风奔狼的始龀'
+  '孤云寒林的光砂' '孤云寒林的辉岩' '孤云寒林的神体' '孤云寒林的圣骸'
+  '漆黑陨铁的一角' '漆黑陨铁的一块' '漆黑陨铁的一粒' '漆黑陨铁的一片'
   '雾海云间的汞丹' '雾海云间的金丹' '雾海云间的铅丹' '雾海云间的转还'
   '远海夷地的瑚枝' '远海夷地的金枝' '远海夷地的琼枝' '远海夷地的玉枝'
+  '今昔剧画之鬼人' '今昔剧画之虎啮' '今昔剧画之恶尉' '今昔剧画之一角'
+  '鸣神御灵的欢喜' '鸣神御灵的明慧' '鸣神御灵的亲爱' '鸣神御灵的勇武'
   # 角色升级材料
   '嘟嘟莲'       '绯樱绣球'     '风车菊'       '钩钩果'       '海灵芝'
   '绝云椒椒'     '琉璃百合'     '琉璃袋'       '落落莓'       '慕风蘑菇'
   '霓裳花'       '蒲公英籽'     '清心'         '塞西莉亚花'   '石珀'
-  '小灯草'       '星螺'         '夜泊石'
+  '小灯草'       '星螺'         '夜泊石'       '鸣草'         '晶化骨髓'
 )
 
 # ==============================================================================
@@ -236,20 +242,48 @@ function check()
 function fetch()
 {
   local api="$1" && shift
+  local skipImage="$1" && shift
   local suffix="$1" && shift
   local sources=($@)
   local wdir="${RDIR}/${api}"
   local upstream
   local localpath
+  local skipExist
+  local fileSuffix
+
+  if [[ -z "$skipImage" ]]
+  then
+    skipImage=1
+  fi
 
   for src in "${sources[@]}"
   do
     upstream="${api}/${src}${suffix}"
     localpath="${wdir}/${src}${suffix}"
+    skipExist=0
+    fileSuffix=${upstream##*.}
 
     mkdir -p $(dirname "$localpath")
 
-    echo "Fetch: ${upstream} => ${localpath}"
+    if [[ 1 -eq "$skipImage" ]]
+    then
+      case "$fileSuffix" in
+        png)   skipExist=1 ;;
+        jpg)   skipExist=1 ;;
+        *)                  ;;
+      esac
+    fi
+
+    if [[ 1 -eq "$skipExist" ]]
+    then
+      if [[ -e "$localpath" ]]
+      then
+        echo "Exist: ${upstream}"
+        continue
+      fi
+    fi
+
+    echo "Fetch: ${upstream}"
     command "${CURL[@]}" "${API}/${upstream}" -o "$localpath"
   done
 }
@@ -298,29 +332,29 @@ function dealXML()
 
 function getOtherFiles()
 {
-  fetch '' '' "${OTHER_FILES[@]}"
+  fetch '' 0 '' "${OTHER_FILES[@]}"
 }
 
 function getGacha()
 {
-  fetch "$API_GACHA_ITEMS" '' "${API_GACHA_ITEMS_FILES[@]}"
+  fetch "$API_GACHA_ITEMS" 0 '' "${API_GACHA_ITEMS_FILES[@]}"
 }
 
 function getMoudle()
 {
-  fetch "$API_MODULE" '' "${API_MODULE_FILES[@]}"
-  fetch "$API2_MODULE" '' "${API2_MODULE_FILES[@]}"
+  fetch "$API_MODULE" 0 '' "${API_MODULE_FILES[@]}"
+  fetch "$API2_MODULE" 0 '' "${API2_MODULE_FILES[@]}"
 }
 
 function getWeapon()
 {
-  fetch "$API2_WEAPON" '.png' "${WEAPONS[@]}"
+  fetch "$API2_WEAPON" 1 '.png' "${WEAPONS[@]}"
 }
 
 function getItem()
 {
-  fetch "$API_ITEM" '' "${API_ITEM_FILES[@]}"
-  fetch "$API_ITEM" '.png' "${HOMES[@]}"
+  fetch "$API_ITEM" 0 '' "${API_ITEM_FILES[@]}"
+  fetch "$API_ITEM" 1 '.png' "${HOMES[@]}"
 }
 
 function getInfo()
@@ -335,10 +369,10 @@ function getInfo()
     done
   done
 
-  fetch "$API2_INFO_DOCS" '.json' "${CHARS[@]}"
-  fetch "$API2_INFO_DOCS" '.json' "${WEAPONS[@]}"
-  fetch "$API2_INFO_OTHER" '' "${files[@]}"
-  fetch "$API2_INFO_IMAGE" '.png' "${MATERIALS[@]}"
+  fetch "$API2_INFO_DOCS" 0 '.json' "${CHARS[@]}"
+  fetch "$API2_INFO_DOCS" 0 '.json' "${WEAPONS[@]}"
+  fetch "$API2_INFO_OTHER" 0 '' "${files[@]}"
+  fetch "$API2_INFO_IMAGE" 1 '.png' "${MATERIALS[@]}"
 }
 
 function getArtifacts()
@@ -353,25 +387,25 @@ function getArtifacts()
     done
   done
 
-  fetch "$API2_ARTIFACT" '' "${API2_ARTIFACT_FILES[@]}"
-  fetch "$API2_ARTIFACT" '' "${files[@]}"
-  fetch "$API2_ARTIFACT_OTHER" '.png' $(seq 1 5)
-  fetch "$API2_ARTIFACT_OTHER" '' "${API2_ARTIFACT_OTHER_FILES[@]}"
+  fetch "$API2_ARTIFACT" 0 '' "${API2_ARTIFACT_FILES[@]}"
+  fetch "$API2_ARTIFACT" 1 '' "${files[@]}"
+  fetch "$API2_ARTIFACT_OTHER" 1 '.png' $(seq 1 5)
+  fetch "$API2_ARTIFACT_OTHER" 0 '' "${API2_ARTIFACT_OTHER_FILES[@]}"
 }
 
 function getCharacter()
 {
-  fetch "$API_CHARACTER_PROFILE" '.png' "${CHARIDS[@]}"
-  fetch "$API2_CHARACTER" '.png' "${CHARIDS[@]}"
+  fetch "$API_CHARACTER_PROFILE" 1 '.png' "${CHARIDS[@]}"
+  fetch "$API2_CHARACTER" 1 '.png' "${CHARIDS[@]}"
 }
 
 function getWish()
 {
   local files=()
 
-  fetch "$API2_WISH_CONFIG" '' "${API2_WISH_CONFIG_FILES[@]}"
-  fetch "$API2_WISH_CHARACTER" '.png' "${CHARS[@]}"
-  fetch "$API2_WISH_WEAPON" '.png' "${WEAPONS[@]}"
+  fetch "$API2_WISH_CONFIG" 0 '' "${API2_WISH_CONFIG_FILES[@]}"
+  fetch "$API2_WISH_CHARACTER" 1 '.png' "${CHARS[@]}"
+  fetch "$API2_WISH_WEAPON" 1 '.png' "${WEAPONS[@]}"
   # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片，删除这些垃圾文件
   files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
   dealXML 'rm -f' 'Delete' "${files[@]}"
