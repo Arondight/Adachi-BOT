@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Error>
-  <Code>NoSuchKey</Code>
-  <Message>The specified key does not exist.</Message>
-  <RequestId>611319E4C93F783338229D2B</RequestId>
-  <HostId>adachi-bot.oss-cn-beijing.aliyuncs.com</HostId>
-  <Key>characters/profile/10000053.png</Key>
-</Error>

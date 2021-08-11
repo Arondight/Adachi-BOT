@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Error>
-  <Code>NoSuchKey</Code>
-  <Message>The specified key does not exist.</Message>
-  <RequestId>611319DAA645AE3530AE542C</RequestId>
-  <HostId>adachi-bot.oss-cn-beijing.aliyuncs.com</HostId>
-  <Key>Version2/weapon/降临之剑.png</Key>
-</Error>

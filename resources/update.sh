@@ -274,6 +274,7 @@ function fetch()
     then
       if [[ -e "$localpath" ]]
       then
+        # Override any XML files
         dealXML '' '' "$localpath"
 
         if [[ 0 -eq "$?" ]]
@@ -286,9 +287,18 @@ function fetch()
 
     echo -e "Fetch\t${upstream}"
     command "${CURL[@]}" "${API}/${upstream}" -o "$localpath"
+
+    # If get XML file, try to checkout it
+    dealXML \
+      'git ls-files --error-unmatch {} >/dev/null 2>&1 && git checkout -q {}' \
+      'Revert' \
+      "$localpath"
   done
 }
 
+# About the second parameter cmd ...
+#   1. If it contains the string "{}", then "{}" will be replaced with the file path
+#   2. If not, then the file path will be automatically added to the end
 function dealFIle()
 {
   local type="$1" && shift
@@ -317,7 +327,13 @@ function dealFIle()
 
     if [[ -n "$cmd" ]]
     then
-      env -iS "$cmd" "$file"
+      if ( echo "$cmd" | grep '{}' >/dev/null 2>&1 )
+      then
+        cmd=$(echo "$cmd" | sed "s|{}|${file}|g")
+        env -iS "bash -c '$cmd'"
+      else
+        env -iS "$cmd" "$file"
+      fi
     fi
   done
 
@@ -443,8 +459,7 @@ function listXML()
   echo 'Search and delete XML files ...'
 
   # 阿里云 OSS 请求不到的资源会返回一个 XML 文件，删除这些垃圾文件
-  files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
-  dealXML 'rm -f' 'Delete' "${files[@]}"
+  dealXML 'rm -f {}' 'Delete' "${files[@]}"
   hasXML="$?"
 
   if [[ 0 -eq "$hasXML" ]]
