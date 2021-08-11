@@ -46,8 +46,8 @@ CHARS=(
   '钟离'     '阿贝多'   '凝光'     '诺艾尔'
 )
 # ==============================================================================
-# 所有的游戏角色ID。新时需要请访问下面的 URL 查看 id 字段。
-# https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/角色名.json
+# 所有的游戏角色ID。
+# https://github.com/Arondight/Adachi-BOT/issues/20
 CHARIDS=(
   # 温迪     琴         魈         砂糖       枫原万叶   早柚
   '10000022' '10000003' '10000026' '10000043' '10000047' '10000053'
