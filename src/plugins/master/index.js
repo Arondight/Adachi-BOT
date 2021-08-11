@@ -74,10 +74,10 @@ module.exports = async (Message) => {
     case msg.includes("圣遗物权限"):
       await setArtifactAuth(msg, sendID, type);
       break;
-    case msg.includes("UID权限"):
+    case msg.includes("游戏数据权限"):
       await setQueryGameInfoAuth(msg, sendID, type);
       break;
-    case msg.includes("数据查询权限"):
+    case msg.includes("官方数据权限"):
       await setCharacterOverviewAuth(msg, sendID, type);
       break;
     case msg.includes("刷新卡池"):
