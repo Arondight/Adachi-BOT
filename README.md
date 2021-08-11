@@ -129,10 +129,9 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 startup
 进入`Adachi-BOT`项目所在目录。
 
 ```
-env cp -rf ./{config,data}/ /tmp/
-git checkout ./
+git stash push .
 git pull -p
-env cp -rf /tmp/{config,data}/ ./
+git stash pop
 npm install
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
 ```

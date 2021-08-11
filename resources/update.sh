@@ -338,7 +338,8 @@ function dealFIle()
   done
 
   # Bash returns an errcode here range 0 to 255,
-  # but we treat it as a boolean so it’s enough to use
+  # but we treat it as a boolean so it’s enough to use.
+  # XXX It is strange to use errcode as a boolean
   return "$found"
 }
 
