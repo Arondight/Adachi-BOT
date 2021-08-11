@@ -25,7 +25,7 @@ module.exports = async (Message) => {
         }
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 通行证绑定成功，使用【米游社】来查询游戏信息`,
+          `[CQ:at,qq=${userID}] 通行证绑定成功，使用【米游社】来查询游戏信息并更新你的游戏角色`,
           type
         );
       } else {
@@ -40,7 +40,7 @@ module.exports = async (Message) => {
         await update("map", "user", { userID }, { mhyID });
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 通行证改绑成功`,
+          `[CQ:at,qq=${userID}] 通行证改绑成功，使用【米游社】来查询游戏信息并更新你的游戏角色`,
           type
         );
       } else {
