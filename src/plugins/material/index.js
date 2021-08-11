@@ -13,11 +13,11 @@ module.exports = async (Message) => {
     "/"
   );
   let weaponURL =
-    "https://upload-bbs.mihoyo.com/upload/2021/07/22/75833613/c09ceb516fe4ec34b124ddd77de659db_819114535348518207.png";
+    "https://upload-bbs.mihoyo.com/upload/2021/08/10/75833613/192b2ab65c0af9b5d3659a6082651d78_3913787346557107046.png";
   let talentURL =
-    "https://upload-bbs.mihoyo.com/upload/2021/07/22/75833613/0dd284b10c7541e960fe4f8fdabef14a_7320203396734694053.png";
+    "https://upload-bbs.mihoyo.com/upload/2021/08/10/75833613/79c2de06b8c3f58215cddf3cf59020bf_1738298545314725111.png";
   let weeklyURL =
-    "https://upload-bbs.mihoyo.com/upload/2021/07/22/75833613/e447aac7cd51c5d034f6b278da5b6d94_6414867999308885693.png";
+    "https://upload-bbs.mihoyo.com/upload/2021/08/10/75833613/30666c4703cf601f53df15adb41dc621_1100661652843678873.png";
   let thisURL = weeklyURL;
 
   imageCache.setOptions({
