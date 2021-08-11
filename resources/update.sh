@@ -13,7 +13,7 @@ API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 # {
 CUSTOM_RES=$(readlink -f "${RDIR}/../resources_custom/")
 # }
-CURL=('curl' '-s' '-C' '-')
+CURL=('curl' '-s')
 
 # ==============================================================================
 # 所有的游戏资源
@@ -50,13 +50,13 @@ CHARS=(
 # https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/info/docs/角色名.json
 CHARIDS=(
   # 温迪     琴         魈         砂糖       枫原万叶   早柚
-  '10000022' '10000003' '10000026' '10000043' '10000047'
+  '10000022' '10000003' '10000026' '10000043' '10000047' '10000053'
   # 达达利亚 莫娜       行秋       芭芭拉
   '10000033' '10000041' '10000025' '10000014'
   # 迪卢克   可莉       胡桃       班尼特     香菱       安柏       辛焱
   '10000016' '10000029' '10000046' '10000032' '10000023' '10000021' '10000044'
   # 烟绯'    宵宫
-  '10000048' '10000050'
+  '10000048' '10000049'
   # 七七     甘雨       优菈       重云       迪奥娜     凯亚       罗莎莉亚
   '10000035' '10000037' '10000051' '10000036' '10000039' '10000015' '10000045'
   # 神里绫华
@@ -242,7 +242,7 @@ function check()
 function fetch()
 {
   local api="$1" && shift
-  local skipImage="$1" && shift
+  local skipFile="$1" && shift
   local suffix="$1" && shift
   local sources=($@)
   local wdir="${RDIR}/${api}"
@@ -251,9 +251,9 @@ function fetch()
   local skipExist
   local fileSuffix
 
-  if [[ -z "$skipImage" ]]
+  if [[ -z "$skipFile" ]]
   then
-    skipImage=1
+    skipFile=1
   fi
 
   for src in "${sources[@]}"
@@ -265,13 +265,9 @@ function fetch()
 
     mkdir -p $(dirname "$localpath")
 
-    if [[ 1 -eq "$skipImage" ]]
+    if [[ 1 -eq "$skipFile" ]]
     then
-      case "$fileSuffix" in
-        png)   skipExist=1 ;;
-        jpg)   skipExist=1 ;;
-        *)                  ;;
-      esac
+      skipExist=1
     fi
 
     if [[ 1 -eq "$skipExist" ]]
@@ -282,13 +278,13 @@ function fetch()
 
         if [[ 0 -eq "$?" ]]
         then
-          echo "Exist: ${upstream}"
+          echo -e "Exist\t${upstream}"
           continue
         fi
       fi
     fi
 
-    echo "Fetch: ${upstream}"
+    echo -e "Fetch\t${upstream}"
     command "${CURL[@]}" "${API}/${upstream}" -o "$localpath"
   done
 }
@@ -316,7 +312,7 @@ function dealFIle()
 
     if [[ -n "$msg" ]]
     then
-      echo "$msg: ${file}"
+      echo -e "${msg}\t${file}"
     fi
 
     if [[ -n "$cmd" ]]
@@ -417,9 +413,6 @@ function getWish()
   fetch "$API2_WISH_CONFIG" 0 '' "${API2_WISH_CONFIG_FILES[@]}"
   fetch "$API2_WISH_CHARACTER" 1 '.png' "${CHARS[@]}"
   fetch "$API2_WISH_WEAPON" 1 '.png' "${WEAPONS[@]}"
-  # 有一些武器无法通过抽卡获得，此 API 不提供这些武器的图片，删除这些垃圾文件
-  files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
-  dealXML 'rm -f' 'Delete' "${files[@]}"
 }
 
 # ==============================================================================
@@ -436,7 +429,7 @@ function syncCustom()
     rpath="${file##${CUSTOM_RES}}"
     thisdir="${RDIR}/$(dirname ${rpath})"
 
-    echo "Custom: ${rpath}"
+    echo -e "Custom\t${rpath}"
     mkdir -p "$thisdir"
     cp -f "$file" "$thisdir"
   done
@@ -447,9 +440,11 @@ function listXML()
   local files=($(find "$RDIR" -type f))
   local hasXML=0
 
-  echo 'Here some XML files below:'
+  echo 'Search and delete XML files ...'
 
-  dealXML 'echo' '' "${files[@]}"
+  # 阿里云 OSS 请求不到的资源会返回一个 XML 文件，删除这些垃圾文件
+  files=($(find "${RDIR}/${API2_WISH_WEAPON}" -type f))
+  dealXML 'rm -f' 'Delete' "${files[@]}"
   hasXML="$?"
 
   if [[ 0 -eq "$hasXML" ]]
