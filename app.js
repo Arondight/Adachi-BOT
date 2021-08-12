@@ -1,6 +1,5 @@
 const { createClient } = require("oicq");
 const { loadPlugins, loadYML, processed } = require("./src/utils/load");
-const { getRandomInt } = require("./src/utils/rand");
 const botEnvironment = require("./src/utils/init");
 
 const Setting = loadYML("setting");
@@ -11,6 +10,7 @@ if ([1, 2, 3, 4, 5].includes(Setting["account"].platform)) {
   platform = Setting["account"].platform;
 }
 
+let REPEATPROB = parseInt(Setting["repeatProb"]);
 let BOT = createClient(Setting["account"].qq, {
   log_level: "debug",
   platform: platform,
@@ -34,7 +34,7 @@ BOT.sendMaster = async (id, msg, type) => {
 
 global.bot = BOT;
 global.master = Setting["master"];
-global.repeatProb = parseInt(Setting["repeatProb"]);
+global.repeatProb = REPEATPROB ? REPEATPROB : 0;
 
 const run = async () => {
   // 处理登录滑动验证码
@@ -65,20 +65,27 @@ const run = async () => {
 run().then(() => {
   botEnvironment();
   const plugins = loadPlugins();
-  let repeat = repeatProb ? repeatProb : 0;
 
-  bot.logger.info("群消息复读的概率为 " + repeat + "%");
-  ++repeat;
+  bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
+  ++repeatProb;
 
+  // 监听群消息
   bot.on("message.group", async (msgData) => {
-    if (!processed(msgData, plugins, "group")) {
-      if (getRandomInt(100) < repeat) {
-        await bot.sendMessage(msgData.group_id, msgData.raw_message, "group");
-      }
-    }
+    processed(msgData, plugins, "group");
   });
 
+  // 监听好友消息
   bot.on("message.private", async (msgData) => {
     processed(msgData, plugins, "private");
+  });
+
+  // 监听加好友事件
+  bot.on("notice.friend.increase", async (msgData) => {
+    processed(msgData, plugins, "friend.increase");
+  });
+
+  // 监听入群事件
+  bot.on("notice.group.increase", async (msgData) => {
+    processed(msgData, plugins, "group.increase");
   });
 });
