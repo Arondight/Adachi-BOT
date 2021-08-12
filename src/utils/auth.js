@@ -4,9 +4,8 @@ exports.isMaster = (userID) => {
   return userID === master;
 };
 
-exports.sendPrompt = async (id, name, auth, type) => {
-  let you = type === "group" ? "本群" : name;
-  await bot.sendMessage(id, `${you}无${auth}权限`, type);
+exports.sendPrompt = async (sendID, userID, name, auth, type) => {
+  await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您当前无${auth}权限`, type);
 };
 
 exports.setAuth = async (auth, target, isOn) => {

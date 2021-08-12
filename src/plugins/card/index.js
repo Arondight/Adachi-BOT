@@ -23,7 +23,7 @@ module.exports = async (Message) => {
     uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, name, "查询游戏内信息", type);
+    await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
     return;
   }
 

@@ -1,4 +1,5 @@
 const { get } = require("../../utils/database");
+const { hasAuth, sendPrompt } = require("../../utils/auth");
 const { errMsg, musicID, musicSrc } = require("./music");
 
 module.exports = async (Message) => {
@@ -9,6 +10,11 @@ module.exports = async (Message) => {
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
   let ret, data, src;
+
+  if (!(await hasAuth(userID, "music")) || !(await hasAuth(sendID, "music"))) {
+    await sendPrompt(sendID, userID, name, "点歌", type);
+    return;
+  }
 
   switch (true) {
     case msg.includes("点歌"):

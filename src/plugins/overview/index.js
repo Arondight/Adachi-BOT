@@ -16,7 +16,7 @@ module.exports = async (Message) => {
     !(await hasAuth(userID, "overview")) ||
     !(await hasAuth(sendID, "overview"))
   ) {
-    await sendPrompt(sendID, name, "查询游戏数据", type);
+    await sendPrompt(sendID, userID, name, "查询游戏数据", type);
     return;
   }
 

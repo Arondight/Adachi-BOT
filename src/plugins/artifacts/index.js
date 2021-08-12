@@ -29,7 +29,7 @@ module.exports = async (Message) => {
     !(await hasAuth(userID, "artifact")) ||
     !(await hasAuth(sendID, "artifact"))
   ) {
-    await sendPrompt(sendID, name, "抽取圣遗物", type);
+    await sendPrompt(sendID, userID, name, "抽取圣遗物", type);
     return;
   }
 

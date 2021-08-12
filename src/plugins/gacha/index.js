@@ -28,7 +28,7 @@ module.exports = async (Message) => {
   await userInitialize(userID);
 
   if (!(await hasAuth(userID, "gacha")) || !(await hasAuth(sendID, "gacha"))) {
-    await sendPrompt(sendID, name, "祈愿十连", type);
+    await sendPrompt(sendID, userID, name, "祈愿十连", type);
     return;
   }
 

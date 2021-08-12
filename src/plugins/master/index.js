@@ -18,6 +18,12 @@ const setFeedbackAuth = async (msg, id, type) => {
   await response(id, target, "带话", type, isOn ? "开启" : "关闭");
 };
 
+const setMusicAuth = async (msg, id, type) => {
+  let [target, isOn] = parse(msg);
+  await setAuth("music", target, isOn);
+  await response(id, target, "点歌", type, isOn ? "开启" : "关闭");
+};
+
 const setGachaAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("gacha", target, isOn);
@@ -67,6 +73,9 @@ module.exports = async (Message) => {
   switch (true) {
     case msg.includes("带话权限"):
       await setFeedbackAuth(msg, sendID, type);
+      break;
+    case msg.includes("点歌权限"):
+      await setMusicAuth(msg, sendID, type);
       break;
     case msg.includes("十连权限"):
       await setGachaAuth(msg, sendID, type);
