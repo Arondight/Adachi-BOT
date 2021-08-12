@@ -22,7 +22,8 @@ exports.loadPlugins = () => {
 };
 
 exports.processed = (qqData, plugins, type) => {
-  let helloStr = `提瓦特第一可爱来了，说 help 来开始我们的第一次互动吧！`;
+  let helloStr = `提瓦特第一可爱上线了，说 help 与我互动吧！`;
+  let onlineStr = helloStr;
 
   // 如果好友增加了，向增加的好友问好
   if (type === "friend.increase") {
@@ -50,6 +51,16 @@ exports.processed = (qqData, plugins, type) => {
   if (type === "group") {
     if (getRandomInt(100) < repeatProb) {
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
+    }
+    return;
+  }
+
+  // 如果是机器人上线，所有群发送一遍上线通知
+  if (type === "online") {
+    if (groupHello) {
+      bot.gl.forEach((group) => {
+        bot.sendMessage(group.group_id, onlineStr, "group");
+      });
     }
     return;
   }

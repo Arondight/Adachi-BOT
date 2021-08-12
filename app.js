@@ -11,6 +11,7 @@ if ([1, 2, 3, 4, 5].includes(Setting["account"].platform)) {
 }
 
 let REPEATPROB = parseInt(Setting["repeatProb"]);
+let GROUPHELLO = parseInt(Setting["groupHello"]);
 let BOT = createClient(Setting["account"].qq, {
   log_level: "debug",
   platform: platform,
@@ -34,7 +35,8 @@ BOT.sendMaster = async (id, msg, type) => {
 
 global.bot = BOT;
 global.master = Setting["master"];
-global.repeatProb = REPEATPROB ? REPEATPROB : 0;
+global.repeatProb = REPEATPROB ? REPEATPROB : 0;    // 未配置则不复读群消息
+global.groupHello = GROUPHELLO ? GROUPHELLO : 0;    // 未配置则不发送群通知
 
 const run = async () => {
   // 处理登录滑动验证码
@@ -68,6 +70,11 @@ run().then(() => {
 
   bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
   ++repeatProb;
+
+  // 上线所有群发送一遍通知
+  bot.on("system.online", async (msgData) => {
+    processed(msgData, plugins, "online");
+  });
 
   // 监听群消息
   bot.on("message.group", async (msgData) => {
