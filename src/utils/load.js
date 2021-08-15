@@ -2,6 +2,7 @@ const fs = require("fs");
 const yaml = require("js-yaml");
 const path = require("path");
 const { getRandomInt } = require("./rand");
+const { hasAuth } = require("./auth");
 
 const loadYML = (name) => {
   return yaml.load(fs.readFileSync(`./config/${name}.yml`, "utf-8"));
@@ -36,8 +37,9 @@ exports.processed = (qqData, plugins, type) => {
     return;
   }
 
-  // 如果是命令，指派插件处理命令
-  if (qqData.hasOwnProperty("message") && qqData.message[0].type === "text") {
+  // 如果没有歇逼，而且收到的信息是命令，指派插件处理命令
+  if (!hasAuth(id, "die") && qqData.hasOwnProperty("message")
+        && qqData.message[0].type === "text") {
     const command = getCommand(qqData.raw_message);
 
     if (command) {
@@ -58,7 +60,9 @@ exports.processed = (qqData, plugins, type) => {
   if (type === "online") {
     if (groupHello) {
       bot.gl.forEach((group) => {
-        bot.sendMessage(group.group_id, greetingOnline, "group");
+        let greeting = hasAuth(group.group_id, "die")
+                        ? greetingDie : greetingOnline;
+        bot.sendMessage(group.group_id, greeting, "group");
       });
     }
     return;

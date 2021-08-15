@@ -9,48 +9,54 @@ const parse = (msg) => {
 };
 
 const response = async (id, target, auth, type, isOn) => {
-  await bot.sendMessage(id, `${target}的${auth}权限已${isOn}`, type);
+  await bot.sendMessage(id, `我已经开始${isOn}${target}的${auth}要求！`, type);
 };
 
 const setFeedbackAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("feedback", target, isOn);
-  await response(id, target, "带话", type, isOn ? "开启" : "关闭");
+  await response(id, target, "带话", type, isOn ? "允许" : "拒绝");
 };
 
 const setMusicAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("music", target, isOn);
-  await response(id, target, "点歌", type, isOn ? "开启" : "关闭");
+  await response(id, target, "点歌", type, isOn ? "允许" : "拒绝");
 };
 
 const setGachaAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("gacha", target, isOn);
-  await response(id, target, "祈愿十连", type, isOn ? "开启" : "关闭");
+  await response(id, target, "祈愿十连", type, isOn ? "允许" : "拒绝");
 };
 
 const setArtifactAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("artifact", target, isOn);
-  await response(id, target, "抽取圣遗物", type, isOn ? "开启" : "关闭");
+  await response(id, target, "抽取圣遗物", type, isOn ? "允许" : "拒绝");
 };
 
 const setQueryGameInfoAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("query", target, isOn);
-  await response(id, target, "查询游戏内信息", type, isOn ? "开启" : "关闭");
+  await response(id, target, "查询游戏内信息", type, isOn ? "允许" : "拒绝");
 };
 
 const setCharacterOverviewAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("overview", target, isOn);
-  await response(id, target, "查询官方信息", type, isOn ? "开启" : "关闭");
+  await response(id, target, "查询官方信息", type, isOn ? "允许" : "拒绝");
+};
+
+const setDieAuth = async (msg, id, type) => {
+  let [target, isOn] = parse(msg);
+  await setAuth("die", target, isOn);
+  await bot.sendMessage(id, `我已经在${target}面前歇逼了。`, type);
 };
 
 const refreshWishDetail = async (id, type) => {
   gachaUpdate();
-  await bot.sendMessage(id, "卡池内容已刷新", type);
+  await bot.sendMessage(id, "卡池内容已刷新。", type);
 };
 
 module.exports = async (Message) => {
@@ -64,7 +70,7 @@ module.exports = async (Message) => {
   if (!isMaster(userID)) {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 不能使用管理命令`,
+      `[CQ:at,qq=${userID}] 不能使用管理命令。`,
       type
     );
     return;
@@ -88,6 +94,9 @@ module.exports = async (Message) => {
       break;
     case msg.includes("官方数据权限"):
       await setCharacterOverviewAuth(msg, sendID, type);
+      break;
+    case msg.includes("歇逼"):
+      await setDieAuth(msg, sendID, type);
       break;
     case msg.includes("刷新卡池"):
       await refreshWishDetail(sendID, type);
