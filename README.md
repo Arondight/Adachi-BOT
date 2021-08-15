@@ -102,7 +102,7 @@ sudo firewall-cmd --list-all
 
 | 文件 | 作用 |
 | --- | --- |
-| [config/setting.yml](config/setting.yml) | QQ号登录选项 |
+| [config/setting.yml](config/setting.yml) | 基本配置选项 |
 | [config/cookies.yml](config/cookies.yml) | 米游社Cookie |
 
 ### 运行
@@ -191,6 +191,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
 | 给主人带个话 | 插件 | ❌ |
 | 管理功能 | 插件 | ❌ |
 | 随机复读群信息 | 自有功能 | ❌ |
+| 停止响应指定群 | 自有功能 | ❌ |
 | 自我介绍 | 自有功能 | ❌ |
 | 上线通知 | 自有功能 | ❌ |
 
