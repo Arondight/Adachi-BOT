@@ -22,16 +22,15 @@ exports.loadPlugins = () => {
 };
 
 exports.processed = (qqData, plugins, type) => {
-  let helloStr = `提瓦特第一可爱上线了，说 help 与我互动吧！`;
   let onlineStr = helloStr;
 
-  // 如果好友增加了，向增加的好友问好
+  // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
-    bot.sendMessage(qqData.user_id, helloStr, "private");
+    bot.sendMessage(qqData.user_id, greetingNew, "private");
     return;
   }
 
-  // 如果群增加了，向增加的群问好
+  // 如果有新群友加入或者加入了新群，向新朋友问好
   if (type === "group.increase") {
     bot.sendMessage(qqData.group_id, helloStr, "group");
     return;
@@ -59,7 +58,7 @@ exports.processed = (qqData, plugins, type) => {
   if (type === "online") {
     if (groupHello) {
       bot.gl.forEach((group) => {
-        bot.sendMessage(group.group_id, onlineStr, "group");
+        bot.sendMessage(group.group_id, greetingOnline, "group");
       });
     }
     return;

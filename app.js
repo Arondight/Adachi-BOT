@@ -3,15 +3,19 @@ const { loadPlugins, loadYML, processed } = require("./src/utils/load");
 const botEnvironment = require("./src/utils/init");
 
 const Setting = loadYML("setting");
-let platform = 1;
+const Greeting = loadYML("greeting");
 
 // 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
+let platform = 1;
 if ([1, 2, 3, 4, 5].includes(Setting["account"].platform)) {
   platform = Setting["account"].platform;
 }
 
+let MASTER = Setting["master"];
 let REPEATPROB = parseInt(Setting["repeatProb"]);
 let GROUPHELLO = parseInt(Setting["groupHello"]);
+let GREETING_ONLINE = Greeting["online"];
+let GREETING_NEW = Greeting["new"];
 let BOT = createClient(Setting["account"].qq, {
   log_level: "debug",
   platform: platform,
@@ -34,9 +38,11 @@ BOT.sendMaster = async (id, msg, type) => {
 };
 
 global.bot = BOT;
-global.master = Setting["master"];
+global.master = MASTER;
 global.repeatProb = REPEATPROB ? REPEATPROB : 0;    // 未配置则不复读群消息
 global.groupHello = GROUPHELLO ? GROUPHELLO : 0;    // 未配置则不发送群通知
+global.greetingOnline = GREETING_ONLINE;
+global.greetingNew = GREETING_NEW;
 
 const run = async () => {
   // 处理登录滑动验证码
