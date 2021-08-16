@@ -40,8 +40,8 @@ BOT.sendMaster = async (id, msg, type) => {
 
 global.bot = BOT;
 global.master = MASTER;
-global.repeatProb = REPEATPROB ? REPEATPROB : 0;    // 未配置则不复读群消息
-global.groupHello = GROUPHELLO ? GROUPHELLO : 0;    // 未配置则不发送群通知
+global.repeatProb = REPEATPROB ? REPEATPROB : 0; // 未配置则不复读群消息
+global.groupHello = GROUPHELLO ? GROUPHELLO : 0; // 未配置则不发送群通知
 global.greetingOnline = GREETING_ONLINE;
 global.greetingDie = GREETING_DIE;
 global.greetingNew = GREETING_NEW;
