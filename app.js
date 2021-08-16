@@ -88,7 +88,8 @@ run().then(() => {
   bot.on("message.group", async (msgData) => {
     // 禁言时不发送消息
     // https://github.com/Arondight/Adachi-BOT/issues/28
-    if (msgData.shutup_time_me === 0) {
+    let info = bot.getGroupInfo(msgData.group_id).data;
+    if (info.shutup_time_me === 0) {
       processed(msgData, plugins, "group");
     }
   });
