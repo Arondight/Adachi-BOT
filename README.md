@@ -55,8 +55,8 @@ npm install
 > 这里需要找到`Chromium`的二进制可执行文件路径，而非启动脚本或其链接的路径。
 
 ```
-yum -y install epel-release
-yum -y install chromium
+sudo yum -y install epel-release
+sudo yum -y install chromium
 grep PUPPETEER_EXECUTABLE_PATH ~/.bashrc || ( echo 'export PUPPETEER_EXECUTABLE_PATH=/usr/lib64/chromium-browser/chromium-browser' | tee -a ~/.bashrc )
 source ~/.bashrc
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
