@@ -17,7 +17,7 @@ const getID = (msg) => {
     id[0].length !== 9 ||
     (id[0][0] !== "1" && id[0][0] !== "5")
   ) {
-    errInfo = "输入 UID 不合法";
+    errInfo = "输入 UID 不合法。";
     return errInfo;
   }
 
@@ -49,11 +49,11 @@ module.exports = async (Message) => {
   try {
     const abyInfo = await abyPromise(...dbInfo, schedule_type);
     if (!abyInfo) {
-      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您似乎从未挑战过深境螺旋`, type);
+      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您似乎从未挑战过深境螺旋。`, type);
       return;
     }
     if (!abyInfo["floors"].length) {
-      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 无渊月螺旋记录`, type);
+      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 无渊月螺旋记录。`, type);
       return;
     }
   } catch (errInfo) {

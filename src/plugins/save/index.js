@@ -12,7 +12,7 @@ module.exports = async (Message) => {
   if (id === null || id.length > 1) {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 请正确输入通行证ID`,
+      `[CQ:at,qq=${userID}] 请正确输入通行证ID。`,
       type
     );
   } else {
@@ -25,13 +25,13 @@ module.exports = async (Message) => {
         }
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 通行证绑定成功，使用【米游社】来查询游戏信息并更新你的游戏角色`,
+          `[CQ:at,qq=${userID}] 通行证绑定成功，使用【米游社】来查询游戏信息并更新你的游戏角色。`,
           type
         );
       } else {
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 您已绑定通行证，请使用【改绑】` + mhyID,
+          `[CQ:at,qq=${userID}] 您已绑定通行证，请使用【改绑 ` + mhyID + "】。",
           type
         );
       }
@@ -40,13 +40,13 @@ module.exports = async (Message) => {
         await update("map", "user", { userID }, { mhyID });
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 通行证改绑成功，使用【米游社】来查询游戏信息并更新你的游戏角色`,
+          `[CQ:at,qq=${userID}] 通行证改绑成功，使用【米游社】来查询游戏信息并更新你的游戏角色。`,
           type
         );
       } else {
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【绑定】` + mhyID,
+          `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【绑定 ` + mhyID + "】。",
           type
         );
       }

@@ -17,7 +17,7 @@ const getID = (msg) => {
     id[0].length !== 9 ||
     (id[0][0] !== "1" && id[0][0] !== "5")
   ) {
-    errInfo = "输入 UID 不合法";
+    errInfo = "输入 UID 不合法。";
     return errInfo;
   }
 

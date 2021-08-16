@@ -41,7 +41,7 @@ module.exports = async (Message) => {
       } else {
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 请先使用【圣遗物】抽取一个圣遗物后再【强化】`,
+          `[CQ:at,qq=${userID}] 请先使用【圣遗物】抽取一个圣遗物后再【强化】。`,
           type
         );
         return;
@@ -62,7 +62,7 @@ module.exports = async (Message) => {
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 请正确输入副本ID`,
+        `[CQ:at,qq=${userID}] 请正确输入副本ID，可以使用【副本】查看所有副本ID。`,
         type
       );
       return;

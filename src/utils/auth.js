@@ -5,7 +5,7 @@ exports.isMaster = (userID) => {
 };
 
 exports.sendPrompt = async (sendID, userID, name, auth, type) => {
-  await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您当前无${auth}权限`, type);
+  await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您当前无${auth}权限。`, type);
 };
 
 exports.setAuth = async (auth, target, isOn) => {

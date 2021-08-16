@@ -42,18 +42,18 @@ exports.getID = async (msg, userID) => {
     if (await isInside("map", "user", "userID", atID)) {
       return (await get("map", "user", { userID: atID })).mhyID;
     } else {
-      errInfo = "用户 " + atID + " 暂未绑定米游社通行证";
+      errInfo = "用户 " + atID + " 暂未绑定米游社通行证。";
     }
   } else if (id !== null) {
     if (id.length > 1) {
-      errInfo = "输入通行证不合法";
+      errInfo = "输入通行证不合法。";
     } else {
       return parseInt(id[0]);
     }
   } else if (await isInside("map", "user", "userID", userID)) {
     return (await get("map", "user", { userID })).mhyID;
   } else {
-    errInfo = "您还未绑定米游社通行证，请使用 【绑定】来关联米游社通行证";
+    errInfo = "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID】来关联米游社通行证。";
   }
 
   return errInfo;

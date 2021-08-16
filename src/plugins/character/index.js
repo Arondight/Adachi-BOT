@@ -31,7 +31,7 @@ module.exports = async (Message) => {
   if (!character) {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 请正确输入角色名称`,
+      `[CQ:at,qq=${userID}] 请正确输入角色名称。`,
       type
     );
     return;
@@ -46,7 +46,7 @@ module.exports = async (Message) => {
     if (!data) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 查询失败，如果您拥有该角色，使用【米游社】或【UID】更新游戏角色后再次查询`,
+        `[CQ:at,qq=${userID}] 查询失败，如果您拥有该角色，使用【米游社】或【UID】更新游戏角色后再次查询。`,
         type
       );
       return;

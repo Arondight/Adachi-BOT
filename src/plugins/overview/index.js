@@ -21,7 +21,7 @@ module.exports = async (Message) => {
   }
 
   if (!msg) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入名称`, type);
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入名称。`, type);
     return;
   }
 
@@ -30,7 +30,7 @@ module.exports = async (Message) => {
   } catch (errInfo) {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确`,
+      `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确。`,
       type
     );
     return;
