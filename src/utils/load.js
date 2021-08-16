@@ -23,8 +23,6 @@ exports.loadPlugins = () => {
 };
 
 exports.processed = (qqData, plugins, type) => {
-  let onlineStr = helloStr;
-
   // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
     bot.sendMessage(qqData.user_id, greetingNew, "private");
