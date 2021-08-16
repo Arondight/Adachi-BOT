@@ -1,6 +1,7 @@
 const roll = require("./roll");
 const help = require("./help");
 const feedback = require("./feedback");
+const reply = require("./reply");
 const master = require("./master");
 
 module.exports = (Message) => {
@@ -16,7 +17,7 @@ module.exports = (Message) => {
       feedback(sendID, name, msg, type, userID);
       break;
     case msg.includes("回个话"):
-      feedback(sendID, msg, type);
+      reply(sendID, msg, type);
       break;
     case msg.includes("roll"):
       roll(sendID, name, msg, type, userID);

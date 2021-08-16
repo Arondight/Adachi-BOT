@@ -1,19 +1,21 @@
-const { hasAuth, sendPrompt } = require("../../utils/auth");
+const { isMaster } = require("../../utils/auth");
 
 module.exports = async (id, msg, type) => {
-  let id = parseInt(msg.match(/[0-9]+/g)[0]);
-  let text = msg.split(/(?<=^\d+\S+)\s/)[0]
+  let target = parseInt(msg.match(/[0-9]+/g)[0]);
+  let text = msg.split(/(?<=\d+\S+)\s/).slice(1);
+  let list = new Map([...bot.fl].concat([...bot.gl]));
 
-  if (!isMaster(userID)) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 不能使用管理命令。`,
-      type
-    );
+  if (!isMaster(id)) {
+    await bot.sendMessage(id, `[CQ:at,qq=${id}] 不能使用管理命令。`, type);
     return;
   }
 
-  if ((id in bot.fl) || (id in bot.gl)) {
-    await bot.sendMessage(id, "主人让我送个话：\n" + text, type);
-  }
+  list.forEach(async (item) => {
+    let itemID = item.hasOwnProperty("group_id") ? item.group_id : item.user_id;
+    let curType = item.hasOwnProperty("group_id") ? "group" : type;
+
+    if (itemID == target) {
+      bot.sendMessage(itemID, "主人让我送个话：\n" + text, curType);
+    }
+  });
 };
