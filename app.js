@@ -81,31 +81,31 @@ run().then(() => {
 
   // 上线所有群发送一遍通知
   bot.on("system.online", async (msgData) => {
-    processed(msgData, plugins, "online");
+    await processed(msgData, plugins, "online");
   });
 
   // 监听群消息
   bot.on("message.group", async (msgData) => {
     // 禁言时不发送消息
     // https://github.com/Arondight/Adachi-BOT/issues/28
-    let info = bot.getGroupInfo(msgData.group_id).data;
+    let info = (await bot.getGroupInfo(msgData.group_id)).data;
     if (info.shutup_time_me === 0) {
-      processed(msgData, plugins, "group");
+      await processed(msgData, plugins, "group");
     }
   });
 
   // 监听好友消息
   bot.on("message.private", async (msgData) => {
-    processed(msgData, plugins, "private");
+    await processed(msgData, plugins, "private");
   });
 
   // 监听加好友事件
   bot.on("notice.friend.increase", async (msgData) => {
-    processed(msgData, plugins, "friend.increase");
+    await processed(msgData, plugins, "friend.increase");
   });
 
   // 监听入群事件
   bot.on("notice.group.increase", async (msgData) => {
-    processed(msgData, plugins, "group.increase");
+    await processed(msgData, plugins, "group.increase");
   });
 });
