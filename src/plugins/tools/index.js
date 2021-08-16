@@ -15,6 +15,9 @@ module.exports = (Message) => {
     case msg.includes("带个话"):
       feedback(sendID, name, msg, type, userID);
       break;
+    case msg.includes("回个话"):
+      feedback(sendID, msg, type);
+      break;
     case msg.includes("roll"):
       roll(sendID, name, msg, type, userID);
       break;
