@@ -35,8 +35,8 @@ exports.processed = async (qqData, plugins, type) => {
     return;
   }
 
-  // 如果没有歇逼，而且收到的信息是命令，指派插件处理命令
-  if (!(await hasAuth(qqData.group_id, "die")) && qqData.hasOwnProperty("message")
+  // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
+  if ((await hasAuth(qqData.group_id, "replyGroup")) && qqData.hasOwnProperty("message")
         && qqData.message[0].type === "text") {
     const command = getCommand(qqData.raw_message);
 
@@ -58,8 +58,8 @@ exports.processed = async (qqData, plugins, type) => {
   if (type === "online") {
     if (groupHello) {
       bot.gl.forEach(async (group) => {
-        let greeting = (await hasAuth(group.group_id, "die"))
-                        ? greetingDie : greetingOnline;
+        let greeting = (await hasAuth(group.group_id, "replyGroup"))
+                        ? greetingOnline: greetingDie;
         bot.sendMessage(group.group_id, greeting, "group");
       });
     }
