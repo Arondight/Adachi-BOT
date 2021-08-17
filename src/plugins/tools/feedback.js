@@ -9,7 +9,7 @@ module.exports = async (id, name, msg, type, user) => {
     await bot.sendMaster(
       id,
       (id == user ? "" : `群${id}中的`) +
-        `${name}(${user}) 托我给您带个话：\n${info}`,
+        `${name}(${user}) 给主人带个话：\n${info}`,
       type
     );
     await bot.sendMessage(

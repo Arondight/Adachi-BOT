@@ -15,7 +15,8 @@ module.exports = async (id, msg, type) => {
     let curType = item.hasOwnProperty("group_id") ? "group" : type;
 
     if (itemID == target) {
-      bot.sendMessage(itemID, "主人让我送个话：\n" + text, curType);
+      await bot.sendMessage(itemID, "主人让我送个话：\n" + text, curType);
+      await bot.sendMessage(id, `我已经给${itemID}送话了。`, type);
     }
   });
 };
