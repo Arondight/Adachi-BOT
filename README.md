@@ -6,7 +6,8 @@
 
 插件开发和资源文件提交请查阅[手册](docs/README.md)。
 
-> 资源请提交到[resources\_custom](resources\_custom/)目录，这些资源文件会覆盖到[resources](resources)目录。
+> 1. 资源请提交到[resources\_custom](resources\_custom/)目录，这些资源文件会覆盖到[resources](resources)目录。
+> 2. 机器人至少需要`2GiB`内存或交换空间以运行无头浏览器。
 
 ## 使用
 
@@ -197,44 +198,64 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
 
 ### 图片示例
 
-> 1. 有些样式已经变更，但是图片依然展示了旧的样式。
+> 1. 有些样式可能已经变更。
 > 2. 仅展示了部分功能。
 
 <details>
-<summary>展示玩家信息</summary>
-<div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT/CardExample.png" alt="ERROR">
-</div>
+  <summary>展示玩家信息</summary>
+  <div align="center">
+
+![米游社](images/米游社.png)
+
+  </div>
 </details>
 
 <details>
-<summary>查询我的角色</summary>
-<div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/anemo-character.png" alt="ERROR">
-</div>
+  <summary>查询我的角色</summary>
+  <div align="center">
+
+![我的](images/我的.png)
+
+  </div>
 </details>
 
 <details>
-<summary>圣遗物掉落和强化</summary>
-<div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/artifact-init.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/artifact-rein.png" alt="ERROR">
-</div>
+  <summary>查询深渊战绩</summary>
+  <div align="center">
+
+![深渊](images/深渊.png)
+
+  </div>
+</details>
+
+
+<details>
+  <summary>圣遗物掉落和强化</summary>
+  <div align="center">
+
+![圣遗物](images/圣遗物.png)
+![强化](images/强化.png)
+
+  </div>
 </details>
 
 <details>
-<summary>祈愿十连</summary>
-<div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/character-wish.png" alt="ERROR">
-</div>
+  <summary>祈愿十连</summary>
+  <div align="center">
+
+![十连](images/十连.png)
+
+  </div>
 </details>
 
 <details>
-<summary>游戏数据查询</summary>
-<div align="center">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/character-info-4.png" alt="ERROR">
-  <img src="https://github.com/SilveryStar/image/blob/master/Adachi-BOT-v2/weapon-info-4.png" alt="ERROR">
-</div>
+  <summary>游戏数据查询</summary>
+  <div align="center">
+
+![角色](images/角色.png)
+![武器](images/武器.png)
+
+  </div>
 </details>
 
 ## Licenses
