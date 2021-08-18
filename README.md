@@ -7,13 +7,15 @@
 插件开发和资源文件提交请查阅[手册](docs/README.md)。
 
 > 1. 资源请提交到[resources\_custom](resources\_custom/)目录，这些资源文件会覆盖到[resources](resources)目录。
-> 2. 机器人至少需要`2GiB`内存或交换空间以运行无头浏览器。
+> 2. 资源和代码请先提交`dev`分支。
 
 ## 使用
 
 ### 部署
 
 #### 准备环境
+
+> 机器人至少需要`2GiB`内存或交换空间以运行无头浏览器。
 
 首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，机器人无法在较低版本的 Node.js 上运行。
 
