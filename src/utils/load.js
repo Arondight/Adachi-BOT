@@ -31,7 +31,7 @@ exports.processed = async (qqData, plugins, type) => {
 
   // 如果有新群友加入或者加入了新群，向新朋友问好
   if (type === "group.increase") {
-    bot.sendMessage(qqData.group_id, helloStr, "group");
+    bot.sendMessage(qqData.group_id, greetingNew, "group");
     return;
   }
 
