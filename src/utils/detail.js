@@ -2,7 +2,6 @@ const { getBase, getDetail, getCharacters, getAbyDetail } = require("./api");
 const { get, isInside, push, update } = require("./database");
 const { loadYML } = require("./load");
 const lodash = require("lodash");
-
 let index = 0;
 const { cookies } = loadYML("cookies");
 
