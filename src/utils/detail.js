@@ -38,11 +38,9 @@ const getEffectiveCookie = async (uid, s, use_cookie) => {
     increaseIndex();
     p = p === cookies.length - 1 ? 0 : p + 1;
     let cookie = cookies[p];
-    bot.logger.debug("第 " + s + " 次判断有效cookie：" + cookie);
     let today = new Date().toLocaleDateString();
 
     if (!(await isInside("cookies", "cookie", "cookie", cookie))) {
-      bot.logger.debug("初始化 " + s + " cookie：" + cookie + " 的使用记录");
       let initData = {
         cookie: cookie,
         date: today,
@@ -102,10 +100,7 @@ const getEffectiveCookie = async (uid, s, use_cookie) => {
 
 const getCookie = async (uid, use_cookie) => {
   return new Promise(async (resolve, reject) => {
-    bot.logger.debug("获取用户 " + uid + " 使用的cookie");
-
     if (!(await isInside("cookies", "uid", "uid", uid))) {
-      bot.logger.debug("初始化" + uid + " 的cookie使用记录");
       let initData = {
         uid: uid,
         date: "",
@@ -118,12 +113,14 @@ const getCookie = async (uid, use_cookie) => {
 
     let today = new Date().toLocaleDateString();
     if (date && cookie && date == today) {
-    } else cookie = await getEffectiveCookie(uid, 1, use_cookie);
+    } else {
+      cookie = await getEffectiveCookie(uid, 1, use_cookie);
+    }
     if (!cookie) {
       reject("获取cookie失败！");
       return;
     }
-    bot.logger.debug("用户 " + uid + " 使用的cookie是 " + cookie);
+    bot.logger.debug("Cookie: " + uid + " -> " + cookie);
     resolve(cookie);
   });
 };
