@@ -52,7 +52,11 @@ const setReplyGroupAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("replyGroup", target, isOn);
   await response(id, target, "响应群消息", type, isOn ? "允许" : "禁止");
-  await bot.sendMessage(target, "主人已" + (isOn ? "允许" : "禁止") + "我在本群作出响应。", "group");
+  await bot.sendMessage(
+    target,
+    "主人已" + (isOn ? "允许" : "禁止") + "我在本群作出响应。",
+    "group"
+  );
 };
 
 const refreshWishDetail = async (id, type) => {
