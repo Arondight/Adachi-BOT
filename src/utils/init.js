@@ -14,6 +14,7 @@ const databaseInitialize = () => {
   newDB("gacha", { user: [], data: [] });
   newDB("music", { source: [] });
   newDB("aby");
+  newDB("cookies", { cookie: [], uid:[]});
 };
 
 module.exports = async () => {
