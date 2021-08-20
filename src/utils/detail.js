@@ -63,6 +63,8 @@ const getEffectiveCookie = async (uid, s, use_cookie) => {
                 resolve(await getEffectiveCookie(uid, s + 1, use_cookie));
             }
         } else {
+            if (date && date != today)
+                times = 0;
             date = today;
             if (times)
                 times += 1;
