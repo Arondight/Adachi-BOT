@@ -382,6 +382,7 @@ function getItem()
 {
   fetch "$API_ITEM" 0 '' "${API_ITEM_FILES[@]}"
   fetch "$API_ITEM" 1 '.png' "${HOMES[@]}"
+  fetch "$API_ITEM" 1 '.png' $(seq 1 5)
 }
 
 function getInfo()

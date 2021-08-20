@@ -88,7 +88,7 @@ const emptyBox = {
   props: ["pos"],
   computed: {
     image() {
-      return "http://localhost:9934/resources/item/" + this.pos + ".png";
+      return "http://localhost:9934/resources/Version2/artifact/other/" + this.pos + ".png";
     },
   },
 };
