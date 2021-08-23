@@ -46,5 +46,7 @@ package:
   - ^UID +\d+$
 quote:
   - ^伟大的升华 *$
+rating:
+  - ^评分 *.+$
 save:
   - ^(绑定|改绑) +\d+$

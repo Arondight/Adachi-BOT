@@ -36,6 +36,12 @@ const setArtifactAuth = async (msg, id, type) => {
   await response(id, target, "抽取圣遗物", type, isOn ? "允许" : "禁止");
 };
 
+const setRatingAuth = async (msg, id, type) => {
+  let [target, isOn] = parse(msg);
+  await setAuth("rating", target, isOn);
+  await response(id, target, "圣遗物评分", type, isOn ? "允许" : "禁止");
+};
+
 const setQueryGameInfoAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("query", target, isOn);
@@ -93,6 +99,9 @@ module.exports = async (Message) => {
       break;
     case msg.includes("圣遗物权限"):
       await setArtifactAuth(msg, sendID, type);
+      break;
+    case msg.includes("评分权限"):
+      await setRatingAuth(msg, sendID, type);
       break;
     case msg.includes("游戏数据权限"):
       await setQueryGameInfoAuth(msg, sendID, type);
