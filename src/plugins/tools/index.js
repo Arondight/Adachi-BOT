@@ -2,6 +2,7 @@ const roll = require("./roll");
 const help = require("./help");
 const feedback = require("./feedback");
 const reply = require("./reply");
+const boardcast = require("./boardcast");
 const master = require("./master");
 
 module.exports = (Message) => {
