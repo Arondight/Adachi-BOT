@@ -1,7 +1,7 @@
 const { isMaster } = require("../../utils/auth");
 
 module.exports = async (id, msg, type) => {
-  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+  let text = msg.split(/(?<=^\S+)\s/).slice(1);   // Array
   let report;
 
   if (!isMaster(id)) {

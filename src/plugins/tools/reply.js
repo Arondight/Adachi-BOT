@@ -2,7 +2,7 @@ const { isMaster } = require("../../utils/auth");
 
 module.exports = async (id, msg, type) => {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
-  let text = msg.split(/(?<=\d+\S+)\s/).slice(1);
+  let text = msg.split(/(?<=\d+\S+)\s/).slice(1);   // Array
   let list = new Map([...bot.fl].concat([...bot.gl]));
 
   if (!isMaster(id)) {

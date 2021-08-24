@@ -14,22 +14,22 @@ module.exports = (Message) => {
   let sendID = type === "group" ? groupID : userID;
 
   switch (true) {
-    case msg.includes("带个话"):
+    case msg.startsWith("带个话"):
       feedback(sendID, name, msg, type, userID);
       break;
-    case msg.includes("群广播") || msg.includes("好友广播"):
+    case msg.startsWith("群广播") || msg.startsWith("好友广播"):
       boardcast(sendID, msg, type);
       break;
-    case msg.includes("回个话"):
+    case msg.startsWith("回个话"):
       reply(sendID, msg, type);
       break;
-    case msg.includes("roll"):
+    case msg.startsWith("roll"):
       roll(sendID, name, msg, type, userID);
       break;
-    case msg.includes("help"):
+    case msg.startsWith("help"):
       help(sendID, type);
       break;
-    case msg.includes("管理"):
+    case msg.startsWith("管理"):
       master(sendID, type);
       break;
   }
