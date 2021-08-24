@@ -4,7 +4,7 @@
 
 [原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
-插件开发和资源文件提交请查阅[手册](docs/README.md)。
+插件开发和资源文件提交请查阅[手册](docs/README.md)。常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation)。
 
 > 1. 资源请提交到[resources\_custom](resources\_custom/)目录，这些资源文件会覆盖到[resources](resources)目录。
 > 2. 资源和代码请先提交`dev`分支。

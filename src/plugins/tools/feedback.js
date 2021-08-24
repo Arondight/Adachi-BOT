@@ -14,7 +14,9 @@ module.exports = async (id, name, msg, type, user) => {
     );
     await bot.sendMessage(
       id,
-      `[CQ:at,qq=${user}] 我这就去给主人带个话！`,
+      `[CQ:at,qq=${user}] 我这就去给主人带个话！
+如果有重要的反馈和建议可以到这里留言哦：
+https://github.com/Arondight/Adachi-BOT/issues`,
       type
     );
   }
