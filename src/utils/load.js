@@ -25,7 +25,9 @@ exports.loadPlugins = () => {
 exports.processed = async (qqData, plugins, type) => {
   // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
-    bot.sendMessage(qqData.user_id, greetingNew, "private");
+    if (friendGreetingNew) {
+      bot.sendMessage(qqData.user_id, greetingNew, "private");
+    }
     return;
   }
 
@@ -35,11 +37,13 @@ exports.processed = async (qqData, plugins, type) => {
       bot.sendMessage(qqData.group_id, greetingHello, "group");
     } else {
       // 如果有新群友加入，向新群友问好
-      bot.sendMessage(
-        qqData.group_id,
-        `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
-        "group"
-      );
+      if (groupGreetingNew) {
+        bot.sendMessage(
+          qqData.group_id,
+          `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
+          "group"
+        );
+      }
     }
     return;
   }

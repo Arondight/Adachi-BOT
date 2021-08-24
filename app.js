@@ -14,6 +14,8 @@ if ([1, 2, 3, 4, 5].includes(Setting["account"].platform)) {
 let MASTER = Setting["master"];
 let REPEATPROB = parseInt(Setting["repeatProb"]);
 let GROUPHELLO = parseInt(Setting["groupHello"]);
+let GROUPGREETINGNEW = parseInt(Setting["groupGreetingNew"]);
+let FRIENDGREETINGNEW = parseInt(Setting["friendGreetingNew"]);
 let GREETING_ONLINE = Greeting["online"];
 let GREETING_DIE = Greeting["die"];
 let GREETING_HELLO = Greeting["hello"];
@@ -43,6 +45,8 @@ global.bot = BOT;
 global.master = MASTER;
 global.repeatProb = REPEATPROB ? REPEATPROB : 0; // 未配置则不复读群消息
 global.groupHello = GROUPHELLO ? GROUPHELLO : 0; // 未配置则不发送群通知
+global.groupGreetingNew = GROUPGREETINGNEW ? GROUPGREETINGNEW : 0;
+global.friendGreetingNew = FRIENDGREETINGNEW ? FRIENDGREETINGNEW : 0;
 global.greetingOnline = GREETING_ONLINE;
 global.greetingDie = GREETING_DIE;
 global.greetingHello = GREETING_HELLO;
