@@ -50,15 +50,16 @@ module.exports = async (Message) => {
     return;
   }
 
-  if (!url) {
+  try {
+    response = await doGet(url);
+  } catch {
     await bot.sendMessage(
       sendID,
       `[CQ:at,qq=${userID}] 您看上去没有发送圣遗物属性截图，${whisper}。`,
       type
     );
+    return;
   }
-
-  response = await doGet(url);
 
   if (response.status == 200) {
     ret = await response.arrayBuffer();
