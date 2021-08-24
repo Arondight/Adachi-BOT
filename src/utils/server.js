@@ -6,5 +6,5 @@ exports.newServer = (port) => {
   const workdir = path.resolve(__dirname, "..", "..");
 
   server.use(express.static(workdir));
-  server.listen(port);
+  server.listen(port,'localhost');
 };

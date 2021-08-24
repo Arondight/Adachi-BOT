@@ -79,26 +79,6 @@ PUPPETEER_PRODUCT=firefox npm install
 
 </details>
 
-#### 安全问题
-
-<details>
-
-`Adachi-BOT`会在`9934`端口启用一个`http://`文件服务，并使用`http://localhost:9934`访问资源文件。这可能会造成一些安全问题，建议使用防火墙管控一下`9934`端口。因为访问资源文件使用了本地回环，所以防火墙不会影响机器人的正常运行。
-
-这里以`CentOS`为例，演示如何使用防火墙管控`9934`端口，执行以下命令。
-
-```
-sudo yum -y install firewalld
-sudo systemctl enable --now firewalld.service
-sudo firewall-cmd --remove-port=9934/tcp --permanent
-sudo firewall-cmd --reload
-sudo firewall-cmd --list-all
-```
-
-> 配置防火墙可能会对你的其他服务产生影响，你需要手动配置（`--add-port`、`--add-service`）白名单来开启所需端口。
-
-</details>
-
 ### 配置
 
 需要编辑以下文件，根据注释填入合适的配置。
