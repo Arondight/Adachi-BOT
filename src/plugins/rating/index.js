@@ -121,7 +121,7 @@ module.exports = async (Message) => {
   if (response.status == 200 || hasKey(ret, "total_percent")) {
     data = `[CQ:at,qq=${userID}] 您的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
 ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
-=====================`;
+==========`;
 
     prop["sub_item"].forEach((item) => {
       data += `\n${item["name"]}：${item["value"]}`;
