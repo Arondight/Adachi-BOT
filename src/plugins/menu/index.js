@@ -1,5 +1,5 @@
 const { loadYML } = require("../../utils/load");
-const { getRandomInt } = require("../../utils/rand");
+const { getRandomInt } = require("../../utils/tool");
 
 const menuCfg = loadYML("menu");
 const {

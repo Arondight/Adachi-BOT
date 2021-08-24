@@ -1,5 +1,6 @@
-const { hasAuth, sendPrompt } = require("../../utils/auth");
 const fetch = require("node-fetch");
+const { hasAuth, sendPrompt } = require("../../utils/auth");
+const { hasKey } = require("../../utils/tool");
 
 const doGet = async (url) => {
   const response = await fetch(url, { method: "GET" });
@@ -14,17 +15,6 @@ const doPost = async (url, headers, body) => {
   });
 
   return response;
-};
-
-const hasKey = (obj, level, ...rest) => {
-  if (obj === undefined) {
-    return false;
-  }
-  if (rest.length == 0 && obj.hasOwnProperty(level)) {
-    return true;
-  }
-
-  return hasKey(obj[level], ...rest);
 };
 
 module.exports = async (Message) => {

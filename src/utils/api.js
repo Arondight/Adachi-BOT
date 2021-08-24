@@ -1,5 +1,5 @@
-const { randomString } = require("./rand");
-const requests = require("./requests.js");
+const { randomString } = require("./tool");
+const requests = require("./requests");
 const fetch = require("node-fetch");
 const md5 = require("md5");
 

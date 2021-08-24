@@ -1,6 +1,7 @@
 const querystring = require("querystring");
 const fetch = require("node-fetch");
 const { get, push, update } = require("../../utils/database");
+const { hasKey } = require("../../utils/tool");
 
 const MUSICSRC = {
   SRC_QQ: "QQ",
@@ -19,17 +20,6 @@ exports.errMsg = {
   [ERRCODE.ERR_SRC]: "错误的音乐源",
   [ERRCODE.ERR_404]: "没有查询到对应歌曲",
   [ERRCODE.ERR_API]: "歌曲查询出错",
-};
-
-const hasKey = (obj, level, ...rest) => {
-  if (obj === undefined) {
-    return false;
-  }
-  if (rest.length == 0 && obj.hasOwnProperty(level)) {
-    return true;
-  }
-
-  return hasKey(obj[level], ...rest);
 };
 
 // 看看，这集 LinuxHub 群友智慧的代码！！！ {
