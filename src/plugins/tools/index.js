@@ -18,10 +18,10 @@ module.exports = (Message) => {
       feedback(sendID, name, msg, type, userID);
       break;
     case msg.startsWith("群广播") || msg.startsWith("好友广播"):
-      boardcast(sendID, msg, type);
+      boardcast(sendID, msg, type, userID);
       break;
     case msg.startsWith("回个话"):
-      reply(sendID, msg, type);
+      reply(sendID, msg, type, userID);
       break;
     case msg.startsWith("roll"):
       roll(sendID, name, msg, type, userID);

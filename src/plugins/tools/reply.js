@@ -1,12 +1,12 @@
 const { isMaster } = require("../../utils/auth");
 
-module.exports = async (id, msg, type) => {
+module.exports = async (id, msg, type, user) => {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
   let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
   let list = new Map([...bot.fl].concat([...bot.gl]));
 
-  if (!isMaster(id)) {
-    await bot.sendMessage(id, `[CQ:at,qq=${id}] 不能使用管理命令。`, type);
+  if (!isMaster(user)) {
+    await bot.sendMessage(id, `[CQ:at,qq=${user}] 不能使用管理命令。`, type);
     return;
   }
 
