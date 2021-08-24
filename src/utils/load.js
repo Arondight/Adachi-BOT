@@ -29,9 +29,18 @@ exports.processed = async (qqData, plugins, type) => {
     return;
   }
 
-  // 如果有新群友加入或者加入了新群，向新朋友问好
   if (type === "group.increase") {
-    bot.sendMessage(qqData.group_id, greetingNew, "group");
+    if (bot.uin == qqData.user_id) {
+      // 如果加入了新群，向全群问好
+      bot.sendMessage(qqData.group_id, greetingHello, "group");
+    } else {
+      // 如果有新群友加入，向新群友问好
+      bot.sendMessage(
+        qqData.group_id,
+        `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
+        "group"
+      );
+    }
     return;
   }
 

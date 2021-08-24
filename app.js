@@ -16,6 +16,7 @@ let REPEATPROB = parseInt(Setting["repeatProb"]);
 let GROUPHELLO = parseInt(Setting["groupHello"]);
 let GREETING_ONLINE = Greeting["online"];
 let GREETING_DIE = Greeting["die"];
+let GREETING_HELLO = Greeting["hello"];
 let GREETING_NEW = Greeting["new"];
 let BOT = createClient(Setting["account"].qq, {
   log_level: "debug",
@@ -44,6 +45,7 @@ global.repeatProb = REPEATPROB ? REPEATPROB : 0; // 未配置则不复读群消�
 global.groupHello = GROUPHELLO ? GROUPHELLO : 0; // 未配置则不发送群通知
 global.greetingOnline = GREETING_ONLINE;
 global.greetingDie = GREETING_DIE;
+global.greetingHello = GREETING_HELLO;
 global.greetingNew = GREETING_NEW;
 
 const run = async () => {
