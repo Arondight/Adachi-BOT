@@ -53,7 +53,7 @@ exports.getID = async (msg, userID) => {
   } else if (await isInside("map", "user", "userID", userID)) {
     return (await get("map", "user", { userID })).mhyID;
   } else {
-    errInfo = "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID】来关联米游社通行证。（请不要使用游戏UID绑定）";
+    errInfo = "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
   }
 
   return errInfo;
