@@ -22,5 +22,5 @@ exports.hasKey = (obj, level, ...rest) => {
     return true;
   }
 
-  return hasKey(obj[level], ...rest);
+  return exports.hasKey(obj[level], ...rest);
 };
