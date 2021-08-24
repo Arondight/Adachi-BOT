@@ -16,6 +16,9 @@ module.exports = (Message) => {
     case msg.includes("带个话"):
       feedback(sendID, name, msg, type, userID);
       break;
+    case msg.includes("群广播") || msg.includes("好友广播"):
+      boardcast(sendID, msg, type);
+      break;
     case msg.includes("回个话"):
       reply(sendID, msg, type);
       break;
