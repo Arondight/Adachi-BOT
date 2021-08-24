@@ -43,10 +43,14 @@ BOT.sendMaster = async (id, msg, type) => {
 
 global.bot = BOT;
 global.master = MASTER;
-global.repeatProb = REPEATPROB ? REPEATPROB : 0; // 未配置则不复读群消息
-global.groupHello = GROUPHELLO ? GROUPHELLO : 0; // 未配置则不发送群通知
-global.groupGreetingNew = GROUPGREETINGNEW ? GROUPGREETINGNEW : 0;
-global.friendGreetingNew = FRIENDGREETINGNEW ? FRIENDGREETINGNEW : 0;
+// 未配置则不复读群消息
+global.repeatProb = REPEATPROB ? REPEATPROB : 0;
+// 未配置则不发送群通知
+global.groupHello = GROUPHELLO ? GROUPHELLO : 0;
+// 未配置则向新群员问好
+global.groupGreetingNew = GROUPGREETINGNEW ? GROUPGREETINGNEW : 1;
+// 未配置则向新好友问好
+global.friendGreetingNew = FRIENDGREETINGNEW ? FRIENDGREETINGNEW : 1;
 global.greetingOnline = GREETING_ONLINE;
 global.greetingDie = GREETING_DIE;
 global.greetingHello = GREETING_HELLO;
