@@ -39,8 +39,8 @@ module.exports = async (Message) => {
   let headers = {
     "Content-Type": "application/json",
   };
-  let data, response, ret;
-  let whisper = "【评分】需要有一张背包中的圣遗物截图（黄白背景）";
+  let data, response, ret, prop;
+  const whisper = "【评分】需要有一张背包中的圣遗物截图（黄白背景）";
 
   if (
     !(await hasAuth(userID, "rating")) ||
@@ -75,6 +75,12 @@ module.exports = async (Message) => {
   let form = { image: data };
   let body = JSON.stringify(form);
 
+  // { "name": "勋绩之花", "pos": "生之花", "star": 5, "level": 20,
+  //   "main_item": { "type": "hp", "name": "生命值", "value": "4780" },
+  //   "sub_item": [ { "type": "em", "name": "元素精通", "value": "23" },
+  //                 { "type": "atk", "name": "攻击力", "value": "117%" },
+  //                 { "type": "cr", "name": "暴击率", "value": "10.5" },
+  //                 { "type": "cd", "name": "暴击伤害", "value": "14.0" }]}
   response = await doPost(
     "https://api.genshin.pub/api/v1/app/ocr",
     headers,
@@ -92,6 +98,7 @@ module.exports = async (Message) => {
 
   ret = await response.json();
   body = JSON.stringify(ret);
+  prop = ret;
 
   response = await doPost(
     "https://api.genshin.pub/api/v1/relic/rate",
@@ -99,11 +106,11 @@ module.exports = async (Message) => {
     body
   );
 
+  // { "total_score": 700.4420866489831, "total_percent": "77.83", "main_score": 0,
+  //   "main_percent": "0.00", "sub_score": 700.4420866489831, "sub_percent": "77.83" }
   ret = await response.json();
 
-  if (response.status == 200) {
-    console.log(JSON.stringify(ret));
-  } else if (response.status == 400) {
+  if (response.status == 400) {
     if (hasKey(ret, "code") && ret["code"] == 50003) {
       await bot.sendMessage(
         sendID,
@@ -117,11 +124,25 @@ module.exports = async (Message) => {
         type
       );
     }
-  } else {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 发生了一个未知错误，请再试一次。`,
-      type
-    );
+    return;
   }
+
+  if (response.status == 200 || hasKey(ret, "total_percent")) {
+    data = `[CQ:at,qq=${userID}] 您的圣遗物评分为 ${ret["total_percent"]} 分！\n`;
+    data += `${prop["pos"]}：${prop["name"]}\n`;
+    data += "=====================\n";
+    data += `${prop["main_item"]["name"]}：${prop["main_item"]["value"]}\n`;
+    prop["sub_item"].forEach((item) => {
+      data += `\n${item["name"]}：${item["value"]}`;
+    });
+
+    await bot.sendMessage(sendID, data, type);
+    return;
+  }
+
+  await bot.sendMessage(
+    sendID,
+    `[CQ:at,qq=${userID}] 发生了一个未知错误，请再试一次。`,
+    type
+  );
 };
