@@ -118,7 +118,9 @@ git stash push .
 git pull -p
 git stash pop
 npm install
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 update
+PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 start bot
 ```
 
 ### 其他操作
