@@ -51,7 +51,7 @@ exports.processed = async (qqData, plugins, type) => {
   // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
   if (
     (await hasAuth(qqData.group_id, "replyGroup")) &&
-    qqData.hasOwnProperty("message") &&
+    qqData.hasOwnProperty("message") && qqData.message[0] &&
     qqData.message[0].type === "text"
   ) {
     const command = getCommand(qqData.raw_message);
