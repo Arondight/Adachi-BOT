@@ -53,7 +53,7 @@ const getFourProb = (counter, choice) => {
   }
 };
 
-const updateCounter = async (userID, star, up, choice) => {
+const updateCounter = async (userID, star, up) => {
   if (star !== 5) {
     five = five + 1;
     four = star === 4 ? 1 : four + 1;   // 重置四星抽数
@@ -99,7 +99,7 @@ const gachaOnce = async (userID, choice, table) => {
   const times = five;
   let { path } = await get("gacha", "user", { userID });
 
-  await updateCounter(userID, star, up, choice);
+  await updateCounter(userID, star, up);
 
   if (star === 5 && choice === 302) {
     // 武器池出货
