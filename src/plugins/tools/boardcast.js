@@ -2,7 +2,7 @@ const { isMaster } = require("../../utils/auth");
 
 module.exports = async (id, msg, type, user) => {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let report;
+  let report = "";
 
   if (!isMaster(user)) {
     await bot.sendMessage(id, `[CQ:at,qq=${user}] 不能使用管理命令。`, type);
