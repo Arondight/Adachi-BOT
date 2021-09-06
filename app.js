@@ -73,7 +73,7 @@ const run = async () => {
 
   // 处理设备锁事件
   bot.on("system.login.device", () => {
-    bot.logger.info("手机扫码完成后按下 Enter 继续...");
+    bot.logger.info("手机扫码完成后按下 Enter 继续……");
     process.stdin.once("data", () => {
       bot.login();
     });
