@@ -19,6 +19,8 @@
     "雷泽":"electro",
     "菲谢尔":"electro",
     "丽莎":"electro",
+    "雷电将军": "electro",
+    "九条裟罗": "electro",
     "阿贝多":"geo",
     "钟离":"geo",
     "凝光":"geo",
@@ -27,6 +29,7 @@
     "芭芭拉":"hydro",
     "行秋":"hydro",
     "莫娜":"hydro",
+    "珊瑚宫心海": "hydro",
     "优菈":"cryo",
     "罗莎莉亚":"cryo",
     "甘雨":"cryo",
@@ -34,5 +37,6 @@
     "重云":"cryo",
     "七七":"cryo",
     "凯亚":"cryo",
-    "神里绫华": "cryo"
+    "神里绫华": "cryo",
+    "埃洛伊": "cryo"
 }
