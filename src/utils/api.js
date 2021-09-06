@@ -29,12 +29,12 @@ const HEADERS = {
   Cookie: "",
 };
 
-const getDS = () => {
-  let n = "14bmu1mz0yuljprsfgpvjh3ju2ni468r",
-    i = (Date.now() / 1000) | 0,
-    r = randomString(6),
-    c = md5(`salt=${n}&t=${i}&r=${r}`);
-  return `${i},${r},${c}`;
+const getDS = (query, body = "") => {
+  let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
+  let i = Date.now() / 1000 | 0;
+  let r = randomString(6);
+  let q = getQueryParam(query);
+  let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
 };
 
 exports.getInfo = (name) => {
@@ -52,19 +52,20 @@ exports.getInfo = (name) => {
   });
 };
 
-exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {
+exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {\
+  const query = {
+    server,
+    role_id,
+    schedule_type,
+  };
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
       url: __API.FETCH_ABY_DETAIL,
-      qs: {
-        server,
-        role_id,
-        schedule_type,
-      },
+      qs: query,
       headers: {
         ...HEADERS,
-        DS: getDS(),
+        DS: getDS(query),
         Cookie: cookie,
       },
     })
@@ -78,14 +79,15 @@ exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {
 };
 
 exports.getBase = (uid, cookie) => {
+  const query = { uid };
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
       url: __API.FETCH_ROLE_ID,
-      qs: { uid },
+      qs: query,
       headers: {
         ...HEADERS,
-        DS: getDS(),
+        DS: getDS(query),
         Cookie: cookie,
       },
     })
@@ -99,17 +101,18 @@ exports.getBase = (uid, cookie) => {
 };
 
 exports.getDetail = (role_id, server, cookie) => {
+  const query = {
+    server,
+    role_id
+  }
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
       url: __API.FETCH_ROLE_INDEX,
-      qs: {
-        server,
-        role_id,
-      },
+      qs: query,
       headers: {
         ...HEADERS,
-        DS: getDS(),
+        DS: getDS(query),
         Cookie: cookie,
       },
     })
