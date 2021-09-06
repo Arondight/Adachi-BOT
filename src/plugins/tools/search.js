@@ -15,10 +15,8 @@ module.exports = async (id, msg, type, user) => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
 
-    if (report) {
-      await bot.sendMessage(id, report, type);
-    }
-
+    report += report ? "" : "没有加入任何群。";
+    await bot.sendMessage(id, report, type);
     return;
   }
 
@@ -27,10 +25,8 @@ module.exports = async (id, msg, type, user) => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
 
-    if (report) {
-      await bot.sendMessage(id, report, type);
-    }
-
+    report += report ? "" : "没有添加任何好友。";
+    await bot.sendMessage(id, report, type);
     return;
   }
 
@@ -46,9 +42,8 @@ module.exports = async (id, msg, type, user) => {
       }
     });
 
-    if (report) {
-      await bot.sendMessage(id, report, type);
-    }
+    report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
+    await bot.sendMessage(id, report, type);
 
     return;
   }

@@ -19,11 +19,8 @@ module.exports = async (id, msg, type, user) => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
 
-    if (report) {
-      report += "以上群已发送广播。";
-      await bot.sendMessage(id, report, type);
-    }
-
+    report += report ? "以上群已发送广播。" : "没有加入任何群。";
+    await bot.sendMessage(id, report, type);
     return;
   }
 
@@ -33,11 +30,8 @@ module.exports = async (id, msg, type, user) => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
 
-    if (report) {
-      report += "以上好友已发送广播。";
-      await bot.sendMessage(id, report, type);
-    }
-
+    report += report ? "以上好友已发送广播。" : "没有添加任何好友。";
+    await bot.sendMessage(id, report, type);
     return;
   }
 };
