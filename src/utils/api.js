@@ -1,6 +1,5 @@
 const { randomString } = require("./tool");
 const requests = require("./requests");
-const fetch = require("node-fetch");
 const md5 = require("md5");
 
 const __API = {
@@ -15,7 +14,7 @@ const __API = {
   FETCH_GACHA_DETAIL:
     "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json",
   FETCH_ABY_DETAIL:
-    "https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss",
+    "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
   FETCH_INFO: "http://localhost:9934/resources/Version2/info/docs/$.json",
 };
 
@@ -30,25 +29,28 @@ const HEADERS = {
 };
 
 const getQueryParam = (data) => {
+  let arr = [];
+
   if (data === undefined) {
     return "";
   }
-  const arr = [];
+
   for (let key of Object.keys(data)) {
     arr.push(`${key}=${data[key]}`);
   }
+
   return arr.join("&");
-}
+};
 
 const getDS = (query, body = "") => {
-  const n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
-  const i = Date.now() / 1000 | 0;
-  const r = randomString(6);
-  const q = getQueryParam(query);
-  const c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
+  let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
+  let i = Date.now() / 1000 | 0;
+  let r = randomString(6);
+  let q = getQueryParam(query);
+  let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
 
   return `${i},${r},${c}`;
-}
+};
 
 exports.getInfo = (name) => {
   return new Promise((resolve, reject) => {
@@ -66,7 +68,7 @@ exports.getInfo = (name) => {
 };
 
 exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {
-  const query = { server, role_id, schedule_type };
+  const query = { role_id, schedule_type, server };
 
   return new Promise((resolve, reject) => {
     requests({
@@ -112,7 +114,7 @@ exports.getBase = (uid, cookie) => {
 };
 
 exports.getDetail = (role_id, server, cookie) => {
-  const query = { server, role_id };
+  const query = { role_id, server };
 
   return new Promise((resolve, reject) => {
     requests({
@@ -135,7 +137,7 @@ exports.getDetail = (role_id, server, cookie) => {
 };
 
 exports.getCharacters = (role_id, server, character_ids, cookie) => {
-  const body = { character_ids, server, role_id };
+  const body = { character_ids, role_id, server };
 
   return new Promise((resolve, reject) => {
     requests({
