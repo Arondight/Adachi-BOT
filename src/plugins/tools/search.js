@@ -15,7 +15,10 @@ module.exports = async (id, msg, type, user) => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
 
-    await bot.sendMessage(id, report, type);
+    if (report) {
+      await bot.sendMessage(id, report, type);
+    }
+
     return;
   }
 
@@ -24,7 +27,10 @@ module.exports = async (id, msg, type, user) => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
 
-    await bot.sendMessage(id, report, type);
+    if (report) {
+      await bot.sendMessage(id, report, type);
+    }
+
     return;
   }
 
@@ -40,7 +46,10 @@ module.exports = async (id, msg, type, user) => {
       }
     });
 
-    await bot.sendMessage(id, report, type);
+    if (report) {
+      await bot.sendMessage(id, report, type);
+    }
+
     return;
   }
 };
