@@ -4,6 +4,7 @@ const feedback = require("./feedback");
 const reply = require("./reply");
 const boardcast = require("./boardcast");
 const master = require("./master");
+const search = require("./search");
 
 module.exports = (Message) => {
   let msg = Message.raw_message;
@@ -22,6 +23,11 @@ module.exports = (Message) => {
       break;
     case msg.startsWith("回个话"):
       reply(sendID, msg, type, userID);
+      break;
+    case msg.startsWith("群列表") ||
+      msg.startsWith("好友列表") ||
+      msg.startsWith("查找列表"):
+      search(sendID, msg, type, userID);
       break;
     case msg.startsWith("roll"):
       roll(sendID, name, msg, type, userID);
