@@ -6,7 +6,7 @@
 
 1. 插件开发请查阅[开发指引](docs/开发指引.md)
 2. 资源文件提交请查阅[资源制作](docs/资源制作.md)
-3. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation)。
+3. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation)
 
 > 所有的提交请先合入`dev`分支。
 

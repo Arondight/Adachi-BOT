@@ -44,7 +44,6 @@ module.exports = async (id, msg, type, user) => {
 
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
     await bot.sendMessage(id, report, type);
-
     return;
   }
 };
