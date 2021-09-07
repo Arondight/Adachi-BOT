@@ -49,7 +49,7 @@ music:
 overview:
   - ^(角色|武器) +[\u4e00-\u9fa5]+$
 package:
-  - ^UID +\d+$
+  - ^uid +\d+$
 quote:
   - ^伟大的升华 *$
 rating:

@@ -90,7 +90,7 @@ const getCommand = (msgData) => {
   for (let command in commandConfig) {
     if (commandConfig.hasOwnProperty(command)) {
       for (let setting of commandConfig[command]) {
-        let reg = new RegExp(setting);
+        let reg = new RegExp(setting, "i");
         if (reg.test(msgData)) {
           return command;
         }
