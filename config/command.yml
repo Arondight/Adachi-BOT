@@ -1,12 +1,12 @@
 aby:
-  - ^深渊 +\d+$
-  - ^上期深渊 +\d+$
+  - ^深渊 *(\[CQ:at,qq=)?(\d*)$
+  - ^上期深渊 *(\[CQ:at,qq=)?(\d*)$
 artifacts:
   - ^圣遗物 +(\d+)$
   - ^圣遗物 *$
   - ^(强化|副本) *$
 card:
-  - ^米游社 *(\[CQ:at,qq=)?(\d*)$
+  - ^(米游社|米忽悠|mhy) *(\[CQ:at,qq=)?(\d*)$
 character:
   - ^我的 +[\u4e00-\u9fa5]+$
 gacha:
@@ -36,6 +36,7 @@ master:
   - ^官方数据权限 +\d+ +(on|off)$
   - ^响应群消息 +\d+ +(on|off)$
   - ^刷新卡池 *$
+  - ^查询cookies使用情况 *$
 material:
   - ^武器 *$
   - ^天赋 *$
@@ -49,10 +50,13 @@ music:
 overview:
   - ^(角色|武器) +[\u4e00-\u9fa5]+$
 package:
-  - ^uid +\d+$
+  - ^(UID |UID|uid |uid|查询 |查询)+\d+$
 quote:
   - ^伟大的升华 *$
 rating:
   - ^评分 *.+$    # https://github.com/Arondight/Adachi-BOT/issues/54
 save:
   - ^(绑定|改绑) +\d+$
+nikename:
+  - ^修改昵称 +.+$
+  - ^初始化昵称 *$
