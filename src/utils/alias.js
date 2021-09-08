@@ -2,7 +2,7 @@ const { loadYML } = require("./load");
 
 const names = loadYML("alias");
 
-exports.alias = (text) => {
+const alias = (text) => {
   if (text) {
     for (let name of Object.keys(names)) {
       for (let nickname of names[name]) {
@@ -14,4 +14,8 @@ exports.alias = (text) => {
   }
 
   return text;
+};
+
+module.exports = {
+  alias
 };

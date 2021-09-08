@@ -1,6 +1,6 @@
 const { isMaster } = require("../../utils/auth");
 
-exports.reply = async (id, msg, type, user) => {
+const reply = async (id, msg, type, user) => {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
   let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
   let list = new Map([...bot.fl].concat([...bot.gl]));
@@ -19,4 +19,8 @@ exports.reply = async (id, msg, type, user) => {
       await bot.sendMessage(id, `我已经给${itemID}送话了。`, type);
     }
   });
+};
+
+module.exports = {
+  reply
 };

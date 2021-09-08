@@ -8,9 +8,8 @@ const loadYML = (name) => {
   return yaml.load(fs.readFileSync(`./config/${name}.yml`, "utf-8"));
 };
 
-exports.loadYML = loadYML;
 
-exports.loadPlugins = () => {
+const loadPlugins = () => {
   let plugins = {};
   const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
 
@@ -22,7 +21,7 @@ exports.loadPlugins = () => {
   return plugins;
 };
 
-exports.processed = async (qqData, plugins, type) => {
+const processed = async (qqData, plugins, type) => {
   // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
     if (friendGreetingNew) {
@@ -99,4 +98,10 @@ const getCommand = (msgData) => {
   }
 
   return null;
+};
+
+module.exports = {
+  loadYML,
+  loadPlugins,
+  processed
 };

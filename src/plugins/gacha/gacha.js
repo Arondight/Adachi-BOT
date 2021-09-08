@@ -179,6 +179,10 @@ const gachaTenTimes = async (userID, nickname) => {
   return result;
 };
 
-exports.getGachaResult = async (userID, nickname) => {
+const getGachaResult = async (userID, nickname) => {
   return await gachaTenTimes(userID, nickname);
+};
+
+module.exports = {
+  getGachaResult
 };
