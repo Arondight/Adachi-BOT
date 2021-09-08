@@ -1,15 +1,15 @@
 {
   "name": "adachi-bot",
-  "version": "1.4.6",
-  "description": "",
-  "main": "index.js",
+  "version": "1.5.0",
+  "description": "腾讯 QQ 中的原神机器人",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "image-cache": "^1.0.1",
