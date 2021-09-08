@@ -38,7 +38,7 @@ const parseData = async (gachaID) => {
   return detail;
 };
 
-exports.gachaUpdate = async () => {
+const gachaUpdate = async () => {
   const gachaInfo = (await getGachaList()).data.list;
 
   if (gachaInfo[1] === undefined) {
@@ -64,4 +64,8 @@ exports.gachaUpdate = async () => {
   const weapon = await parseData(getGachaCode(302));
 
   await set("gacha", "data", [indefinite, character, weapon]);
+};
+
+module.exports = {
+  gachaUpdate,
 };

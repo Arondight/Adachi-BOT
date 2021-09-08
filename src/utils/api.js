@@ -44,7 +44,7 @@ const getQueryParam = (data) => {
 
 const getDS = (query, body = "") => {
   let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
-  let i = Date.now() / 1000 | 0;
+  let i = (Date.now() / 1000) | 0;
   let r = randomString(6);
   let q = getQueryParam(query);
   let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
@@ -52,7 +52,7 @@ const getDS = (query, body = "") => {
   return `${i},${r},${c}`;
 };
 
-exports.getInfo = (name) => {
+const getInfo = (name) => {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
@@ -67,7 +67,7 @@ exports.getInfo = (name) => {
   });
 };
 
-exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {
+const getAbyDetail = (role_id, schedule_type, server, cookie) => {
   const query = { role_id, schedule_type, server };
 
   return new Promise((resolve, reject) => {
@@ -90,7 +90,7 @@ exports.getAbyDetail = (role_id, schedule_type, server, cookie) => {
   });
 };
 
-exports.getBase = (uid, cookie) => {
+const getBase = (uid, cookie) => {
   const query = { uid };
 
   return new Promise((resolve, reject) => {
@@ -113,7 +113,7 @@ exports.getBase = (uid, cookie) => {
   });
 };
 
-exports.getDetail = (role_id, server, cookie) => {
+const getDetail = (role_id, server, cookie) => {
   const query = { role_id, server };
 
   return new Promise((resolve, reject) => {
@@ -136,7 +136,7 @@ exports.getDetail = (role_id, server, cookie) => {
   });
 };
 
-exports.getCharacters = (role_id, server, character_ids, cookie) => {
+const getCharacters = (role_id, server, character_ids, cookie) => {
   const body = { character_ids, role_id, server };
 
   return new Promise((resolve, reject) => {
@@ -161,7 +161,7 @@ exports.getCharacters = (role_id, server, character_ids, cookie) => {
   });
 };
 
-exports.getGachaList = () => {
+const getGachaList = () => {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
@@ -176,7 +176,7 @@ exports.getGachaList = () => {
   });
 };
 
-exports.getGachaDetail = (gachaID) => {
+const getGachaDetail = (gachaID) => {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
@@ -189,4 +189,14 @@ exports.getGachaDetail = (gachaID) => {
         reject(err);
       });
   });
+};
+
+module.exports = {
+  getInfo,
+  getAbyDetail,
+  getBase,
+  getDetail,
+  getCharacters,
+  getGachaList,
+  getGachaDetail,
 };

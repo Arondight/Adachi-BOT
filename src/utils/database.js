@@ -4,7 +4,7 @@ const path = require("path");
 
 const db = [];
 
-exports.newDB = (name, defaultElement = { user: [] }) => {
+const newDB = (name, defaultElement = { user: [] }) => {
   db[name] = low(
     new FileSync(
       path.resolve(__dirname, "..", "..", "data", "db", name + ".json")
@@ -13,27 +13,27 @@ exports.newDB = (name, defaultElement = { user: [] }) => {
   db[name].defaults(defaultElement).write();
 };
 
-const isInside = (exports.isInside = async (name, key, index, value) => {
+const isInside = async (name, key, index, value) => {
   return db[name].get(key).map(index).value().includes(value);
-});
+};
 
-const get = (exports.get = async (name, key, index) => {
+const get = async (name, key, index) => {
   return db[name].get(key).find(index).value();
-});
+};
 
-const update = (exports.update = async (name, key, index, data) => {
+const update = async (name, key, index, data) => {
   db[name].get(key).find(index).assign(data).write();
-});
+};
 
-const push = (exports.push = async (name, key, data) => {
+const push = async (name, key, data) => {
   db[name].get(key).push(data).write();
-});
+};
 
-const set = (exports.set = async (name, key, data) => {
+const set = async (name, key, data) => {
   db[name].set(key, data).write();
-});
+};
 
-exports.getID = async (msg, userID) => {
+const getID = async (msg, userID) => {
   let id = msg.match(/\d{9}/g);
   let errInfo = "";
 
@@ -53,8 +53,19 @@ exports.getID = async (msg, userID) => {
   } else if (await isInside("map", "user", "userID", userID)) {
     return (await get("map", "user", { userID })).mhyID;
   } else {
-    errInfo = "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
+    errInfo =
+      "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
   }
 
   return errInfo;
+};
+
+module.exports = {
+  newDB,
+  isInside,
+  get,
+  update,
+  push,
+  set,
+  getID,
 };

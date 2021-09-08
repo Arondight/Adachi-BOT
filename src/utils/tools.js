@@ -1,4 +1,4 @@
-exports.randomString = (length) => {
+const randomString = (length) => {
   let result = "";
   let characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -10,11 +10,11 @@ exports.randomString = (length) => {
   return result;
 };
 
-exports.getRandomInt = (max) => {
+const getRandomInt = (max) => {
   return Math.floor(Math.random() * max) + 1;
 };
 
-exports.hasKey = (obj, level, ...rest) => {
+const hasKey = (obj, level, ...rest) => {
   if (obj === undefined) {
     return false;
   }
@@ -22,5 +22,11 @@ exports.hasKey = (obj, level, ...rest) => {
     return true;
   }
 
-  return exports.hasKey(obj[level], ...rest);
+  return hasKey(obj[level], ...rest);
+};
+
+module.exports = {
+  randomString,
+  getRandomInt,
+  hasKey,
 };
