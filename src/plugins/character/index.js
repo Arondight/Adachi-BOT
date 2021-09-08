@@ -42,7 +42,8 @@ module.exports = async (Message) => {
     const baseInfo = await basePromise(dbInfo, userID);
     uid = baseInfo[0];
     const { avatars } = await get("info", "user", { uid });
-    data = avatars.find((el) => el.name === alias(character));
+    character = alias(character);
+    data = avatars.find((el) => el.name === character);
 
     if (!data) {
       await bot.sendMessage(
