@@ -1,6 +1,6 @@
 const { isMaster } = require("../../utils/auth");
 
-module.exports = async (id, msg, type, user) => {
+exports.boardcast = async (id, msg, type, user) => {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let report = "";
 
