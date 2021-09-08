@@ -8,7 +8,7 @@ artifacts:
 card:
   - ^米游社 *(\[CQ:at,qq=)?(\d*)$
 character:
-  - ^我的 +[\u4e00-\u9fa5]+$
+  - ^我的 +.+$
 gacha:
   - ^十连 *$
   - ^卡池 +(常驻|角色|武器)
@@ -47,7 +47,7 @@ music:
   - ^点歌 +.+$
   - ^音乐源 +.+$
 overview:
-  - ^(角色|武器) +[\u4e00-\u9fa5]+$
+  - ^(角色|武器) +.+$
 package:
   - ^uid +\d+$
 quote:

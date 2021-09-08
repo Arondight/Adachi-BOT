@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-module.exports = render = async (data, name, id, type) => {
+exports.render = async (data, name, id, type) => {
   const page = await browser.newPage();
   await fs.writeFile(
     "./data/record/" + name + ".json",
