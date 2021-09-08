@@ -60,7 +60,7 @@ const updateCounter = async (userID, star, up) => {
   } else if (isUp !== undefined && isUp !== null) {
     five = 1; // 重置五星抽数
     four = four + 1;
-    isUp = up ? (isUp > 0 ? isUp + 1 : 1) : isUp > 0 ? -1 : isUp - 1;
+    isUp = up ? (isUp > 0 ? isUp + 1 : 1) : (isUp > 0 ? -1 : isUp - 1);
   } else {
     five = 1;
     four = four + 1;
