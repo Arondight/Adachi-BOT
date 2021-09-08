@@ -1,4 +1,4 @@
-const { randomString } = require("./tool");
+const { randomString } = require("./tools");
 const requests = require("./requests");
 const md5 = require("md5");
 
