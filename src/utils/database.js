@@ -25,9 +25,9 @@ const update = async (name, key, index, data) => {
   db[name].get(key).find(index).assign(data).write();
 };
 
-const push = (push = async (name, key, data) => {
+const push = async (name, key, data) => {
   db[name].get(key).push(data).write();
-});
+};
 
 const set = async (name, key, data) => {
   db[name].set(key, data).write();
