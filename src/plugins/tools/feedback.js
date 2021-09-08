@@ -1,6 +1,6 @@
 const { hasAuth, sendPrompt } = require("../../utils/auth");
 
-module.exports = async (id, name, msg, type, user) => {
+exports.feedback = async (id, name, msg, type, user) => {
   let info = msg.slice(4);
 
   if (!(await hasAuth(id, "feedback")) || !(await hasAuth(id, "feedback"))) {

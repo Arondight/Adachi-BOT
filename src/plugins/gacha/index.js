@@ -1,7 +1,8 @@
 const { get, push, isInside, update } = require("../../utils/database");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
-const render = require("../../utils/render");
-const getGachaResult = require("./gacha");
+const { render } = require("../../utils/render");
+const { alias } = require("../../utils/alias");
+const { getGachaResult } = require("./gacha");
 
 const userInitialize = async (userID) => {
   if (!(await isInside("gacha", "user", "userID", userID))) {
@@ -106,6 +107,7 @@ module.exports = async (Message) => {
 
     let id = -1;
     const table = await get("gacha", "data", { gacha_type: 302 });
+    cmd = alias(cmd);
 
     for (let i = 0; i < table["upFiveStar"].length; i++) {
       if (table["upFiveStar"][i]["item_name"] === cmd) {

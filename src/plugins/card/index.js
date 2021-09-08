@@ -5,7 +5,7 @@ const {
 } = require("../../utils/detail");
 const { get, isInside, getID } = require("../../utils/database");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
-const render = require("../../utils/render");
+const { render } = require("../../utils/render");
 
 const generateImage = async (uid, id, type) => {
   const data = await get("info", "user", { uid });

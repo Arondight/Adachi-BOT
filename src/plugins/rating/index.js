@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { hasKey } = require("../../utils/tool");
+const { hasKey } = require("../../utils/tools");
 
 const doGet = async (url) => {
   const response = await fetch(url, { method: "GET" });

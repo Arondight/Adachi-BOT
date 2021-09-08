@@ -1,10 +1,10 @@
-const roll = require("./roll");
-const help = require("./help");
-const feedback = require("./feedback");
-const reply = require("./reply");
-const boardcast = require("./boardcast");
-const master = require("./master");
-const search = require("./search");
+const { roll } = require("./roll");
+const { help } = require("./help");
+const { feedback } = require("./feedback");
+const { reply } = require("./reply");
+const { boardcast } = require("./boardcast");
+const { master } = require("./master");
+const { search } = require("./search");
 
 module.exports = (Message) => {
   let msg = Message.raw_message;
