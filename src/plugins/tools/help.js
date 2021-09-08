@@ -1,7 +1,7 @@
 const helpMessage = `🔘 绑定 <米游社通行证ID>
 🔘 改绑 <米游社通行证ID>
 🔘 米游社 [米游社通行证ID] 👉 查询并更新米游社ID的角色信息
-🔘 UID <游戏内UID> 👉 查询并更新此UID的角色信息
+🔘 uid <游戏内UID> 👉 查询并更新此UID的角色信息
 🔘 深渊 <游戏内UID> 👉 查询渊月螺旋战绩
 🔘 上期深渊 <游戏内UID> 👉 查询上期渊月螺旋战绩
 🔘 我的 <角色名> 👉 查询绑定米游社ID下的角色（需手动更新角色信息）
@@ -32,6 +32,6 @@ const helpMessage = `🔘 绑定 <米游社通行证ID>
 📎 手指（👉）后面是说明
 📎 不要[CQ:at,qq=${bot.uin}]哦`;
 
-module.exports = async (id, type) => {
+exports.help = async (id, type) => {
   await bot.sendMessage(id, helpMessage, type);
 };

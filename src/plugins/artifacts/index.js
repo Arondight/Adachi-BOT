@@ -1,7 +1,7 @@
 const { getArtifact, domainInfo, domainMax } = require("./artifacts.js");
 const { get, isInside, push } = require("../../utils/database");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
-const render = require("../../utils/render");
+const { render } = require("../../utils/render");
 
 const userInitialize = async (userID) => {
   if (!(await isInside("artifact", "user", "userID", userID))) {

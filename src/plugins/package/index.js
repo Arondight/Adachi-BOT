@@ -1,7 +1,7 @@
 const { detailPromise, characterPromise } = require("../../utils/detail");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
 const { get } = require("../../utils/database");
-const render = require("../../utils/render");
+const { render } = require("../../utils/render");
 
 const generateImage = async (uid, id, type) => {
   let data = await get("info", "user", { uid });

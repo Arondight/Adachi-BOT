@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { hasKey } = require("../../utils/tool");
+const { hasKey } = require("../../utils/tools");
 
 const doGet = async (url) => {
   const response = await fetch(url, { method: "GET" });
@@ -24,7 +24,9 @@ module.exports = async (Message) => {
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
-  let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
+  // 【评分】命令和图片之间可以加任意个空格
+  // https://github.com/Arondight/Adachi-BOT/issues/54
+  let [source] = msg.split(/^评分\s*/).slice(1);
   let [url] = /(?<=url=).+(?=])/.exec(source) || [];
   let headers = {
     "Content-Type": "application/json",

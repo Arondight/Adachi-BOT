@@ -1,10 +1,10 @@
-const roll = require("./roll");
-const help = require("./help");
-const feedback = require("./feedback");
-const reply = require("./reply");
-const boardcast = require("./boardcast");
-const master = require("./master");
-const search = require("./search");
+const { roll } = require("./roll");
+const { help } = require("./help");
+const { feedback } = require("./feedback");
+const { reply } = require("./reply");
+const { boardcast } = require("./boardcast");
+const { master } = require("./master");
+const { search } = require("./search");
 
 module.exports = (Message) => {
   let msg = Message.raw_message;
@@ -29,14 +29,14 @@ module.exports = (Message) => {
       msg.startsWith("查找列表"):
       search(sendID, msg, type, userID);
       break;
-    case msg.startsWith("roll"):
-      roll(sendID, name, msg, type, userID);
-      break;
-    case msg.startsWith("help"):
-      help(sendID, type);
-      break;
     case msg.startsWith("管理"):
       master(sendID, type);
+      break;
+    case msg.toLowerCase().startsWith("roll".toLowerCase()):
+      roll(sendID, name, msg, type, userID);
+      break;
+    case msg.toLowerCase().startsWith("help".toLowerCase()):
+      help(sendID, type);
       break;
   }
 };

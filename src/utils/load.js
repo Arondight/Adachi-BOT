@@ -1,7 +1,7 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 const path = require("path");
-const { getRandomInt } = require("./tool");
+const { getRandomInt } = require("./tools");
 const { hasAuth } = require("./auth");
 
 const loadYML = (name) => {
@@ -90,7 +90,7 @@ const getCommand = (msgData) => {
   for (let command in commandConfig) {
     if (commandConfig.hasOwnProperty(command)) {
       for (let setting of commandConfig[command]) {
-        let reg = new RegExp(setting);
+        let reg = new RegExp(setting, "i");
         if (reg.test(msgData)) {
           return command;
         }

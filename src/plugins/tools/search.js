@@ -1,6 +1,6 @@
 const { isMaster } = require("../../utils/auth");
 
-module.exports = async (id, msg, type, user) => {
+exports.search = async (id, msg, type, user) => {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let listAll = new Map([...bot.fl].concat([...bot.gl]));
   let report = "";
