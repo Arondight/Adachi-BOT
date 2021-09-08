@@ -1,7 +1,8 @@
 const { basePromise } = require("../../utils/detail");
 const { get, isInside, getID } = require("../../utils/database");
 const { hasAuth, sendPrompt } = require("../../utils/auth");
-const render = require("../../utils/render");
+const { render } = require("../../utils/render");
+const { alias } = require("../../utils/alias");
 
 module.exports = async (Message) => {
   let msg = Message.raw_message;
@@ -41,6 +42,7 @@ module.exports = async (Message) => {
     const baseInfo = await basePromise(dbInfo, userID);
     uid = baseInfo[0];
     const { avatars } = await get("info", "user", { uid });
+    character = alias(character);
     data = avatars.find((el) => el.name === character);
 
     if (!data) {

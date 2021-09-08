@@ -1,6 +1,6 @@
 const { isMaster } = require("../../utils/auth");
 
-module.exports = async (id, msg, type, user) => {
+exports.reply = async (id, msg, type, user) => {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
   let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
   let list = new Map([...bot.fl].concat([...bot.gl]));

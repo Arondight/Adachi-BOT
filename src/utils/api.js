@@ -1,5 +1,5 @@
-const { randomString } = require("./tool");
-const requests = require("./requests");
+const { randomString } = require("./tools");
+const { requests } = require("./requests");
 const md5 = require("md5");
 
 const __API = {

@@ -34,7 +34,7 @@ const set = (exports.set = async (name, key, data) => {
 });
 
 exports.getID = async (msg, userID) => {
-  let id = msg.match(/\d+/g);
+  let id = msg.match(/\d{9}/g);
   let errInfo = "";
 
   if (msg.includes("CQ:at")) {

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 const path = require("path");
-const { getRandomInt } = require("./tool");
+const { getRandomInt } = require("./tools");
 const { hasAuth } = require("./auth");
 
 const loadYML = (name) => {
