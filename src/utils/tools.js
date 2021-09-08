@@ -28,5 +28,5 @@ const hasKey = (obj, level, ...rest) => {
 module.exports = {
   randomString,
   getRandomInt,
-  hasKey
+  hasKey,
 };

@@ -222,5 +222,5 @@ const domainMax = () => {
 module.exports = {
   getArtifact,
   domainInfo,
-  domainMax
+  domainMax,
 };

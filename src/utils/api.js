@@ -44,7 +44,7 @@ const getQueryParam = (data) => {
 
 const getDS = (query, body = "") => {
   let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
-  let i = Date.now() / 1000 | 0;
+  let i = (Date.now() / 1000) | 0;
   let r = randomString(6);
   let q = getQueryParam(query);
   let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
@@ -198,5 +198,5 @@ module.exports = {
   getDetail,
   getCharacters,
   getGachaList,
-  getGachaDetail
+  getGachaDetail,
 };

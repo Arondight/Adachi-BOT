@@ -67,5 +67,5 @@ const gachaUpdate = async () => {
 };
 
 module.exports = {
-  gachaUpdate
+  gachaUpdate,
 };

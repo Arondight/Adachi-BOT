@@ -17,5 +17,5 @@ const alias = (text) => {
 };
 
 module.exports = {
-  alias
+  alias,
 };

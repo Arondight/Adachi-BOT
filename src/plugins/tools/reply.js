@@ -22,5 +22,5 @@ const reply = async (id, msg, type, user) => {
 };
 
 module.exports = {
-  reply
+  reply,
 };

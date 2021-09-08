@@ -37,5 +37,5 @@ const help = async (id, type) => {
 };
 
 module.exports = {
-  help
+  help,
 };

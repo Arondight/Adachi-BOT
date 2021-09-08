@@ -5,7 +5,11 @@ const isMaster = (userID) => {
 };
 
 const sendPrompt = async (sendID, userID, name, auth, type) => {
-  await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 您当前无${auth}权限。`, type);
+  await bot.sendMessage(
+    sendID,
+    `[CQ:at,qq=${userID}] 您当前无${auth}权限。`,
+    type
+  );
 };
 
 const setAuth = async (auth, target, isOn) => {
@@ -31,5 +35,5 @@ module.exports = {
   isMaster,
   sendPrompt,
   setAuth,
-  hasAuth
+  hasAuth,
 };

@@ -316,5 +316,5 @@ module.exports = {
   abyPromise,
   basePromise,
   detailPromise,
-  characterPromise
+  characterPromise,
 };

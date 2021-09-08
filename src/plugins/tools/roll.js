@@ -18,5 +18,5 @@ const roll = async (id, name, msg, type, user) => {
 };
 
 module.exports = {
-  roll
+  roll,
 };

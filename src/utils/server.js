@@ -1,5 +1,5 @@
 const path = require("path");
-const express = require('express');
+const express = require("express");
 
 const newServer = (port) => {
   const server = express();
@@ -10,5 +10,5 @@ const newServer = (port) => {
 };
 
 module.exports = {
-  newServer
+  newServer,
 };

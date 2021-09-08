@@ -37,5 +37,5 @@ const boardcast = async (id, msg, type, user) => {
 };
 
 module.exports = {
-  boardcast
+  boardcast,
 };

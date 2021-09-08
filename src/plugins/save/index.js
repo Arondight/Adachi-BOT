@@ -46,7 +46,9 @@ module.exports = async (Message) => {
       } else {
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【绑定 ` + mhyID + "】。",
+          `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【绑定 ` +
+            mhyID +
+            "】。",
           type
         );
       }

@@ -23,5 +23,5 @@ https://github.com/Arondight/Adachi-BOT/issues`,
 };
 
 module.exports = {
-  feedback
+  feedback,
 };

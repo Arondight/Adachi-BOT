@@ -49,5 +49,5 @@ const search = async (id, msg, type, user) => {
 };
 
 module.exports = {
-  search
+  search,
 };

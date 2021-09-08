@@ -23,5 +23,5 @@ const master = async (id, type) => {
 };
 
 module.exports = {
-  master
+  master,
 };

@@ -8,7 +8,6 @@ const loadYML = (name) => {
   return yaml.load(fs.readFileSync(`./config/${name}.yml`, "utf-8"));
 };
 
-
 const loadPlugins = () => {
   let plugins = {};
   const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
@@ -50,7 +49,8 @@ const processed = async (qqData, plugins, type) => {
   // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
   if (
     (await hasAuth(qqData.group_id, "replyGroup")) &&
-    qqData.hasOwnProperty("message") && qqData.message[0] &&
+    qqData.hasOwnProperty("message") &&
+    qqData.message[0] &&
     qqData.message[0].type === "text"
   ) {
     const command = getCommand(qqData.raw_message);
@@ -103,5 +103,5 @@ const getCommand = (msgData) => {
 module.exports = {
   loadYML,
   loadPlugins,
-  processed
+  processed,
 };

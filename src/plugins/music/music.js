@@ -141,5 +141,5 @@ const musicSrc = async (msg, id) => {
 module.exports = {
   errMsg,
   musicID,
-  musicSrc
+  musicSrc,
 };

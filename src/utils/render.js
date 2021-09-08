@@ -19,5 +19,5 @@ const render = async (data, name, id, type) => {
 };
 
 module.exports = {
-  render
+  render,
 };
