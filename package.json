@@ -2,10 +2,12 @@
   "name": "adachi-bot",
   "version": "1.5.0",
   "description": "腾讯 QQ 中的原神机器人",
-  "main": "app.js",
+  "type": "module",
+  "exports": "./app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "test": "echo 'Error: no test specified' && exit 0",
+    "format": "babel --plugins babel-plugin-transform-commonjs ./app.js -o ./app.js; echo -n 'src|utils' | tr '|' \"\n\" | xargs -I {} babel --plugins babel-plugin-transform-commonjs \"./src/{}/\" -d \"./src/{}/\"; prettier -uw ./app.js ./src/",
+    "start": "node ./app.js"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +25,12 @@
     "random-float": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "babel-plugin-transform-commonjs": "^1.1.6",
     "js-yaml": "^4.1.0",
     "md5": "^2.3.0",
+    "prettier": "2.3.2",
     "request": "^2.88.2"
   }
 }
