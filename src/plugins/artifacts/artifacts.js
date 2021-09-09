@@ -174,7 +174,7 @@ const getFortified = (num, subStats, improves) => {
   return toArray(property);
 };
 
-exports.getArtifact = async (userID, type) => {
+const getArtifact = async (userID, type) => {
   let artifactID = getArtifactID(type);
   let slot = getSlot();
   let mainStat = getMainStat(slot);
@@ -204,7 +204,7 @@ exports.getArtifact = async (userID, type) => {
   );
 };
 
-exports.domainInfo = () => {
+const domainInfo = () => {
   let domainsMsg = "";
   for (let i in domains) {
     if (domains.hasOwnProperty(i)) {
@@ -215,6 +215,12 @@ exports.domainInfo = () => {
   return domainsMsg;
 };
 
-exports.domainMax = () => {
+const domainMax = () => {
   return domains.length - 1;
+};
+
+module.exports = {
+  getArtifact,
+  domainInfo,
+  domainMax,
 };

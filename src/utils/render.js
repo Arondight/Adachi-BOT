@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-exports.render = async (data, name, id, type) => {
+const render = async (data, name, id, type) => {
   const page = await browser.newPage();
   await fs.writeFile(
     "./data/record/" + name + ".json",
@@ -16,4 +16,8 @@ exports.render = async (data, name, id, type) => {
 
   await page.close();
   await bot.sendMessage(id, "[CQ:image,file=base64://" + base64 + "]", type);
+};
+
+module.exports = {
+  render,
 };

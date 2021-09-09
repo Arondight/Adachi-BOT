@@ -16,13 +16,12 @@ const ERRCODE = {
 };
 Object.freeze(ERRCODE);
 
-exports.errMsg = {
+const errMsg = {
   [ERRCODE.ERR_SRC]: "错误的音乐源",
   [ERRCODE.ERR_404]: "没有查询到对应歌曲",
   [ERRCODE.ERR_API]: "歌曲查询出错",
 };
 
-// 看看，这集 LinuxHub 群友智慧的代码！！！ {
 const doPost = async (url, headers, body) => {
   let ret = false;
 
@@ -38,7 +37,6 @@ const doPost = async (url, headers, body) => {
 
   return ret;
 };
-// }
 
 const musicQQ = async (keyword) => {
   let url = "https://api.qq.jsososo.com/search/quick";
@@ -109,7 +107,7 @@ const music163 = async (keyword) => {
   return ERRCODE.ERR_404;
 };
 
-exports.musicID = async (msg, source) => {
+const musicID = async (msg, source) => {
   let [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
     [MUSICSRC.SRC_QQ]: musicQQ,
@@ -123,7 +121,7 @@ exports.musicID = async (msg, source) => {
   return await worker[source](keyword);
 };
 
-exports.musicSrc = async (msg, id) => {
+const musicSrc = async (msg, id) => {
   let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data = await get("music", "source", { ID: id });
 
@@ -138,4 +136,10 @@ exports.musicSrc = async (msg, id) => {
   }
 
   return source;
+};
+
+module.exports = {
+  errMsg,
+  musicID,
+  musicSrc,
 };

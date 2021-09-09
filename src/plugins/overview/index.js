@@ -22,7 +22,11 @@ module.exports = async (Message) => {
   }
 
   if (!text) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入名称。`, type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] 请正确输入名称。`,
+      type
+    );
     return;
   }
 
