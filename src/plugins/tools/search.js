@@ -1,6 +1,6 @@
 const { isMaster } = require("../../utils/auth");
 
-exports.search = async (id, msg, type, user) => {
+const search = async (id, msg, type, user) => {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let listAll = new Map([...bot.fl].concat([...bot.gl]));
   let report = "";
@@ -46,4 +46,8 @@ exports.search = async (id, msg, type, user) => {
     await bot.sendMessage(id, report, type);
     return;
   }
+};
+
+module.exports = {
+  search,
 };

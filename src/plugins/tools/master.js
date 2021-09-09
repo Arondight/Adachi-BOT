@@ -18,6 +18,10 @@ const helpMessage = `🔘 带话权限 <QQ号|群号> <on|off> 👉 【带个话
 📎 可选项不填通常约定自己、上一个或随机
 📎 手指（👉）后面是说明`;
 
-exports.master = async (id, type) => {
+const master = async (id, type) => {
   await bot.sendMessage(id, helpMessage, type);
+};
+
+module.exports = {
+  master,
 };

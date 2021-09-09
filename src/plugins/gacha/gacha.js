@@ -56,9 +56,9 @@ const getFourProb = (counter, choice) => {
 const updateCounter = async (userID, star, up) => {
   if (star !== 5) {
     five = five + 1;
-    four = star === 4 ? 1 : four + 1;   // 重置四星抽数
+    four = star === 4 ? 1 : four + 1; // 重置四星抽数
   } else if (isUp !== undefined && isUp !== null) {
-    five = 1;                           // 重置五星抽数
+    five = 1; // 重置五星抽数
     four = four + 1;
     isUp = up ? (isUp > 0 ? isUp + 1 : 1) : (isUp > 0 ? -1 : isUp - 1);
   } else {
@@ -95,7 +95,8 @@ const getStar = async (userID, choice) => {
 
 const gachaOnce = async (userID, choice, table) => {
   const star = await getStar(userID, choice);
-  let up = await getIsUp(userID, star), result;
+  let up = await getIsUp(userID, star),
+    result;
   const times = five;
   let { path } = await get("gacha", "user", { userID });
 
@@ -179,6 +180,10 @@ const gachaTenTimes = async (userID, nickname) => {
   return result;
 };
 
-exports.getGachaResult = async (userID, nickname) => {
+const getGachaResult = async (userID, nickname) => {
   return await gachaTenTimes(userID, nickname);
+};
+
+module.exports = {
+  getGachaResult,
 };

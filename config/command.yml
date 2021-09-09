@@ -53,6 +53,6 @@ package:
 quote:
   - ^伟大的升华 *$
 rating:
-  - ^评分 *.+$    # https://github.com/Arondight/Adachi-BOT/issues/54
+  - ^评分 *.+$ # https://github.com/Arondight/Adachi-BOT/issues/54
 save:
   - ^(绑定|改绑) +\d+$

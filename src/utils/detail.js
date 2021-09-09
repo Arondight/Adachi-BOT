@@ -125,7 +125,7 @@ const getCookie = async (uid, use_cookie) => {
   });
 };
 
-exports.abyPromise = async (uid, server, schedule_type) => {
+const abyPromise = async (uid, server, schedule_type) => {
   const { retcode, message, data } = await getAbyDetail(
     uid,
     schedule_type,
@@ -149,7 +149,7 @@ exports.abyPromise = async (uid, server, schedule_type) => {
   });
 };
 
-exports.basePromise = async (mhyID, userID) => {
+const basePromise = async (mhyID, userID) => {
   const { retcode, message, data } = await getBase(
     mhyID,
     await getCookie("MHY" + mhyID, false)
@@ -182,7 +182,7 @@ exports.basePromise = async (mhyID, userID) => {
   });
 };
 
-exports.detailPromise = async (uid, server, userID) => {
+const detailPromise = async (uid, server, userID) => {
   await userInitialize(userID, uid, "", -1);
   await update("character", "user", { userID }, { uid });
 
@@ -248,7 +248,7 @@ exports.detailPromise = async (uid, server, userID) => {
   });
 };
 
-exports.characterPromise = async (uid, server, character_ids) => {
+const characterPromise = async (uid, server, character_ids) => {
   const { retcode, message, data } = await getCharacters(
     uid,
     server,
@@ -310,4 +310,11 @@ exports.characterPromise = async (uid, server, character_ids) => {
     await update("info", "user", { uid }, { avatars });
     resolve();
   });
+};
+
+module.exports = {
+  abyPromise,
+  basePromise,
+  detailPromise,
+  characterPromise,
 };
