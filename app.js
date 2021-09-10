@@ -1,4 +1,4 @@
-import botEnvironment from "./src/utils/init.js";
+import init from "./src/utils/init.js";
 import { loadPlugins, loadYML, processed } from "./src/utils/load.js";
 import { createClient } from "oicq";
 
@@ -57,7 +57,7 @@ global.greetingDie = GREETING_DIE;
 global.greetingHello = GREETING_HELLO;
 global.greetingNew = GREETING_NEW;
 
-const run = async () => {
+const login = async () => {
   // 处理登录滑动验证码
   bot.on("system.login.slider", () => {
     process.stdin.once("data", (input) => {
@@ -82,8 +82,9 @@ const run = async () => {
   bot.login(Setting["account"].password);
 };
 
-run().then(async () => {
-  botEnvironment();
+async function main() {
+  await login();
+  init();
 
   const plugins = await loadPlugins();
   bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
@@ -119,4 +120,6 @@ run().then(async () => {
   bot.on("notice.group.increase", async (msgData) => {
     await processed(msgData, plugins, "group.increase");
   });
-});
+}
+
+await main();
