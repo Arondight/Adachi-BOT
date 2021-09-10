@@ -1,24 +1,22 @@
-import { render } from "../../utils/render";
-import { get } from "../../utils/database";
-import { hasAuth, sendPrompt } from "../../utils/auth";
-import { detailPromise, characterPromise } from "../../utils/detail";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
+import { render } from "../../utils/render.js";
+import { get } from "../../utils/database.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { detailPromise, characterPromise } from "../../utils/detail.js";
 
-const generateImage = async (uid, id, type) => {
-  let data = await get("info", "user", {
-    uid
-  });
+async function generateImage(uid, id, type) {
+  let data = await get("info", "user", { uid });
   await render(data, "genshin-info", id, type);
-};
+}
 
-const getID = msg => {
+function getID(msg) {
   let id = msg.match(/\d+/g);
   let errInfo = "";
 
-  if (id.length > 1 || id[0].length !== 9 || id[0][0] !== "1" && id[0][0] !== "5") {
+  if (
+    id.length > 1 ||
+    id[0].length !== 9 ||
+    (id[0][0] !== "1" && id[0][0] !== "5")
+  ) {
     errInfo = "输入 UID 不合法。";
     return errInfo;
   }
@@ -26,9 +24,9 @@ const getID = msg => {
   let uid = parseInt(id[0]);
   let region = id[0][0] === "1" ? "cn_gf01" : "cn_qd01";
   return [uid, region];
-};
+}
 
-module.exports = async Message => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -43,7 +41,11 @@ module.exports = async Message => {
   }
 
   if (typeof dbInfo === "string") {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + dbInfo.toString(), type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
+      type
+    );
     return;
   }
 
@@ -58,6 +60,6 @@ module.exports = async Message => {
   }
 
   await generateImage(dbInfo[0], sendID, type);
-};
+}
 
-export default module.exports;
+export { Plugin as run };

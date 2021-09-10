@@ -1,11 +1,6 @@
-import _nodeFetch from "node-fetch";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
-const fetch = _nodeFetch;
+import fetch from "node-fetch";
 
-module.exports = async Message => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -13,22 +8,24 @@ module.exports = async Message => {
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
   let headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
   const response = await fetch("https://mao.coolrc.workers.dev/", {
     method: "POST",
-    headers: headers
+    headers: headers,
   });
 
   if (response.status == 200) {
-    let {
-      quote,
-      from
-    } = await response.json();
-    return await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + quote + "\n" + from, type);
+    let { quote, from } = await response.json();
+    return await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] ` + quote + "\n" + from,
+      type
+    );
   }
 
   await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 伟大的升华！`, type);
-};
+}
 
-export default module.exports;
+export { Plugin as run };

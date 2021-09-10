@@ -1,13 +1,8 @@
-import _lodash from "lodash";
-import { set } from "./database";
-import { getGachaList, getGachaDetail } from "./api";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
-const lodash = _lodash;
+import lodash from "lodash";
+import { set } from "./database.js";
+import { getGachaList, getGachaDetail } from "./api.js";
 
-const parseData = async gachaID => {
+async function parseData(gachaID) {
   const data = await getGachaDetail(gachaID);
   let detail = {
     gacha_type: parseInt(data["gacha_type"]),
@@ -15,9 +10,9 @@ const parseData = async gachaID => {
     upFiveStar: [],
     nonUpFourStar: [],
     nonUpFiveStar: [],
-    threeStar: []
+    threeStar: [],
   };
-  data["r4_prob_list"].forEach(el => {
+  data["r4_prob_list"].forEach((el) => {
     let parsed = lodash.pick(el, ["item_type", "item_name"]);
 
     if (el["is_up"] === 0) {
@@ -26,7 +21,7 @@ const parseData = async gachaID => {
       detail.upFourStar.push(parsed);
     }
   });
-  data["r5_prob_list"].forEach(el => {
+  data["r5_prob_list"].forEach((el) => {
     let parsed = lodash.pick(el, ["item_type", "item_name"]);
 
     if (el["is_up"] === 0) {
@@ -35,24 +30,24 @@ const parseData = async gachaID => {
       detail.upFiveStar.push(parsed);
     }
   });
-  data["r3_prob_list"].forEach(el => {
+  data["r3_prob_list"].forEach((el) => {
     let parsed = lodash.pick(el, ["item_type", "item_name"]);
     detail.threeStar.push(parsed);
   });
   return detail;
-};
+}
 
-const gachaUpdate = async () => {
+async function gachaUpdate() {
   const gachaInfo = (await getGachaList()).data.list;
 
   if (gachaInfo[1] === undefined) {
     return;
   }
 
-  const getGachaCode = gachaID => {
-    const gacha = gachaInfo.filter(el => el["gacha_type"] === gachaID);
+  const getGachaCode = (gachaID) => {
+    const gacha = gachaInfo.filter((el) => el["gacha_type"] === gachaID);
     let maxTime = 0,
-        tmpGacha;
+      tmpGacha;
 
     for (let g of gacha) {
       let date = new Date(g["begin_time"]);
@@ -70,9 +65,6 @@ const gachaUpdate = async () => {
   const character = await parseData(getGachaCode(301));
   const weapon = await parseData(getGachaCode(302));
   await set("gacha", "data", [indefinite, character, weapon]);
-};
+}
 
-module.exports = {
-  gachaUpdate
-};
-export default module.exports;
+export { gachaUpdate };

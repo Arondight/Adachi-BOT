@@ -1,43 +1,42 @@
-import _path from "path";
-import _lowdbAdaptersFileSync from "lowdb/adapters/FileSync";
-import _lowdb from "lowdb";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
-const low = _lowdb;
-const FileSync = _lowdbAdaptersFileSync;
-const path = _path;
+import FileSync from "lowdb/adapters/FileSync.js";
+import lowdb from "lowdb";
+import url from "url";
+import path from "path";
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const db = [];
 
-const newDB = (name, defaultElement = {
-  user: []
-}) => {
-  db[name] = low(new FileSync(path.resolve(__dirname, "..", "..", "data", "db", name + ".json")));
+function newDB(name, defaultElement = { user: [] }) {
+  db[name] = lowdb(
+    new FileSync(
+      path.resolve(__dirname, "..", "..", "data", "db", name + ".json")
+    )
+  );
   db[name].defaults(defaultElement).write();
-};
+}
 
-const isInside = async (name, key, index, value) => {
+async function isInside(name, key, index, value) {
   return db[name].get(key).map(index).value().includes(value);
-};
+}
 
-const get = async (name, key, index) => {
+async function get(name, key, index) {
   return db[name].get(key).find(index).value();
-};
+}
 
-const update = async (name, key, index, data) => {
+async function update(name, key, index, data) {
   db[name].get(key).find(index).assign(data).write();
-};
+}
 
-const push = async (name, key, data) => {
+async function push(name, key, data) {
   db[name].get(key).push(data).write();
-};
+}
 
-const set = async (name, key, data) => {
+async function set(name, key, data) {
   db[name].set(key, data).write();
-};
+}
 
-const getID = async (msg, userID) => {
+async function getID(msg, userID) {
   let id = msg.match(/\d{9}/g);
   let errInfo = "";
 
@@ -45,9 +44,7 @@ const getID = async (msg, userID) => {
     let atID = parseInt(id[0]);
 
     if (await isInside("map", "user", "userID", atID)) {
-      return (await get("map", "user", {
-        userID: atID
-      })).mhyID;
+      return (await get("map", "user", { userID: atID })).mhyID;
     } else {
       errInfo = "用户 " + atID + " 暂未绑定米游社通行证。";
     }
@@ -58,23 +55,13 @@ const getID = async (msg, userID) => {
       return parseInt(id[0]);
     }
   } else if (await isInside("map", "user", "userID", userID)) {
-    return (await get("map", "user", {
-      userID
-    })).mhyID;
+    return (await get("map", "user", { userID })).mhyID;
   } else {
-    errInfo = "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
+    errInfo =
+      "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
   }
 
   return errInfo;
-};
+}
 
-module.exports = {
-  newDB,
-  isInside,
-  get,
-  update,
-  push,
-  set,
-  getID
-};
-export default module.exports;
+export { newDB, isInside, get, update, push, set, getID };

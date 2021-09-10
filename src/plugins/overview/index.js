@@ -1,13 +1,9 @@
-import { alias } from "../../utils/alias";
-import { render } from "../../utils/render";
-import { hasAuth, sendPrompt } from "../../utils/auth";
-import { getInfo } from "../../utils/api";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
+import { alias } from "../../utils/alias.js";
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { getInfo } from "../../utils/api.js";
 
-module.exports = async Message => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -17,24 +13,35 @@ module.exports = async Message => {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data;
 
-  if (!(await hasAuth(userID, "overview")) || !(await hasAuth(sendID, "overview"))) {
+  if (
+    !(await hasAuth(userID, "overview")) ||
+    !(await hasAuth(sendID, "overview"))
+  ) {
     await sendPrompt(sendID, userID, name, "查询游戏数据", type);
     return;
   }
 
   if (!text) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 请正确输入名称。`, type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] 请正确输入名称。`,
+      type
+    );
     return;
   }
 
   try {
     data = await getInfo(alias(text));
   } catch (errInfo) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确。`, type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确。`,
+      type
+    );
     return;
   }
 
   await render(data, "genshin-overview", sendID, type);
-};
+}
 
-export default module.exports;
+export { Plugin as run };

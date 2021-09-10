@@ -1,20 +1,18 @@
-import { render } from "../../utils/render";
-import { hasAuth, sendPrompt } from "../../utils/auth";
-import { get, isInside, getID } from "../../utils/database";
-import { basePromise, detailPromise, characterPromise } from "../../utils/detail";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get, isInside, getID } from "../../utils/database.js";
+import {
+  basePromise,
+  detailPromise,
+  characterPromise,
+} from "../../utils/detail.js";
 
 const generateImage = async (uid, id, type) => {
-  const data = await get("info", "user", {
-    uid
-  });
+  const data = await get("info", "user", { uid });
   await render(data, "genshin-card", id, type);
 };
 
-module.exports = async Message => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -22,7 +20,7 @@ module.exports = async Message => {
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
   let dbInfo = await getID(msg, userID),
-      uid;
+    uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
@@ -47,6 +45,6 @@ module.exports = async Message => {
   }
 
   await generateImage(uid, sendID, type);
-};
+}
 
-export default module.exports;
+export { Plugin as run };

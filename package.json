@@ -6,8 +6,7 @@
   "exports": "./app.js",
   "scripts": {
     "test": "echo 'Error: no test specified' && exit 0",
-    "toesm": "babel --plugins babel-plugin-transform-commonjs ./app.js -o ./app.js; echo -n 'plugins|utils' | tr '|' \"\n\" | xargs -I {} babel --plugins babel-plugin-transform-commonjs \"./src/{}/\" -d \"./src/{}/\"",
-    "format": "prettier --config ./.prettierrc -uw ./app.js ./src/",
+    "format": "npx prettier --config ./.prettierrc -uw ./app.js ./src/",
     "start": "node ./app.js"
   },
   "keywords": [],

@@ -1,28 +1,37 @@
-import _randomFloat from "random-float";
-import { loadYML } from "../../utils/load";
-import { update } from "../../utils/database";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
-const randomFloat = _randomFloat;
-
-const randomInt = (Min, Max) => {
-  let range = Max - Min + 1;
-  return Min + Math.floor(Math.random() * range);
-};
+import randomFloat from "random-float";
+import { loadYML } from "../../utils/load.js";
+import { update } from "../../utils/database.js";
 
 const artifactCfg = loadYML("artifacts");
-const {
-  artifacts,
-  domains,
-  weights,
-  values
-} = artifactCfg;
-const propertyName = ["生命值", "生命值", "防御力", "防御力", "元素充能效率", "元素精通", "攻击力", "攻击力", "暴击伤害", "暴击率", "物理伤害加成", "风元素伤害加成", "冰元素伤害加成", "雷元素伤害加成", "岩元素伤害加成", "水元素伤害加成", "火元素伤害加成", "治疗加成"];
+const { artifacts, domains, weights, values } = artifactCfg;
+const propertyName = [
+  "生命值",
+  "生命值",
+  "防御力",
+  "防御力",
+  "元素充能效率",
+  "元素精通",
+  "攻击力",
+  "攻击力",
+  "暴击伤害",
+  "暴击率",
+  "物理伤害加成",
+  "风元素伤害加成",
+  "冰元素伤害加成",
+  "雷元素伤害加成",
+  "岩元素伤害加成",
+  "水元素伤害加成",
+  "火元素伤害加成",
+  "治疗加成",
+];
 const dailyFortune = 0;
 
-const getArtifactID = domainID => {
+function randomInt(Min, Max) {
+  let range = Max - Min + 1;
+  return Min + Math.floor(Math.random() * range);
+}
+
+function getArtifactID(domainID) {
   if (domainID === -1) {
     let num = artifacts.length;
     return randomInt(0, num - 1);
@@ -35,12 +44,12 @@ const getArtifactID = domainID => {
       return domains[domainID].product[randomInt(0, 1)];
     }
   }
-};
+}
 
-const getRandomProperty = (arr, type) => {
+function getRandomProperty(arr, type) {
   let suffix = [];
   let sum = 0,
-      len = arr.length;
+    len = arr.length;
 
   for (let i = 0; i < len; i++) {
     sum += arr[i];
@@ -54,13 +63,13 @@ const getRandomProperty = (arr, type) => {
       return i;
     }
   }
-};
+}
 
-const getSlot = () => {
+function getSlot() {
   return getRandomProperty(weights[0], 0);
-};
+}
 
-const getMainStat = slot => {
+function getMainStat(slot) {
   if (slot === 0) {
     return 0;
   } else if (slot === 1) {
@@ -75,11 +84,11 @@ const getMainStat = slot => {
 
     return getRandomProperty(float, -1);
   }
-};
+}
 
-const getSubStats = mainStat => {
+function getSubStats(mainStat) {
   let arr = [],
-      sub = [];
+    sub = [];
 
   for (let i = 0; i < 10; i++) {
     let w = weights[1][i] * randomInt(0, 1e3);
@@ -97,43 +106,38 @@ const getSubStats = mainStat => {
 
   for (let i = 0, num = 0; i < 10 && num < 4; i++) {
     if (arr[i][0] !== mainStat) {
-      sub.push({
-        stat: arr[i][0],
-        grade: getRandomProperty(weights[6], 0)
-      });
+      sub.push({ stat: arr[i][0], grade: getRandomProperty(weights[6], 0) });
       num++;
     }
   }
 
   return sub;
-};
+}
 
-const getInit = () => {
+function getInit() {
   return getRandomProperty(weights[5], 0) ? 4 : 3;
-};
+}
 
-const getImproves = () => {
+function getImproves() {
   let improves = [];
 
   for (let i = 0; i < 5; i++) {
     improves.push({
       place: randomInt(0, 3),
-      grade: getRandomProperty(weights[6], 0)
+      grade: getRandomProperty(weights[6], 0),
     });
   }
 
   return improves;
-};
+}
 
-const toArray = property => {
+function toArray(property) {
   let res = [],
-      num = 0;
+    num = 0;
 
   for (let i in property) {
     if (property.hasOwnProperty(i)) {
-      let temp = {
-        name: propertyName[i]
-      };
+      let temp = { name: propertyName[i] };
 
       if (property[i] < 1) {
         temp.data = (property[i] * 100).toFixed(1) + "%";
@@ -146,9 +150,9 @@ const toArray = property => {
   }
 
   return res;
-};
+}
 
-const getInitial = (num, subStats) => {
+function getInitial(num, subStats) {
   let property = {};
 
   for (let i = 0; i < num; i++) {
@@ -158,9 +162,9 @@ const getInitial = (num, subStats) => {
   }
 
   return toArray(property);
-};
+}
 
-const getFortified = (num, subStats, improves) => {
+function getFortified(num, subStats, improves) {
   let property = {};
 
   for (let i = 0; i < 4; i++) {
@@ -177,9 +181,9 @@ const getFortified = (num, subStats, improves) => {
   }
 
   return toArray(property);
-};
+}
 
-const getArtifact = async (userID, type) => {
+async function getArtifact(userID, type) {
   let artifactID = getArtifactID(type);
   let slot = getSlot();
   let mainStat = getMainStat(slot);
@@ -189,33 +193,26 @@ const getArtifact = async (userID, type) => {
   let initialProperty = getInitial(initPropertyNum, subStats);
   let fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
   let name = artifacts[artifactID]["subName"][slot];
-  await update("artifact", "user", {
-    userID
-  }, {
-    initial: {
-      mainStat,
-      base: {
-        name,
-        artifactID,
-        slot,
-        level: 0
+  await update(
+    "artifact",
+    "user",
+    { userID },
+    {
+      initial: {
+        mainStat,
+        base: { name, artifactID, slot, level: 0 },
+        data: initialProperty,
       },
-      data: initialProperty
-    },
-    fortified: {
-      mainStat,
-      base: {
-        name,
-        artifactID,
-        slot,
-        level: 20
+      fortified: {
+        mainStat,
+        base: { name, artifactID, slot, level: 20 },
+        data: fortifiedProperty,
       },
-      data: fortifiedProperty
     }
-  });
-};
+  );
+}
 
-const domainInfo = () => {
+function domainInfo() {
   let domainsMsg = "";
 
   for (let i in domains) {
@@ -225,15 +222,10 @@ const domainInfo = () => {
   }
 
   return domainsMsg;
-};
+}
 
-const domainMax = () => {
+function domainMax() {
   return domains.length - 1;
-};
+}
 
-module.exports = {
-  getArtifact,
-  domainInfo,
-  domainMax
-};
-export default module.exports;
+export { getArtifact, domainInfo, domainMax };

@@ -1,20 +1,15 @@
-import _express from "express";
-import _path from "path";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
-const path = _path;
-const express = _express;
+import express from "express";
+import url from "url";
+import path from "path";
 
-const newServer = port => {
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function newServer(port) {
   const server = express();
   const workdir = path.resolve(__dirname, "..", "..");
   server.use(express.static(workdir));
   server.listen(port, "localhost");
-};
+}
 
-module.exports = {
-  newServer
-};
-export default module.exports;
+export { newServer };

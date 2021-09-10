@@ -1,17 +1,13 @@
-import { getRandomInt } from "../../utils/tools";
-import { loadYML } from "../../utils/load";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
+import { getRandomInt } from "../../utils/tools.js";
+import { loadYML } from "../../utils/load.js";
 const menuCfg = loadYML("menu");
 const {
   breakfast: breakfastMenu,
   lunch: lunchMenu,
-  dinner: dinnerMenu
+  dinner: dinnerMenu,
 } = menuCfg;
 
-module.exports = async Message => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -26,6 +22,6 @@ module.exports = async Message => {
 午餐：${lunchMenu[lunchIdx]}
 晚餐：${dinnerMenu[dinnerIdx]}`;
   await bot.sendMessage(sendID, message, type);
-};
+}
 
-export default module.exports;
+export { Plugin as run };

@@ -1,12 +1,8 @@
-import { errMsg, musicID, musicSrc } from "./music";
-import { hasAuth, sendPrompt } from "../../utils/auth";
-import { get } from "../../utils/database";
-var module = {
-  exports: {}
-};
-var exports = module.exports;
+import { errMsg, musicID, musicSrc } from "./music.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get } from "../../utils/database.js";
 
-module.exports = async Message => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -22,24 +18,29 @@ module.exports = async Message => {
 
   switch (true) {
     case msg.includes("点歌"):
-      data = await get("music", "source", {
-        ID: sendID
-      });
+      data = await get("music", "source", { ID: sendID });
       src = data ? data["Source"] : "163";
       ret = await musicID(msg, src);
 
       if (ret in errMsg) {
-        return await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errMsg[ret], type);
+        return await bot.sendMessage(
+          sendID,
+          `[CQ:at,qq=${userID}] ` + errMsg[ret],
+          type
+        );
       }
 
       await bot.sendMessage(sendID, ret, type);
       break;
-
     case msg.includes("音乐源"):
       ret = await musicSrc(msg, sendID);
-      return await bot.sendMessage(sendID, ret ? `音乐源已切换为${ret}。` : "音乐源切换失败。", type);
+      return await bot.sendMessage(
+        sendID,
+        ret ? `音乐源已切换为${ret}。` : "音乐源切换失败。",
+        type
+      );
       break;
   }
-};
+}
 
-export default module.exports;
+export { Plugin as run };
