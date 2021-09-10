@@ -26,9 +26,6 @@
     "random-float": "^2.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.15.4",
-    "@babel/core": "^7.15.5",
-    "babel-plugin-transform-commonjs": "^1.1.6",
     "js-yaml": "^4.1.0",
     "md5": "^2.3.0",
     "prettier": "2.3.2",
