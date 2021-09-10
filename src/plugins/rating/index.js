@@ -1,29 +1,29 @@
-const fetch = require("node-fetch");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { hasKey } = require("../../utils/tools");
+import { hasKey } from "../../utils/tools.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import fetch from "node-fetch";
 
-const doGet = async (url) => {
+async function doGet(url) {
   const response = await fetch(url, { method: "GET" });
   return response;
-};
+}
 
-const doPost = async (url, headers, body) => {
+async function doPost(url, headers, body) {
   const response = await fetch(url, {
     method: "POST",
     headers: headers,
     body: body,
   });
-
   return response;
-};
+}
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
+
   // 【评分】命令和图片之间可以加任意个空格
   // https://github.com/Arondight/Adachi-BOT/issues/54
   let [source] = msg.split(/^评分\s*/).slice(1);
@@ -92,7 +92,6 @@ module.exports = async (Message) => {
   ret = await response.json();
   body = JSON.stringify(ret);
   prop = ret;
-
   response = await doPost(
     "https://api.genshin.pub/api/v1/relic/rate",
     headers,
@@ -117,6 +116,7 @@ module.exports = async (Message) => {
         type
       );
     }
+
     return;
   }
 
@@ -128,7 +128,6 @@ ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
     prop["sub_item"].forEach((item) => {
       data += `\n${item["name"]}：${item["value"]}`;
     });
-
     await bot.sendMessage(sendID, data, type);
     return;
   }
@@ -138,4 +137,6 @@ ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
     `[CQ:at,qq=${userID}] 发生了一个未知错误，请再试一次。`,
     type
   );
-};
+}
+
+export { Plugin as run };

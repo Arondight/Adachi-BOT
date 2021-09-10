@@ -1,10 +1,10 @@
-const { basePromise } = require("../../utils/detail");
-const { get, isInside, getID } = require("../../utils/database");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { render } = require("../../utils/render");
-const { alias } = require("../../utils/alias");
+import { alias } from "../../utils/alias.js";
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get, isInside, getID } from "../../utils/database.js";
+import { basePromise } from "../../utils/detail.js";
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -61,4 +61,6 @@ module.exports = async (Message) => {
   }
 
   await render({ uid, data }, "genshin-character", sendID, type);
-};
+}
+
+export { Plugin as run };

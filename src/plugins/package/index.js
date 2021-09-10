@@ -1,14 +1,14 @@
-const { detailPromise, characterPromise } = require("../../utils/detail");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { get } = require("../../utils/database");
-const { render } = require("../../utils/render");
+import { render } from "../../utils/render.js";
+import { get } from "../../utils/database.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { detailPromise, characterPromise } from "../../utils/detail.js";
 
-const generateImage = async (uid, id, type) => {
+async function generateImage(uid, id, type) {
   let data = await get("info", "user", { uid });
   await render(data, "genshin-info", id, type);
-};
+}
 
-const getID = (msg) => {
+function getID(msg) {
   let id = msg.match(/\d+/g);
   let errInfo = "";
 
@@ -23,11 +23,10 @@ const getID = (msg) => {
 
   let uid = parseInt(id[0]);
   let region = id[0][0] === "1" ? "cn_gf01" : "cn_qd01";
-
   return [uid, region];
-};
+}
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -61,4 +60,6 @@ module.exports = async (Message) => {
   }
 
   await generateImage(dbInfo[0], sendID, type);
-};
+}
+
+export { Plugin as run };

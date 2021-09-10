@@ -1,7 +1,11 @@
-const imageCache = require("image-cache");
-const path = require("path");
+import imageCache from "image-cache";
+import url from "url";
+import path from "path";
 
-module.exports = async (Message) => {
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -19,7 +23,6 @@ module.exports = async (Message) => {
   let weeklyURL =
     "https://upload-bbs.mihoyo.com/upload/2021/09/01/75833613/a9e9053f6463eeeb877e8f005308f06e_7792132300760355574.png";
   let thisURL = weeklyURL;
-
   imageCache.setOptions({
     dir: cacheDir,
     compressed: false,
@@ -39,11 +42,13 @@ module.exports = async (Message) => {
   }
 
   imageCache.fetchImages(thisURL).then(async (image) => {
-    data = image.data.substr(image.data.indexOf(",") + 1);
+    let data = image.data.substr(image.data.indexOf(",") + 1);
     await bot.sendMessage(
       sendID,
       "[CQ:image,file=base64://" + data + "]",
       type
     );
   });
-};
+}
+
+export { Plugin as run };

@@ -1,12 +1,13 @@
-const { createClient } = require("oicq");
-const { loadPlugins, loadYML, processed } = require("./src/utils/load");
-const botEnvironment = require("./src/utils/init");
+import init from "./src/utils/init.js";
+import { loadPlugins, loadYML, processed } from "./src/utils/load.js";
+import { createClient } from "oicq";
 
 const Setting = loadYML("setting");
 const Greeting = loadYML("greeting");
 
 // 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
 let platform = 1;
+
 if ([1, 2, 3, 4, 5].includes(Setting["account"].platform)) {
   platform = Setting["account"].platform;
 }
@@ -56,7 +57,7 @@ global.greetingDie = GREETING_DIE;
 global.greetingHello = GREETING_HELLO;
 global.greetingNew = GREETING_NEW;
 
-const run = async () => {
+async functon login () {
   // 处理登录滑动验证码
   bot.on("system.login.slider", () => {
     process.stdin.once("data", (input) => {
@@ -78,14 +79,14 @@ const run = async () => {
       bot.login();
     });
   });
-
   bot.login(Setting["account"].password);
 };
 
-run().then(() => {
-  botEnvironment();
-  const plugins = loadPlugins();
+async function main() {
+  await login();
+  init();
 
+  const plugins = await loadPlugins();
   bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
   ++repeatProb;
 
@@ -99,6 +100,7 @@ run().then(() => {
     // 禁言时不发送消息
     // https://github.com/Arondight/Adachi-BOT/issues/28
     let info = (await bot.getGroupInfo(msgData.group_id)).data;
+
     if (info.shutup_time_me === 0) {
       await processed(msgData, plugins, "group");
     }
@@ -118,4 +120,6 @@ run().then(() => {
   bot.on("notice.group.increase", async (msgData) => {
     await processed(msgData, plugins, "group.increase");
   });
-});
+}
+
+await main();

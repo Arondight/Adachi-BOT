@@ -1,6 +1,6 @@
-const { isInside, push, update } = require("../../utils/database");
+import { isInside, push, update } from "../../utils/database.js";
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -17,12 +17,15 @@ module.exports = async (Message) => {
     );
   } else {
     mhyID = parseInt(id[0]);
+
     if (msg.includes("绑定")) {
       if (!(await isInside("map", "user", "userID", userID))) {
         await push("map", "user", { userID, mhyID });
+
         if (!(await isInside("time", "user", "mhyID", mhyID))) {
           await push("time", "user", { mhyID, time: 0 });
         }
+
         await bot.sendMessage(
           sendID,
           `[CQ:at,qq=${userID}] 通行证绑定成功，使用【米游社】来查询游戏信息并更新你的游戏角色。`,
@@ -52,4 +55,6 @@ module.exports = async (Message) => {
       }
     }
   }
-};
+}
+
+export { Plugin as run };

@@ -1,18 +1,18 @@
-const {
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get, isInside, getID } from "../../utils/database.js";
+import {
   basePromise,
   detailPromise,
   characterPromise,
-} = require("../../utils/detail");
-const { get, isInside, getID } = require("../../utils/database");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { render } = require("../../utils/render");
+} from "../../utils/detail.js";
 
 const generateImage = async (uid, id, type) => {
   const data = await get("info", "user", { uid });
   await render(data, "genshin-card", id, type);
 };
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -45,4 +45,6 @@ module.exports = async (Message) => {
   }
 
   await generateImage(uid, sendID, type);
-};
+}
+
+export { Plugin as run };

@@ -1,17 +1,20 @@
-const { getBase, getDetail, getCharacters, getAbyDetail } = require("./api");
-const { get, isInside, push, update } = require("./database");
-const { loadYML } = require("./load");
-const lodash = require("lodash");
+import lodash from "lodash";
+import { loadYML } from "./load.js";
+import { get, isInside, push, update } from "./database.js";
+import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
+
 let index = 0;
 const { cookies } = loadYML("cookies");
 
-const userInitialize = async (userID, uid, nickname, level) => {
+async function userInitialize(userID, uid, nickname, level) {
   if (!(await isInside("character", "user", "userID", userID))) {
     await push("character", "user", { userID, uid: 0 });
   }
+
   if (!(await isInside("time", "user", "uid", uid))) {
     await push("time", "user", { uid, time: 0 });
   }
+
   if (!(await isInside("info", "user", "uid", uid))) {
     let initData = {
       retcode: 19260817,
@@ -25,14 +28,14 @@ const userInitialize = async (userID, uid, nickname, level) => {
     };
     await push("info", "user", initData);
   }
-};
+}
 
-const increaseIndex = () => {
+function increaseIndex() {
   let cookiesNum = cookies.length;
   index = index === cookiesNum - 1 ? 0 : index + 1;
-};
+}
 
-const getEffectiveCookie = async (uid, s, use_cookie) => {
+async function getEffectiveCookie(uid, s, use_cookie) {
   return new Promise(async (resolve, reject) => {
     let p = index;
     increaseIndex();
@@ -71,34 +74,17 @@ const getEffectiveCookie = async (uid, s, use_cookie) => {
       }
 
       if (use_cookie) {
-        await update(
-          "cookies",
-          "cookie",
-          { cookie },
-          {
-            date,
-            times,
-          }
-        );
+        await update("cookies", "cookie", { cookie }, { date, times });
       }
 
-      await update(
-        "cookies",
-        "uid",
-        { uid },
-        {
-          date,
-          cookie,
-        }
-      );
-
+      await update("cookies", "uid", { uid }, { date, cookie });
       resolve(cookie);
       return;
     }
   });
-};
+}
 
-const getCookie = async (uid, use_cookie) => {
+async function getCookie(uid, use_cookie) {
   return new Promise(async (resolve, reject) => {
     if (!(await isInside("cookies", "uid", "uid", uid))) {
       let initData = {
@@ -110,22 +96,24 @@ const getCookie = async (uid, use_cookie) => {
     }
 
     let { date, cookie } = await get("cookies", "uid", { uid });
-
     let today = new Date().toLocaleDateString();
+
     if (date && cookie && date == today) {
     } else {
       cookie = await getEffectiveCookie(uid, 1, use_cookie);
     }
+
     if (!cookie) {
       reject("获取cookie失败！");
       return;
     }
+
     bot.logger.debug("Cookie: " + uid + " -> " + cookie);
     resolve(cookie);
   });
-};
+}
 
-const abyPromise = async (uid, server, schedule_type) => {
+async function abyPromise(uid, server, schedule_type) {
   const { retcode, message, data } = await getAbyDetail(
     uid,
     schedule_type,
@@ -137,6 +125,7 @@ const abyPromise = async (uid, server, schedule_type) => {
       reject("米游社接口报错: " + message);
       return;
     }
+
     if (!(await isInside("aby", "user", "uid", uid))) {
       let initData = {
         uid,
@@ -144,12 +133,13 @@ const abyPromise = async (uid, server, schedule_type) => {
       };
       await push("aby", "user", initData);
     }
+
     await update("aby", "user", { uid }, { data });
     resolve(data);
   });
-};
+}
 
-const basePromise = async (mhyID, userID) => {
+async function basePromise(mhyID, userID) {
   const { retcode, message, data } = await getBase(
     mhyID,
     await getCookie("MHY" + mhyID, false)
@@ -166,26 +156,25 @@ const basePromise = async (mhyID, userID) => {
     }
 
     let baseInfo = data.list.find((el) => el["game_id"] === 2);
+
     if (!baseInfo) {
       reject(
         "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开"
       );
       return;
     }
+
     let { game_role_id, nickname, region, level } = baseInfo;
     let uid = parseInt(game_role_id);
-
     await userInitialize(userID, uid, nickname, level);
     await update("info", "user", { uid }, { level, nickname });
-
     resolve([uid, region]);
   });
-};
+}
 
-const detailPromise = async (uid, server, userID) => {
+async function detailPromise(uid, server, userID) {
   await userInitialize(userID, uid, "", -1);
   await update("character", "user", { userID }, { uid });
-
   let nowTime = new Date().valueOf();
   let { time } = await get("time", "user", { uid });
 
@@ -193,11 +182,12 @@ const detailPromise = async (uid, server, userID) => {
     bot.logger.info(
       "用户 " + uid + " 在一小时内进行过查询操作，将返回上次数据"
     );
-
     const { retcode, message } = await get("info", "user", { uid });
+
     if (retcode !== 0) {
       return Promise.reject("米游社接口报错: " + message);
     }
+
     return Promise.reject("");
   }
 
@@ -206,29 +196,19 @@ const detailPromise = async (uid, server, userID) => {
     server,
     await getCookie(uid, true)
   );
-
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
       await update(
         "info",
         "user",
         { uid },
-        {
-          message,
-          retcode: parseInt(retcode),
-        }
+        { message, retcode: parseInt(retcode) }
       );
       reject("米游社接口报错: " + message);
       return;
     }
-    await update(
-      "time",
-      "user",
-      { uid },
-      {
-        time: nowTime,
-      }
-    );
+
+    await update("time", "user", { uid }, { time: nowTime });
     await update(
       "info",
       "user",
@@ -242,20 +222,18 @@ const detailPromise = async (uid, server, userID) => {
       }
     );
     bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
-
     let characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);
   });
-};
+}
 
-const characterPromise = async (uid, server, character_ids) => {
+async function characterPromise(uid, server, character_ids) {
   const { retcode, message, data } = await getCharacters(
     uid,
     server,
     character_ids,
     await getCookie(uid, true)
   );
-
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
       reject("米游社接口报错: " + message);
@@ -264,10 +242,10 @@ const characterPromise = async (uid, server, character_ids) => {
 
     let avatars = [];
     let characterList = data.avatars;
+
     for (let i in characterList) {
       if (characterList.hasOwnProperty(i)) {
         let el = characterList[i];
-
         let base = lodash.omit(el, [
           "image",
           "weapon",
@@ -282,8 +260,8 @@ const characterPromise = async (uid, server, character_ids) => {
         ]);
         let artifact = [],
           constellationNum = 0;
-
         let constellations = el["constellations"].reverse();
+
         for (let level in constellations) {
           if (constellations.hasOwnProperty(level)) {
             if (constellations[level]["is_actived"]) {
@@ -292,6 +270,7 @@ const characterPromise = async (uid, server, character_ids) => {
             }
           }
         }
+
         for (let posID in el.reliquaries) {
           if (el.reliquaries.hasOwnProperty(posID)) {
             let posInfo = lodash.omit(el.reliquaries[posID], [
@@ -310,11 +289,6 @@ const characterPromise = async (uid, server, character_ids) => {
     await update("info", "user", { uid }, { avatars });
     resolve();
   });
-};
+}
 
-module.exports = {
-  abyPromise,
-  basePromise,
-  detailPromise,
-  characterPromise,
-};
+export { abyPromise, basePromise, detailPromise, characterPromise };

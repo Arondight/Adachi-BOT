@@ -1,6 +1,6 @@
-const { hasAuth, sendPrompt } = require("../../utils/auth");
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
 
-const feedback = async (id, name, msg, type, user) => {
+async function feedback(id, name, msg, type, user) {
   let info = msg.slice(4);
 
   if (!(await hasAuth(id, "feedback")) || !(await hasAuth(id, "feedback"))) {
@@ -20,8 +20,6 @@ https://github.com/Arondight/Adachi-BOT/issues`,
       type
     );
   }
-};
+}
 
-module.exports = {
-  feedback,
-};
+export { feedback };

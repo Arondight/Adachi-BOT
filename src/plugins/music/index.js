@@ -1,8 +1,8 @@
-const { get } = require("../../utils/database");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { errMsg, musicID, musicSrc } = require("./music");
+import { errMsg, musicID, musicSrc } from "./music.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get } from "../../utils/database.js";
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -41,4 +41,6 @@ module.exports = async (Message) => {
       );
       break;
   }
-};
+}
+
+export { Plugin as run };

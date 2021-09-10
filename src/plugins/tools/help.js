@@ -32,10 +32,8 @@ const helpMessage = `🔘 绑定 <米游社通行证ID>
 📎 手指（👉）后面是说明
 📎 不要[CQ:at,qq=${bot.uin}]哦`;
 
-const help = async (id, type) => {
+async function help(id, type) {
   await bot.sendMessage(id, helpMessage, type);
-};
+}
 
-module.exports = {
-  help,
-};
+export { help };

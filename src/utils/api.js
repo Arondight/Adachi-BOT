@@ -1,6 +1,6 @@
-const { randomString } = require("./tools");
-const { requests } = require("./requests");
-const md5 = require("md5");
+import md5 from "md5";
+import requests from "./requests.js";
+import { randomString } from "./tools.js";
 
 const __API = {
   FETCH_ROLE_ID:
@@ -17,7 +17,6 @@ const __API = {
     "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
   FETCH_INFO: "http://localhost:9934/resources/Version2/info/docs/$.json",
 };
-
 const HEADERS = {
   "User-Agent":
     "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/2.11.1",
@@ -28,7 +27,7 @@ const HEADERS = {
   Cookie: "",
 };
 
-const getQueryParam = (data) => {
+function getQueryParam(data) {
   let arr = [];
 
   if (data === undefined) {
@@ -40,19 +39,18 @@ const getQueryParam = (data) => {
   }
 
   return arr.join("&");
-};
+}
 
-const getDS = (query, body = "") => {
+function getDS(query, body = "") {
   let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
   let i = (Date.now() / 1000) | 0;
   let r = randomString(6);
   let q = getQueryParam(query);
   let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
-
   return `${i},${r},${c}`;
-};
+}
 
-const getInfo = (name) => {
+function getInfo(name) {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
@@ -65,9 +63,9 @@ const getInfo = (name) => {
         reject(err);
       });
   });
-};
+}
 
-const getAbyDetail = (role_id, schedule_type, server, cookie) => {
+function getAbyDetail(role_id, schedule_type, server, cookie) {
   const query = { role_id, schedule_type, server };
 
   return new Promise((resolve, reject) => {
@@ -75,11 +73,7 @@ const getAbyDetail = (role_id, schedule_type, server, cookie) => {
       method: "GET",
       url: __API.FETCH_ABY_DETAIL,
       qs: query,
-      headers: {
-        ...HEADERS,
-        DS: getDS(query),
-        Cookie: cookie,
-      },
+      headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
     })
       .then((res) => {
         resolve(JSON.parse(res));
@@ -88,9 +82,9 @@ const getAbyDetail = (role_id, schedule_type, server, cookie) => {
         reject(err);
       });
   });
-};
+}
 
-const getBase = (uid, cookie) => {
+function getBase(uid, cookie) {
   const query = { uid };
 
   return new Promise((resolve, reject) => {
@@ -98,11 +92,7 @@ const getBase = (uid, cookie) => {
       method: "GET",
       url: __API.FETCH_ROLE_ID,
       qs: query,
-      headers: {
-        ...HEADERS,
-        DS: getDS(query),
-        Cookie: cookie,
-      },
+      headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
     })
       .then((res) => {
         resolve(JSON.parse(res));
@@ -111,9 +101,9 @@ const getBase = (uid, cookie) => {
         reject(err);
       });
   });
-};
+}
 
-const getDetail = (role_id, server, cookie) => {
+function getDetail(role_id, server, cookie) {
   const query = { role_id, server };
 
   return new Promise((resolve, reject) => {
@@ -121,11 +111,7 @@ const getDetail = (role_id, server, cookie) => {
       method: "GET",
       url: __API.FETCH_ROLE_INDEX,
       qs: query,
-      headers: {
-        ...HEADERS,
-        DS: getDS(query),
-        Cookie: cookie,
-      },
+      headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
     })
       .then((res) => {
         resolve(JSON.parse(res));
@@ -134,9 +120,9 @@ const getDetail = (role_id, server, cookie) => {
         reject(err);
       });
   });
-};
+}
 
-const getCharacters = (role_id, server, character_ids, cookie) => {
+function getCharacters(role_id, server, character_ids, cookie) {
   const body = { character_ids, role_id, server };
 
   return new Promise((resolve, reject) => {
@@ -159,9 +145,9 @@ const getCharacters = (role_id, server, character_ids, cookie) => {
         reject(err);
       });
   });
-};
+}
 
-const getGachaList = () => {
+function getGachaList() {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
@@ -174,9 +160,9 @@ const getGachaList = () => {
         reject(err);
       });
   });
-};
+}
 
-const getGachaDetail = (gachaID) => {
+function getGachaDetail(gachaID) {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
@@ -189,9 +175,9 @@ const getGachaDetail = (gachaID) => {
         reject(err);
       });
   });
-};
+}
 
-module.exports = {
+export {
   getInfo,
   getAbyDetail,
   getBase,
