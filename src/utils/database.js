@@ -1,15 +1,19 @@
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const path = require("path");
-
+import _path from "path";
+import _lowdbAdaptersFileSync from "lowdb/adapters/FileSync";
+import _lowdb from "lowdb";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
+const low = _lowdb;
+const FileSync = _lowdbAdaptersFileSync;
+const path = _path;
 const db = [];
 
-const newDB = (name, defaultElement = { user: [] }) => {
-  db[name] = low(
-    new FileSync(
-      path.resolve(__dirname, "..", "..", "data", "db", name + ".json")
-    )
-  );
+const newDB = (name, defaultElement = {
+  user: []
+}) => {
+  db[name] = low(new FileSync(path.resolve(__dirname, "..", "..", "data", "db", name + ".json")));
   db[name].defaults(defaultElement).write();
 };
 
@@ -39,8 +43,11 @@ const getID = async (msg, userID) => {
 
   if (msg.includes("CQ:at")) {
     let atID = parseInt(id[0]);
+
     if (await isInside("map", "user", "userID", atID)) {
-      return (await get("map", "user", { userID: atID })).mhyID;
+      return (await get("map", "user", {
+        userID: atID
+      })).mhyID;
     } else {
       errInfo = "用户 " + atID + " 暂未绑定米游社通行证。";
     }
@@ -51,10 +58,11 @@ const getID = async (msg, userID) => {
       return parseInt(id[0]);
     }
   } else if (await isInside("map", "user", "userID", userID)) {
-    return (await get("map", "user", { userID })).mhyID;
+    return (await get("map", "user", {
+      userID
+    })).mhyID;
   } else {
-    errInfo =
-      "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
+    errInfo = "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
   }
 
   return errInfo;
@@ -67,5 +75,6 @@ module.exports = {
   update,
   push,
   set,
-  getID,
+  getID
 };
+export default module.exports;

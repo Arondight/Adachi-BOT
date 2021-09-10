@@ -1,3 +1,7 @@
+var module = {
+  exports: {}
+};
+var exports = module.exports;
 const helpMessage = `🔘 绑定 <米游社通行证ID>
 🔘 改绑 <米游社通行证ID>
 🔘 米游社 [米游社通行证ID] 👉 查询并更新米游社ID的角色信息
@@ -37,5 +41,6 @@ const help = async (id, type) => {
 };
 
 module.exports = {
-  help,
+  help
 };
+export default module.exports;

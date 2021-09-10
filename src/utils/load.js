@@ -1,10 +1,18 @@
-const fs = require("fs");
-const yaml = require("js-yaml");
-const path = require("path");
-const { getRandomInt } = require("./tools");
-const { hasAuth } = require("./auth");
+import _plugins from "../plugins/";
+import { hasAuth } from "./auth";
+import { getRandomInt } from "./tools";
+import _path from "path";
+import _jsYaml from "js-yaml";
+import _fs from "fs";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
+const fs = _fs;
+const yaml = _jsYaml;
+const path = _path;
 
-const loadYML = (name) => {
+const loadYML = name => {
   return yaml.load(fs.readFileSync(`./config/${name}.yml`, "utf-8"));
 };
 
@@ -13,8 +21,8 @@ const loadPlugins = () => {
   const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
 
   for (let plugin of pluginsPath) {
-    plugins[plugin] = require("../plugins/" + plugin + "/index.js");
-    bot.logger.info("插件 " + plugin + " 加载完成");
+    plugins[plugin] = _plugins;
+    bot.logger.info(`插件 ${plugin} 加载完成`);
   }
 
   return plugins;
@@ -26,6 +34,7 @@ const processed = async (qqData, plugins, type) => {
     if (friendGreetingNew) {
       bot.sendMessage(qqData.user_id, greetingNew, "private");
     }
+
     return;
   }
 
@@ -36,60 +45,55 @@ const processed = async (qqData, plugins, type) => {
     } else {
       // 如果有新群友加入，向新群友问好
       if (groupGreetingNew) {
-        bot.sendMessage(
-          qqData.group_id,
-          `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
-          "group"
-        );
+        bot.sendMessage(qqData.group_id, `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`, "group");
       }
     }
-    return;
-  }
 
-  // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
-  if (
-    (await hasAuth(qqData.group_id, "replyGroup")) &&
-    qqData.hasOwnProperty("message") &&
-    qqData.message[0] &&
-    qqData.message[0].type === "text"
-  ) {
+    return;
+  } // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
+
+
+  if ((await hasAuth(qqData.group_id, "replyGroup")) && qqData.hasOwnProperty("message") && qqData.message[0] && qqData.message[0].type === "text") {
     const command = getCommand(qqData.raw_message);
 
     if (command) {
-      plugins[command]({ ...qqData, type });
+      plugins[command]({ ...qqData,
+        type
+      });
       return;
     }
-  }
+  } // 如果不是命令，且为群消息，随机复读群消息
 
-  // 如果不是命令，且为群消息，随机复读群消息
+
   if (type === "group") {
     if (getRandomInt(100) < repeatProb) {
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
-    return;
-  }
 
-  // 如果是机器人上线，所有群发送一遍上线通知
+    return;
+  } // 如果是机器人上线，所有群发送一遍上线通知
+
+
   if (type === "online") {
     if (groupHello) {
-      bot.gl.forEach(async (group) => {
-        let greeting = (await hasAuth(group.group_id, "replyGroup"))
-          ? greetingOnline
-          : greetingDie;
+      bot.gl.forEach(async group => {
+        let greeting = (await hasAuth(group.group_id, "replyGroup")) ? greetingOnline : greetingDie;
         bot.sendMessage(group.group_id, greeting, "group");
       });
     }
+
     return;
   }
 };
 
-const getCommand = (msgData) => {
+const getCommand = msgData => {
   const commandConfig = loadYML("command");
 
   for (let command in commandConfig) {
     if (commandConfig.hasOwnProperty(command)) {
       for (let setting of commandConfig[command]) {
         let reg = new RegExp(setting, "i");
+
         if (reg.test(msgData)) {
           return command;
         }
@@ -103,5 +107,6 @@ const getCommand = (msgData) => {
 module.exports = {
   loadYML,
   loadPlugins,
-  processed,
+  processed
 };
+export default module.exports;

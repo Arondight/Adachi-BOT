@@ -1,4 +1,8 @@
-const { isMaster } = require("../../utils/auth");
+import { isMaster } from "../../utils/auth";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
 
 const search = async (id, msg, type, user) => {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
@@ -11,27 +15,25 @@ const search = async (id, msg, type, user) => {
   }
 
   if (msg.startsWith("群列表")) {
-    bot.gl.forEach((item) => {
+    bot.gl.forEach(item => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
-
     report += report ? "" : "没有加入任何群。";
     await bot.sendMessage(id, report, type);
     return;
   }
 
   if (msg.startsWith("好友列表")) {
-    bot.fl.forEach((item) => {
+    bot.fl.forEach(item => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
-
     report += report ? "" : "没有添加任何好友。";
     await bot.sendMessage(id, report, type);
     return;
   }
 
   if (msg.startsWith("查找列表")) {
-    listAll.forEach(async (item) => {
+    listAll.forEach(async item => {
       let isGroup = item.hasOwnProperty("group_name") ? true : false;
       let itemName = isGroup ? item.group_name : item.nickname;
       let itemID = isGroup ? item.group_id : item.user_id;
@@ -41,7 +43,6 @@ const search = async (id, msg, type, user) => {
         report += `${typeStr}：${itemName}（${itemID}）\n`;
       }
     });
-
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
     await bot.sendMessage(id, report, type);
     return;
@@ -49,5 +50,6 @@ const search = async (id, msg, type, user) => {
 };
 
 module.exports = {
-  search,
+  search
 };
+export default module.exports;

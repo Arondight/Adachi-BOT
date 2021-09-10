@@ -1,34 +1,30 @@
-const { randomString } = require("./tools");
-const { requests } = require("./requests");
-const md5 = require("md5");
-
-const __API = {
-  FETCH_ROLE_ID:
-    "https://api-takumi.mihoyo.com/game_record/app/card/wapi/getGameRecordCard",
-  FETCH_ROLE_INDEX:
-    "https://api-takumi.mihoyo.com/game_record/app/genshin/api/index",
-  FETCH_ROLE_CHARACTERS:
-    "https://api-takumi.mihoyo.com/game_record/app/genshin/api/character",
-  FETCH_GACHA_LIST:
-    "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json",
-  FETCH_GACHA_DETAIL:
-    "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json",
-  FETCH_ABY_DETAIL:
-    "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
-  FETCH_INFO: "http://localhost:9934/resources/Version2/info/docs/$.json",
+import _md from "md5";
+import { requests } from "./requests";
+import { randomString } from "./tools";
+var module = {
+  exports: {}
 };
-
+var exports = module.exports;
+const md5 = _md;
+const __API = {
+  FETCH_ROLE_ID: "https://api-takumi.mihoyo.com/game_record/app/card/wapi/getGameRecordCard",
+  FETCH_ROLE_INDEX: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/index",
+  FETCH_ROLE_CHARACTERS: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/character",
+  FETCH_GACHA_LIST: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json",
+  FETCH_GACHA_DETAIL: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json",
+  FETCH_ABY_DETAIL: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
+  FETCH_INFO: "http://localhost:9934/resources/Version2/info/docs/$.json"
+};
 const HEADERS = {
-  "User-Agent":
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/2.11.1",
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/2.11.1",
   Referer: "https://webstatic.mihoyo.com/",
   "x-rpc-app_version": "2.11.1",
   "x-rpc-client_type": 5,
   DS: "",
-  Cookie: "",
+  Cookie: ""
 };
 
-const getQueryParam = (data) => {
+const getQueryParam = data => {
   let arr = [];
 
   if (data === undefined) {
@@ -44,120 +40,114 @@ const getQueryParam = (data) => {
 
 const getDS = (query, body = "") => {
   let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
-  let i = (Date.now() / 1000) | 0;
+  let i = Date.now() / 1000 | 0;
   let r = randomString(6);
   let q = getQueryParam(query);
   let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
-
   return `${i},${r},${c}`;
 };
 
-const getInfo = (name) => {
+const getInfo = name => {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
-      url: __API.FETCH_INFO.replace("$", encodeURI(name)),
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
+      url: __API.FETCH_INFO.replace("$", encodeURI(name))
+    }).then(res => {
+      resolve(JSON.parse(res));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
 const getAbyDetail = (role_id, schedule_type, server, cookie) => {
-  const query = { role_id, schedule_type, server };
-
+  const query = {
+    role_id,
+    schedule_type,
+    server
+  };
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
       url: __API.FETCH_ABY_DETAIL,
       qs: query,
-      headers: {
-        ...HEADERS,
+      headers: { ...HEADERS,
         DS: getDS(query),
-        Cookie: cookie,
-      },
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
+        Cookie: cookie
+      }
+    }).then(res => {
+      resolve(JSON.parse(res));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
 const getBase = (uid, cookie) => {
-  const query = { uid };
-
+  const query = {
+    uid
+  };
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
       url: __API.FETCH_ROLE_ID,
       qs: query,
-      headers: {
-        ...HEADERS,
+      headers: { ...HEADERS,
         DS: getDS(query),
-        Cookie: cookie,
-      },
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
+        Cookie: cookie
+      }
+    }).then(res => {
+      resolve(JSON.parse(res));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
 const getDetail = (role_id, server, cookie) => {
-  const query = { role_id, server };
-
+  const query = {
+    role_id,
+    server
+  };
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
       url: __API.FETCH_ROLE_INDEX,
       qs: query,
-      headers: {
-        ...HEADERS,
+      headers: { ...HEADERS,
         DS: getDS(query),
-        Cookie: cookie,
-      },
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
+        Cookie: cookie
+      }
+    }).then(res => {
+      resolve(JSON.parse(res));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
 const getCharacters = (role_id, server, character_ids, cookie) => {
-  const body = { character_ids, role_id, server };
-
+  const body = {
+    character_ids,
+    role_id,
+    server
+  };
   return new Promise((resolve, reject) => {
     requests({
       method: "POST",
       url: __API.FETCH_ROLE_CHARACTERS,
       json: true,
       body,
-      headers: {
-        ...HEADERS,
+      headers: { ...HEADERS,
         DS: getDS(undefined, JSON.stringify(body)),
         Cookie: cookie,
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        reject(err);
-      });
+        "content-type": "application/json"
+      }
+    }).then(res => {
+      resolve(res);
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
@@ -165,29 +155,25 @@ const getGachaList = () => {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
-      url: __API.FETCH_GACHA_LIST,
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
+      url: __API.FETCH_GACHA_LIST
+    }).then(res => {
+      resolve(JSON.parse(res));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
-const getGachaDetail = (gachaID) => {
+const getGachaDetail = gachaID => {
   return new Promise((resolve, reject) => {
     requests({
       method: "GET",
-      url: __API.FETCH_GACHA_DETAIL.replace("$", gachaID),
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
+      url: __API.FETCH_GACHA_DETAIL.replace("$", gachaID)
+    }).then(res => {
+      resolve(JSON.parse(res));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
@@ -198,5 +184,6 @@ module.exports = {
   getDetail,
   getCharacters,
   getGachaList,
-  getGachaDetail,
+  getGachaDetail
 };
+export default module.exports;

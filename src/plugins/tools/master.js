@@ -1,3 +1,7 @@
+var module = {
+  exports: {}
+};
+var exports = module.exports;
 const helpMessage = `🔘 带话权限 <QQ号|群号> <on|off> 👉 【带个话】
 🔘 点歌权限 <QQ号|群号> <on|off> 👉 【点歌】
 🔘 十连权限 <QQ号|群号> <on|off> 👉 【十连】
@@ -23,5 +27,6 @@ const master = async (id, type) => {
 };
 
 module.exports = {
-  master,
+  master
 };
+export default module.exports;

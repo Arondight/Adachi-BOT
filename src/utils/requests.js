@@ -1,6 +1,11 @@
-const request = require("request");
+import _request from "request";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
+const request = _request;
 
-exports.requests = (options) => {
+exports.requests = options => {
   return new Promise((resolve, reject) => {
     request(options, (error, response, body) => {
       if (error) {
@@ -9,7 +14,10 @@ exports.requests = (options) => {
         resolve(body);
       }
     });
-  }).catch((error) => {
+  }).catch(error => {
     console.error(error);
   });
 };
+
+export let requests = exports.requests;
+export default module.exports;

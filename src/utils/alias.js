@@ -1,8 +1,11 @@
-const { loadYML } = require("./load");
-
+import { loadYML } from "./load";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
 const names = loadYML("alias");
 
-const alias = (text) => {
+const alias = text => {
   if (text) {
     for (let name of Object.keys(names)) {
       for (let nickname of names[name]) {
@@ -17,5 +20,6 @@ const alias = (text) => {
 };
 
 module.exports = {
-  alias,
+  alias
 };
+export default module.exports;

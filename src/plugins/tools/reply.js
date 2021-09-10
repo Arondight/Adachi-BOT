@@ -1,4 +1,8 @@
-const { isMaster } = require("../../utils/auth");
+import { isMaster } from "../../utils/auth";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
 
 const reply = async (id, msg, type, user) => {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
@@ -10,7 +14,7 @@ const reply = async (id, msg, type, user) => {
     return;
   }
 
-  list.forEach(async (item) => {
+  list.forEach(async item => {
     let itemID = item.hasOwnProperty("group_id") ? item.group_id : item.user_id;
     let curType = item.hasOwnProperty("group_id") ? "group" : type;
 
@@ -22,5 +26,6 @@ const reply = async (id, msg, type, user) => {
 };
 
 module.exports = {
-  reply,
+  reply
 };
+export default module.exports;

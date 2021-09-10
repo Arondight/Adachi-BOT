@@ -1,10 +1,13 @@
-const { isMaster, setAuth, sendPrompt } = require("../../utils/auth");
-const { gachaUpdate } = require("../../utils/update");
+import { gachaUpdate } from "../../utils/update";
+import { isMaster, setAuth, sendPrompt } from "../../utils/auth";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
 
-const parse = (msg) => {
+const parse = msg => {
   let id = parseInt(msg.match(/[0-9]+/g)[0]);
   let isOn = msg.includes("on");
-
   return [id, isOn];
 };
 
@@ -58,11 +61,7 @@ const setReplyGroupAuth = async (msg, id, type) => {
   let [target, isOn] = parse(msg);
   await setAuth("replyGroup", target, isOn);
   await response(id, target, "响应群消息", type, isOn ? "允许" : "禁止");
-  await bot.sendMessage(
-    target,
-    "主人已" + (isOn ? "允许" : "禁止") + "我在本群作出响应。",
-    "group"
-  );
+  await bot.sendMessage(target, "主人已" + (isOn ? "允许" : "禁止") + "我在本群作出响应。", "group");
 };
 
 const refreshWishDetail = async (id, type) => {
@@ -70,7 +69,7 @@ const refreshWishDetail = async (id, type) => {
   await bot.sendMessage(id, "卡池内容已刷新。", type);
 };
 
-module.exports = async (Message) => {
+module.exports = async Message => {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -79,11 +78,7 @@ module.exports = async (Message) => {
   let sendID = type === "group" ? groupID : userID;
 
   if (!isMaster(userID)) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 不能使用管理命令。`,
-      type
-    );
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 不能使用管理命令。`, type);
     return;
   }
 
@@ -91,29 +86,39 @@ module.exports = async (Message) => {
     case msg.includes("带话权限"):
       await setFeedbackAuth(msg, sendID, type);
       break;
+
     case msg.includes("点歌权限"):
       await setMusicAuth(msg, sendID, type);
       break;
+
     case msg.includes("十连权限"):
       await setGachaAuth(msg, sendID, type);
       break;
+
     case msg.includes("圣遗物权限"):
       await setArtifactAuth(msg, sendID, type);
       break;
+
     case msg.includes("评分权限"):
       await setRatingAuth(msg, sendID, type);
       break;
+
     case msg.includes("游戏数据权限"):
       await setQueryGameInfoAuth(msg, sendID, type);
       break;
+
     case msg.includes("官方数据权限"):
       await setCharacterOverviewAuth(msg, sendID, type);
       break;
+
     case msg.includes("响应群消息"):
       await setReplyGroupAuth(msg, sendID, type);
       break;
+
     case msg.includes("刷新卡池"):
       await refreshWishDetail(sendID, type);
       break;
   }
 };
+
+export default module.exports;
