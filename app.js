@@ -84,7 +84,7 @@ async function login () {
 
 async function main() {
   await login();
-  init();
+  await init();
 
   const plugins = await loadPlugins();
   bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
