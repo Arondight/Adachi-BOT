@@ -27,7 +27,7 @@
     "lowdb": "^1.0.0",
     "node-fetch": "^2.6.1",
     "node-schedule": "^2.0.0",
-    "oicq": "^1.19.3",
+    "oicq": "1.19.3",
     "pm2": "^5.1.0",
     "puppeteer": "^10.2.0",
     "random-float": "^2.0.0"
