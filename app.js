@@ -57,7 +57,7 @@ global.greetingDie = GREETING_DIE;
 global.greetingHello = GREETING_HELLO;
 global.greetingNew = GREETING_NEW;
 
-async functon login () {
+async function login () {
   // 处理登录滑动验证码
   bot.on("system.login.slider", () => {
     process.stdin.once("data", (input) => {
