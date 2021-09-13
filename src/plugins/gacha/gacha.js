@@ -14,7 +14,6 @@ const configdir = path.resolve(
   "..",
   "resources/Version2/wish/config"
 );
-console.log(configdir);
 const element = JSON.parse(fs.readFileSync(`${configdir}/character.json`));
 const types = JSON.parse(fs.readFileSync(`${configdir}/weapon.json`));
 

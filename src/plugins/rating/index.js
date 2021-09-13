@@ -90,6 +90,60 @@ async function Plugin(Message) {
   }
 
   ret = await response.json();
+  // 只调整带百分号的，因为不带百分号的不会出现小数点
+  let maxValue = {
+    main_item: {
+      atk: "46.6", // 大攻击
+      hp: "46.6", // 大生命
+      df: "58.3", // 大防御
+      er: "51.8", // 充能
+      cr: "31.1", // 暴击率
+      cd: "62.6", // 暴击伤害
+      phys: "58.3", // 物伤
+      // TODO 元素伤害、治疗加成
+    },
+    sub_item: {
+      atk: "35.0", // 大攻击
+      hp: "35.0", // 大生命
+      df: "43.7", // 大防御
+      er: "38.9", // 充能
+      cr: "23.3", // 暴击率
+      cd: "46.6", // 暴击伤害
+    },
+  };
+
+  for (let item_type of Object.keys(maxValue)) {
+    if (!ret.hasOwnProperty(item_type)) {
+      continue;
+    }
+
+    let main_item = item_type == "main_item" ? true : false;
+    let items = main_item ? [ret[item_type]] : ret[item_type];
+
+    for (let item of items) {
+      if (!maxValue[item_type].hasOwnProperty(item["type"])) {
+        continue;
+      }
+
+      if (!item["value"].includes("%")) {
+        continue;
+      }
+
+      let value = parseInt(item["value"]);
+
+      if (value > maxValue[item_type][item["type"]]) {
+        let text = `rating adjust ${item_type}:${item["type"]} (${item["value"]}`;
+        item["value"] = (value / 10).toFixed(1).toString() + "%";
+        text += ` -> ${item["value"]})`;
+        bot.logger.debug(text);
+      }
+    }
+
+    if (main_item) {
+      ret[item_type] = items[0];
+    }
+  }
+
   body = JSON.stringify(ret);
   prop = ret;
   response = await doPost(
