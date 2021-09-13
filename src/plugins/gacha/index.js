@@ -1,10 +1,10 @@
-const { get, push, isInside, update } = require("../../utils/database");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { render } = require("../../utils/render");
-const { alias } = require("../../utils/alias");
-const { getGachaResult } = require("./gacha");
+import { getGachaResult } from "./gacha.js";
+import { alias } from "../../utils/alias.js";
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get, push, isInside, update } from "../../utils/database.js";
 
-const userInitialize = async (userID) => {
+async function userInitialize(userID) {
   if (!(await isInside("gacha", "user", "userID", userID))) {
     await push("gacha", "user", {
       userID,
@@ -15,9 +15,9 @@ const userInitialize = async (userID) => {
       path: { course: null, fate: 0 },
     });
   }
-};
+}
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -25,7 +25,6 @@ module.exports = async (Message) => {
   let sendID = type === "group" ? groupID : userID;
   let name = Message.sender.nickname;
   let [cmd] = msg.split(/(?<=^\S+)\s/).slice(1);
-
   await userInitialize(userID);
 
   if (!(await hasAuth(userID, "gacha")) || !(await hasAuth(sendID, "gacha"))) {
@@ -35,6 +34,7 @@ module.exports = async (Message) => {
 
   if (msg.includes("卡池")) {
     let choice;
+
     switch (cmd) {
       case "常驻":
         choice = 200;
@@ -70,7 +70,6 @@ module.exports = async (Message) => {
 
     const table = await get("gacha", "data", { gacha_type: 302 });
     const { path } = await get("gacha", "user", { userID });
-
     if (path["course"] === null)
       await bot.sendMessage(
         sendID,
@@ -89,7 +88,6 @@ module.exports = async (Message) => {
       );
   } else if (msg.includes("取消定轨")) {
     let path = { course: null, fate: 0 };
-
     await update("gacha", "user", { userID }, { path });
     await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 已取消定轨。`, type);
     return;
@@ -129,4 +127,6 @@ module.exports = async (Message) => {
       await update("gacha", "user", { userID }, { path });
     }
   }
-};
+}
+
+export { Plugin as run };

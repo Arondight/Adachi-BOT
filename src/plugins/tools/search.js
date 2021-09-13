@@ -1,6 +1,6 @@
-const { isMaster } = require("../../utils/auth");
+import { isMaster } from "../../utils/auth.js";
 
-const search = async (id, msg, type, user) => {
+async function search(id, msg, type, user) {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let listAll = new Map([...bot.fl].concat([...bot.gl]));
   let report = "";
@@ -14,7 +14,6 @@ const search = async (id, msg, type, user) => {
     bot.gl.forEach((item) => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
-
     report += report ? "" : "没有加入任何群。";
     await bot.sendMessage(id, report, type);
     return;
@@ -24,7 +23,6 @@ const search = async (id, msg, type, user) => {
     bot.fl.forEach((item) => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
-
     report += report ? "" : "没有添加任何好友。";
     await bot.sendMessage(id, report, type);
     return;
@@ -41,13 +39,10 @@ const search = async (id, msg, type, user) => {
         report += `${typeStr}：${itemName}（${itemID}）\n`;
       }
     });
-
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
     await bot.sendMessage(id, report, type);
     return;
   }
-};
+}
 
-module.exports = {
-  search,
-};
+export { search };

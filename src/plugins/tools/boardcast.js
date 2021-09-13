@@ -1,6 +1,6 @@
-const { isMaster } = require("../../utils/auth");
+import { isMaster } from "../../utils/auth.js";
 
-const boardcast = async (id, msg, type, user) => {
+async function boardcast(id, msg, type, user) {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let report = "";
 
@@ -18,7 +18,6 @@ const boardcast = async (id, msg, type, user) => {
       );
       report += `${item.group_name}（${item.group_id}）\n`;
     });
-
     report += report ? "以上群已发送广播。" : "没有加入任何群。";
     await bot.sendMessage(id, report, type);
     return;
@@ -29,13 +28,10 @@ const boardcast = async (id, msg, type, user) => {
       bot.sendMessage(item.user_id, "主人发送了一条好友广播：\n" + text, type);
       report += `${item.nickname}（${item.user_id}）\n`;
     });
-
     report += report ? "以上好友已发送广播。" : "没有添加任何好友。";
     await bot.sendMessage(id, report, type);
     return;
   }
-};
+}
 
-module.exports = {
-  boardcast,
-};
+export { boardcast };
