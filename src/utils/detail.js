@@ -44,11 +44,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     let today = new Date().toLocaleDateString();
 
     if (!(await isInside("cookies", "cookie", "cookie", cookie))) {
-      let initData = {
-        cookie: cookie,
-        date: today,
-        times: 0,
-      };
+      let initData = { cookie: cookie, date: today, times: 0 };
       await push("cookies", "cookie", initData);
     }
 
@@ -66,12 +62,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       }
 
       date = today;
-
-      if (times) {
-        times += 1;
-      } else {
-        times = 1;
-      }
+      times = times ? times + 1 : 1;
 
       if (use_cookie) {
         await update("cookies", "cookie", { cookie }, { date, times });
@@ -87,11 +78,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 async function getCookie(uid, use_cookie) {
   return new Promise(async (resolve, reject) => {
     if (!(await isInside("cookies", "uid", "uid", uid))) {
-      let initData = {
-        uid: uid,
-        date: "",
-        cookie: "",
-      };
+      let initData = { uid: uid, date: "", cookie: "" };
       await push("cookies", "uid", initData);
     }
 
@@ -127,10 +114,7 @@ async function abyPromise(uid, server, schedule_type) {
     }
 
     if (!(await isInside("aby", "user", "uid", uid))) {
-      let initData = {
-        uid,
-        data: [],
-      };
+      let initData = { uid, data: [] };
       await push("aby", "user", initData);
     }
 
@@ -144,6 +128,7 @@ async function basePromise(mhyID, userID) {
     mhyID,
     await getCookie("MHY" + mhyID, false)
   );
+
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
       reject("米游社接口报错: " + message);
