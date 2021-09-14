@@ -11,7 +11,14 @@ const __dirname = path.dirname(__filename);
 const require = module.createRequire(import.meta.url);
 
 function loadYML(name) {
-  return yaml.load(fs.readFileSync(`./config/${name}.yml`, "utf-8"));
+  let name = `${name}.yml`;
+  let file = path.resolve(__dirname, "..", "..", "config", name);
+
+  if (!fs.accessSync(file, fs.constants.R_OK)) {
+    file = path.resolve(__dirname, "..", "..", "config_defaults", name);
+  }
+
+  return yaml.load(fs.readFileSync(file, "utf-8"));
 }
 
 async function loadPlugins() {
