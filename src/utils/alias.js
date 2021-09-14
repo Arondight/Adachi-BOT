@@ -1,19 +1,12 @@
 import { loadYML } from "./load.js";
 
-const names = loadYML("alias");
+const data = loadYML("alias");
+const names = Object.entries(data).reduce((data, [k, v]) => {
+  return v.forEach((c) => data.set(c, k)), data;
+}, new Map());
 
 function alias(text) {
-  if (text) {
-    for (let name of Object.keys(names)) {
-      for (let nickname of names[name]) {
-        if (nickname == text) {
-          return name;
-        }
-      }
-    }
-  }
-
-  return text;
+  return names.has(text) ? names.get(text) : text;
 }
 
 export { alias };

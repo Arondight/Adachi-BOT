@@ -34,7 +34,7 @@ master:
   - ^评分权限 +\d+ +(on|off)$
   - ^游戏数据权限 +\d+ +(on|off)$
   - ^官方数据权限 +\d+ +(on|off)$
-  - ^响应群消息 +\d+ +(on|off)$
+  - ^响应消息 +\d+ +(on|off)$
   - ^刷新卡池 *$
   - ^查询cookies使用情况 *$
 material:
