@@ -53,15 +53,28 @@ async function setCharacterOverviewAuth(msg, id, type) {
   await response(id, target, "查询官方信息", type, isOn ? "允许" : "禁止");
 }
 
-async function setReplyGroupAuth(msg, id, type) {
+async function setReplyAuth(msg, id, type) {
   let [target, isOn] = parse(msg);
-  await setAuth("replyGroup", target, isOn);
-  await response(id, target, "响应群消息", type, isOn ? "允许" : "禁止");
-  await bot.sendMessage(
-    target,
-    "主人已" + (isOn ? "允许" : "禁止") + "我在本群作出响应。",
-    "group"
-  );
+  let list = new Map([...bot.fl].concat([...bot.gl]));
+
+  await setAuth("reply", target, isOn);
+  await response(id, target, "响应消息", type, isOn ? "允许" : "禁止");
+
+  // 如果是群或者好友，发一条消息给对方，群友就不发了
+  list.forEach(async (item) => {
+    let itemID = item.hasOwnProperty("group_id") ? item.group_id : item.user_id;
+    let curType = item.hasOwnProperty("group_id") ? "group" : type;
+
+    if (itemID == target) {
+      await bot.sendMessage(
+        target,
+        "主人已" +
+          (isOn ? "允许" : "禁止") +
+          "我响应消息。一切消息将被忽略，直到主人允许我作出响应哦！",
+        curType
+      );
+    }
+  });
 }
 
 async function refreshWishDetail(id, type) {
@@ -87,31 +100,31 @@ async function Plugin(Message) {
   }
 
   switch (true) {
-    case msg.includes("带话权限"):
+    case msg.startsWith("带话权限"):
       await setFeedbackAuth(msg, sendID, type);
       break;
-    case msg.includes("点歌权限"):
+    case msg.startsWith("点歌权限"):
       await setMusicAuth(msg, sendID, type);
       break;
-    case msg.includes("十连权限"):
+    case msg.startsWith("十连权限"):
       await setGachaAuth(msg, sendID, type);
       break;
-    case msg.includes("圣遗物权限"):
+    case msg.startsWith("圣遗物权限"):
       await setArtifactAuth(msg, sendID, type);
       break;
-    case msg.includes("评分权限"):
+    case msg.startsWith("评分权限"):
       await setRatingAuth(msg, sendID, type);
       break;
-    case msg.includes("游戏数据权限"):
+    case msg.startsWith("游戏数据权限"):
       await setQueryGameInfoAuth(msg, sendID, type);
       break;
-    case msg.includes("官方数据权限"):
+    case msg.startsWith("官方数据权限"):
       await setCharacterOverviewAuth(msg, sendID, type);
       break;
-    case msg.includes("响应群消息"):
-      await setReplyGroupAuth(msg, sendID, type);
+    case msg.startsWith("响应消息"):
+      await setReplyAuth(msg, sendID, type);
       break;
-    case msg.includes("刷新卡池"):
+    case msg.startsWith("刷新卡池"):
       await refreshWishDetail(sendID, type);
       break;
   }
