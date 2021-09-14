@@ -15,14 +15,14 @@ function getID(msg) {
   if (
     id.length > 1 ||
     id[0].length !== 9 ||
-    (id[0][0] !== "1" && id[0][0] !== "5")
+    (id[0][0] !== "1" && id[0][0] !== "2" && id[0][0] !== "5")
   ) {
     errInfo = "输入 UID 不合法。";
     return errInfo;
   }
 
   let uid = parseInt(id[0]);
-  let region = id[0][0] === "1" ? "cn_gf01" : "cn_qd01";
+  let region = id[0][0] === "5" ? "cn_qd01" : "cn_gf01";
   return [uid, region];
 }
 
