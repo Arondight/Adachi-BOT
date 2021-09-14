@@ -1,30 +1,27 @@
-const querystring = require("querystring");
-const fetch = require("node-fetch");
-const { get, push, update } = require("../../utils/database");
-const { hasKey } = require("../../utils/tools");
+import { hasKey } from "../../utils/tools.js";
+import { get, push, update } from "../../utils/database.js";
+import fetch from "node-fetch";
+import querystring from "querystring";
 
 const MUSICSRC = {
   SRC_QQ: "QQ",
   SRC_163: "163",
 };
 Object.freeze(MUSICSRC);
-
 const ERRCODE = {
   ERR_SRC: "1",
   ERR_404: "2",
   ERR_API: "3",
 };
 Object.freeze(ERRCODE);
-
 const errMsg = {
   [ERRCODE.ERR_SRC]: "错误的音乐源",
   [ERRCODE.ERR_404]: "没有查询到对应歌曲",
   [ERRCODE.ERR_API]: "歌曲查询出错",
 };
 
-const doPost = async (url, headers, body) => {
+async function doPost(url, headers, body) {
   let ret = false;
-
   const response = await fetch(url, {
     method: "POST",
     headers: headers,
@@ -36,9 +33,9 @@ const doPost = async (url, headers, body) => {
   }
 
   return ret;
-};
+}
 
-const musicQQ = async (keyword) => {
+async function musicQQ(keyword) {
   let url = "https://api.qq.jsososo.com/search/quick";
   let form = {
     key: keyword,
@@ -69,9 +66,9 @@ const musicQQ = async (keyword) => {
   }
 
   return ERRCODE.ERR_404;
-};
+}
 
-const music163 = async (keyword) => {
+async function music163(keyword) {
   let url = "https://music.163.com/api/search/get/";
   let form = {
     s: keyword,
@@ -105,9 +102,9 @@ const music163 = async (keyword) => {
   }
 
   return ERRCODE.ERR_404;
-};
+}
 
-const musicID = async (msg, source) => {
+async function musicID(msg, source) {
   let [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
     [MUSICSRC.SRC_QQ]: musicQQ,
@@ -119,9 +116,9 @@ const musicID = async (msg, source) => {
   }
 
   return await worker[source](keyword);
-};
+}
 
-const musicSrc = async (msg, id) => {
+async function musicSrc(msg, id) {
   let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data = await get("music", "source", { ID: id });
 
@@ -130,16 +127,15 @@ const musicSrc = async (msg, id) => {
   }
 
   if (data === undefined) {
-    await push("music", "source", { ID: id, Source: source });
+    await push("music", "source", {
+      ID: id,
+      Source: source,
+    });
   } else {
     await update("music", "source", { ID: id }, { ...data, Source: source });
   }
 
   return source;
-};
+}
 
-module.exports = {
-  errMsg,
-  musicID,
-  musicSrc,
-};
+export { errMsg, musicID, musicSrc };

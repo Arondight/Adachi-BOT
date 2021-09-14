@@ -1,6 +1,6 @@
-const { getRandomInt } = require("../../utils/tools");
+import { getRandomInt } from "../../utils/tools.js";
 
-const roll = async (id, name, msg, type, user) => {
+async function roll(id, name, msg, type, user) {
   let cmd = msg.match(/[+-]?[0-9]+/g);
 
   if (cmd == null) {
@@ -15,8 +15,6 @@ const roll = async (id, name, msg, type, user) => {
         : "骰子的结果为: " + getRandomInt(max) + "。";
     await bot.sendMessage(id, `[CQ:at,qq=${user}] ${res}`, type);
   }
-};
+}
 
-module.exports = {
-  roll,
-};
+export { roll };

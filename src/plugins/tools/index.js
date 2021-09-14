@@ -1,12 +1,12 @@
-const { roll } = require("./roll");
-const { help } = require("./help");
-const { feedback } = require("./feedback");
-const { reply } = require("./reply");
-const { boardcast } = require("./boardcast");
-const { master } = require("./master");
-const { search } = require("./search");
+import { search } from "./search.js";
+import { master } from "./master.js";
+import { boardcast } from "./boardcast.js";
+import { reply } from "./reply.js";
+import { feedback } from "./feedback.js";
+import { help } from "./help.js";
+import { roll } from "./roll.js";
 
-module.exports = (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -39,4 +39,6 @@ module.exports = (Message) => {
       help(sendID, type);
       break;
   }
-};
+}
+
+export { Plugin as run };

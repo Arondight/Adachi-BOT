@@ -1,31 +1,60 @@
-const fs = require("fs");
-const yaml = require("js-yaml");
-const path = require("path");
-const { getRandomInt } = require("./tools");
-const { hasAuth } = require("./auth");
+import { hasAuth } from "./auth.js";
+import { getRandomInt } from "./tools.js";
+import yaml from "js-yaml";
+import fs from "fs";
+import url from "url";
+import path from "path";
+import module from "module";
 
-const loadYML = (name) => {
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const require = module.createRequire(import.meta.url);
+
+function loadYML(name) {
   return yaml.load(fs.readFileSync(`./config/${name}.yml`, "utf-8"));
-};
+}
 
-const loadPlugins = () => {
+async function loadPlugins() {
   let plugins = {};
   const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
 
   for (let plugin of pluginsPath) {
-    plugins[plugin] = require("../plugins/" + plugin + "/index.js");
-    bot.logger.info("插件 " + plugin + " 加载完成");
+    try {
+      plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
+    } catch (error) {
+      bot.logger.error(`插件 ${plugin} 加载失败：${error}`);
+    }
+    bot.logger.info(`插件 ${plugin} 加载完成`);
   }
 
   return plugins;
-};
+}
 
-const processed = async (qqData, plugins, type) => {
+function getCommand(msgData) {
+  const commandConfig = loadYML("command");
+
+  for (let command in commandConfig) {
+    if (commandConfig.hasOwnProperty(command)) {
+      for (let setting of commandConfig[command]) {
+        let reg = new RegExp(setting, "i");
+
+        if (reg.test(msgData)) {
+          return command;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+async function processed(qqData, plugins, type) {
   // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
     if (friendGreetingNew) {
       bot.sendMessage(qqData.user_id, greetingNew, "private");
     }
+
     return;
   }
 
@@ -43,6 +72,7 @@ const processed = async (qqData, plugins, type) => {
         );
       }
     }
+
     return;
   }
 
@@ -56,7 +86,7 @@ const processed = async (qqData, plugins, type) => {
     const command = getCommand(qqData.raw_message);
 
     if (command) {
-      plugins[command]({ ...qqData, type });
+      plugins[command].run({ ...qqData, type });
       return;
     }
   }
@@ -66,6 +96,7 @@ const processed = async (qqData, plugins, type) => {
     if (getRandomInt(100) < repeatProb) {
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
+
     return;
   }
 
@@ -79,29 +110,9 @@ const processed = async (qqData, plugins, type) => {
         bot.sendMessage(group.group_id, greeting, "group");
       });
     }
+
     return;
   }
-};
+}
 
-const getCommand = (msgData) => {
-  const commandConfig = loadYML("command");
-
-  for (let command in commandConfig) {
-    if (commandConfig.hasOwnProperty(command)) {
-      for (let setting of commandConfig[command]) {
-        let reg = new RegExp(setting, "i");
-        if (reg.test(msgData)) {
-          return command;
-        }
-      }
-    }
-  }
-
-  return null;
-};
-
-module.exports = {
-  loadYML,
-  loadPlugins,
-  processed,
-};
+export { loadYML, loadPlugins, processed };

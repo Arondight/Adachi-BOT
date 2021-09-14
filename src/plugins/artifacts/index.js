@@ -1,19 +1,15 @@
-const { getArtifact, domainInfo, domainMax } = require("./artifacts.js");
-const { get, isInside, push } = require("../../utils/database");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { render } = require("../../utils/render");
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { get, isInside, push } from "../../utils/database.js";
+import { getArtifact, domainInfo, domainMax } from "./artifacts.js";
 
-const userInitialize = async (userID) => {
+async function userInitialize(userID) {
   if (!(await isInside("artifact", "user", "userID", userID))) {
-    await push("artifact", "user", {
-      userID,
-      initial: {},
-      fortified: {},
-    });
+    await push("artifact", "user", { userID, initial: {}, fortified: {} });
   }
-};
+}
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -36,6 +32,7 @@ module.exports = async (Message) => {
   if (arg == null) {
     if (cmd.includes("强化")) {
       const { initial, fortified } = await get("artifact", "user", { userID });
+
       if (JSON.stringify(initial) !== "{}") {
         data = fortified;
       } else {
@@ -70,4 +67,6 @@ module.exports = async (Message) => {
   }
 
   await render(data, "genshin-artifact", sendID, type);
-};
+}
+
+export { Plugin as run };

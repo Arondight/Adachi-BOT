@@ -2,14 +2,24 @@
   "name": "adachi-bot",
   "version": "1.5.0",
   "description": "腾讯 QQ 中的原神机器人",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
+  "author": "Qin Fandong",
+  "type": "module",
+  "exports": "./app.js",
+  "keywords": [
+    "bot",
+    "qq",
+    "genshin",
+    "genshin-impact"
+  ],
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 0",
+    "format": "npx prettier --config ./.prettierrc -uw ./app.js ./src/",
+    "start": "node ./app.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "image-cache": "^1.0.1",
@@ -25,6 +35,7 @@
   "devDependencies": {
     "js-yaml": "^4.1.0",
     "md5": "^2.3.0",
+    "prettier": "2.3.2",
     "request": "^2.88.2"
   }
 }

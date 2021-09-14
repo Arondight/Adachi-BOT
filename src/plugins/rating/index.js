@@ -1,29 +1,29 @@
-const fetch = require("node-fetch");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { hasKey } = require("../../utils/tools");
+import { hasKey } from "../../utils/tools.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import fetch from "node-fetch";
 
-const doGet = async (url) => {
+async function doGet(url) {
   const response = await fetch(url, { method: "GET" });
   return response;
-};
+}
 
-const doPost = async (url, headers, body) => {
+async function doPost(url, headers, body) {
   const response = await fetch(url, {
     method: "POST",
     headers: headers,
     body: body,
   });
-
   return response;
-};
+}
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
+
   // 【评分】命令和图片之间可以加任意个空格
   // https://github.com/Arondight/Adachi-BOT/issues/54
   let [source] = msg.split(/^评分\s*/).slice(1);
@@ -90,9 +90,62 @@ module.exports = async (Message) => {
   }
 
   ret = await response.json();
+  // 只调整带百分号的，因为不带百分号的不会出现小数点
+  let maxValue = {
+    main_item: {
+      atk: "46.6", // 大攻击
+      hp: "46.6", // 大生命
+      df: "58.3", // 大防御
+      er: "51.8", // 充能
+      cr: "31.1", // 暴击率
+      cd: "62.6", // 暴击伤害
+      phys: "58.3", // 物伤
+      // TODO 元素伤害、治疗加成
+    },
+    sub_item: {
+      atk: "35.0", // 大攻击
+      hp: "35.0", // 大生命
+      df: "43.7", // 大防御
+      er: "38.9", // 充能
+      cr: "23.3", // 暴击率
+      cd: "46.6", // 暴击伤害
+    },
+  };
+
+  for (let item_type of Object.keys(maxValue)) {
+    if (!ret.hasOwnProperty(item_type)) {
+      continue;
+    }
+
+    let main_item = item_type == "main_item" ? true : false;
+    let items = main_item ? [ret[item_type]] : ret[item_type];
+
+    for (let item of items) {
+      if (!maxValue[item_type].hasOwnProperty(item["type"])) {
+        continue;
+      }
+
+      if (!item["value"].includes("%")) {
+        continue;
+      }
+
+      let value = parseInt(item["value"]);
+
+      if (value > maxValue[item_type][item["type"]]) {
+        let text = `rating adjust ${item_type}:${item["type"]} (${item["value"]}`;
+        item["value"] = (value / 10).toFixed(1).toString() + "%";
+        text += ` -> ${item["value"]})`;
+        bot.logger.debug(text);
+      }
+    }
+
+    if (main_item) {
+      ret[item_type] = items[0];
+    }
+  }
+
   body = JSON.stringify(ret);
   prop = ret;
-
   response = await doPost(
     "https://api.genshin.pub/api/v1/relic/rate",
     headers,
@@ -117,6 +170,7 @@ module.exports = async (Message) => {
         type
       );
     }
+
     return;
   }
 
@@ -128,7 +182,6 @@ ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
     prop["sub_item"].forEach((item) => {
       data += `\n${item["name"]}：${item["value"]}`;
     });
-
     await bot.sendMessage(sendID, data, type);
     return;
   }
@@ -138,4 +191,6 @@ ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
     `[CQ:at,qq=${userID}] 发生了一个未知错误，请再试一次。`,
     type
   );
-};
+}
+
+export { Plugin as run };

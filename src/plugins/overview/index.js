@@ -1,9 +1,9 @@
-const { getInfo } = require("../../utils/api");
-const { hasAuth, sendPrompt } = require("../../utils/auth");
-const { render } = require("../../utils/render");
-const { alias } = require("../../utils/alias");
+import { alias } from "../../utils/alias.js";
+import { render } from "../../utils/render.js";
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { getInfo } from "../../utils/api.js";
 
-module.exports = async (Message) => {
+async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -42,4 +42,6 @@ module.exports = async (Message) => {
   }
 
   await render(data, "genshin-overview", sendID, type);
-};
+}
+
+export { Plugin as run };
