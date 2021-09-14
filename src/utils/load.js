@@ -73,7 +73,7 @@ async function processed(qqData, plugins, type) {
       bot.sendMessage(qqData.group_id, greetingHello, "group");
     } else {
       // 如果有新群友加入，向新群友问好
-      if (groupGreetingNew) {
+      if (groupGreetingNew && (await hasAuth(qqData.group_id, "reply"))) {
         bot.sendMessage(
           qqData.group_id,
           `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
@@ -87,7 +87,8 @@ async function processed(qqData, plugins, type) {
 
   // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
   if (
-    (await hasAuth(qqData.group_id, "replyGroup")) &&
+    (await hasAuth(qqData.group_id, "reply")) &&
+    (await hasAuth(qqData.user_id, "reply")) &&
     qqData.hasOwnProperty("message") &&
     qqData.message[0] &&
     qqData.message[0].type === "text"
@@ -113,7 +114,7 @@ async function processed(qqData, plugins, type) {
   if (type === "online") {
     if (groupHello) {
       bot.gl.forEach(async (group) => {
-        let greeting = (await hasAuth(group.group_id, "replyGroup"))
+        let greeting = (await hasAuth(group.group_id, "reply"))
           ? greetingOnline
           : greetingDie;
         bot.sendMessage(group.group_id, greeting, "group");
