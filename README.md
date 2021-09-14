@@ -8,8 +8,8 @@
 2. 资源文件提交请查阅[资源制作](docs/资源制作.md)
 3. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation)
 
-> 1. 所有的提交请先合入`dev`分支
-> 2. 代码提交前运行`npm run format`进行格式化
+> 1. 代码提交前运行 `npm run format` 进行格式化
+> 2. 所有的提交请先合入 `dev` 分支
 
 ## 使用
 
@@ -17,7 +17,7 @@
 
 #### 准备环境
 
-> 机器人至少需要`2GiB`内存或交换空间以运行无头浏览器。
+> 机器人至少需要 `2GiB` 内存或交换空间以运行无头浏览器。
 
 首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，机器人无法在较低版本的 Node.js 上运行。
 
@@ -49,15 +49,15 @@ cd ./Adachi-BOT/
 npm install
 ```
 
-如果`puppeteer`模块下载`Chromium`失败，那么`Adachi-BOT`将无法正常运行……
+如果 `puppeteer` 模块下载 `Chromium` 失败，那么机器人将无法正常运行……
 
 <details>
 
-此时你有三种选择。首先删除`./node_modules/`目录。
+此时你有三种选择。首先删除 `./node_modules/` 目录。
 
-其一，使用系统自带的`Chromium`，这里以`CentOS`为例，执行以下命令。
+其一，使用系统自带的 `Chromium` ，这里以 `CentOS` 为例，执行以下命令。
 
-> 这里需要找到`Chromium`的二进制可执行文件路径，而非启动脚本或其链接的路径。
+> 这里需要找到 `Chromium` 的二进制可执行文件路径，而非启动脚本或其链接的路径。
 
 ```
 sudo yum -y install epel-release
@@ -67,13 +67,13 @@ source ~/.bashrc
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
 ```
 
-其二，通过任意合法途径获得一个可以访问国际互联网的`http`代理，然后执行以下命令。
+其二，通过任意合法途径获得一个可以访问国际互联网的 `http` 代理，然后执行以下命令。
 
 ```
 npm_config_proxy=http://<ip>:<port> npm install
 ```
 
-其三，尝试改用`Firefox`，执行以下命令。
+其三，尝试改用 `Firefox` ，执行以下命令。
 
 ```
 PUPPETEER_PRODUCT=firefox npm install
@@ -83,20 +83,31 @@ PUPPETEER_PRODUCT=firefox npm install
 
 ### 配置
 
-需要编辑以下文件，根据注释填入合适的配置。
+首次配置，需要进入本项目所在目录，执行以下命令复制默认配置文件。
+
+```
+cp -iv ./config_defaults/{setting,cookies}.yml ./config/
+```
+
+然后需要编辑以下文件，根据注释填入合适的配置。
 
 | 文件 | 作用 |
 | --- | --- |
 | [config/setting.yml](config/setting.yml) | 基本配置选项 |
 | [config/cookies.yml](config/cookies.yml) | 米游社Cookie |
 
+> 1. 如果你知道你在做什么，可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行配置
+> 2. 机器人会首先在 `./config/` 下寻找对应的配置文件，如果没有，则会去 `./config_defaults/` 下寻找
+> 3. 有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下
+> 4. 通常来说，我觉得你只需要在 `./config_defaults/` 下存放 `setting.yml` 和 `cookies.yml` 就够了
+
 ### 运行
 
 #### 手动运行
 
-进入`Adachi-BOT`项目所在目录。
+进入本项目所在目录。
 
-> 首次运行需要先执行`npm start`，完成QQ的新设备认证，随后`Ctrl+C`停止机器人，然后再执行以下命令。
+> 首次运行需要先执行 `npm start` ，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，然后再执行以下命令。
 
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 start ./app.js --name bot
@@ -105,7 +116,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 save
 
 #### 开机启动
 
-进入`Adachi-BOT`项目所在目录。手动运行后执行。
+进入本项目所在目录。手动运行后执行。
 
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 startup
@@ -113,7 +124,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 startup
 
 ### 更新
 
-进入`Adachi-BOT`项目所在目录。
+进入本项目所在目录。
 
 ```
 git stash push .
@@ -131,7 +142,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 start bot
 
 #### 查看状态
 
-进入`Adachi-BOT`项目所在目录。
+进入本项目所在目录。
 
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 list bot
@@ -139,7 +150,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 list bot
 
 #### 查看日志
 
-进入`Adachi-BOT`项目所在目录。
+进入本项目所在目录。
 
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 log bot
@@ -147,7 +158,7 @@ PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 log bot
 
 #### 手动停止
 
-进入`Adachi-BOT`项目所在目录。
+进入本项目所在目录。
 
 ```
 PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
