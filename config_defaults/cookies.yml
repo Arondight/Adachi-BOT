@@ -1,0 +1,11 @@
+# 这里演示了同时配置三个 Cookies，你可以配置一个到多个，具体格式可能随时间变化
+# 注意配置一个 Cookie 后需要删掉这一行注释符号（"#"）
+#
+# 如果你修改了一个错误的 Cookie，数据库中错误的 Cookie 不会自动删除（只增不减），
+# 需要使用下面的命令来重置数据库，然后重启机器人
+# git checkout ./data/db/cookies.json
+# 注意增加新的 Cookie 不需要重置数据库
+cookies:
+  #- UM_distinctid=17b35110eb8ef3...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
+  #- UM_distinctid=17b351800dd35d...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
+  #- UM_distinctid=17b351b1378adf...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...

@@ -16,26 +16,26 @@
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "scripts": {
-    "test": "echo 'Error: no test specified' && exit 0",
+    "test": "echo 'No test specified' && exit 0",
     "format": "npx prettier --config ./.prettierrc -uw ./app.js ./src/",
     "start": "node ./app.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "image-cache": "^1.0.1",
-    "lodash": "^4.17.21",
-    "lowdb": "^1.0.0",
-    "node-fetch": "^2.6.1",
-    "node-schedule": "^2.0.0",
-    "oicq": "^1.19.3",
-    "pm2": "^5.1.0",
-    "puppeteer": "^10.2.0",
-    "random-float": "^2.0.0"
+    "express": "4.17.1",
+    "image-cache": "1.0.1",
+    "lodash": "4.17.21",
+    "lowdb": "1.0.0",
+    "node-fetch": "2.6.2",
+    "node-schedule": "2.0.0",
+    "oicq": "1.20.2",
+    "pm2": "5.1.1",
+    "puppeteer": "10.2.0",
+    "random-float": "2.0.0"
   },
   "devDependencies": {
-    "js-yaml": "^4.1.0",
-    "md5": "^2.3.0",
-    "prettier": "2.3.2",
-    "request": "^2.88.2"
+    "js-yaml": "4.1.0",
+    "md5": "2.3.0",
+    "prettier": "2.4.0",
+    "request": "2.88.2"
   }
 }
