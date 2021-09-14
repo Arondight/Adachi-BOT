@@ -30,10 +30,10 @@ async function loadPlugins() {
   for (let plugin of pluginsPath) {
     try {
       plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
+      bot.logger.info(`插件 ${plugin} 加载完成`);
     } catch (error) {
       bot.logger.error(`插件 ${plugin} 加载失败：${error}`);
     }
-    bot.logger.info(`插件 ${plugin} 加载完成`);
   }
 
   return plugins;
