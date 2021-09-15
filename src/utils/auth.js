@@ -1,7 +1,7 @@
 import { update, get, push } from "./database.js";
 
 function isMaster(userID) {
-  return userID === master;
+  return masters.includes(userID);
 }
 
 async function sendPrompt(sendID, userID, name, auth, type) {

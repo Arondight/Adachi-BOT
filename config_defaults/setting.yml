@@ -7,8 +7,13 @@ account:
   # 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
   platform: 5
 
-# 管理者 QQ
-master: 987654321
+# 管理者 QQ，一个或多个
+masters:
+  - 987654321
+  - 876543210
+  - 765432109
+# 此选项已弃用，但仍生效，建议使用 masters
+#master: 987654321
 
 # 复读群消息的概率%（1-100），0 不复读
 repeatProb: 1
