@@ -4,12 +4,12 @@
 
 [原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
-1. 插件开发请查阅[开发指引](docs/开发指引.md)
-2. 资源文件提交请查阅[资源制作](docs/资源制作.md)
-3. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation)
+1. 插件开发请查阅[开发指引](docs/开发指引.md)。
+2. 资源文件提交请查阅[资源制作](docs/资源制作.md)。
+3. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation)。
 
-> 1. 代码提交前运行 `npm run format` 进行格式化
-> 2. 所有的提交请先合入 `dev` 分支
+> 1. 代码提交前运行 `npm run format` 进行格式化。
+> 2. 所有的提交请先合入 `dev` 分支。
 
 ## 使用
 
@@ -83,7 +83,7 @@ PUPPETEER_PRODUCT=firefox npm install
 
 ### 配置
 
-首次配置，需要进入本项目所在目录，执行以下命令复制默认配置文件。
+首次配置，需要进入本项目所在目录，执行以下命令复制默认配置文件 `setting.yml` 和 `cookies.yml`。
 
 ```
 cp -iv ./config_defaults/{setting,cookies}.yml ./config/
@@ -93,13 +93,12 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 | 文件 | 作用 |
 | --- | --- |
-| [config/setting.yml](config/setting.yml) | 基本配置选项 |
-| [config/cookies.yml](config/cookies.yml) | 米游社Cookie |
+| [setting.yml](config_defaults/setting.yml) | 基本配置选项 |
+| [cookies.yml](config_defaults/cookies.yml) | 米游社Cookie |
 
-> 1. 如果你知道你在做什么，可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行配置
-> 2. 机器人会首先在 `./config/` 下寻找对应的配置文件，如果没有，则会去 `./config_defaults/` 下寻找
-> 3. 有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下
-> 4. 通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了
+> 1. 你可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。
+> 2. 有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下。
+> 3. 通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了。
 
 ### 使用
 
@@ -116,7 +115,8 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | 查看状态 | `npm run list` |
 | 查看日志 | `npm run log` |
 
-> 首次运行，必须**进行初始化**，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，此时初始化完成。
+> 1. 首次运行，必须**进行初始化**，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，此时初始化完成。
+> 2. 对于 Windows 操作系统，直接运行 `npm run init` 启动机器人即可，无法（也不需要）运行其他命令。
 
 ### 更新
 
@@ -132,7 +132,7 @@ npm run restart
 
 ### 所有功能
 
-> 具体命令请查看[这里](src/plugins/tools/help.js)。
+> 具体命令请查看[这里](src/plugins/tools/help.js)，一些只供管理者使用的命令请查看[这里](src/plugins/tools/master.js)。
 
 | 功能 | 形式 | 权限控制 | 主人命令 |
 | --- | --- | --- | --- |
