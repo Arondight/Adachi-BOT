@@ -99,68 +99,24 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 > 1. 如果你知道你在做什么，可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行配置
 > 2. 机器人会首先在 `./config/` 下寻找对应的配置文件，如果没有，则会去 `./config_defaults/` 下寻找
 > 3. 有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下
-> 4. 通常来说，我觉得你只需要在 `./config_defaults/` 下存放 `setting.yml` 和 `cookies.yml` 就够了
+> 4. 通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了
 
-### 运行
-
-#### 手动运行
+### 使用
 
 进入本项目所在目录。
 
-> 首次运行需要先执行 `npm start` ，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，然后再执行以下命令。
+| 功能 | 命令 |
+| --- | --- |
+| 初始化 | `npm run init` |
+| 启动 | `npm run start` |
+| 重启 | `npm run restart` |
+| 停止 | `npm run stop` |
+| 允许开机启动 | `npm run startup` |
+| 禁止开机启动 | `npm run unstartup` |
+| 查看状态 | `npm run list` |
+| 查看日志 | `npm run log` |
 
-```
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 start ./app.js --name bot
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 save
-```
-
-#### 开机启动
-
-进入本项目所在目录。手动运行后执行。
-
-```
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 startup
-```
-
-### 更新
-
-进入本项目所在目录。
-
-```
-git pull -p
-npm install
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 restart bot
-```
-
-### 其他操作
-
-<details>
-
-#### 查看状态
-
-进入本项目所在目录。
-
-```
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 list bot
-```
-
-#### 查看日志
-
-进入本项目所在目录。
-
-```
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 log bot
-```
-
-#### 手动停止
-
-进入本项目所在目录。
-
-```
-PM2_HOME=$(pwd)/bot.pm2 ./node_modules/.bin/pm2 stop bot
-```
-
-</details>
+> 首次运行，必须**进行初始化**，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，此时初始化完成。
 
 ## 功能
 
