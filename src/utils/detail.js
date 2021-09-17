@@ -39,6 +39,17 @@ function increaseIndex() {
   index = index === cookies.length - 1 ? 0 : index + 1;
 }
 
+function isValidCookie(cookie) {
+  // XXX 是否要使用某个 API 真正地去验证 Cookie 合法性？
+  // 优点：真正地能区分 Cookie 是否有效
+  // 缺点：依赖网络并且耗时较多
+  if (cookie.includes("ltoken=") && cookie.includes("cookie_token=")) {
+    return true;
+  }
+
+  return false;
+}
+
 async function getEffectiveCookie(uid, s, use_cookie) {
   return new Promise(async (resolve, reject) => {
     let p = index;
@@ -49,8 +60,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     let cookie = cookies[p];
     let today = new Date().toLocaleDateString();
 
-    // TODO 这里是合法的 Cookie 吗？
-    if (!cookie) {
+    if (!isValidCookie(cookie)) {
       resolve(undefined);
       return;
     }
@@ -63,11 +73,11 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     let { date, times } = await get("cookies", "cookie", { cookie });
 
     if (date && date == today && times & (times >= 30)) {
-      if (s >= cookies.length) {
-        resolve(cookie);
-      } else {
-        resolve(await getEffectiveCookie(uid, s + 1, use_cookie));
-      }
+      resolve(
+        s >= cookies.length
+          ? cookie
+          : await getEffectiveCookie(uid, s + 1, use_cookie)
+      );
     } else {
       if (date && date != today) {
         times = 0;
@@ -111,12 +121,14 @@ async function getCookie(uid, use_cookie) {
 }
 
 async function abyPromise(uid, server, schedule_type) {
+  const cookie = await getCookie(uid, true);
   const { retcode, message, data } = await getAbyDetail(
     uid,
     schedule_type,
     server,
-    await getCookie(uid, true)
+    cookie
   );
+
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
       reject("米游社接口报错: " + message);
@@ -134,10 +146,8 @@ async function abyPromise(uid, server, schedule_type) {
 }
 
 async function basePromise(mhyID, userID) {
-  const { retcode, message, data } = await getBase(
-    mhyID,
-    await getCookie("MHY" + mhyID, false)
-  );
+  const cookie = await getCookie("MHY" + mhyID, false);
+  const { retcode, message, data } = await getBase(mhyID, cookie);
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
@@ -177,6 +187,7 @@ async function detailPromise(uid, server, userID) {
     bot.logger.info(
       "用户 " + uid + " 在一小时内进行过查询操作，将返回上次数据"
     );
+
     const { retcode, message } = await get("info", "user", { uid });
 
     if (retcode !== 0) {
@@ -186,11 +197,9 @@ async function detailPromise(uid, server, userID) {
     return Promise.reject("");
   }
 
-  const { retcode, message, data } = await getDetail(
-    uid,
-    server,
-    await getCookie(uid, true)
-  );
+  const cookie = await getCookie(uid, true);
+  const { retcode, message, data } = await getDetail(uid, server, cookie);
+
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
       await update(
@@ -216,6 +225,7 @@ async function detailPromise(uid, server, userID) {
         homes: data.homes,
       }
     );
+
     bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
     let characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);
@@ -223,12 +233,14 @@ async function detailPromise(uid, server, userID) {
 }
 
 async function characterPromise(uid, server, character_ids) {
+  const cookie = await getCookie(uid, true);
   const { retcode, message, data } = await getCharacters(
     uid,
     server,
     character_ids,
-    await getCookie(uid, true)
+    cookie
   );
+
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
       reject("米游社接口报错: " + message);
