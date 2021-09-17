@@ -1,10 +1,11 @@
-import { search } from "./search.js";
-import { master } from "./master.js";
 import { boardcast } from "./boardcast.js";
-import { reply } from "./reply.js";
+import { count } from "./count.js";
 import { feedback } from "./feedback.js";
 import { help } from "./help.js";
+import { master } from "./master.js";
+import { reply } from "./reply.js";
 import { roll } from "./roll.js";
+import { search } from "./search.js";
 
 async function Plugin(Message) {
   let msg = Message.raw_message;
@@ -29,6 +30,9 @@ async function Plugin(Message) {
       msg.startsWith("好友列表") ||
       msg.startsWith("查找列表"):
       search(sendID, msg, type, userID);
+      break;
+    case msg.startsWith("统计列表"):
+      count(sendID, msg, type, userID);
       break;
     case msg.startsWith("管理"):
       master(sendID, type);
