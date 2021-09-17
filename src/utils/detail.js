@@ -3,8 +3,13 @@ import { loadYML } from "./load.js";
 import { get, isInside, push, update } from "./database.js";
 import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
 
+const configs = loadYML("cookies");
+const cookies = configs
+  ? Array.isArray(configs["cookies"])
+    ? configs["cookies"]
+    : []
+  : [];
 let index = 0;
-const { cookies } = loadYML("cookies");
 
 async function userInitialize(userID, uid, nickname, level) {
   if (!(await isInside("character", "user", "userID", userID))) {
@@ -31,17 +36,24 @@ async function userInitialize(userID, uid, nickname, level) {
 }
 
 function increaseIndex() {
-  let cookiesNum = cookies.length;
-  index = index === cookiesNum - 1 ? 0 : index + 1;
+  index = index === cookies.length - 1 ? 0 : index + 1;
 }
 
 async function getEffectiveCookie(uid, s, use_cookie) {
   return new Promise(async (resolve, reject) => {
     let p = index;
     increaseIndex();
+
     p = p === cookies.length - 1 ? 0 : p + 1;
+
     let cookie = cookies[p];
     let today = new Date().toLocaleDateString();
+
+    // TODO 这里是合法的 Cookie 吗？
+    if (!cookie) {
+      resolve(undefined);
+      return;
+    }
 
     if (!(await isInside("cookies", "cookie", "cookie", cookie))) {
       let initData = { cookie: cookie, date: today, times: 0 };
@@ -70,7 +82,6 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 
       await update("cookies", "uid", { uid }, { date, cookie });
       resolve(cookie);
-      return;
     }
   });
 }
@@ -85,13 +96,12 @@ async function getCookie(uid, use_cookie) {
     let { date, cookie } = await get("cookies", "uid", { uid });
     let today = new Date().toLocaleDateString();
 
-    if (date && cookie && date == today) {
-    } else {
+    if (!(date && cookie && date == today)) {
       cookie = await getEffectiveCookie(uid, 1, use_cookie);
     }
 
     if (!cookie) {
-      reject("获取cookie失败！");
+      reject("获取 Cookie 失败！");
       return;
     }
 
