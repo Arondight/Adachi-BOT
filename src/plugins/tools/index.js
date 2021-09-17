@@ -13,10 +13,11 @@ async function Plugin(Message) {
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
+  let groupName = type === "group" ? Message.group_name : undefined;
 
   switch (true) {
     case msg.startsWith("带个话"):
-      feedback(sendID, name, msg, type, userID);
+      feedback(sendID, name, msg, type, userID, groupName);
       break;
     case msg.startsWith("群广播") || msg.startsWith("好友广播"):
       boardcast(sendID, msg, type, userID);
