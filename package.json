@@ -18,9 +18,17 @@
   "scripts": {
     "test": "echo 'No test specified' && exit 0",
     "format": "npx prettier --config ./.prettierrc -uw ./app.js ./src/",
-    "start": "node ./app.js"
+    "init": "npx node ./app.js",
+    "start": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 start ./app.js --name bot; npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 save",
+    "restart": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 restart bot",
+    "stop": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 stop bot",
+    "startup": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 startup",
+    "unstartup": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 unstartup",
+    "list": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 list bot",
+    "log": "npx cross-env PM2_HOME=$(pwd)/bot.pm2/ pm2 log bot"
   },
   "dependencies": {
+    "cross-env": "7.0.3",
     "express": "4.17.1",
     "image-cache": "1.0.1",
     "lodash": "4.17.21",
