@@ -105,7 +105,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 进入本项目所在目录。
 
-| 功能 | 命令 |
+| 动作 | 命令 |
 | --- | --- |
 | 初始化 | `npm run init` |
 | 启动 | `npm run start` |
@@ -117,6 +117,16 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | 查看日志 | `npm run log` |
 
 > 首次运行，必须**进行初始化**，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，此时初始化完成。
+
+### 更新
+
+进入本项目所在的目录。
+
+```
+git pull -p
+npm install
+npm run restart
+```
 
 ## 功能
 
