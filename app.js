@@ -54,7 +54,9 @@ BOT.sendMessage = async (id, msg, type) => {
 BOT.sendMaster = async (id, msg, type) => {
   if (Array.isArray(masters) && masters.length) {
     masters.forEach(async (master) => {
-      await BOT.sendPrivateMsg(master, msg);
+      if (master) {
+        await BOT.sendPrivateMsg(master, msg);
+      }
     });
   } else {
     await BOT.sendMessage(id, "未设置我的主人。", type);
