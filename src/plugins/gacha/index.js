@@ -25,7 +25,6 @@ async function Plugin(Message) {
   let sendID = type === "group" ? groupID : userID;
   let name = Message.sender.nickname;
   let [cmd] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let choice = 301;
 
   await userInitialize(userID);
 
@@ -35,6 +34,8 @@ async function Plugin(Message) {
   }
 
   if (msg.includes("卡池")) {
+    let choice = 301;
+
     switch (cmd) {
       case "常驻":
         choice = 200;
