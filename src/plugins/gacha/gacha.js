@@ -178,6 +178,10 @@ async function gachaTenTimes(userID, nickname) {
   let result = { data: [], type: name, user: nickname };
   let data = {};
 
+  if (!uchoice) {
+    await update("gacha", "user", { userID }, { choice });
+  }
+
   for (let i = 1; i <= 10; ++i) {
     let res = await gachaOnce(userID, choice, gachaTable);
     res["type"] = (res["item_type"] === "武器" ? types : element)[
