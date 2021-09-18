@@ -83,7 +83,7 @@ PUPPETEER_PRODUCT=firefox npm install
 
 ### 配置
 
-首次配置，需要进入本项目所在目录，执行以下命令复制默认配置文件 `setting.yml` 和 `cookies.yml`。
+首次配置，进入本项目所在的目录 `./Adachi-BOT/`，执行以下命令复制默认配置文件 `setting.yml` 和 `cookies.yml`。
 
 ```
 cp -iv ./config_defaults/{setting,cookies}.yml ./config/
@@ -102,7 +102,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 ### 使用
 
-进入本项目所在目录。
+进入本项目所在的目录 `./Adachi-BOT/`。
 
 | 动作 | 命令 |
 | --- | --- |
@@ -115,8 +115,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | 查看状态 | `npm run list` |
 | 查看日志 | `npm run log` |
 
-> 1. 首次运行，必须**进行初始化**，完成QQ的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，此时初始化完成。
-> 2. 对于 Windows 操作系统，直接运行 `npm run init` 启动机器人即可，无法（也不需要）运行其他命令。
+> 首次运行必须**进行初始化**以完成 QQ 的新设备认证，随后按下组合键 `Ctrl+C` 停止机器人，此时初始化完成。
 
 ### 更新
 
