@@ -17,7 +17,7 @@
 
 #### 准备环境
 
-> 机器人至少需要 `2GiB` 内存或交换空间以运行无头浏览器。
+> 建议提供一个内存和交换空间容量**总和**达到 `2GiB` 的机器，以供机器人运行无头浏览器。
 
 首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，机器人无法在较低版本的 Node.js 上运行。
 
@@ -131,7 +131,7 @@ npm run restart
 
 ### 所有功能
 
-> 具体命令请查看[这里](src/plugins/tools/help.js)，一些只供管理者使用的命令请查看[这里](src/plugins/tools/master.js)。
+> 具体命令请查看[这里](src/plugins/tools/help.js)，一些只供管理者使用的主人命令请查看[这里](src/plugins/tools/master.js)。
 
 | 功能 | 形式 | 权限控制 | 主人命令 |
 | --- | --- | --- | --- |
