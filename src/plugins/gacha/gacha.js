@@ -21,7 +21,7 @@ function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max) + 1;
 }
 
-async function getChoiceData(userID, choice) {
+async function getChoiceData(userID, choice = 301) {
   const { indefinite, character, weapon } = await get("gacha", "user", {
     userID,
   });
@@ -173,7 +173,7 @@ async function gachaOnce(userID, choice, table) {
 async function gachaTenTimes(userID, nickname) {
   const { choice } = await get("gacha", "user", { userID });
   const gachaTable = await get("gacha", "data", { gacha_type: choice });
-  ({ name, five, four, isUp } = await getChoiceData(userID, choice));
+  { name, five, four, isUp } = await getChoiceData(userID, choice);
   let result = { data: [], type: name, user: nickname },
     data = {};
 
