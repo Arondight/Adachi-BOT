@@ -171,8 +171,8 @@ async function gachaOnce(userID, choice, table) {
 }
 
 async function gachaTenTimes(userID, nickname) {
-  const { choice } = await get("gacha", "user", { userID });
-  choice = choice ? choice : 301;
+  const { uchoice } = await get("gacha", "user", { userID });
+  const choice = uchoice ? uchoice : 301;
   const gachaTable = await get("gacha", "data", { gacha_type: choice });
   ({ name, five, four, isUp } = await getChoiceData(userID, choice));
   let result = { data: [], type: name, user: nickname };
