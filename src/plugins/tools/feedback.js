@@ -1,15 +1,15 @@
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 
-async function feedback(id, name, msg, type, user) {
+async function feedback(id, uname, msg, type, user, gname) {
   let info = msg.slice(4);
 
   if (!(await hasAuth(id, "feedback")) || !(await hasAuth(id, "feedback"))) {
-    await sendPrompt(id, name, "带话", type);
+    await sendPrompt(id, uname, "带话", type);
   } else {
     await bot.sendMaster(
       id,
-      (id == user ? "" : `群${id}中的`) +
-        `${name}(${user}) 给主人带个话：\n${info}`,
+      (id == user ? "" : `${gname}（${id}）中的`) +
+        `${uname}（${user}）给主人带个话：\n${info}`,
       type
     );
     await bot.sendMessage(
