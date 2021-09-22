@@ -120,7 +120,23 @@ async function getCookie(uid, use_cookie) {
   });
 }
 
-async function abyPromise(uid, server, schedule_type) {
+async function abyPromise(uid, server, userID, schedule_type) {
+  await userInitialize(userID, uid, "", -1);
+  await update("character", "user", { userID }, { uid });
+  let nowTime = new Date().valueOf();
+  let { time } = await get("time", "user", { uid });
+
+  if (time && nowTime - time < 60 * 60 * 1000) {
+    bot.logger.info(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
+    const { data } = await get("aby", "user", { uid });
+
+    if (!data) {
+      return Promise.reject("没有查询到深渊数据。 ");
+    }
+
+    return Promise.reject("");
+  }
+
   const cookie = await getCookie(uid, true);
   const { retcode, message, data } = await getAbyDetail(
     uid,
@@ -134,6 +150,8 @@ async function abyPromise(uid, server, schedule_type) {
       reject("米游社接口报错: " + message);
       return;
     }
+
+    await update("time", "user", { uid }, { time: nowTime });
 
     if (!(await isInside("aby", "user", "uid", uid))) {
       let initData = { uid, data: [] };
@@ -183,11 +201,8 @@ async function detailPromise(uid, server, userID) {
   let nowTime = new Date().valueOf();
   let { time } = await get("time", "user", { uid });
 
-  if (nowTime - time < 60 * 60 * 1000) {
-    bot.logger.info(
-      "用户 " + uid + " 在一小时内进行过查询操作，将返回上次数据"
-    );
-
+  if (time && nowTime - time < 60 * 60 * 1000) {
+    bot.logger.info(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
     const { retcode, message } = await get("info", "user", { uid });
 
     if (retcode !== 0) {
