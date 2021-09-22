@@ -11,7 +11,7 @@ async function Plugin(Message) {
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
-  let dbInfo = await getID(msg, userID);
+  let dbInfo = await getID(msg, userID); // 米游社 ID
   let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
   let uid, data;
 

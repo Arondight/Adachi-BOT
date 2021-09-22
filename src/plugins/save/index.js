@@ -1,4 +1,5 @@
 import { isInside, push, update } from "../../utils/database.js";
+import { getID } from "../../utils/database.js";
 
 async function Plugin(Message) {
   let msg = Message.raw_message;
@@ -6,17 +7,17 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let sendID = type === "group" ? groupID : userID;
-  let id = msg.match(/\d+/g),
-    mhyID;
+  let id = await getID(msg, userID);
+  let mhyID;
 
-  if (id === null || id.length > 1) {
+  if (!id) {
     await bot.sendMessage(
       sendID,
       `[CQ:at,qq=${userID}] 请正确输入通行证ID。`,
       type
     );
   } else {
-    mhyID = parseInt(id[0]);
+    mhyID = id;
 
     if (msg.includes("绑定")) {
       if (!(await isInside("map", "user", "userID", userID))) {
