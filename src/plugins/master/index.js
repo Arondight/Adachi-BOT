@@ -68,9 +68,7 @@ async function setReplyAuth(msg, id, type) {
     if (itemID == target) {
       await bot.sendMessage(
         target,
-        "主人已" +
-          (isOn ? "允许" : "禁止") +
-          "我响应消息。一切消息将被忽略，直到主人允许我作出响应哦！",
+        `主人已${isOn ? "允许" : "禁止"}我响应消息。`,
         curType
       );
     }

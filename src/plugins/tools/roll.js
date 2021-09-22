@@ -12,7 +12,7 @@ async function roll(id, name, msg, type, user) {
     let res =
       max < 1 || max > 100
         ? "骰子面数应为不超过 100 的正整数。"
-        : "骰子的结果为: " + getRandomInt(max) + "。";
+        : `骰子的结果为: ${getRandomInt(max)}。`;
     await bot.sendMessage(id, `[CQ:at,qq=${user}] ${res}`, type);
   }
 }

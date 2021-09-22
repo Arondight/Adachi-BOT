@@ -13,7 +13,7 @@ async function boardcast(id, msg, type, user) {
     bot.gl.forEach((item) => {
       bot.sendMessage(
         item.group_id,
-        "主人发送了一条群广播：\n" + text,
+        `主人发送了一条群广播：\n${text}`,
         "group"
       );
       report += `${item.group_name}（${item.group_id}）\n`;
@@ -25,7 +25,7 @@ async function boardcast(id, msg, type, user) {
 
   if (msg.includes("好友广播")) {
     bot.fl.forEach((item) => {
-      bot.sendMessage(item.user_id, "主人发送了一条好友广播：\n" + text, type);
+      bot.sendMessage(item.user_id, `主人发送了一条好友广播：\n${text}`, type);
       report += `${item.nickname}（${item.user_id}）\n`;
     });
     report += report ? "以上好友已发送广播。" : "没有添加任何好友。";

@@ -43,11 +43,7 @@ async function Plugin(Message) {
 
   imageCache.fetchImages(thisURL).then(async (image) => {
     let data = image.data.substr(image.data.indexOf(",") + 1);
-    await bot.sendMessage(
-      sendID,
-      "[CQ:image,file=base64://" + data + "]",
-      type
-    );
+    await bot.sendMessage(sendID, `[CQ:image,file=base64://${data}]`, type);
   });
 }
 

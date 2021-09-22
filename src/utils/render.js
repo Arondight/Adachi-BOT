@@ -7,13 +7,13 @@ export async function render(data, name, id, type) {
     JSON.stringify(data),
     () => {}
   );
-  await page.goto("http://localhost:9934/src/views/" + name + ".html");
+  await page.goto(`http://localhost:9934/src/views/${name}.html`);
   const htmlElement = await page.$("body");
   const base64 = await htmlElement.screenshot({
     encoding: "base64",
   });
   await page.close();
-  await bot.sendMessage(id, "[CQ:image,file=base64://" + base64 + "]", type);
+  await bot.sendMessage(id, `[CQ:image,file=base64://${base64}]`, type);
 }
 
 export default render;

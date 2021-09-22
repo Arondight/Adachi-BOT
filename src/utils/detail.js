@@ -119,7 +119,7 @@ async function getCookie(uid, use_cookie) {
       return;
     }
 
-    bot.logger.debug("Cookie: " + uid + " -> " + cookie);
+    bot.logger.debug(`Cookie: ${uid} -> ${cookie}`);
     resolve(cookie);
   });
 }
@@ -151,7 +151,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     }
 
@@ -162,7 +162,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
 
     await update("aby", "user", { uid }, { data });
     await update("time", "user", { aby: uid }, { time: nowTime });
-    bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
+    bot.logger.info(`用户 ${uid} 查询成功，数据已缓存。`);
 
     resolve(data);
   });
@@ -174,7 +174,7 @@ async function basePromise(mhyID, userID) {
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     } else if (!data.list || data.list.length === 0) {
       reject(
@@ -211,7 +211,7 @@ async function detailPromise(uid, server, userID) {
     const { retcode, message } = await get("info", "user", { uid });
 
     if (retcode !== 0) {
-      return Promise.reject("米游社接口报错: " + message);
+      return Promise.reject(`米游社接口报错: ${message}`);
     }
 
     return Promise.reject("");
@@ -228,7 +228,7 @@ async function detailPromise(uid, server, userID) {
         { uid },
         { message, retcode: parseInt(retcode) }
       );
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     }
 
@@ -245,7 +245,7 @@ async function detailPromise(uid, server, userID) {
       }
     );
     await update("time", "user", { uid }, { time: nowTime });
-    bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
+    bot.logger.info(`用户 ${uid} 查询成功，数据已缓存。`);
 
     let characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);
@@ -263,7 +263,7 @@ async function characterPromise(uid, server, character_ids) {
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     }
 

@@ -217,7 +217,7 @@ function domainInfo() {
 
   for (let i in domains) {
     if (domains.hasOwnProperty(i)) {
-      domainsMsg += domains[i].name + ": " + i + "\n";
+      domainsMsg += domains[i].name + `: ${i}\n`;
     }
   }
 

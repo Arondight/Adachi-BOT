@@ -82,9 +82,7 @@ async function Plugin(Message) {
         sendID,
         `[CQ:at,qq=${userID}] 当前定轨 ` +
           table["upFiveStar"][path["course"]]["item_name"] +
-          "\n命定值 " +
-          path["fate"] +
-          "。",
+          `\n命定值 ${path["fate"]}。`,
         type
       );
   } else if (msg.includes("取消定轨")) {
