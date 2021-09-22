@@ -12,7 +12,8 @@ if ([1, 2, 3, 4, 5].includes(Setting["account"].platform)) {
   platform = Setting["account"].platform;
 }
 
-let MASTER = Setting["master"];
+let MASTER = Setting["master"]; // 用于兼容旧配置
+let MASTERS = Setting["masters"];
 let REPEATPROB = parseInt(Setting["repeatProb"]);
 let GROUPHELLO = parseInt(Setting["groupHello"]);
 let GROUPGREETINGNEW = parseInt(Setting["groupGreetingNew"]);
@@ -26,24 +27,9 @@ let BOT = createClient(Setting["account"].qq, {
   platform: platform,
 });
 
-BOT.sendMessage = async (id, msg, type) => {
-  if (type === "group") {
-    await BOT.sendGroupMsg(id, msg);
-  } else if (type === "private") {
-    await BOT.sendPrivateMsg(id, msg);
-  }
-};
-
-BOT.sendMaster = async (id, msg, type) => {
-  if (typeof Setting["master"] === "number") {
-    await BOT.sendPrivateMsg(Setting["master"], msg);
-  } else {
-    await BOT.sendMessage(id, "未设置我的主人。", type);
-  }
-};
-
 global.bot = BOT;
-global.master = MASTER;
+global.master = MASTER ? [MASTER] : [];
+global.masters = (MASTERS ? MASTERS : []).concat(MASTER);
 // 未配置则不复读群消息
 global.repeatProb = REPEATPROB ? REPEATPROB : 0;
 // 未配置则不发送群通知
@@ -56,6 +42,26 @@ global.greetingOnline = GREETING_ONLINE;
 global.greetingDie = GREETING_DIE;
 global.greetingHello = GREETING_HELLO;
 global.greetingNew = GREETING_NEW;
+
+BOT.sendMessage = async (id, msg, type) => {
+  if (type === "group") {
+    await BOT.sendGroupMsg(id, msg);
+  } else if (type === "private") {
+    await BOT.sendPrivateMsg(id, msg);
+  }
+};
+
+BOT.sendMaster = async (id, msg, type) => {
+  if (Array.isArray(masters) && masters.length) {
+    masters.forEach(async (master) => {
+      if (master) {
+        await BOT.sendPrivateMsg(master, msg);
+      }
+    });
+  } else {
+    await BOT.sendMessage(id, "未设置我的主人。", type);
+  }
+};
 
 async function login() {
   // 处理登录滑动验证码
