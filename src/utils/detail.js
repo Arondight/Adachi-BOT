@@ -43,7 +43,7 @@ function isValidCookie(cookie) {
   // XXX 是否要使用某个 API 真正地去验证 Cookie 合法性？
   // 优点：真正地能区分 Cookie 是否有效
   // 缺点：依赖网络并且耗时较多
-  if (cookie.includes("ltoken=") && cookie.includes("cookie_token=")) {
+  if (cookie.includes("account_id=") && cookie.includes("cookie_token=")) {
     return true;
   }
 
