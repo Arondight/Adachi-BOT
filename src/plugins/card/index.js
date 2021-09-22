@@ -42,6 +42,7 @@ async function Plugin(Message) {
       `[CQ:at,qq=${userID}] 请正确输入米游社通行证 ID。`,
       type
     );
+    return;
   }
 
   try {

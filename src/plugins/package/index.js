@@ -36,7 +36,7 @@ async function Plugin(Message) {
   }
 
   try {
-    // 如果没有给出 UID，通过 QQ 号查询 UID
+    // 这里处理 null 返回值，如果没有给出 UID，通过 QQ 号查询 UID
     if (!dbInfo) {
       dbInfo = await getID(msg, userID); // 米游社 ID
 
