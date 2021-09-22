@@ -53,29 +53,47 @@ function getUID(msg) {
   return [id, region];
 }
 
+// TODO 规整一下，这个函数实在太复杂了，作为作者的我都用起来犯迷糊……
+//
 // 根据 QQ 号码查询米游社 ID，或者，判断包含 ID 的字符串是否为合法 ID 并返回。
-// 当参数 msg 包含 CQ 码 "CQ:at" 时，总是查询米游社 ID。
+// 这个函数参数和返回值较复杂，使用时务必阅读下面的注释，并合理地传参和验证返回。
+//
 //
 // 参数：
+//
 //  1. msg     =>
 //      一条 QQ 聊天记录，可能包含一个 ID
 //  2. userID  =>
-//      isMhyID = true  -> QQ 号码
-//      isMhyID = false -> 任意值（不会使用）
+//      isMhyID == true      -> QQ 号码
+//      isMhyID == false     -> 任意值（不会使用）
 //  3. isMhyID =>
-//      true  -> 返回米游社 ID
-//      false -> 验证并返回 UID
+//      true                 -> 返回米游社 ID
+//      false                -> 验证并返回 UID
+//
+//
 // 返回：
+//
 //  1. 成功    =>
-//      isMhyID = true  -> Number
-//      isMhyID = false -> [Number, String]
+//      isMhyID == true      -> Number
+//      isMhyID == false     -> [Number, String]
 //  2. 失败    =>
-//      非空 String 用以描述错误，或者，null
+//      1. msg 包含 CQ 码 =>
+//          isMhyID == true  -> String，或者，null
+//          isMhyID == false -> null
+//      2. msg 有 ID      =>
+//          isMhyID == true  -> 没有这种情况
+//          isMhyID == false -> String
+//      3. msg 无 ID      =>
+//          isMhyID == true  -> null
+//          isMhyID == false -> null
+//      4. 其他情况       =>
+//          String
 async function getID(msg, userID, isMhyID = true) {
   let msgstr = msg.toString();
   let idInMsg = msgstr.match(/\d+/g);
   let id = idInMsg ? parseInt(idInMsg[0]) : null;
   let idstr = id ? id.toString() : null;
+  let cqmsg = msgstr.includes("CQ:at") ? true : false;
   let errInfo = "";
 
   if (isMhyID && !userID) {
@@ -84,18 +102,25 @@ async function getID(msg, userID, isMhyID = true) {
   }
 
   // 合法的 ID ：米游社 ID 8 位，UID 9 位
-  if (idstr && !(idstr.length == 8 || idstr.length == 9)) {
+  if (idstr && !cqmsg && !(idstr.length == 8 || idstr.length == 9)) {
     errInfo = "ID 不合法。";
     return errInfo;
   }
 
-  if (msgstr.includes("CQ:at")) {
-    // 字符串中包含 CQ 码 "CQ:at"
-    let atID = id;
-    if (await isInside("map", "user", "userID", atID)) {
-      return (await get("map", "user", { userID: atID })).mhyID;
+  if (cqmsg) {
+    // 字符串中包含 CQ 码
+    if (isMhyID) {
+      let atID = id;
+
+      if (await isInside("map", "user", "userID", atID)) {
+        return (await get("map", "user", { userID: atID })).mhyID;
+      }
+
+      errInfo = `用户 [CQ:at,qq=${atID}] 暂未绑定米游社通行证。`;
+      return errInfo;
     }
-    errInfo = "用户 " + atID + " 暂未绑定米游社通行证。";
+
+    return null; // 返回 null，无法验证一个 QQ 号码是否为合法 UID
   } else if (id !== null) {
     // 字符串中有 ID，处理第一个
     return isMhyID ? id : getUID(id);
@@ -104,6 +129,7 @@ async function getID(msg, userID, isMhyID = true) {
     if (isMhyID) {
       return (await get("map", "user", { userID })).mhyID; // 返回米游社 ID，或者，null
     }
+
     return null; // 返回 null，无法验证一个空的 UID
   }
 

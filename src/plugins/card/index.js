@@ -28,7 +28,20 @@ async function Plugin(Message) {
   }
 
   if (typeof dbInfo === "string") {
-    await bot.sendMessage(sendID, dbInfo.toString(), type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
+      type
+    );
+    return;
+  }
+
+  if (!dbInfo) {
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] 请正确输入米游社通行证 ID。`,
+      type
+    );
     return;
   }
 
