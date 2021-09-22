@@ -60,7 +60,7 @@ async function Plugin(Message) {
       }
     }
 
-    const abyInfo = await abyPromise(...dbInfo, schedule_type);
+    const abyInfo = await abyPromise(...dbInfo, userID, schedule_type);
 
     if (!abyInfo) {
       await bot.sendMessage(
