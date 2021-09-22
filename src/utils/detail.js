@@ -20,6 +20,10 @@ async function userInitialize(userID, uid, nickname, level) {
     await push("time", "user", { uid, time: 0 });
   }
 
+  if (!(await isInside("time", "user", "aby", uid))) {
+    await push("time", "user", { aby: uid, time: 0 });
+  }
+
   if (!(await isInside("info", "user", "uid", uid))) {
     let initData = {
       retcode: 19260817,
@@ -99,7 +103,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 async function getCookie(uid, use_cookie) {
   return new Promise(async (resolve, reject) => {
     if (!(await isInside("cookies", "uid", "uid", uid))) {
-      let initData = { uid: uid, date: "", cookie: "" };
+      let initData = { uid, date: "", cookie: "" };
       await push("cookies", "uid", initData);
     }
 
@@ -124,7 +128,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
   await userInitialize(userID, uid, "", -1);
   await update("character", "user", { userID }, { uid });
   let nowTime = new Date().valueOf();
-  let { time } = await get("time", "user", { uid });
+  let { time } = await get("time", "user", { aby: uid });
 
   if (time && nowTime - time < 60 * 60 * 1000) {
     bot.logger.info(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
@@ -151,14 +155,15 @@ async function abyPromise(uid, server, userID, schedule_type) {
       return;
     }
 
-    await update("time", "user", { uid }, { time: nowTime });
-
     if (!(await isInside("aby", "user", "uid", uid))) {
       let initData = { uid, data: [] };
       await push("aby", "user", initData);
     }
 
     await update("aby", "user", { uid }, { data });
+    await update("time", "user", { aby: uid }, { time: nowTime });
+    bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
+
     resolve(data);
   });
 }
@@ -227,7 +232,6 @@ async function detailPromise(uid, server, userID) {
       return;
     }
 
-    await update("time", "user", { uid }, { time: nowTime });
     await update(
       "info",
       "user",
@@ -240,8 +244,9 @@ async function detailPromise(uid, server, userID) {
         homes: data.homes,
       }
     );
-
+    await update("time", "user", { uid }, { time: nowTime });
     bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
+
     let characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);
   });
