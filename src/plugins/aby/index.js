@@ -1,29 +1,11 @@
 import { render } from "../../utils/render.js";
-import { get } from "../../utils/database.js";
+import { get, getID } from "../../utils/database.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { abyPromise } from "../../utils/detail.js";
+import { basePromise, abyPromise } from "../../utils/detail.js";
 
 async function generateImage(uid, id, type) {
   let data = await get("aby", "user", { uid });
   await render(data, "genshin-aby", id, type);
-}
-
-function getID(msg) {
-  let id = msg.match(/\d+/g);
-  let errInfo = "";
-
-  if (
-    id.length > 1 ||
-    id[0].length !== 9 ||
-    (id[0][0] !== "1" && id[0][0] !== "2" && id[0][0] !== "5")
-  ) {
-    errInfo = "输入 UID 不合法。";
-    return errInfo;
-  }
-
-  let uid = parseInt(id[0]);
-  let region = id[0][0] === "5" ? "cn_qd01" : "cn_gf01";
-  return [uid, region];
 }
 
 async function Plugin(Message) {
@@ -33,7 +15,7 @@ async function Plugin(Message) {
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
-  let dbInfo = getID(msg);
+  let dbInfo = await getID(msg, userID, false); // UID
   let schedule_type = msg.includes("上期深渊") ? "2" : "1";
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
@@ -42,11 +24,42 @@ async function Plugin(Message) {
   }
 
   if (typeof dbInfo === "string") {
-    await bot.sendMessage(sendID, dbInfo.toString(), type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
+      type
+    );
     return;
   }
 
   try {
+    // 这里处理 null 返回值，如果没有给出 UID，通过 QQ 号查询 UID
+    if (!dbInfo) {
+      dbInfo = await getID(msg, userID); // 米游社 ID
+
+      if (typeof dbInfo === "string") {
+        await bot.sendMessage(
+          sendID,
+          `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
+          type
+        );
+        return;
+      }
+
+      const baseInfo = await basePromise(dbInfo, userID);
+      const uid = baseInfo[0];
+      dbInfo = await getID(uid, userID, false); // UID
+
+      if (typeof dbInfo === "string") {
+        await bot.sendMessage(
+          sendID,
+          `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
+          type
+        );
+        return;
+      }
+    }
+
     const abyInfo = await abyPromise(...dbInfo, schedule_type);
 
     if (!abyInfo) {

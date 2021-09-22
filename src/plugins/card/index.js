@@ -19,8 +19,8 @@ async function Plugin(Message) {
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
-  let dbInfo = await getID(msg, userID),
-    uid;
+  let dbInfo = await getID(msg, userID); // 米游社 ID
+  let uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
@@ -28,7 +28,20 @@ async function Plugin(Message) {
   }
 
   if (typeof dbInfo === "string") {
-    await bot.sendMessage(sendID, dbInfo.toString(), type);
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
+      type
+    );
+    return;
+  }
+
+  if (!dbInfo) {
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] 请正确输入米游社通行证 ID。`,
+      type
+    );
     return;
   }
 

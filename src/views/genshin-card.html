@@ -139,6 +139,9 @@
               <p class="fetter" v-show="avatar.name!=='旅行者'">
                 ❤{{avatar.fetter}}
               </p>
+              <br />
+              <p class="weapon-name">{{avatar.weapon.name}}</p>
+              <p class="weapon-affix">★{{avatar.weapon.affix_level}}</p>
             </div>
           </div>
         </div>
@@ -271,21 +274,3 @@
     </script>
   </body>
 </html>
-
-<style>
-  .levels {
-    position: absolute;
-    text-align: center;
-    color: rgb(50, 50, 50);
-    top: 118px;
-    left: 833px;
-  }
-
-  .levels .adventure-level {
-    font-size: 43px;
-  }
-
-  .levels .world-level {
-    font-size: 23px;
-  }
-</style>
