@@ -30,7 +30,7 @@ async function Plugin(Message) {
   }
 
   if (arg == null) {
-    if (cmd.includes("强化")) {
+    if (cmd.startsWith("强化")) {
       const { initial, fortified } = await get("artifact", "user", { userID });
 
       if (JSON.stringify(initial) !== "{}") {
@@ -43,10 +43,10 @@ async function Plugin(Message) {
         );
         return;
       }
-    } else if (cmd.includes("圣遗物")) {
+    } else if (cmd.startsWith("圣遗物")) {
       await getArtifact(userID, -1);
       data = (await get("artifact", "user", { userID })).initial;
-    } else if (cmd.includes("副本")) {
+    } else if (cmd.startsWith("副本")) {
       await bot.sendMessage(sendID, domainInfo(), type);
       return;
     }

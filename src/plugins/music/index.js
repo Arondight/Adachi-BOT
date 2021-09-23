@@ -17,7 +17,7 @@ async function Plugin(Message) {
   }
 
   switch (true) {
-    case msg.includes("点歌"):
+    case msg.startsWith("点歌"):
       data = await get("music", "source", { ID: sendID });
       src = data ? data["Source"] : "163";
       ret = await musicID(msg, src);
@@ -32,7 +32,7 @@ async function Plugin(Message) {
 
       await bot.sendMessage(sendID, ret, type);
       break;
-    case msg.includes("音乐源"):
+    case msg.startsWith("音乐源"):
       ret = await musicSrc(msg, sendID);
       return await bot.sendMessage(
         sendID,

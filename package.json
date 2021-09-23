@@ -37,6 +37,7 @@
     "node-schedule": "2.0.0",
     "oicq": "1.20.2",
     "pm2": "5.1.1",
+    "pretty-bytes": "5.6.0",
     "puppeteer": "10.4.0",
     "random-float": "3.0.0",
     "systeminformation": "5.9.3"

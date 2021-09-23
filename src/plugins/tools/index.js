@@ -6,6 +6,7 @@ import { master } from "./master.js";
 import { reply } from "./reply.js";
 import { roll } from "./roll.js";
 import { search } from "./search.js";
+import { status } from "./status.js";
 
 async function Plugin(Message) {
   let msg = Message.raw_message;
@@ -33,6 +34,9 @@ async function Plugin(Message) {
       break;
     case msg.startsWith("统计列表"):
       count(sendID, msg, type, userID);
+      break;
+    case msg.startsWith("系统状态"):
+      status(sendID, type, userID);
       break;
     case msg.startsWith("管理"):
       master(sendID, type);

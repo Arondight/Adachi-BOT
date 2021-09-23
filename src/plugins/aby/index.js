@@ -16,7 +16,7 @@ async function Plugin(Message) {
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
   let dbInfo = await getID(msg, userID, false); // UID
-  let schedule_type = msg.includes("上期深渊") ? "2" : "1";
+  let schedule_type = msg.startsWith("上期深渊") ? "2" : "1";
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
