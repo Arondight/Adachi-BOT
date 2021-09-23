@@ -20,7 +20,7 @@ async function Plugin(Message) {
     let { quote, from } = await response.json();
     return await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] ` + quote + "\n" + from,
+      `[CQ:at,qq=${userID}] ${quote}\n${from}`,
       type
     );
   }

@@ -93,7 +93,7 @@ async function main() {
   await init();
 
   const plugins = await loadPlugins();
-  bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
+  bot.logger.info(`群消息复读的概率为 ${repeatProb}%`);
   ++repeatProb;
 
   // 上线所有群发送一遍通知

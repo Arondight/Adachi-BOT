@@ -16,7 +16,7 @@ async function Plugin(Message) {
   let name = Message.sender.nickname;
   let sendID = type === "group" ? groupID : userID;
   let dbInfo = await getID(msg, userID, false); // UID
-  let schedule_type = msg.includes("上期深渊") ? "2" : "1";
+  let schedule_type = msg.startsWith("上期深渊") ? "2" : "1";
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
@@ -24,11 +24,7 @@ async function Plugin(Message) {
   }
 
   if (typeof dbInfo === "string") {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-      type
-    );
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
     return;
   }
 
@@ -38,11 +34,7 @@ async function Plugin(Message) {
       dbInfo = await getID(msg, userID); // 米游社 ID
 
       if (typeof dbInfo === "string") {
-        await bot.sendMessage(
-          sendID,
-          `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-          type
-        );
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
         return;
       }
 
@@ -51,16 +43,12 @@ async function Plugin(Message) {
       dbInfo = await getID(uid, userID, false); // UID
 
       if (typeof dbInfo === "string") {
-        await bot.sendMessage(
-          sendID,
-          `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-          type
-        );
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbinfo}`, type);
         return;
       }
     }
 
-    const abyInfo = await abyPromise(...dbInfo, schedule_type);
+    const abyInfo = await abyPromise(...dbInfo, userID, schedule_type);
 
     if (!abyInfo) {
       await bot.sendMessage(

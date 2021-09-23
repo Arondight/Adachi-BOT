@@ -20,6 +20,10 @@ async function userInitialize(userID, uid, nickname, level) {
     await push("time", "user", { uid, time: 0 });
   }
 
+  if (!(await isInside("time", "user", "aby", uid))) {
+    await push("time", "user", { aby: uid, time: 0 });
+  }
+
   if (!(await isInside("info", "user", "uid", uid))) {
     let initData = {
       retcode: 19260817,
@@ -43,7 +47,7 @@ function isValidCookie(cookie) {
   // XXX 是否要使用某个 API 真正地去验证 Cookie 合法性？
   // 优点：真正地能区分 Cookie 是否有效
   // 缺点：依赖网络并且耗时较多
-  if (cookie.includes("ltoken=") && cookie.includes("cookie_token=")) {
+  if (cookie.includes("account_id=") && cookie.includes("cookie_token=")) {
     return true;
   }
 
@@ -99,7 +103,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 async function getCookie(uid, use_cookie) {
   return new Promise(async (resolve, reject) => {
     if (!(await isInside("cookies", "uid", "uid", uid))) {
-      let initData = { uid: uid, date: "", cookie: "" };
+      let initData = { uid, date: "", cookie: "" };
       await push("cookies", "uid", initData);
     }
 
@@ -115,12 +119,28 @@ async function getCookie(uid, use_cookie) {
       return;
     }
 
-    bot.logger.debug("Cookie: " + uid + " -> " + cookie);
+    bot.logger.debug(`Cookie: ${uid} -> ${cookie}`);
     resolve(cookie);
   });
 }
 
-async function abyPromise(uid, server, schedule_type) {
+async function abyPromise(uid, server, userID, schedule_type) {
+  await userInitialize(userID, uid, "", -1);
+  await update("character", "user", { userID }, { uid });
+  let nowTime = new Date().valueOf();
+  let { time } = await get("time", "user", { aby: uid });
+
+  if (time && nowTime - time < 60 * 60 * 1000) {
+    bot.logger.info(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
+    const { data } = await get("aby", "user", { uid });
+
+    if (!data) {
+      return Promise.reject("没有查询到深渊数据。 ");
+    }
+
+    return Promise.reject("");
+  }
+
   const cookie = await getCookie(uid, true);
   const { retcode, message, data } = await getAbyDetail(
     uid,
@@ -131,7 +151,7 @@ async function abyPromise(uid, server, schedule_type) {
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     }
 
@@ -141,6 +161,9 @@ async function abyPromise(uid, server, schedule_type) {
     }
 
     await update("aby", "user", { uid }, { data });
+    await update("time", "user", { aby: uid }, { time: nowTime });
+    bot.logger.info(`用户 ${uid} 查询成功，数据已缓存。`);
+
     resolve(data);
   });
 }
@@ -151,7 +174,7 @@ async function basePromise(mhyID, userID) {
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     } else if (!data.list || data.list.length === 0) {
       reject(
@@ -183,15 +206,12 @@ async function detailPromise(uid, server, userID) {
   let nowTime = new Date().valueOf();
   let { time } = await get("time", "user", { uid });
 
-  if (nowTime - time < 60 * 60 * 1000) {
-    bot.logger.info(
-      "用户 " + uid + " 在一小时内进行过查询操作，将返回上次数据"
-    );
-
+  if (time && nowTime - time < 60 * 60 * 1000) {
+    bot.logger.info(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
     const { retcode, message } = await get("info", "user", { uid });
 
     if (retcode !== 0) {
-      return Promise.reject("米游社接口报错: " + message);
+      return Promise.reject(`米游社接口报错: ${message}`);
     }
 
     return Promise.reject("");
@@ -208,11 +228,10 @@ async function detailPromise(uid, server, userID) {
         { uid },
         { message, retcode: parseInt(retcode) }
       );
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     }
 
-    await update("time", "user", { uid }, { time: nowTime });
     await update(
       "info",
       "user",
@@ -225,8 +244,9 @@ async function detailPromise(uid, server, userID) {
         homes: data.homes,
       }
     );
+    await update("time", "user", { uid }, { time: nowTime });
+    bot.logger.info(`用户 ${uid} 查询成功，数据已缓存。`);
 
-    bot.logger.info("用户 " + uid + " 查询成功，数据已缓存");
     let characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);
   });
@@ -243,7 +263,7 @@ async function characterPromise(uid, server, character_ids) {
 
   return new Promise(async (resolve, reject) => {
     if (retcode !== 0) {
-      reject("米游社接口报错: " + message);
+      reject(`米游社接口报错: ${message}`);
       return;
     }
 

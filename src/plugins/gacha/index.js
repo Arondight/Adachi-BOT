@@ -33,7 +33,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (msg.includes("卡池")) {
+  if (msg.startsWith("卡池")) {
     let choice = 301;
 
     switch (cmd) {
@@ -54,10 +54,10 @@ async function Plugin(Message) {
       `[CQ:at,qq=${userID}] 您的卡池已切换至: ` + cmd + "。",
       type
     );
-  } else if (msg.includes("十连")) {
+  } else if (msg.startsWith("十连")) {
     let data = await getGachaResult(userID, name);
     await render(data, "genshin-gacha", sendID, type);
-  } else if (msg.includes("查看定轨")) {
+  } else if (msg.startsWith("查看定轨")) {
     const { choice } = await get("gacha", "user", { userID });
 
     if (choice !== 302) {
@@ -82,17 +82,15 @@ async function Plugin(Message) {
         sendID,
         `[CQ:at,qq=${userID}] 当前定轨 ` +
           table["upFiveStar"][path["course"]]["item_name"] +
-          "\n命定值 " +
-          path["fate"] +
-          "。",
+          `\n命定值 ${path["fate"]}。`,
         type
       );
-  } else if (msg.includes("取消定轨")) {
+  } else if (msg.startsWith("取消定轨")) {
     let path = { course: null, fate: 0 };
     await update("gacha", "user", { userID }, { path });
     await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 已取消定轨。`, type);
     return;
-  } else if (msg.includes("定轨")) {
+  } else if (msg.startsWith("定轨")) {
     const { choice } = await get("gacha", "user", { userID });
 
     if (choice !== 302) {

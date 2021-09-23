@@ -10,7 +10,12 @@ async function Plugin(Message) {
   let id = await getID(msg, userID); // 米游社 ID，这里正则限定了 msg 必然有 ID
   let mhyID = id;
 
-  if (msg.includes("绑定")) {
+  if (typeof id === "string") {
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${id}`, type);
+    return;
+  }
+
+  if (msg.startsWith("绑定")) {
     if (!(await isInside("map", "user", "userID", userID))) {
       await push("map", "user", { userID, mhyID });
 
@@ -30,7 +35,7 @@ async function Plugin(Message) {
         type
       );
     }
-  } else if (msg.includes("改绑")) {
+  } else if (msg.startsWith("改绑")) {
     if (await isInside("map", "user", "userID", userID)) {
       await update("map", "user", { userID }, { mhyID });
       await bot.sendMessage(
