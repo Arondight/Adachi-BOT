@@ -2,20 +2,6 @@ import { hasKey } from "../../utils/tools.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import fetch from "node-fetch";
 
-async function doGet(url) {
-  const response = await fetch(url, { method: "GET" });
-  return response;
-}
-
-async function doPost(url, headers, body) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body,
-  });
-  return response;
-}
-
 async function Plugin(Message) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
@@ -43,7 +29,7 @@ async function Plugin(Message) {
   }
 
   try {
-    response = await doGet(url);
+    response = await fetch(url, { method: "GET" });
   } catch {
     await bot.sendMessage(
       sendID,
@@ -74,11 +60,11 @@ async function Plugin(Message) {
   //                 { "type": "atk", "name": "攻击力", "value": "117%" },
   //                 { "type": "cr", "name": "暴击率", "value": "10.5" },
   //                 { "type": "cd", "name": "暴击伤害", "value": "14.0" }]}
-  response = await doPost(
-    "https://api.genshin.pub/api/v1/app/ocr",
+  response = await fetch("https://api.genshin.pub/api/v1/app/ocr", {
+    method: "POST",
     headers,
-    body
-  );
+    body,
+  });
 
   if (200 != response.status) {
     await bot.sendMessage(
@@ -152,11 +138,12 @@ async function Plugin(Message) {
 
   body = JSON.stringify(ret);
   prop = ret;
-  response = await doPost(
-    "https://api.genshin.pub/api/v1/relic/rate",
+
+  response = await fetch("https://api.genshin.pub/api/v1/relic/rate", {
+    method: "POST",
     headers,
-    body
-  );
+    body,
+  });
 
   // { "total_score": 700.4420866489831, "total_percent": "77.83", "main_score": 0,
   //   "main_percent": "0.00", "sub_score": 700.4420866489831, "sub_percent": "77.83" }
