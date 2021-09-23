@@ -4,22 +4,22 @@ import { gachaUpdate } from "./update.js";
 import { newServer } from "./server.js";
 import { newDB } from "./database.js";
 
-function databaseInitialize() {
-  newDB("map");
-  newDB("time");
-  newDB("info");
-  newDB("artifact");
-  newDB("character");
-  newDB("authority");
-  newDB("gacha", { user: [], data: [] });
-  newDB("music", { source: [] });
-  newDB("aby");
-  newDB("cookies", { cookie: [], uid: [] });
+async function databaseInitialize() {
+  await newDB("map");
+  await newDB("time");
+  await newDB("info");
+  await newDB("artifact");
+  await newDB("character");
+  await newDB("authority");
+  await newDB("gacha", { user: [], data: [] });
+  await newDB("music", { source: [] });
+  await newDB("aby");
+  await newDB("cookies", { cookie: [], uid: [] });
 }
 
 async function init() {
   newServer(9934);
-  databaseInitialize();
+  await databaseInitialize();
   gachaUpdate();
 
   schedule.scheduleJob("0 31 11 * * *", () => {

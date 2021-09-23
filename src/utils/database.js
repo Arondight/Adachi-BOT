@@ -7,7 +7,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const db = {};
 
-function newDB(name, defaultElement = { user: [] }) {
+async function newDB(name, defaultElement = { user: [] }) {
   const file = path.resolve(
     __dirname,
     "..",
@@ -19,6 +19,7 @@ function newDB(name, defaultElement = { user: [] }) {
   const adapter = new JSONFileSync(file);
 
   db[name] = new Low(adapter);
+  await db[name].read();
   db[name].data = db[name].data || defaultElement;
   db[name].chain = lodash.chain(db[name].data);
   db[name].write();
