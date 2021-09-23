@@ -9,7 +9,7 @@ async function boardcast(id, msg, type, user) {
     return;
   }
 
-  if (msg.includes("群广播")) {
+  if (msg.startsWith("群广播")) {
     bot.gl.forEach((item) => {
       bot.sendMessage(
         item.group_id,
@@ -23,7 +23,7 @@ async function boardcast(id, msg, type, user) {
     return;
   }
 
-  if (msg.includes("好友广播")) {
+  if (msg.startsWith("好友广播")) {
     bot.fl.forEach((item) => {
       bot.sendMessage(item.user_id, `主人发送了一条好友广播：\n${text}`, type);
       report += `${item.nickname}（${item.user_id}）\n`;

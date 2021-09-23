@@ -15,7 +15,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (msg.includes("绑定")) {
+  if (msg.startsWith("绑定")) {
     if (!(await isInside("map", "user", "userID", userID))) {
       await push("map", "user", { userID, mhyID });
 
@@ -35,7 +35,7 @@ async function Plugin(Message) {
         type
       );
     }
-  } else if (msg.includes("改绑")) {
+  } else if (msg.startsWith("改绑")) {
     if (await isInside("map", "user", "userID", userID)) {
       await update("map", "user", { userID }, { mhyID });
       await bot.sendMessage(
