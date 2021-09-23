@@ -57,15 +57,21 @@ npm install
 
 其一，使用系统自带的 `Chromium` ，这里以 `CentOS` 为例，执行以下命令。
 
-> 这里需要找到 `Chromium` 的二进制可执行文件路径，而非启动脚本或其链接的路径。
-
 ```
 sudo yum -y install epel-release
 sudo yum -y install chromium
-grep PUPPETEER_EXECUTABLE_PATH ~/.bashrc || ( echo 'export PUPPETEER_EXECUTABLE_PATH=/usr/lib64/chromium-browser/chromium-browser' | tee -a ~/.bashrc )
-source ~/.bashrc
-PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
+SHCONF="${HOME}/.bashrc"
+BROWER_BIN='/usr/lib64/chromium-browser/chromium-browser'
+VAR_PATH='PUPPETEER_EXECUTABLE_PATH'
+VAR_SKIP='PUPPETEER_SKIP_CHROMIUM_DOWNLOAD'
+grep "$VAR_PATH" "$SHCONF" || ( echo "export ${VAR_PATH}='${BROWER_BIN}'" | tee -a "$SHCONF" )
+grep "$VAR_SKIP" "$SHCONF" || ( echo "export ${VAR_SKIP}='true'" | tee -a "$SHCONF" )
+source "$SHCONF"
+npm install
 ```
+
+> 1. `BROWER_BIN` 需要设置为 `Chromium` 的二进制可执行文件路径，而非启动脚本或其链接的路径。
+> 2. `SHCONF` 是 `shell` 配置文件的路径，这里用的是 `bash`。
 
 其二，通过任意合法途径获得一个可以访问国际互联网的 `http` 代理，然后执行以下命令。
 
