@@ -1,39 +1,50 @@
-import FileSync from "lowdb/adapters/FileSync.js";
-import lowdb from "lowdb";
+import { Low, JSONFileSync } from "lowdb";
 import url from "url";
 import path from "path";
+import lodash from "lodash";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const db = [];
+const db = {};
 
 function newDB(name, defaultElement = { user: [] }) {
-  db[name] = lowdb(
-    new FileSync(
-      path.resolve(__dirname, "..", "..", "data", "db", name + ".json")
-    )
+  const file = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "data",
+    "db",
+    `${name}.json`
   );
-  db[name].defaults(defaultElement).write();
+  const adapter = new JSONFileSync(file);
+
+  db[name] = new Low(adapter);
+  db[name].data = db[name].data || defaultElement;
+  db[name].chain = lodash.chain(db[name].data);
+  db[name].write();
 }
 
 async function isInside(name, key, index, value) {
-  return db[name].get(key).map(index).value().includes(value);
+  return db[name].chain.get(key).map(index).includes(value).value();
 }
 
 async function get(name, key, index) {
-  return db[name].get(key).find(index).value();
+  return db[name].chain.get(key).find(index).value();
 }
 
 async function update(name, key, index, data) {
-  db[name].get(key).find(index).assign(data).write();
+  db[name].chain.get(key).find(index).assign(data).value();
+  db[name].write();
 }
 
 async function push(name, key, data) {
-  db[name].get(key).push(data).write();
+  db[name].chain.get(key).push(data).value();
+  db[name].write();
 }
 
 async function set(name, key, data) {
-  db[name].set(key, data).write();
+  db[name].chain.set(key, data).value();
+  db[name].write();
 }
 
 function getUID(msg) {
