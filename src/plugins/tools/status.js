@@ -21,7 +21,9 @@ async function status(id, type, user) {
   const str = `平台：${os.distro}（${os.platform}）
 内核：${os.kernel}
 架构：${os.arch}
-CPU：${load.currentLoad.toFixed(2)}%
+CPU：${load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${
+    cpu.speed
+  }Ghz）
 内存：${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(
     mem.total
   )}）
