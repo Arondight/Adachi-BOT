@@ -20,21 +20,6 @@ const errMsg = {
   [ERRCODE.ERR_API]: "歌曲查询出错",
 };
 
-async function doPost(url, headers, body) {
-  let ret = false;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body,
-  });
-
-  if (response.status == 200) {
-    ret = response.json();
-  }
-
-  return ret;
-}
-
 async function musicQQ(keyword) {
   let url = "https://api.qq.jsososo.com/search/quick";
   let form = {
@@ -47,7 +32,16 @@ async function musicQQ(keyword) {
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
-  let jbody = await doPost(url, headers, body);
+  const response = await fetch(url, {
+    method: "POST",
+    headers,
+    body,
+  });
+  let jbody = undefined;
+
+  if (response.status == 200) {
+    jbody = await response.json();
+  }
 
   if (!jbody) {
     return ERRCODE.ERR_API;
@@ -83,7 +77,16 @@ async function music163(keyword) {
     Referer: "https://music.163.com",
     Cookie: "appver=2.0.2",
   };
-  let jbody = await doPost(url, headers, body);
+  const response = await fetch(url, {
+    method: "POST",
+    headers,
+    body,
+  });
+  let jbody = undefined;
+
+  if (response.status == 200) {
+    jbody = await response.json();
+  }
 
   if (!jbody) {
     return ERRCODE.ERR_API;
