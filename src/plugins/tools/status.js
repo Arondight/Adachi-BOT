@@ -1,6 +1,12 @@
 import si from "systeminformation";
 import pb from "pretty-bytes";
+import url from "url";
+import path from "path";
 import { isMaster } from "../../utils/auth.js";
+import { du } from "../../utils/file.js";
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function status(id, type, user) {
   if (!isMaster(user)) {
@@ -16,9 +22,10 @@ async function status(id, type, user) {
 内核：${os.kernel}
 架构：${os.arch}
 CPU：${load.currentLoad.toFixed(2)}%
-内存：${(mem.active / mem.total * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(
+内存：${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(
     mem.total
-  )}）`;
+  )}）
+数据：${pb(du(path.resolve(__dirname, "..", "..", "..", "data", "db")))}`;
 
   await bot.sendMessage(id, str, type);
 }
