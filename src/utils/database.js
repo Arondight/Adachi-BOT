@@ -92,7 +92,7 @@ function getUID(msg) {
 //          isMhyID == true  -> String，或者，null
 //          isMhyID == false -> null
 //      2. msg 有 ID      =>
-//          isMhyID == true  -> 没有这种情况
+//          isMhyID == true  -> String
 //          isMhyID == false -> String
 //      3. msg 无 ID      =>
 //          isMhyID == true  -> null
@@ -112,29 +112,30 @@ async function getID(msg, userID, isMhyID = true) {
     return errInfo;
   }
 
-  // 合法的 ID ：米游社 ID 8 位，UID 9 位
-  if (idstr && !cqmsg && !(idstr.length == 8 || idstr.length == 9)) {
-    errInfo = "ID 不合法。";
-    return errInfo;
-  }
-
   if (cqmsg) {
     // 字符串中包含 CQ 码
     if (isMhyID) {
-      let atID = id;
-
-      if (await isInside("map", "user", "userID", atID)) {
-        return (await get("map", "user", { userID: atID })).mhyID;
+      if (await isInside("map", "user", "userID", id)) {
+        return (await get("map", "user", { userID: id })).mhyID;
       }
 
-      errInfo = `用户 [CQ:at,qq=${atID}] 暂未绑定米游社通行证。`;
+      errInfo = `用户 [CQ:at,qq=${id}] 暂未绑定米游社通行证。`;
       return errInfo;
     }
 
     return null; // 返回 null，无法验证一个 QQ 号码是否为合法 UID
   } else if (id !== null) {
     // 字符串中有 ID，处理第一个
-    return isMhyID ? id : getUID(id);
+    if (isMhyID) {
+      if (idstr && !(idstr.length == 7 || idstr.length == 8)) {
+        errInfo = "米游社通行证 ID 不合法。";
+        return errInfo;
+      }
+
+      return id;
+    }
+
+    return getUID(id);
   } else if (await isInside("map", "user", "userID", userID)) {
     // 字符串中无 ID
     if (isMhyID) {

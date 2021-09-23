@@ -24,11 +24,7 @@ async function Plugin(Message) {
   }
 
   if (typeof dbInfo === "string") {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-      type
-    );
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
     return;
   }
 
@@ -38,11 +34,7 @@ async function Plugin(Message) {
       dbInfo = await getID(msg, userID); // 米游社 ID
 
       if (typeof dbInfo === "string") {
-        await bot.sendMessage(
-          sendID,
-          `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-          type
-        );
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
         return;
       }
 
@@ -51,11 +43,7 @@ async function Plugin(Message) {
       dbInfo = await getID(uid, userID, false); // UID
 
       if (typeof dbInfo === "string") {
-        await bot.sendMessage(
-          sendID,
-          `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-          type
-        );
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbinfo}`, type);
         return;
       }
     }

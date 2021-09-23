@@ -10,6 +10,11 @@ async function Plugin(Message) {
   let id = await getID(msg, userID); // 米游社 ID，这里正则限定了 msg 必然有 ID
   let mhyID = id;
 
+  if (typeof id === "string") {
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${id}`, type);
+    return;
+  }
+
   if (msg.includes("绑定")) {
     if (!(await isInside("map", "user", "userID", userID))) {
       await push("map", "user", { userID, mhyID });
