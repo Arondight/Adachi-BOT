@@ -12,11 +12,13 @@ async function status(id, type, user) {
   const cpu = await si.cpu();
   const mem = await si.mem();
   const load = await si.currentLoad();
-  const str = `OS：${os.distro}
-kernel：${os.kernel}
-ARCH：${os.arch}
+  const str = `平台：${os.distro}（${os.platform}）
+内核：${os.kernel}
+架构：${os.arch}
 CPU：${load.currentLoad.toFixed(2)}%
-MEM：${pb(mem.used)} / ${pb(mem.free)}`;
+内存：${(mem.active / mem.total).toFixed(2)}%（${pb(mem.active)} / ${pb(
+    mem.total
+  )}）`;
 
   await bot.sendMessage(id, str, type);
 }
