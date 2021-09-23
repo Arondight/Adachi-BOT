@@ -16,7 +16,7 @@ async function status(id, type, user) {
 内核：${os.kernel}
 架构：${os.arch}
 CPU：${load.currentLoad.toFixed(2)}%
-内存：${(mem.active / mem.total).toFixed(2)}%（${pb(mem.active)} / ${pb(
+内存：${(mem.active / mem.total * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(
     mem.total
   )}）`;
 
