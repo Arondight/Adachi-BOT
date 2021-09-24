@@ -128,7 +128,7 @@ async function getID(msg, userID, isMhyID = true) {
   } else if (id !== null) {
     // 字符串中有 ID，处理第一个
     if (isMhyID) {
-      if (idstr && !(idstr.length == 7 || idstr.length == 8)) {
+      if (idstr && !(idstr.length >= 7 && idstr.length < 10)) {
         errInfo = "米游社通行证 ID 不合法。";
         return errInfo;
       }
