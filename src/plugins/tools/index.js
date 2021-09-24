@@ -35,7 +35,7 @@ async function Plugin(Message) {
     case msg.startsWith("统计列表"):
       count(sendID, msg, type, userID);
       break;
-    case msg.startsWith("系统状态"):
+    case msg.startsWith("系统状态") || msg.startsWith("系统信息"):
       status(sendID, type, userID);
       break;
     case msg.startsWith("管理"):
