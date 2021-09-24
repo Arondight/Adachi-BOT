@@ -20,7 +20,7 @@ async function status(id, type, user) {
   const mem = await si.mem();
   const time = await si.time();
   const load = await si.currentLoad();
-  const str = `平台：${os.distro}（${os.platform}）
+  const str = `平台：${os.platform}（${os.distro}）
 内核：${os.kernel}
 架构：${os.arch}
 CPU：${load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${

@@ -43,6 +43,8 @@ sudo apt -y install nodejs
 
 #### 部署项目
 
+> 本项目只做 Linux 系统的支持，所有代码合入主线之前也只在 Linux 上进行测试，推荐使用一个主流的发行版（例如 [CentOS](https://www.centos.org/)）进行部署。如果你执意要在 Windows 系统上进行部署，请参照 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中的《如何在 Windows 系统上进行部署》。
+
 ```
 git clone https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
