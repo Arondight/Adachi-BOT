@@ -1,10 +1,11 @@
+import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { get, getID } from "../../utils/database.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { basePromise, abyPromise } from "../../utils/detail.js";
+import { getID } from "../../utils/id.js";
 
 async function generateImage(uid, id, type) {
-  let data = await get("aby", "user", { uid });
+  let data = await db.get("aby", "user", { uid });
   await render(data, "genshin-aby", id, type);
 }
 
@@ -14,7 +15,7 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
   let dbInfo = await getID(msg, userID, false); // UID
   let schedule_type = msg.startsWith("上期深渊") ? "2" : "1";
 
@@ -23,17 +24,17 @@ async function Plugin(Message) {
     return;
   }
 
-  if (typeof dbInfo === "string") {
+  if ("string" === typeof dbInfo) {
     await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
     return;
   }
 
   try {
-    // 这里处理 null 返回值，如果没有给出 UID，通过 QQ 号查询 UID
-    if (!dbInfo) {
+    // 这里处理 undefined 返回值，如果没有给出 UID，通过 QQ 号查询 UID
+    if (undefined === dbInfo) {
       dbInfo = await getID(msg, userID); // 米游社 ID
 
-      if (typeof dbInfo === "string") {
+      if ("string" === typeof dbInfo) {
         await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
         return;
       }
@@ -42,7 +43,7 @@ async function Plugin(Message) {
       const uid = baseInfo[0];
       dbInfo = await getID(uid, userID, false); // UID
 
-      if (typeof dbInfo === "string") {
+      if ("string" === typeof dbInfo) {
         await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbinfo}`, type);
         return;
       }

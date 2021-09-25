@@ -3,11 +3,11 @@ import { getRandomInt } from "../../utils/tools.js";
 async function roll(id, name, msg, type, user) {
   let cmd = msg.match(/[+-]?[0-9]+/g);
 
-  if (cmd == null) {
+  if (null === cmd) {
     cmd = ["100"];
   }
 
-  if (cmd.length === 1) {
+  if (1 === cmd.length) {
     let max = parseInt(cmd[0]);
     let res =
       max < 1 || max > 100

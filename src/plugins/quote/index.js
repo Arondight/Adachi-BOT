@@ -6,7 +6,7 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
   let headers = {
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
@@ -16,7 +16,7 @@ async function Plugin(Message) {
     headers: headers,
   });
 
-  if (response.status == 200) {
+  if (200 === response.status) {
     let { quote, from } = await response.json();
     return await bot.sendMessage(
       sendID,

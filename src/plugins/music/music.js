@@ -1,7 +1,7 @@
-import { hasKey } from "../../utils/tools.js";
-import { get, push, update } from "../../utils/database.js";
+import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
+import db from "../../utils/database.js";
 
 const MUSICSRC = {
   SRC_QQ: "QQ",
@@ -39,7 +39,7 @@ async function musicQQ(keyword) {
   });
   let jbody = undefined;
 
-  if (response.status == 200) {
+  if (200 === response.status) {
     jbody = await response.json();
   }
 
@@ -47,7 +47,7 @@ async function musicQQ(keyword) {
     return ERRCODE.ERR_API;
   }
 
-  if (hasKey(jbody, "data", "song", "itemlist", 0, "id")) {
+  if (lodash.hasIn(jbody, ["data", "song", "itemlist", 0, "id"])) {
     return [
       {
         type: "music",
@@ -84,7 +84,7 @@ async function music163(keyword) {
   });
   let jbody = undefined;
 
-  if (response.status == 200) {
+  if (200 === response.status) {
     jbody = await response.json();
   }
 
@@ -92,7 +92,7 @@ async function music163(keyword) {
     return ERRCODE.ERR_API;
   }
 
-  if (hasKey(jbody, "result", "songs", 0, "id")) {
+  if (lodash.hasIn(jbody, ["result", "songs", 0, "id"])) {
     return [
       {
         type: "music",
@@ -123,19 +123,19 @@ async function musicID(msg, source) {
 
 async function musicSrc(msg, id) {
   let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let data = await get("music", "source", { ID: id });
+  let data = await db.get("music", "source", { ID: id });
 
   if (!Object.values(MUSICSRC).includes(source)) {
     return false;
   }
 
-  if (data === undefined) {
-    await push("music", "source", {
+  if (undefined === data) {
+    await db.push("music", "source", {
       ID: id,
       Source: source,
     });
   } else {
-    await update("music", "source", { ID: id }, { ...data, Source: source });
+    await db.update("music", "source", { ID: id }, { ...data, Source: source });
   }
 
   return source;

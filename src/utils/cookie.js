@@ -1,6 +1,6 @@
 import lodash from "lodash";
+import db from "./database.js";
 import { loadYML } from "./load.js";
-import { get, isInside, push, update } from "./database.js";
 
 const configs = loadYML("cookies");
 const cookies = configs
@@ -19,7 +19,7 @@ function isValidCookie(cookie) {
   // 优点：真正地能区分 Cookie 是否有效
   // 缺点：依赖网络并且耗时较多
   if (
-    typeof cookie === "string" &&
+    "string" === typeof cookie &&
     cookie.includes("account_id=") &&
     cookie.includes("cookie_token=")
   ) {
@@ -44,12 +44,12 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       return;
     }
 
-    if (!(await isInside("cookies", "cookie", "cookie", cookie))) {
+    if (!(await db.includes("cookies", "cookie", "cookie", cookie))) {
       let initData = { cookie: cookie, date: today, times: 0 };
-      await push("cookies", "cookie", initData);
+      await db.push("cookies", "cookie", initData);
     }
 
-    let { date, times } = await get("cookies", "cookie", { cookie });
+    let { date, times } = await db.get("cookies", "cookie", { cookie });
 
     if (date && date == today && times & (times >= 30)) {
       resolve(
@@ -66,10 +66,10 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       times = times ? times + 1 : 1;
 
       if (use_cookie) {
-        await update("cookies", "cookie", { cookie }, { date, times });
+        await db.update("cookies", "cookie", { cookie }, { date, times });
       }
 
-      await update("cookies", "uid", { uid }, { date, cookie });
+      await db.update("cookies", "uid", { uid }, { date, cookie });
       resolve(cookie);
     }
   });
@@ -77,12 +77,12 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 
 async function getCookie(uid, use_cookie) {
   return new Promise(async (resolve, reject) => {
-    if (!(await isInside("cookies", "uid", "uid", uid))) {
+    if (!(await db.includes("cookies", "uid", "uid", uid))) {
       let initData = { uid, date: "", cookie: "" };
-      await push("cookies", "uid", initData);
+      await db.push("cookies", "uid", initData);
     }
 
-    let { date, cookie } = await get("cookies", "uid", { uid });
+    let { date, cookie } = await db.get("cookies", "uid", { uid });
     let today = new Date().toLocaleDateString();
 
     if (!(date && cookie && date == today)) {

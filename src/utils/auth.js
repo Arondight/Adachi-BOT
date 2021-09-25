@@ -1,4 +1,4 @@
-import { update, get, push } from "./database.js";
+import db from "./database.js";
 
 function isMaster(userID) {
   return masters.includes(userID);
@@ -13,12 +13,12 @@ async function sendPrompt(sendID, userID, name, auth, type) {
 }
 
 async function setAuth(auth, target, isOn) {
-  let data = await get("authority", "user", { userID: target });
+  let data = await db.get("authority", "user", { userID: target });
 
-  if (data === undefined) {
-    await push("authority", "user", { userID: target, [auth]: isOn });
+  if (undefined === data) {
+    await db.push("authority", "user", { userID: target, [auth]: isOn });
   } else {
-    await update(
+    await db.update(
       "authority",
       "user",
       { userID: target },
@@ -28,8 +28,8 @@ async function setAuth(auth, target, isOn) {
 }
 
 async function hasAuth(userID, auth) {
-  let data = await get("authority", "user", { userID });
-  return data === undefined || data[auth] === undefined || data[auth] === true;
+  let data = await db.get("authority", "user", { userID });
+  return undefined === data || undefined === data[auth] || true === data[auth];
 }
 
 export { isMaster, sendPrompt, setAuth, hasAuth };

@@ -13,7 +13,7 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
   let breakfastIdx = getRandomInt(breakfastMenu.length) - 1;
   let lunchIdx = getRandomInt(lunchMenu.length) - 1;
   let dinnerIdx = getRandomInt(dinnerMenu.length) - 1;
