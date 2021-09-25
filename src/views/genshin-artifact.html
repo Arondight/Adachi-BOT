@@ -72,24 +72,24 @@
             return propertyName[this.mainStat];
           },
           statData() {
-            if (this.mainStat === 0) {
-              return this.base.level === 0 ? 717 : 4780;
-            } else if (this.mainStat === 6) {
-              return this.base.level === 0 ? 47 : 311;
-            } else if (this.mainStat === 5) {
-              return this.base.level === 0 ? 28 : 187;
-            } else if (this.mainStat === 4) {
-              return this.base.level === 0 ? "8.7%" : "51.8%";
-            } else if (this.mainStat === 8) {
-              return this.base.level === 0 ? "9.4%" : "62.2%";
-            } else if (this.mainStat === 9) {
-              return this.base.level === 0 ? "4.7%" : "31.1%";
-            } else if (this.mainStat === 17) {
-              return this.base.level === 0 ? "5.4%" : "35.9%";
-            } else if (this.mainStat === 3 || this.mainStat === 10) {
-              return this.base.level === 0 ? "8.7%" : "58.3%";
+            if (0 === this.mainStat) {
+              return 0 === this.base.level ? 717 : 4780;
+            } else if (6 === this.mainStat) {
+              return 0 === this.base.level ? 47 : 311;
+            } else if (5 === this.mainStat) {
+              return 0 === this.base.level ? 28 : 187;
+            } else if (4 === this.mainStat) {
+              return 0 === this.base.level ? "8.7%" : "51.8%";
+            } else if (8 === this.mainStat) {
+              return 0 === this.base.level ? "9.4%" : "62.2%";
+            } else if (9 === this.mainStat) {
+              return 0 === this.base.level ? "4.7%" : "31.1%";
+            } else if (17 === this.mainStat) {
+              return 0 === this.base.level ? "5.4%" : "35.9%";
+            } else if (3 === this.mainStat || 10 === this.mainStat) {
+              return 0 === this.base.level ? "8.7%" : "58.3%";
             } else {
-              return this.base.level === 0 ? "7.0%" : "46.6%";
+              return 0 === this.base.level ? "7.0%" : "46.6%";
             }
           },
           artifactImage() {

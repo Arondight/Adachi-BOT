@@ -86,7 +86,7 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
 
   if (!isMaster(userID)) {
     await bot.sendMessage(
