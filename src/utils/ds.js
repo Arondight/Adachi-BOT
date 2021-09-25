@@ -5,7 +5,7 @@ import { randomString } from "./tools.js";
 function getQueryParam(data) {
   let arr = [];
 
-  if (data === undefined) {
+  if (undefined === data) {
     return "";
   }
 

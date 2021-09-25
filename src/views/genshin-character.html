@@ -54,7 +54,7 @@
     <template id="reliquaries">
       <div class="reliquaries">
         <div class="element" v-for="i in 5">
-          <div v-if="artifacts[i] === 'empty'">
+          <div v-if="'empty' === artifacts[i]">
             <empty-box :pos="i"></empty-box>
           </div>
           <div v-else>

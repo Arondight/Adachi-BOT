@@ -30,7 +30,7 @@ async function loadPlugins() {
   for (let plugin of pluginsPath) {
     try {
       plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
-      bot.logger.info(`插件 ${plugin} 加载完成`);
+      bot.logger.debug(`插件 ${plugin} 加载完成。`);
     } catch (error) {
       bot.logger.error(`插件 ${plugin} 加载失败：${error}`);
     }
@@ -54,7 +54,7 @@ function getCommand(msgData) {
     }
   }
 
-  return null;
+  return undefined;
 }
 
 async function processed(qqData, plugins, type) {
@@ -102,7 +102,7 @@ async function processed(qqData, plugins, type) {
   }
 
   // 如果不是命令，且为群消息，随机复读群消息
-  if (type === "group") {
+  if ("group" === type) {
     if (getRandomInt(100) < repeatProb) {
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
@@ -111,7 +111,7 @@ async function processed(qqData, plugins, type) {
   }
 
   // 如果是机器人上线，所有群发送一遍上线通知
-  if (type === "online") {
+  if ("online" === type) {
     if (groupHello) {
       bot.gl.forEach(async (group) => {
         let greeting = (await hasAuth(group.group_id, "reply"))

@@ -1,5 +1,5 @@
 import lodash from "lodash";
-import { set } from "./database.js";
+import db from "./database.js";
 import { getGachaList, getGachaDetail } from "./api.js";
 
 async function parseData(gachaID) {
@@ -40,7 +40,7 @@ async function parseData(gachaID) {
 async function gachaUpdate() {
   const gachaInfo = (await getGachaList()).data.list;
 
-  if (gachaInfo[1] === undefined) {
+  if (undefined === gachaInfo[1]) {
     return;
   }
 
@@ -64,7 +64,9 @@ async function gachaUpdate() {
   const indefinite = await parseData(gachaInfo[0]["gacha_id"]);
   const character = await parseData(getGachaCode(301));
   const weapon = await parseData(getGachaCode(302));
-  await set("gacha", "data", [indefinite, character, weapon]);
+
+  await db.set("gacha", "data", [indefinite, character, weapon]);
+  bot.logger.debug("卡池内容已刷新。");
 }
 
 export { gachaUpdate };

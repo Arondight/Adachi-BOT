@@ -26,7 +26,7 @@
       <div class="element">
         <img class="star-background" :src="starBackground" alt="ERROR" />
         <img class="star-image" :src="starImage" alt="ERROR" />
-        <div v-if="data.item_type === '武器'">
+        <div v-if="'武器' === data.item_type">
           <img class="weapon-image" :src="weaponImage" alt="ERROR" />
           <img class="weapon-image-shadow" :src="weaponImage" alt="ERROR" />
           <!--<p class="weapon-name">{{data.item_name}}</p>-->
@@ -164,7 +164,7 @@
             });
           },
           sortValue(type) {
-            return type === "角色" ? 1 : 0;
+            return "角色" === type ? 1 : 0;
           },
         },
         mounted() {
