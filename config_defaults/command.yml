@@ -17,7 +17,7 @@ card:
 character:
   - ^我的 +.+$
 gacha:
-  - ^十连 *$
+  - ^(十连|wish)$
   - ^卡池 +(常驻|角色|武器)
   - ^查看定轨 *$
   - ^取消定轨 *$
@@ -25,8 +25,8 @@ gacha:
 tools:
   - ^roll *([+-]?\d+)?$
   - ^help *$
-  - ^带个话 +.+$
-  - ^回个话 +\d+ +.+$
+  - ^带个?话 +.+$
+  - ^回个?话 +\d+ +.+$
   - ^群广播 +.+$
   - ^好友广播 +.+$
   - ^群列表 *$
@@ -62,8 +62,8 @@ package:
   - ^uid +\d+.*$
   - ^uid *\[CQ:at,qq=.*$
 quote:
-  - ^伟大的升华 *$
+  - ^[刻啊阿]晴语录 *$
 rating:
-  - ^评分 *.+$ # https://github.com/Arondight/Adachi-BOT/issues/54
+  - ^评分[ \n]*.+$ # https://github.com/Arondight/Adachi-BOT/issues/54
 save:
   - ^(绑定|改绑) +\d+$

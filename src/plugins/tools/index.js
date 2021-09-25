@@ -18,13 +18,13 @@ async function Plugin(Message) {
   let groupName = type === "group" ? Message.group_name : undefined;
 
   switch (true) {
-    case msg.startsWith("带个话"):
+    case msg.startsWith("带个话") || msg.startsWith("带话"):
       feedback(sendID, name, msg, type, userID, groupName);
       break;
     case msg.startsWith("群广播") || msg.startsWith("好友广播"):
       boardcast(sendID, msg, type, userID);
       break;
-    case msg.startsWith("回个话"):
+    case msg.startsWith("回个话") || msg.startsWith("回话"):
       reply(sendID, msg, type, userID);
       break;
     case msg.startsWith("群列表") ||

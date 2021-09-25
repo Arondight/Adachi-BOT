@@ -44,7 +44,7 @@ async function Plugin(Message) {
     if (!data) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 查询失败，如果您拥有该角色，使用【米游社】或【UID 你的游戏UID】更新游戏角色后再次查询。`,
+        `[CQ:at,qq=${userID}] 查询失败，如果你拥有该角色，使用【米游社】或【UID 你的游戏UID】更新游戏角色后再次查询。`,
         type
       );
       return;

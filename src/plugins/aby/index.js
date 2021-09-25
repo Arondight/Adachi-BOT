@@ -53,7 +53,7 @@ async function Plugin(Message) {
     if (!abyInfo) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 您似乎从未挑战过深境螺旋。`,
+        `[CQ:at,qq=${userID}] 你似乎从未挑战过深境螺旋。耽误太多时间，事情可就做不完了。`,
         type
       );
       return;
@@ -62,7 +62,7 @@ async function Plugin(Message) {
     if (!abyInfo["floors"].length) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 无渊月螺旋记录。`,
+        `[CQ:at,qq=${userID}] 无渊月螺旋记录。无论是冒险还是做生意，机会都稍纵即逝。`,
         type
       );
       return;

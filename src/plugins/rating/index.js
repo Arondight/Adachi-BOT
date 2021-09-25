@@ -33,7 +33,7 @@ async function Plugin(Message) {
   } catch {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 您看上去没有发送圣遗物属性截图，${whisper}。`,
+      `[CQ:at,qq=${userID}] 你看上去没有发送圣遗物属性截图，${whisper}。`,
       type
     );
     return;
@@ -168,7 +168,7 @@ async function Plugin(Message) {
   }
 
   if (response.status == 200 || hasKey(ret, "total_percent")) {
-    data = `[CQ:at,qq=${userID}] 您的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
+    data = `[CQ:at,qq=${userID}] 的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
 ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
 ==========`;
 

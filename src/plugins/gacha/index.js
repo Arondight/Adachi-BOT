@@ -51,10 +51,10 @@ async function Plugin(Message) {
     await update("gacha", "user", { userID }, { choice });
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 您的卡池已切换至: ` + cmd + "。",
+      `[CQ:at,qq=${userID}] 的卡池已切换至: ` + cmd + "。",
       type
     );
-  } else if (msg.startsWith("十连")) {
+  } else if (msg.startsWith("十连")||msg.startsWith("wish")) {
     let data = await getGachaResult(userID, name);
     await render(data, "genshin-gacha", sendID, type);
   } else if (msg.startsWith("查看定轨")) {
