@@ -32,18 +32,20 @@
     "express": "4.17.1",
     "image-cache": "1.0.1",
     "lodash": "4.17.21",
-    "lowdb": "1.0.0",
-    "node-fetch": "2.6.2",
+    "lowdb": "3.0.0",
+    "moment": "2.29.1",
+    "node-fetch": "3.0.0",
     "node-schedule": "2.0.0",
     "oicq": "1.20.2",
     "pm2": "5.1.1",
-    "puppeteer": "10.2.0",
-    "random-float": "2.0.0"
+    "pretty-bytes": "5.6.0",
+    "puppeteer": "10.4.0",
+    "random-float": "3.0.0",
+    "systeminformation": "5.9.3"
   },
   "devDependencies": {
     "js-yaml": "4.1.0",
     "md5": "2.3.0",
-    "prettier": "2.4.0",
-    "request": "2.88.2"
+    "prettier": "2.4.0"
   }
 }

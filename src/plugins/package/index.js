@@ -1,29 +1,16 @@
+import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { get } from "../../utils/database.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { detailPromise, characterPromise } from "../../utils/detail.js";
+import {
+  basePromise,
+  detailPromise,
+  characterPromise,
+} from "../../utils/detail.js";
+import { getID } from "../../utils/id.js";
 
 async function generateImage(uid, id, type) {
-  let data = await get("info", "user", { uid });
+  let data = await db.get("info", "user", { uid });
   await render(data, "genshin-info", id, type);
-}
-
-function getID(msg) {
-  let id = msg.match(/\d+/g);
-  let errInfo = "";
-
-  if (
-    id.length > 1 ||
-    id[0].length !== 9 ||
-    (id[0][0] !== "1" && id[0][0] !== "2" && id[0][0] !== "5")
-  ) {
-    errInfo = "输入 UID 不合法。";
-    return errInfo;
-  }
-
-  let uid = parseInt(id[0]);
-  let region = id[0][0] === "5" ? "cn_qd01" : "cn_gf01";
-  return [uid, region];
 }
 
 async function Plugin(Message) {
@@ -32,24 +19,39 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
-  let dbInfo = getID(msg);
+  let sendID = "group" === type ? groupID : userID;
+  let dbInfo = await getID(msg, userID, false); // UID
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
     return;
   }
 
-  if (typeof dbInfo === "string") {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] ` + dbInfo.toString(),
-      type
-    );
+  if ("string" === typeof dbInfo) {
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
     return;
   }
 
   try {
+    // 这里处理 undefined 返回值，如果没有给出 UID，通过 QQ 号查询 UID
+    if (undefined === dbInfo) {
+      dbInfo = await getID(msg, userID); // 米游社 ID
+
+      if ("string" === typeof dbInfo) {
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+        return;
+      }
+
+      const baseInfo = await basePromise(dbInfo, userID);
+      const uid = baseInfo[0];
+      dbInfo = await getID(uid, userID, false); // UID
+
+      if ("string" === typeof dbInfo) {
+        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+        return;
+      }
+    }
+
     const detailInfo = await detailPromise(...dbInfo, userID);
     await characterPromise(...dbInfo, detailInfo);
   } catch (errInfo) {

@@ -1,11 +1,11 @@
+import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { get, isInside, push } from "../../utils/database.js";
 import { getArtifact, domainInfo, domainMax } from "./artifacts.js";
 
 async function userInitialize(userID) {
-  if (!(await isInside("artifact", "user", "userID", userID))) {
-    await push("artifact", "user", { userID, initial: {}, fortified: {} });
+  if (!(await db.includes("artifact", "user", "userID", userID))) {
+    await db.push("artifact", "user", { userID, initial: {}, fortified: {} });
   }
 }
 
@@ -14,7 +14,7 @@ async function Plugin(Message) {
   let userID = Message.user_id;
   let groupID = Message.group_id;
   let type = Message.type;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
   let name = Message.sender.nickname;
   let [cmd, arg] = msg.split(/(?<=^\S+)\s/).slice(0, 2);
   let data, id;
@@ -29,9 +29,11 @@ async function Plugin(Message) {
     return;
   }
 
-  if (arg == null) {
-    if (cmd.includes("强化")) {
-      const { initial, fortified } = await get("artifact", "user", { userID });
+  if (undefined === arg) {
+    if (cmd.startsWith("强化")) {
+      const { initial, fortified } = await db.get("artifact", "user", {
+        userID,
+      });
 
       if (JSON.stringify(initial) !== "{}") {
         data = fortified;
@@ -43,10 +45,10 @@ async function Plugin(Message) {
         );
         return;
       }
-    } else if (cmd.includes("圣遗物")) {
+    } else if (cmd.startsWith("圣遗物")) {
       await getArtifact(userID, -1);
-      data = (await get("artifact", "user", { userID })).initial;
-    } else if (cmd.includes("副本")) {
+      data = (await db.get("artifact", "user", { userID })).initial;
+    } else if (cmd.startsWith("副本")) {
       await bot.sendMessage(sendID, domainInfo(), type);
       return;
     }
@@ -55,7 +57,7 @@ async function Plugin(Message) {
 
     if (id && id < domainMax() + 1) {
       await getArtifact(userID, parseInt(id));
-      data = (await get("artifact", "user", { userID })).initial;
+      data = (await db.get("artifact", "user", { userID })).initial;
     } else {
       await bot.sendMessage(
         sendID,

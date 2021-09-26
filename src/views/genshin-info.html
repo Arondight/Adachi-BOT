@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="./component/card/card.css" />
     <script src="../../data/js/vue.min.js"></script>
   </head>
+
   <body>
     <div id="app">
       <upper
@@ -134,6 +135,9 @@
               <p class="fetter" v-show="avatar.name!=='旅行者'">
                 ❤{{avatar.fetter}}
               </p>
+              <br />
+              <p class="weapon-name">{{avatar.weapon.name}}</p>
+              <p class="weapon-affix">★{{avatar.weapon.affix_level}}</p>
             </div>
           </div>
         </div>

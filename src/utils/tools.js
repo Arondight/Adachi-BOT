@@ -15,16 +15,4 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max) + 1;
 }
 
-function hasKey(obj, level, ...rest) {
-  if (obj === undefined) {
-    return false;
-  }
-
-  if (rest.length == 0 && obj.hasOwnProperty(level)) {
-    return true;
-  }
-
-  return hasKey(obj[level], ...rest);
-}
-
-export { randomString, getRandomInt, hasKey };
+export { randomString, getRandomInt };

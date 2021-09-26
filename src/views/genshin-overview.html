@@ -12,7 +12,7 @@
       <div class="info-base">
         <img class="background" :src="infoBackground" alt="ERROR" />
         <img
-          :class="type === '角色' ? 'character' : 'weapon'"
+          :class="'角色' === type ? 'character' : 'weapon'"
           :src="mainImage"
           alt="ERROR"
         />
@@ -22,7 +22,7 @@
         </div>
         <div class="dotted"></div>
       </div>
-      <div class="weapon" v-if="type === '武器'">
+      <div class="weapon" v-if="'武器' === type">
         <div class="access">
           <p class="title">获取方式:</p>
           <p class="content">{{ access }}</p>
@@ -215,7 +215,7 @@
               ".png";
             this.numCN = ["一", "二", "四", "六"];
 
-            if (this.rarity === 5) {
+            if (5 === this.rarity) {
               document.documentElement.style.setProperty(
                 "--styleColor",
                 "rgb(205, 167, 101)"
@@ -228,7 +228,7 @@
                 "--dottedColor",
                 "rgb(198, 156, 80)"
               );
-            } else if (this.rarity === 4) {
+            } else if (4 === this.rarity) {
               document.documentElement.style.setProperty(
                 "--styleColor",
                 "rgb(142, 115, 170)"

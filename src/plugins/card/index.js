@@ -1,14 +1,15 @@
+import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { get, isInside, getID } from "../../utils/database.js";
 import {
   basePromise,
   detailPromise,
   characterPromise,
 } from "../../utils/detail.js";
+import { getID } from "../../utils/id.js";
 
 const generateImage = async (uid, id, type) => {
-  const data = await get("info", "user", { uid });
+  const data = await db.get("info", "user", { uid });
   await render(data, "genshin-card", id, type);
 };
 
@@ -18,17 +19,26 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
-  let dbInfo = await getID(msg, userID),
-    uid;
+  let sendID = "group" === type ? groupID : userID;
+  let dbInfo = await getID(msg, userID); // 米游社 ID
+  let uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
     return;
   }
 
-  if (typeof dbInfo === "string") {
-    await bot.sendMessage(sendID, dbInfo.toString(), type);
+  if ("string" === typeof dbInfo) {
+    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+    return;
+  }
+
+  if (!dbInfo) {
+    await bot.sendMessage(
+      sendID,
+      `[CQ:at,qq=${userID}] 请正确输入米游社通行证 ID。`,
+      type
+    );
     return;
   }
 

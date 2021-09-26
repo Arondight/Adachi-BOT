@@ -1,7 +1,7 @@
-import { hasKey } from "../../utils/tools.js";
-import { get, push, update } from "../../utils/database.js";
+import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
+import db from "../../utils/database.js";
 
 const MUSICSRC = {
   SRC_QQ: "QQ",
@@ -20,21 +20,6 @@ const errMsg = {
   [ERRCODE.ERR_API]: "歌曲查询出错",
 };
 
-async function doPost(url, headers, body) {
-  let ret = false;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body,
-  });
-
-  if (response.status == 200) {
-    ret = response.json();
-  }
-
-  return ret;
-}
-
 async function musicQQ(keyword) {
   let url = "https://api.qq.jsososo.com/search/quick";
   let form = {
@@ -47,13 +32,22 @@ async function musicQQ(keyword) {
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
-  let jbody = await doPost(url, headers, body);
+  const response = await fetch(url, {
+    method: "POST",
+    headers,
+    body,
+  });
+  let jbody = undefined;
+
+  if (200 === response.status) {
+    jbody = await response.json();
+  }
 
   if (!jbody) {
     return ERRCODE.ERR_API;
   }
 
-  if (hasKey(jbody, "data", "song", "itemlist", 0, "id")) {
+  if (lodash.hasIn(jbody, ["data", "song", "itemlist", 0, "id"])) {
     return [
       {
         type: "music",
@@ -83,13 +77,22 @@ async function music163(keyword) {
     Referer: "https://music.163.com",
     Cookie: "appver=2.0.2",
   };
-  let jbody = await doPost(url, headers, body);
+  const response = await fetch(url, {
+    method: "POST",
+    headers,
+    body,
+  });
+  let jbody = undefined;
+
+  if (200 === response.status) {
+    jbody = await response.json();
+  }
 
   if (!jbody) {
     return ERRCODE.ERR_API;
   }
 
-  if (hasKey(jbody, "result", "songs", 0, "id")) {
+  if (lodash.hasIn(jbody, ["result", "songs", 0, "id"])) {
     return [
       {
         type: "music",
@@ -120,19 +123,19 @@ async function musicID(msg, source) {
 
 async function musicSrc(msg, id) {
   let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let data = await get("music", "source", { ID: id });
+  let data = await db.get("music", "source", { ID: id });
 
   if (!Object.values(MUSICSRC).includes(source)) {
     return false;
   }
 
-  if (data === undefined) {
-    await push("music", "source", {
+  if (undefined === data) {
+    await db.push("music", "source", {
       ID: id,
       Source: source,
     });
   } else {
-    await update("music", "source", { ID: id }, { ...data, Source: source });
+    await db.update("music", "source", { ID: id }, { ...data, Source: source });
   }
 
   return source;

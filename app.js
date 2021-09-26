@@ -44,9 +44,9 @@ global.greetingHello = GREETING_HELLO;
 global.greetingNew = GREETING_NEW;
 
 BOT.sendMessage = async (id, msg, type) => {
-  if (type === "group") {
+  if ("group" === type) {
     await BOT.sendGroupMsg(id, msg);
-  } else if (type === "private") {
+  } else if ("private" === type) {
     await BOT.sendPrivateMsg(id, msg);
   }
 };
@@ -88,12 +88,10 @@ async function login() {
   bot.login(Setting["account"].password);
 }
 
-async function main() {
-  await login();
-  await init();
-
+async function run() {
   const plugins = await loadPlugins();
-  bot.logger.info("群消息复读的概率为 " + repeatProb + "%");
+
+  bot.logger.info(`群消息复读的概率为 ${repeatProb}% 。`);
   ++repeatProb;
 
   // 上线所有群发送一遍通知
@@ -107,7 +105,7 @@ async function main() {
     // https://github.com/Arondight/Adachi-BOT/issues/28
     let info = (await bot.getGroupInfo(msgData.group_id)).data;
 
-    if (info.shutup_time_me === 0) {
+    if (0 === info.shutup_time_me) {
       await processed(msgData, plugins, "group");
     }
   });
@@ -126,6 +124,12 @@ async function main() {
   bot.on("notice.group.increase", async (msgData) => {
     await processed(msgData, plugins, "group.increase");
   });
+}
+
+async function main() {
+  await login()
+    .then(async () => await init())
+    .then(async () => await run());
 }
 
 await main();

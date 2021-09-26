@@ -1,20 +1,6 @@
-import { hasKey } from "../../utils/tools.js";
-import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import lodash from "lodash";
 import fetch from "node-fetch";
-
-async function doGet(url) {
-  const response = await fetch(url, { method: "GET" });
-  return response;
-}
-
-async function doPost(url, headers, body) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body,
-  });
-  return response;
-}
+import { hasAuth, sendPrompt } from "../../utils/auth.js";
 
 async function Plugin(Message) {
   let msg = Message.raw_message;
@@ -22,7 +8,7 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
 
   // 【评分】命令和图片之间可以加任意个空格
   // https://github.com/Arondight/Adachi-BOT/issues/54
@@ -43,7 +29,7 @@ async function Plugin(Message) {
   }
 
   try {
-    response = await doGet(url);
+    response = await fetch(url, { method: "GET" });
   } catch {
     await bot.sendMessage(
       sendID,
@@ -53,7 +39,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (response.status == 200) {
+  if (200 === response.status) {
     ret = await response.arrayBuffer();
     data = Buffer.from(ret).toString("base64");
   } else {
@@ -74,11 +60,11 @@ async function Plugin(Message) {
   //                 { "type": "atk", "name": "攻击力", "value": "117%" },
   //                 { "type": "cr", "name": "暴击率", "value": "10.5" },
   //                 { "type": "cd", "name": "暴击伤害", "value": "14.0" }]}
-  response = await doPost(
-    "https://api.genshin.pub/api/v1/app/ocr",
+  response = await fetch("https://api.genshin.pub/api/v1/app/ocr", {
+    method: "POST",
     headers,
-    body
-  );
+    body,
+  });
 
   if (200 != response.status) {
     await bot.sendMessage(
@@ -123,7 +109,7 @@ async function Plugin(Message) {
       continue;
     }
 
-    let main_item = item_type == "main_item" ? true : false;
+    let main_item = "main_item" == item_type ? true : false;
     let items = main_item ? [ret[item_type]] : ret[item_type];
 
     for (let item of items) {
@@ -152,18 +138,19 @@ async function Plugin(Message) {
 
   body = JSON.stringify(ret);
   prop = ret;
-  response = await doPost(
-    "https://api.genshin.pub/api/v1/relic/rate",
+
+  response = await fetch("https://api.genshin.pub/api/v1/relic/rate", {
+    method: "POST",
     headers,
-    body
-  );
+    body,
+  });
 
   // { "total_score": 700.4420866489831, "total_percent": "77.83", "main_score": 0,
   //   "main_percent": "0.00", "sub_score": 700.4420866489831, "sub_percent": "77.83" }
   ret = await response.json();
 
-  if (response.status == 400) {
-    if (hasKey(ret, "code") && ret["code"] == 50003) {
+  if (400 === response.status) {
+    if (lodash.hasIn(ret, "code") && 50003 === ret["code"]) {
       await bot.sendMessage(
         sendID,
         `[CQ:at,qq=${userID}] 你上传了正确的截图，但是 AI 未能正确识别，请重新截图。`,
@@ -180,7 +167,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (response.status == 200 || hasKey(ret, "total_percent")) {
+  if (200 === response.status || lodash.hasIn(ret, "total_percent")) {
     data = `[CQ:at,qq=${userID}] 您的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
 ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
 ==========`;

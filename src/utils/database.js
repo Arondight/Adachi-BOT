@@ -1,67 +1,178 @@
-import FileSync from "lowdb/adapters/FileSync.js";
-import lowdb from "lowdb";
+import { Low, JSONFileSync } from "lowdb";
 import url from "url";
 import path from "path";
+import lodash from "lodash";
+import { getID } from "./id.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const db = [];
+const db = {};
 
-function newDB(name, defaultElement = { user: [] }) {
-  db[name] = lowdb(
-    new FileSync(
-      path.resolve(__dirname, "..", "..", "data", "db", name + ".json")
-    )
+// 如果数据库不存在，将自动创建新的空数据库。
+async function init(dbName, defaultElement = { user: [] }) {
+  const file = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "data",
+    "db",
+    `${dbName}.json`
   );
-  db[name].defaults(defaultElement).write();
+  const adapter = new JSONFileSync(file);
+
+  db[dbName] = new Low(adapter);
+  await db[dbName].read();
+  db[dbName].data = db[dbName].data || defaultElement;
+  db[dbName].chain = lodash.chain(db[dbName].data);
+  db[dbName].write();
 }
 
-async function isInside(name, key, index, value) {
-  return db[name].get(key).map(index).value().includes(value);
+async function has(dbName, ...path) {
+  return undefined === db[dbName]
+    ? false
+    : db[dbName].chain.hasIn(path).value();
 }
 
-async function get(name, key, index) {
-  return db[name].get(key).find(index).value();
+async function write(dbName) {
+  return undefined === db[dbName] ? false : db[dbName].write();
 }
 
-async function update(name, key, index, data) {
-  db[name].get(key).find(index).assign(data).write();
+async function includes(dbName, key, index, value) {
+  return undefined === db[dbName]
+    ? undefined
+    : db[dbName].chain.get(key).map(index).includes(value).value();
 }
 
-async function push(name, key, data) {
-  db[name].get(key).push(data).write();
+async function get(dbName, key, index = undefined) {
+  if (undefined === db[dbName]) {
+    return undefined;
+  }
+  return undefined === index
+    ? db[dbName].chain.get(key).value()
+    : db[dbName].chain.get(key).find(index).value();
 }
 
-async function set(name, key, data) {
-  db[name].set(key, data).write();
+async function push(dbName, key, data) {
+  if (undefined === db[dbName]) {
+    return;
+  }
+  db[dbName].chain.get(key).push(data).value();
+  write(dbName);
 }
 
-async function getID(msg, userID) {
-  let id = msg.match(/\d{9}/g);
-  let errInfo = "";
+async function update(dbName, key, index, data) {
+  if (undefined === db[dbName]) {
+    return;
+  }
+  db[dbName].chain.get(key).find(index).assign(data).value();
+  write(dbName);
+}
 
-  if (msg.includes("CQ:at")) {
-    let atID = parseInt(id[0]);
+async function set(dbName, key, data) {
+  if (undefined === db[dbName]) {
+    return;
+  }
+  db[dbName].chain.set(key, data).value();
+  write(dbName);
+}
 
-    if (await isInside("map", "user", "userID", atID)) {
-      return (await get("map", "user", { userID: atID })).mhyID;
-    } else {
-      errInfo = "用户 " + atID + " 暂未绑定米游社通行证。";
-    }
-  } else if (id !== null) {
-    if (id.length > 1) {
-      errInfo = "输入通行证不合法。";
-    } else {
-      return parseInt(id[0]);
-    }
-  } else if (await isInside("map", "user", "userID", userID)) {
-    return (await get("map", "user", { userID })).mhyID;
-  } else {
-    errInfo =
-      "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
+async function cleanByTimeDB(
+  dbName,
+  dbKey = ["user", "uid"],
+  timeRecord = "uid",
+  seconds = 60 * 60 * 1000
+) {
+  let nums = 0;
+
+  if (!(await has(dbName, dbKey[0]))) {
+    return nums;
   }
 
-  return errInfo;
+  let timeDBRecords = await get("time", "user");
+
+  let records = await get(dbName, dbKey[0]);
+
+  if (!records) {
+    return nums;
+  }
+
+  // 无效的 time 数据库，则清空对应数据库的指定字段
+  if (!timeDBRecords || !timeDBRecords.length) {
+    nums = records.length;
+    await set(dbName, dbKey[0], []);
+    await set("time", "user", []);
+    return nums;
+  }
+
+  for (let i in records) {
+    // 没有基准字段则删除该记录（因为很可能是错误数据）
+    if (!(await has(dbName, dbKey[0], i, dbKey[1]))) {
+      records.splice(i, 1);
+      nums++;
+      continue;
+    }
+
+    // 没有对应 uid 的时间戳或者时间到现在已超过 seconds 则删除该记录
+    let time = await get("time", "user", { [timeRecord]: timeRecord });
+    let now = new Date().valueOf();
+
+    if (!time || now - time > seconds) {
+      records.splice(i, 1);
+      nums++;
+      continue;
+    }
+  }
+
+  await write(dbName);
+  return nums;
 }
 
-export { newDB, isInside, get, update, push, set, getID };
+async function cleanCookies() {
+  const dbName = "cookies";
+  const keys = ["cookie", "uid"];
+  const today = new Date().toLocaleDateString();
+  let nums = 0;
+
+  for (let key of keys) {
+    let records = await get(dbName, key);
+
+    for (let i in records) {
+      // 1. 没有基准字段则删除该记录
+      // 2. 不是今天的记录一律删除
+      if (!records[i].date || today != records[i].date) {
+        records.splice(i, 1);
+        nums++;
+        continue;
+      }
+    }
+  }
+
+  await write(dbName);
+  return nums;
+}
+
+async function clean(dbName) {
+  switch (true) {
+    case "aby" === dbName:
+      return await cleanByTimeDB(dbName, ["user", "uid"], "aby");
+    case "info" === dbName:
+      return await cleanByTimeDB(dbName);
+    case "cookies" === dbName:
+      return await cleanCookies();
+  }
+
+  return 0;
+}
+
+export default {
+  init,
+  has,
+  write,
+  includes,
+  get,
+  push,
+  update,
+  set,
+  clean,
+  getID,
+};

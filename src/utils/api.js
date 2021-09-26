@@ -1,6 +1,5 @@
-import md5 from "md5";
-import requests from "./requests.js";
-import { randomString } from "./tools.js";
+import fetch from "node-fetch";
+import { getDS } from "./ds.js";
 
 const __API = {
   FETCH_ROLE_ID:
@@ -27,154 +26,66 @@ const HEADERS = {
   Cookie: "",
 };
 
-function getQueryParam(data) {
-  let arr = [];
-
-  if (data === undefined) {
-    return "";
-  }
-
-  for (let key of Object.keys(data)) {
-    arr.push(`${key}=${data[key]}`);
-  }
-
-  return arr.join("&");
-}
-
-function getDS(query, body = "") {
-  let n = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
-  let i = (Date.now() / 1000) | 0;
-  let r = randomString(6);
-  let q = getQueryParam(query);
-  let c = md5(`salt=${n}&t=${i}&r=${r}&b=${body}&q=${q}`);
-  return `${i},${r},${c}`;
-}
-
 function getInfo(name) {
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "GET",
-      url: __API.FETCH_INFO.replace("$", encodeURI(name)),
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(__API.FETCH_INFO.replace("$", encodeURI(name)), {
+    method: "GET",
+  }).then((res) => res.json());
 }
 
 function getAbyDetail(role_id, schedule_type, server, cookie) {
   const query = { role_id, schedule_type, server };
 
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "GET",
-      url: __API.FETCH_ABY_DETAIL,
-      qs: query,
-      headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(`${__API.FETCH_ABY_DETAIL}?${new URLSearchParams(query)}`, {
+    method: "GET",
+    headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
+  }).then((res) => res.json());
 }
 
 function getBase(uid, cookie) {
   const query = { uid };
 
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "GET",
-      url: __API.FETCH_ROLE_ID,
-      qs: query,
-      headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(`${__API.FETCH_ROLE_ID}?${new URLSearchParams(query)}`, {
+    method: "GET",
+    headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
+  }).then((res) => res.json());
 }
 
 function getDetail(role_id, server, cookie) {
   const query = { role_id, server };
 
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "GET",
-      url: __API.FETCH_ROLE_INDEX,
-      qs: query,
-      headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(`${__API.FETCH_ROLE_INDEX}?${new URLSearchParams(query)}`, {
+    method: "GET",
+    qs: query,
+    headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
+  }).then((res) => res.json());
 }
 
 function getCharacters(role_id, server, character_ids, cookie) {
   const body = { character_ids, role_id, server };
 
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "POST",
-      url: __API.FETCH_ROLE_CHARACTERS,
-      json: true,
-      body,
-      headers: {
-        ...HEADERS,
-        DS: getDS(undefined, JSON.stringify(body)),
-        Cookie: cookie,
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(__API.FETCH_ROLE_CHARACTERS, {
+    method: "POST",
+    json: true,
+    body: JSON.stringify(body),
+    headers: {
+      ...HEADERS,
+      DS: getDS(undefined, JSON.stringify(body)),
+      Cookie: cookie,
+      "content-type": "application/json",
+    },
+  }).then((res) => res.json());
 }
 
 function getGachaList() {
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "GET",
-      url: __API.FETCH_GACHA_LIST,
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(__API.FETCH_GACHA_LIST, {
+    method: "GET",
+  }).then((res) => res.json());
 }
 
 function getGachaDetail(gachaID) {
-  return new Promise((resolve, reject) => {
-    requests({
-      method: "GET",
-      url: __API.FETCH_GACHA_DETAIL.replace("$", gachaID),
-    })
-      .then((res) => {
-        resolve(JSON.parse(res));
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return fetch(__API.FETCH_GACHA_DETAIL.replace("$", gachaID), {
+    method: "GET",
+  }).then((res) => res.json());
 }
 
 export {

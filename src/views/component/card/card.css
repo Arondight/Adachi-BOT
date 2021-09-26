@@ -65,6 +65,22 @@ img {
   position: relative;
 }
 
+.levels {
+  position: absolute;
+  text-align: center;
+  color: rgb(50, 50, 50);
+  top: 118px;
+  left: 833px;
+}
+
+.levels .adventure-level {
+  font-size: 43px;
+}
+
+.levels .world-level {
+  font-size: 23px;
+}
+
 .avatar {
   display: inline-block;
   height: 243px;
@@ -100,8 +116,8 @@ img {
   z-index: 1;
   float: left;
   top: -195px;
-  left: 34px;
-  width: 91px;
+  left: 15px;
+  width: 130px;
   text-align: center;
 }
 
@@ -112,6 +128,16 @@ img {
 .avatar-info .name {
   font-size: 20px;
   color: rgb(64, 64, 64);
+}
+
+.avatar-info .weapon-name {
+  color: rgb(0, 176, 80);
+  font-size: 16px;
+}
+
+.avatar-info .weapon-affix {
+  color: rgb(231, 13, 177);
+  font-size: 16px;
 }
 
 .avatar-info .level {
