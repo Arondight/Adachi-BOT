@@ -1,27 +1,13 @@
-import { hasAuth } from "./auth.js";
-import { getRandomInt } from "./tools.js";
-import yaml from "js-yaml";
 import fs from "fs";
 import url from "url";
 import path from "path";
-import module from "module";
+import { hasAuth } from "./auth.js";
+import { getRandomInt } from "./tools.js";
+import { loadYML } from "./yaml.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const require = module.createRequire(import.meta.url);
-
-function loadYML(name) {
-  let filename = `${name}.yml`;
-  let filepath = path.resolve(__dirname, "..", "..", "config", filename);
-
-  try {
-    fs.accessSync(filepath, fs.constants.R_OK);
-  } catch (e) {
-    filepath = path.resolve(__dirname, "..", "..", "config_defaults", filename);
-  }
-
-  return yaml.load(fs.readFileSync(filepath, "utf-8"));
-}
+const commandConfig = loadYML("command");
 
 async function loadPlugins() {
   let plugins = {};
@@ -40,15 +26,15 @@ async function loadPlugins() {
 }
 
 function getCommand(msgData) {
-  const commandConfig = loadYML("command");
+  if (commandConfig) {
+    for (let command in commandConfig) {
+      if (commandConfig.hasOwnProperty(command)) {
+        for (let setting of commandConfig[command]) {
+          let reg = new RegExp(setting, "i");
 
-  for (let command in commandConfig) {
-    if (commandConfig.hasOwnProperty(command)) {
-      for (let setting of commandConfig[command]) {
-        let reg = new RegExp(setting, "i");
-
-        if (reg.test(msgData)) {
-          return command;
+          if (reg.test(msgData)) {
+            return command;
+          }
         }
       }
     }
@@ -114,10 +100,16 @@ async function processed(qqData, plugins, type) {
   if ("online" === type) {
     if (groupHello) {
       bot.gl.forEach(async (group) => {
+        let info = (await bot.getGroupInfo(group.group_id)).data;
         let greeting = (await hasAuth(group.group_id, "reply"))
           ? greetingOnline
           : greetingDie;
-        bot.sendMessage(group.group_id, greeting, "group");
+
+        // 禁言时不发送消息
+        // https://github.com/Arondight/Adachi-BOT/issues/28
+        if (0 === info.shutup_time_me) {
+          bot.sendMessage(group.group_id, greeting, "group");
+        }
       });
     }
 
@@ -125,4 +117,4 @@ async function processed(qqData, plugins, type) {
   }
 }
 
-export { loadYML, loadPlugins, processed };
+export { loadPlugins, processed };

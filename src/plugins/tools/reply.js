@@ -10,13 +10,13 @@ async function reply(id, msg, type, user) {
     return;
   }
 
-  list.forEach(async (item) => {
-    let itemID = item.hasOwnProperty("group_id") ? item.group_id : item.user_id;
-    let curType = item.hasOwnProperty("group_id") ? "group" : type;
+  list.forEach(async (item, type) => {
+    const curType = item.hasOwnProperty("group_id") ? "group" : "private";
+    const itemID = "group" === curType ? item.group_id : item.user_id;
 
     if (itemID == target) {
       await bot.sendMessage(itemID, `主人让我送个话：\n${text}`, curType);
-      await bot.sendMessage(id, `我已经给${itemID}送话了。`, type);
+      await bot.sendMessage(id, `我已经给${itemID}送话了。`, "private");
     }
   });
 }

@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import db from "./database.js";
-import { loadYML } from "./load.js";
+import { loadYML } from "./yaml.js";
 import { getCookie } from "./cookie.js";
 import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
 
