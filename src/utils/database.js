@@ -153,10 +153,18 @@ async function cleanCookies() {
 async function clean(dbName) {
   switch (true) {
     case "aby" === dbName:
+      // 清理一小时前的数据
       return await cleanByTimeDB(dbName, ["user", "uid"], "aby");
     case "info" === dbName:
-      return await cleanByTimeDB(dbName);
+      // 清理一周前的数据
+      return await cleanByTimeDB(
+        dbName,
+        ["user", "uid"],
+        "uid",
+        7 * 24 * 60 * 60 * 1000
+      );
     case "cookies" === dbName:
+      // 清理不是今天的数据
       return await cleanCookies();
   }
 
