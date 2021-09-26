@@ -89,7 +89,6 @@ async function cleanByTimeDB(
   }
 
   let timeDBRecords = await get("time", "user");
-
   let records = await get(dbName, dbKey[0]);
 
   if (!records) {
