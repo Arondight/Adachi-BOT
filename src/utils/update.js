@@ -66,7 +66,7 @@ async function gachaUpdate() {
   const weapon = await parseData(getGachaCode(302));
 
   await db.set("gacha", "data", [indefinite, character, weapon]);
-  bot.logger.debug("卡池内容已刷新。");
+  bot.logger.debug("卡池：内容已刷新。");
 }
 
 export { gachaUpdate };

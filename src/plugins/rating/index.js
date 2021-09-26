@@ -124,7 +124,7 @@ async function Plugin(Message) {
       let value = parseInt(item["value"]);
 
       if (value > maxValue[item_type][item["type"]]) {
-        let text = `rating adjust ${item_type}:${item["type"]} (${item["value"]}`;
+        let text = `评分：调整属性 ${item_type}:${item["type"]} (${item["value"]}`;
         item["value"] = (value / 10).toFixed(1).toString() + "%";
         text += ` -> ${item["value"]})`;
         bot.logger.debug(text);

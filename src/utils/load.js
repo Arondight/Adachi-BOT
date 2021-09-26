@@ -16,9 +16,9 @@ async function loadPlugins() {
   for (let plugin of pluginsPath) {
     try {
       plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
-      bot.logger.debug(`插件 ${plugin} 加载完成。`);
+      bot.logger.debug(`插件：加载 ${plugin} 成功。`);
     } catch (error) {
-      bot.logger.error(`插件 ${plugin} 加载失败：${error}`);
+      bot.logger.debug(`插件：加载 ${plugin} 失败（${error}）。`);
     }
   }
 
@@ -46,8 +46,8 @@ function getCommand(msgData) {
 async function processed(qqData, plugins, type) {
   // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
-    if (friendGreetingNew) {
-      bot.sendMessage(qqData.user_id, greetingNew, "private");
+    if (config.friendGreetingNew) {
+      bot.sendMessage(qqData.user_id, config.greetingNew, "private");
     }
 
     return;
@@ -56,13 +56,16 @@ async function processed(qqData, plugins, type) {
   if (type === "group.increase") {
     if (bot.uin == qqData.user_id) {
       // 如果加入了新群，向全群问好
-      bot.sendMessage(qqData.group_id, greetingHello, "group");
+      bot.sendMessage(qqData.group_id, config.greetingHello, "group");
     } else {
       // 如果有新群友加入，向新群友问好
-      if (groupGreetingNew && (await hasAuth(qqData.group_id, "reply"))) {
+      if (
+        config.groupGreetingNew &&
+        (await hasAuth(qqData.group_id, "reply"))
+      ) {
         bot.sendMessage(
           qqData.group_id,
-          `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
+          `[CQ:at,qq=${qqData.user_id}] ${config.greetingNew}`,
           "group"
         );
       }
@@ -89,7 +92,7 @@ async function processed(qqData, plugins, type) {
 
   // 如果不是命令，且为群消息，随机复读群消息
   if ("group" === type) {
-    if (getRandomInt(100) < repeatProb) {
+    if (getRandomInt(100) < config.repeatProb) {
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
 
@@ -98,16 +101,16 @@ async function processed(qqData, plugins, type) {
 
   // 如果是机器人上线，所有群发送一遍上线通知
   if ("online" === type) {
-    if (groupHello) {
+    if (config.groupHello) {
       bot.gl.forEach(async (group) => {
         let info = (await bot.getGroupInfo(group.group_id)).data;
         let greeting = (await hasAuth(group.group_id, "reply"))
-          ? greetingOnline
-          : greetingDie;
+          ? config.greetingOnline
+          : config.greetingDie;
 
         // 禁言时不发送消息
         // https://github.com/Arondight/Adachi-BOT/issues/28
-        if (0 === info.shutup_time_me) {
+        if (0 === info.shutup_time_me && "string" === typeof greeting) {
           bot.sendMessage(group.group_id, greeting, "group");
         }
       });

@@ -94,7 +94,7 @@ async function getCookie(uid, use_cookie) {
       return;
     }
 
-    bot.logger.debug(`Cookie: ${uid} -> ${cookie}`);
+    bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
     resolve(cookie);
   });
 }
