@@ -80,7 +80,7 @@ async function cleanByTimeDB(
   dbName,
   dbKey = ["user", "uid"],
   timeRecord = "uid",
-  seconds = 60 * 60 * 1000
+  milliseconds = 60 * 60 * 1000
 ) {
   let nums = 0;
 
@@ -113,12 +113,12 @@ async function cleanByTimeDB(
       continue;
     }
 
-    // 没有对应 uid 的时间戳或者时间到现在已超过 seconds 则删除该记录
+    // 没有对应 uid 的时间戳或者时间到现在已超过 milliseconds 则删除该记录
     const timePair = await get("time", "user", { [timeRecord]: uid });
     const time = timePair ? timePair.time : undefined;
     const now = new Date().valueOf();
 
-    if (!time || now - time > seconds) {
+    if (!time || now - time > milliseconds) {
       records.splice(i, 1);
       nums++;
       continue;
@@ -130,6 +130,7 @@ async function cleanByTimeDB(
 }
 
 async function cleanCookies() {
+  // 清理不是今天的数据
   const dbName = "cookies";
   const keys = ["cookie", "uid"];
   const today = new Date().toLocaleDateString();
@@ -156,18 +157,20 @@ async function cleanCookies() {
 async function clean(dbName) {
   switch (true) {
     case "aby" === dbName:
-      // 清理一小时前的数据
-      return await cleanByTimeDB(dbName, ["user", "uid"], "aby");
+      return await cleanByTimeDB(
+        dbName,
+        ["user", "uid"],
+        "aby",
+        config.dbAbyEffectTime * 60 * 60 * 1000
+      );
     case "info" === dbName:
-      // 清理一周前的数据
       return await cleanByTimeDB(
         dbName,
         ["user", "uid"],
         "uid",
-        7 * 24 * 60 * 60 * 1000
+        config.dbInfoEffectTime * 60 * 60 * 1000
       );
     case "cookies" === dbName:
-      // 清理不是今天的数据
       return await cleanCookies();
   }
 

@@ -1,39 +1,33 @@
 import { createClient } from "oicq";
 import init from "./src/utils/init.js";
-import config from "./src/utils/config.js";
+import { readConfig } from "./src/utils/config.js";
 import { loadPlugins, processed } from "./src/utils/load.js";
 
-config.read();
-const BOT = createClient(account.qq, {
-  log_level: "debug",
-  platform: platform,
-});
-global.bot = BOT;
-
-async function sendMessage(id, msg, type) {
-  if ("group" === type) {
-    await BOT.sendGroupMsg(id, msg);
-  } else if ("private" === type) {
-    await BOT.sendPrivateMsg(id, msg);
-  }
-}
-
-async function sendMaster(id, msg, type) {
-  if (Array.isArray(masters) && masters.length) {
-    masters.forEach(async (master) => {
-      if (master) {
-        await BOT.sendPrivateMsg(master, msg);
-      }
-    });
-  } else {
-    await sendMessage(id, "未设置我的主人。", type);
-  }
-}
-
-BOT.sendMessage = sendMessage;
-BOT.sendMaster = sendMaster;
-
 async function login() {
+  const BOT = createClient(config.account.qq, {
+    log_level: "debug",
+    platform: config.platform,
+  });
+  BOT.sendMessage = async (id, msg, type) => {
+    if ("group" === type) {
+      await BOT.sendGroupMsg(id, msg);
+    } else if ("private" === type) {
+      await BOT.sendPrivateMsg(id, msg);
+    }
+  };
+  BOT.sendMaster = async (id, msg, type) => {
+    if (Array.isArray(config.masters) && config.masters.length) {
+      config.masters.forEach(async (master) => {
+        if (master) {
+          await BOT.sendPrivateMsg(master, msg);
+        }
+      });
+    } else {
+      await BOT.sendMessage(id, "未设置我的主人。", type);
+    }
+  };
+  global.bot = BOT;
+
   // 处理登录滑动验证码
   bot.on("system.login.slider", () => {
     process.stdin.once("data", (input) => bot.sliderLogin(input.toString()));
@@ -49,14 +43,28 @@ async function login() {
     bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
     process.stdin.once("data", () => bot.login());
   });
-  bot.login(account.password);
+
+  bot.login(config.account.password);
+}
+
+async function report() {
+  const say = (text) => bot.logger.debug(`配置：${text}`);
+
+  say(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
+  say(`群消息复读的概率为 ${config.repeatProb}% 。`);
+  say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
+  say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
+  say(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
+  say(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
+  say(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
+  say(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
+  say(`清理数据库 info 中超过 ${config.dbInfoEffectTime} 小时的记录。`);
 }
 
 async function run() {
   const plugins = await loadPlugins();
 
-  bot.logger.debug(`群消息复读的概率为 ${repeatProb}% 。`);
-  ++repeatProb;
+  ++config.repeatProb;
 
   // 上线所有群发送一遍通知
   bot.on("system.online", async (msgData) => {
@@ -91,8 +99,10 @@ async function run() {
 }
 
 async function main() {
-  await login()
+  await readConfig()
+    .then(async () => await login())
     .then(async () => await init())
+    .then(async () => await report())
     .then(async () => await run());
 }
 
