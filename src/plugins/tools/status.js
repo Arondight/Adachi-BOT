@@ -1,3 +1,4 @@
+import moment from "moment";
 import si from "systeminformation";
 import pb from "pretty-bytes";
 import url from "url";
@@ -17,8 +18,9 @@ async function status(id, type, user) {
   const os = await si.osInfo();
   const cpu = await si.cpu();
   const mem = await si.mem();
+  const time = await si.time();
   const load = await si.currentLoad();
-  const str = `平台：${os.distro}（${os.platform}）
+  const str = `平台：${os.platform}（${os.distro}）
 内核：${os.kernel}
 架构：${os.arch}
 CPU：${load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${
@@ -27,6 +29,7 @@ CPU：${load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${
 内存：${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(
     mem.total
   )}）
+启动：${moment.duration(time.uptime * 1000).humanize()}
 数据：${pb(du(path.resolve(__dirname, "..", "..", "..", "data", "db")))}`;
 
   await bot.sendMessage(id, str, type);

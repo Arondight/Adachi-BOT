@@ -1,6 +1,6 @@
 import randomFloat from "random-float";
+import db from "../../utils/database.js";
 import { loadYML } from "../../utils/load.js";
-import { update } from "../../utils/database.js";
 
 const artifactCfg = loadYML("artifacts");
 const { artifacts, domains, weights, values } = artifactCfg;
@@ -39,7 +39,7 @@ function getArtifactID(domainID) {
     let num = domains.length;
 
     if (domainID >= num) {
-      return null;
+      return undefined;
     } else {
       return domains[domainID].product[randomInt(0, 1)];
     }
@@ -56,7 +56,7 @@ function getRandomProperty(arr, type) {
     suffix.push(sum);
   }
 
-  let rand = type === 0 ? randomInt(0, sum) : randomFloat(0, sum);
+  let rand = 0 === type ? randomInt(0, sum) : randomFloat(0, sum);
 
   for (let i = 0; i < len; i++) {
     if (rand <= suffix[i]) {
@@ -70,9 +70,9 @@ function getSlot() {
 }
 
 function getMainStat(slot) {
-  if (slot === 0) {
+  if (0 === slot) {
     return 0;
-  } else if (slot === 1) {
+  } else if (1 === slot) {
     return 6;
   } else {
     let float = [];
@@ -192,8 +192,14 @@ async function getArtifact(userID, type) {
   let improves = getImproves();
   let initialProperty = getInitial(initPropertyNum, subStats);
   let fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
+
+  if (!artifactID) {
+    return artifactID;
+  }
+
   let name = artifacts[artifactID]["subName"][slot];
-  await update(
+
+  await db.update(
     "artifact",
     "user",
     { userID },

@@ -1,8 +1,9 @@
+import db from "../../utils/database.js";
 import { alias } from "../../utils/alias.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { get, isInside, getID } from "../../utils/database.js";
 import { basePromise } from "../../utils/detail.js";
+import { getID } from "../../utils/id.js";
 
 async function Plugin(Message) {
   let msg = Message.raw_message;
@@ -10,7 +11,7 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
+  let sendID = "group" === type ? groupID : userID;
   let dbInfo = await getID(msg, userID); // 米游社 ID
   let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
   let uid, data;
@@ -20,7 +21,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (typeof dbInfo === "string") {
+  if ("string" === typeof dbInfo) {
     await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
     return;
   }
@@ -37,7 +38,7 @@ async function Plugin(Message) {
   try {
     const baseInfo = await basePromise(dbInfo, userID);
     uid = baseInfo[0];
-    const { avatars } = await get("info", "user", { uid });
+    const { avatars } = await db.get("info", "user", { uid });
     character = alias(character);
     data = avatars.find((el) => el.name === character);
 

@@ -1,8 +1,8 @@
-import { get, update } from "../../utils/database.js";
 import fs from "fs";
 import module from "module";
 import path from "path";
 import url from "url";
+import db from "../../utils/database.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +22,7 @@ function getRandomInt(max = 10000) {
 }
 
 async function getChoiceData(userID, choice = 301) {
-  const { indefinite, character, weapon } = await get("gacha", "user", {
+  const { indefinite, character, weapon } = await db.get("gacha", "user", {
     userID,
   });
 
@@ -41,7 +41,7 @@ let name, five, four, isUp;
 // 数据参考: https://www.bilibili.com/read/cv10468091
 // 更新时间: 2021年6月16日15:57:34, 不保证概率更新的及时性
 function getFiveProb(counter, choice) {
-  if (choice === 200 || choice === 301) {
+  if (200 === choice || 301 === choice) {
     return 60 + 600 * (counter > 73 ? counter - 73 : 0);
   } else {
     if (counter < 63) {
@@ -55,12 +55,12 @@ function getFiveProb(counter, choice) {
 }
 
 function getFourProb(counter, choice) {
-  if (choice === 200 || choice === 301) {
+  if (200 === choice || 301 === choice) {
     return 510 + 5100 * (counter > 8 ? counter - 8 : 0);
   } else {
     if (counter < 8) {
       return 600;
-    } else if (counter === 8) {
+    } else if (8 === counter) {
       return 6600;
     } else {
       return 6600 + 3000 * (counter - 8);
@@ -71,7 +71,7 @@ function getFourProb(counter, choice) {
 async function updateCounter(userID, star, up) {
   if (star !== 5) {
     five = five + 1;
-    four = star === 4 ? 1 : four + 1; // 重置四星抽数
+    four = 4 === star ? 1 : four + 1; // 重置四星抽数
   } else if (isUp !== undefined && isUp !== null) {
     five = 1; // 重置五星抽数
     four = four + 1;
@@ -89,7 +89,7 @@ async function getIsUp(userID, star) {
     case undefined:
       return false;
     default:
-      return getRandomInt() <= 5000 || (star === 5 && isUp < 0);
+      return getRandomInt() <= 5000 || (5 === star && isUp < 0);
   }
 }
 
@@ -113,23 +113,23 @@ async function gachaOnce(userID, choice, table) {
   let up = await getIsUp(userID, star),
     result;
   const times = five;
-  let { path } = await get("gacha", "user", { userID });
+  let { path } = await db.get("gacha", "user", { userID });
   await updateCounter(userID, star, up);
 
-  if (star === 5 && choice === 302) {
+  if (5 === star && 302 === choice) {
     // 武器池出货
     if (path["course"] && path["fate"] > 1) {
       // 定轨武器已设置并触发定轨
       result = table["upFiveStar"][path["course"]];
       path["fate"] = 0;
-      await update("gacha", "user", { userID }, { path });
+      await db.update("gacha", "user", { userID }, { path });
     } else {
       // 无定轨，或未触发定轨
       if (up) {
         const index = getRandomInt(table["upFiveStar"].length) - 1;
         result = table["upFiveStar"][index];
         path["fate"] = index === path["course"] ? 0 : path["fate"] + 1;
-        await update("gacha", "user", { userID }, { path });
+        await db.update("gacha", "user", { userID }, { path });
       } else {
         const index = getRandomInt(table["nonUpFiveStar"].length) - 1;
         result = table["nonUpFiveStar"][index];
@@ -140,7 +140,7 @@ async function gachaOnce(userID, choice, table) {
     return { ...result, star: 5, times };
   }
 
-  if (star === 5) {
+  if (5 === star) {
     // 限定池和普池出货
     if (up) {
       const index = getRandomInt(table["upFiveStar"].length) - 1;
@@ -151,7 +151,7 @@ async function gachaOnce(userID, choice, table) {
     }
 
     return { ...result, star: 5, times };
-  } else if (star === 4) {
+  } else if (4 === star) {
     // 没出货：四星
     if (up) {
       const index = getRandomInt(table["upFourStar"].length) - 1;
@@ -171,15 +171,15 @@ async function gachaOnce(userID, choice, table) {
 }
 
 async function gachaTenTimes(userID, nickname) {
-  const { choice: uchoice } = await get("gacha", "user", { userID });
+  const { choice: uchoice } = await db.get("gacha", "user", { userID });
   const choice = uchoice ? uchoice : 301;
-  const gachaTable = await get("gacha", "data", { gacha_type: choice });
+  const gachaTable = await db.get("gacha", "data", { gacha_type: choice });
   ({ name, five, four, isUp } = await getChoiceData(userID, choice));
   let result = { data: [], type: name, user: nickname };
   let data = {};
 
   if (!uchoice) {
-    await update("gacha", "user", { userID }, { choice });
+    await db.update("gacha", "user", { userID }, { choice });
   }
 
   for (let i = 1; i <= 10; ++i) {
@@ -191,7 +191,7 @@ async function gachaTenTimes(userID, nickname) {
   }
 
   data[name] = { five, four, isUp };
-  await update("gacha", "user", { userID }, data);
+  await db.update("gacha", "user", { userID }, data);
   return result;
 }
 

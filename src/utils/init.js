@@ -1,36 +1,45 @@
 import puppeteer from "puppeteer";
 import schedule from "node-schedule";
-import { gachaUpdate } from "./update.js";
-import { newServer } from "./server.js";
-import { newDB } from "./database.js";
+import db from "./database.js";
+import { gachaUpdate as updateGachaJob } from "./update.js";
+import { server } from "./server.js";
 
-async function databaseInitialize() {
-  await newDB("map");
-  await newDB("time");
-  await newDB("info");
-  await newDB("artifact");
-  await newDB("character");
-  await newDB("authority");
-  await newDB("gacha", { user: [], data: [] });
-  await newDB("music", { source: [] });
-  await newDB("aby");
-  await newDB("cookies", { cookie: [], uid: [] });
+async function initDB() {
+  await db.init("map");
+  await db.init("time");
+  await db.init("info");
+  await db.init("artifact");
+  await db.init("character");
+  await db.init("authority");
+  await db.init("gacha", { user: [], data: [] });
+  await db.init("music", { source: [] });
+  await db.init("aby");
+  await db.init("cookies", { cookie: [], uid: [] });
+}
+
+async function cleanDB(name) {
+  let nums = await db.clean(name);
+  bot.logger.debug(`清理了数据库 ${name} 中 ${nums} 条无用记录。`);
+  return nums;
+}
+
+async function cleanDBJob() {
+  let nums = 0;
+  nums += await cleanDB("aby");
+  nums += await cleanDB("cookies");
+  nums += await cleanDB("info");
+  return nums;
 }
 
 async function init() {
-  newServer(9934);
-  await databaseInitialize();
-  gachaUpdate();
+  server(9934);
+  await initDB();
 
-  schedule.scheduleJob("0 31 11 * * *", () => {
-    gachaUpdate();
-  });
-  schedule.scheduleJob("0 1 18 * * *", () => {
-    gachaUpdate();
-  });
+  updateGachaJob();
+  await cleanDBJob();
 
-  // TODO 调度一些数据库清理函数
-  // 这里 lowdb 支持数据库异步读写吗
+  schedule.scheduleJob("1 */1 * * *", () => updateGachaJob());
+  schedule.scheduleJob("1 */1 * * *", async () => await cleanDBJob());
 
   global.browser = await puppeteer.launch({
     headless: true,

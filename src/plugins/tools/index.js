@@ -14,8 +14,8 @@ async function Plugin(Message) {
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
-  let sendID = type === "group" ? groupID : userID;
-  let groupName = type === "group" ? Message.group_name : undefined;
+  let sendID = "group" === type ? groupID : userID;
+  let groupName = "group" === type ? Message.group_name : undefined;
 
   switch (true) {
     case msg.startsWith("带个话"):
@@ -35,7 +35,7 @@ async function Plugin(Message) {
     case msg.startsWith("统计列表"):
       count(sendID, msg, type, userID);
       break;
-    case msg.startsWith("系统状态"):
+    case msg.startsWith("系统状态") || msg.startsWith("系统信息"):
       status(sendID, type, userID);
       break;
     case msg.startsWith("管理"):
