@@ -1,27 +1,13 @@
-import { hasAuth } from "./auth.js";
-import { getRandomInt } from "./tools.js";
-import yaml from "js-yaml";
 import fs from "fs";
 import url from "url";
 import path from "path";
-import module from "module";
+import { hasAuth } from "./auth.js";
+import { getRandomInt } from "./tools.js";
+import { loadYML } from "./yaml.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const require = module.createRequire(import.meta.url);
-
-function loadYML(name) {
-  let filename = `${name}.yml`;
-  let filepath = path.resolve(__dirname, "..", "..", "config", filename);
-
-  try {
-    fs.accessSync(filepath, fs.constants.R_OK);
-  } catch (e) {
-    filepath = path.resolve(__dirname, "..", "..", "config_defaults", filename);
-  }
-
-  return yaml.load(fs.readFileSync(filepath, "utf-8"));
-}
+const commandConfig = loadYML("command");
 
 async function loadPlugins() {
   let plugins = {};
@@ -30,9 +16,9 @@ async function loadPlugins() {
   for (let plugin of pluginsPath) {
     try {
       plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
-      bot.logger.debug(`插件 ${plugin} 加载完成。`);
+      bot.logger.debug(`插件：加载 ${plugin} 成功。`);
     } catch (error) {
-      bot.logger.error(`插件 ${plugin} 加载失败：${error}`);
+      bot.logger.debug(`插件：加载 ${plugin} 失败（${error}）。`);
     }
   }
 
@@ -40,15 +26,15 @@ async function loadPlugins() {
 }
 
 function getCommand(msgData) {
-  const commandConfig = loadYML("command");
+  if (commandConfig) {
+    for (let command in commandConfig) {
+      if (commandConfig.hasOwnProperty(command)) {
+        for (let setting of commandConfig[command]) {
+          let reg = new RegExp(setting, "i");
 
-  for (let command in commandConfig) {
-    if (commandConfig.hasOwnProperty(command)) {
-      for (let setting of commandConfig[command]) {
-        let reg = new RegExp(setting, "i");
-
-        if (reg.test(msgData)) {
-          return command;
+          if (reg.test(msgData)) {
+            return command;
+          }
         }
       }
     }
@@ -60,8 +46,8 @@ function getCommand(msgData) {
 async function processed(qqData, plugins, type) {
   // 如果好友增加了，向新朋友问好
   if (type === "friend.increase") {
-    if (friendGreetingNew) {
-      bot.sendMessage(qqData.user_id, greetingNew, "private");
+    if (config.friendGreetingNew) {
+      bot.sendMessage(qqData.user_id, config.greetingNew, "private");
     }
 
     return;
@@ -70,13 +56,16 @@ async function processed(qqData, plugins, type) {
   if (type === "group.increase") {
     if (bot.uin == qqData.user_id) {
       // 如果加入了新群，向全群问好
-      bot.sendMessage(qqData.group_id, greetingHello, "group");
+      bot.sendMessage(qqData.group_id, config.greetingHello, "group");
     } else {
       // 如果有新群友加入，向新群友问好
-      if (groupGreetingNew && (await hasAuth(qqData.group_id, "reply"))) {
+      if (
+        config.groupGreetingNew &&
+        (await hasAuth(qqData.group_id, "reply"))
+      ) {
         bot.sendMessage(
           qqData.group_id,
-          `[CQ:at,qq=${qqData.user_id}] ${greetingNew}`,
+          `[CQ:at,qq=${qqData.user_id}] ${config.greetingNew}`,
           "group"
         );
       }
@@ -103,7 +92,7 @@ async function processed(qqData, plugins, type) {
 
   // 如果不是命令，且为群消息，随机复读群消息
   if ("group" === type) {
-    if (getRandomInt(100) < repeatProb) {
+    if (getRandomInt(100) < config.repeatProb) {
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
 
@@ -112,12 +101,18 @@ async function processed(qqData, plugins, type) {
 
   // 如果是机器人上线，所有群发送一遍上线通知
   if ("online" === type) {
-    if (groupHello) {
+    if (config.groupHello) {
       bot.gl.forEach(async (group) => {
+        let info = (await bot.getGroupInfo(group.group_id)).data;
         let greeting = (await hasAuth(group.group_id, "reply"))
-          ? greetingOnline
-          : greetingDie;
-        bot.sendMessage(group.group_id, greeting, "group");
+          ? config.greetingOnline
+          : config.greetingDie;
+
+        // 禁言时不发送消息
+        // https://github.com/Arondight/Adachi-BOT/issues/28
+        if (0 === info.shutup_time_me && "string" === typeof greeting) {
+          bot.sendMessage(group.group_id, greeting, "group");
+        }
       });
     }
 
@@ -125,4 +120,4 @@ async function processed(qqData, plugins, type) {
   }
 }
 
-export { loadYML, loadPlugins, processed };
+export { loadPlugins, processed };

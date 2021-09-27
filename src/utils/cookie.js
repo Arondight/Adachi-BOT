@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import db from "./database.js";
-import { loadYML } from "./load.js";
+import { loadYML } from "./yaml.js";
 
 const configs = loadYML("cookies");
 const cookies = configs
@@ -94,7 +94,7 @@ async function getCookie(uid, use_cookie) {
       return;
     }
 
-    bot.logger.debug(`Cookie: ${uid} -> ${cookie}`);
+    bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
     resolve(cookie);
   });
 }

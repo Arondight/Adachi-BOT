@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import db from "./database.js";
-import { loadYML } from "./load.js";
+import { loadYML } from "./yaml.js";
 import { getCookie } from "./cookie.js";
 import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
 
@@ -38,8 +38,10 @@ async function abyPromise(uid, server, userID, schedule_type) {
   let nowTime = new Date().valueOf();
   let { time } = await db.get("time", "user", { aby: uid });
 
-  if (time && nowTime - time < 60 * 60 * 1000) {
-    bot.logger.debug(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
+  if (time && nowTime - time < config.cacheAbyEffectTime * 60 * 60 * 1000) {
+    bot.logger.debug(
+      `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`
+    );
     const { data } = await db.get("aby", "user", { uid });
 
     if (!data) {
@@ -70,7 +72,9 @@ async function abyPromise(uid, server, userID, schedule_type) {
 
     await db.update("aby", "user", { uid }, { data });
     await db.update("time", "user", { aby: uid }, { time: nowTime });
-    bot.logger.debug(`用户 ${uid} 查询成功，数据已缓存。`);
+    bot.logger.debug(
+      `缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`
+    );
 
     resolve(data);
   });
@@ -114,8 +118,10 @@ async function detailPromise(uid, server, userID) {
   let nowTime = new Date().valueOf();
   let { time } = await db.get("time", "user", { uid });
 
-  if (time && nowTime - time < 60 * 60 * 1000) {
-    bot.logger.debug(`用户 ${uid} 在一小时内进行过查询操作，将使用上次缓存。`);
+  if (time && nowTime - time < config.cacheInfoEffectTime * 60 * 60 * 1000) {
+    bot.logger.debug(
+      `缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`
+    );
     const { retcode, message } = await db.get("info", "user", { uid });
 
     if (retcode !== 0) {
@@ -153,7 +159,9 @@ async function detailPromise(uid, server, userID) {
       }
     );
     await db.update("time", "user", { uid }, { time: nowTime });
-    bot.logger.debug(`用户 ${uid} 查询成功，数据已缓存。`);
+    bot.logger.debug(
+      `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
+    );
 
     let characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);

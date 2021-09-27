@@ -1,4 +1,4 @@
-import { loadYML } from "./load.js";
+import { loadYML } from "./yaml.js";
 
 const data = loadYML("alias");
 const names = Object.entries(data).reduce((data, [k, v]) => {

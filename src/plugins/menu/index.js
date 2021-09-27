@@ -1,5 +1,6 @@
 import { getRandomInt } from "../../utils/tools.js";
-import { loadYML } from "../../utils/load.js";
+import { loadYML } from "../../utils/yaml.js";
+
 const menuCfg = loadYML("menu");
 const {
   breakfast: breakfastMenu,
@@ -21,6 +22,7 @@ async function Plugin(Message) {
 早餐：${breakfastMenu[breakfastIdx]}
 午餐：${lunchMenu[lunchIdx]}
 晚餐：${dinnerMenu[dinnerIdx]}`;
+
   await bot.sendMessage(sendID, message, type);
 }
 
