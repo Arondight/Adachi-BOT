@@ -4,6 +4,7 @@ const Setting = loadYML("setting");
 const Greeting = loadYML("greeting");
 
 async function readConfig() {
+  // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
   const defaultConfig = {
     // 登录协议为 iPad
     platform: 5,
@@ -48,31 +49,36 @@ async function readConfig() {
 
   global.config = {};
 
-  const getConfig = (pair) => {
-    let prop = Object.keys(pair)[0];
-    let val = pair[prop];
+  const getConfig = (...pairs) => {
+    pairs &&
+      pairs.forEach((pair) => {
+        let prop = Object.keys(pair)[0];
+        let val = pair[prop];
 
-    config[prop] =
-      undefined === defaultConfig[prop] ? val : val ? val : defaultConfig[prop];
+        if (undefined === defaultConfig[prop]) {
+          config[prop] = val;
+        }
+        config[prop] = val ? val : defaultConfig[prop];
+      });
   };
 
-  getConfig({ platform });
-  getConfig({ account });
-  getConfig({
-    masters: (masters ? masters : []).concat(master ? [master] : []),
-  });
-  getConfig({ repeatProb });
-  getConfig({ groupHello });
-  getConfig({ groupGreetingNew });
-  getConfig({ friendGreetingNew });
-  getConfig({ cacheAbyEffectTime });
-  getConfig({ cacheInfoEffectTime });
-  getConfig({ dbAbyEffectTime });
-  getConfig({ dbInfoEffectTime });
-  getConfig({ greetingOnline });
-  getConfig({ greetingDie });
-  getConfig({ greetingHello });
-  getConfig({ greetingNew });
+  getConfig(
+    { platform },
+    { account },
+    { masters: (masters ? masters : []).concat(master ? [master] : []) },
+    { repeatProb },
+    { groupHello },
+    { groupGreetingNew },
+    { friendGreetingNew },
+    { cacheAbyEffectTime },
+    { cacheInfoEffectTime },
+    { dbAbyEffectTime },
+    { dbInfoEffectTime },
+    { greetingOnline },
+    { greetingDie },
+    { greetingHello },
+    { greetingNew }
+  );
 }
 
 export { readConfig };

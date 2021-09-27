@@ -1,10 +1,5 @@
-# 这里演示了如何配置三个 Cookies，你可以配置若干个，具体格式可能略有不同，记得你的 Cookie 行不要有注释符号（"#"）
 #
-# 如果你删除或更新了无效的 Cookie，Cookie 数据库不会自动同步，需要使用下面的命令来重置数据库，然后重启机器人
-#   git checkout ./data/db/cookies.json
+# 按照注释的示例配置若干个 Cookie 并删掉行首可能存在的注释符号（ # ）。
 #
-# 注意增加新的合法 Cookie 不需要重置数据库！数据库只能处理此文件的新增的 Cookie，无法处理删除的和修改的 Cookie
 cookies:
   #- UM_distinctid=17b35110eb8ef3...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
-  #- UM_distinctid=17b351800dd35d...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
-  #- UM_distinctid=17b351b1378adf...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
