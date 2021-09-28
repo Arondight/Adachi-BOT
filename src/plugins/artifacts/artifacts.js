@@ -1,6 +1,6 @@
 import randomFloat from "random-float";
 import db from "../../utils/database.js";
-import { loadYML } from "../../utils/load.js";
+import { loadYML } from "../../utils/yaml.js";
 
 const artifactCfg = loadYML("artifacts");
 const { artifacts, domains, weights, values } = artifactCfg;

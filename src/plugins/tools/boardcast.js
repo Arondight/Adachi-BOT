@@ -25,7 +25,11 @@ async function boardcast(id, msg, type, user) {
 
   if (msg.startsWith("好友广播")) {
     bot.fl.forEach((item) => {
-      bot.sendMessage(item.user_id, `主人发送了一条好友广播：\n${text}`, type);
+      bot.sendMessage(
+        item.user_id,
+        `主人发送了一条好友广播：\n${text}`,
+        "private"
+      );
       report += `${item.nickname}（${item.user_id}）\n`;
     });
     report += report ? "以上好友已发送广播。" : "没有添加任何好友。";

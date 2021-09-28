@@ -1,7 +1,7 @@
 import db from "./database.js";
 
 function isMaster(userID) {
-  return masters.includes(userID);
+  return config.masters.includes(userID);
 }
 
 async function sendPrompt(sendID, userID, name, auth, type) {
