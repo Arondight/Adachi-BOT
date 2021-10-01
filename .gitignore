@@ -105,3 +105,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# macOS auto generated desktop file
+.DS_Store
+
+# IDE auto generated file
+.idea

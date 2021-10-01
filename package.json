@@ -1,5 +1,5 @@
 {
-  "name": "adachi-bot",
+  "name": "Adachi-BOT",
   "version": "1.5.0",
   "description": "腾讯 QQ 中的原神机器人",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "lodash": "4.17.21",
     "lowdb": "3.0.0",
     "moment": "2.29.1",
+    "moment-timezone": "0.5.33",
     "node-fetch": "3.0.0",
     "node-schedule": "2.0.0",
     "oicq": "1.20.2",
