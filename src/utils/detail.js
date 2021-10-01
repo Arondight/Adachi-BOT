@@ -1,3 +1,4 @@
+import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
 import { loadYML } from "./yaml.js";
@@ -18,7 +19,7 @@ async function userInitialize(userID, uid, nickname, level) {
   }
 
   if (!(await db.includes("info", "user", "uid", uid))) {
-    let initData = {
+    const initData = {
       retcode: 19260817,
       message: "init message",
       uid,
@@ -35,20 +36,46 @@ async function userInitialize(userID, uid, nickname, level) {
 async function abyPromise(uid, server, userID, schedule_type) {
   await userInitialize(userID, uid, "", -1);
   await db.update("character", "user", { userID }, { uid });
-  let nowTime = new Date().valueOf();
-  let { time } = await db.get("time", "user", { aby: uid });
 
-  if (time && nowTime - time < config.cacheAbyEffectTime * 60 * 60 * 1000) {
-    bot.logger.debug(
-      `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`
-    );
-    const { data } = await db.get("aby", "user", { uid });
+  const nowTime = new Date().valueOf();
+  const { lastTime } = await db.get("time", "user", { aby: uid });
 
-    if (!data) {
-      return Promise.reject("没有查询到深渊数据。 ");
+  // 尝试使用缓存
+  const { data: dbData } = (await db.get("aby", "user", { uid })) || {};
+
+  if (dbData) {
+    // 第 31 期深渊开始的时刻
+    const ftime = moment("2021-10-01T04:00:00").tz("Asia/Shanghai");
+    // 查询的时刻
+    const ntime = moment().tz("Asia/Shanghai");
+    // 数据库中的期数
+    const { schedule_id: db_schedule } = dbData || {};
+    // 查询时的期数
+    const this_schedule =
+      31 +
+      (ntime.year() - ftime.year()) * 12 * 2 +
+      (ntime.month() - ftime.month()) * 2;
+
+    // 如果查询的时刻过了每月的十五号凌晨四点，查询时的期数加一
+    if (
+      ntime.date() - ftime.date() + 1 > 15 ||
+      (15 === ntime.date() && ntime.hours() >= ftime.hours())
+    ) {
+      this_schedule++;
     }
 
-    return Promise.reject("");
+    // 如果查询的期数和数据库中的期数一致，尝试使用缓存
+    if (
+      db_schedule === this_schedule &&
+      lastTime &&
+      nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000
+    ) {
+      bot.logger.debug(
+        `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`
+      );
+
+      return Promise.reject("");
+    }
   }
 
   const cookie = await getCookie(uid, true);
@@ -66,7 +93,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
     }
 
     if (!(await db.includes("aby", "user", "uid", uid))) {
-      let initData = { uid, data: [] };
+      const initData = { uid, data: [] };
       await db.push("aby", "user", initData);
     }
 
@@ -95,7 +122,7 @@ async function basePromise(mhyID, userID) {
       return;
     }
 
-    let baseInfo = data.list.find((el) => 2 === el["game_id"]);
+    const baseInfo = data.list.find((el) => 2 === el["game_id"]);
 
     if (!baseInfo) {
       reject(
@@ -104,8 +131,8 @@ async function basePromise(mhyID, userID) {
       return;
     }
 
-    let { game_role_id, nickname, region, level } = baseInfo;
-    let uid = parseInt(game_role_id);
+    const { game_role_id, nickname, region, level } = baseInfo;
+    const uid = parseInt(game_role_id);
     await userInitialize(userID, uid, nickname, level);
     await db.update("info", "user", { uid }, { level, nickname });
     resolve([uid, region]);
@@ -115,8 +142,9 @@ async function basePromise(mhyID, userID) {
 async function detailPromise(uid, server, userID) {
   await userInitialize(userID, uid, "", -1);
   await db.update("character", "user", { userID }, { uid });
-  let nowTime = new Date().valueOf();
-  let { time } = await db.get("time", "user", { uid });
+
+  const nowTime = new Date().valueOf();
+  const { time } = await db.get("time", "user", { uid });
 
   if (time && nowTime - time < config.cacheInfoEffectTime * 60 * 60 * 1000) {
     bot.logger.debug(
@@ -163,7 +191,7 @@ async function detailPromise(uid, server, userID) {
       `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
     );
 
-    let characterID = data.avatars.map((el) => el["id"]);
+    const characterID = data.avatars.map((el) => el["id"]);
     resolve(characterID);
   });
 }
@@ -184,26 +212,26 @@ async function characterPromise(uid, server, character_ids) {
     }
 
     let avatars = [];
-    let characterList = data.avatars;
+    const characterList = data.avatars;
 
     for (let i in characterList) {
       if (characterList.hasOwnProperty(i)) {
-        let el = characterList[i];
-        let base = lodash.omit(el, [
+        const el = characterList[i];
+        const base = lodash.omit(el, [
           "image",
           "weapon",
           "reliquaries",
           "constellations",
         ]);
-        let weapon = lodash.omit(el.weapon, [
+        const weapon = lodash.omit(el.weapon, [
           "id",
           "type",
           "promote_level",
           "type_name",
         ]);
-        let artifact = [],
-          constellationNum = 0;
-        let constellations = el["constellations"].reverse();
+        let artifact = [];
+        let constellationNum = 0;
+        const constellations = el["constellations"].reverse();
 
         for (let level in constellations) {
           if (constellations.hasOwnProperty(level)) {
@@ -216,7 +244,7 @@ async function characterPromise(uid, server, character_ids) {
 
         for (let posID in el.reliquaries) {
           if (el.reliquaries.hasOwnProperty(posID)) {
-            let posInfo = lodash.omit(el.reliquaries[posID], [
+            const posInfo = lodash.omit(el.reliquaries[posID], [
               "id",
               "set",
               "pos_name",
