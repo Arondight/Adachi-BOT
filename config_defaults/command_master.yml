@@ -1,5 +1,6 @@
 # ==============================================================================
-# 如果非必要，请不要将此文件复制到 ../config/ 下。此文件格式如下。
+# 如果非必要，请不要将此文件复制到 ../config/ 下。
+# 此文件格式如下，切勿修改注释中的硬编码项（XXX 标记）。
 # ==============================================================================
 # plugin:
 #   enable: boolean          # 是否加载插件
@@ -90,6 +91,7 @@ master:
   enable: true
   weights: 9999
   regex:
+    # XXX 此处的 on、off 仍然为硬编码
     - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限 +\d+ +(on|off)$
     - ^响应消息 +\d+ +(on|off)$
     - ^刷新卡池 *$
@@ -97,6 +99,7 @@ master:
     feedback_auth:
       weights: 9999
       name: 带话权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【带话】
       entrance:
@@ -104,6 +107,7 @@ master:
     music_auth:
       weights: 9899
       name: 点歌权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【点歌】
       entrance:
@@ -111,6 +115,7 @@ master:
     gacha_auth:
       weights: 9799
       name: 十连权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【十连】
       entrance:
@@ -118,6 +123,7 @@ master:
     artifact_auth:
       weights: 9699
       name: 圣遗物权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【圣遗物】【强化】
       entrance:
@@ -125,6 +131,7 @@ master:
     rating_auth:
       weights: 9599
       name: 评分权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【评分】
       entrance:
@@ -132,6 +139,7 @@ master:
     query_gameinfo_auth:
       weights: 9499
       name: 游戏数据权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【深渊】【上期深渊】【米游社】【uid】
       entrance:
@@ -139,6 +147,7 @@ master:
     character_overview_auth:
       weights: 9399
       name: 官方数据权限
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description: 【角色】【武器】
       entrance:
@@ -146,6 +155,7 @@ master:
     reply_auth:
       weights: 9299
       name: 响应消息
+      # XXX 此处的 on、off 仍然为硬编码
       usage: <QQ号、群号> <on、off>
       description:
       entrance:
