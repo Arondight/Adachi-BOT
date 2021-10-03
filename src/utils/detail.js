@@ -50,7 +50,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
     // 数据库中的期数
     const { schedule_id: db_schedule } = dbData || {};
     // 查询时的期数
-    const this_schedule =
+    let this_schedule =
       31 +
       (ntime.year() - ftime.year()) * 12 * 2 +
       (ntime.month() - ftime.month()) * 2;
@@ -62,6 +62,9 @@ async function abyPromise(uid, server, userID, schedule_type) {
     ) {
       this_schedule++;
     }
+
+    // 如果查询上期深渊，期数减一
+    this_schedule -= parseInt(schedule_type) - 1;
 
     // 如果查询的期数和数据库中的期数一致，尝试使用缓存
     if (
