@@ -44,7 +44,7 @@ async function Plugin(Message) {
       } else {
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 请先使用【圣遗物】抽取一个圣遗物后再【强化】。`,
+          `[CQ:at,qq=${userID}] 请先使用【${command.functions.entrance.artifacts[0]}】抽取一个圣遗物后再【${command.functions.entrance.strengthen[0]}】。`,
           type
         );
         return;
@@ -66,7 +66,7 @@ async function Plugin(Message) {
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 请正确输入副本编号，可以使用【副本】查看所有编号。`,
+        `[CQ:at,qq=${userID}] 请正确输入副本编号，可以使用【${command.functions.entrance.dungeons[0]}】查看所有编号。`,
         type
       );
       return;
