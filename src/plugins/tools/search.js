@@ -1,8 +1,9 @@
 import { isMaster } from "../../utils/auth.js";
+import { hasEntrance } from "../../utils/config.js";
 
 async function search(id, msg, type, user) {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let listAll = new Map([...bot.fl].concat([...bot.gl]));
+  let listAll = new Map([...bot.fl, ...bot.gl]);
   let report = "";
 
   if (!isMaster(user)) {
@@ -10,7 +11,7 @@ async function search(id, msg, type, user) {
     return;
   }
 
-  if (msg.startsWith("群列表")) {
+  if (hasEntrance(msg, "tools", "group_search")) {
     bot.gl.forEach((item) => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
@@ -19,7 +20,7 @@ async function search(id, msg, type, user) {
     return;
   }
 
-  if (msg.startsWith("好友列表")) {
+  if (hasEntrance(msg, "tools", "private_search")) {
     bot.fl.forEach((item) => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
@@ -28,7 +29,7 @@ async function search(id, msg, type, user) {
     return;
   }
 
-  if (msg.startsWith("查找列表")) {
+  if (hasEntrance(msg, "tools", "search")) {
     listAll.forEach(async (item) => {
       let isGroup = item.hasOwnProperty("group_name") ? true : false;
       let itemName = isGroup ? item.group_name : item.nickname;

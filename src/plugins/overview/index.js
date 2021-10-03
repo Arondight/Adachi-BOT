@@ -1,4 +1,3 @@
-import { alias } from "../../utils/alias.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
@@ -31,7 +30,7 @@ async function Plugin(Message) {
   }
 
   try {
-    data = await getInfo(alias(text));
+    data = await getInfo(alias[text] ? alias[text] : text);
   } catch (errInfo) {
     await bot.sendMessage(
       sendID,

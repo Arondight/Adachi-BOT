@@ -98,8 +98,7 @@ async function getID(msg, userID, isMhyID = true) {
     return undefined; // 返回 undefined ，无法验证一个空的 UID
   }
 
-  errInfo =
-    "您还未绑定米游社通行证，请使用 【绑定 你的米游社通行证ID（非UID）】来关联米游社通行证。";
+  errInfo = `您还未绑定米游社通行证，请使用 【${command.functions.entrance.save[0]} 你的米游社通行证ID（非UID）】来关联米游社通行证。`;
 
   return errInfo;
 }

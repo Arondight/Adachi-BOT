@@ -1,0 +1,159 @@
+# ==============================================================================
+# 如果非必要，请不要将此文件复制到 ../config/ 下。此文件格式如下。
+# ==============================================================================
+# plugin:
+#   enable: boolean          # 是否加载插件
+#   weights:                 # 帮助信息里权重越高显示越靠前
+#   regex:
+#     - string               # 插件入口，命令匹配什么正则表达式（忽略大小写）
+#   functions:
+#     function:              # 功能代号，保证全文件唯一
+#       weights:             # 帮助信息里权重越高显示越靠前
+#       name: string         # 命令的名字
+#       usage: string        # 呈现给用户的命令格式
+#       description: string  # 呈现给用户的命令说明
+#       entrance:
+#         - string           # 功能入口，正则匹配的命令以什么开头（忽略大小写）
+# ==============================================================================
+
+tools:
+  enable: true
+  weights: 9899
+  regex:
+    - ^回(个)?话 +\d+ +.+$
+    - ^(好友|群)广播 +.+$
+    - ^(好友|群)列表 *$
+    - ^查找列表 +.+$
+    - ^统计列表 *$
+    - ^系统(状态|信息) *$
+  functions:
+    reply:
+      weights: 9999
+      name: 回话
+      usage: <QQ号、群号> <文本...>
+      description:
+      entrance:
+        - 回话
+        - 回个话
+    group_boardcast:
+      weights: 9899
+      name: 群广播
+      usage: <单行图文...>
+      description:
+      entrance:
+        - 群广播
+    private_boardcast:
+      weights: 9799
+      name: 好友广播
+      usage: <单行图文...>
+      description:
+      entrance:
+        - 好友广播
+    group_search:
+      weights: 9699
+      name: 群列表
+      usage:
+      description: 查看所有群
+      entrance:
+        - 群列表
+    private_search:
+      weights: 9699
+      name: 好友列表
+      usage:
+      description: 查看所有好友
+      entrance:
+        - 好友列表
+    search:
+      weights: 9599
+      name: 查找列表
+      usage: <关键字>
+      description: 查找昵称、QQ号中包含关键字的好友和群
+      entrance:
+        - 查找列表
+    count:
+      weights: 9499
+      name: 统计列表
+      usage:
+      description: 统计用户数量
+      entrance:
+        - 统计列表
+    status:
+      weights: 9399
+      name: 系统状态
+      usage:
+      description:
+      entrance:
+        - 系统状态
+        - 系统信息
+
+master:
+  enable: true
+  weights: 9999
+  regex:
+    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限 +\d+ +(on|off)$
+    - ^响应消息 +\d+ +(on|off)$
+    - ^刷新卡池 *$
+  functions:
+    feedback_auth:
+      weights: 9999
+      name: 带话权限
+      usage: <QQ号、群号> <on、off>
+      description: 【带话】
+      entrance:
+        - 带话权限
+    music_auth:
+      weights: 9899
+      name: 点歌权限
+      usage: <QQ号、群号> <on、off>
+      description: 【点歌】
+      entrance:
+        - 点歌权限
+    gacha_auth:
+      weights: 9799
+      name: 十连权限
+      usage: <QQ号、群号> <on、off>
+      description: 【十连】
+      entrance:
+        - 十连权限
+    artifact_auth:
+      weights: 9699
+      name: 圣遗物权限
+      usage: <QQ号、群号> <on、off>
+      description: 【圣遗物】【强化】
+      entrance:
+        - 圣遗物权限
+    rating_auth:
+      weights: 9599
+      name: 评分权限
+      usage: <QQ号、群号> <on、off>
+      description: 【评分】
+      entrance:
+        - 评分权限
+    query_gameinfo_auth:
+      weights: 9499
+      name: 游戏数据权限
+      usage: <QQ号、群号> <on、off>
+      description: 【深渊】【上期深渊】【米游社】【uid】
+      entrance:
+        - 游戏数据权限
+    character_overview_auth:
+      weights: 9399
+      name: 官方数据权限
+      usage: <QQ号、群号> <on、off>
+      description: 【角色】【武器】
+      entrance:
+        - 官方数据权限
+    reply_auth:
+      weights: 9299
+      name: 响应消息
+      usage: <QQ号、群号> <on、off>
+      description:
+      entrance:
+        - 响应消息
+    refresh_wish_detail:
+      weights: 9199
+      name: 刷新卡池
+      usage:
+      description:
+      entrance:
+        - 刷新卡池

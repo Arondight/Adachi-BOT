@@ -1,4 +1,5 @@
 import db from "../../utils/database.js";
+import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
 
 async function Plugin(Message) {
@@ -15,7 +16,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (msg.startsWith("绑定")) {
+  if (hasEntrance(msg, "save", "save")) {
     if (!(await db.includes("map", "user", "userID", userID))) {
       await db.push("map", "user", { userID, mhyID });
 
@@ -25,28 +26,28 @@ async function Plugin(Message) {
 
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 通行证绑定成功，使用【米游社】来查询游戏信息并更新你的游戏角色。`,
+        `[CQ:at,qq=${userID}] 通行证绑定成功，使用【${command.functions.entrance.card[0]}】来查询游戏信息并更新你的游戏角色。`,
         type
       );
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 您已绑定通行证，请使用【改绑 ${mhyID}】。`,
+        `[CQ:at,qq=${userID}] 您已绑定通行证，请使用【${command.functions.entrance.change[0]} ${mhyID}】。`,
         type
       );
     }
-  } else if (msg.startsWith("改绑")) {
+  } else if (hasEntrance(msg, "save", "change")) {
     if (await db.includes("map", "user", "userID", userID)) {
       await db.update("map", "user", { userID }, { mhyID });
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 通行证改绑成功，使用【米游社】来查询游戏信息并更新你的游戏角色。`,
+        `[CQ:at,qq=${userID}] 通行证改绑成功，使用【${command.functions.entrance.card[0]}】来查询游戏信息并更新你的游戏角色。`,
         type
       );
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【绑定 ${mhyID}】。`,
+        `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【${command.functions.entrance.save[0]} ${mhyID}】。`,
         type
       );
     }

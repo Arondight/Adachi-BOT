@@ -2,6 +2,7 @@ import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { basePromise, abyPromise } from "../../utils/detail.js";
+import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
 
 async function generateImage(uid, id, type) {
@@ -17,7 +18,11 @@ async function Plugin(Message) {
   let name = Message.sender.nickname;
   let sendID = "group" === type ? groupID : userID;
   let dbInfo = await getID(msg, userID, false); // UID
-  let schedule_type = msg.startsWith("上期深渊") ? "2" : "1";
+  let schedule_type = "1";
+
+  if (hasEntrance(msg, "aby", "lastaby")) {
+    schedule_type = "2";
+  }
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, name, "查询游戏内信息", type);

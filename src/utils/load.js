@@ -3,44 +3,33 @@ import url from "url";
 import path from "path";
 import { hasAuth } from "./auth.js";
 import { getRandomInt } from "./tools.js";
-import { loadYML } from "./yaml.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const commandConfig = loadYML("command");
 
 async function loadPlugins() {
   let plugins = {};
   const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
+  const enableList = { ...command.enable, ...master.enable };
 
   for (let plugin of pluginsPath) {
-    try {
-      plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
-      bot.logger.debug(`插件：加载 ${plugin} 成功。`);
-    } catch (error) {
-      bot.logger.debug(`插件：加载 ${plugin} 失败（${error}）。`);
+    if (plugin in all.function) {
+      if (enableList[plugin] && true === enableList[plugin]) {
+        try {
+          plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
+          bot.logger.debug(`插件：加载 ${plugin} 成功。`);
+        } catch (error) {
+          bot.logger.error(`插件：加载 ${plugin} 失败（${error}）。`);
+        }
+      } else {
+        bot.logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
+      }
+    } else {
+      bot.logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
     }
   }
 
   return plugins;
-}
-
-function getCommand(msgData) {
-  if (commandConfig) {
-    for (let command in commandConfig) {
-      if (commandConfig.hasOwnProperty(command)) {
-        for (let setting of commandConfig[command]) {
-          let reg = new RegExp(setting, "i");
-
-          if (reg.test(msgData)) {
-            return command;
-          }
-        }
-      }
-    }
-  }
-
-  return undefined;
 }
 
 async function processed(qqData, plugins, type) {
@@ -82,11 +71,14 @@ async function processed(qqData, plugins, type) {
     qqData.message[0] &&
     qqData.message[0].type === "text"
   ) {
-    const command = getCommand(qqData.raw_message);
+    const regexPool = { ...command.regex, ...master.regex };
+    for (let regex in regexPool) {
+      const r = new RegExp(regex, "i");
 
-    if (command) {
-      plugins[command].run({ ...qqData, type });
-      return;
+      if (r.test(qqData.raw_message)) {
+        plugins[regexPool[regex]].run({ ...qqData, type });
+        return;
+      }
     }
   }
 

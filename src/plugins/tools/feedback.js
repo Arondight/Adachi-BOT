@@ -4,7 +4,7 @@ async function feedback(id, uname, msg, type, user, gname) {
   let info = msg.slice(4);
 
   if (!(await hasAuth(id, "feedback")) || !(await hasAuth(id, "feedback"))) {
-    await sendPrompt(id, uname, "带话", type);
+    await sendPrompt(id, user, uname, "带话", type);
   } else {
     await bot.sendMaster(
       id,

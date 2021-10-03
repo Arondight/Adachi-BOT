@@ -10,7 +10,7 @@ async function Plugin(Message) {
   let name = Message.sender.nickname;
   let sendID = "group" === type ? groupID : userID;
 
-  // 【评分】命令和图片之间可以加任意个空格
+  // 此命令和图片之间可以加任意个空格
   // https://github.com/Arondight/Adachi-BOT/issues/54
   let [source] = msg.split(/^评分\s*/).slice(1);
   let [url] = /(?<=url=).+(?=])/.exec(source) || [];
@@ -18,7 +18,7 @@ async function Plugin(Message) {
     "Content-Type": "application/json",
   };
   let data, response, ret, prop;
-  const whisper = "【评分】需要有一张背包中的圣遗物截图（黄白背景）";
+  const whisper = `【${command.functions.entrance.rating[0]}】需要有一张背包中的圣遗物截图`;
 
   if (
     !(await hasAuth(userID, "rating")) ||
