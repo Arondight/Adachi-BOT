@@ -1,69 +1,336 @@
 # ==============================================================================
-# ！请勿修改此文件，也不要将此文件拷贝到 ../config/ 目录下！
+# 如果非必要，请不要将此文件复制到 ../config/ 下。此文件格式如下。
 # ==============================================================================
+# plugin:
+#   enable: boolean          # 是否加载插件
+#   weights:                 # 帮助信息里权重越高显示越靠前
+#   regex:
+#     - string               # 插件入口，命令匹配什么正则表达式（忽略大小写）
+#   functions:
+#     function:              # 功能代号，保证全文件唯一
+#       weights:             # 帮助信息里权重越高显示越靠前
+#       name: string         # 命令的名字
+#       usage: string        # 呈现给用户的命令格式
+#       description: string  # 呈现给用户的命令说明
+#       entrance:
+#         - string           # 功能入口，正则匹配的命令以什么开头（忽略大小写）
+# ==============================================================================
+
 aby:
-  - ^(上期)?深渊 *$
-  - ^(上期)?深渊 +\d+.*$
-  - ^(上期)?深渊 *\[CQ:at,qq=.*$
+  enable: true
+  weights: 9699
+  regex:
+    - ^(上期)?深渊 *$
+    - ^(上期)?深渊 +\d+.*$
+    - ^(上期)?深渊 *\[CQ:at,qq=.*$
+  functions:
+    aby:
+      weights: 9999
+      name: 深渊
+      usage: "[游戏内UID、@群友]"
+      description:
+      entrance:
+        - 深渊
+    lastaby:
+      weights: 9899
+      name: 上期深渊
+      usage: "[游戏内UID、@群友]"
+      description:
+      entrance:
+        - 上期深渊
+
 artifacts:
-  - ^圣遗物 *$
-  - ^圣遗物 +(\d+)$
-  - ^(强化|副本) *$
+  enable: true
+  weights: 9299
+  regex:
+    - ^圣遗物 *$
+    - ^圣遗物 +(\d+)$
+    - ^(强化|副本) *$
+  functions:
+    artifacts:
+      weights: 9999
+      name: 圣遗物
+      usage: "[副本编号]"
+      description: 掉落一个圣遗物
+      entrance:
+        - 圣遗物
+    strengthen:
+      weights: 9899
+      name: 强化
+      usage:
+      description: 强化掉落的上一个圣遗物
+      entrance:
+        - 强化
+    dungeons:
+      weights: 9799
+      name: 副本
+      usage:
+      description: 查看所有副本编号
+      entrance:
+        - 副本
+
 card:
-  - ^米游社 *$
-  - ^米游社 +\d+.*$
-  - ^米游社 *\[CQ:at,qq=.*$
+  enable: true
+  weights: 9899
+  regex:
+    - ^米游社 *$
+    - ^米游社 +\d+.*$
+    - ^米游社 *\[CQ:at,qq=.*$
+  functions:
+    card:
+      weights: 9999
+      name: 米游社
+      usage: "[米游社通行证ID、@群友]"
+      description: 查询并更新角色信息
+      entrance:
+        - 米游社
+
 character:
-  - ^我的 +.+$
+  enable: true
+  weights: 9599
+  regex:
+    - ^我的 +.+$
+  functions:
+    character:
+      weights: 9999
+      name: 我的
+      usage: <角色名>
+      description: 查询我的角色
+      entrance:
+        - 我的
+
 gacha:
-  - ^十连 *$
-  - ^卡池 +(常驻|角色|武器) *$
-  - ^查看定轨 *$
-  - ^取消定轨 *$
-  - ^定轨 +.+$
-  - ^定轨 *$
+  enable: true
+  weights: 9399
+  regex:
+    - ^十连 *$
+    - ^卡池 +(常驻|角色|武器) *$
+    - ^查看定轨 *$
+    - ^取消定轨 *$
+    - ^定轨 +.+$
+    - ^定轨 *$
+  functions:
+    gacha:
+      weights: 9999
+      name: 十连
+      usage:
+      description:
+      entrance:
+        - 十连
+    pool:
+      weights: 9899
+      name: 卡池
+      usage: <常驻、角色、武器>
+      description: 切换【十连】的卡池
+      entrance:
+        - 卡池
+    select:
+      weights: 9799
+      name: 定轨
+      usage: <武器名>
+      description:
+      entrance:
+        - 定轨
+    select-what:
+      weights: 9699
+      name: 查看定轨
+      usage:
+      description:
+      entrance:
+        - 查看定轨
+    select-nothing:
+      weights: 9599
+      name: 取消定轨
+      usage:
+      description:
+      entrance:
+        - 取消定轨
+
 tools:
-  - ^roll *([+-]?\d+)?$
-  - ^help *$
-  - ^带个话 +.+$
-  - ^回个话 +\d+ +.+$
-  - ^群广播 +.+$
-  - ^好友广播 +.+$
-  - ^群列表 *$
-  - ^好友列表 *$
-  - ^查找列表 +.+$
-  - ^统计列表 *$
-  - ^管理 *$
-  - ^系统(状态|信息) *$
-master:
-  - ^带话权限 +\d+ +(on|off)$
-  - ^点歌权限 +\d+ +(on|off)$
-  - ^十连权限 +\d+ +(on|off)$
-  - ^圣遗物权限 +\d+ +(on|off)$
-  - ^评分权限 +\d+ +(on|off)$
-  - ^游戏数据权限 +\d+ +(on|off)$
-  - ^官方数据权限 +\d+ +(on|off)$
-  - ^响应消息 +\d+ +(on|off)$
-  - ^刷新卡池 *$
+  enable: true
+  weights: 8699
+  regex:
+    - ^roll *([+-]?\d+)?$
+    - ^help *$
+    - ^带(个)?话 +.+$
+    - ^管理 *$
+  functions:
+    roll:
+      weights: 9999
+      name: roll
+      usage: "[1-100]"
+      description: 掷骰子
+      entrance:
+        - roll
+    feedback:
+      weights: 9899
+      name: 带话
+      usage: <单行图文>
+      description: 给主人带话
+      entrance:
+        - 带话
+        - 带个话
+    master:
+      weights: 199
+      name: 管理
+      usage:
+      description: 查看主人功能
+      entrance:
+        - 管理
+    help:
+      weights: 99
+      name: help
+      usage:
+      description: 查看本帮助
+      entrance:
+        - help
+
 material:
-  - ^武器 *$
-  - ^天赋 *$
-  - ^周本 *$
+  enable: true
+  weights: 9099
+  regex:
+    - ^武器 *$
+    - ^天赋 *$
+    - ^周本 *$
+  functions:
+    weapon:
+      weights: 9999
+      name: 武器
+      usage:
+      description: 武器素材表
+      entrance:
+        - 武器
+    talent:
+      weights: 9989
+      name: 天赋
+      usage:
+      description: 天赋素材表
+      entrance:
+        - 天赋
+    weekly:
+      weights: 9979
+      name: 周本
+      usage:
+      description: 周本材料表
+      entrance:
+        - 周本
+
 menu:
-  - ^菜单 *$
-  - ^(今天)?吃什么 *$
+  enable: true
+  weights: 8899
+  regex:
+    - ^菜单 *$
+    - ^(今天)?吃什么 *$
+  functions:
+    menu:
+      weights: 9999
+      name: 今天吃什么
+      usage:
+      description:
+      entrance:
+        - 今天吃什么
+        - 吃什么
+        - 菜单
+
 music:
-  - ^点歌 +.+$
-  - ^音乐源 +.+$
+  enable: true
+  weights: 8999
+  regex:
+    - ^点歌 +.+$
+    - ^音乐源 +.+$
+  functions:
+    music:
+      weights: 9999
+      name: 点歌
+      usage: <单行文本>
+      description:
+      entrance:
+        - 点歌
+    music_source:
+      weights: 9899
+      name: 音乐源
+      usage: <QQ、163>
+      description: 切换【点歌】的音乐源
+      entrance:
+        - 音乐源
+
 overview:
-  - ^(角色|武器|信息) +.+$
+  enable: true
+  weights: 9499
+  regex:
+    - ^(角色|武器|信息) +.+$
+  functions:
+    info:
+      weights: 9999
+      name: 信息
+      usage: <角色名、武器名>
+      description: 查询角色或武器的游戏数据
+      entrance:
+        - 信息
+        - 角色  # 历史原因
+        - 武器  # 历史原因
+
 package:
-  - ^uid *$
-  - ^uid +\d+.*$
-  - ^uid *\[CQ:at,qq=.*$
+  enable: true
+  weights: 9799
+  regex:
+    - ^uid *$
+    - ^uid +\d+.*$
+    - ^uid *\[CQ:at,qq=.*$
+  functions:
+    package:
+      weights: 9999
+      name: uid
+      usage: "[游戏内UID、@群友]"
+      description: 查询并更新角色信息
+      entrance:
+        - uid
+
 quote:
-  - ^伟大的升华 *$
+  enable: true
+  weights: 8799
+  regex:
+    - ^伟大的升华 *$
+  functions:
+    quote:
+      weights: 9999
+      name: 伟大的升华
+      usage:
+      description:
+      entrance:
+        - 伟大的升华
+
 rating:
-  - ^评分 *.+$ # https://github.com/Arondight/Adachi-BOT/issues/54
+  enable: true
+  weights: 9199
+  regex:
+    - ^评分 *.+$ # https://github.com/Arondight/Adachi-BOT/issues/54
+  functions:
+    rating:
+      weights: 9999
+      name: 评分
+      usage: <背包中的圣遗物截图>
+      description:
+      entrance:
+        - 评分
+
 save:
-  - ^(绑定|改绑) +\d+$
+  enable: true
+  weights: 9999
+  regex:
+    - ^(绑定|改绑) +\d+$
+  functions:
+    save:
+      weights: 9999
+      name: 绑定
+      usage: <米游社通行证ID>
+      description:
+      entrance:
+        - 绑定
+    change:
+      weights: 9899
+      name: 改绑
+      usage: <米游社通行证ID>
+      description:
+      entrance:
+        - 改绑

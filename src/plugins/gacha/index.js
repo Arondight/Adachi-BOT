@@ -1,8 +1,8 @@
 import lodash from "lodash";
 import db from "../../utils/database.js";
-import { alias } from "../../utils/alias.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { hasEntrance } from "../../utils/config.js";
 import { getGachaResult } from "./gacha.js";
 
 async function userInitialize(userID) {
@@ -34,7 +34,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (msg.startsWith("卡池")) {
+  if (hasEntrance(msg, "gacha", "pool")) {
     let choice = 301;
 
     switch (cmd) {
@@ -55,10 +55,10 @@ async function Plugin(Message) {
       `[CQ:at,qq=${userID}] 您的卡池已切换至：${cmd}。`,
       type
     );
-  } else if (msg.startsWith("十连")) {
+  } else if (hasEntrance(msg, "gacha", "gacha")) {
     let data = await getGachaResult(userID, name);
     await render(data, "genshin-gacha", sendID, type);
-  } else if (msg.startsWith("查看定轨")) {
+  } else if (hasEntrance(msg, "gacha", "select-what")) {
     const { choice } = await db.get("gacha", "user", { userID });
 
     if (choice !== 302) {
@@ -87,12 +87,12 @@ async function Plugin(Message) {
         }，命定值为 ${path["fate"]} 。`,
         type
       );
-  } else if (msg.startsWith("取消定轨")) {
+  } else if (hasEntrance(msg, "gacha", "select-nothing")) {
     let path = { course: null, fate: 0 };
     await db.update("gacha", "user", { userID }, { path });
     await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 已取消定轨。`, type);
     return;
-  } else if (msg.startsWith("定轨")) {
+  } else if (hasEntrance(msg, "gacha", "select")) {
     const { choice } = await db.get("gacha", "user", { userID });
 
     if (choice !== 302) {
@@ -105,7 +105,7 @@ async function Plugin(Message) {
     }
 
     const table = await db.get("gacha", "data", { gacha_type: 302 });
-    cmd = alias(cmd);
+    cmd = alias[cmd] ? alias[cmd] : cmd;
 
     if (cmd && lodash.find(table["upFiveStar"], { item_name: cmd })) {
       await bot.sendMessage(

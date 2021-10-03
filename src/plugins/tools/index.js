@@ -1,8 +1,7 @@
+import { hasEntrance } from "../../utils/config.js";
 import { boardcast } from "./boardcast.js";
 import { count } from "./count.js";
 import { feedback } from "./feedback.js";
-import { help } from "./help.js";
-import { master } from "./master.js";
 import { reply } from "./reply.js";
 import { roll } from "./roll.js";
 import { search } from "./search.js";
@@ -18,34 +17,32 @@ async function Plugin(Message) {
   let groupName = "group" === type ? Message.group_name : undefined;
 
   switch (true) {
-    case msg.startsWith("带个话"):
+    case hasEntrance(msg, "tools", "feedback"):
       feedback(sendID, name, msg, type, userID, groupName);
       break;
-    case msg.startsWith("群广播") || msg.startsWith("好友广播"):
+    case hasEntrance(msg, "tools", "group_boardcast", "private_boardcast"):
       boardcast(sendID, msg, type, userID);
       break;
-    case msg.startsWith("回个话"):
+    case hasEntrance(msg, "tools", "reply"):
       reply(sendID, msg, type, userID);
       break;
-    case msg.startsWith("群列表") ||
-      msg.startsWith("好友列表") ||
-      msg.startsWith("查找列表"):
+    case hasEntrance(msg, "tools", "group_search", "private_search", "search"):
       search(sendID, msg, type, userID);
       break;
-    case msg.startsWith("统计列表"):
+    case hasEntrance(msg, "tools", "count"):
       count(sendID, msg, type, userID);
       break;
-    case msg.startsWith("系统状态") || msg.startsWith("系统信息"):
+    case hasEntrance(msg, "tools", "status"):
       status(sendID, type, userID);
       break;
-    case msg.startsWith("管理"):
-      master(sendID, type);
-      break;
-    case msg.toLowerCase().startsWith("roll".toLowerCase()):
+    case hasEntrance(msg, "tools", "roll"):
       roll(sendID, name, msg, type, userID);
       break;
-    case msg.toLowerCase().startsWith("help".toLowerCase()):
-      help(sendID, type);
+    case hasEntrance(msg, "tools", "help"):
+      await bot.sendMessage(sendID, command.usage, type);
+      break;
+    case hasEntrance(msg, "tools", "master"):
+      await bot.sendMessage(sendID, master.usage, type);
       break;
   }
 }

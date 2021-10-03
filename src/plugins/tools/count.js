@@ -1,4 +1,5 @@
 import { isMaster } from "../../utils/auth.js";
+import { hasEntrance } from "../../utils/config.js";
 
 async function count(id, msg, type, user) {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
@@ -10,7 +11,7 @@ async function count(id, msg, type, user) {
     return;
   }
 
-  if (msg.startsWith("统计列表")) {
+  if (hasEntrance(msg, "tools", "count")) {
     report += `好友个数：${bot.fl.size - 1}`; // 排除好友列表中的自己
     report += `\n群组个数：${bot.gl.size}`;
     bot.gl.forEach((item) => {

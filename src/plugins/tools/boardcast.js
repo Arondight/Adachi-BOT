@@ -1,4 +1,5 @@
 import { isMaster } from "../../utils/auth.js";
+import { hasEntrance } from "../../utils/config.js";
 
 async function boardcast(id, msg, type, user) {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
@@ -9,7 +10,7 @@ async function boardcast(id, msg, type, user) {
     return;
   }
 
-  if (msg.startsWith("群广播")) {
+  if (hasEntrance(msg, "tools", "group_boardcast")) {
     bot.gl.forEach((item) => {
       bot.sendMessage(
         item.group_id,
@@ -23,7 +24,7 @@ async function boardcast(id, msg, type, user) {
     return;
   }
 
-  if (msg.startsWith("好友广播")) {
+  if (hasEntrance(msg, "tools", "private_boardcast")) {
     bot.fl.forEach((item) => {
       bot.sendMessage(
         item.user_id,

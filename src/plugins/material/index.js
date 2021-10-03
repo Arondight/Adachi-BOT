@@ -1,6 +1,7 @@
 import imageCache from "image-cache";
 import url from "url";
 import path from "path";
+import { hasEntrance } from "../../utils/config.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,13 +31,13 @@ async function Plugin(Message) {
   });
 
   switch (true) {
-    case msg.startsWith("武器"):
+    case hasEntrance(msg, "material", "weapon"):
       thisURL = weaponURL;
       break;
-    case msg.startsWith("天赋"):
+    case hasEntrance(msg, "material", "talent"):
       thisURL = talentURL;
       break;
-    case msg.startsWith("周本"):
+    case hasEntrance(msg, "material", "weekly"):
       thisURL = weeklyURL;
       break;
   }

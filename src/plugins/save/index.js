@@ -1,4 +1,5 @@
 import db from "../../utils/database.js";
+import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
 
 async function Plugin(Message) {
@@ -15,7 +16,7 @@ async function Plugin(Message) {
     return;
   }
 
-  if (msg.startsWith("绑定")) {
+  if (hasEntrance(msg, "save", "save")) {
     if (!(await db.includes("map", "user", "userID", userID))) {
       await db.push("map", "user", { userID, mhyID });
 
@@ -35,7 +36,7 @@ async function Plugin(Message) {
         type
       );
     }
-  } else if (msg.startsWith("改绑")) {
+  } else if (hasEntrance(msg, "save", "change")) {
     if (await db.includes("map", "user", "userID", userID)) {
       await db.update("map", "user", { userID }, { mhyID });
       await bot.sendMessage(

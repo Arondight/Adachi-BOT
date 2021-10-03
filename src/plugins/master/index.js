@@ -1,5 +1,6 @@
 import { gachaUpdate } from "../../utils/update.js";
 import { isMaster, setAuth, sendPrompt } from "../../utils/auth.js";
+import { hasEntrance } from "../../utils/config.js";
 
 function parse(msg) {
   let id = parseInt(msg.match(/[0-9]+/g)[0]);
@@ -8,7 +9,11 @@ function parse(msg) {
 }
 
 async function response(id, target, auth, type, isOn) {
-  await bot.sendMessage(id, `我已经开始${isOn}${target}的${auth}功能！`, type);
+  await bot.sendMessage(
+    id,
+    `我已经开始${isOn} ${target} 的${auth}功能！`,
+    type
+  );
 }
 
 async function setFeedbackAuth(msg, id, type) {
@@ -55,7 +60,7 @@ async function setCharacterOverviewAuth(msg, id, type) {
 
 async function setReplyAuth(msg, id, type) {
   let [target, isOn] = parse(msg);
-  let list = new Map([...bot.fl].concat([...bot.gl]));
+  let list = new Map([...bot.fl, ...bot.gl]);
 
   await setAuth("reply", target, isOn);
   await response(id, target, "响应消息", type, isOn ? "允许" : "禁止");
@@ -98,31 +103,31 @@ async function Plugin(Message) {
   }
 
   switch (true) {
-    case msg.startsWith("带话权限"):
+    case hasEntrance(msg, "master", "feedback_auth"):
       await setFeedbackAuth(msg, sendID, type);
       break;
-    case msg.startsWith("点歌权限"):
+    case hasEntrance(msg, "master", "music_auth"):
       await setMusicAuth(msg, sendID, type);
       break;
-    case msg.startsWith("十连权限"):
+    case hasEntrance(msg, "master", "gacha_auth"):
       await setGachaAuth(msg, sendID, type);
       break;
-    case msg.startsWith("圣遗物权限"):
+    case hasEntrance(msg, "master", "artifact_auth"):
       await setArtifactAuth(msg, sendID, type);
       break;
-    case msg.startsWith("评分权限"):
+    case hasEntrance(msg, "master", "rating_auth"):
       await setRatingAuth(msg, sendID, type);
       break;
-    case msg.startsWith("游戏数据权限"):
+    case hasEntrance(msg, "master", "query_gameinfo_auth"):
       await setQueryGameInfoAuth(msg, sendID, type);
       break;
-    case msg.startsWith("官方数据权限"):
+    case hasEntrance(msg, "master", "character_overview_auth"):
       await setCharacterOverviewAuth(msg, sendID, type);
       break;
-    case msg.startsWith("响应消息"):
+    case hasEntrance(msg, "master", "reply_auth"):
       await setReplyAuth(msg, sendID, type);
       break;
-    case msg.startsWith("刷新卡池"):
+    case hasEntrance(msg, "master", "refresh_wish_detail"):
       await refreshWishDetail(sendID, type);
       break;
   }

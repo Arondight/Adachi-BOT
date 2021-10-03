@@ -3,7 +3,7 @@ import { isMaster } from "../../utils/auth.js";
 async function reply(id, msg, type, user) {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
   let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
-  let list = new Map([...bot.fl].concat([...bot.gl]));
+  let list = new Map([...bot.fl, ...bot.gl]);
 
   if (!isMaster(user)) {
     await bot.sendMessage(id, `[CQ:at,qq=${user}] 不能使用管理命令。`, type);
