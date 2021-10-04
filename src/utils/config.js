@@ -193,7 +193,7 @@ function readSettingAndGreeting() {
   getConfig(
     { platform },
     { account },
-    { masters: [...(masters || []), ...(master || [])] },
+    { masters: [...(masters || []), ...(master ? [master] : [])] },
     { repeatProb },
     { groupHello },
     { groupGreetingNew },
