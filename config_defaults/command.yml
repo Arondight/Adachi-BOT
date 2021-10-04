@@ -4,12 +4,12 @@
 # ==============================================================================
 # plugin:
 #   enable: boolean          # 是否加载插件
-#   weights:                 # 帮助信息里权重越高显示越靠前
+#   weights: number          # 帮助信息里权重越高显示越靠前
 #   regex:
 #     - string               # 插件入口，命令匹配什么正则表达式（忽略大小写）
 #   functions:
 #     function:              # 功能代号，保证全文件唯一
-#       weights:             # 帮助信息里权重越高显示越靠前
+#       weights: number      # 帮助信息里权重越高显示越靠前
 #       name: string         # 命令的名字
 #       usage: string        # 呈现给用户的命令格式
 #       description: string  # 呈现给用户的命令说明
@@ -307,7 +307,8 @@ rating:
   enable: true
   weights: 9199
   regex:
-    - ^评分 *.+$ # https://github.com/Arondight/Adachi-BOT/issues/54
+    # https://github.com/Arondight/Adachi-BOT/issues/54
+    - ^评分 *.+$
   functions:
     rating:
       weights: 9999

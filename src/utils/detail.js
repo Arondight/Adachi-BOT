@@ -114,22 +114,21 @@ async function basePromise(mhyID, userID) {
   const { retcode, message, data } = await getBase(mhyID, cookie);
 
   return new Promise(async (resolve, reject) => {
+    const errInfo =
+      "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
+
     if (retcode !== 0) {
       reject(`米游社接口报错: ${message}`);
       return;
     } else if (!data.list || 0 === data.list.length) {
-      reject(
-        "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开"
-      );
+      reject(errInfo);
       return;
     }
 
     const baseInfo = data.list.find((el) => 2 === el["game_id"]);
 
     if (!baseInfo) {
-      reject(
-        "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开"
-      );
+      reject(errInfo);
       return;
     }
 

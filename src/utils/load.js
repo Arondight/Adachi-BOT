@@ -33,7 +33,7 @@ async function loadPlugins() {
 }
 
 async function processed(qqData, plugins, type) {
-  // 如果好友增加了，向新朋友问好
+  // 如果好友增加了，尝试向新朋友问好
   if (type === "friend.increase") {
     if (config.friendGreetingNew) {
       bot.sendMessage(qqData.user_id, config.greetingNew, "private");
@@ -43,11 +43,11 @@ async function processed(qqData, plugins, type) {
   }
 
   if (type === "group.increase") {
-    if (bot.uin == qqData.user_id) {
+    if (bot.uin === qqData.user_id) {
       // 如果加入了新群，向全群问好
       bot.sendMessage(qqData.group_id, config.greetingHello, "group");
     } else {
-      // 如果有新群友加入，向新群友问好
+      // 如果有新群友加入，尝试向新群友问好
       if (
         config.groupGreetingNew &&
         (await hasAuth(qqData.group_id, "reply"))
@@ -91,7 +91,7 @@ async function processed(qqData, plugins, type) {
     return;
   }
 
-  // 如果是机器人上线，所有群发送一遍上线通知
+  // 如果是机器人上线，尝试所有群发送一遍上线通知
   if ("online" === type) {
     if (config.groupHello) {
       bot.gl.forEach(async (group) => {

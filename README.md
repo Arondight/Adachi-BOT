@@ -22,7 +22,7 @@
 
 > 建议提供一个内存和交换空间容量**总和**达到 `1.5 GiB` 的 Linux 环境进行部署，以运行无头浏览器。
 
-首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，本项目不兼容较低版本的 Node.js 。
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较低版本的 Node.js 。
 
 <details>
 

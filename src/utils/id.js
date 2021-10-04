@@ -77,20 +77,16 @@ async function getID(msg, userID, isMhyID = true) {
     }
 
     return undefined; // 返回 undefined ，无法验证一个 QQ 号码是否为合法 UID
-  } else if (id !== undefined) {
-    // 字符串中有 ID，处理第一个
-    if (isMhyID) {
-      if (idstr && !(idstr.length >= 7 && idstr.length < 10)) {
-        errInfo = "米游社通行证 ID 不合法。";
-        return errInfo;
-      }
-
-      return id;
-    }
-
-    return getUID(id);
+  } else if (
+    id !== undefined &&
+    idstr &&
+    idstr.length >= 6 &&
+    idstr.length < 10
+  ) {
+    // 字符串中的 ID 大致合法
+    return isMhyID ? id : getUID(id);
   } else if (await db.includes("map", "user", "userID", userID)) {
-    // 字符串中无 ID
+    // 字符串中无看似合法的 ID
     if (isMhyID) {
       return (await db.get("map", "user", { userID })).mhyID; // 返回米游社 ID 或者 undefined
     }
