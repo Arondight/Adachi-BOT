@@ -2,7 +2,7 @@ import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -37,7 +37,15 @@ async function Plugin(Message) {
     return;
   }
 
-  await render(data, "genshin-overview", sendID, type, userID);
+  await render(data, "genshin-overview", sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

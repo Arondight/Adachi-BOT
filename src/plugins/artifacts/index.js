@@ -10,7 +10,7 @@ async function userInitialize(userID) {
   }
 }
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -26,7 +26,7 @@ async function Plugin(Message) {
     !(await hasAuth(userID, "artifact")) ||
     !(await hasAuth(sendID, "artifact"))
   ) {
-    await sendPrompt(sendID, userID, name, "抽取圣遗物", type);
+    await sendPrompt(sendID, userID, name, "抽取圣遗物", type, bot);
     return;
   }
 
@@ -75,7 +75,15 @@ async function Plugin(Message) {
     }
   }
 
-  await render(data, "genshin-artifact", sendID, type, userID);
+  await render(data, "genshin-artifact", sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

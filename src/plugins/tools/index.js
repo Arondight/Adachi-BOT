@@ -7,7 +7,7 @@ import { roll } from "./roll.js";
 import { search } from "./search.js";
 import { status } from "./status.js";
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -18,25 +18,25 @@ async function Plugin(Message) {
 
   switch (true) {
     case hasEntrance(msg, "tools", "feedback"):
-      feedback(sendID, name, msg, type, userID, groupName);
+      feedback(sendID, name, msg, type, userID, groupName, bot);
       break;
     case hasEntrance(msg, "tools", "group_boardcast", "private_boardcast"):
-      boardcast(sendID, msg, type, userID);
+      boardcast(sendID, msg, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "reply"):
-      reply(sendID, msg, type, userID);
+      reply(sendID, msg, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "group_search", "private_search", "search"):
-      search(sendID, msg, type, userID);
+      search(sendID, msg, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "count"):
-      count(sendID, msg, type, userID);
+      count(sendID, msg, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "status"):
-      status(sendID, type, userID);
+      status(sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "roll"):
-      roll(sendID, name, msg, type, userID);
+      roll(sendID, name, msg, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "help"):
       await bot.sendMessage(sendID, command.usage, type, userID);
@@ -47,4 +47,12 @@ async function Plugin(Message) {
   }
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

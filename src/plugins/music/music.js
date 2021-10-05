@@ -8,12 +8,14 @@ const MUSICSRC = {
   SRC_163: "163",
 };
 Object.freeze(MUSICSRC);
+
 const ERRCODE = {
   ERR_SRC: "1",
   ERR_404: "2",
   ERR_API: "3",
 };
 Object.freeze(ERRCODE);
+
 const errMsg = {
   [ERRCODE.ERR_SRC]: "错误的音乐源",
   [ERRCODE.ERR_404]: "没有查询到对应歌曲",

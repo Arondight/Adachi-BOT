@@ -18,7 +18,7 @@ async function userInitialize(userID) {
   }
 }
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -30,7 +30,7 @@ async function Plugin(Message) {
   await userInitialize(userID);
 
   if (!(await hasAuth(userID, "gacha")) || !(await hasAuth(sendID, "gacha"))) {
-    await sendPrompt(sendID, userID, name, "祈愿十连", type);
+    await sendPrompt(sendID, userID, name, "祈愿十连", type, bot);
     return;
   }
 
@@ -53,7 +53,7 @@ async function Plugin(Message) {
     await bot.sendMessage(sendID, `您的卡池已切换至：${cmd}。`, type, userID);
   } else if (hasEntrance(msg, "gacha", "gacha")) {
     let data = await getGachaResult(userID, name);
-    await render(data, "genshin-gacha", sendID, type, userID);
+    await render(data, "genshin-gacha", sendID, type, userID, bot);
   } else if (hasEntrance(msg, "gacha", "select-what")) {
     const { choice } = await db.get("gacha", "user", { userID });
 
@@ -128,4 +128,12 @@ async function Plugin(Message) {
   }
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

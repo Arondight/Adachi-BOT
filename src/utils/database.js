@@ -2,11 +2,13 @@ import { Low, JSONFileSync } from "lowdb";
 import url from "url";
 import path from "path";
 import lodash from "lodash";
+import { Mutex } from "./mutex.js";
 import { getID } from "./id.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const db = {};
+const mutex = new Mutex();
 
 // 如果数据库不存在，将自动创建新的空数据库。
 async function init(dbName, defaultElement = { user: [] }) {
@@ -34,7 +36,11 @@ async function has(dbName, ...path) {
 }
 
 async function write(dbName) {
-  return undefined === db[dbName] ? false : db[dbName].write();
+  if (db[dbName]) {
+    await mutex.acquire();
+    db[dbName].write();
+    mutex.release();
+  }
 }
 
 async function includes(dbName, key, index, value) {
@@ -56,7 +62,11 @@ async function push(dbName, key, data) {
   if (undefined === db[dbName]) {
     return;
   }
+
+  await mutex.acquire();
   db[dbName].chain.get(key).push(data).value();
+  mutex.release();
+
   write(dbName);
 }
 
@@ -64,7 +74,11 @@ async function update(dbName, key, index, data) {
   if (undefined === db[dbName]) {
     return;
   }
+
+  await mutex.acquire();
   db[dbName].chain.get(key).find(index).assign(data).value();
+  mutex.release();
+
   write(dbName);
 }
 
@@ -72,7 +86,11 @@ async function set(dbName, key, data) {
   if (undefined === db[dbName]) {
     return;
   }
+
+  await mutex.acquire();
   db[dbName].chain.set(key, data).value();
+  mutex.release();
+
   write(dbName);
 }
 

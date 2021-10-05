@@ -8,12 +8,12 @@ import {
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
-const generateImage = async (uid, id, type, user) => {
+const generateImage = async (uid, id, type, user, bot) => {
   const data = await db.get("info", "user", { uid });
-  await render(data, "genshin-card", id, type, user);
+  await render(data, "genshin-card", id, type, user, bot);
 };
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -39,10 +39,10 @@ async function Plugin(Message) {
   }
 
   try {
-    const baseInfo = await basePromise(dbInfo, userID);
+    const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
-    const detailInfo = await detailPromise(...baseInfo, userID);
-    await characterPromise(...baseInfo, detailInfo);
+    const detailInfo = await detailPromise(...baseInfo, userID, bot);
+    await characterPromise(...baseInfo, detailInfo, bot);
   } catch (errInfo) {
     if (errInfo !== "") {
       await bot.sendMessage(sendID, errInfo, type, userID);
@@ -50,7 +50,15 @@ async function Plugin(Message) {
     }
   }
 
-  await generateImage(uid, sendID, type, userID);
+  await generateImage(uid, sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };
