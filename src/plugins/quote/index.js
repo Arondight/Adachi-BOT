@@ -1,6 +1,9 @@
 import fetch from "node-fetch";
+import { Mutex } from "../../utils/mutex.js";
 
-async function Plugin(Message) {
+const mutex = new Mutex();
+
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -24,4 +27,15 @@ async function Plugin(Message) {
   await bot.sendMessage(sendID, "伟大的升华！", type, userID);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    //await mutex.acquire();
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  } finally {
+    //mutex.release();
+  }
+}
+
+export { Wrapper as run };

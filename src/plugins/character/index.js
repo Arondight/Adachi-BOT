@@ -3,8 +3,11 @@ import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { basePromise } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
+import { Mutex } from "../../utils/mutex.js";
 
-async function Plugin(Message) {
+const mutex = new Mutex();
+
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -16,7 +19,7 @@ async function Plugin(Message) {
   let uid, data;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, "查询游戏内信息", type);
+    await sendPrompt(sendID, userID, "查询游戏内信息", type, bot);
     return;
   }
 
@@ -31,7 +34,7 @@ async function Plugin(Message) {
   }
 
   try {
-    const baseInfo = await basePromise(dbInfo, userID);
+    const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
     const { avatars } = await db.get("info", "user", { uid });
     character = alias[character] ? alias[character] : character;
@@ -53,7 +56,18 @@ async function Plugin(Message) {
     }
   }
 
-  await render({ uid, data }, "genshin-character", sendID, type, userID);
+  await render({ uid, data }, "genshin-character", sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    //await mutex.acquire();
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  } finally {
+    //mutex.release();
+  }
+}
+
+export { Wrapper as run };

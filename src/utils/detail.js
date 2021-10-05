@@ -33,7 +33,7 @@ async function userInitialize(userID, uid, nickname, level) {
   }
 }
 
-async function abyPromise(uid, server, userID, schedule_type) {
+async function abyPromise(uid, server, userID, schedule_type, bot) {
   await userInitialize(userID, uid, "", -1);
   await db.update("character", "user", { userID }, { uid });
 
@@ -80,7 +80,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
     }
   }
 
-  const cookie = await getCookie(uid, true);
+  const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getAbyDetail(
     uid,
     schedule_type,
@@ -109,8 +109,8 @@ async function abyPromise(uid, server, userID, schedule_type) {
   });
 }
 
-async function basePromise(mhyID, userID) {
-  const cookie = await getCookie("MHY" + mhyID, false);
+async function basePromise(mhyID, userID, bot) {
+  const cookie = await getCookie("MHY" + mhyID, false, bot);
   const { retcode, message, data } = await getBase(mhyID, cookie);
 
   return new Promise(async (resolve, reject) => {
@@ -140,7 +140,7 @@ async function basePromise(mhyID, userID) {
   });
 }
 
-async function detailPromise(uid, server, userID) {
+async function detailPromise(uid, server, userID, bot) {
   await userInitialize(userID, uid, "", -1);
   await db.update("character", "user", { userID }, { uid });
 
@@ -160,7 +160,7 @@ async function detailPromise(uid, server, userID) {
     return Promise.reject("");
   }
 
-  const cookie = await getCookie(uid, true);
+  const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getDetail(uid, server, cookie);
 
   return new Promise(async (resolve, reject) => {
@@ -197,8 +197,8 @@ async function detailPromise(uid, server, userID) {
   });
 }
 
-async function characterPromise(uid, server, character_ids) {
-  const cookie = await getCookie(uid, true);
+async function characterPromise(uid, server, character_ids, bot) {
+  const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getCharacters(
     uid,
     server,

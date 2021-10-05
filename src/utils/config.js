@@ -6,6 +6,7 @@ const Greeting = loadYML("greeting");
 const Command = loadYML("command");
 const Master = loadYML("command_master");
 const Alias = loadYML("alias");
+const Menu = loadYML("menu");
 
 function map(object, key, defaultValue = undefined, revert = false) {
   return lodash.reduce(
@@ -132,7 +133,7 @@ function makeUsage(object) {
 }
 
 // global.config
-function readSettingAndGreeting() {
+function readSettingGreetingMenu() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
   const defaultConfig = {
     // 登录协议为 iPad
@@ -157,11 +158,8 @@ function readSettingAndGreeting() {
     dbInfoEffectTime: 168,
   };
 
-  // 1:安卓手机 2:aPad 3:安卓手表 4:MacOS 5:iPad
-  let platform = [1, 2, 3, 4, 5].includes(Setting["account"].platform)
-    ? Setting["account"].platform
-    : undefined;
   let account = Setting["account"];
+  let accounts = Setting["accounts"];
   // 用于兼容旧配置，已经被 masters 取代
   let master = Setting["master"];
   let masters = Setting["masters"];
@@ -178,6 +176,7 @@ function readSettingAndGreeting() {
   let greetingDie = Greeting["die"];
   let greetingHello = Greeting["hello"];
   let greetingNew = Greeting["new"];
+  let menu = Menu;
 
   global.config = {};
 
@@ -195,8 +194,7 @@ function readSettingAndGreeting() {
   };
 
   getConfig(
-    { platform },
-    { account },
+    { accounts: [...(accounts || []), ...(account ? [account] : [])] },
     { masters: [...(masters || []), ...(master ? [master] : [])] },
     { atUser },
     { repeatProb },
@@ -210,8 +208,16 @@ function readSettingAndGreeting() {
     { greetingOnline },
     { greetingDie },
     { greetingHello },
-    { greetingNew }
+    { greetingNew },
+    { menu }
   );
+
+  for (const option of config.accounts) {
+    // 1:安卓手机、 2:aPad、 3:安卓手表、 4:MacOS、 5:iPad
+    if (![1, 2, 3, 4, 5].includes(option.platform)) {
+      option.platform = defaultConfig.platform;
+    }
+  }
 }
 
 // global.alias ->  alias: name (string)
@@ -271,7 +277,7 @@ function getUsage() {
 }
 
 async function readConfig() {
-  readSettingAndGreeting();
+  readSettingGreetingMenu();
   readCommand();
   readAlias();
   getUsage();

@@ -1,10 +1,10 @@
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 
-async function feedback(id, uname, msg, type, user, gname) {
+async function feedback(id, uname, msg, type, user, gname, bot) {
   let info = msg.slice(4);
 
-  if (!(await hasAuth(id, "feedback")) || !(await hasAuth(id, "feedback"))) {
-    await sendPrompt(id, user, uname, "带话", type);
+  if (!(await hasAuth(id, "feedback")) || !(await hasAuth(user, "feedback"))) {
+    await sendPrompt(id, user, uname, "带话", type, bot);
   } else {
     // 私聊无法 @
     await bot.sendMaster(

@@ -17,22 +17,22 @@ async function loadPlugins() {
       if (enableList[plugin] && true === enableList[plugin]) {
         try {
           plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
-          bot.logger.debug(`插件：加载 ${plugin} 成功。`);
+          bots[0].logger.debug(`插件：加载 ${plugin} 成功。`);
         } catch (error) {
-          bot.logger.error(`插件：加载 ${plugin} 失败（${error}）。`);
+          bots[0].logger.error(`插件：加载 ${plugin} 失败（${error}）。`);
         }
       } else {
-        bot.logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
+        bots[0].logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
       }
     } else {
-      bot.logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
+      bots[0].logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
     }
   }
 
   return plugins;
 }
 
-async function processed(qqData, plugins, type) {
+async function processed(qqData, plugins, type, bot) {
   // 如果好友增加了，尝试向新朋友问好
   if (type === "friend.increase") {
     if (config.friendGreetingNew) {
@@ -79,7 +79,7 @@ async function processed(qqData, plugins, type) {
       const r = new RegExp(regex, "i");
 
       if (r.test(qqData.raw_message)) {
-        plugins[regexPool[regex]].run({ ...qqData, type });
+        plugins[regexPool[regex]].run({ ...qqData, type }, bot);
         return;
       }
     }

@@ -7,13 +7,16 @@ import {
   characterPromise,
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
+import { Mutex } from "../../utils/mutex.js";
 
-async function generateImage(uid, id, type, user) {
+const mutex = new Mutex();
+
+async function generateImage(uid, id, type, user, bot) {
   let data = await db.get("info", "user", { uid });
-  await render(data, "genshin-info", id, type, user);
+  await render(data, "genshin-info", id, type, user, bot);
 }
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -23,7 +26,7 @@ async function Plugin(Message) {
   let dbInfo = await getID(msg, userID, false); // UID
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
+    await sendPrompt(sendID, userID, name, "查询游戏内信息", type, bot);
     return;
   }
 
@@ -42,7 +45,7 @@ async function Plugin(Message) {
         return;
       }
 
-      const baseInfo = await basePromise(dbInfo, userID);
+      const baseInfo = await basePromise(dbInfo, userID, bot);
       const uid = baseInfo[0];
       dbInfo = await getID(uid, userID, false); // UID
 
@@ -52,8 +55,8 @@ async function Plugin(Message) {
       }
     }
 
-    const detailInfo = await detailPromise(...dbInfo, userID);
-    await characterPromise(...dbInfo, detailInfo);
+    const detailInfo = await detailPromise(...dbInfo, userID, bot);
+    await characterPromise(...dbInfo, detailInfo, bot);
   } catch (errInfo) {
     if (errInfo !== "") {
       await bot.sendMessage(sendID, errInfo, type, userID);
@@ -61,7 +64,18 @@ async function Plugin(Message) {
     }
   }
 
-  await generateImage(dbInfo[0], sendID, type, userID);
+  await generateImage(dbInfo[0], sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    //await mutex.acquire();
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  } finally {
+    //mutex.release();
+  }
+}
+
+export { Wrapper as run };

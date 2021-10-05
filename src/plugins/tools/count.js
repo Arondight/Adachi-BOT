@@ -1,7 +1,7 @@
 import { isMaster } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 
-async function count(id, msg, type, user) {
+async function count(id, msg, type, user, bot) {
   let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let report = "";
   let num = 0;

@@ -1,8 +1,11 @@
 import db from "../../utils/database.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
+import { Mutex } from "../../utils/mutex.js";
 
-async function Plugin(Message) {
+const mutex = new Mutex();
+
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -58,4 +61,15 @@ async function Plugin(Message) {
   }
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    //await mutex.acquire();
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  } finally {
+    //mutex.release();
+  }
+}
+
+export { Wrapper as run };

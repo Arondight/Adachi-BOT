@@ -1,6 +1,9 @@
 import { gachaUpdate } from "../../utils/update.js";
-import { isMaster, setAuth, sendPrompt } from "../../utils/auth.js";
+import { isMaster, setAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
+import { Mutex } from "../../utils/mutex.js";
+
+const mutex = new Mutex();
 
 function parse(msg) {
   let id = parseInt(msg.match(/[0-9]+/g)[0]);
@@ -8,7 +11,7 @@ function parse(msg) {
   return [id, isOn];
 }
 
-async function response(id, target, auth, type, isOn, user) {
+async function response(id, target, auth, type, isOn, user, bot) {
   await bot.sendMessage(
     id,
     `我已经开始${isOn} ${target} 的${auth}功能！`,
@@ -17,37 +20,61 @@ async function response(id, target, auth, type, isOn, user) {
   );
 }
 
-async function setFeedbackAuth(msg, id, type, user) {
+async function setFeedbackAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("feedback", target, isOn);
-  await response(id, target, "带话", type, isOn ? "允许" : "禁止", user);
+  await response(id, target, "带话", type, isOn ? "允许" : "禁止", user, bot);
 }
 
-async function setMusicAuth(msg, id, type, user) {
+async function setMusicAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("music", target, isOn);
-  await response(id, target, "点歌", type, isOn ? "允许" : "禁止", user);
+  await response(id, target, "点歌", type, isOn ? "允许" : "禁止", user, bot);
 }
 
-async function setGachaAuth(msg, id, type, user) {
+async function setGachaAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("gacha", target, isOn);
-  await response(id, target, "祈愿十连", type, isOn ? "允许" : "禁止", user);
+  await response(
+    id,
+    target,
+    "祈愿十连",
+    type,
+    isOn ? "允许" : "禁止",
+    user,
+    bot
+  );
 }
 
-async function setArtifactAuth(msg, id, type, user) {
+async function setArtifactAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("artifact", target, isOn);
-  await response(id, target, "抽取圣遗物", type, isOn ? "允许" : "禁止", user);
+  await response(
+    id,
+    target,
+    "抽取圣遗物",
+    type,
+    isOn ? "允许" : "禁止",
+    user,
+    bot
+  );
 }
 
-async function setRatingAuth(msg, id, type, user) {
+async function setRatingAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("rating", target, isOn);
-  await response(id, target, "圣遗物评分", type, isOn ? "允许" : "禁止", user);
+  await response(
+    id,
+    target,
+    "圣遗物评分",
+    type,
+    isOn ? "允许" : "禁止",
+    user,
+    bot
+  );
 }
 
-async function setQueryGameInfoAuth(msg, id, type, user) {
+async function setQueryGameInfoAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("query", target, isOn);
   await response(
@@ -56,11 +83,12 @@ async function setQueryGameInfoAuth(msg, id, type, user) {
     "查询游戏内信息",
     type,
     isOn ? "允许" : "禁止",
-    user
+    user,
+    bot
   );
 }
 
-async function setCharacterOverviewAuth(msg, id, type, user) {
+async function setCharacterOverviewAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   await setAuth("overview", target, isOn);
   await response(
@@ -73,7 +101,7 @@ async function setCharacterOverviewAuth(msg, id, type, user) {
   );
 }
 
-async function setReplyAuth(msg, id, type, user) {
+async function setReplyAuth(msg, id, type, user, bot) {
   let [target, isOn] = parse(msg);
   let list = new Map([...bot.fl, ...bot.gl]);
 
@@ -96,12 +124,12 @@ async function setReplyAuth(msg, id, type, user) {
   });
 }
 
-async function refreshWishDetail(id, type, user) {
+async function refreshWishDetail(id, type, user, bot) {
   gachaUpdate();
   await bot.sendMessage(id, "卡池内容已刷新。", type, user);
 }
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -116,33 +144,44 @@ async function Plugin(Message) {
 
   switch (true) {
     case hasEntrance(msg, "master", "feedback_auth"):
-      await setFeedbackAuth(msg, sendID, type, userID);
+      await setFeedbackAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "music_auth"):
-      await setMusicAuth(msg, sendID, type, userID);
+      await setMusicAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "gacha_auth"):
-      await setGachaAuth(msg, sendID, type, userID);
+      await setGachaAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "artifact_auth"):
-      await setArtifactAuth(msg, sendID, type, userID);
+      await setArtifactAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "rating_auth"):
-      await setRatingAuth(msg, sendID, type, userID);
+      await setRatingAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "query_gameinfo_auth"):
-      await setQueryGameInfoAuth(msg, sendID, type, userID);
+      await setQueryGameInfoAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "character_overview_auth"):
-      await setCharacterOverviewAuth(msg, sendID, type, userID);
+      await setCharacterOverviewAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "reply_auth"):
-      await setReplyAuth(msg, sendID, type, userID);
+      await setReplyAuth(msg, sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "master", "refresh_wish_detail"):
-      await refreshWishDetail(sendID, type, userID);
+      await refreshWishDetail(sendID, type, userID, bot);
       break;
   }
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    //await mutex.acquire();
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  } finally {
+    //mutex.release();
+  }
+}
+
+export { Wrapper as run };
