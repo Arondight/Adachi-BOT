@@ -12,7 +12,7 @@ async function Plugin(Message) {
   let mhyID = id;
 
   if ("string" === typeof id) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${id}`, type);
+    await bot.sendMessage(sendID, id, type, userID);
     return;
   }
 
@@ -26,14 +26,16 @@ async function Plugin(Message) {
 
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 通行证绑定成功，使用【${command.functions.entrance.card[0]}】来查询游戏信息并更新你的游戏角色。`,
-        type
+        `通行证绑定成功，使用【${command.functions.entrance.card[0]}】来查询游戏信息并更新您的游戏角色。`,
+        type,
+        userID
       );
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 您已绑定通行证，请使用【${command.functions.entrance.change[0]} ${mhyID}】。`,
-        type
+        `您已绑定通行证，请使用【${command.functions.entrance.change[0]} ${mhyID}】。`,
+        type,
+        userID
       );
     }
   } else if (hasEntrance(msg, "save", "change")) {
@@ -41,14 +43,16 @@ async function Plugin(Message) {
       await db.update("map", "user", { userID }, { mhyID });
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 通行证改绑成功，使用【${command.functions.entrance.card[0]}】来查询游戏信息并更新你的游戏角色。`,
-        type
+        `通行证改绑成功，使用【${command.functions.entrance.card[0]}】来查询游戏信息并更新您的游戏角色。`,
+        type,
+        userID
       );
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 您还未绑定通行证，请使用【${command.functions.entrance.save[0]} ${mhyID}】。`,
-        type
+        `您还未绑定通行证，请使用【${command.functions.entrance.save[0]} ${mhyID}】。`,
+        type,
+        userID
       );
     }
   }

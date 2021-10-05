@@ -33,8 +33,9 @@ async function Plugin(Message) {
   } catch {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 您看上去没有发送圣遗物属性截图，${whisper}。`,
-      type
+      `您看上去没有发送圣遗物属性截图，${whisper}。`,
+      type,
+      userID
     );
     return;
   }
@@ -45,8 +46,9 @@ async function Plugin(Message) {
   } else {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 没有正确接收到截图，请再试一次。`,
-      type
+      "没有正确接收到截图，请再试一次。",
+      type,
+      userID
     );
     return;
   }
@@ -67,11 +69,7 @@ async function Plugin(Message) {
   });
 
   if (200 != response.status) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] AI 识别出错，${whisper}。`,
-      type
-    );
+    await bot.sendMessage(sendID, `AI 识别出错，${whisper}。`, type, userID);
     return;
   }
 
@@ -153,14 +151,16 @@ async function Plugin(Message) {
     if (lodash.hasIn(ret, "code") && 50003 === ret["code"]) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 你上传了正确的截图，但是 AI 未能正确识别，请重新截图。`,
-        type
+        "您上传了正确的截图，但是 AI 未能识别，请重新截图。",
+        type,
+        userID
       );
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 圣遗物评分出错，${whisper}。`,
-        type
+        `圣遗物评分出错，${whisper}。`,
+        type,
+        userID
       );
     }
 
@@ -168,21 +168,22 @@ async function Plugin(Message) {
   }
 
   if (200 === response.status || lodash.hasIn(ret, "total_percent")) {
-    data = `[CQ:at,qq=${userID}] 您的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
+    data = `您的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
 ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
 ==========`;
 
     prop["sub_item"].forEach((item) => {
       data += `\n${item["name"]}：${item["value"]}`;
     });
-    await bot.sendMessage(sendID, data, type);
+    await bot.sendMessage(sendID, data, type, userID);
     return;
   }
 
   await bot.sendMessage(
     sendID,
-    `[CQ:at,qq=${userID}] 发生了一个未知错误，请再试一次。`,
-    type
+    "发生了一个未知错误，请再试一次。",
+    type,
+    userID
   );
 }
 

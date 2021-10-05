@@ -18,12 +18,12 @@ async function Plugin(Message) {
   let breakfastIdx = getRandomInt(breakfastMenu.length) - 1;
   let lunchIdx = getRandomInt(lunchMenu.length) - 1;
   let dinnerIdx = getRandomInt(dinnerMenu.length) - 1;
-  let message = `为 [CQ:at,qq=${userID}] 推荐的今日菜单是：
+  let message = `今日的推荐菜单是：
 早餐：${breakfastMenu[breakfastIdx]}
 午餐：${lunchMenu[lunchIdx]}
 晚餐：${dinnerMenu[dinnerIdx]}`;
 
-  await bot.sendMessage(sendID, message, type);
+  await bot.sendMessage(sendID, message, type, userID);
 }
 
 export { Plugin as run };

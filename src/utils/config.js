@@ -124,6 +124,7 @@ function makeUsage(object) {
       }\n`;
     }
   }
+
   text += `-------------------
 <> 表示必填，[] 表示可选，前面需加空格`;
 
@@ -136,6 +137,8 @@ function readSettingAndGreeting() {
   const defaultConfig = {
     // 登录协议为 iPad
     platform: 5,
+    // 群聊回复时不 @ 用户
+    atUser: 0,
     // 不复读群消息
     repeatProb: 0,
     // 不发送群通知
@@ -162,6 +165,7 @@ function readSettingAndGreeting() {
   // 用于兼容旧配置，已经被 masters 取代
   let master = Setting["master"];
   let masters = Setting["masters"];
+  let atUser = parseInt(Setting["atUser"]);
   let repeatProb = parseInt(Setting["repeatProb"]);
   let groupHello = parseInt(Setting["groupHello"]);
   let groupGreetingNew = parseInt(Setting["groupGreetingNew"]);
@@ -194,6 +198,7 @@ function readSettingAndGreeting() {
     { platform },
     { account },
     { masters: [...(masters || []), ...(master ? [master] : [])] },
+    { atUser },
     { repeatProb },
     { groupHello },
     { groupGreetingNew },

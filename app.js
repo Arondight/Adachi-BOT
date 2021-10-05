@@ -8,14 +8,27 @@ async function login() {
     log_level: "debug",
     platform: config.platform,
   });
-  BOT.sendMessage = async (id, msg, type) => {
-    if ("group" === type) {
-      await BOT.sendGroupMsg(id, msg);
-    } else if ("private" === type) {
-      await BOT.sendPrivateMsg(id, msg);
+  BOT.sendMessage = async (
+    id,
+    msg,
+    type = "private",
+    sender = undefined,
+    delimiter = " ",
+    atSender = true
+  ) => {
+    switch (true) {
+      case "group" === type:
+        if (config.atUser && sender && atSender) {
+          msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
+        }
+        await BOT.sendGroupMsg(id, msg);
+        break;
+      case "private" === type:
+        await BOT.sendPrivateMsg(id, msg);
+        break;
     }
   };
-  BOT.sendMaster = async (id, msg, type) => {
+  BOT.sendMaster = async (id, msg, type, user) => {
     if (Array.isArray(config.masters) && config.masters.length) {
       config.masters.forEach(async (master) => {
         if (master) {
@@ -23,7 +36,7 @@ async function login() {
         }
       });
     } else {
-      await BOT.sendMessage(id, "未设置我的主人。", type);
+      await BOT.sendMessage(id, "未设置我的主人。", type, user);
     }
   };
   global.bot = BOT;
@@ -51,6 +64,7 @@ async function report() {
   const say = (text) => bot.logger.debug(`配置：${text}`);
 
   say(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
+  say(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
   say(`群消息复读的概率为 ${config.repeatProb}% 。`);
   say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
   say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);

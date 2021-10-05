@@ -8,9 +8,9 @@ import {
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
-async function generateImage(uid, id, type) {
+async function generateImage(uid, id, type, user) {
   let data = await db.get("info", "user", { uid });
-  await render(data, "genshin-info", id, type);
+  await render(data, "genshin-info", id, type, user);
 }
 
 async function Plugin(Message) {
@@ -28,7 +28,7 @@ async function Plugin(Message) {
   }
 
   if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+    await bot.sendMessage(sendID, dbInfo, type, userID);
     return;
   }
 
@@ -38,7 +38,7 @@ async function Plugin(Message) {
       dbInfo = await getID(msg, userID); // 米游社 ID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+        await bot.sendMessage(sendID, dbInfo, type, userID);
         return;
       }
 
@@ -47,7 +47,7 @@ async function Plugin(Message) {
       dbInfo = await getID(uid, userID, false); // UID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+        await bot.sendMessage(sendID, dbInfo, type, userID);
         return;
       }
     }
@@ -56,12 +56,12 @@ async function Plugin(Message) {
     await characterPromise(...dbInfo, detailInfo);
   } catch (errInfo) {
     if (errInfo !== "") {
-      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
+      await bot.sendMessage(sendID, errInfo, type, userID);
       return;
     }
   }
 
-  await generateImage(dbInfo[0], sendID, type);
+  await generateImage(dbInfo[0], sendID, type, userID);
 }
 
 export { Plugin as run };

@@ -21,16 +21,12 @@ async function Plugin(Message) {
   }
 
   if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+    await bot.sendMessage(sendID, dbInfo, type, userID);
     return;
   }
 
   if (!character) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 请正确输入角色名称。`,
-      type
-    );
+    await bot.sendMessage(sendID, "请正确输入角色名称。", type, userID);
     return;
   }
 
@@ -44,19 +40,20 @@ async function Plugin(Message) {
     if (!data) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 查询失败，如果您拥有该角色，使用【${command.functions.entrance.card[0]}】或【${command.functions.entrance.package[0]}】更新游戏角色后再次查询。`,
-        type
+        `查询失败，如果您拥有该角色，使用【${command.functions.entrance.card[0]}】或【${command.functions.entrance.package[0]}】更新游戏角色后再次查询。`,
+        type,
+        userID
       );
       return;
     }
   } catch (errInfo) {
     if (errInfo !== "") {
-      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
+      await bot.sendMessage(sendID, errInfo, type, userID);
       return;
     }
   }
 
-  await render({ uid, data }, "genshin-character", sendID, type);
+  await render({ uid, data }, "genshin-character", sendID, type, userID);
 }
 
 export { Plugin as run };
