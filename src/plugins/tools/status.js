@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 async function status(id, type, user) {
   if (!isMaster(user)) {
-    await bot.sendMessage(id, `[CQ:at,qq=${user}] 不能使用管理命令。`, type);
+    await bot.sendMessage(id, "不能使用管理命令。", type, user);
     return;
   }
 
@@ -32,7 +32,7 @@ CPU：${load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${
 启动：${moment.duration(time.uptime * 1000).humanize()}
 数据：${pb(du(path.resolve(__dirname, "..", "..", "..", "data", "db")))}`;
 
-  await bot.sendMessage(id, str, type);
+  await bot.sendMessage(id, str, type, user, "\n");
 }
 
 export { status };

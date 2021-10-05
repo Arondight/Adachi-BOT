@@ -5,9 +5,9 @@ import { basePromise, abyPromise } from "../../utils/detail.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
 
-async function generateImage(uid, id, type) {
+async function generateImage(uid, id, type, user) {
   let data = await db.get("aby", "user", { uid });
-  await render(data, "genshin-aby", id, type);
+  await render(data, "genshin-aby", id, type, user);
 }
 
 async function Plugin(Message) {
@@ -30,7 +30,7 @@ async function Plugin(Message) {
   }
 
   if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+    await bot.sendMessage(sendID, dbInfo, type, userID);
     return;
   }
 
@@ -40,7 +40,7 @@ async function Plugin(Message) {
       dbInfo = await getID(msg, userID); // 米游社 ID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+        await bot.sendMessage(sendID, dbInfo, type, userID);
         return;
       }
 
@@ -49,7 +49,7 @@ async function Plugin(Message) {
       dbInfo = await getID(uid, userID, false); // UID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbinfo}`, type);
+        await bot.sendMessage(sendID, dbinfo, type, userID);
         return;
       }
     }
@@ -57,30 +57,22 @@ async function Plugin(Message) {
     const abyInfo = await abyPromise(...dbInfo, userID, schedule_type);
 
     if (!abyInfo) {
-      await bot.sendMessage(
-        sendID,
-        `[CQ:at,qq=${userID}] 您似乎从未挑战过深境螺旋。`,
-        type
-      );
+      await bot.sendMessage(sendID, "您似乎从未挑战过深境螺旋。", type, userID);
       return;
     }
 
     if (!abyInfo["floors"].length) {
-      await bot.sendMessage(
-        sendID,
-        `[CQ:at,qq=${userID}] 无渊月螺旋记录。`,
-        type
-      );
+      await bot.sendMessage(sendID, "无渊月螺旋记录。", type, userID);
       return;
     }
   } catch (errInfo) {
     if (errInfo !== "") {
-      await bot.sendMessage(sendID, errInfo, type);
+      await bot.sendMessage(sendID, errInfo, type, userID);
       return;
     }
   }
 
-  await generateImage(dbInfo[0], sendID, type);
+  await generateImage(dbInfo[0], sendID, type, userID);
 }
 
 export { Plugin as run };

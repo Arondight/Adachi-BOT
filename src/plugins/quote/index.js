@@ -18,14 +18,10 @@ async function Plugin(Message) {
 
   if (200 === response.status) {
     let { quote, from } = await response.json();
-    return await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] ${quote}\n${from}`,
-      type
-    );
+    return await bot.sendMessage(sendID, `${quote}\n${from}`, type, userID);
   }
 
-  await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 伟大的升华！`, type);
+  await bot.sendMessage(sendID, "伟大的升华！", type, userID);
 }
 
 export { Plugin as run };

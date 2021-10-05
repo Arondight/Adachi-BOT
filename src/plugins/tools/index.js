@@ -39,10 +39,10 @@ async function Plugin(Message) {
       roll(sendID, name, msg, type, userID);
       break;
     case hasEntrance(msg, "tools", "help"):
-      await bot.sendMessage(sendID, command.usage, type);
+      await bot.sendMessage(sendID, command.usage, type, userID);
       break;
     case hasEntrance(msg, "tools", "master"):
-      await bot.sendMessage(sendID, master.usage, type);
+      await bot.sendMessage(sendID, master.usage, type, userID);
       break;
   }
 }
