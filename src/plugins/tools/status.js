@@ -32,7 +32,7 @@ CPU：${load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${
 启动：${moment.duration(time.uptime * 1000).humanize()}
 数据：${pb(du(path.resolve(__dirname, "..", "..", "..", "data", "db")))}`;
 
-  await bot.sendMessage(id, str, type, user);
+  await bot.sendMessage(id, str, type, user, "\n");
 }
 
 export { status };

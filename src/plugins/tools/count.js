@@ -24,7 +24,7 @@ async function count(id, msg, type, user) {
 
     report += `\n群友个数：${num}`;
 
-    await bot.sendMessage(id, report, type, user);
+    await bot.sendMessage(id, report, type, user, "\n");
     return;
   }
 }
