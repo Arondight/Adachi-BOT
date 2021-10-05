@@ -289,9 +289,11 @@ function hasEntrance(message, plugin, ...entrance) {
       }
 
       // 验证 message 是否以 entrance 对应的字符串开始（忽略大小写）
-      for (const t of all.functions.entrance[e]) {
-        if (messageu.startsWith(t.toLowerCase())) {
-          return true;
+      if (Array.isArray(all.functions.entrance[e])) {
+        for (const t of all.functions.entrance[e]) {
+          if (t && messageu.startsWith(t.toLowerCase())) {
+            return true;
+          }
         }
       }
     }
