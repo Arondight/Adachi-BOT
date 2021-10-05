@@ -1,9 +1,6 @@
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 async function Plugin(Message, bot) {
   let msg = Message.raw_message;
@@ -45,12 +42,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

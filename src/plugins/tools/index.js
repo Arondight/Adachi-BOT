@@ -1,5 +1,4 @@
 import { hasEntrance } from "../../utils/config.js";
-import { Mutex } from "../../utils/mutex.js";
 import { boardcast } from "./boardcast.js";
 import { count } from "./count.js";
 import { feedback } from "./feedback.js";
@@ -7,8 +6,6 @@ import { reply } from "./reply.js";
 import { roll } from "./roll.js";
 import { search } from "./search.js";
 import { status } from "./status.js";
-
-const mutex = new Mutex();
 
 async function Plugin(Message, bot) {
   let msg = Message.raw_message;
@@ -52,12 +49,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

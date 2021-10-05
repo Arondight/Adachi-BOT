@@ -2,9 +2,6 @@ import db from "../../utils/database.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { errMsg, musicID, musicSrc } from "./music.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 async function Plugin(Message, bot) {
   let msg = Message.raw_message;
@@ -46,12 +43,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

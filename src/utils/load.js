@@ -17,15 +17,17 @@ async function loadPlugins() {
       if (enableList[plugin] && true === enableList[plugin]) {
         try {
           plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
-          bots[0].logger.debug(`插件：加载 ${plugin} 成功。`);
+          bots[0] && bots[0].logger.debug(`插件：加载 ${plugin} 成功。`);
         } catch (error) {
-          bots[0].logger.error(`插件：加载 ${plugin} 失败（${error}）。`);
+          bots[0] &&
+            bots[0].logger.error(`插件：加载 ${plugin} 失败（${error}）。`);
         }
       } else {
-        bots[0].logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
+        bots[0] &&
+          bots[0].logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
       }
     } else {
-      bots[0].logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
+      bots[0] && bots[0].logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
     }
   }
 

@@ -130,12 +130,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

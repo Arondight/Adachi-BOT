@@ -3,9 +3,6 @@ import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getArtifact, domainInfo, domainMax } from "./artifacts.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 async function userInitialize(userID) {
   if (!(await db.includes("artifact", "user", "userID", userID))) {
@@ -83,12 +80,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

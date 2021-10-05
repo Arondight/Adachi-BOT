@@ -1,9 +1,6 @@
 import { gachaUpdate } from "../../utils/update.js";
 import { isMaster, setAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 function parse(msg) {
   let id = parseInt(msg.match(/[0-9]+/g)[0]);
@@ -175,12 +172,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

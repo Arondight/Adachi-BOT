@@ -7,9 +7,6 @@ import {
   characterPromise,
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 const generateImage = async (uid, id, type, user, bot) => {
   const data = await db.get("info", "user", { uid });
@@ -58,12 +55,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

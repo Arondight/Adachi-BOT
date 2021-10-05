@@ -4,9 +4,6 @@ import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { basePromise, abyPromise } from "../../utils/detail.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 async function generateImage(uid, id, type, user, bot) {
   let data = await db.get("aby", "user", { uid });
@@ -80,12 +77,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

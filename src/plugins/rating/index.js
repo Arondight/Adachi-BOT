@@ -1,9 +1,6 @@
 import lodash from "lodash";
 import fetch from "node-fetch";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 async function Plugin(Message, bot) {
   let msg = Message.raw_message;
@@ -192,12 +189,9 @@ ${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

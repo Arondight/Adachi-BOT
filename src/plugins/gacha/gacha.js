@@ -3,12 +3,10 @@ import module from "module";
 import path from "path";
 import url from "url";
 import db from "../../utils/database.js";
-import { Mutex } from "../../utils/mutex.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const mutex = new Mutex();
 const configdir = path.resolve(
   __dirname,
   "..",

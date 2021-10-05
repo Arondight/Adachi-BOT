@@ -1,8 +1,5 @@
 import { getRandomInt } from "../../utils/tools.js";
 import { loadYML } from "../../utils/yaml.js";
-import { Mutex } from "../../utils/mutex.js";
-
-const mutex = new Mutex();
 
 const { breakfast, lunch, dinner } = config.menu;
 
@@ -23,12 +20,9 @@ async function Plugin(Message, bot) {
 
 async function Wrapper(Message, bot) {
   try {
-    //await mutex.acquire();
     await Plugin(Message, bot);
   } catch (e) {
     bot.logger.error(e);
-  } finally {
-    //mutex.release();
   }
 }
 

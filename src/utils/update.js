@@ -67,7 +67,7 @@ async function gachaUpdate() {
 
   await db.set("gacha", "data", [indefinite, character, weapon]);
   // 只打印一次日志
-  bots[0].logger.debug("卡池：内容已刷新。");
+  bots[0] && bots[0].logger.debug("卡池：内容已刷新。");
 }
 
 export { gachaUpdate };
