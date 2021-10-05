@@ -44,13 +44,14 @@ async function Plugin(Message) {
       } else {
         await bot.sendMessage(
           sendID,
-          `[CQ:at,qq=${userID}] 请先使用【${command.functions.entrance.artifacts[0]}】抽取一个圣遗物后再【${command.functions.entrance.strengthen[0]}】。`,
-          type
+          `请先使用【${command.functions.entrance.artifacts[0]}】抽取一个圣遗物后再【${command.functions.entrance.strengthen[0]}】。`,
+          type,
+          userID
         );
         return;
       }
     } else if (hasEntrance(cmd, "artifacts", "dungeons")) {
-      await bot.sendMessage(sendID, domainInfo(), type);
+      await bot.sendMessage(sendID, domainInfo(), type, userID, "\n");
       return;
     }
   } else {
@@ -66,14 +67,15 @@ async function Plugin(Message) {
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 请正确输入副本编号，可以使用【${command.functions.entrance.dungeons[0]}】查看所有编号。`,
-        type
+        `请正确输入副本编号，可以使用【${command.functions.entrance.dungeons[0]}】查看所有编号。`,
+        type,
+        userID
       );
       return;
     }
   }
 
-  await render(data, "genshin-artifact", sendID, type);
+  await render(data, "genshin-artifact", sendID, type, userID);
 }
 
 export { Plugin as run };

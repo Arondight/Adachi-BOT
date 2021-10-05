@@ -36,6 +36,7 @@ async function processed(qqData, plugins, type) {
   // 如果好友增加了，尝试向新朋友问好
   if (type === "friend.increase") {
     if (config.friendGreetingNew) {
+      // 私聊不需要 @
       bot.sendMessage(qqData.user_id, config.greetingNew, "private");
     }
 
@@ -45,6 +46,7 @@ async function processed(qqData, plugins, type) {
   if (type === "group.increase") {
     if (bot.uin === qqData.user_id) {
       // 如果加入了新群，向全群问好
+      // 群 通知不需要 @
       bot.sendMessage(qqData.group_id, config.greetingHello, "group");
     } else {
       // 如果有新群友加入，尝试向新群友问好
@@ -54,8 +56,9 @@ async function processed(qqData, plugins, type) {
       ) {
         bot.sendMessage(
           qqData.group_id,
-          `[CQ:at,qq=${qqData.user_id}] ${config.greetingNew}`,
-          "group"
+          config.greetingNew,
+          "group",
+          qqData.user_id
         );
       }
     }
@@ -85,6 +88,7 @@ async function processed(qqData, plugins, type) {
   // 如果不是命令，且为群消息，随机复读群消息
   if ("group" === type) {
     if (getRandomInt(100) < config.repeatProb) {
+      // 复读群消息不需要 @
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
 
@@ -103,6 +107,7 @@ async function processed(qqData, plugins, type) {
         // 禁言时不发送消息
         // https://github.com/Arondight/Adachi-BOT/issues/28
         if (0 === info.shutup_time_me && "string" === typeof greeting) {
+          // 群通知不需要 @
           bot.sendMessage(group.group_id, greeting, "group");
         }
       });

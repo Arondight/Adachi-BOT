@@ -50,22 +50,19 @@ async function Plugin(Message) {
     }
 
     await db.update("gacha", "user", { userID }, { choice });
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 您的卡池已切换至：${cmd}。`,
-      type
-    );
+    await bot.sendMessage(sendID, `您的卡池已切换至：${cmd}。`, type, userID);
   } else if (hasEntrance(msg, "gacha", "gacha")) {
     let data = await getGachaResult(userID, name);
-    await render(data, "genshin-gacha", sendID, type);
+    await render(data, "genshin-gacha", sendID, type, userID);
   } else if (hasEntrance(msg, "gacha", "select-what")) {
     const { choice } = await db.get("gacha", "user", { userID });
 
     if (choice !== 302) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 当前卡池非武器池，无法查看定轨。。`,
-        type
+        "当前非武器卡池无法查看定轨。",
+        type,
+        userID
       );
       return;
     }
@@ -74,23 +71,20 @@ async function Plugin(Message) {
     const { path } = await db.get("gacha", "user", { userID });
 
     if (null === path["course"])
-      await bot.sendMessage(
-        sendID,
-        `[CQ:at,qq=${userID}] 当前未指定定轨武器。`,
-        type
-      );
+      await bot.sendMessage(sendID, "当前未指定定轨武器。", type, userID);
     else
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 当前定轨${
+        `当前定轨${
           table["upFiveStar"][path["course"]]["item_name"]
         }，命定值为 ${path["fate"]} 。`,
-        type
+        type,
+        userID
       );
   } else if (hasEntrance(msg, "gacha", "select-nothing")) {
     let path = { course: null, fate: 0 };
     await db.update("gacha", "user", { userID }, { path });
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] 已取消定轨。`, type);
+    await bot.sendMessage(sendID, "已取消定轨。", type, userID);
     return;
   } else if (hasEntrance(msg, "gacha", "select")) {
     const { choice } = await db.get("gacha", "user", { userID });
@@ -98,8 +92,9 @@ async function Plugin(Message) {
     if (choice !== 302) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 当前卡池非武器池，无法进行定轨。`,
-        type
+        "当前非武器卡池无法进行定轨。",
+        type,
+        userID
       );
       return;
     }
@@ -110,8 +105,9 @@ async function Plugin(Message) {
     if (cmd && lodash.find(table["upFiveStar"], { item_name: cmd })) {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 定轨${cmd}成功，命定值已清零。`,
-        type
+        `定轨${cmd}成功，命定值已清零。`,
+        type,
+        userID
       );
       let path = {
         course: lodash.findIndex(table["upFiveStar"], { item_name: cmd }),
@@ -121,10 +117,11 @@ async function Plugin(Message) {
     } else {
       await bot.sendMessage(
         sendID,
-        `[CQ:at,qq=${userID}] 请从当前 UP 武器${lodash
+        `请从当前 UP 武器${lodash
           .map(table["upFiveStar"], "item_name")
           .join("、")}中选择一个进行定轨。`,
-        type
+        type,
+        userID
       );
       return;
     }

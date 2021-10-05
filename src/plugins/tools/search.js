@@ -7,7 +7,7 @@ async function search(id, msg, type, user) {
   let report = "";
 
   if (!isMaster(user)) {
-    await bot.sendMessage(id, `[CQ:at,qq=${user}] 不能使用管理命令。`, type);
+    await bot.sendMessage(id, "不能使用管理命令。", type, user);
     return;
   }
 
@@ -16,7 +16,8 @@ async function search(id, msg, type, user) {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
     report += report ? "" : "没有加入任何群。";
-    await bot.sendMessage(id, report, type);
+
+    await bot.sendMessage(id, report, type, user);
     return;
   }
 
@@ -25,7 +26,8 @@ async function search(id, msg, type, user) {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
     report += report ? "" : "没有添加任何好友。";
-    await bot.sendMessage(id, report, type);
+
+    await bot.sendMessage(id, report, type, user);
     return;
   }
 
@@ -41,7 +43,8 @@ async function search(id, msg, type, user) {
       }
     });
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
-    await bot.sendMessage(id, report, type);
+
+    await bot.sendMessage(id, report, type, user);
     return;
   }
 }

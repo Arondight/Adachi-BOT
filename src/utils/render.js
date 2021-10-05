@@ -1,6 +1,6 @@
 import fs from "fs";
 
-export async function render(data, name, id, type) {
+async function render(data, name, id, type, user) {
   try {
     const page = await browser.newPage();
     await fs.writeFile(
@@ -14,10 +14,16 @@ export async function render(data, name, id, type) {
       encoding: "base64",
     });
     await page.close();
-    await bot.sendMessage(id, `[CQ:image,file=base64://${base64}]`, type);
+    await bot.sendMessage(
+      id,
+      `[CQ:image,file=base64://${base64}]`,
+      type,
+      user,
+      "\n"
+    );
   } catch (err) {
-    bot.logger.error(`${name} 功能绘图失败：${err}`);
+    bot.logger.error(`${name} 功能绘图失败：${err}`, user);
   }
 }
 
-export default render;
+export { render };
