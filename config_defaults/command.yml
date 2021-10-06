@@ -312,7 +312,7 @@ rating:
   weights: 9199
   regex:
     # https://github.com/Arondight/Adachi-BOT/issues/54
-    - ^评分[ \n]*.+$
+    - ^评分(?![\u4E00-\u9FA5])[ \n]*.*$
   functions:
     rating:
       weights: 9999
