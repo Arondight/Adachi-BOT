@@ -25,9 +25,9 @@ aby:
   enable: true
   weights: 9699
   regex:
-    - ^(上期)?深渊 *$
-    - ^(上期)?深渊 +\d+.*$
-    - ^(上期)?深渊 *\[CQ:at,qq=.*$
+    - ^(上期)?深渊\s*$
+    - ^(上期)?深渊\s+\d+.*$
+    - ^(上期)?深渊\s*\[CQ:at,qq=.*$
   functions:
     aby:
       weights: 9999
@@ -48,9 +48,9 @@ artifacts:
   enable: true
   weights: 9299
   regex:
-    - ^圣遗物 *$
-    - ^圣遗物 +(\d+)$
-    - ^(强化|副本) *$
+    - ^圣遗物\s*$
+    - ^圣遗物\s+(\d+)$
+    - ^(强化|副本)\s*$
   functions:
     artifacts:
       weights: 9999
@@ -78,9 +78,9 @@ card:
   enable: true
   weights: 9899
   regex:
-    - ^米游社 *$
-    - ^米游社 +\d+.*$
-    - ^米游社 *\[CQ:at,qq=.*$
+    - ^米游社\s*$
+    - ^米游社\s+\d+.*$
+    - ^米游社\s*\[CQ:at,qq=.*$
   functions:
     card:
       weights: 9999
@@ -94,7 +94,7 @@ character:
   enable: true
   weights: 9599
   regex:
-    - ^我的 +.+$
+    - ^我的\s+.+$
   functions:
     character:
       weights: 9999
@@ -108,13 +108,13 @@ gacha:
   enable: true
   weights: 9399
   regex:
-    - ^十连 *$
+    - ^十连\s*$
     # XXX 此处的常驻、角色、武器仍然为硬编码
-    - ^卡池 +(常驻|角色|武器) *$
-    - ^查看定轨 *$
-    - ^取消定轨 *$
-    - ^定轨 +.+$
-    - ^定轨 *$
+    - ^卡池\s+(常驻|角色|武器)\s*$
+    - ^查看定轨\s*$
+    - ^取消定轨\s*$
+    - ^定轨\s+.+$
+    - ^定轨\s*$
   functions:
     gacha:
       weights: 9999
@@ -157,10 +157,10 @@ tools:
   enable: true
   weights: 8699
   regex:
-    - ^roll *([+-]?\d+)?$
-    - ^help *$
-    - ^带(个)?话 +.+$
-    - ^管理 *$
+    - ^roll\s*([+-]?\d+)?$
+    - ^help\s*$
+    - ^带(个)?话\s+.+$
+    - ^管理\s*$
   functions:
     roll:
       weights: 9999
@@ -196,9 +196,9 @@ material:
   enable: true
   weights: 9099
   regex:
-    - ^武器 *$
-    - ^天赋 *$
-    - ^周本 *$
+    - ^武器\s*$
+    - ^天赋\s*$
+    - ^周本\s*$
   functions:
     weapon:
       weights: 9999
@@ -226,8 +226,8 @@ menu:
   enable: true
   weights: 8899
   regex:
-    - ^菜单 *$
-    - ^(今天)?吃什么 *$
+    - ^菜单\s*$
+    - ^(今天)?吃什么\s*$
   functions:
     menu:
       weights: 9999
@@ -243,8 +243,8 @@ music:
   enable: true
   weights: 8999
   regex:
-    - ^点歌 +.+$
-    - ^音乐源 +.+$
+    - ^点歌\s+.+$
+    - ^音乐源\s+.+$
   functions:
     music:
       weights: 9999
@@ -265,7 +265,7 @@ overview:
   enable: true
   weights: 9499
   regex:
-    - ^(角色|武器|信息) +.+$
+    - ^(角色|武器|信息)\s+.+$
   functions:
     info:
       weights: 9999
@@ -281,9 +281,9 @@ package:
   enable: true
   weights: 9799
   regex:
-    - ^uid *$
-    - ^uid +\d+.*$
-    - ^uid *\[CQ:at,qq=.*$
+    - ^uid\s*$
+    - ^uid\s+\d+.*$
+    - ^uid\s*\[CQ:at,qq=.*$
   functions:
     package:
       weights: 9999
@@ -297,7 +297,7 @@ quote:
   enable: true
   weights: 8799
   regex:
-    - ^伟大的升华 *$
+    - ^伟大的升华\s*$
   functions:
     quote:
       weights: 9999
@@ -312,7 +312,7 @@ rating:
   weights: 9199
   regex:
     # https://github.com/Arondight/Adachi-BOT/issues/54
-    - ^评分(?![\u4E00-\u9FA5])[ \n]*.*$
+    - ^评分\s*\[CQ:image,file=.*$
   functions:
     rating:
       weights: 9999
@@ -326,7 +326,7 @@ save:
   enable: true
   weights: 9999
   regex:
-    - ^(绑定|改绑) +\d+$
+    - ^(绑定|改绑)\s+\d+$
   functions:
     save:
       weights: 9999
