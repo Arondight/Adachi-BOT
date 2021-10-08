@@ -77,10 +77,12 @@ async function processed(qqData, plugins, type, bot) {
     qqData.message[0].type === "text"
   ) {
     const regexPool = { ...command.regex, ...master.regex };
+    const enableList = { ...command.enable, ...master.enable };
+
     for (let regex in regexPool) {
       const r = new RegExp(regex, "i");
 
-      if (r.test(qqData.raw_message)) {
+      if (enableList[regexPool[regex]] && r.test(qqData.raw_message)) {
         plugins[regexPool[regex]].run({ ...qqData, type }, bot);
         return;
       }

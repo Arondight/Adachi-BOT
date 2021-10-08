@@ -107,6 +107,10 @@ function makeUsage(object) {
   for (const plugin of pluginList.keys()) {
     let functionWeights = {};
 
+    if (!object.enable[plugin]) {
+      continue;
+    }
+
     for (const k in object.functions.weights) {
       if (object.function[plugin].includes(k)) {
         functionWeights[k] = object.functions.weights[k];
@@ -126,8 +130,9 @@ function makeUsage(object) {
     }
   }
 
-  text += `-------------------
-<> 表示必填，[] 表示可选，前面需加空格`;
+  text += text
+    ? "-------------------\n<> 表示必填，[] 表示可选，前面需加空格"
+    : "我什么都不会哦。";
 
   object.usage = text;
 }
