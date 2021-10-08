@@ -12,7 +12,7 @@
 
 > 1. 代码提交前运行 `npm run format` 进行格式化。
 > 2. 代码自测完毕后发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 合入 `dev` 分支。
-> 3. 新功能添加或者功能修改请先发起 [Issue](https://github.com/Arondight/Adachi-BOT/issues) 询问我的意愿，根据沟通结果你可以选择合入本项目或者你账户下的一个 Fork 。漏洞修复无需事先沟通，直接发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 并描述清楚问题即可。
+> 3. 新功能添加或者功能修改请先发起 [Issue](https://github.com/Arondight/Adachi-BOT/issues) 询问我的意愿，根据沟通结果你可以选择合入本项目或者提交到你账户下的一个 Fork 。漏洞修复无需事先沟通，直接发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 并描述清楚问题即可。
 
 ## 使用
 
@@ -22,7 +22,7 @@
 
 > 建议提供一个内存和交换空间容量**总和**达到 `1.5 GiB` 的 Linux 环境进行部署，以运行无头浏览器。
 
-首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/)，本项目不兼容较低版本的 Node.js 。
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较低版本的 Node.js 。
 
 <details>
 
@@ -142,7 +142,7 @@ npm run restart
 
 ### 所有功能
 
-> 具体命令请查看[这里](src/plugins/tools/help.js)，一些只供管理者使用的主人命令请查看[这里](src/plugins/tools/master.js)。
+> 具体命令请查看[这里](config_defaults/command.yml)，一些只供管理者使用的主人命令请查看[这里](config_defaults/command_master.yml)。
 
 | 功能 | 形式 | 权限开关 | 主人命令 |
 | --- | --- | --- | --- |

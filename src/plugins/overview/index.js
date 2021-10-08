@@ -1,9 +1,8 @@
-import { alias } from "../../utils/alias.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -22,26 +21,31 @@ async function Plugin(Message) {
   }
 
   if (!text) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 请正确输入名称。`,
-      type
-    );
+    await bot.sendMessage(sendID, "请输入名称。", type, userID);
     return;
   }
 
   try {
-    data = await getInfo(alias(text));
+    data = await getInfo(alias[text] ? alias[text] : text);
   } catch (errInfo) {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确。`,
-      type
+      "查询失败，请检查名称是否正确。",
+      type,
+      userID
     );
     return;
   }
 
-  await render(data, "genshin-overview", sendID, type);
+  await render(data, "genshin-overview", sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

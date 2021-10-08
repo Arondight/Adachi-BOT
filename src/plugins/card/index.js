@@ -8,12 +8,12 @@ import {
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
-const generateImage = async (uid, id, type) => {
+const generateImage = async (uid, id, type, user, bot) => {
   const data = await db.get("info", "user", { uid });
-  await render(data, "genshin-card", id, type);
+  await render(data, "genshin-card", id, type, user, bot);
 };
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
@@ -29,32 +29,36 @@ async function Plugin(Message) {
   }
 
   if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+    await bot.sendMessage(sendID, dbInfo, type, userID);
     return;
   }
 
   if (!dbInfo) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 请正确输入米游社通行证 ID。`,
-      type
-    );
+    await bot.sendMessage(sendID, "请正确输入米游社通行证 ID。", type, userID);
     return;
   }
 
   try {
-    const baseInfo = await basePromise(dbInfo, userID);
+    const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
-    const detailInfo = await detailPromise(...baseInfo, userID);
-    await characterPromise(...baseInfo, detailInfo);
+    const detailInfo = await detailPromise(...baseInfo, userID, bot);
+    await characterPromise(...baseInfo, detailInfo, bot);
   } catch (errInfo) {
     if (errInfo !== "") {
-      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
+      await bot.sendMessage(sendID, errInfo, type, userID);
       return;
     }
   }
 
-  await generateImage(uid, sendID, type);
+  await generateImage(uid, sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

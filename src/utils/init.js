@@ -19,7 +19,10 @@ async function initDB() {
 
 async function cleanDB(name) {
   let nums = await db.clean(name);
-  bot.logger.debug(`清理：删除数据库 ${name} 中 ${nums} 条无用记录。`);
+
+  // 只打印一次日志
+  bots[0] &&
+    bots[0].logger.debug(`清理：删除数据库 ${name} 中 ${nums} 条无用记录。`);
   return nums;
 }
 

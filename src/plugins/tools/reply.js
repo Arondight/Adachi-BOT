@@ -1,12 +1,12 @@
 import { isMaster } from "../../utils/auth.js";
 
-async function reply(id, msg, type, user) {
+async function reply(id, msg, type, user, bot) {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
   let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
-  let list = new Map([...bot.fl].concat([...bot.gl]));
+  let list = new Map([...bot.fl, ...bot.gl]);
 
   if (!isMaster(user)) {
-    await bot.sendMessage(id, `[CQ:at,qq=${user}] 不能使用管理命令。`, type);
+    await bot.sendMessage(id, "不能使用管理命令。", type, user);
     return;
   }
 
@@ -15,7 +15,9 @@ async function reply(id, msg, type, user) {
     const itemID = "group" === curType ? item.group_id : item.user_id;
 
     if (itemID == target) {
+      // 送话无法 @
       await bot.sendMessage(itemID, `主人让我送个话：\n${text}`, curType);
+      // 私聊无法 @
       await bot.sendMessage(id, `我已经给${itemID}送话了。`, "private");
     }
   });
