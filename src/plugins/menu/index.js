@@ -1,29 +1,29 @@
 import { getRandomInt } from "../../utils/tools.js";
 import { loadYML } from "../../utils/yaml.js";
 
-const menuCfg = loadYML("menu");
-const {
-  breakfast: breakfastMenu,
-  lunch: lunchMenu,
-  dinner: dinnerMenu,
-} = menuCfg;
+const { breakfast, lunch, dinner } = config.menu;
 
-async function Plugin(Message) {
+async function Plugin(Message, bot) {
   let msg = Message.raw_message;
   let userID = Message.user_id;
   let groupID = Message.group_id;
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = "group" === type ? groupID : userID;
-  let breakfastIdx = getRandomInt(breakfastMenu.length) - 1;
-  let lunchIdx = getRandomInt(lunchMenu.length) - 1;
-  let dinnerIdx = getRandomInt(dinnerMenu.length) - 1;
-  let message = `为 [CQ:at,qq=${userID}] 推荐的今日菜单是：
-早餐：${breakfastMenu[breakfastIdx]}
-午餐：${lunchMenu[lunchIdx]}
-晚餐：${dinnerMenu[dinnerIdx]}`;
+  let message = `今日的推荐菜单是：
+早餐：${breakfast ? breakfast[getRandomInt(breakfast.length) - 1] : "派蒙"}
+午餐：${lunch ? lunch[getRandomInt(lunch.length) - 1] : "派蒙"}
+晚餐：${dinner ? dinner[getRandomInt(dinner.length) - 1] : "派蒙"}`;
 
-  await bot.sendMessage(sendID, message, type);
+  await bot.sendMessage(sendID, message, type, userID);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

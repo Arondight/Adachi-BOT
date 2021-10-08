@@ -75,7 +75,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
   });
 }
 
-async function getCookie(uid, use_cookie) {
+async function getCookie(uid, use_cookie, bot) {
   return new Promise(async (resolve, reject) => {
     if (!(await db.includes("cookies", "uid", "uid", uid))) {
       let initData = { uid, date: "", cookie: "" };

@@ -33,16 +33,15 @@ async function userInitialize(userID, uid, nickname, level) {
   }
 }
 
-async function abyPromise(uid, server, userID, schedule_type) {
+async function abyPromise(uid, server, userID, schedule_type, bot) {
   await userInitialize(userID, uid, "", -1);
   await db.update("character", "user", { userID }, { uid });
 
   const nowTime = new Date().valueOf();
-  const { lastTime } = await db.get("time", "user", { aby: uid });
-
-  // 尝试使用缓存
+  const { time: lastTime } = (await db.get("time", "user", { aby: uid })) || {};
   const { data: dbData } = (await db.get("aby", "user", { uid })) || {};
 
+  // 尝试使用缓存
   if (dbData) {
     // 第 31 期深渊开始的时刻
     const ftime = moment("2021-10-01T04:00:00").tz("Asia/Shanghai");
@@ -51,7 +50,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
     // 数据库中的期数
     const { schedule_id: db_schedule } = dbData || {};
     // 查询时的期数
-    const this_schedule =
+    let this_schedule =
       31 +
       (ntime.year() - ftime.year()) * 12 * 2 +
       (ntime.month() - ftime.month()) * 2;
@@ -63,6 +62,9 @@ async function abyPromise(uid, server, userID, schedule_type) {
     ) {
       this_schedule++;
     }
+
+    // 如果查询上期深渊，期数减一
+    this_schedule -= parseInt(schedule_type) - 1;
 
     // 如果查询的期数和数据库中的期数一致，尝试使用缓存
     if (
@@ -78,7 +80,7 @@ async function abyPromise(uid, server, userID, schedule_type) {
     }
   }
 
-  const cookie = await getCookie(uid, true);
+  const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getAbyDetail(
     uid,
     schedule_type,
@@ -107,27 +109,26 @@ async function abyPromise(uid, server, userID, schedule_type) {
   });
 }
 
-async function basePromise(mhyID, userID) {
-  const cookie = await getCookie("MHY" + mhyID, false);
+async function basePromise(mhyID, userID, bot) {
+  const cookie = await getCookie("MHY" + mhyID, false, bot);
   const { retcode, message, data } = await getBase(mhyID, cookie);
 
   return new Promise(async (resolve, reject) => {
+    const errInfo =
+      "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
+
     if (retcode !== 0) {
       reject(`米游社接口报错: ${message}`);
       return;
     } else if (!data.list || 0 === data.list.length) {
-      reject(
-        "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开"
-      );
+      reject(errInfo);
       return;
     }
 
     const baseInfo = data.list.find((el) => 2 === el["game_id"]);
 
     if (!baseInfo) {
-      reject(
-        "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开"
-      );
+      reject(errInfo);
       return;
     }
 
@@ -139,7 +140,7 @@ async function basePromise(mhyID, userID) {
   });
 }
 
-async function detailPromise(uid, server, userID) {
+async function detailPromise(uid, server, userID, bot) {
   await userInitialize(userID, uid, "", -1);
   await db.update("character", "user", { userID }, { uid });
 
@@ -159,7 +160,7 @@ async function detailPromise(uid, server, userID) {
     return Promise.reject("");
   }
 
-  const cookie = await getCookie(uid, true);
+  const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getDetail(uid, server, cookie);
 
   return new Promise(async (resolve, reject) => {
@@ -196,8 +197,8 @@ async function detailPromise(uid, server, userID) {
   });
 }
 
-async function characterPromise(uid, server, character_ids) {
-  const cookie = await getCookie(uid, true);
+async function characterPromise(uid, server, character_ids, bot) {
+  const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getCharacters(
     uid,
     server,
