@@ -12,7 +12,7 @@ async function loadPlugins() {
   const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
   const enableList = { ...command.enable, ...master.enable };
 
-  for (let plugin of pluginsPath) {
+  for (const plugin of pluginsPath) {
     if (plugin in all.function) {
       if (enableList[plugin] && true === enableList[plugin]) {
         try {
@@ -102,7 +102,7 @@ async function processed(qqData, plugins, type, bot) {
       .trimStart();
 
     // 匹配插件入口
-    for (let regex in regexPool) {
+    for (const regex in regexPool) {
       const r = new RegExp(regex, "i");
       const plugin = regexPool[regex];
 
@@ -139,8 +139,8 @@ async function processed(qqData, plugins, type, bot) {
   if ("online" === type) {
     if (config.groupHello) {
       bot.gl.forEach(async (group) => {
-        let info = (await bot.getGroupInfo(group.group_id)).data;
-        let greeting = (await hasAuth(group.group_id, "reply"))
+        const info = (await bot.getGroupInfo(group.group_id)).data;
+        const greeting = (await hasAuth(group.group_id, "reply"))
           ? config.greetingOnline
           : config.greetingDie;
 

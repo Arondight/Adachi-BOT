@@ -215,7 +215,7 @@ async function characterPromise(uid, server, character_ids, bot) {
     let avatars = [];
     const characterList = data.avatars;
 
-    for (let i in characterList) {
+    for (const i in characterList) {
       if (characterList.hasOwnProperty(i)) {
         const el = characterList[i];
         const base = lodash.omit(el, [
@@ -234,7 +234,7 @@ async function characterPromise(uid, server, character_ids, bot) {
         let constellationNum = 0;
         const constellations = el["constellations"].reverse();
 
-        for (let level in constellations) {
+        for (const level in constellations) {
           if (constellations.hasOwnProperty(level)) {
             if (constellations[level]["is_actived"]) {
               constellationNum = constellations[level]["pos"];
@@ -243,7 +243,7 @@ async function characterPromise(uid, server, character_ids, bot) {
           }
         }
 
-        for (let posID in el.reliquaries) {
+        for (const posID in el.reliquaries) {
           if (el.reliquaries.hasOwnProperty(posID)) {
             const posInfo = lodash.omit(el.reliquaries[posID], [
               "id",

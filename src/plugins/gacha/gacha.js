@@ -110,10 +110,11 @@ async function getStar(userID, choice) {
 
 async function gachaOnce(userID, choice, table) {
   const star = await getStar(userID, choice);
-  let up = await getIsUp(userID, star),
-    result;
+  const up = await getIsUp(userID, star);
   const times = five;
   let { path } = await db.get("gacha", "user", { userID });
+  let result;
+
   await updateCounter(userID, star, up);
 
   if (5 === star && 302 === choice) {
@@ -182,7 +183,7 @@ async function gachaTenTimes(userID, nickname) {
     await db.update("gacha", "user", { userID }, { choice });
   }
 
-  for (let i = 1; i <= 10; ++i) {
+  for (const i = 1; i <= 10; ++i) {
     let res = await gachaOnce(userID, choice, gachaTable);
     res["type"] = (res["item_type"] === "武器" ? types : element)[
       res["item_name"]

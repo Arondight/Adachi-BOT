@@ -102,7 +102,7 @@ async function run() {
 
     // 监听群消息事件
     bot.on("message.group", async (msgData) => {
-      let info = (await bot.getGroupInfo(msgData.group_id)).data;
+      const info = (await bot.getGroupInfo(msgData.group_id)).data;
 
       // 禁言时不发送消息
       // https://github.com/Arondight/Adachi-BOT/issues/28

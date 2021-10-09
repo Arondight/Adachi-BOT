@@ -3,13 +3,13 @@ import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data;
 
   if (

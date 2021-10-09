@@ -12,8 +12,9 @@ async function parseData(gachaID) {
     nonUpFiveStar: [],
     threeStar: [],
   };
+
   data["r4_prob_list"].forEach((el) => {
-    let parsed = lodash.pick(el, ["item_type", "item_name"]);
+    const parsed = lodash.pick(el, ["item_type", "item_name"]);
 
     if (el["is_up"] === 0) {
       detail.nonUpFourStar.push(parsed);
@@ -22,7 +23,7 @@ async function parseData(gachaID) {
     }
   });
   data["r5_prob_list"].forEach((el) => {
-    let parsed = lodash.pick(el, ["item_type", "item_name"]);
+    const parsed = lodash.pick(el, ["item_type", "item_name"]);
 
     if (el["is_up"] === 0) {
       detail.nonUpFiveStar.push(parsed);
@@ -31,7 +32,7 @@ async function parseData(gachaID) {
     }
   });
   data["r3_prob_list"].forEach((el) => {
-    let parsed = lodash.pick(el, ["item_type", "item_name"]);
+    const parsed = lodash.pick(el, ["item_type", "item_name"]);
     detail.threeStar.push(parsed);
   });
   return detail;
@@ -46,11 +47,11 @@ async function gachaUpdate() {
 
   const getGachaCode = (gachaID) => {
     const gacha = gachaInfo.filter((el) => el["gacha_type"] === gachaID);
-    let maxTime = 0,
-      tmpGacha;
+    let maxTime = 0;
+    let tmpGacha;
 
-    for (let g of gacha) {
-      let date = new Date(g["begin_time"]);
+    for (const g of gacha) {
+      const date = new Date(g["begin_time"]);
 
       if (date.getTime() > maxTime) {
         maxTime = date.getTime();

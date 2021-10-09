@@ -36,8 +36,8 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 
     p = p === cookies.length - 1 ? 0 : p + 1;
 
-    let cookie = cookies[p];
-    let today = new Date().toLocaleDateString();
+    const cookie = cookies[p];
+    const today = new Date().toLocaleDateString();
 
     if (!isValidCookie(cookie)) {
       resolve(undefined);
@@ -45,13 +45,13 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     }
 
     if (!(await db.includes("cookies", "cookie", "cookie", cookie))) {
-      let initData = { cookie: cookie, date: today, times: 0 };
+      const initData = { cookie: cookie, date: today, times: 0 };
       await db.push("cookies", "cookie", initData);
     }
 
     let { date, times } = await db.get("cookies", "cookie", { cookie });
 
-    if (date && date == today && times & (times >= 30)) {
+    if (date && date === today && times & (times >= 30)) {
       resolve(
         s >= cookies.length
           ? cookie
@@ -78,14 +78,14 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 async function getCookie(uid, use_cookie, bot) {
   return new Promise(async (resolve, reject) => {
     if (!(await db.includes("cookies", "uid", "uid", uid))) {
-      let initData = { uid, date: "", cookie: "" };
+      const initData = { uid, date: "", cookie: "" };
       await db.push("cookies", "uid", initData);
     }
 
     let { date, cookie } = await db.get("cookies", "uid", { uid });
-    let today = new Date().toLocaleDateString();
+    const today = new Date().toLocaleDateString();
 
-    if (!(date && cookie && date == today)) {
+    if (!(date && cookie && date === today)) {
       cookie = await getEffectiveCookie(uid, 1, use_cookie);
     }
 

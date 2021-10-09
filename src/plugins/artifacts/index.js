@@ -11,13 +11,13 @@ async function userInitialize(userID) {
 }
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let sendID = "group" === type ? groupID : userID;
-  let name = Message.sender.nickname;
-  let [cmd, arg] = msg.split(/(?<=^\S+)\s/).slice(0, 2);
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const sendID = "group" === type ? groupID : userID;
+  const name = Message.sender.nickname;
+  const [cmd, arg] = msg.split(/(?<=^\S+)\s/).slice(0, 2);
   let data;
 
   await userInitialize(userID);
@@ -59,7 +59,7 @@ async function Plugin(Message, bot) {
       return;
     }
 
-    let id = arg.match(/\d+/g);
+    const id = arg.match(/\d+/g);
 
     if (id && id < domainMax() + 1) {
       await getArtifact(userID, parseInt(id));

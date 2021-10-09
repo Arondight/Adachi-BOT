@@ -19,12 +19,12 @@ async function userInitialize(userID) {
 }
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let sendID = "group" === type ? groupID : userID;
-  let name = Message.sender.nickname;
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const sendID = "group" === type ? groupID : userID;
+  const name = Message.sender.nickname;
   let [cmd] = msg.split(/(?<=^\S+)\s/).slice(1);
 
   await userInitialize(userID);
@@ -52,7 +52,7 @@ async function Plugin(Message, bot) {
     await db.update("gacha", "user", { userID }, { choice });
     await bot.sendMessage(sendID, `您的卡池已切换至：${cmd}。`, type, userID);
   } else if (hasEntrance(msg, "gacha", "gacha")) {
-    let data = await getGachaResult(userID, name);
+    const data = await getGachaResult(userID, name);
     await render(data, "genshin-gacha", sendID, type, userID, bot);
   } else if (hasEntrance(msg, "gacha", "select-what")) {
     const { choice } = await db.get("gacha", "user", { userID });
@@ -82,7 +82,7 @@ async function Plugin(Message, bot) {
         userID
       );
   } else if (hasEntrance(msg, "gacha", "select-nothing")) {
-    let path = { course: null, fate: 0 };
+    const path = { course: null, fate: 0 };
     await db.update("gacha", "user", { userID }, { path });
     await bot.sendMessage(sendID, "已取消定轨。", type, userID);
     return;
@@ -109,7 +109,7 @@ async function Plugin(Message, bot) {
         type,
         userID
       );
-      let path = {
+      const path = {
         course: lodash.findIndex(table["upFiveStar"], { item_name: cmd }),
         fate: 0,
       };

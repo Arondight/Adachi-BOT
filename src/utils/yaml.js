@@ -7,7 +7,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 function loadYML(name) {
-  let filename = `${name}.yml`;
+  const filename = `${name}.yml`;
   let filepath = path.resolve(__dirname, "..", "..", "config", filename);
 
   try {

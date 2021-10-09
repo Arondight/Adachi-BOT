@@ -189,8 +189,8 @@ function readSettingGreetingMenu() {
   const getConfig = (...pairs) => {
     pairs &&
       pairs.forEach((pair) => {
-        let prop = Object.keys(pair)[0];
-        let val = pair[prop];
+        const prop = Object.keys(pair)[0];
+        const val = pair[prop];
 
         if (undefined === defaultConfig[prop]) {
           config[prop] = val;

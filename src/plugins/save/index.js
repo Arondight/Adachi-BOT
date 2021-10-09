@@ -3,13 +3,13 @@ import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let sendID = "group" === type ? groupID : userID;
-  let id = await getID(msg, userID); // 米游社 ID，这里正则限定了 msg 必然有 ID
-  let mhyID = id;
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const sendID = "group" === type ? groupID : userID;
+  const id = await getID(msg, userID); // 米游社 ID，这里正则限定了 msg 必然有 ID
+  const mhyID = id;
 
   if ("string" === typeof id) {
     await bot.sendMessage(sendID, id, type, userID);

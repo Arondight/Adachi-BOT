@@ -105,7 +105,7 @@ async function cleanByTimeDB(
     return nums;
   }
 
-  let timeDBRecords = await get("time", "user");
+  const timeDBRecords = await get("time", "user");
   let records = await get(dbName, dbKey[0]);
 
   if (!records) {
@@ -120,7 +120,7 @@ async function cleanByTimeDB(
     return nums;
   }
 
-  for (let i in records) {
+  for (const i in records) {
     const uid = records[i][dbKey[1]];
 
     // 没有基准字段则删除该记录（因为很可能是错误数据）
@@ -153,10 +153,10 @@ async function cleanCookies() {
   const today = new Date().toLocaleDateString();
   let nums = 0;
 
-  for (let key of keys) {
+  for (const key of keys) {
     let records = await get(dbName, key);
 
-    for (let i in records) {
+    for (const i in records) {
       // 1. 没有基准字段则删除该记录
       // 2. 不是今天的记录一律删除
       if (!records[i].date || today != records[i].date) {
