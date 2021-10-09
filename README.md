@@ -2,17 +2,17 @@
 
 ## 说明
 
-本项目提供了一个在 QQ 中运行的原神助手，与之聊天可以方便地查询玩家数据和游戏信息、模拟抽卡、模拟刷圣遗物，以及一些其他有趣的[功能](https://github.com/Arondight/Adachi-BOT#%E5%8A%9F%E8%83%BD)。
+### 关于
 
-[原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
+本项目提供了一个在 QQ 中运行的原神助手，与之聊天可以方便地查询玩家数据和游戏信息、模拟抽卡、模拟刷圣遗物，以及一些其他的[功能](https://github.com/Arondight/Adachi-BOT#%E5%8A%9F%E8%83%BD)。[原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
-## 文档
+### 文档
 
 1. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 。
 2. 资源文件提交请查阅[资源制作](docs/资源制作.md)。
 3. 插件开发请查阅[开发指引](docs/开发指引.md)。
 
-## 开发
+### 开发
 
 1. 代码提交前运行 `npm run format` 进行格式化。
 2. 代码自测完毕后发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 合入 `dev` 分支。
