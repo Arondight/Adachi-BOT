@@ -1,5 +1,5 @@
 import { gachaUpdate } from "../../utils/update.js";
-import { isMaster, setAuth } from "../../utils/auth.js";
+import { setAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 
 function parse(msg) {
@@ -133,11 +133,6 @@ async function Plugin(Message, bot) {
   let type = Message.type;
   let name = Message.sender.nickname;
   let sendID = "group" === type ? groupID : userID;
-
-  if (!isMaster(userID)) {
-    await bot.sendMessage(sendID, "不能使用管理命令。", type, userID);
-    return;
-  }
 
   switch (true) {
     case hasEntrance(msg, "master", "feedback_auth"):

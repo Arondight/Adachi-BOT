@@ -1,11 +1,6 @@
 import { hasEntrance } from "../../utils/config.js";
-import { boardcast } from "./boardcast.js";
-import { count } from "./count.js";
 import { feedback } from "./feedback.js";
-import { reply } from "./reply.js";
 import { roll } from "./roll.js";
-import { search } from "./search.js";
-import { status } from "./status.js";
 
 async function Plugin(Message, bot) {
   let msg = Message.raw_message;
@@ -19,21 +14,6 @@ async function Plugin(Message, bot) {
   switch (true) {
     case hasEntrance(msg, "tools", "feedback"):
       feedback(sendID, name, msg, type, userID, groupName, bot);
-      break;
-    case hasEntrance(msg, "tools", "group_boardcast", "private_boardcast"):
-      boardcast(sendID, msg, type, userID, bot);
-      break;
-    case hasEntrance(msg, "tools", "reply"):
-      reply(sendID, msg, type, userID, bot);
-      break;
-    case hasEntrance(msg, "tools", "group_search", "private_search", "search"):
-      search(sendID, msg, type, userID, bot);
-      break;
-    case hasEntrance(msg, "tools", "count"):
-      count(sendID, msg, type, userID, bot);
-      break;
-    case hasEntrance(msg, "tools", "status"):
-      status(sendID, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "roll"):
       roll(sendID, name, msg, type, userID, bot);
