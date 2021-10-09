@@ -68,7 +68,7 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
-  // 如果响应群消息，而且收到的信息是命令，指派插件处理命令
+  // 收到的信息是命令，尝试指派插件处理命令
   if (
     (await hasAuth(qqData.group_id, "reply")) &&
     (await hasAuth(qqData.user_id, "reply")) &&
@@ -81,9 +81,17 @@ async function processed(qqData, plugins, type, bot) {
 
     for (let regex in regexPool) {
       const r = new RegExp(regex, "i");
+      const plugin = regexPool[regex];
 
-      if (enableList[regexPool[regex]] && r.test(qqData.raw_message)) {
-        plugins[regexPool[regex]].run({ ...qqData, type }, bot);
+      if (enableList[plugin] && r.test(qqData.raw_message)) {
+        // 只允许管理者执行主人命令
+        if (master.enable[plugin] && !config.masters.includes(qqData.user_id)) {
+          const id = "group" === type ? qqData.group_id : qqData.user_id;
+          await bot.sendMessage(id, "不能使用管理命令。", type, qqData.user_id);
+          return;
+        }
+
+        plugins[plugin].run({ ...qqData, type }, bot);
         return;
       }
     }

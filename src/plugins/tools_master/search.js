@@ -1,4 +1,3 @@
-import { isMaster } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 
 async function search(id, msg, type, user, bot) {
@@ -6,12 +5,7 @@ async function search(id, msg, type, user, bot) {
   let listAll = new Map([...bot.fl, ...bot.gl]);
   let report = "";
 
-  if (!isMaster(user)) {
-    await bot.sendMessage(id, "不能使用管理命令。", type, user);
-    return;
-  }
-
-  if (hasEntrance(msg, "tools", "group_search")) {
+  if (hasEntrance(msg, "tools_master", "group_search")) {
     bot.gl.forEach((item) => {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
@@ -21,7 +15,7 @@ async function search(id, msg, type, user, bot) {
     return;
   }
 
-  if (hasEntrance(msg, "tools", "private_search")) {
+  if (hasEntrance(msg, "tools_master", "private_search")) {
     bot.fl.forEach((item) => {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
@@ -31,7 +25,7 @@ async function search(id, msg, type, user, bot) {
     return;
   }
 
-  if (hasEntrance(msg, "tools", "search")) {
+  if (hasEntrance(msg, "tools_master", "search")) {
     listAll.forEach(async (item) => {
       let isGroup = item.hasOwnProperty("group_name") ? true : false;
       let itemName = isGroup ? item.group_name : item.nickname;

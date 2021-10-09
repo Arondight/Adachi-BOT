@@ -1,14 +1,7 @@
-import { isMaster } from "../../utils/auth.js";
-
 async function reply(id, msg, type, user, bot) {
   let target = parseInt(msg.match(/[0-9]+/g)[0]);
   let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
   let list = new Map([...bot.fl, ...bot.gl]);
-
-  if (!isMaster(user)) {
-    await bot.sendMessage(id, "不能使用管理命令。", type, user);
-    return;
-  }
 
   list.forEach(async (item, type) => {
     const curType = item.hasOwnProperty("group_id") ? "group" : "private";
