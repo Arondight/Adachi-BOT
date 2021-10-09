@@ -1,5 +1,4 @@
 import { getRandomInt } from "../../utils/tools.js";
-import { loadYML } from "../../utils/yaml.js";
 
 const { breakfast, lunch, dinner } = config.menu;
 

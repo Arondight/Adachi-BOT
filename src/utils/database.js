@@ -3,7 +3,6 @@ import url from "url";
 import path from "path";
 import lodash from "lodash";
 import { Mutex } from "./mutex.js";
-import { getID } from "./id.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -205,5 +204,4 @@ export default {
   update,
   set,
   clean,
-  getID,
 };
