@@ -6,13 +6,17 @@
 
 [原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
-1. 插件开发请查阅[开发指引](docs/开发指引.md)。
-2. 资源文件提交请查阅[资源制作](docs/资源制作.md)。
-3. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 。
+## 文档
 
-> 1. 代码提交前运行 `npm run format` 进行格式化。
-> 2. 代码自测完毕后发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 合入 `dev` 分支。
-> 3. 新功能添加或者功能修改请先发起 [Issue](https://github.com/Arondight/Adachi-BOT/issues) 询问我的意愿，根据沟通结果你可以选择合入本项目或者提交到你账户下的一个 Fork 。漏洞修复无需事先沟通，直接发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 并描述清楚问题即可。
+1. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 。
+2. 资源文件提交请查阅[资源制作](docs/资源制作.md)。
+3. 插件开发请查阅[开发指引](docs/开发指引.md)。
+
+## 开发
+
+1. 代码提交前运行 `npm run format` 进行格式化。
+2. 代码自测完毕后发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 合入 `dev` 分支。
+3. 新功能添加或者功能修改请先发起 [Issue](https://github.com/Arondight/Adachi-BOT/issues) 询问我的意愿，根据沟通结果选择合入本项目或者提交到你账户下的一个 Fork 。漏洞修复无需事先沟通，直接发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 并描述清楚问题即可。
 
 ## 使用
 
@@ -111,7 +115,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 > 2. 有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下。
 > 3. 通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了。
 
-### 使用
+### 运行
 
 进入本项目所在的目录 `./Adachi-BOT/` 。
 
