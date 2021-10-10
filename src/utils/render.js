@@ -25,7 +25,7 @@ async function render(data, name, id, type, user, bot) {
     const page = await browser.newPage();
 
     await fs.writeFile(
-      path.resolve(rootdir, "data", "record", "${name}.json"),
+      path.resolve(rootdir, "data", "record", `${name}.json`),
       JSON.stringify(data),
       () => {}
     );
