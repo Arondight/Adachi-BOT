@@ -36,7 +36,7 @@ async function Plugin(Message, bot) {
   if (undefined === arg) {
     if (hasEntrance(cmd, "artifacts", "artifacts")) {
       await getArtifact(userID, -1);
-      data = (await db.get("artifact", "user", { userID })).initial;
+      data = ((await db.get("artifact", "user", { userID })) || {}).initial;
     } else if (hasEntrance(cmd, "artifacts", "strengthen")) {
       const { initial, fortified } = await db.get("artifact", "user", {
         userID,
@@ -66,7 +66,7 @@ async function Plugin(Message, bot) {
 
     if (id && id < domainMax() + 1) {
       await getArtifact(userID, parseInt(id));
-      data = (await db.get("artifact", "user", { userID })).initial;
+      data = ((await db.get("artifact", "user", { userID })) || {}).initial;
     } else {
       await bot.sendMessage(
         sendID,
