@@ -5,6 +5,7 @@
     "introduce": "以金属制成，用滑轮引弦的复合弓，来自异国。护养极其困难，但引弓轻松，威力惊人。",
     "access": "锻造",
     "rarity": 4,
+    "mainStat": "物理伤害加成",
     "mainValue": "56.8%",
     "baseATK": 347,
     "ascensionMaterials": [
