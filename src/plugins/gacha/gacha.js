@@ -1,21 +1,23 @@
+/* global rootdir */
+/* eslint no-undef: "error" */
+
 import fs from "fs";
-import module from "module";
 import path from "path";
-import url from "url";
 import db from "../../utils/database.js";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const configdir = path.resolve(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "resources/Version2/wish/config"
+  rootdir,
+  "resources",
+  "Version2",
+  "wish",
+  "config"
 );
-const element = JSON.parse(fs.readFileSync(`${configdir}/character.json`));
-const types = JSON.parse(fs.readFileSync(`${configdir}/weapon.json`));
+const element = JSON.parse(
+  fs.readFileSync(path.resolve(configdir, "character.json"))
+);
+const types = JSON.parse(
+  fs.readFileSync(path.resolve(configdir, "weapon.json"))
+);
 
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max) + 1;

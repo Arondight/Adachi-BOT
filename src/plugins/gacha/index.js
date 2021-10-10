@@ -1,3 +1,6 @@
+/* global alias */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
@@ -100,7 +103,7 @@ async function Plugin(Message, bot) {
     }
 
     const table = await db.get("gacha", "data", { gacha_type: 302 });
-    cmd = alias[cmd] ? alias[cmd] : cmd;
+    cmd = alias[cmd] || cmd;
 
     if (cmd && lodash.find(table["upFiveStar"], { item_name: cmd })) {
       await bot.sendMessage(

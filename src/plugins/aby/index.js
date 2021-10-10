@@ -49,7 +49,7 @@ async function Plugin(Message, bot) {
       dbInfo = await getID(uid, userID, false); // UID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, dbinfo, type, userID);
+        await bot.sendMessage(sendID, dbInfo, type, userID);
         return;
       }
     }
@@ -65,11 +65,9 @@ async function Plugin(Message, bot) {
       await bot.sendMessage(sendID, "无渊月螺旋记录。", type, userID);
       return;
     }
-  } catch (errInfo) {
-    if (errInfo !== "") {
-      await bot.sendMessage(sendID, errInfo, type, userID);
-      return;
-    }
+  } catch (e) {
+    await bot.sendMessage(sendID, e, type, userID);
+    return;
   }
 
   await generateImage(dbInfo[0], sendID, type, userID, bot);

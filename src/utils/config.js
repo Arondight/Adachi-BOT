@@ -1,5 +1,13 @@
+/* global all, command, config, master */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
+import url from "url";
+import path from "path";
 import { loadYML } from "./yaml.js";
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const Setting = loadYML("setting");
 const Greeting = loadYML("greeting");
@@ -135,6 +143,10 @@ function makeUsage(object) {
     : "我什么都不会哦。";
 
   object.usage = text;
+}
+
+function setRootDir() {
+  global.rootdir = path.resolve(__dirname, "..", "..");
 }
 
 // global.config
@@ -294,6 +306,7 @@ function getUsage() {
 }
 
 async function readConfig() {
+  setRootDir();
   readSettingGreetingMenu();
   readCommand();
   readAlias();

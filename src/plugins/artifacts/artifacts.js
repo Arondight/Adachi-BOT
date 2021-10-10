@@ -138,17 +138,15 @@ function toArray(property) {
   let num = 0;
 
   for (const i in property) {
-    if (property.hasOwnProperty(i)) {
-      let temp = { name: propertyName[i] };
+    let temp = { name: propertyName[i] };
 
-      if (property[i] < 1) {
-        temp.data = (property[i] * 100).toFixed(1) + "%";
-      } else {
-        temp.data = Math.round(property[i]).toString();
-      }
-
-      res[num++] = temp;
+    if (property[i] < 1) {
+      temp.data = (property[i] * 100).toFixed(1) + "%";
+    } else {
+      temp.data = Math.round(property[i]).toString();
     }
+
+    res[num++] = temp;
   }
 
   return res;
@@ -224,7 +222,7 @@ function domainInfo() {
   let domainsMsg = "";
 
   for (const i in domains) {
-    if (domains.hasOwnProperty(i)) {
+    if (domains[i]) {
       domainsMsg += domains[i].name + `: ${i}\n`;
     }
   }

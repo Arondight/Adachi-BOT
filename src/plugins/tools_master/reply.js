@@ -4,7 +4,7 @@ async function reply(id, msg, type, user, bot) {
   const list = new Map([...bot.fl, ...bot.gl]);
 
   list.forEach(async (item, type) => {
-    const curType = item.hasOwnProperty("group_id") ? "group" : "private";
+    const curType = item.group_id ? "group" : "private";
     const itemID = "group" === curType ? item.group_id : item.user_id;
 
     if (itemID == target) {

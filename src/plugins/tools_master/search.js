@@ -27,7 +27,7 @@ async function search(id, msg, type, user, bot) {
 
   if (hasEntrance(msg, "tools_master", "search")) {
     listAll.forEach(async (item) => {
-      const isGroup = item.hasOwnProperty("group_name") ? true : false;
+      const isGroup = item.group_name ? true : false;
       const itemName = isGroup ? item.group_name : item.nickname;
       const itemID = isGroup ? item.group_id : item.user_id;
       const typeStr = isGroup ? "群组" : "好友";

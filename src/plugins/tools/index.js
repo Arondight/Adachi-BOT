@@ -1,3 +1,6 @@
+/* global command, master */
+/* eslint no-undef: "error" */
+
 import { hasEntrance } from "../../utils/config.js";
 import { feedback } from "./feedback.js";
 import { roll } from "./roll.js";

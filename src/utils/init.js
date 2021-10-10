@@ -1,8 +1,10 @@
-import puppeteer from "puppeteer";
+/* global bots */
+/* eslint no-undef: "error" */
+
 import schedule from "node-schedule";
 import db from "./database.js";
-import { gachaUpdate as updateGachaJob } from "./update.js";
 import { server } from "./server.js";
+import { gachaUpdate as updateGachaJob } from "./update.js";
 
 async function initDB() {
   await db.init("map");
@@ -35,7 +37,6 @@ async function cleanDBJob() {
 }
 
 async function init() {
-  server(9934);
   await initDB();
 
   updateGachaJob();
@@ -44,10 +45,7 @@ async function init() {
   schedule.scheduleJob("1 */1 * * *", () => updateGachaJob());
   schedule.scheduleJob("1 */1 * * *", async () => await cleanDBJob());
 
-  global.browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  server(9934);
 }
 
 export default init;

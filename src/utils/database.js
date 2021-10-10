@@ -1,24 +1,17 @@
+/* global config, rootdir */
+/* eslint no-undef: "error" */
+
 import { Low, JSONFileSync } from "lowdb";
-import url from "url";
 import path from "path";
 import lodash from "lodash";
 import { Mutex } from "./mutex.js";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const db = {};
 const mutex = new Mutex();
 
 // 如果数据库不存在，将自动创建新的空数据库。
 async function init(dbName, defaultElement = { user: [] }) {
-  const file = path.resolve(
-    __dirname,
-    "..",
-    "..",
-    "data",
-    "db",
-    `${dbName}.json`
-  );
+  const file = path.resolve(rootdir, "data", "db", `${dbName}.json`);
   const adapter = new JSONFileSync(file);
 
   db[dbName] = new Low(adapter);
