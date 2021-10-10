@@ -1,10 +1,9 @@
+/* global rootdir */
+/* eslint no-undef: "error" */
+
 import imageCache from "image-cache";
-import url from "url";
 import path from "path";
 import { hasEntrance } from "../../utils/config.js";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
@@ -13,10 +12,7 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
-  const cacheDir = path.join(
-    path.resolve(__dirname, "..", "..", "..", "data", "image", "material"),
-    "/"
-  );
+  const cacheDir = path.resolve(rootdir, "data", "image", "material");
   const weaponURL =
     "https://upload-bbs.mihoyo.com/upload/2021/09/01/75833613/252ef04dceaf14e0f2a7f2a4bff505ba_7296608011964896512.png";
   const talentURL =

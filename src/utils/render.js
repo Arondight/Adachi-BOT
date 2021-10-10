@@ -1,7 +1,20 @@
+/* global rootdir */
+/* eslint no-undef: "error" */
+
 import fs from "fs";
+import path from "path";
+import puppeteer from "puppeteer";
 import { Mutex } from "./mutex.js";
 
 const mutex = new Mutex();
+let browser;
+
+puppeteer
+  .launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  })
+  .then((b) => (browser = b));
 
 async function render(data, name, id, type, user, bot) {
   let base64;
@@ -12,7 +25,7 @@ async function render(data, name, id, type, user, bot) {
     const page = await browser.newPage();
 
     await fs.writeFile(
-      `./data/record/${name}.json`,
+      path.resolve(rootdir, "data", "record", "${name}.json"),
       JSON.stringify(data),
       () => {}
     );
@@ -24,8 +37,8 @@ async function render(data, name, id, type, user, bot) {
     });
 
     await page.close();
-  } catch (err) {
-    bot.logger.error(`${name} 功能绘图失败：${err}`, user);
+  } catch (e) {
+    bot.logger.error(`${name} 功能绘图失败：${e}`, user);
   } finally {
     mutex.release();
   }

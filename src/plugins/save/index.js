@@ -1,3 +1,6 @@
+/* global command */
+/* eslint no-undef: "error" */
+
 import db from "../../utils/database.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";

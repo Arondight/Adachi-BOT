@@ -1,3 +1,6 @@
+/* global alias, command */
+/* eslint no-undef: "error" */
+
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
@@ -34,7 +37,7 @@ async function Plugin(Message, bot) {
     const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
     const { avatars } = await db.get("info", "user", { uid });
-    character = alias[character] ? alias[character] : character;
+    character = alias[character] || character;
     data = avatars.find((el) => el.name === character);
 
     if (!data) {
@@ -46,11 +49,9 @@ async function Plugin(Message, bot) {
       );
       return;
     }
-  } catch (errInfo) {
-    if (errInfo !== "") {
-      await bot.sendMessage(sendID, errInfo, type, userID);
-      return;
-    }
+  } catch (e) {
+    await bot.sendMessage(sendID, e, type, userID);
+    return;
   }
 
   await render({ uid, data }, "genshin-character", sendID, type, userID, bot);

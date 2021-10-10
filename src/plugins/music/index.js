@@ -24,14 +24,15 @@ async function Plugin(Message, bot) {
       ret = await musicID(msg, src);
 
       if (ret in errMsg) {
-        return await bot.sendMessage(sendID, errMsg[ret], type, userID);
+        await bot.sendMessage(sendID, errMsg[ret], type, userID);
+        break;
       }
 
       await bot.sendMessage(sendID, ret, type); // 点歌不需要 @
       break;
     case hasEntrance(msg, "music", "music_source"):
       ret = await musicSrc(msg, sendID);
-      return await bot.sendMessage(
+      await bot.sendMessage(
         sendID,
         ret ? `音乐源已切换为 ${ret} 。` : "音乐源切换失败。",
         type,

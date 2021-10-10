@@ -1,3 +1,6 @@
+/* global command */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
 import fetch from "node-fetch";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
@@ -103,7 +106,7 @@ async function Plugin(Message, bot) {
   };
 
   for (const item_type of Object.keys(maxValue)) {
-    if (!ret.hasOwnProperty(item_type)) {
+    if (!ret[item_type]) {
       continue;
     }
 
@@ -111,7 +114,7 @@ async function Plugin(Message, bot) {
     const items = main_item ? [ret[item_type]] : ret[item_type];
 
     for (let item of items) {
-      if (!maxValue[item_type].hasOwnProperty(item["type"])) {
+      if (!maxValue[item_type][item["type"]]) {
         continue;
       }
 

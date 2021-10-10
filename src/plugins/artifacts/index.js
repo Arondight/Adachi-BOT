@@ -1,3 +1,6 @@
+/* global command */
+/* eslint no-undef: "error" */
+
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
