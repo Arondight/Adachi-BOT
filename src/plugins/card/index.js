@@ -44,8 +44,11 @@ async function Plugin(Message, bot) {
     const detailInfo = await detailPromise(...baseInfo, userID, bot);
     await characterPromise(...baseInfo, detailInfo, bot);
   } catch (e) {
-    await bot.sendMessage(sendID, e, type, userID);
-    return;
+    // 抛出空串则使用缓存
+    if ("" !== e) {
+      await bot.sendMessage(sendID, e, type, userID);
+      return;
+    }
   }
 
   await generateImage(uid, sendID, type, userID, bot);

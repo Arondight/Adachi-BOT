@@ -50,8 +50,11 @@ async function Plugin(Message, bot) {
       return;
     }
   } catch (e) {
-    await bot.sendMessage(sendID, e, type, userID);
-    return;
+    // 抛出空串则使用缓存
+    if ("" !== e) {
+      await bot.sendMessage(sendID, e, type, userID);
+      return;
+    }
   }
 
   await render({ uid, data }, "genshin-character", sendID, type, userID, bot);

@@ -29,79 +29,65 @@ function isValidCookie(cookie) {
 }
 
 async function getEffectiveCookie(uid, s, use_cookie) {
-  return new Promise((resolve, reject) => {
-    let p = index;
-    increaseIndex();
+  let p = index;
+  increaseIndex();
 
-    p = p === cookies.length - 1 ? 0 : p + 1;
+  p = p === cookies.length - 1 ? 0 : p + 1;
 
-    const cookie = cookies[p];
-    const today = new Date().toLocaleDateString();
+  const cookie = cookies[p];
+  const today = new Date().toLocaleDateString();
 
-    if (!isValidCookie(cookie)) {
-      resolve(undefined);
-      return;
+  if (!isValidCookie(cookie)) {
+    return undefined;
+  }
+
+  if (!(await db.includes("cookies", "cookie", "cookie", cookie))) {
+    const initData = { cookie: cookie, date: today, times: 0 };
+    await db.push("cookies", "cookie", initData);
+  }
+
+  let { date, times } = await db.get("cookies", "cookie", { cookie });
+
+  if (date && date === today && times & (times >= 30)) {
+    return s >= cookies.length
+      ? cookie
+      : await getEffectiveCookie(uid, s + 1, use_cookie);
+  } else {
+    if (date && date != today) {
+      times = 0;
     }
 
-    let hasCookie = false;
-    db.includes("cookies", "cookie", "cookie", cookie).then((hasCookie = true));
+    date = today;
+    times = times ? times + 1 : 1;
 
-    if (hasCookie) {
-      const initData = { cookie: cookie, date: today, times: 0 };
-      db.push("cookies", "cookie", initData).then();
+    if (use_cookie) {
+      await db.update("cookies", "cookie", { cookie }, { date, times });
     }
 
-    let { date, times } = db.get("cookies", "cookie", { cookie }).then();
-
-    if (date && date === today && times & (times >= 30)) {
-      resolve(
-        s >= cookies.length
-          ? cookie
-          : getEffectiveCookie(uid, s + 1, use_cookie).then()
-      );
-    } else {
-      if (date && date != today) {
-        times = 0;
-      }
-
-      date = today;
-      times = times ? times + 1 : 1;
-
-      if (use_cookie) {
-        db.update("cookies", "cookie", { cookie }, { date, times }).then();
-      }
-
-      db.update("cookies", "uid", { uid }, { date, cookie }).then();
-      resolve(cookie);
-    }
-  });
+    await db.update("cookies", "uid", { uid }, { date, cookie });
+    return cookie;
+  }
 }
 
 async function getCookie(uid, use_cookie, bot) {
-  return new Promise((resolve, reject) => {
-    let hasUID = false;
-    db.includes("cookies", "uid", "uid", uid).then((hasUID = true));
+  if (!(await db.includes("cookies", "uid", "uid", uid))) {
+    const initData = { uid, date: "", cookie: "" };
+    await db.push("cookies", "uid", initData);
+  }
 
-    if (hasUID) {
-      const initData = { uid, date: "", cookie: "" };
-      db.push("cookies", "uid", initData).then();
-    }
+  let { date, cookie } = await db.get("cookies", "uid", { uid });
+  const today = new Date().toLocaleDateString();
 
-    let { date, cookie } = db.get("cookies", "uid", { uid }).then();
-    const today = new Date().toLocaleDateString();
+  if (!(date && cookie && date === today)) {
+    cookie = await getEffectiveCookie(uid, 1, use_cookie);
+  }
 
-    if (!(date && cookie && date === today)) {
-      cookie = getEffectiveCookie(uid, 1, use_cookie).then();
-    }
+  if (!cookie) {
+    return Promise.reject("获取 Cookie 失败！");
+  }
 
-    if (!cookie) {
-      reject("获取 Cookie 失败！");
-      return;
-    }
-
-    bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
-    resolve(cookie);
-  });
+  bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
+  return cookie;
 }
 
 export { getCookie };
