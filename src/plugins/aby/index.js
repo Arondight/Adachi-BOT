@@ -17,7 +17,7 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
-  const dbInfo = await getID(msg, userID, false); // UID
+  let dbInfo = await getID(msg, userID, false); // UID
   let schedule_type = "1";
 
   if (hasEntrance(msg, "aby", "lastaby")) {

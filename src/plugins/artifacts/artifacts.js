@@ -53,14 +53,14 @@ function getRandomProperty(arr, type) {
   let sum = 0,
     len = arr.length;
 
-  for (const i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     sum += arr[i];
     suffix.push(sum);
   }
 
   let rand = 0 === type ? randomInt(0, sum) : randomFloat(0, sum);
 
-  for (const i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     if (rand <= suffix[i]) {
       return i;
     }
@@ -80,7 +80,7 @@ function getMainStat(slot) {
     let float = [];
     const len = weights[slot].length;
 
-    for (const i = 0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
       float.push(weights[slot][i] * (1 + dailyFortune));
     }
 
@@ -92,7 +92,7 @@ function getSubStats(mainStat) {
   let arr = [];
   let sub = [];
 
-  for (const i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i++) {
     let w = weights[1][i] * randomInt(0, 1e3);
 
     if (i > 4) {
@@ -106,7 +106,7 @@ function getSubStats(mainStat) {
     return y[1] - x[1];
   });
 
-  for (const i = 0, num = 0; i < 10 && num < 4; i++) {
+  for (let i = 0, num = 0; i < 10 && num < 4; i++) {
     if (arr[i][0] !== mainStat) {
       sub.push({ stat: arr[i][0], grade: getRandomProperty(weights[6], 0) });
       num++;
@@ -123,7 +123,7 @@ function getInit() {
 function getImproves() {
   let improves = [];
 
-  for (const i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     improves.push({
       place: randomInt(0, 3),
       grade: getRandomProperty(weights[6], 0),
@@ -157,7 +157,7 @@ function toArray(property) {
 function getInitial(num, subStats) {
   let property = {};
 
-  for (const i = 0; i < num; i++) {
+  for (let i = 0; i < num; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
     property[id] = values[lv][id];
@@ -169,13 +169,13 @@ function getInitial(num, subStats) {
 function getFortified(num, subStats, improves) {
   let property = {};
 
-  for (const i = 0; i < 4; i++) {
+  for (let i = 0; i < 4; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
     property[id] = values[lv][id];
   }
 
-  for (const i = 0; i < num + 1; i++) {
+  for (let i = 0; i < num + 1; i++) {
     const p = improves[i].place;
     const id = subStats[p].stat;
     const lv = improves[i].grade;

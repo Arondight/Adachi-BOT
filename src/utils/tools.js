@@ -4,7 +4,7 @@ function randomString(length) {
   const charactersLength = characters.length;
   let result = "";
 
-  for (const i = 0; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
 
