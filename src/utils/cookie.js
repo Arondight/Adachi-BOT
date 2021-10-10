@@ -43,21 +43,21 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       return;
     }
 
-    if (
-      !(async () => await db.includes("cookies", "cookie", "cookie", cookie))()
-    ) {
+    let hasCookie = false;
+    db.includes("cookies", "cookie", "cookie", cookie).then((hasCookie = true));
+
+    if (hasCookie) {
       const initData = { cookie: cookie, date: today, times: 0 };
-      (async () => await db.push("cookies", "cookie", initData))();
+      db.push("cookies", "cookie", initData).then();
     }
 
-    let { date, times } = (async () =>
-      await db.get("cookies", "cookie", { cookie }))();
+    let { date, times } = db.get("cookies", "cookie", { cookie }).then();
 
     if (date && date === today && times & (times >= 30)) {
       resolve(
         s >= cookies.length
           ? cookie
-          : (async () => await getEffectiveCookie(uid, s + 1, use_cookie))()
+          : getEffectiveCookie(uid, s + 1, use_cookie).then()
       );
     } else {
       if (date && date != today) {
@@ -68,12 +68,10 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       times = times ? times + 1 : 1;
 
       if (use_cookie) {
-        (async () =>
-          await db.update("cookies", "cookie", { cookie }, { date, times }))();
+        db.update("cookies", "cookie", { cookie }, { date, times }).then();
       }
 
-      (async () =>
-        await db.update("cookies", "uid", { uid }, { date, cookie }))();
+      db.update("cookies", "uid", { uid }, { date, cookie }).then();
       resolve(cookie);
     }
   });
@@ -81,17 +79,19 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 
 async function getCookie(uid, use_cookie, bot) {
   return new Promise((resolve, reject) => {
-    if (!(async () => await db.includes("cookies", "uid", "uid", uid))()) {
+    let hasUID = false;
+    db.includes("cookies", "uid", "uid", uid).then((hasUID = true));
+
+    if (hasUID) {
       const initData = { uid, date: "", cookie: "" };
-      (async () => await db.push("cookies", "uid", initData))();
+      db.push("cookies", "uid", initData).then();
     }
 
-    let { date, cookie } = (async () =>
-      await db.get("cookies", "uid", { uid }))();
+    let { date, cookie } = db.get("cookies", "uid", { uid }).then();
     const today = new Date().toLocaleDateString();
 
     if (!(date && cookie && date === today)) {
-      cookie = (async () => await getEffectiveCookie(uid, 1, use_cookie))();
+      cookie = getEffectiveCookie(uid, 1, use_cookie).then();
     }
 
     if (!cookie) {

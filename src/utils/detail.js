@@ -96,14 +96,16 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
       return;
     }
 
-    if (!(async () => await db.includes("aby", "user", "uid", uid))()) {
+    let hasData = false;
+    db.includes("aby", "user", "uid", uid).then((hasData = true));
+
+    if (hasData) {
       const initData = { uid, data: [] };
-      (async () => await db.push("aby", "user", initData))();
+      db.push("aby", "user", initData).then();
     }
 
-    (async () => await db.update("aby", "user", { uid }, { data }))();
-    (async () =>
-      await db.update("time", "user", { aby: uid }, { time: nowTime }))();
+    db.update("aby", "user", { uid }, { data }).then();
+    db.update("time", "user", { aby: uid }, { time: nowTime }).then();
     bot.logger.debug(
       `缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`
     );
@@ -137,9 +139,8 @@ async function basePromise(mhyID, userID, bot) {
 
     const { game_role_id, nickname, region, level } = baseInfo;
     const uid = parseInt(game_role_id);
-    (async () => await userInitialize(userID, uid, nickname, level))();
-    (async () =>
-      await db.update("info", "user", { uid }, { level, nickname }))();
+    userInitialize(userID, uid, nickname, level).then();
+    db.update("info", "user", { uid }, { level, nickname }).then();
     resolve([uid, region]);
   });
 }
@@ -169,31 +170,29 @@ async function detailPromise(uid, server, userID, bot) {
 
   return new Promise((resolve, reject) => {
     if (retcode !== 0) {
-      (async () =>
-        await db.update(
-          "info",
-          "user",
-          { uid },
-          { message, retcode: parseInt(retcode) }
-        ))();
+      db.update(
+        "info",
+        "user",
+        { uid },
+        { message, retcode: parseInt(retcode) }
+      ).then();
       reject(`米游社接口报错: ${message}`);
       return;
     }
 
-    (async () =>
-      await db.update(
-        "info",
-        "user",
-        { uid },
-        {
-          message,
-          retcode: parseInt(retcode),
-          explorations: data.world_explorations,
-          stats: data.stats,
-          homes: data.homes,
-        }
-      ))();
-    (async () => await db.update("time", "user", { uid }, { time: nowTime }))();
+    db.update(
+      "info",
+      "user",
+      { uid },
+      {
+        message,
+        retcode: parseInt(retcode),
+        explorations: data.world_explorations,
+        stats: data.stats,
+        homes: data.homes,
+      }
+    ).then();
+    db.update("time", "user", { uid }, { time: nowTime }).then();
     bot.logger.debug(
       `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
     );
@@ -264,7 +263,7 @@ async function characterPromise(uid, server, character_ids, bot) {
       }
     }
 
-    (async () => await db.update("info", "user", { uid }, { avatars }))();
+    db.update("info", "user", { uid }, { avatars }).then();
     resolve();
   });
 }
