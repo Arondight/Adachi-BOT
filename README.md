@@ -137,9 +137,28 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 进入本项目所在的目录。
 
+#### 检查更新
+
+```
+./scripts/is_there_an_update_available.sh
+```
+
+#### 进行更新
+
 ```
 git pull -p
 npm install
+```
+
+#### 查看配置文件变更
+
+```
+./scripts/whats_updated_in_the_configuration_files.sh
+```
+
+#### 重启机器人
+
+```
 npm run restart
 ```
 
