@@ -130,6 +130,11 @@ async function basePromise(mhyID, userID, bot) {
   const uid = parseInt(game_role_id);
   await userInitialize(userID, uid, nickname, level);
   await db.update("info", "user", { uid }, { level, nickname });
+
+  if (await db.includes("map", "user", "userID", userID)) {
+    await db.update("map", "user", { userID }, { UID: uid });
+  }
+
   return [uid, region];
 }
 
