@@ -1,9 +1,14 @@
 {
-  "name": "adachi-bot",
+  "name": "Adachi-BOT",
+  "app_name": "Adachi-BOT",
   "version": "1.5.0",
+  "app_version": "1.5.0",
   "description": "腾讯 QQ 中的原神机器人",
-  "license": "MIT",
+  "repository": "https://github.com/Arondight/Adachi-BOT.git",
+  "homepage": "https://github.com/Arondight/Adachi-BOT",
+  "bugs": "https://github.com/Arondight/Adachi-BOT/issues",
   "author": "Qin Fandong",
+  "license": "MIT",
   "type": "module",
   "exports": "./app.js",
   "keywords": [
@@ -17,7 +22,8 @@
   },
   "scripts": {
     "test": "echo 'No test specified' && exit 0",
-    "format": "npx prettier --config ./.prettierrc -uw ./app.js ./src/",
+    "format": "npx prettier --config ./.prettierrc.json -uw ./app.js ./src/",
+    "check": "npx eslint ./app.js ./src/",
     "init": "npx node ./app.js",
     "start": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 start ./app.js --name bot; npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 save",
     "restart": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 restart bot",
@@ -31,9 +37,12 @@
     "cross-env": "7.0.3",
     "express": "4.17.1",
     "image-cache": "1.0.1",
+    "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "lowdb": "3.0.0",
+    "md5": "2.3.0",
     "moment": "2.29.1",
+    "moment-timezone": "0.5.33",
     "node-fetch": "3.0.0",
     "node-schedule": "2.0.0",
     "oicq": "1.20.2",
@@ -44,8 +53,9 @@
     "systeminformation": "5.9.3"
   },
   "devDependencies": {
-    "js-yaml": "4.1.0",
-    "md5": "2.3.0",
+    "eslint": "7.32.0",
+    "eslint-plugin-unused-imports": "1.1.5",
+    "eslint-plugin-vue": "7.19.1",
     "prettier": "2.4.0"
   }
 }

@@ -27,16 +27,18 @@ const propertyName = [
 const dailyFortune = 0;
 
 function randomInt(Min, Max) {
-  let range = Max - Min + 1;
+  const range = Max - Min + 1;
   return Min + Math.floor(Math.random() * range);
 }
 
 function getArtifactID(domainID) {
+  let num;
+
   if (domainID === -1) {
-    let num = artifacts.length;
+    num = artifacts.length;
     return randomInt(0, num - 1);
   } else {
-    let num = domains.length;
+    num = domains.length;
 
     if (domainID >= num) {
       return undefined;
@@ -76,7 +78,7 @@ function getMainStat(slot) {
     return 6;
   } else {
     let float = [];
-    let len = weights[slot].length;
+    const len = weights[slot].length;
 
     for (let i = 0; i < len; i++) {
       float.push(weights[slot][i] * (1 + dailyFortune));
@@ -87,8 +89,8 @@ function getMainStat(slot) {
 }
 
 function getSubStats(mainStat) {
-  let arr = [],
-    sub = [];
+  let arr = [];
+  let sub = [];
 
   for (let i = 0; i < 10; i++) {
     let w = weights[1][i] * randomInt(0, 1e3);
@@ -132,21 +134,19 @@ function getImproves() {
 }
 
 function toArray(property) {
-  let res = [],
-    num = 0;
+  let res = [];
+  let num = 0;
 
-  for (let i in property) {
-    if (property.hasOwnProperty(i)) {
-      let temp = { name: propertyName[i] };
+  for (const i in property) {
+    let temp = { name: propertyName[i] };
 
-      if (property[i] < 1) {
-        temp.data = (property[i] * 100).toFixed(1) + "%";
-      } else {
-        temp.data = Math.round(property[i]).toString();
-      }
-
-      res[num++] = temp;
+    if (property[i] < 1) {
+      temp.data = (property[i] * 100).toFixed(1) + "%";
+    } else {
+      temp.data = Math.round(property[i]).toString();
     }
+
+    res[num++] = temp;
   }
 
   return res;
@@ -156,8 +156,8 @@ function getInitial(num, subStats) {
   let property = {};
 
   for (let i = 0; i < num; i++) {
-    let id = subStats[i].stat;
-    let lv = subStats[i].grade;
+    const id = subStats[i].stat;
+    const lv = subStats[i].grade;
     property[id] = values[lv][id];
   }
 
@@ -168,15 +168,15 @@ function getFortified(num, subStats, improves) {
   let property = {};
 
   for (let i = 0; i < 4; i++) {
-    let id = subStats[i].stat;
-    let lv = subStats[i].grade;
+    const id = subStats[i].stat;
+    const lv = subStats[i].grade;
     property[id] = values[lv][id];
   }
 
   for (let i = 0; i < num + 1; i++) {
-    let p = improves[i].place;
-    let id = subStats[p].stat;
-    let lv = improves[i].grade;
+    const p = improves[i].place;
+    const id = subStats[p].stat;
+    const lv = improves[i].grade;
     property[id] += values[lv][id];
   }
 
@@ -184,20 +184,20 @@ function getFortified(num, subStats, improves) {
 }
 
 async function getArtifact(userID, type) {
-  let artifactID = getArtifactID(type);
-  let slot = getSlot();
-  let mainStat = getMainStat(slot);
-  let subStats = getSubStats(mainStat);
-  let initPropertyNum = getInit();
-  let improves = getImproves();
-  let initialProperty = getInitial(initPropertyNum, subStats);
-  let fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
+  const artifactID = getArtifactID(type);
+  const slot = getSlot();
+  const mainStat = getMainStat(slot);
+  const subStats = getSubStats(mainStat);
+  const initPropertyNum = getInit();
+  const improves = getImproves();
+  const initialProperty = getInitial(initPropertyNum, subStats);
+  const fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
 
   if (!artifactID) {
     return artifactID;
   }
 
-  let name = artifacts[artifactID]["subName"][slot];
+  const name = artifacts[artifactID]["subName"][slot];
 
   await db.update(
     "artifact",
@@ -221,8 +221,8 @@ async function getArtifact(userID, type) {
 function domainInfo() {
   let domainsMsg = "";
 
-  for (let i in domains) {
-    if (domains.hasOwnProperty(i)) {
+  for (const i in domains) {
+    if (domains[i]) {
       domainsMsg += domains[i].name + `: ${i}\n`;
     }
   }

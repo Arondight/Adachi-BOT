@@ -1,0 +1,175 @@
+# ==============================================================================
+# 此为项目的管理者插件配置。
+# ==============================================================================
+# 不推荐自己维护此文件，如果确实有制定需求……
+#
+# 1. 将此文件复制到 ../config/ 下进行修改，不要直接修改此文件。
+# 2. 每次更新时关注此文件的变更，在 ../config/ 下的同名文件中体现变更。
+# 3. 切勿修改注释中的硬编码项（ XXX ）。
+# 4. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
+# ==============================================================================
+# plugin:                    # 插件名称（全局唯一、禁止修改）
+#   enable: boolean          # 是否加载插件
+#   weights: number          # 权重越高，帮助信息里显示越靠前
+#   regex:                   # 插件入口（正则、全局唯一、忽略大小写和行首空格）
+#     - string
+#   functions:
+#     function:              # 功能代号（全局唯一、禁止修改）
+#       weights: number      # 权重越高，帮助信息里显示越靠前
+#       name: string         # 呈现给用户的功能名称
+#       usage: string        # 呈现给用户的功能格式
+#       description: string  # 呈现给用户的功能说明
+#       entrance:            # 功能入口（ startsWith 、插件唯一、忽略大小写）
+#         - string
+# ==============================================================================
+
+tools_master:
+  enable: true
+  weights: 9899
+  regex:
+    - ^回(个)?话\s+\d+\s+.+$
+    - ^(好友|群)广播\s+.+$
+    - ^(好友|群)列表\s*$
+    - ^查找列表\s+.+$
+    - ^统计列表\s*$
+    - ^系统(状态|信息)\s*$
+  functions:
+    reply:
+      weights: 9999
+      name: 回话
+      usage: <QQ号、群号> <文本...>
+      description:
+      entrance:
+        - 回话
+        - 回个话
+    group_boardcast:
+      weights: 9899
+      name: 群广播
+      usage: <单行图文...>
+      description:
+      entrance:
+        - 群广播
+    private_boardcast:
+      weights: 9799
+      name: 好友广播
+      usage: <单行图文...>
+      description:
+      entrance:
+        - 好友广播
+    group_search:
+      weights: 9699
+      name: 群列表
+      usage:
+      description: 查看所有群
+      entrance:
+        - 群列表
+    private_search:
+      weights: 9699
+      name: 好友列表
+      usage:
+      description: 查看所有好友
+      entrance:
+        - 好友列表
+    search:
+      weights: 9599
+      name: 查找列表
+      usage: <关键字>
+      description: 查找昵称、QQ号中包含关键字的好友和群
+      entrance:
+        - 查找列表
+    count:
+      weights: 9499
+      name: 统计列表
+      usage:
+      description: 统计用户数量
+      entrance:
+        - 统计列表
+    status:
+      weights: 9399
+      name: 系统状态
+      usage:
+      description:
+      entrance:
+        - 系统状态
+        - 系统信息
+
+master:
+  enable: true
+  weights: 9999
+  regex:
+    # XXX 此处的 on、off 仍然为硬编码
+    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限\s+\d+\s+(on|off)$
+    - ^响应消息\s+\d+\s+(on|off)$
+    - ^刷新卡池\s*$
+  functions:
+    feedback_auth:
+      weights: 9999
+      name: 带话权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【带话】
+      entrance:
+        - 带话权限
+    music_auth:
+      weights: 9899
+      name: 点歌权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【点歌】
+      entrance:
+        - 点歌权限
+    gacha_auth:
+      weights: 9799
+      name: 十连权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【十连】
+      entrance:
+        - 十连权限
+    artifact_auth:
+      weights: 9699
+      name: 圣遗物权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【圣遗物】【强化】
+      entrance:
+        - 圣遗物权限
+    rating_auth:
+      weights: 9599
+      name: 评分权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【评分】
+      entrance:
+        - 评分权限
+    query_gameinfo_auth:
+      weights: 9499
+      name: 游戏数据权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【深渊】【上期深渊】【米游社】【uid】
+      entrance:
+        - 游戏数据权限
+    character_overview_auth:
+      weights: 9399
+      name: 官方数据权限
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description: 【角色】【武器】
+      entrance:
+        - 官方数据权限
+    reply_auth:
+      weights: 9299
+      name: 响应消息
+      # XXX 此处的 on、off 仍然为硬编码
+      usage: <QQ号、群号> <on、off>
+      description:
+      entrance:
+        - 响应消息
+    refresh_wish_detail:
+      weights: 9199
+      name: 刷新卡池
+      usage:
+      description:
+      entrance:
+        - 刷新卡池

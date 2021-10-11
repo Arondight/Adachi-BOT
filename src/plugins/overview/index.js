@@ -1,16 +1,18 @@
-import { alias } from "../../utils/alias.js";
+/* global alias */
+/* eslint no-undef: "error" */
+
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
 
-async function Plugin(Message) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+async function Plugin(Message, bot) {
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data;
 
   if (
@@ -22,26 +24,31 @@ async function Plugin(Message) {
   }
 
   if (!text) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 请正确输入名称。`,
-      type
-    );
+    await bot.sendMessage(sendID, "请输入名称。", type, userID);
     return;
   }
 
   try {
-    data = await getInfo(alias(text));
-  } catch (errInfo) {
+    data = await getInfo(alias[text] || text);
+  } catch (e) {
     await bot.sendMessage(
       sendID,
-      `[CQ:at,qq=${userID}] 查询失败，请检查名称是否正确。`,
-      type
+      "查询失败，请检查名称是否正确。",
+      type,
+      userID
     );
     return;
   }
 
-  await render(data, "genshin-overview", sendID, type);
+  await render(data, "genshin-overview", sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

@@ -1,53 +1,53 @@
-import { boardcast } from "./boardcast.js";
-import { count } from "./count.js";
-import { feedback } from "./feedback.js";
-import { help } from "./help.js";
-import { master } from "./master.js";
-import { reply } from "./reply.js";
-import { roll } from "./roll.js";
-import { search } from "./search.js";
-import { status } from "./status.js";
+/* global command, master */
+/* eslint no-undef: "error" */
 
-async function Plugin(Message) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let groupName = "group" === type ? Message.group_name : undefined;
+import { hasEntrance } from "../../utils/config.js";
+import { feedback } from "./feedback.js";
+import { menu } from "./menu.js";
+import { prophecy } from "./prophecy.js";
+import { quote } from "./quote.js";
+import { roll } from "./roll.js";
+
+async function Plugin(Message, bot) {
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const groupName = "group" === type ? Message.group_name : undefined;
 
   switch (true) {
-    case msg.startsWith("带个话"):
-      feedback(sendID, name, msg, type, userID, groupName);
+    case hasEntrance(msg, "tools", "menu"):
+      menu(sendID, msg, type, userID, bot);
       break;
-    case msg.startsWith("群广播") || msg.startsWith("好友广播"):
-      boardcast(sendID, msg, type, userID);
+    case hasEntrance(msg, "tools", "prophecy"):
+      prophecy(sendID, msg, type, userID, bot);
       break;
-    case msg.startsWith("回个话"):
-      reply(sendID, msg, type, userID);
+    case hasEntrance(msg, "tools", "roll"):
+      roll(sendID, msg, type, userID, bot);
       break;
-    case msg.startsWith("群列表") ||
-      msg.startsWith("好友列表") ||
-      msg.startsWith("查找列表"):
-      search(sendID, msg, type, userID);
+    case hasEntrance(msg, "tools", "quote"):
+      quote(sendID, msg, type, userID, bot);
       break;
-    case msg.startsWith("统计列表"):
-      count(sendID, msg, type, userID);
+    case hasEntrance(msg, "tools", "feedback"):
+      feedback(sendID, name, msg, type, userID, groupName, bot);
       break;
-    case msg.startsWith("系统状态") || msg.startsWith("系统信息"):
-      status(sendID, type, userID);
+    case hasEntrance(msg, "tools", "help"):
+      await bot.sendMessage(sendID, command.usage, type, userID, "\n");
       break;
-    case msg.startsWith("管理"):
-      master(sendID, type);
-      break;
-    case msg.toLowerCase().startsWith("roll".toLowerCase()):
-      roll(sendID, name, msg, type, userID);
-      break;
-    case msg.toLowerCase().startsWith("help".toLowerCase()):
-      help(sendID, type);
+    case hasEntrance(msg, "tools", "master"):
+      await bot.sendMessage(sendID, master.usage, type, userID, "\n");
       break;
   }
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

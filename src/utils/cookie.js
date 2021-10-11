@@ -1,4 +1,3 @@
-import lodash from "lodash";
 import db from "./database.js";
 import { loadYML } from "./yaml.js";
 
@@ -30,73 +29,65 @@ function isValidCookie(cookie) {
 }
 
 async function getEffectiveCookie(uid, s, use_cookie) {
-  return new Promise(async (resolve, reject) => {
-    let p = index;
-    increaseIndex();
+  let p = index;
+  increaseIndex();
 
-    p = p === cookies.length - 1 ? 0 : p + 1;
+  p = p === cookies.length - 1 ? 0 : p + 1;
 
-    let cookie = cookies[p];
-    let today = new Date().toLocaleDateString();
+  const cookie = cookies[p];
+  const today = new Date().toLocaleDateString();
 
-    if (!isValidCookie(cookie)) {
-      resolve(undefined);
-      return;
+  if (!isValidCookie(cookie)) {
+    return undefined;
+  }
+
+  if (!(await db.includes("cookies", "cookie", "cookie", cookie))) {
+    const initData = { cookie: cookie, date: today, times: 0 };
+    await db.push("cookies", "cookie", initData);
+  }
+
+  let { date, times } = await db.get("cookies", "cookie", { cookie });
+
+  if (date && date === today && times & (times >= 30)) {
+    return s >= cookies.length
+      ? cookie
+      : await getEffectiveCookie(uid, s + 1, use_cookie);
+  } else {
+    if (date && date != today) {
+      times = 0;
     }
 
-    if (!(await db.includes("cookies", "cookie", "cookie", cookie))) {
-      let initData = { cookie: cookie, date: today, times: 0 };
-      await db.push("cookies", "cookie", initData);
+    date = today;
+    times = times ? times + 1 : 1;
+
+    if (use_cookie) {
+      await db.update("cookies", "cookie", { cookie }, { date, times });
     }
 
-    let { date, times } = await db.get("cookies", "cookie", { cookie });
-
-    if (date && date == today && times & (times >= 30)) {
-      resolve(
-        s >= cookies.length
-          ? cookie
-          : await getEffectiveCookie(uid, s + 1, use_cookie)
-      );
-    } else {
-      if (date && date != today) {
-        times = 0;
-      }
-
-      date = today;
-      times = times ? times + 1 : 1;
-
-      if (use_cookie) {
-        await db.update("cookies", "cookie", { cookie }, { date, times });
-      }
-
-      await db.update("cookies", "uid", { uid }, { date, cookie });
-      resolve(cookie);
-    }
-  });
+    await db.update("cookies", "uid", { uid }, { date, cookie });
+    return cookie;
+  }
 }
 
-async function getCookie(uid, use_cookie) {
-  return new Promise(async (resolve, reject) => {
-    if (!(await db.includes("cookies", "uid", "uid", uid))) {
-      let initData = { uid, date: "", cookie: "" };
-      await db.push("cookies", "uid", initData);
-    }
+async function getCookie(uid, use_cookie, bot) {
+  if (!(await db.includes("cookies", "uid", "uid", uid))) {
+    const initData = { uid, date: "", cookie: "" };
+    await db.push("cookies", "uid", initData);
+  }
 
-    let { date, cookie } = await db.get("cookies", "uid", { uid });
-    let today = new Date().toLocaleDateString();
+  let { date, cookie } = await db.get("cookies", "uid", { uid });
+  const today = new Date().toLocaleDateString();
 
-    if (!(date && cookie && date == today)) {
-      cookie = await getEffectiveCookie(uid, 1, use_cookie);
-    }
+  if (!(date && cookie && date === today)) {
+    cookie = await getEffectiveCookie(uid, 1, use_cookie);
+  }
 
-    if (!cookie) {
-      reject("获取 Cookie 失败！");
-      return;
-    }
+  if (!cookie) {
+    return Promise.reject("获取 Cookie 失败！");
+  }
 
-    bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
-    resolve(cookie);
-  });
+  bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
+  return cookie;
 }
 
 export { getCookie };

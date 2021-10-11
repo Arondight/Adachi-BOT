@@ -8,19 +8,19 @@ import {
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
-const generateImage = async (uid, id, type) => {
+const generateImage = async (uid, id, type, user, bot) => {
   const data = await db.get("info", "user", { uid });
-  await render(data, "genshin-card", id, type);
+  await render(data, "genshin-card", id, type, user, bot);
 };
 
-async function Plugin(Message) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let dbInfo = await getID(msg, userID); // 米游社 ID
+async function Plugin(Message, bot) {
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const dbInfo = await getID(msg, userID); // 米游社 ID
   let uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
@@ -29,32 +29,37 @@ async function Plugin(Message) {
   }
 
   if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ${dbInfo}`, type);
+    await bot.sendMessage(sendID, dbInfo, type, userID);
     return;
   }
 
   if (!dbInfo) {
-    await bot.sendMessage(
-      sendID,
-      `[CQ:at,qq=${userID}] 请正确输入米游社通行证 ID。`,
-      type
-    );
+    await bot.sendMessage(sendID, "请正确输入米游社通行证 ID。", type, userID);
     return;
   }
 
   try {
-    const baseInfo = await basePromise(dbInfo, userID);
+    const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
-    const detailInfo = await detailPromise(...baseInfo, userID);
-    await characterPromise(...baseInfo, detailInfo);
-  } catch (errInfo) {
-    if (errInfo !== "") {
-      await bot.sendMessage(sendID, `[CQ:at,qq=${userID}] ` + errInfo, type);
+    const detailInfo = await detailPromise(...baseInfo, userID, bot);
+    await characterPromise(...baseInfo, detailInfo, bot);
+  } catch (e) {
+    // 抛出空串则使用缓存
+    if ("" !== e) {
+      await bot.sendMessage(sendID, e, type, userID);
       return;
     }
   }
 
-  await generateImage(uid, sendID, type);
+  await generateImage(uid, sendID, type, userID, bot);
 }
 
-export { Plugin as run };
+async function Wrapper(Message, bot) {
+  try {
+    await Plugin(Message, bot);
+  } catch (e) {
+    bot.logger.error(e);
+  }
+}
+
+export { Wrapper as run };

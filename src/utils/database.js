@@ -1,23 +1,17 @@
+/* global config, rootdir */
+/* eslint no-undef: "error" */
+
 import { Low, JSONFileSync } from "lowdb";
-import url from "url";
 import path from "path";
 import lodash from "lodash";
-import { getID } from "./id.js";
+import { Mutex } from "./mutex.js";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const db = {};
+const mutex = new Mutex();
 
 // 如果数据库不存在，将自动创建新的空数据库。
 async function init(dbName, defaultElement = { user: [] }) {
-  const file = path.resolve(
-    __dirname,
-    "..",
-    "..",
-    "data",
-    "db",
-    `${dbName}.json`
-  );
+  const file = path.resolve(rootdir, "data", "db", `${dbName}.json`);
   const adapter = new JSONFileSync(file);
 
   db[dbName] = new Low(adapter);
@@ -34,7 +28,11 @@ async function has(dbName, ...path) {
 }
 
 async function write(dbName) {
-  return undefined === db[dbName] ? false : db[dbName].write();
+  if (db[dbName]) {
+    await mutex.acquire();
+    db[dbName].write();
+    mutex.release();
+  }
 }
 
 async function includes(dbName, key, index, value) {
@@ -56,7 +54,11 @@ async function push(dbName, key, data) {
   if (undefined === db[dbName]) {
     return;
   }
+
+  await mutex.acquire();
   db[dbName].chain.get(key).push(data).value();
+  mutex.release();
+
   write(dbName);
 }
 
@@ -64,7 +66,11 @@ async function update(dbName, key, index, data) {
   if (undefined === db[dbName]) {
     return;
   }
+
+  await mutex.acquire();
   db[dbName].chain.get(key).find(index).assign(data).value();
+  mutex.release();
+
   write(dbName);
 }
 
@@ -72,7 +78,11 @@ async function set(dbName, key, data) {
   if (undefined === db[dbName]) {
     return;
   }
+
+  await mutex.acquire();
   db[dbName].chain.set(key, data).value();
+  mutex.release();
+
   write(dbName);
 }
 
@@ -88,7 +98,7 @@ async function cleanByTimeDB(
     return nums;
   }
 
-  let timeDBRecords = await get("time", "user");
+  const timeDBRecords = await get("time", "user");
   let records = await get(dbName, dbKey[0]);
 
   if (!records) {
@@ -103,7 +113,7 @@ async function cleanByTimeDB(
     return nums;
   }
 
-  for (let i in records) {
+  for (const i in records) {
     const uid = records[i][dbKey[1]];
 
     // 没有基准字段则删除该记录（因为很可能是错误数据）
@@ -136,10 +146,10 @@ async function cleanCookies() {
   const today = new Date().toLocaleDateString();
   let nums = 0;
 
-  for (let key of keys) {
+  for (const key of keys) {
     let records = await get(dbName, key);
 
-    for (let i in records) {
+    for (const i in records) {
       // 1. 没有基准字段则删除该记录
       // 2. 不是今天的记录一律删除
       if (!records[i].date || today != records[i].date) {
@@ -187,5 +197,4 @@ export default {
   update,
   set,
   clean,
-  getID,
 };
