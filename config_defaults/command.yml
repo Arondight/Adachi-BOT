@@ -344,3 +344,17 @@ save:
       description:
       entrance:
         - 改绑
+
+fortune:
+  enable: true
+  weights: 8099
+  regex:
+    - ^求签\s*$
+  functions:
+    quote:
+      weights: 9999
+      name: 求签
+      usage:
+      description: 让占星术士莫娜为你求一签吧
+      entrance:
+        - 求签
