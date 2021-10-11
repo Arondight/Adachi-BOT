@@ -1,20 +1,11 @@
-/* global rootdir */
+/* global browser, rootdir */
 /* eslint no-undef: "error" */
 
 import fs from "fs";
 import path from "path";
-import puppeteer from "puppeteer";
 import { Mutex } from "./mutex.js";
 
 const mutex = new Mutex();
-let browser;
-
-puppeteer
-  .launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  })
-  .then((b) => (browser = b));
 
 async function render(data, name, id, type, user, bot) {
   let base64;
