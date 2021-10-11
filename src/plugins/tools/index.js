@@ -4,6 +4,7 @@
 import { hasEntrance } from "../../utils/config.js";
 import { feedback } from "./feedback.js";
 import { roll } from "./roll.js";
+import { prophecy } from "./prophecy.js";
 
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
@@ -20,6 +21,9 @@ async function Plugin(Message, bot) {
       break;
     case hasEntrance(msg, "tools", "roll"):
       roll(sendID, name, msg, type, userID, bot);
+      break;
+    case hasEntrance(msg, "tools", "prophecy"):
+      prophecy(sendID, name, msg, type, userID, bot);
       break;
     case hasEntrance(msg, "tools", "help"):
       await bot.sendMessage(sendID, command.usage, type, userID);

@@ -160,6 +160,7 @@ tools:
   weights: 8699
   regex:
     - ^roll\s*([+-]?\d+)?$
+    - ^求签\s*$
     - ^help\s*$
     - ^带(个)?话\s+.+$
     - ^管理\s*$
@@ -171,8 +172,15 @@ tools:
       description: 掷骰子
       entrance:
         - roll
-    feedback:
+    prophecy:
       weights: 9899
+      name: 求签
+      usage:
+      description:
+      entrance:
+        - 求签
+    feedback:
+      weights: 299
       name: 带话
       usage: <单行图文>
       description: 给主人带话
@@ -344,17 +352,3 @@ save:
       description:
       entrance:
         - 改绑
-
-fortune:
-  enable: true
-  weights: 8099
-  regex:
-    - ^求签\s*$
-  functions:
-    quote:
-      weights: 9999
-      name: 求签
-      usage:
-      description: 让占星术士莫娜为你求一签吧
-      entrance:
-        - 求签
