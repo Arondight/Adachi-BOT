@@ -157,21 +157,26 @@ gacha:
 
 tools:
   enable: true
-  weights: 8699
+  weights: 99
   regex:
+    - ^菜单\s*$
+    - ^(今天)?吃什么\s*$
+    - ^(求签|占卜)\s*$
     - ^roll\s*([+-]?\d+)?$
-    - ^求签\s*$
+    - ^伟大的升华\s*$
     - ^help\s*$
     - ^带(个)?话\s+.+$
     - ^管理\s*$
   functions:
-    roll:
+    menu:
       weights: 9999
-      name: roll
-      usage: "[1-100]"
-      description: 掷骰子
+      name: 今天吃什么
+      usage:
+      description:
       entrance:
-        - roll
+        - 今天吃什么
+        - 吃什么
+        - 菜单
     prophecy:
       weights: 9899
       name: 求签
@@ -179,6 +184,21 @@ tools:
       description:
       entrance:
         - 求签
+        - 占卜
+    roll:
+      weights: 9799
+      name: roll
+      usage: "[1-100]"
+      description: 掷骰子
+      entrance:
+        - roll
+    quote:
+      weights: 9699
+      name: 伟大的升华
+      usage:
+      description:
+      entrance:
+        - 伟大的升华
     feedback:
       weights: 299
       name: 带话
@@ -231,23 +251,6 @@ material:
       description: 周本材料表
       entrance:
         - 周本
-
-menu:
-  enable: true
-  weights: 8899
-  regex:
-    - ^菜单\s*$
-    - ^(今天)?吃什么\s*$
-  functions:
-    menu:
-      weights: 9999
-      name: 今天吃什么
-      usage:
-      description:
-      entrance:
-        - 今天吃什么
-        - 吃什么
-        - 菜单
 
 music:
   enable: true
@@ -302,20 +305,6 @@ package:
       description: 查询并更新角色信息
       entrance:
         - uid
-
-quote:
-  enable: true
-  weights: 8799
-  regex:
-    - ^伟大的升华\s*$
-  functions:
-    quote:
-      weights: 9999
-      name: 伟大的升华
-      usage:
-      description:
-      entrance:
-        - 伟大的升华
 
 rating:
   enable: true

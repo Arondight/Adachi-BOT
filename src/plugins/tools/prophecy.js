@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-async function prophecy(id, name, msg, type, user, bot) {
+async function prophecy(id, msg, type, user, bot) {
   let headers = {
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
@@ -16,7 +16,7 @@ async function prophecy(id, name, msg, type, user, bot) {
 
   if (200 === response.status) {
     const { data } = await response.json();
-    const { fortuneSummary, signText, unSignText } = (data || {});
+    const { fortuneSummary, signText, unSignText } = data || {};
 
     await bot.sendMessage(
       id,
