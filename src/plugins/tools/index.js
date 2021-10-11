@@ -34,10 +34,10 @@ async function Plugin(Message, bot) {
       feedback(sendID, name, msg, type, userID, groupName, bot);
       break;
     case hasEntrance(msg, "tools", "help"):
-      await bot.sendMessage(sendID, command.usage, type, userID);
+      await bot.sendMessage(sendID, command.usage, type, userID, "\n");
       break;
     case hasEntrance(msg, "tools", "master"):
-      await bot.sendMessage(sendID, master.usage, type, userID);
+      await bot.sendMessage(sendID, master.usage, type, userID, "\n");
       break;
   }
 }

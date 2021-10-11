@@ -17,13 +17,9 @@ async function prophecy(id, msg, type, user, bot) {
   if (200 === response.status) {
     const { data } = await response.json();
     const { fortuneSummary, signText, unSignText } = data || {};
+    const message = `${fortuneSummary}：${signText}。\n${unSignText}`;
 
-    await bot.sendMessage(
-      id,
-      `${fortuneSummary}：${signText}。\n${unSignText}`,
-      type,
-      user
-    );
+    await bot.sendMessage(id, message, type, user, "\n");
     return;
   }
 

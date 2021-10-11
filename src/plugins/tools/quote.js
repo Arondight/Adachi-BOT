@@ -12,7 +12,7 @@ async function quote(id, msg, type, user, bot) {
 
   if (200 === response.status) {
     const { quote, from } = await response.json();
-    return await bot.sendMessage(id, `${quote}\n${from}`, type, user);
+    return await bot.sendMessage(id, `${quote}\n${from}`, type, user, "\n");
   }
 
   await bot.sendMessage(id, "伟大的升华！", type, user);
