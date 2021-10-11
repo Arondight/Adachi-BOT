@@ -1,13 +1,13 @@
 import fetch from "node-fetch";
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let headers = {
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const headers = {
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
@@ -17,7 +17,7 @@ async function Plugin(Message, bot) {
   });
 
   if (200 === response.status) {
-    let { quote, from } = await response.json();
+    const { quote, from } = await response.json();
     return await bot.sendMessage(sendID, `${quote}\n${from}`, type, userID);
   }
 

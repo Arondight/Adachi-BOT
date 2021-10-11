@@ -1,5 +1,13 @@
+/* global all, command, config, master */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
+import url from "url";
+import path from "path";
 import { loadYML } from "./yaml.js";
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const Setting = loadYML("setting");
 const Greeting = loadYML("greeting");
@@ -137,6 +145,10 @@ function makeUsage(object) {
   object.usage = text;
 }
 
+function setRootDir() {
+  global.rootdir = path.resolve(__dirname, "..", "..");
+}
+
 // global.config
 function readSettingGreetingMenu() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
@@ -163,33 +175,34 @@ function readSettingGreetingMenu() {
     dbInfoEffectTime: 168,
   };
 
-  let account = Setting["account"];
-  let accounts = Setting["accounts"];
+  const account = Setting["account"];
+  const accounts = Setting["accounts"];
   // 用于兼容旧配置，已经被 masters 取代
-  let master = Setting["master"];
-  let masters = Setting["masters"];
-  let atUser = parseInt(Setting["atUser"]);
-  let repeatProb = parseInt(Setting["repeatProb"]);
-  let groupHello = parseInt(Setting["groupHello"]);
-  let groupGreetingNew = parseInt(Setting["groupGreetingNew"]);
-  let friendGreetingNew = parseInt(Setting["friendGreetingNew"]);
-  let cacheAbyEffectTime = parseInt(Setting["cacheAbyEffectTime"]);
-  let cacheInfoEffectTime = parseInt(Setting["cacheInfoEffectTime"]);
-  let dbAbyEffectTime = parseInt(Setting["dbAbyEffectTime"]);
-  let dbInfoEffectTime = parseInt(Setting["dbInfoEffectTime"]);
-  let greetingOnline = Greeting["online"];
-  let greetingDie = Greeting["die"];
-  let greetingHello = Greeting["hello"];
-  let greetingNew = Greeting["new"];
-  let menu = Menu;
+  const master = Setting["master"];
+  const masters = Setting["masters"];
+  const prefixes = Setting["prefixes"];
+  const atUser = parseInt(Setting["atUser"]);
+  const repeatProb = parseInt(Setting["repeatProb"]);
+  const groupHello = parseInt(Setting["groupHello"]);
+  const groupGreetingNew = parseInt(Setting["groupGreetingNew"]);
+  const friendGreetingNew = parseInt(Setting["friendGreetingNew"]);
+  const cacheAbyEffectTime = parseInt(Setting["cacheAbyEffectTime"]);
+  const cacheInfoEffectTime = parseInt(Setting["cacheInfoEffectTime"]);
+  const dbAbyEffectTime = parseInt(Setting["dbAbyEffectTime"]);
+  const dbInfoEffectTime = parseInt(Setting["dbInfoEffectTime"]);
+  const greetingOnline = Greeting["online"];
+  const greetingDie = Greeting["die"];
+  const greetingHello = Greeting["hello"];
+  const greetingNew = Greeting["new"];
+  const menu = Menu;
 
   global.config = {};
 
   const getConfig = (...pairs) => {
     pairs &&
       pairs.forEach((pair) => {
-        let prop = Object.keys(pair)[0];
-        let val = pair[prop];
+        const prop = Object.keys(pair)[0];
+        const val = pair[prop];
 
         if (undefined === defaultConfig[prop]) {
           config[prop] = val;
@@ -201,6 +214,9 @@ function readSettingGreetingMenu() {
   getConfig(
     { accounts: [...(accounts || []), ...(account ? [account] : [])] },
     { masters: [...(masters || []), ...(master ? [master] : [])] },
+    {
+      prefixes: Array.isArray(prefixes) ? prefixes : prefixes ? [prefixes] : [],
+    },
     { atUser },
     { repeatProb },
     { groupHello },
@@ -217,10 +233,18 @@ function readSettingGreetingMenu() {
     { menu }
   );
 
+  // 设置每个 QQ 账户的登录选项默认值
   for (const option of config.accounts) {
-    // 1:安卓手机、 2:aPad、 3:安卓手表、 4:MacOS、 5:iPad
+    // 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
     if (![1, 2, 3, 4, 5].includes(option.platform)) {
       option.platform = defaultConfig.platform;
+    }
+  }
+
+  // 转化每个不为 null 的命令前缀的数据类型为 string
+  for (const i in config.prefixes) {
+    if (config.prefixes[i]) {
+      config.prefixes[i] = config.prefixes[i].toString();
     }
   }
 }
@@ -282,6 +306,7 @@ function getUsage() {
 }
 
 async function readConfig() {
+  setRootDir();
   readSettingGreetingMenu();
   readCommand();
   readAlias();

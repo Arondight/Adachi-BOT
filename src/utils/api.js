@@ -1,3 +1,8 @@
+/* global rootdir */
+/* eslint no-undef: "error" */
+
+import fs from "fs";
+import path from "path";
 import fetch from "node-fetch";
 import { getDS } from "./ds.js";
 
@@ -14,7 +19,6 @@ const __API = {
     "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json",
   FETCH_ABY_DETAIL:
     "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
-  FETCH_INFO: "http://localhost:9934/resources/Version2/info/docs/$.json",
 };
 const HEADERS = {
   "User-Agent":
@@ -27,9 +31,22 @@ const HEADERS = {
 };
 
 function getInfo(name) {
-  return fetch(__API.FETCH_INFO.replace("$", encodeURI(name)), {
-    method: "GET",
-  }).then((res) => res.json());
+  const infoDir = path.resolve(
+    rootdir,
+    "resources",
+    "Version2",
+    "info",
+    "docs"
+  );
+
+  return new Promise((resolve, reject) => {
+    try {
+      const file = path.resolve(infoDir, `${name}.json`);
+      resolve(JSON.parse(fs.readFileSync(file)));
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 function getAbyDetail(role_id, schedule_type, server, cookie) {

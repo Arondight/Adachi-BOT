@@ -6,13 +6,13 @@ import { search } from "./search.js";
 import { status } from "./status.js";
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let groupName = "group" === type ? Message.group_name : undefined;
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const groupName = "group" === type ? Message.group_name : undefined;
 
   switch (true) {
     case hasEntrance(

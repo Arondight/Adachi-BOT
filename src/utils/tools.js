@@ -1,8 +1,8 @@
 function randomString(length) {
-  let result = "";
-  let characters =
+  const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let charactersLength = characters.length;
+  const charactersLength = characters.length;
+  let result = "";
 
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));

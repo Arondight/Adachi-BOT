@@ -1,26 +1,25 @@
+/* global all, bots, command, config, master, rootdir */
+/* eslint no-undef: "error" */
+
 import fs from "fs";
-import url from "url";
 import path from "path";
 import { hasAuth } from "./auth.js";
 import { getRandomInt } from "./tools.js";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 async function loadPlugins() {
   let plugins = {};
-  const pluginsPath = fs.readdirSync(path.resolve(__dirname, "..", "plugins"));
+  const pluginsPath = fs.readdirSync(path.resolve(rootdir, "src", "plugins"));
   const enableList = { ...command.enable, ...master.enable };
 
-  for (let plugin of pluginsPath) {
+  for (const plugin of pluginsPath) {
     if (plugin in all.function) {
       if (enableList[plugin] && true === enableList[plugin]) {
         try {
           plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
           bots[0] && bots[0].logger.debug(`插件：加载 ${plugin} 成功。`);
-        } catch (error) {
+        } catch (e) {
           bots[0] &&
-            bots[0].logger.error(`插件：加载 ${plugin} 失败（${error}）。`);
+            bots[0].logger.error(`插件：加载 ${plugin} 失败（${e}）！`);
         }
       } else {
         bots[0] &&
@@ -45,13 +44,14 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
+  // 如果有新成员加入了组群，尝试向新成员或者全群问好
   if (type === "group.increase") {
     if (bot.uin === qqData.user_id) {
-      // 如果加入了新群，向全群问好
-      // 群 通知不需要 @
+      // 如果加入了新群，尝试向全群问好
+      // 群通知不需要 @
       bot.sendMessage(qqData.group_id, config.greetingHello, "group");
     } else {
-      // 如果有新群友加入，尝试向新群友问好
+      // 如果有新群友，尝试向新群友问好
       if (
         config.groupGreetingNew &&
         (await hasAuth(qqData.group_id, "reply"))
@@ -68,18 +68,40 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
-  // 收到的信息是命令，尝试指派插件处理命令
+  // 如果收到的信息是命令，尝试指派插件处理命令
   if (
-    (await hasAuth(qqData.group_id, "reply")) &&
-    (await hasAuth(qqData.user_id, "reply")) &&
-    qqData.hasOwnProperty("message") &&
+    qqData.message &&
     qqData.message[0] &&
-    qqData.message[0].type === "text"
+    "text" === qqData.message[0].type
   ) {
     const regexPool = { ...command.regex, ...master.regex };
     const enableList = { ...command.enable, ...master.enable };
+    let match = false;
+    let thisPrefix = null;
 
-    for (let regex in regexPool) {
+    // 匹配命令前缀
+    if (0 === config.prefixes.length || config.prefixes.includes(null)) {
+      match = true;
+    } else {
+      for (const prefix of config.prefixes) {
+        if (qqData.raw_message.startsWith(prefix)) {
+          match = true;
+          thisPrefix = prefix;
+          break;
+        }
+      }
+    }
+
+    if (!match) {
+      return;
+    }
+
+    qqData.raw_message = qqData.raw_message
+      .slice(thisPrefix ? thisPrefix.length : 0)
+      .trimStart();
+
+    // 匹配插件入口
+    for (const regex in regexPool) {
       const r = new RegExp(regex, "i");
       const plugin = regexPool[regex];
 
@@ -91,15 +113,20 @@ async function processed(qqData, plugins, type, bot) {
           return;
         }
 
-        plugins[plugin].run({ ...qqData, type }, bot);
-        return;
+        if (
+          (await hasAuth(qqData.group_id, "reply")) &&
+          (await hasAuth(qqData.user_id, "reply"))
+        ) {
+          plugins[plugin].run({ ...qqData, type }, bot);
+          return;
+        }
       }
     }
   }
 
   // 如果不是命令，且为群消息，随机复读群消息
   if ("group" === type) {
-    if (getRandomInt(100) < config.repeatProb) {
+    if (config.repeatProb > 0 && getRandomInt(100) < config.repeatProb) {
       // 复读群消息不需要 @
       bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
     }
@@ -107,12 +134,12 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
-  // 如果是机器人上线，尝试所有群发送一遍上线通知
+  // 如果机器人上线，尝试所有群发送一遍上线通知
   if ("online" === type) {
     if (config.groupHello) {
       bot.gl.forEach(async (group) => {
-        let info = (await bot.getGroupInfo(group.group_id)).data;
-        let greeting = (await hasAuth(group.group_id, "reply"))
+        const info = (await bot.getGroupInfo(group.group_id)).data;
+        const greeting = (await hasAuth(group.group_id, "reply"))
           ? config.greetingOnline
           : config.greetingDie;
 

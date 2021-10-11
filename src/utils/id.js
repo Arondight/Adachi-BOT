@@ -1,3 +1,6 @@
+/* global command */
+/* eslint no-undef: "error" */
+
 import db from "./database.js";
 
 function getUID(msg) {

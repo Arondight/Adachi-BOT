@@ -1,3 +1,6 @@
+/* global alias, command */
+/* eslint no-undef: "error" */
+
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
@@ -5,13 +8,13 @@ import { basePromise } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
 async function Plugin(Message, bot) {
-  let msg = Message.raw_message;
-  let userID = Message.user_id;
-  let groupID = Message.group_id;
-  let type = Message.type;
-  let name = Message.sender.nickname;
-  let sendID = "group" === type ? groupID : userID;
-  let dbInfo = await getID(msg, userID); // 米游社 ID
+  const msg = Message.raw_message;
+  const userID = Message.user_id;
+  const groupID = Message.group_id;
+  const type = Message.type;
+  const name = Message.sender.nickname;
+  const sendID = "group" === type ? groupID : userID;
+  const dbInfo = await getID(msg, userID); // 米游社 ID
   let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
   let uid, data;
 
@@ -34,7 +37,7 @@ async function Plugin(Message, bot) {
     const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
     const { avatars } = await db.get("info", "user", { uid });
-    character = alias[character] ? alias[character] : character;
+    character = alias[character] || character;
     data = avatars.find((el) => el.name === character);
 
     if (!data) {
@@ -46,9 +49,10 @@ async function Plugin(Message, bot) {
       );
       return;
     }
-  } catch (errInfo) {
-    if (errInfo !== "") {
-      await bot.sendMessage(sendID, errInfo, type, userID);
+  } catch (e) {
+    // 抛出空串则使用缓存
+    if ("" !== e) {
+      await bot.sendMessage(sendID, e, type, userID);
       return;
     }
   }

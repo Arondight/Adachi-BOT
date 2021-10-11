@@ -1,12 +1,11 @@
+/* global rootdir */
+/* eslint no-undef: "error" */
+
 import moment from "moment";
 import si from "systeminformation";
 import pb from "pretty-bytes";
-import url from "url";
 import path from "path";
 import { du } from "../../utils/file.js";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function status(id, type, user, bot) {
   const os = await si.osInfo();
@@ -25,7 +24,7 @@ CPU：${load.currentLoad && load.currentLoad.toFixed(2)}%（${cpu.manufacturer} 
     mem.total
   )}）
 启动：${moment.duration(time.uptime * 1000).humanize()}
-数据：${pb(du(path.resolve(__dirname, "..", "..", "..", "data", "db")))}`;
+数据：${pb(du(path.resolve(rootdir, "data", "db")))}`;
 
   await bot.sendMessage(id, str, type, user, "\n");
 }

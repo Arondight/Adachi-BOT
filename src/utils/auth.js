@@ -5,7 +5,7 @@ async function sendPrompt(sendID, userID, name, auth, type, bot) {
 }
 
 async function setAuth(auth, target, isOn) {
-  let data = await db.get("authority", "user", { userID: target });
+  const data = await db.get("authority", "user", { userID: target });
 
   if (undefined === data) {
     await db.push("authority", "user", { userID: target, [auth]: isOn });
@@ -20,7 +20,7 @@ async function setAuth(auth, target, isOn) {
 }
 
 async function hasAuth(userID, auth) {
-  let data = await db.get("authority", "user", { userID });
+  const data = await db.get("authority", "user", { userID });
   return undefined === data || undefined === data[auth] || true === data[auth];
 }
 

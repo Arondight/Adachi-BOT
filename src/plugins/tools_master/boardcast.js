@@ -1,7 +1,7 @@
 import { hasEntrance } from "../../utils/config.js";
 
 async function boardcast(id, msg, type, user, bot) {
-  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+  const [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let report = "";
 
   if (hasEntrance(msg, "tools_master", "group_boardcast")) {

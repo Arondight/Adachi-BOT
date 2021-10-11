@@ -1,8 +1,8 @@
 import { hasEntrance } from "../../utils/config.js";
 
 async function search(id, msg, type, user, bot) {
-  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let listAll = new Map([...bot.fl, ...bot.gl]);
+  const [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+  const listAll = new Map([...bot.fl, ...bot.gl]);
   let report = "";
 
   if (hasEntrance(msg, "tools_master", "group_search")) {
@@ -27,10 +27,10 @@ async function search(id, msg, type, user, bot) {
 
   if (hasEntrance(msg, "tools_master", "search")) {
     listAll.forEach(async (item) => {
-      let isGroup = item.hasOwnProperty("group_name") ? true : false;
-      let itemName = isGroup ? item.group_name : item.nickname;
-      let itemID = isGroup ? item.group_id : item.user_id;
-      let typeStr = isGroup ? "群组" : "好友";
+      const isGroup = item.group_name ? true : false;
+      const itemName = isGroup ? item.group_name : item.nickname;
+      const itemID = isGroup ? item.group_id : item.user_id;
+      const typeStr = isGroup ? "群组" : "好友";
 
       if (itemName.includes(text) || itemID.toString().includes(text)) {
         report += `${typeStr}：${itemName}（${itemID}）\n`;

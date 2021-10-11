@@ -1,3 +1,6 @@
+/* global bots, config */
+/* eslint no-undef: "error" */
+
 import { createClient } from "oicq";
 import init from "./src/utils/init.js";
 import { readConfig } from "./src/utils/config.js";
@@ -20,6 +23,10 @@ async function login() {
       delimiter = " ",
       atSender = true
     ) => {
+      if (!msg || "" === msg) {
+        return;
+      }
+
       switch (true) {
         case "group" === type:
           if (config.atUser && sender && atSender) {
@@ -73,6 +80,11 @@ async function report() {
   const say = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
 
   say(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
+  say(
+    0 === config.prefixes.length || config.prefixes.includes(null)
+      ? "所有的消息都将被视为命令。"
+      : `命令前缀设置为 ${config.prefixes.join(" 、 ")} 。`
+  );
   say(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
   say(`群消息复读的概率为 ${config.repeatProb}% 。`);
   say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
@@ -90,14 +102,14 @@ async function run() {
   ++config.repeatProb;
 
   for (const bot of bots) {
-    // 上线所有群发送一遍通知
+    // 监听上线事件
     bot.on("system.online", async (msgData) => {
       await processed(msgData, plugins, "online", bot);
     });
 
-    // 监听群消息
+    // 监听群消息事件
     bot.on("message.group", async (msgData) => {
-      let info = (await bot.getGroupInfo(msgData.group_id)).data;
+      const info = (await bot.getGroupInfo(msgData.group_id)).data;
 
       // 禁言时不发送消息
       // https://github.com/Arondight/Adachi-BOT/issues/28
@@ -106,7 +118,7 @@ async function run() {
       }
     });
 
-    // 监听好友消息
+    // 监听好友消息事件
     bot.on("message.private", async (msgData) => {
       await processed(msgData, plugins, "private", bot);
     });
@@ -131,4 +143,4 @@ async function main() {
     .then(async () => await run());
 }
 
-await main();
+main();

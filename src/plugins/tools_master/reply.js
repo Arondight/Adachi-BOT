@@ -1,10 +1,10 @@
 async function reply(id, msg, type, user, bot) {
-  let target = parseInt(msg.match(/[0-9]+/g)[0]);
-  let [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
-  let list = new Map([...bot.fl, ...bot.gl]);
+  const target = parseInt(msg.match(/[0-9]+/g)[0]);
+  const [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
+  const list = new Map([...bot.fl, ...bot.gl]);
 
   list.forEach(async (item, type) => {
-    const curType = item.hasOwnProperty("group_id") ? "group" : "private";
+    const curType = item.group_id ? "group" : "private";
     const itemID = "group" === curType ? item.group_id : item.user_id;
 
     if (itemID == target) {

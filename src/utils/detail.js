@@ -1,7 +1,9 @@
+/* global config */
+/* eslint no-undef: "error" */
+
 import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
-import { loadYML } from "./yaml.js";
 import { getCookie } from "./cookie.js";
 import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
 
@@ -75,7 +77,6 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
       bot.logger.debug(
         `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`
       );
-
       return Promise.reject("");
     }
   }
@@ -88,56 +89,48 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
     cookie
   );
 
-  return new Promise(async (resolve, reject) => {
-    if (retcode !== 0) {
-      reject(`米游社接口报错: ${message}`);
-      return;
-    }
+  if (retcode !== 0) {
+    return Promise.reject(`米游社接口报错: ${message}`);
+  }
 
-    if (!(await db.includes("aby", "user", "uid", uid))) {
-      const initData = { uid, data: [] };
-      await db.push("aby", "user", initData);
-    }
+  if (!(await db.includes("aby", "user", "uid", uid))) {
+    const initData = { uid, data: [] };
+    await db.push("aby", "user", initData);
+  }
 
-    await db.update("aby", "user", { uid }, { data });
-    await db.update("time", "user", { aby: uid }, { time: nowTime });
-    bot.logger.debug(
-      `缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`
-    );
+  await db.update("aby", "user", { uid }, { data });
+  await db.update("time", "user", { aby: uid }, { time: nowTime });
+  bot.logger.debug(
+    `缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`
+  );
 
-    resolve(data);
-  });
+  return data;
 }
 
 async function basePromise(mhyID, userID, bot) {
   const cookie = await getCookie("MHY" + mhyID, false, bot);
   const { retcode, message, data } = await getBase(mhyID, cookie);
 
-  return new Promise(async (resolve, reject) => {
-    const errInfo =
-      "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
+  const errInfo =
+    "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
 
-    if (retcode !== 0) {
-      reject(`米游社接口报错: ${message}`);
-      return;
-    } else if (!data.list || 0 === data.list.length) {
-      reject(errInfo);
-      return;
-    }
+  if (retcode !== 0) {
+    return Promise.reject(`米游社接口报错: ${message}`);
+  } else if (!data.list || 0 === data.list.length) {
+    return Promise.reject(errInfo);
+  }
 
-    const baseInfo = data.list.find((el) => 2 === el["game_id"]);
+  const baseInfo = data.list.find((el) => 2 === el["game_id"]);
 
-    if (!baseInfo) {
-      reject(errInfo);
-      return;
-    }
+  if (!baseInfo) {
+    return Promise.reject(errInfo);
+  }
 
-    const { game_role_id, nickname, region, level } = baseInfo;
-    const uid = parseInt(game_role_id);
-    await userInitialize(userID, uid, nickname, level);
-    await db.update("info", "user", { uid }, { level, nickname });
-    resolve([uid, region]);
-  });
+  const { game_role_id, nickname, region, level } = baseInfo;
+  const uid = parseInt(game_role_id);
+  await userInitialize(userID, uid, nickname, level);
+  await db.update("info", "user", { uid }, { level, nickname });
+  return [uid, region];
 }
 
 async function detailPromise(uid, server, userID, bot) {
@@ -163,38 +156,37 @@ async function detailPromise(uid, server, userID, bot) {
   const cookie = await getCookie(uid, true, bot);
   const { retcode, message, data } = await getDetail(uid, server, cookie);
 
-  return new Promise(async (resolve, reject) => {
-    if (retcode !== 0) {
-      await db.update(
-        "info",
-        "user",
-        { uid },
-        { message, retcode: parseInt(retcode) }
-      );
-      reject(`米游社接口报错: ${message}`);
-      return;
-    }
-
+  if (retcode !== 0) {
     await db.update(
       "info",
       "user",
       { uid },
-      {
-        message,
-        retcode: parseInt(retcode),
-        explorations: data.world_explorations,
-        stats: data.stats,
-        homes: data.homes,
-      }
+      { message, retcode: parseInt(retcode) }
     );
-    await db.update("time", "user", { uid }, { time: nowTime });
-    bot.logger.debug(
-      `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
-    );
+    return Promise.reject(`米游社接口报错: ${message}`);
+  }
 
-    const characterID = data.avatars.map((el) => el["id"]);
-    resolve(characterID);
-  });
+  await db.update(
+    "info",
+    "user",
+    { uid },
+    {
+      message,
+      retcode: parseInt(retcode),
+      explorations: data.world_explorations,
+      stats: data.stats,
+      homes: data.homes,
+    }
+  );
+
+  await db.update("time", "user", { uid }, { time: nowTime });
+
+  bot.logger.debug(
+    `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
+  );
+
+  const characterID = data.avatars.map((el) => el["id"]);
+  return characterID;
 }
 
 async function characterPromise(uid, server, character_ids, bot) {
@@ -206,61 +198,58 @@ async function characterPromise(uid, server, character_ids, bot) {
     cookie
   );
 
-  return new Promise(async (resolve, reject) => {
-    if (retcode !== 0) {
-      reject(`米游社接口报错: ${message}`);
-      return;
-    }
+  if (retcode !== 0) {
+    return Promise.reject(`米游社接口报错: ${message}`);
+  }
 
-    let avatars = [];
-    const characterList = data.avatars;
+  let avatars = [];
+  const characterList = data.avatars;
 
-    for (let i in characterList) {
-      if (characterList.hasOwnProperty(i)) {
-        const el = characterList[i];
-        const base = lodash.omit(el, [
-          "image",
-          "weapon",
-          "reliquaries",
-          "constellations",
-        ]);
-        const weapon = lodash.omit(el.weapon, [
-          "id",
-          "type",
-          "promote_level",
-          "type_name",
-        ]);
-        let artifact = [];
-        let constellationNum = 0;
-        const constellations = el["constellations"].reverse();
+  for (const i in characterList) {
+    if (characterList[i]) {
+      const el = characterList[i];
+      const base = lodash.omit(el, [
+        "image",
+        "weapon",
+        "reliquaries",
+        "constellations",
+      ]);
+      const weapon = lodash.omit(el.weapon, [
+        "id",
+        "type",
+        "promote_level",
+        "type_name",
+      ]);
+      let artifact = [];
+      let constellationNum = 0;
+      const constellations = el["constellations"].reverse();
 
-        for (let level in constellations) {
-          if (constellations.hasOwnProperty(level)) {
-            if (constellations[level]["is_actived"]) {
-              constellationNum = constellations[level]["pos"];
-              break;
-            }
+      for (const level in constellations) {
+        if (constellations[level]) {
+          if (constellations[level]["is_actived"]) {
+            constellationNum = constellations[level]["pos"];
+            break;
           }
         }
-
-        for (let posID in el.reliquaries) {
-          if (el.reliquaries.hasOwnProperty(posID)) {
-            const posInfo = lodash.omit(el.reliquaries[posID], [
-              "id",
-              "set",
-              "pos_name",
-            ]);
-            artifact.push(posInfo);
-          }
-        }
-
-        avatars.push({ ...base, weapon, artifact, constellationNum });
       }
-    }
 
-    await db.update("info", "user", { uid }, { avatars });
-    resolve();
-  });
+      for (const posID in el.reliquaries) {
+        if (el.reliquaries[posID]) {
+          const posInfo = lodash.omit(el.reliquaries[posID], [
+            "id",
+            "set",
+            "pos_name",
+          ]);
+          artifact.push(posInfo);
+        }
+      }
+
+      avatars.push({ ...base, weapon, artifact, constellationNum });
+    }
+  }
+
+  await db.update("info", "user", { uid }, { avatars });
+  return;
 }
 
 export { abyPromise, basePromise, detailPromise, characterPromise };
