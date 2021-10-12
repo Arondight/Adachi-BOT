@@ -51,13 +51,13 @@ artifacts:
   weights: 9299
   regex:
     - ^圣遗物\s*$
-    - ^圣遗物\s+(\d+)$
+    - ^圣遗物\s+(.+)$
     - ^(强化|副本)\s*$
   functions:
     artifacts:
       weights: 9999
       name: 圣遗物
-      usage: "[副本编号]"
+      usage: "[副本编号、副本名称]"
       description: 掉落一个圣遗物
       entrance:
         - 圣遗物
