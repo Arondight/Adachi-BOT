@@ -1,6 +1,211 @@
 /* global all, artifacts, command, config, master */
 /* eslint no-undef: "error" */
 
+/* ==========================================================================
+ *                            以下为数据结构
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * rootdir
+ * --------------------------------------------------------------------------
+ * '/path/to/Adachi-BOT'
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.all
+ * --------------------------------------------------------------------------
+ * {
+ *   function: {
+ *     hello_world: [ 'hello_world' ]
+ *   },
+ *   functions: {
+ *     entrance: {
+ *       hello_world: [ 'hello world' ]
+ *     }
+ *   }
+ * }
+ * --------------------------------------------------------------------------
+ * global.command and global.master
+ * --------------------------------------------------------------------------
+ * {
+ *   functions: {
+ *     weights: {
+ *       hello_world: 9999
+ *     },
+ *     name: {
+ *       hello_world: 'hello world'
+ *     },
+ *     usage: {
+ *       hello_world: undefined
+ *     },
+ *     description: {
+ *       hello_world: 'I will say hello to you'
+ *     },
+ *     entrance: {
+ *       hello_world: [ 'hello world' ]
+ *     }
+ *   },
+ *   enable: {
+ *     hello_world: true
+ *   },
+ *   weights: {
+ *     hello_world: 9999
+ *   },
+ *   regex: {
+ *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ]
+ *   },
+ *   function: {
+ *     hello_world: [ 'hello_world' ]
+ *   },
+ *   usage: '🔘 hello world  👉 I will say hello to you\n' +
+ *     '-------------------\n' +
+ *     '<> 表示必填，[] 表示可选，前面需加空格'
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/command*.yml
+ * --------------------------------------------------------------------------
+ * Hello_World:
+ *   enable: true
+ *   weights: 9999
+ *   regex:
+ *     - ^HELLO\sworld(!)?\s*$
+ *   functions:
+ *     Hello_World:
+ *       weights: 9999
+ *       name: hello world
+ *       usage:
+ *       description: I will say hello to you
+ *       entrance:
+ *         - hello WORLD
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.config
+ * --------------------------------------------------------------------------
+ * {
+ *   accounts: [
+ *     {
+ *       qq: 123456789,
+ *       password: 123456789,
+ *       platform: 5
+ *     }
+ *   ],
+ *   masters: [ 987654321 ],
+ *   prefixes: [ null ],
+ *   atUser: 1,
+ *   repeatProb: 1,
+ *   groupHello: 1,
+ *   groupGreetingNew: 1,
+ *   friendGreetingNew: 1,
+ *   cacheAbyEffectTime: 1,
+ *   cacheInfoEffectTime: 1,
+ *   dbAbyEffectTime: 1,
+ *   dbInfoEffectTime: 168,
+ *   greetingOnline: '上线了。',
+ *   greetingDie: '上线了，但又没上。',
+ *   greetingHello: '大家好。',
+ *   greetingNew: '向你问好。',
+ *   menu: {
+ *     breakfast: [ '萝卜时蔬汤' ],
+ *     lunch: [ '蜜酱胡萝卜煎肉' ],
+ *     dinner: [ '渡来禽肉' ]
+ *   }
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/setting.yml
+ * --------------------------------------------------------------------------
+ * accounts:
+ *   -
+ *     qq: 123456789
+ *     password: 123456789
+ *     platform: 5
+ * masters:
+ *   - 987654321
+ * atUser: 1
+ * repeatProb: 1
+ * groupHello: 1
+ * groupGreetingNew: 1
+ * friendGreetingNew: 1
+ * prefixes:
+ *   -
+ * cacheAbyEffectTime: 1
+ * cacheInfoEffectTime: 1
+ * dbAbyEffectTime: 1
+ * dbInfoEffectTime: 168
+ * --------------------------------------------------------------------------
+ * ../../config/greeting.yml
+ * --------------------------------------------------------------------------
+ * online: 上线了。
+ * die: 上线了，但又没上。
+ * hello: 大家好。
+ * new: 向你问好。
+ * --------------------------------------------------------------------------
+ * ../../config/menu.yml
+ * --------------------------------------------------------------------------
+ * breakfast:
+ *   - 萝卜时蔬汤
+ * lunch:
+ *   - 蜜酱胡萝卜煎肉
+ * dinner:
+ *   - 渡来禽肉
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.alias
+ * --------------------------------------------------------------------------
+ * {
+ *   '77': '七七',
+ *   '冰猫': '迪奥娜',
+ *   'dio娜': '迪奥娜',
+ *   dio: '迪奥娜'
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/alias.yml
+ * --------------------------------------------------------------------------
+ * 迪奥娜:
+ *   - 冰猫
+ *   - Dio娜
+ *   - DIO
+ * 七七:
+ *   - 77
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.artifacts
+ * --------------------------------------------------------------------------
+ * {
+ *   domains: {
+ *     name: {
+ *      '铭记之谷': 2
+ *     },
+ *     alias: {
+ *       '风本': '铭记之谷',
+ *       '奶本': '铭记之谷',
+ *       '风奶本': '铭记之谷'
+ *     }
+ *   }
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/artifacts.yml
+ * --------------------------------------------------------------------------
+ * domains:
+ *   -
+ *     id: 2
+ *     name: 铭记之谷
+ *     alias: [ 风本, 奶本, 风奶本 ]
+ *     product: [ 7, 12 ]
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ *                            以上为数据结构
+ * ========================================================================== */
+
 import lodash from "lodash";
 import url from "url";
 import path from "path";
@@ -20,12 +225,12 @@ const Artifacts = loadYML("artifacts");
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
 // global[key].weights               -> plugin (lowercase):    weights (number)
 // global[key].regex                 -> regex (lowercase):     plugin (string, lowercase)
-// global[key].function              -> function (lowercase):  plugin (string, lowercase)
+// global[key].function              -> function (lowercase):  plugin (array of string, lowercase)
 // global[key].functions.weights     -> function (lowercase):  weights (number)
 // global[key].functions.name        -> function (lowercase):  name (string, lowercase)
 // global[key].functions.usage       -> function (lowercase):  usage (string)
 // global[key].functions.description -> function (lowercase):  description (string)
-// global[key].functions.entrance    -> function (lowercase):  entrance (string, lowercase)
+// global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
 function getCommand(obj, key) {
   const map = (
     object,
@@ -53,7 +258,7 @@ function getCommand(obj, key) {
       },
       {}
     );
-  const mapArray = (
+  const mapSub = (
     object,
     key,
     lowercase = [false, false],
@@ -63,7 +268,12 @@ function getCommand(obj, key) {
     lodash.reduce(
       object,
       (pair, v, k) => {
-        (v[key] || []).forEach((c) => {
+        (v[key]
+          ? Array.isArray(v[key])
+            ? v[key]
+            : Object.keys(v[key] || {})
+          : []
+        ).forEach((c) => {
           let p1 = k;
           let p2 = c;
 
@@ -71,34 +281,7 @@ function getCommand(obj, key) {
           lowercase[1] && (p2 = "string" === typeof c ? c.toLowerCase() : c);
 
           if (true === revert) {
-            p2 && (pair[p2] = p1);
-          } else {
-            p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
-          }
-        });
-        return pair;
-      },
-      {}
-    );
-  const mapObject = (
-    object,
-    key,
-    lowercase = [false, false],
-    defaultValue = undefined,
-    revert = false
-  ) =>
-    lodash.reduce(
-      object,
-      (pair, v, k) => {
-        Object.keys(v[key] || {}).forEach((c) => {
-          let p1 = k;
-          let p2 = c;
-
-          lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
-          lowercase[1] && (p2 = "string" === typeof c ? c.toLowerCase() : c);
-
-          if (true === revert) {
-            p2 && (pair[p2] = p1);
+            p2 && (pair[p2] || (pair[p2] = [])).push(p1);
           } else {
             p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
           }
@@ -112,14 +295,14 @@ function getCommand(obj, key) {
   global[key].functions = {};
   global[key].enable = map(obj, "enable", [true, false], false);
   global[key].weights = map(obj, "weights", [true, false], 0);
-  global[key].regex = mapArray(obj, "regex", [true, true], undefined, true);
-  global[key].function = mapObject(obj, "functions", [true, true], undefined);
+  global[key].regex = mapSub(obj, "regex", [true, true], undefined, true);
+  global[key].function = mapSub(obj, "functions", [true, true], undefined);
 
   for (const name in obj) {
     const add = (obj, key, name, prop, callback, ...rest) => {
       global[key].functions[prop] = lodash.assign(
         global[key].functions[prop] || {},
-        callback(obj[name].functions, prop, rest)
+        callback(obj[name].functions, prop, ...rest)
       );
     };
 
@@ -127,7 +310,7 @@ function getCommand(obj, key) {
     add(obj, key, name, "name", map, [true, true]);
     add(obj, key, name, "usage", map, [true, false]);
     add(obj, key, name, "description", map, [true, false]);
-    add(obj, key, name, "entrance", mapArray, [true, true], undefined, true);
+    add(obj, key, name, "entrance", mapSub, [true, true], undefined, false);
   }
 }
 
