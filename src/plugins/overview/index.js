@@ -29,7 +29,9 @@ async function Plugin(Message, bot) {
   }
 
   try {
-    data = await getInfo(alias[text] || text);
+    data = await getInfo(
+      alias["string" === typeof text ? text.toLowerCase() : text] || text
+    );
   } catch (e) {
     await bot.sendMessage(
       sendID,

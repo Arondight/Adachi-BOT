@@ -17,60 +17,90 @@ const Alias = loadYML("alias");
 const Menu = loadYML("menu");
 const Artifacts = loadYML("artifacts");
 
-// global[key].enable                -> plugin:    is_enabled (boolean)
-// global[key].weights               -> plugin:    weights (number)
-// global[key].regex                 -> regex:     plugin (string)
-// global[key].function              -> function:  plugin (string)
-// global[key].functions.weights     -> function:  weights (number)
-// global[key].functions.name        -> function:  name (string)
-// global[key].functions.usage       -> function:  usage (string)
-// global[key].functions.description -> function:  description (string)
-// global[key].functions.entrance    -> function:  entrance (string)
+// global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
+// global[key].weights               -> plugin (lowercase):    weights (number)
+// global[key].regex                 -> regex (lowercase):     plugin (string, lowercase)
+// global[key].function              -> function (lowercase):  plugin (string, lowercase)
+// global[key].functions.weights     -> function (lowercase):  weights (number)
+// global[key].functions.name        -> function (lowercase):  name (string, lowercase)
+// global[key].functions.usage       -> function (lowercase):  usage (string)
+// global[key].functions.description -> function (lowercase):  description (string)
+// global[key].functions.entrance    -> function (lowercase):  entrance (string, lowercase)
 function getCommand(obj, key) {
-  const map = (object, key, defaultValue = undefined, revert = false) =>
+  const map = (
+    object,
+    key,
+    lowercase = [false, false],
+    defaultValue = undefined,
+    revert = false
+  ) =>
     lodash.reduce(
       object,
       (pair, v, k) => {
+        let p1 = k;
+        let p2 = v[key];
+
+        lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
+        lowercase[1] &&
+          (p2 = "string" === typeof v[key] ? v[key].toLowerCase() : v[key]);
+
         if (true === revert) {
-          v[key] &&
-            (pair["string" === typeof v[key] ? v[key].toLowerCase() : v[key]] =
-              k);
+          p2 && (pair[p2] = p1);
         } else {
-          pair["string" === typeof k ? k.toLowerCase() : k] =
-            v[key] || defaultValue;
+          p1 && (pair[p1] = p2 || defaultValue);
         }
         return pair;
       },
       {}
     );
-  const mapArray = (object, key, defaultValue = undefined, revert = false) =>
+  const mapArray = (
+    object,
+    key,
+    lowercase = [false, false],
+    defaultValue = undefined,
+    revert = false
+  ) =>
     lodash.reduce(
       object,
       (pair, v, k) => {
         (v[key] || []).forEach((c) => {
+          let p1 = k;
+          let p2 = c;
+
+          lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
+          lowercase[1] && (p2 = "string" === typeof c ? c.toLowerCase() : c);
+
           if (true === revert) {
-            c && (pair["string" === typeof c ? c.toLowerCase() : c] = k);
+            p2 && (pair[p2] = p1);
           } else {
-            (pair[k] || (pair[k] = [])).push(
-              ("string" === typeof c ? c.toLowerCase() : c) || defaultValue
-            );
+            p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
           }
         });
         return pair;
       },
       {}
     );
-  const mapObject = (object, key, defaultValue = undefined, revert = false) =>
+  const mapObject = (
+    object,
+    key,
+    lowercase = [false, false],
+    defaultValue = undefined,
+    revert = false
+  ) =>
     lodash.reduce(
       object,
       (pair, v, k) => {
         Object.keys(v[key] || {}).forEach((c) => {
+          let p1 = k;
+          let p2 = c;
+
+          lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
+          lowercase[1] && (p2 = "string" === typeof c ? c.toLowerCase() : c);
+
           if (true === revert) {
-            c && (pair["string" === typeof c ? c.toLowerCase() : c] = k);
+            p2 && (pair[p2] = p1);
           } else {
-            (pair[k] || (pair[k] = [])).push(
-              ("string" === typeof c ? c.toLowerCase() : c) || defaultValue
-            );
+            p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
           }
         });
         return pair;
@@ -80,24 +110,24 @@ function getCommand(obj, key) {
 
   global[key] = {};
   global[key].functions = {};
-  global[key].enable = map(obj, "enable", false);
-  global[key].weights = map(obj, "weights", 0);
-  global[key].regex = mapArray(obj, "regex", undefined, true);
-  global[key].function = mapObject(obj, "functions", undefined);
+  global[key].enable = map(obj, "enable", [true, false], false);
+  global[key].weights = map(obj, "weights", [true, false], 0);
+  global[key].regex = mapArray(obj, "regex", [true, true], undefined, true);
+  global[key].function = mapObject(obj, "functions", [true, true], undefined);
 
   for (const name in obj) {
-    const add = (obj, key, name, prop, callback) => {
+    const add = (obj, key, name, prop, callback, ...rest) => {
       global[key].functions[prop] = lodash.assign(
         global[key].functions[prop] || {},
-        callback(obj[name].functions, prop, 0)
+        callback(obj[name].functions, prop, rest)
       );
     };
 
-    add(obj, key, name, "weights", map, 0);
-    add(obj, key, name, "name", map);
-    add(obj, key, name, "usage", map);
-    add(obj, key, name, "description", map);
-    add(obj, key, name, "entrance", mapArray, undefined, true);
+    add(obj, key, name, "weights", map, [true, false], 0);
+    add(obj, key, name, "name", map, [true, true]);
+    add(obj, key, name, "usage", map, [true, false]);
+    add(obj, key, name, "description", map, [true, false]);
+    add(obj, key, name, "entrance", mapArray, [true, true], undefined, true);
   }
 }
 
@@ -251,7 +281,7 @@ function readSettingGreetingMenu() {
   }
 }
 
-// global.alias ->  alias: name (string)
+// global.alias ->  alias (lowercase): name (string)
 function readAlias() {
   global.alias = lodash.reduce(
     Alias,
@@ -265,8 +295,8 @@ function readAlias() {
   );
 }
 
-// artifacts.domains.name -> name: id (number)
-// artifacts.domains.alias -> alias: name (string)
+// artifacts.domains.name -> name (lowercase): id (number)
+// artifacts.domains.alias -> alias (lowercase): name (string, lowercase)
 function readArtifacts() {
   global.artifacts = {};
   artifacts.domains = {};

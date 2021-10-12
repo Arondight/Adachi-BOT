@@ -37,7 +37,10 @@ async function Plugin(Message, bot) {
     const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
     const { avatars } = await db.get("info", "user", { uid });
-    character = alias[character] || character;
+    character =
+      alias[
+        "string" === typeof character ? character.toLowerCase() : character
+      ] || character;
     data = avatars.find((el) => el.name === character);
 
     if (!data) {

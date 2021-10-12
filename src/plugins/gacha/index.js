@@ -103,7 +103,7 @@ async function Plugin(Message, bot) {
     }
 
     const table = await db.get("gacha", "data", { gacha_type: 302 });
-    cmd = alias[cmd] || cmd;
+    cmd = alias["string" === typeof cmd ? cmd.toLowerCase() : cmd] || cmd;
 
     if (cmd && lodash.find(table["upFiveStar"], { item_name: cmd })) {
       await bot.sendMessage(
