@@ -1,4 +1,4 @@
-/* global all, command, config, master */
+/* global all, artifacts, command, config, master */
 /* eslint no-undef: "error" */
 
 import lodash from "lodash";
@@ -15,55 +15,7 @@ const Command = loadYML("command");
 const Master = loadYML("command_master");
 const Alias = loadYML("alias");
 const Menu = loadYML("menu");
-
-function map(object, key, defaultValue = undefined, revert = false) {
-  return lodash.reduce(
-    object,
-    (pair, v, k) => {
-      if (true === revert) {
-        v[key] && (pair[v[key]] = k);
-      } else {
-        pair[k] = v[key] || defaultValue;
-      }
-      return pair;
-    },
-    {}
-  );
-}
-
-function mapArray(object, key, defaultValue = undefined, revert = false) {
-  return lodash.reduce(
-    object,
-    (pair, v, k) => {
-      (v[key] || []).forEach((c) => {
-        if (true === revert) {
-          c && (pair[c] = k);
-        } else {
-          (pair[k] || (pair[k] = [])).push(c || defaultValue);
-        }
-      });
-      return pair;
-    },
-    {}
-  );
-}
-
-function mapObject(object, key, defaultValue = undefined, revert = false) {
-  return lodash.reduce(
-    object,
-    (pair, v, k) => {
-      Object.keys(v[key] || {}).forEach((c) => {
-        if (true === revert) {
-          c && (pair[c] = k);
-        } else {
-          (pair[k] || (pair[k] = [])).push(c || defaultValue);
-        }
-      });
-      return pair;
-    },
-    {}
-  );
-}
+const Artifacts = loadYML("artifacts");
 
 // global[key].enable                -> plugin:    is_enabled (boolean)
 // global[key].weights               -> plugin:    weights (number)
@@ -75,9 +27,59 @@ function mapObject(object, key, defaultValue = undefined, revert = false) {
 // global[key].functions.description -> function:  description (string)
 // global[key].functions.entrance    -> function:  entrance (string)
 function getCommand(obj, key) {
+  const map = (object, key, defaultValue = undefined, revert = false) =>
+    lodash.reduce(
+      object,
+      (pair, v, k) => {
+        if (true === revert) {
+          v[key] &&
+            (pair["string" === typeof v[key] ? v[key].toLowerCase() : v[key]] =
+              k);
+        } else {
+          pair["string" === typeof k ? k.toLowerCase() : k] =
+            v[key] || defaultValue;
+        }
+        return pair;
+      },
+      {}
+    );
+  const mapArray = (object, key, defaultValue = undefined, revert = false) =>
+    lodash.reduce(
+      object,
+      (pair, v, k) => {
+        (v[key] || []).forEach((c) => {
+          if (true === revert) {
+            c && (pair["string" === typeof c ? c.toLowerCase() : c] = k);
+          } else {
+            (pair[k] || (pair[k] = [])).push(
+              ("string" === typeof c ? c.toLowerCase() : c) || defaultValue
+            );
+          }
+        });
+        return pair;
+      },
+      {}
+    );
+  const mapObject = (object, key, defaultValue = undefined, revert = false) =>
+    lodash.reduce(
+      object,
+      (pair, v, k) => {
+        Object.keys(v[key] || {}).forEach((c) => {
+          if (true === revert) {
+            c && (pair["string" === typeof c ? c.toLowerCase() : c] = k);
+          } else {
+            (pair[k] || (pair[k] = [])).push(
+              ("string" === typeof c ? c.toLowerCase() : c) || defaultValue
+            );
+          }
+        });
+        return pair;
+      },
+      {}
+    );
+
   global[key] = {};
   global[key].functions = {};
-
   global[key].enable = map(obj, "enable", false);
   global[key].weights = map(obj, "weights", 0);
   global[key].regex = mapArray(obj, "regex", undefined, true);
@@ -254,7 +256,36 @@ function readAlias() {
   global.alias = lodash.reduce(
     Alias,
     (pair, v, k) => {
-      v.forEach((c) => (pair[c] = k));
+      (v || []).forEach(
+        (c) => (pair["string" === typeof c ? c.toLowerCase() : c] = k)
+      );
+      return pair;
+    },
+    {}
+  );
+}
+
+// artifacts.domains.name -> name: id (number)
+// artifacts.domains.alias -> alias: name (string)
+function readArtifacts() {
+  global.artifacts = {};
+  artifacts.domains = {};
+  artifacts.domains.name = lodash.reduce(
+    Artifacts.domains || [],
+    (pair, v) => {
+      pair["string" === typeof v.name ? v.name.toLowerCase() : v.name] = v.id;
+      return pair;
+    },
+    {}
+  );
+  artifacts.domains.alias = lodash.reduce(
+    Artifacts.domains || [],
+    (pair, v) => {
+      (v.alias || []).forEach(
+        (c) =>
+          (pair["string" === typeof c ? c.toLowerCase() : c] =
+            "string" === typeof v.name ? v.name.toLowerCase() : v.name)
+      );
       return pair;
     },
     {}
@@ -310,6 +341,7 @@ async function readConfig() {
   readSettingGreetingMenu();
   readCommand();
   readAlias();
+  readArtifacts();
   getUsage();
   getAll();
 }
