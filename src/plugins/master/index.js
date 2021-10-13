@@ -104,7 +104,15 @@ async function setReplyAuth(msg, id, type, user, bot) {
   const list = new Map([...bot.fl, ...bot.gl]);
 
   await setAuth("reply", target, isOn);
-  await response(id, target, "响应消息", type, isOn ? "允许" : "禁止", user);
+  await response(
+    id,
+    target,
+    "响应消息",
+    type,
+    isOn ? "允许" : "禁止",
+    user,
+    bot
+  );
 
   // 如果是群或者好友，发一条消息给对方，群友就不发了
   list.forEach(async (item) => {

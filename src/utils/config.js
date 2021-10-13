@@ -345,11 +345,13 @@ function makeUsage(object) {
     );
 
     for (const func of functionList.keys()) {
-      text += `${listMark} ${object.functions.name[func] || "?"} ${
-        object.functions.usage[func] || ""
-      } ${object.functions.description[func] ? commentMark : ""} ${
-        object.functions.description[func] || ""
-      }\n`;
+      if (object.functions.name[func]) {
+        text += `${listMark} ${object.functions.name[func]} ${
+          object.functions.usage[func] || ""
+        } ${object.functions.description[func] ? commentMark : ""} ${
+          object.functions.description[func] || ""
+        }\n`;
+      }
     }
   }
 
