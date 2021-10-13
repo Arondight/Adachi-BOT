@@ -121,7 +121,7 @@ async function gachaOnce(userID, choice, table) {
 
   if (5 === star && 302 === choice) {
     // 武器池出货
-    if (path["course"] && path["fate"] > 1) {
+    if (null !== path["course"] && path["fate"] > 1) {
       // 定轨武器已设置并触发定轨
       result = table["upFiveStar"][path["course"]];
       path["fate"] = 0;
