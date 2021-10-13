@@ -1,5 +1,5 @@
 # ==============================================================================
-# 此为项目的用户插件配置。
+# 此为项目的管理者插件配置。
 # ==============================================================================
 # 不推荐自己维护此文件，如果确实有制定需求……
 #
@@ -8,15 +8,15 @@
 # 3. 切勿修改注释中的硬编码项（ XXX ）。
 # 4. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
 # ==============================================================================
-# plugin:                    # 插件名称（全局唯一、禁止修改）
+# plugin:                    # 插件名称（全局唯一、禁止修改、忽略大小写）
 #   enable: boolean          # 是否加载插件
 #   weights: number          # 权重越高，帮助信息里显示越靠前
-#   regex:                   # 插件入口（正则、全局唯一、忽略大小写和行首空格）
+#   regex:                   # 插件入口（正则、全局唯一、忽略大小写、忽略行首空格）
 #     - string
 #   functions:
-#     function:              # 功能代号（全局唯一、禁止修改）
+#     function:              # 功能代号（全局唯一、禁止修改、忽略大小写）
 #       weights: number      # 权重越高，帮助信息里显示越靠前
-#       name: string         # 呈现给用户的功能名称
+#       name: string         # 呈现给用户的功能名称（忽略大小写）
 #       usage: string        # 呈现给用户的功能格式
 #       description: string  # 呈现给用户的功能说明
 #       entrance:            # 功能入口（ startsWith 、插件唯一、忽略大小写）
@@ -51,13 +51,13 @@ artifacts:
   weights: 9299
   regex:
     - ^圣遗物\s*$
-    - ^圣遗物\s+(\d+)$
+    - ^圣遗物\s+(.+)$
     - ^(强化|副本)\s*$
   functions:
     artifacts:
       weights: 9999
       name: 圣遗物
-      usage: "[副本编号]"
+      usage: "[副本编号、副本名称]"
       description: 掉落一个圣遗物
       entrance:
         - 圣遗物
@@ -157,22 +157,50 @@ gacha:
 
 tools:
   enable: true
-  weights: 8699
+  weights: 99
   regex:
+    - ^菜单\s*$
+    - ^(今天)?吃什么\s*$
+    - ^(求签|占卜)\s*$
     - ^roll\s*([+-]?\d+)?$
+    - ^伟大的升华\s*$
     - ^help\s*$
     - ^带(个)?话\s+.+$
     - ^管理\s*$
   functions:
-    roll:
+    menu:
       weights: 9999
+      name: 今天吃什么
+      usage:
+      description:
+      entrance:
+        - 今天吃什么
+        - 吃什么
+        - 菜单
+    prophecy:
+      weights: 9899
+      name: 求签
+      usage:
+      description:
+      entrance:
+        - 求签
+        - 占卜
+    roll:
+      weights: 9799
       name: roll
       usage: "[1-100]"
       description: 掷骰子
       entrance:
         - roll
+    quote:
+      weights: 9699
+      name: 伟大的升华
+      usage:
+      description:
+      entrance:
+        - 伟大的升华
     feedback:
-      weights: 9899
+      weights: 299
       name: 带话
       usage: <单行图文>
       description: 给主人带话
@@ -222,23 +250,6 @@ material:
       description: 周本材料表
       entrance:
         - 周本
-
-menu:
-  enable: true
-  weights: 8899
-  regex:
-    - ^菜单\s*$
-    - ^(今天)?吃什么\s*$
-  functions:
-    menu:
-      weights: 9999
-      name: 今天吃什么
-      usage:
-      description:
-      entrance:
-        - 今天吃什么
-        - 吃什么
-        - 菜单
 
 music:
   enable: true
@@ -293,20 +304,6 @@ package:
       description: 查询并更新角色信息
       entrance:
         - uid
-
-quote:
-  enable: true
-  weights: 8799
-  regex:
-    - ^伟大的升华\s*$
-  functions:
-    quote:
-      weights: 9999
-      name: 伟大的升华
-      usage:
-      description:
-      entrance:
-        - 伟大的升华
 
 rating:
   enable: true

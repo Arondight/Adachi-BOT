@@ -2,6 +2,7 @@
 /* eslint no-undef: "error" */
 
 import schedule from "node-schedule";
+import puppeteer from "puppeteer";
 import db from "./database.js";
 import { server } from "./server.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
@@ -17,6 +18,13 @@ async function initDB() {
   await db.init("music", { source: [] });
   await db.init("aby");
   await db.init("cookies", { cookie: [], uid: [] });
+}
+
+async function initBrowser() {
+  global.browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
 }
 
 async function cleanDB(name) {
@@ -38,6 +46,7 @@ async function cleanDBJob() {
 
 async function init() {
   await initDB();
+  await initBrowser();
 
   updateGachaJob();
   await cleanDBJob();

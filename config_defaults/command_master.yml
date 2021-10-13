@@ -8,15 +8,15 @@
 # 3. 切勿修改注释中的硬编码项（ XXX ）。
 # 4. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
 # ==============================================================================
-# plugin:                    # 插件名称（全局唯一、禁止修改）
+# plugin:                    # 插件名称（全局唯一、禁止修改、忽略大小写）
 #   enable: boolean          # 是否加载插件
 #   weights: number          # 权重越高，帮助信息里显示越靠前
-#   regex:                   # 插件入口（正则、全局唯一、忽略大小写和行首空格）
+#   regex:                   # 插件入口（正则、全局唯一、忽略大小写、忽略行首空格）
 #     - string
 #   functions:
-#     function:              # 功能代号（全局唯一、禁止修改）
+#     function:              # 功能代号（全局唯一、禁止修改、忽略大小写）
 #       weights: number      # 权重越高，帮助信息里显示越靠前
-#       name: string         # 呈现给用户的功能名称
+#       name: string         # 呈现给用户的功能名称（忽略大小写）
 #       usage: string        # 呈现给用户的功能格式
 #       description: string  # 呈现给用户的功能说明
 #       entrance:            # 功能入口（ startsWith 、插件唯一、忽略大小写）

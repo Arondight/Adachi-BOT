@@ -88,12 +88,6 @@ npm install
 npm_config_proxy=http://<ip>:<port> npm install
 ```
 
-其三，尝试改用 `Firefox` ，执行以下命令。
-
-```
-PUPPETEER_PRODUCT=firefox npm install
-```
-
 </details>
 
 ### 配置
@@ -111,9 +105,9 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | [setting.yml](config_defaults/setting.yml) | 基本配置选项 |
 | [cookies.yml](config_defaults/cookies.yml) | 米游社Cookie |
 
-> 1. 你可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。
-> 2. 有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下。
-> 3. 通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了。
+> 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
+
+你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下。通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了。
 
 ### 运行
 

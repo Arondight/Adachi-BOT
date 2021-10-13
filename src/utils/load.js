@@ -8,14 +8,22 @@ import { getRandomInt } from "./tools.js";
 
 async function loadPlugins() {
   let plugins = {};
-  const pluginsPath = fs.readdirSync(path.resolve(rootdir, "src", "plugins"));
   const enableList = { ...command.enable, ...master.enable };
+  const pluginLoadPath = path.resolve(rootdir, "src", "plugins");
+  const pluginDirList =
+    fs
+      .readdirSync(pluginLoadPath)
+      .filter(
+        (f) => f && fs.statSync(path.resolve(pluginLoadPath, f)).isDirectory()
+      ) || [];
 
-  for (const plugin of pluginsPath) {
+  for (const dir of pluginDirList) {
+    const plugin = dir.toLowerCase();
+
     if (plugin in all.function) {
       if (enableList[plugin] && true === enableList[plugin]) {
         try {
-          plugins[plugin] = await import(`../plugins/${plugin}/index.js`);
+          plugins[plugin] = await import(`../plugins/${dir}/index.js`);
           bots[0] && bots[0].logger.debug(`插件：加载 ${plugin} 成功。`);
         } catch (e) {
           bots[0] &&

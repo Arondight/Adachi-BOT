@@ -223,7 +223,11 @@ function domainInfo() {
 
   for (const i in domains) {
     if (domains[i]) {
-      domainsMsg += domains[i].name + `: ${i}\n`;
+      domainsMsg += `${[
+        i,
+        domains[i].name,
+        ...(Array.isArray(domains[i].alias) ? domains[i].alias : []),
+      ].join("、")}\n`;
     }
   }
 
