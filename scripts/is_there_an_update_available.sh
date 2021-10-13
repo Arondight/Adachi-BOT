@@ -6,7 +6,7 @@
 
   remoteID=$(git ls-remote -qh "$remoteUrl" "$remoteBranch" 2>/dev/null \
     | awk '{print $1}')
-  localID=$(git rev-list --max-parents=0 HEAD)
+  localID=$(git rev-list HEAD)
 
   if [[ -z "$remoteID" ]]
   then
@@ -15,5 +15,5 @@
   fi
 
   word=$([[ "$remoteID" == "$localID" ]] && echo "没有" || echo "有了")
-  echo -n "看上去项目上游主线分支${word}更新！"
+  echo "看上去项目上游主线分支${word}更新！"
 }
