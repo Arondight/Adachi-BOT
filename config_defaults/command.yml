@@ -192,9 +192,10 @@ tools:
       description: 掷骰子
       entrance:
         - roll
+    # 此功能不显示在帮助信息中
     quote:
       weights: 9699
-      name: 伟大的升华
+      name:
       usage:
       description:
       entrance:
