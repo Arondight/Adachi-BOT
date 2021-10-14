@@ -3,6 +3,7 @@
 
 import fs from "fs";
 import path from "path";
+import lodash from "lodash";
 import { hasAuth } from "./auth.js";
 import { getRandomInt } from "./tools.js";
 
@@ -42,7 +43,9 @@ async function loadPlugins() {
 }
 
 async function processed(qqData, plugins, type, bot) {
+  //
   // 如果好友增加了，尝试向新朋友问好
+  //
   if (type === "friend.increase") {
     if (config.friendGreetingNew) {
       // 私聊不需要 @
@@ -52,7 +55,9 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
+  //
   // 如果有新成员加入了组群，尝试向新成员或者全群问好
+  //
   if (type === "group.increase") {
     if (bot.uin === qqData.user_id) {
       // 如果加入了新群，尝试向全群问好
@@ -76,12 +81,37 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
+  //
   // 如果收到的信息是命令，尝试指派插件处理命令
-  if (
-    qqData.message &&
-    qqData.message[0] &&
-    "text" === qqData.message[0].type
-  ) {
+  // 增加了变量 qqData.atMe: boolean
+  //
+  if (lodash.find(qqData.message, { type: "text" })) {
+    // 处理 @ 机器人
+    const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
+    qqData.atMe = lodash
+      .chain(qqData.message)
+      .filter({ type: "at" })
+      .find({ data: { qq: bot.uin } })
+      .value()
+      ? true
+      : false;
+
+    if (qqData.atMe) {
+      switch (true) {
+        case 0 === config.atMe:
+          return;
+        case 1 === config.atMe:
+        // fall through
+        case 2 === config.atMe:
+          if (!qqData.atMe) {
+            return;
+          }
+      }
+
+      // [CQ:at,qq=123456789,text=@nickname]
+      qqData.raw_message = qqData.raw_message.replace(atMeReg, "");
+    }
+
     const regexPool = { ...command.regex, ...master.regex };
     const enableList = { ...command.enable, ...master.enable };
     let match = false;
@@ -125,6 +155,16 @@ async function processed(qqData, plugins, type, bot) {
           (await hasAuth(qqData.group_id, "reply")) &&
           (await hasAuth(qqData.user_id, "reply"))
         ) {
+          // 同步 oicq 数据结构
+          if (lodash.hasIn(qqData.message, [0, "data", "text"])) {
+            qqData.message = lodash
+              .chain(qqData.message)
+              .filter({ type: "text" })
+              .slice(0, 1)
+              .value();
+            qqData.message[0].data.text = qqData.raw_message;
+          }
+
           plugins[plugin].run({ ...qqData, type }, bot);
           return;
         }
@@ -132,7 +172,9 @@ async function processed(qqData, plugins, type, bot) {
     }
   }
 
+  //
   // 如果不是命令，且为群消息，随机复读群消息
+  //
   if ("group" === type) {
     if (config.repeatProb > 0 && getRandomInt(100) < config.repeatProb) {
       // 复读群消息不需要 @
@@ -142,7 +184,9 @@ async function processed(qqData, plugins, type, bot) {
     return;
   }
 
+  //
   // 如果机器人上线，尝试所有群发送一遍上线通知
+  //
   if ("online" === type) {
     if (config.groupHello) {
       bot.gl.forEach(async (group) => {

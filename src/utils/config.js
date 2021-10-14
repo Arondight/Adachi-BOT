@@ -95,6 +95,7 @@
  *   ],
  *   masters: [ 987654321 ],
  *   prefixes: [ null ],
+ *   atMe: 1,
  *   atUser: 1,
  *   repeatProb: 1,
  *   groupHello: 1,
@@ -124,6 +125,7 @@
  *     platform: 5
  * masters:
  *   - 987654321
+ * atMe: 1
  * atUser: 1
  * repeatProb: 1
  * groupHello: 1
@@ -372,6 +374,8 @@ function readSettingGreetingMenu() {
   const defaultConfig = {
     // 登录协议为 iPad
     platform: 5,
+    // 不允许 @ 机器人
+    atMe: 0,
     // 群聊回复时不 @ 用户
     atUser: 0,
     // 不复读群消息
@@ -398,6 +402,7 @@ function readSettingGreetingMenu() {
   const master = Setting["master"];
   const masters = Setting["masters"];
   const prefixes = Setting["prefixes"];
+  const atMe = parseInt(Setting["atMe"]);
   const atUser = parseInt(Setting["atUser"]);
   const repeatProb = parseInt(Setting["repeatProb"]);
   const groupHello = parseInt(Setting["groupHello"]);
@@ -434,6 +439,7 @@ function readSettingGreetingMenu() {
     {
       prefixes: Array.isArray(prefixes) ? prefixes : prefixes ? [prefixes] : [],
     },
+    { atMe },
     { atUser },
     { repeatProb },
     { groupHello },
@@ -463,6 +469,11 @@ function readSettingGreetingMenu() {
     if (config.prefixes[i]) {
       config.prefixes[i] = config.prefixes[i].toString();
     }
+  }
+
+  // 设置选项 atMe 的默认值
+  if (![0, 1, 2].includes(config.atMe)) {
+    config.atMe = defaultConfig.atMe;
   }
 }
 
