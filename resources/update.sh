@@ -461,6 +461,11 @@ function syncCustom()
     rpath="${file##${CUSTOM_RES}}"
     thisdir="${RDIR}/$(dirname ${rpath})"
 
+    if [[ '/README.txt' == "$rpath" ]]
+    then
+      continue
+    fi
+
     echo -e "Custom\t${rpath}"
     mkdir -p "$thisdir"
     cp -f "$file" "$thisdir"
