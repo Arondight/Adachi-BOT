@@ -48,7 +48,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
 
   let { date, times } = await db.get("cookies", "cookie", { cookie });
 
-  if (date && date === today && times & (times >= 30)) {
+  if (date && date === today && times && times >= 30) {
     return s >= cookies.length
       ? cookie
       : await getEffectiveCookie(uid, s + 1, use_cookie);
