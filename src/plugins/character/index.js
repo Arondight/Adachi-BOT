@@ -1,11 +1,20 @@
-/* global alias, command */
+/* global alias, command, config */
 /* eslint no-undef: "error" */
 
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { basePromise } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
+import {
+  basePromise,
+  detailPromise,
+  characterPromise,
+} from "../../utils/detail.js";
+
+async function getCharacter(uid, character) {
+  const { avatars } = await db.get("info", "user", { uid });
+  return avatars.find((e) => e.name === character);
+}
 
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
@@ -33,24 +42,30 @@ async function Plugin(Message, bot) {
     return;
   }
 
+  character =
+    alias[
+      "string" === typeof character ? character.toLowerCase() : character
+    ] || character;
+
   try {
     const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
-    const { avatars } = await db.get("info", "user", { uid });
-    character =
-      alias[
-        "string" === typeof character ? character.toLowerCase() : character
-      ] || character;
-    data = avatars.find((el) => el.name === character);
+    data = await getCharacter(uid, character);
 
     if (!data) {
-      await bot.sendMessage(
-        sendID,
-        `查询失败，如果您拥有该角色，使用【${command.functions.entrance.card[0]}】或【${command.functions.entrance.package[0]}】更新游戏角色后再次查询。`,
-        type,
-        userID
-      );
-      return;
+      if (!config.characterTryGetDetail) {
+        await bot.sendMessage(
+          sendID,
+          `查询失败，如果您拥有该角色，使用【${command.functions.entrance.card[0]}】或【${command.functions.entrance.package[0]}】更新游戏角色后再次查询。`,
+          type,
+          userID
+        );
+        return;
+      } else {
+        const detailInfo = await detailPromise(...baseInfo, userID, bot);
+        await characterPromise(...baseInfo, detailInfo, bot);
+        data = await getCharacter(uid, character);
+      }
     }
   } catch (e) {
     // 抛出空串则使用缓存
@@ -58,6 +73,11 @@ async function Plugin(Message, bot) {
       await bot.sendMessage(sendID, e, type, userID);
       return;
     }
+  }
+
+  if (!data) {
+    await bot.sendMessage(sendID, "看上去您尚未拥有该角色", type, userID);
+    return;
   }
 
   await render({ uid, data }, "genshin-character", sendID, type, userID, bot);

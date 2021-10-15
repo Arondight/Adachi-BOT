@@ -99,6 +99,7 @@
  *   atUser: 1,
  *   repeatProb: 1,
  *   groupHello: 1,
+ *   characterTryGetDetail: 1,
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
  *   cacheAbyEffectTime: 1,
@@ -131,6 +132,7 @@
  * groupHello: 1
  * groupGreetingNew: 1
  * friendGreetingNew: 1
+ * characterTryGetDetail: 1
  * prefixes:
  *   -
  * cacheAbyEffectTime: 1
@@ -386,6 +388,8 @@ function readSettingGreetingMenu() {
     groupGreetingNew: 0,
     // 不向新好友问好
     friendGreetingNew: 0,
+    // 角色查询不尝试拉取数据
+    characterTryGetDetail: 0,
     // 深渊记录缓存一小时
     cacheAbyEffectTime: 1,
     // 玩家数据缓存一小时
@@ -396,26 +400,28 @@ function readSettingGreetingMenu() {
     dbInfoEffectTime: 168,
   };
 
-  const account = Setting["account"];
-  const accounts = Setting["accounts"];
+  // 用于兼容旧配置，已经被 accounts 取代
+  const account = Setting.account;
+  const accounts = Setting.accounts;
   // 用于兼容旧配置，已经被 masters 取代
-  const master = Setting["master"];
-  const masters = Setting["masters"];
-  const prefixes = Setting["prefixes"];
-  const atMe = parseInt(Setting["atMe"]);
-  const atUser = parseInt(Setting["atUser"]);
-  const repeatProb = parseInt(Setting["repeatProb"]);
-  const groupHello = parseInt(Setting["groupHello"]);
-  const groupGreetingNew = parseInt(Setting["groupGreetingNew"]);
-  const friendGreetingNew = parseInt(Setting["friendGreetingNew"]);
-  const cacheAbyEffectTime = parseInt(Setting["cacheAbyEffectTime"]);
-  const cacheInfoEffectTime = parseInt(Setting["cacheInfoEffectTime"]);
-  const dbAbyEffectTime = parseInt(Setting["dbAbyEffectTime"]);
-  const dbInfoEffectTime = parseInt(Setting["dbInfoEffectTime"]);
-  const greetingOnline = Greeting["online"];
-  const greetingDie = Greeting["die"];
-  const greetingHello = Greeting["hello"];
-  const greetingNew = Greeting["new"];
+  const master = Setting.master;
+  const masters = Setting.masters;
+  const prefixes = Setting.prefixes;
+  const atMe = parseInt(Setting.atMe);
+  const atUser = parseInt(Setting.atUser);
+  const repeatProb = parseInt(Setting.repeatProb);
+  const groupHello = parseInt(Setting.groupHello);
+  const groupGreetingNew = parseInt(Setting.groupGreetingNew);
+  const friendGreetingNew = parseInt(Setting.friendGreetingNew);
+  const characterTryGetDetail = parseInt(Setting.characterTryGetDetail);
+  const cacheAbyEffectTime = parseInt(Setting.cacheAbyEffectTime);
+  const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
+  const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
+  const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
+  const greetingOnline = Greeting.online;
+  const greetingDie = Greeting.die;
+  const greetingHello = Greeting.hello;
+  const greetingNew = Greeting.new;
   const menu = Menu;
 
   global.config = {};
@@ -445,6 +451,7 @@ function readSettingGreetingMenu() {
     { groupHello },
     { groupGreetingNew },
     { friendGreetingNew },
+    { characterTryGetDetail },
     { cacheAbyEffectTime },
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
