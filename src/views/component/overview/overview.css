@@ -204,7 +204,7 @@ html {
 
 .materials {
   position: relative;
-  top: 103px;
+  top: 106px;
 }
 
 .time {
@@ -280,7 +280,7 @@ html {
 
 .weapon .materials {
   position: relative;
-  top: 14px;
+  top: 18px;
 }
 
 .weapon .time {
@@ -332,7 +332,7 @@ html {
 table.weapon-table,
 table.character-table {
   border-spacing: 0 !important;
-  width: 450px;
+  width: 460px;
   margin: 0;
   padding: 0;
 }
