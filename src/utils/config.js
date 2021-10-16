@@ -296,7 +296,7 @@ function getCommand(obj, key) {
   global[key].enable = map(obj, "enable", [true, false], false);
   global[key].weights = map(obj, "weights", [true, false], 0);
   global[key].regex = mapSub(obj, "regex", [true, true], undefined, true);
-  global[key].function = mapSub(obj, "functions", [true, true], undefined);
+  global[key].function = mapSub(obj, "functions", [true, true]);
 
   for (const name in obj) {
     const add = (obj, key, name, prop, callback, ...rest) => {
@@ -310,7 +310,7 @@ function getCommand(obj, key) {
     add(obj, key, name, "name", map, [true, true]);
     add(obj, key, name, "usage", map, [true, false]);
     add(obj, key, name, "description", map, [true, false]);
-    add(obj, key, name, "entrance", mapSub, [true, true], undefined, false);
+    add(obj, key, name, "entrance", mapSub, [true, true]);
   }
 }
 
@@ -560,7 +560,7 @@ async function readConfig() {
 }
 
 function hasEntrance(message, plugin, ...entrance) {
-  const messageu = message.toLowerCase();
+  const messageu = message.toLowerCase(); // 忽略大小写
 
   if (all.function[plugin]) {
     for (const e of entrance) {
@@ -569,10 +569,10 @@ function hasEntrance(message, plugin, ...entrance) {
         continue;
       }
 
-      // 验证 message 是否以 entrance 对应的字符串开始（忽略大小写）
+      // 验证 message 是否以 entrance 对应的字符串开始
       if (Array.isArray(all.functions.entrance[e])) {
         for (const t of all.functions.entrance[e]) {
-          if (t && messageu.startsWith(t.toLowerCase())) {
+          if (t && messageu.startsWith(t)) {
             return true;
           }
         }

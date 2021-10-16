@@ -26,7 +26,7 @@
 
 > 建议提供一个内存和交换空间容量**总和**达到 `1.5 GiB` 的 Linux 环境进行部署，以运行无头浏览器。
 
-首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较低版本的 Node.js 。
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较旧版本的 Node.js 。
 
 <details>
 
@@ -62,7 +62,7 @@ npm install
 
 <details>
 
-你有三种选择。首先删除 `./node_modules/` 目录。
+你有两种选择。首先删除 `./node_modules/` 目录。
 
 其一，（推荐）使用系统自带的 `Chromium` ，这里以 `CentOS` 为例，执行以下命令。
 
