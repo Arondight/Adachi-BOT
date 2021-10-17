@@ -25,20 +25,23 @@ async function Plugin(Message, bot) {
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
   const isMyChar = hasEntrance(msg, "character", "character");
-  let msgParts = msg.split(/\s+/);
-  let character = msgParts[1];
+  let text = msg;
   let uid;
   let data;
 
-  if (
-    msgParts[0].match(/^\d+$/) ||
-    msgParts[0].match(/^\[CQ:at,qq=\d+,text=.+?\]$/)
-  ) {
-    character = msgParts[2];
+  if (text.match(/^\[CQ:at,qq=\d+,text=.+?\]/)) {
+    text = text.replace(/\[CQ:at,qq=\d+,text=.+?\]\s*/, "");
+  }
+
+  const textParts = text.split(/\s+/);
+  let character = textParts[1];
+
+  if (text.match(/^\d+\s+/)) {
+    character = textParts[2];
   }
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, "查询游戏内信息", type, bot);
+    await sendPrompt(sendID, userID, name, "查询游戏内信息", type, bot);
     return;
   }
 
@@ -60,17 +63,17 @@ async function Plugin(Message, bot) {
       dbInfo = await getID(msg, userID); // 米游社 ID
     }
 
+    if ("string" === typeof dbInfo) {
+      await bot.sendMessage(sendID, dbInfo, type, userID);
+      return;
+    }
+
     if (Array.isArray(dbInfo)) {
       baseInfo = dbInfo;
       uid = baseInfo[0];
     } else {
       baseInfo = await basePromise(dbInfo, userID, bot);
       uid = baseInfo[0];
-    }
-
-    if ("string" === typeof dbInfo) {
-      await bot.sendMessage(sendID, dbInfo, type, userID);
-      return;
     }
 
     data = await getCharacter(uid, character);
@@ -107,7 +110,12 @@ async function Plugin(Message, bot) {
   }
 
   if (!data) {
-    await bot.sendMessage(sendID, "看上去您尚未拥有该角色", type, userID);
+    await bot.sendMessage(
+      sendID,
+      `看上去${isMyChar ? "您" : "他"}尚未拥有该角色。`,
+      type,
+      userID
+    );
     return;
   }
 
