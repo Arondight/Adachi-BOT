@@ -97,6 +97,7 @@ character:
   weights: 9599
   regex:
     - ^我的\s+.+$
+    - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s+.+$
   functions:
     character:
       weights: 9999
@@ -105,6 +106,14 @@ character:
       description: 查询我的角色
       entrance:
         - 我的
+    others_character:
+      weights: 9899
+      name: <UID、@群友>的
+      usage: <角色名>
+      description: 查询别人的角色
+      entrance:
+        # 无功能入口
+        -
 
 gacha:
   enable: true

@@ -4,7 +4,8 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { getID } from "../../utils/id.js";
+import { hasEntrance } from "../../utils/config.js";
+import { getID, getUID } from "../../utils/id.js";
 import {
   basePromise,
   detailPromise,
@@ -23,17 +24,21 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
-  const dbInfo = await getID(msg, userID); // 米游社 ID
-  let [character] = msg.split(/(?<=^\S+)\s/).slice(1);
-  let uid, data;
+  const isMyChar = hasEntrance(msg, "character", "character");
+  let msgParts = msg.split(/\s+/);
+  let character = msgParts[1];
+  let uid;
+  let data;
+
+  if (
+    msgParts[0].match(/^\d+$/) ||
+    msgParts[0].match(/^\[CQ:at,qq=\d+,text=.+?\]$/)
+  ) {
+    character = msgParts[2];
+  }
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, "查询游戏内信息", type, bot);
-    return;
-  }
-
-  if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, dbInfo, type, userID);
     return;
   }
 
@@ -48,15 +53,41 @@ async function Plugin(Message, bot) {
     ] || character;
 
   try {
-    const baseInfo = await basePromise(dbInfo, userID, bot);
-    uid = baseInfo[0];
+    let dbInfo = isMyChar ? await getID(msg, userID) : await getUID(msg);
+    let baseInfo;
+
+    if (!isMyChar && (!dbInfo || "string" === typeof dbInfo)) {
+      dbInfo = await getID(msg, userID); // 米游社 ID
+    }
+
+    if (Array.isArray(dbInfo)) {
+      baseInfo = dbInfo;
+      uid = baseInfo[0];
+    } else {
+      baseInfo = await basePromise(dbInfo, userID, bot);
+      uid = baseInfo[0];
+    }
+
+    if ("string" === typeof dbInfo) {
+      await bot.sendMessage(sendID, dbInfo, type, userID);
+      return;
+    }
+
     data = await getCharacter(uid, character);
 
     if (!data) {
       if (!config.characterTryGetDetail) {
+        const cmd = [
+          command.functions.entrance.card[0],
+          command.functions.entrance.package[0],
+        ];
+        const cmdStr = `【${cmd.join("】、【")}】`;
+
         await bot.sendMessage(
           sendID,
-          `查询失败，如果您拥有该角色，使用【${command.functions.entrance.card[0]}】或【${command.functions.entrance.package[0]}】更新游戏角色后再次查询。`,
+          `查询失败，如果${
+            isMyChar ? "您" : "他"
+          }拥有该角色，使用${cmdStr}更新游戏角色后再次查询。`,
           type,
           userID
         );
