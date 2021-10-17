@@ -11,7 +11,7 @@ async function cookiesInvalid(id, type, user, bot) {
     text || "未发现无效 Cookie 。",
     type,
     user,
-    text ? "\n" : ""
+    text ? "\n" : " "
   );
   return;
 }
