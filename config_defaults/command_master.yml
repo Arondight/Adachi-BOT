@@ -33,6 +33,7 @@ tools_master:
     - ^查找列表\s+.+$
     - ^统计列表\s*$
     - ^系统(状态|信息)\s*$
+    - ^(报告)?无效Cookie\s*$
   functions:
     reply:
       weights: 9999
@@ -92,6 +93,14 @@ tools_master:
       entrance:
         - 系统状态
         - 系统信息
+    cookies_invalid:
+      weights: 9299
+      name: 报告无效Cookie
+      usage:
+      description:
+      entrance:
+        - 报告无效Cookie
+        - 无效Cookie
 
 master:
   enable: true

@@ -131,7 +131,6 @@ async function cleanByTimeDB(
     if (!time || now - time > milliseconds) {
       records.splice(i, 1);
       nums++;
-      continue;
     }
   }
 
@@ -139,8 +138,8 @@ async function cleanByTimeDB(
   return nums;
 }
 
+// 清理不是今天的数据
 async function cleanCookies() {
-  // 清理不是今天的数据
   const dbName = "cookies";
   const keys = ["cookie", "uid"];
   const today = new Date().toLocaleDateString();
@@ -155,8 +154,27 @@ async function cleanCookies() {
       if (!records[i].date || today != records[i].date) {
         records.splice(i, 1);
         nums++;
-        continue;
       }
+    }
+  }
+
+  await write(dbName);
+  return nums;
+}
+
+// 清理不在配置文件的数据
+async function cleanCookiesInvalid() {
+  const dbName = "cookies_invalid";
+  const cookies = (await get(dbName, "cookie")) || [];
+  let nums = 0;
+
+  for (const i in cookies) {
+    if (
+      !cookies[i].cookie ||
+      !(config.cookies || []).includes(cookies[i].cookie)
+    ) {
+      cookies.splice(i, 1);
+      nums++;
     }
   }
 
@@ -182,6 +200,8 @@ async function clean(dbName) {
       );
     case "cookies" === dbName:
       return await cleanCookies();
+    case "cookies_invalid" === dbName:
+      return await cleanCookiesInvalid();
   }
 
   return 0;
