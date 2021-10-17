@@ -4,7 +4,7 @@
 import db from "./database.js";
 
 function getUID(msg) {
-  let errInfo = "输入 UID 不合法，需要一个在天空岛或世界树服务器上的真实 UID。";
+  let errInfo = "需要一个在天空岛或世界树服务器上的 UID 。";
   let id = parseInt(msg);
   let idstr = id ? id.toString() : undefined;
 
@@ -41,30 +41,30 @@ function getUID(msg) {
 // 返回：
 //
 //  1. 成功    =>
-//      isMhyID is true      -> Number
-//      isMhyID is false     -> [Number, String]
+//      isMhyID is true      -> number
+//      isMhyID is false     -> [number, string]
 //  2. 失败    =>
 //      1. msg 包含 CQ 码 =>
-//          isMhyID is true  -> String 或者 undefined
+//          isMhyID is true  -> string 或者 undefined
 //          isMhyID is false -> undefined
 //      2. msg 有 ID      =>
-//          isMhyID is true  -> String
-//          isMhyID is false -> String
+//          isMhyID is true  -> string
+//          isMhyID is false -> string
 //      3. msg 无 ID      =>
 //          isMhyID is true  -> undefined
 //          isMhyID is false -> undefined
 //      4. 其他情况       =>
-//          String
+//          string
 async function getID(msg, userID, isMhyID = true) {
   let msgstr = msg.toString();
   let idInMsg = msgstr.match(/\d+/g);
   let id = idInMsg ? parseInt(idInMsg[0]) : undefined;
   let idstr = id ? id.toString() : undefined;
-  let cqmsg = msgstr.includes("CQ:at") ? true : false;
+  let cqmsg = msgstr.includes("[CQ:at") ? true : false;
   let errInfo = "";
 
   if (isMhyID && !userID) {
-    errInfo = "无法在查询米游社通行证时不指定 QQ（isMhyID && !userID）。";
+    errInfo = "无法在查询米游社通行证时不指定 QQ 号码。";
     return errInfo;
   }
 
