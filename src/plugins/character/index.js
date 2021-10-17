@@ -13,8 +13,8 @@ import {
 } from "../../utils/detail.js";
 
 async function getCharacter(uid, character) {
-  const { avatars } = await db.get("info", "user", { uid });
-  return avatars.find((e) => e.name === character);
+  const { avatars } = (await db.get("info", "user", { uid })) || {};
+  return avatars ? avatars.find((e) => e.name === character) : false;
 }
 
 async function Plugin(Message, bot) {

@@ -108,7 +108,7 @@ character:
         - 我的
     others_character:
       weights: 9899
-      name: <UID、@群友>的
+      name: <游戏内UID、@群友>的
       usage: <角色名>
       description: 查询别人的角色
       entrance:
