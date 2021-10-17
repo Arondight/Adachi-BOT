@@ -66,8 +66,18 @@ async function Plugin(Message, bot) {
       return;
     }
   } catch (e) {
-    // 抛出空串则使用缓存
-    if ("" !== e) {
+    if (true === e.detail) {
+      // 尝试使用缓存
+      if (true !== e.cache) {
+        if ("string" === typeof e.message) {
+          await bot.sendMessage(sendID, e.message, type, userID);
+        }
+        if (true === e.master && "string" === typeof e.message_master) {
+          await bot.sendMaster(sendID, e.message_master, type, userID);
+        }
+        return;
+      }
+    } else {
       await bot.sendMessage(sendID, e, type, userID);
       return;
     }

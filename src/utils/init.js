@@ -13,6 +13,7 @@ async function initDB() {
   await db.init("authority");
   await db.init("character");
   await db.init("cookies", { cookie: [], uid: [] });
+  await db.init("cookies_invalid", { cookie: [] });
   await db.init("gacha", { user: [], data: [] });
   await db.init("info");
   await db.init("map");
@@ -40,6 +41,7 @@ async function cleanDBJob() {
   let nums = 0;
   nums += await cleanDB("aby");
   nums += await cleanDB("cookies");
+  nums += await cleanDB("cookies_invalid");
   nums += await cleanDB("info");
   return nums;
 }

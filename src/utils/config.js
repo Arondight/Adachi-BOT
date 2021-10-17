@@ -106,6 +106,9 @@
  *   cacheInfoEffectTime: 1,
  *   dbAbyEffectTime: 1,
  *   dbInfoEffectTime: 168,
+ *   cookies: [
+ *     'UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...'
+ *   ],
  *   greetingOnline: '上线了。',
  *   greetingDie: '上线了，但又没上。',
  *   greetingHello: '大家好。',
@@ -139,6 +142,11 @@
  * cacheInfoEffectTime: 1
  * dbAbyEffectTime: 1
  * dbInfoEffectTime: 168
+ * --------------------------------------------------------------------------
+ * ../../config/cookies.yml
+ * --------------------------------------------------------------------------
+ * cookies:
+ *   - UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
  * --------------------------------------------------------------------------
  * ../../config/greeting.yml
  * --------------------------------------------------------------------------
@@ -219,6 +227,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const Setting = loadYML("setting");
+const Cookies = loadYML("cookies");
 const Greeting = loadYML("greeting");
 const Command = loadYML("command");
 const Master = loadYML("command_master");
@@ -371,7 +380,7 @@ function setRootDir() {
 }
 
 // global.config
-function readSettingGreetingMenu() {
+function readSettingCookiesGreetingMenu() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
   const defaultConfig = {
     // 登录协议为 iPad
@@ -418,6 +427,11 @@ function readSettingGreetingMenu() {
   const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
+  const cookies = Cookies
+    ? Array.isArray(Cookies.cookies)
+      ? Cookies.cookies
+      : []
+    : [];
   const greetingOnline = Greeting.online;
   const greetingDie = Greeting.die;
   const greetingHello = Greeting.hello;
@@ -456,6 +470,7 @@ function readSettingGreetingMenu() {
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
+    { cookies },
     { greetingOnline },
     { greetingDie },
     { greetingHello },
@@ -571,7 +586,7 @@ function getUsage() {
 
 async function readConfig() {
   setRootDir();
-  readSettingGreetingMenu();
+  readSettingCookiesGreetingMenu();
   readCommand();
   readAlias();
   readArtifacts();
