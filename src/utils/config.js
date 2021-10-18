@@ -99,12 +99,16 @@
  *   atUser: 1,
  *   repeatProb: 1,
  *   groupHello: 1,
+ *   characterTryGetDetail: 1,
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
  *   cacheAbyEffectTime: 1,
  *   cacheInfoEffectTime: 1,
  *   dbAbyEffectTime: 1,
  *   dbInfoEffectTime: 168,
+ *   cookies: [
+ *     'UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...'
+ *   ],
  *   greetingOnline: '上线了。',
  *   greetingDie: '上线了，但又没上。',
  *   greetingHello: '大家好。',
@@ -131,12 +135,18 @@
  * groupHello: 1
  * groupGreetingNew: 1
  * friendGreetingNew: 1
+ * characterTryGetDetail: 1
  * prefixes:
  *   -
  * cacheAbyEffectTime: 1
  * cacheInfoEffectTime: 1
  * dbAbyEffectTime: 1
  * dbInfoEffectTime: 168
+ * --------------------------------------------------------------------------
+ * ../../config/cookies.yml
+ * --------------------------------------------------------------------------
+ * cookies:
+ *   - UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
  * --------------------------------------------------------------------------
  * ../../config/greeting.yml
  * --------------------------------------------------------------------------
@@ -217,6 +227,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const Setting = loadYML("setting");
+const Cookies = loadYML("cookies");
 const Greeting = loadYML("greeting");
 const Command = loadYML("command");
 const Master = loadYML("command_master");
@@ -369,7 +380,7 @@ function setRootDir() {
 }
 
 // global.config
-function readSettingGreetingMenu() {
+function readSettingCookiesGreetingMenu() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
   const defaultConfig = {
     // 登录协议为 iPad
@@ -386,6 +397,8 @@ function readSettingGreetingMenu() {
     groupGreetingNew: 0,
     // 不向新好友问好
     friendGreetingNew: 0,
+    // 角色查询不尝试拉取数据
+    characterTryGetDetail: 0,
     // 深渊记录缓存一小时
     cacheAbyEffectTime: 1,
     // 玩家数据缓存一小时
@@ -396,26 +409,33 @@ function readSettingGreetingMenu() {
     dbInfoEffectTime: 168,
   };
 
-  const account = Setting["account"];
-  const accounts = Setting["accounts"];
+  // 用于兼容旧配置，已经被 accounts 取代
+  const account = Setting.account;
+  const accounts = Setting.accounts;
   // 用于兼容旧配置，已经被 masters 取代
-  const master = Setting["master"];
-  const masters = Setting["masters"];
-  const prefixes = Setting["prefixes"];
-  const atMe = parseInt(Setting["atMe"]);
-  const atUser = parseInt(Setting["atUser"]);
-  const repeatProb = parseInt(Setting["repeatProb"]);
-  const groupHello = parseInt(Setting["groupHello"]);
-  const groupGreetingNew = parseInt(Setting["groupGreetingNew"]);
-  const friendGreetingNew = parseInt(Setting["friendGreetingNew"]);
-  const cacheAbyEffectTime = parseInt(Setting["cacheAbyEffectTime"]);
-  const cacheInfoEffectTime = parseInt(Setting["cacheInfoEffectTime"]);
-  const dbAbyEffectTime = parseInt(Setting["dbAbyEffectTime"]);
-  const dbInfoEffectTime = parseInt(Setting["dbInfoEffectTime"]);
-  const greetingOnline = Greeting["online"];
-  const greetingDie = Greeting["die"];
-  const greetingHello = Greeting["hello"];
-  const greetingNew = Greeting["new"];
+  const master = Setting.master;
+  const masters = Setting.masters;
+  const prefixes = Setting.prefixes;
+  const atMe = parseInt(Setting.atMe);
+  const atUser = parseInt(Setting.atUser);
+  const repeatProb = parseInt(Setting.repeatProb);
+  const groupHello = parseInt(Setting.groupHello);
+  const groupGreetingNew = parseInt(Setting.groupGreetingNew);
+  const friendGreetingNew = parseInt(Setting.friendGreetingNew);
+  const characterTryGetDetail = parseInt(Setting.characterTryGetDetail);
+  const cacheAbyEffectTime = parseInt(Setting.cacheAbyEffectTime);
+  const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
+  const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
+  const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
+  const cookies = Cookies
+    ? Array.isArray(Cookies.cookies)
+      ? Cookies.cookies
+      : []
+    : [];
+  const greetingOnline = Greeting.online;
+  const greetingDie = Greeting.die;
+  const greetingHello = Greeting.hello;
+  const greetingNew = Greeting.new;
   const menu = Menu;
 
   global.config = {};
@@ -445,10 +465,12 @@ function readSettingGreetingMenu() {
     { groupHello },
     { groupGreetingNew },
     { friendGreetingNew },
+    { characterTryGetDetail },
     { cacheAbyEffectTime },
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
+    { cookies },
     { greetingOnline },
     { greetingDie },
     { greetingHello },
@@ -564,7 +586,7 @@ function getUsage() {
 
 async function readConfig() {
   setRootDir();
-  readSettingGreetingMenu();
+  readSettingCookiesGreetingMenu();
   readCommand();
   readAlias();
   readArtifacts();

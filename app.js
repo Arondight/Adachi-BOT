@@ -85,11 +85,17 @@ async function report() {
       ? "所有的消息都将被视为命令。"
       : `命令前缀设置为 ${config.prefixes.join(" 、 ")} 。`
   );
+  say(
+    `${
+      2 === config.atMe ? "只" : 0 === config.atMe ? "不" : ""
+    }允许用户 @ 机器人。`
+  );
   say(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
   say(`群消息复读的概率为 ${config.repeatProb}% 。`);
   say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
   say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
   say(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
+  say(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
   say(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
   say(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
   say(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);

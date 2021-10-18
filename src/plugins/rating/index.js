@@ -16,7 +16,7 @@ async function Plugin(Message, bot) {
 
   // 此命令和图片之间可以加任意个空格
   // https://github.com/Arondight/Adachi-BOT/issues/54
-  const [source] = msg.split(/^评分\s*/).slice(1);
+  const source = msg.match(/\[CQ:image,file=.+?\]/);
   const [url] = /(?<=url=).+(?=])/.exec(source) || [];
   const headers = {
     "Content-Type": "application/json",

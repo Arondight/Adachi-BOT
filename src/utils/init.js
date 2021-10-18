@@ -8,16 +8,17 @@ import { server } from "./server.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
 
 async function initDB() {
-  await db.init("map");
-  await db.init("time");
-  await db.init("info");
-  await db.init("artifact");
-  await db.init("character");
-  await db.init("authority");
-  await db.init("gacha", { user: [], data: [] });
-  await db.init("music", { source: [] });
   await db.init("aby");
+  await db.init("artifact");
+  await db.init("authority");
+  await db.init("character");
   await db.init("cookies", { cookie: [], uid: [] });
+  await db.init("cookies_invalid", { cookie: [] });
+  await db.init("gacha", { user: [], data: [] });
+  await db.init("info");
+  await db.init("map");
+  await db.init("music", { source: [] });
+  await db.init("time");
 }
 
 async function initBrowser() {
@@ -40,6 +41,7 @@ async function cleanDBJob() {
   let nums = 0;
   nums += await cleanDB("aby");
   nums += await cleanDB("cookies");
+  nums += await cleanDB("cookies_invalid");
   nums += await cleanDB("info");
   return nums;
 }
