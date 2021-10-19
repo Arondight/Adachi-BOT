@@ -47,7 +47,7 @@ async function Plugin(Message, bot) {
       } else {
         await bot.sendMessage(
           sendID,
-          `请先使用【${command.functions.entrance.artifacts[0]}】抽取一个圣遗物后再【${command.functions.entrance.strengthen[0]}】。`,
+          `请先使用【${command.functions.name.artifacts}】抽取一个圣遗物后再【${command.functions.name.strengthen}】。`,
           type,
           userID
         );
@@ -76,7 +76,7 @@ async function Plugin(Message, bot) {
     } else {
       await bot.sendMessage(
         sendID,
-        `请正确输入副本，可以使用【${command.functions.entrance.dungeons[0]}】查看所有副本。`,
+        `请正确输入副本，可以使用【${command.functions.name.dungeons}】查看所有副本。`,
         type,
         userID
       );

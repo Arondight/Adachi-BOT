@@ -19,7 +19,7 @@
 #       name: string            # 呈现给用户的功能名称（忽略大小写）
 #       usage: string           # 呈现给用户的功能格式
 #       description: string     # 呈现给用户的功能说明
-#       entrance:               # 功能入口（ startsWith 、插件唯一、忽略大小写）
+#       entrance:               # 功能入口（正则、插件唯一、忽略大小写）
 #         - string
 #       options:                # 如果 type 为 option ，这里为候选项列表
 #         option_name: string   # 候选项（键禁止修改）
@@ -32,7 +32,7 @@ tools_master:
     - ^回(个)?话\s+\d+\s+.+$
     - ^(好友|群)广播\s+.+$
     - ^(好友|群)列表\s*$
-    - ^查找列表\s+.+$
+    - ^查找列表\s+\S+\s*$
     - ^统计列表\s*$
     - ^系统(状态|信息)\s*$
     - ^(报告)?无效Cookie\s*$
@@ -44,8 +44,7 @@ tools_master:
       usage: <QQ号、群号> <文本...>
       description:
       entrance:
-        - 回话
-        - 回个话
+        - ^回(个)?话
     group_boardcast:
       type: command
       weights: 9899
@@ -53,7 +52,7 @@ tools_master:
       usage: <单行图文...>
       description:
       entrance:
-        - 群广播
+        - ^群广播
     private_boardcast:
       type: command
       weights: 9799
@@ -61,7 +60,7 @@ tools_master:
       usage: <单行图文...>
       description:
       entrance:
-        - 好友广播
+        - ^好友广播
     group_search:
       type: command
       weights: 9699
@@ -69,7 +68,7 @@ tools_master:
       usage:
       description: 查看所有群
       entrance:
-        - 群列表
+        - ^群列表
     private_search:
       type: command
       weights: 9699
@@ -77,7 +76,7 @@ tools_master:
       usage:
       description: 查看所有好友
       entrance:
-        - 好友列表
+        - ^好友列表
     search:
       type: command
       weights: 9599
@@ -85,7 +84,7 @@ tools_master:
       usage: <关键字>
       description: 查找昵称、QQ号中包含关键字的好友和群
       entrance:
-        - 查找列表
+        - ^查找列表
     count:
       type: command
       weights: 9499
@@ -93,7 +92,7 @@ tools_master:
       usage:
       description: 统计用户数量
       entrance:
-        - 统计列表
+        - ^统计列表
     status:
       type: command
       weights: 9399
@@ -101,8 +100,7 @@ tools_master:
       usage:
       description:
       entrance:
-        - 系统状态
-        - 系统信息
+        - ^系统(状态|信息)
     cookies_invalid:
       type: command
       weights: 9299
@@ -110,15 +108,14 @@ tools_master:
       usage:
       description:
       entrance:
-        - 报告无效Cookie
-        - 无效Cookie
+        - ^(报告)?无效Cookie
 
 master:
   enable: true
   weights: 9999
   regex:
-    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限\s+\d+\s+.+$
-    - ^响应消息\s+\d+\s+.+$
+    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限\s+\d+\s+\S+\s*$
+    - ^响应消息\s+\d+\s+\S+\s*$
     - ^刷新卡池\s*$
   functions:
     feedback_auth:
@@ -128,7 +125,7 @@ master:
       usage: <QQ号、群号>
       description: 【带话】
       entrance:
-        - 带话权限
+        - ^带话权限
     music_auth:
       type: switch
       weights: 9899
@@ -136,7 +133,7 @@ master:
       usage: <QQ号、群号>
       description: 【点歌】
       entrance:
-        - 点歌权限
+        - ^点歌权限
     gacha_auth:
       type: switch
       weights: 9799
@@ -144,7 +141,7 @@ master:
       usage: <QQ号、群号>
       description: 【十连】
       entrance:
-        - 十连权限
+        - ^十连权限
     artifact_auth:
       type: switch
       weights: 9699
@@ -152,7 +149,7 @@ master:
       usage: <QQ号、群号>
       description: 【圣遗物】【强化】
       entrance:
-        - 圣遗物权限
+        - ^圣遗物权限
     rating_auth:
       type: switch
       weights: 9599
@@ -160,7 +157,7 @@ master:
       usage: <QQ号、群号>
       description: 【评分】
       entrance:
-        - 评分权限
+        - ^评分权限
     query_gameinfo_auth:
       type: switch
       weights: 9499
@@ -168,7 +165,7 @@ master:
       usage: <QQ号、群号>
       description: 【深渊】【上期深渊】【米游社】【uid】
       entrance:
-        - 游戏数据权限
+        - ^游戏数据权限
     character_overview_auth:
       type: switch
       weights: 9399
@@ -176,7 +173,7 @@ master:
       usage: <QQ号、群号>
       description: 【角色】【武器】
       entrance:
-        - 官方数据权限
+        - ^官方数据权限
     reply_auth:
       type: switch
       weights: 9299
@@ -184,7 +181,7 @@ master:
       usage: <QQ号、群号>
       description:
       entrance:
-        - 响应消息
+        - ^响应消息
     refresh_wish_detail:
       type: command
       weights: 9199
@@ -192,4 +189,4 @@ master:
       usage:
       description:
       entrance:
-        - 刷新卡池
+        - ^刷新卡池
