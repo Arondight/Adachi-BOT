@@ -150,7 +150,7 @@ npm install
 ./scripts/whats_updated_in_the_configuration_files.sh
 ```
 
-> 你可以使用 [Meld](http://meldmerge.org/) 来将 `config_defaults/` 中配置文件新增的部分合并到 `config/` 中你的配置文件里。
+> 你可以使用 [Meld](http://meldmerge.org/) 把 `config_defaults/` 中的变更合并到 `config/` 里。
 
 #### 重启机器人
 

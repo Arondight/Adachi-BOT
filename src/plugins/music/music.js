@@ -1,8 +1,10 @@
+/* global all */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
 import db from "../../utils/database.js";
-import { hasOption, getOption } from "../../utils/config.js";
 
 const ERRCODE = {
   ERR_SRC: "1",
@@ -106,8 +108,8 @@ async function music163(keyword) {
 async function musicID(msg, source) {
   const [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
-    [getOption("music_source", "music_source_qq") || "qq"]: musicQQ,
-    [getOption("music_source", "music_source_163") || "163"]: music163,
+    [all.functions.options.music_source.music_source_qq || "qq"]: musicQQ,
+    [all.functions.options.music_source.music_source_163 || "163"]: music163,
   };
 
   if (!(source in worker)) {
@@ -124,7 +126,7 @@ async function musicSrc(msg, id) {
   if ("string" === typeof source) {
     source = source.toLowerCase();
 
-    if (!hasOption("music_source", source)) {
+    if (!Object.values(all.functions.options.music_source).includes(source)) {
       return false;
     }
 

@@ -82,8 +82,8 @@ async function Plugin(Message, bot) {
     if (!data) {
       if (!config.characterTryGetDetail) {
         const cmd = [
-          command.functions.entrance.card[0],
-          command.functions.entrance.package[0],
+          command.functions.name.card,
+          command.functions.name.package,
         ];
         const cmdStr = `【${cmd.join("】、【")}】`;
 

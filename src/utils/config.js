@@ -18,10 +18,10 @@
  * --------------------------------------------------------------------------
  * {
  *   functions: {
- *     entrance: { hello_world: [ 'hello world' ], eat: [ 'eat' ] },
- *     options: { eat: [ { Apple: '苹果' }, { Banana: '香蕉' }, { Egg: '蛋' } ] }
+ *     entrance: { hello_world: [ '^hello' ], eat: [ '^eat' ] },
+ *     options: { eat: { apple: '苹果', banana: '香蕉', egg: '蛋' } }
  *   },
- *   function: { hello_world: [ 'Hello_World' ], eat: [ 'eat' ] }
+ *   function: { hello_world: [ 'hello_world' ], eat: [ 'eat' ] }
  * }
  * --------------------------------------------------------------------------
  * global.command and global.master
@@ -33,17 +33,17 @@
  *     name: { hello_world: 'hello world', eat: 'eat' },
  *     usage: { hello_world: undefined, eat: undefined },
  *     description: { hello_world: 'I will say hello to you', eat: 'What to eat' },
- *     entrance: { hello_world: [ 'hello world' ], eat: [ 'eat' ] },
- *     options: { eat: [ { apple: '苹果' }, { banana: '香蕉' }, { egg: '蛋' } ] }
+ *     entrance: { hello_world: [ '^hello' ], eat: [ '^eat' ] },
+ *     options: { eat: { apple: '苹果', banana: '香蕉', egg: '蛋' } }
  *   },
  *   enable: { hello_world: true, eat: true },
  *   weights: { hello_world: 9999, eat: 9999 },
  *   regex: {
  *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ],
- *     '^eat\\s+\\s*$': [ 'eat' ]
+ *     '^eat\\S+\\s*$': [ 'eat' ]
  *   },
  *   function: { hello_world: [ 'hello_world' ], eat: [ 'eat' ] },
- *   usage: '🔘 hello world  👉 I will say hello to you\n' +
+ *   usage: '🔘 hello world 👉 I will say hello to you\n' +
  *     '🔘 eat <苹果、香蕉、蛋> 👉 What to eat\n' +
  *     '-------------------\n' +
  *     '<> 表示必填，[] 表示可选，前面需加空格'
@@ -242,7 +242,7 @@ const Artifacts = loadYML("artifacts");
 
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
 // global[key].weights               -> plugin (lowercase):    weights (number)
-// global[key].regex                 -> regex (lowercase):     plugin (string, lowercase)
+// global[key].regex                 -> regex (lowercase):     plugin (string)
 // global[key].function              -> function (lowercase):  plugin (array of string, lowercase)
 // global[key].functions.type        -> function (lowercase):  type (string)
 // global[key].functions.weights     -> function (lowercase):  weights (number)
@@ -297,38 +297,22 @@ function getCommand(obj, key) {
               : Object.entries(v[key] || {})
             : []
           ).forEach((c) => {
-            let p1 = k;
-            let p2 = c;
-
-            if (lowercase[0]) {
-              if ("string" === typeof k) {
-                p1 = k.toLowerCase();
-              } else if (Array.isArray(k)) {
-                p1 = lodash.transform(k, (r, c) =>
+            const transToLowerCase = (o) => {
+              if ("string" === typeof o) {
+                return o.toLowerCase();
+              } else if (Array.isArray(o)) {
+                return lodash.transform(o, (r, c) =>
                   r.push("string" === typeof c ? c.toLowerCase() : c)
                 );
               } else {
-                p1 = lodash.transform(k, (r, v, k) => {
+                return lodash.transform(o, (r, v, k) => {
                   r[(k = "string" === typeof k ? k.toLowerCase() : k)] =
                     "string" === typeof v ? v.toLowerCase() : v;
                 });
               }
-            }
-
-            if (lowercase[1]) {
-              if ("string" === typeof c) {
-                p2 = c.toLowerCase();
-              } else if (Array.isArray(c)) {
-                p2 = lodash.transform(c, (r, c) =>
-                  r.push("string" === typeof c ? c.toLowerCase() : c)
-                );
-              } else {
-                p2 = lodash.transform(c, (r, v, k) => {
-                  r[(k = "string" === typeof k ? k.toLowerCase() : k)] =
-                    "string" === typeof v ? v.toLowerCase() : v;
-                });
-              }
-            }
+            };
+            let p1 = lowercase[0] ? transToLowerCase(k) : k;
+            let p2 = lowercase[1] ? transToLowerCase(c) : c;
 
             if (true === revert) {
               p2 && (pair[p2] || (pair[p2] = [])).push(p1);
@@ -346,7 +330,7 @@ function getCommand(obj, key) {
   global[key].functions = {};
   global[key].enable = map(obj, "enable", [true, false], false);
   global[key].weights = map(obj, "weights", [true, false], 0);
-  global[key].regex = mapSub(obj, "regex", [true, true], undefined, true);
+  global[key].regex = mapSub(obj, "regex", [true, false], undefined, true);
   global[key].function = mapSub(obj, "functions", [true, true]);
 
   for (const name in obj) {
@@ -380,7 +364,7 @@ function getCommand(obj, key) {
     (pair, v, k) => {
       v.forEach((c) => {
         c[1] = c[1].toString();
-        (pair[k] || (pair[k] = [])).push({
+        lodash.assign(pair[k] || (pair[k] = {}), {
           [c[0]]: "string" === typeof c[1] ? c[1].toLowerCase() : c[1],
         });
       });
@@ -433,17 +417,14 @@ function makeUsage(object) {
             ? object.functions.usage[func] + " "
             : "") +
           ("switch" === type
-            ? "<on、off>"
+            ? "<on、off> "
             : "option" === type
             ? (object.functions.options[func] &&
                 "<" +
-                  object.functions.options[func]
-                    .map((p) => Object.values(p)[0])
-                    .join("、")) + ">"
+                  Object.values(object.functions.options[func]).join("、")) +
+              "> "
             : "") +
-          " " +
-          (object.functions.description[func] ? commentMark : "") +
-          " " +
+          (object.functions.description[func] ? commentMark + " " : "") +
           (object.functions.description[func] || "") +
           "\n";
       }
@@ -647,6 +628,10 @@ function getAll() {
 
   global.all = {};
   global.all.functions = {};
+  all.functions.options = lodash.assign(
+    command.functions.options,
+    master.functions.options
+  );
 
   merge(all, "function", command.function, master.function);
   merge(
@@ -654,12 +639,6 @@ function getAll() {
     "entrance",
     command.functions.entrance,
     master.functions.entrance
-  );
-  merge(
-    all.functions,
-    "options",
-    command.functions.options,
-    master.functions.options
   );
 }
 
@@ -693,8 +672,10 @@ function hasEntrance(message, plugin, ...entrance) {
       // 验证 message 是否以 entrance 对应的字符串开始
       if (Array.isArray(all.functions.entrance[e])) {
         for (const t of all.functions.entrance[e]) {
-          if (t && messageu.startsWith(t)) {
-            return true;
+          if (t) {
+            if (new RegExp(t, "i").test(messageu)) {
+              return true;
+            }
           }
         }
       }
@@ -704,27 +685,4 @@ function hasEntrance(message, plugin, ...entrance) {
   return false;
 }
 
-function hasOption(func, ...options) {
-  if (
-    all.functions.options[func] &&
-    Array.isArray(all.functions.options[func])
-  ) {
-    for (const o of options) {
-      for (const pair of all.functions.options[func]) {
-        if (Object.values(pair).indexOf(o) > -1) {
-          return true;
-        }
-      }
-    }
-  }
-
-  return false;
-}
-
-function getOption(func, option) {
-  return hasOption(func, option)
-    ? lodash.map(all.functions.options[func], option)
-    : undefined;
-}
-
-export { readConfig, hasEntrance, hasOption, getOption };
+export { readConfig, hasEntrance };
