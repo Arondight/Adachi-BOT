@@ -108,8 +108,8 @@ async function music163(keyword) {
 async function musicID(msg, source) {
   const [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
-    [all.functions.options.music_source.music_source_qq || "qq"]: musicQQ,
-    [all.functions.options.music_source.music_source_163 || "163"]: music163,
+    [all.functions.options.music_source.qq || "qq"]: musicQQ,
+    [all.functions.options.music_source[163] || "163"]: music163,
   };
 
   if (!(source in worker)) {

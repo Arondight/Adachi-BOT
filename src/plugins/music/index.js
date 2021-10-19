@@ -25,7 +25,7 @@ async function Plugin(Message, bot) {
       data = await db.get("music", "source", { ID: sendID });
       src = data
         ? data["Source"]
-        : all.functions.options.music_source.music_source_163 || "163";
+        : all.functions.options.music_source[163] || "163";
       ret = await musicID(msg, src);
 
       if (ret in errMsg) {
