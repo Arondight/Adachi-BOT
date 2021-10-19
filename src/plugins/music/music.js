@@ -2,12 +2,7 @@ import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
 import db from "../../utils/database.js";
-
-const MUSICSRC = {
-  SRC_QQ: "QQ",
-  SRC_163: "163",
-};
-Object.freeze(MUSICSRC);
+import { hasOption, getOption } from "../../utils/config.js";
 
 const ERRCODE = {
   ERR_SRC: "1",
@@ -111,8 +106,8 @@ async function music163(keyword) {
 async function musicID(msg, source) {
   const [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
-    [MUSICSRC.SRC_QQ]: musicQQ,
-    [MUSICSRC.SRC_163]: music163,
+    [getOption("music_source", "music_source_qq") || "qq"]: musicQQ,
+    [getOption("music_source", "music_source_163") || "163"]: music163,
   };
 
   if (!(source in worker)) {
@@ -123,20 +118,29 @@ async function musicID(msg, source) {
 }
 
 async function musicSrc(msg, id) {
-  const [source] = msg.split(/(?<=^\S+)\s/).slice(1);
+  let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
   const data = await db.get("music", "source", { ID: id });
 
-  if (!Object.values(MUSICSRC).includes(source)) {
-    return false;
-  }
+  if ("string" === typeof source) {
+    source = source.toLowerCase();
 
-  if (undefined === data) {
-    await db.push("music", "source", {
-      ID: id,
-      Source: source,
-    });
-  } else {
-    await db.update("music", "source", { ID: id }, { ...data, Source: source });
+    if (!hasOption("music_source", source)) {
+      return false;
+    }
+
+    if (undefined === data) {
+      await db.push("music", "source", {
+        ID: id,
+        Source: source,
+      });
+    } else {
+      await db.update(
+        "music",
+        "source",
+        { ID: id },
+        { ...data, Source: source }
+      );
+    }
   }
 
   return source;

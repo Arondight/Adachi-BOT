@@ -1,6 +1,6 @@
 import db from "../../utils/database.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { hasEntrance } from "../../utils/config.js";
+import { hasEntrance, getOption } from "../../utils/config.js";
 import { errMsg, musicID, musicSrc } from "./music.js";
 
 async function Plugin(Message, bot) {
@@ -20,7 +20,9 @@ async function Plugin(Message, bot) {
   switch (true) {
     case hasEntrance(msg, "music", "music"):
       data = await db.get("music", "source", { ID: sendID });
-      src = data ? data["Source"] : "163";
+      src = data
+        ? data["Source"]
+        : getOption("music_source", "music_source_163") || "163";
       ret = await musicID(msg, src);
 
       if (ret in errMsg) {
