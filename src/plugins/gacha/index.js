@@ -5,7 +5,7 @@ import lodash from "lodash";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import { hasEntrance } from "../../utils/config.js";
+import { hasEntrance, hasOption } from "../../utils/config.js";
 import { getGachaResult } from "./gacha.js";
 
 async function userInitialize(userID) {
@@ -41,13 +41,13 @@ async function Plugin(Message, bot) {
     let choice = 301;
 
     switch (cmd) {
-      case "常驻":
+      case hasOption("pool", "pool_200"):
         choice = 200;
         break;
-      case "角色":
+      case hasOption("pool", "pool_301"):
         choice = 301;
         break;
-      case "武器":
+      case hasOption("pool", "pool_302"):
         choice = 302;
         break;
     }

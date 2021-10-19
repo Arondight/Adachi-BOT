@@ -17,8 +17,8 @@ function isValidCookie(cookie) {
   // 缺点：依赖网络并且耗时较多
   if (
     "string" === typeof cookie &&
-    cookie.includes("account_id=") &&
-    cookie.includes("cookie_token=")
+    cookie.match(/cookie_token=\w+?\b/) &&
+    cookie.match(/account_id=\w+?\b/)
   ) {
     return true;
   }
@@ -124,7 +124,7 @@ async function warnInvalidCookie(cookie) {
   return await textOfInvalidCookies();
 }
 
-async function tryToWarnInvalidCookie(cookie, message) {
+async function tryToWarnInvalidCookie(message, cookie) {
   const invalidResponseList = ["please login"];
 
   if (cookie && message) {

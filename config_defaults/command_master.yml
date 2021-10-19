@@ -5,22 +5,24 @@
 #
 # 1. 将此文件复制到 ../config/ 下进行修改，不要直接修改此文件。
 # 2. 每次更新时关注此文件的变更，在 ../config/ 下的同名文件中体现变更。
-# 3. 切勿修改注释中的硬编码项（ XXX ）。
-# 4. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
+# 3. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
 # ==============================================================================
-# plugin:                    # 插件名称（全局唯一、禁止修改、忽略大小写）
-#   enable: boolean          # 是否加载插件
-#   weights: number          # 权重越高，帮助信息里显示越靠前
-#   regex:                   # 插件入口（正则、全局唯一、忽略大小写、忽略行首空格）
+# plugin:                       # 插件名称（全局唯一、禁止修改、忽略大小写）
+#   enable: boolean             # 是否加载插件
+#   weights: number             # 权重越高，帮助信息里显示越靠前
+#   regex:                      # 插件入口（正则、全局唯一、忽略大小写、忽略行首空格）
 #     - string
 #   functions:
-#     function:              # 功能代号（全局唯一、禁止修改、忽略大小写）
-#       weights: number      # 权重越高，帮助信息里显示越靠前
-#       name: string         # 呈现给用户的功能名称（忽略大小写）
-#       usage: string        # 呈现给用户的功能格式
-#       description: string  # 呈现给用户的功能说明
-#       entrance:            # 功能入口（ startsWith 、插件唯一、忽略大小写）
+#     function:                 # 功能代号（全局唯一、禁止修改、忽略大小写）
+#       type: command           # 功能类型（ command 、 switch 、 option ）
+#       weights: number         # 权重越高，帮助信息里显示越靠前
+#       name: string            # 呈现给用户的功能名称（忽略大小写）
+#       usage: string           # 呈现给用户的功能格式
+#       description: string     # 呈现给用户的功能说明
+#       entrance:               # 功能入口（ startsWith 、插件唯一、忽略大小写）
 #         - string
+#       options:                # 如果 type 为 option ，这里为候选项列表
+#         option_name: string   # 候选项（键禁止修改）
 # ==============================================================================
 
 tools_master:
@@ -36,6 +38,7 @@ tools_master:
     - ^(报告)?无效Cookie\s*$
   functions:
     reply:
+      type: command
       weights: 9999
       name: 回话
       usage: <QQ号、群号> <文本...>
@@ -44,6 +47,7 @@ tools_master:
         - 回话
         - 回个话
     group_boardcast:
+      type: command
       weights: 9899
       name: 群广播
       usage: <单行图文...>
@@ -51,6 +55,7 @@ tools_master:
       entrance:
         - 群广播
     private_boardcast:
+      type: command
       weights: 9799
       name: 好友广播
       usage: <单行图文...>
@@ -58,6 +63,7 @@ tools_master:
       entrance:
         - 好友广播
     group_search:
+      type: command
       weights: 9699
       name: 群列表
       usage:
@@ -65,6 +71,7 @@ tools_master:
       entrance:
         - 群列表
     private_search:
+      type: command
       weights: 9699
       name: 好友列表
       usage:
@@ -72,6 +79,7 @@ tools_master:
       entrance:
         - 好友列表
     search:
+      type: command
       weights: 9599
       name: 查找列表
       usage: <关键字>
@@ -79,6 +87,7 @@ tools_master:
       entrance:
         - 查找列表
     count:
+      type: command
       weights: 9499
       name: 统计列表
       usage:
@@ -86,6 +95,7 @@ tools_master:
       entrance:
         - 统计列表
     status:
+      type: command
       weights: 9399
       name: 系统状态
       usage:
@@ -94,6 +104,7 @@ tools_master:
         - 系统状态
         - 系统信息
     cookies_invalid:
+      type: command
       weights: 9299
       name: 报告无效Cookie
       usage:
@@ -106,76 +117,76 @@ master:
   enable: true
   weights: 9999
   regex:
-    # XXX 此处的 on、off 仍然为硬编码
-    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限\s+\d+\s+(on|off)$
-    - ^响应消息\s+\d+\s+(on|off)$
+    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限\s+\d+\s+.+$
+    - ^响应消息\s+\d+\s+.+$
     - ^刷新卡池\s*$
   functions:
     feedback_auth:
+      type: switch
       weights: 9999
       name: 带话权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【带话】
       entrance:
         - 带话权限
     music_auth:
+      type: switch
       weights: 9899
       name: 点歌权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【点歌】
       entrance:
         - 点歌权限
     gacha_auth:
+      type: switch
       weights: 9799
       name: 十连权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【十连】
       entrance:
         - 十连权限
     artifact_auth:
+      type: switch
       weights: 9699
       name: 圣遗物权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【圣遗物】【强化】
       entrance:
         - 圣遗物权限
     rating_auth:
+      type: switch
       weights: 9599
       name: 评分权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【评分】
       entrance:
         - 评分权限
     query_gameinfo_auth:
+      type: switch
       weights: 9499
       name: 游戏数据权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【深渊】【上期深渊】【米游社】【uid】
       entrance:
         - 游戏数据权限
     character_overview_auth:
+      type: switch
       weights: 9399
       name: 官方数据权限
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description: 【角色】【武器】
       entrance:
         - 官方数据权限
     reply_auth:
+      type: switch
       weights: 9299
       name: 响应消息
-      # XXX 此处的 on、off 仍然为硬编码
-      usage: <QQ号、群号> <on、off>
+      usage: <QQ号、群号>
       description:
       entrance:
         - 响应消息
     refresh_wish_detail:
+      type: command
       weights: 9199
       name: 刷新卡池
       usage:

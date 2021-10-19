@@ -17,49 +17,34 @@
  * global.all
  * --------------------------------------------------------------------------
  * {
- *   function: {
- *     hello_world: [ 'hello_world' ]
- *   },
  *   functions: {
- *     entrance: {
- *       hello_world: [ 'hello world' ]
- *     }
- *   }
+ *     entrance: { hello_world: [ 'hello world' ], eat: [ 'eat' ] },
+ *     options: { eat: [ { Apple: '苹果' }, { Banana: '香蕉' }, { Egg: '蛋' } ] }
+ *   },
+ *   function: { hello_world: [ 'Hello_World' ], eat: [ 'eat' ] }
  * }
  * --------------------------------------------------------------------------
  * global.command and global.master
  * --------------------------------------------------------------------------
  * {
  *   functions: {
- *     weights: {
- *       hello_world: 9999
- *     },
- *     name: {
- *       hello_world: 'hello world'
- *     },
- *     usage: {
- *       hello_world: undefined
- *     },
- *     description: {
- *       hello_world: 'I will say hello to you'
- *     },
- *     entrance: {
- *       hello_world: [ 'hello world' ]
- *     }
+ *     type: { hello_world: 'command', eat: 'option' },
+ *     weights: { hello_world: 9999, eat: 9999 },
+ *     name: { hello_world: 'hello world', eat: 'eat' },
+ *     usage: { hello_world: undefined, eat: undefined },
+ *     description: { hello_world: 'I will say hello to you', eat: 'What to eat' },
+ *     entrance: { hello_world: [ 'hello world' ], eat: [ 'eat' ] },
+ *     options: { eat: [ { apple: '苹果' }, { banana: '香蕉' }, { egg: '蛋' } ] }
  *   },
- *   enable: {
- *     hello_world: true
- *   },
- *   weights: {
- *     hello_world: 9999
- *   },
+ *   enable: { hello_world: true, eat: true },
+ *   weights: { hello_world: 9999, eat: 9999 },
  *   regex: {
- *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ]
+ *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ],
+ *     '^eat\\s+\\s*$': [ 'eat' ]
  *   },
- *   function: {
- *     hello_world: [ 'hello_world' ]
- *   },
+ *   function: { hello_world: [ 'hello_world' ], eat: [ 'eat' ] },
  *   usage: '🔘 hello world  👉 I will say hello to you\n' +
+ *     '🔘 eat <苹果、香蕉、蛋> 👉 What to eat\n' +
  *     '-------------------\n' +
  *     '<> 表示必填，[] 表示可选，前面需加空格'
  * }
@@ -73,12 +58,32 @@
  *     - ^HELLO\sworld(!)?\s*$
  *   functions:
  *     Hello_World:
+ *       type: command
  *       weights: 9999
  *       name: hello world
  *       usage:
  *       description: I will say hello to you
  *       entrance:
  *         - hello WORLD
+ *
+ * Eat:
+ *   enable: true
+ *   weights: 9999
+ *   regex:
+ *     - ^eat\S+\s*$
+ *   functions:
+ *     eat:
+ *       type: option
+ *       weights: 9999
+ *       name: eat
+ *       usage:
+ *       description: What to eat
+ *       entrance:
+ *         - EAT
+ *       options:
+ *         Apple: "苹果"
+ *         Banana: "香蕉"
+ *         Egg: "蛋"
  * ==========================================================================
  *
  *
@@ -239,11 +244,13 @@ const Artifacts = loadYML("artifacts");
 // global[key].weights               -> plugin (lowercase):    weights (number)
 // global[key].regex                 -> regex (lowercase):     plugin (string, lowercase)
 // global[key].function              -> function (lowercase):  plugin (array of string, lowercase)
+// global[key].functions.type        -> function (lowercase):  type (string)
 // global[key].functions.weights     -> function (lowercase):  weights (number)
-// global[key].functions.name        -> function (lowercase):  name (string, lowercase)
+// global[key].functions.name        -> function (lowercase):  name (string)
 // global[key].functions.usage       -> function (lowercase):  usage (string)
 // global[key].functions.description -> function (lowercase):  description (string)
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
+// global[key].functions.option      -> function (lowercase):  option (array of object, lowercase)
 function getCommand(obj, key) {
   const map = (
     object,
@@ -255,19 +262,21 @@ function getCommand(obj, key) {
     lodash.reduce(
       object,
       (pair, v, k) => {
-        let p1 = k;
-        let p2 = v[key];
+        if (key) {
+          let p1 = k;
+          let p2 = v[key];
 
-        lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
-        lowercase[1] &&
-          (p2 = "string" === typeof v[key] ? v[key].toLowerCase() : v[key]);
+          lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
+          lowercase[1] &&
+            (p2 = "string" === typeof v[key] ? v[key].toLowerCase() : v[key]);
 
-        if (true === revert) {
-          p2 && (pair[p2] = p1);
-        } else {
-          p1 && (pair[p1] = p2 || defaultValue);
+          if (true === revert) {
+            p2 && (pair[p2] = p1);
+          } else {
+            p1 && (pair[p1] = p2 || defaultValue);
+          }
+          return pair;
         }
-        return pair;
       },
       {}
     );
@@ -281,25 +290,54 @@ function getCommand(obj, key) {
     lodash.reduce(
       object,
       (pair, v, k) => {
-        (v[key]
-          ? Array.isArray(v[key])
-            ? v[key]
-            : Object.keys(v[key] || {})
-          : []
-        ).forEach((c) => {
-          let p1 = k;
-          let p2 = c;
+        if (key) {
+          (v[key]
+            ? Array.isArray(v[key])
+              ? v[key]
+              : Object.entries(v[key] || {})
+            : []
+          ).forEach((c) => {
+            let p1 = k;
+            let p2 = c;
 
-          lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
-          lowercase[1] && (p2 = "string" === typeof c ? c.toLowerCase() : c);
+            if (lowercase[0]) {
+              if ("string" === typeof k) {
+                p1 = k.toLowerCase();
+              } else if (Array.isArray(k)) {
+                p1 = lodash.transform(k, (r, c) =>
+                  r.push("string" === typeof c ? c.toLowerCase() : c)
+                );
+              } else {
+                p1 = lodash.transform(k, (r, v, k) => {
+                  r[(k = "string" === typeof k ? k.toLowerCase() : k)] =
+                    "string" === typeof v ? v.toLowerCase() : v;
+                });
+              }
+            }
 
-          if (true === revert) {
-            p2 && (pair[p2] || (pair[p2] = [])).push(p1);
-          } else {
-            p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
-          }
-        });
-        return pair;
+            if (lowercase[1]) {
+              if ("string" === typeof c) {
+                p2 = c.toLowerCase();
+              } else if (Array.isArray(c)) {
+                p2 = lodash.transform(c, (r, c) =>
+                  r.push("string" === typeof c ? c.toLowerCase() : c)
+                );
+              } else {
+                p2 = lodash.transform(c, (r, v, k) => {
+                  r[(k = "string" === typeof k ? k.toLowerCase() : k)] =
+                    "string" === typeof v ? v.toLowerCase() : v;
+                });
+              }
+            }
+
+            if (true === revert) {
+              p2 && (pair[p2] || (pair[p2] = [])).push(p1);
+            } else {
+              p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
+            }
+          });
+          return pair;
+        }
       },
       {}
     );
@@ -319,12 +357,37 @@ function getCommand(obj, key) {
       );
     };
 
+    add(obj, key, name, "type", map, [true, false], 0);
     add(obj, key, name, "weights", map, [true, false], 0);
-    add(obj, key, name, "name", map, [true, true]);
+    add(obj, key, name, "name", map, [true, false]);
     add(obj, key, name, "usage", map, [true, false]);
     add(obj, key, name, "description", map, [true, false]);
     add(obj, key, name, "entrance", mapSub, [true, true]);
+    add(obj, key, name, "options", mapSub, [true, true]);
   }
+
+  global[key].function = lodash.reduce(
+    global[key].function,
+    (pair, v, k) => {
+      v.forEach((c) => (pair[k] || (pair[k] = [])).push(c[0]));
+      return pair;
+    },
+    {}
+  );
+
+  global[key].functions.options = lodash.reduce(
+    global[key].functions.options,
+    (pair, v, k) => {
+      v.forEach((c) => {
+        c[1] = c[1].toString();
+        (pair[k] || (pair[k] = [])).push({
+          [c[0]]: "string" === typeof c[1] ? c[1].toLowerCase() : c[1],
+        });
+      });
+      return pair;
+    },
+    {}
+  );
 }
 
 // object: command or master
@@ -359,11 +422,30 @@ function makeUsage(object) {
 
     for (const func of functionList.keys()) {
       if (object.functions.name[func]) {
-        text += `${listMark} ${object.functions.name[func]} ${
-          object.functions.usage[func] || ""
-        } ${object.functions.description[func] ? commentMark : ""} ${
-          object.functions.description[func] || ""
-        }\n`;
+        const type = object.functions.type[func] || "command";
+
+        text +=
+          listMark +
+          " " +
+          object.functions.name[func] +
+          " " +
+          (object.functions.usage[func]
+            ? object.functions.usage[func] + " "
+            : "") +
+          ("switch" === type
+            ? "<on、off>"
+            : "option" === type
+            ? (object.functions.options[func] &&
+                "<" +
+                  object.functions.options[func]
+                    .map((p) => Object.values(p)[0])
+                    .join("、")) + ">"
+            : "") +
+          " " +
+          (object.functions.description[func] ? commentMark : "") +
+          " " +
+          (object.functions.description[func] || "") +
+          "\n";
       }
     }
   }
@@ -551,30 +633,34 @@ function readCommand() {
 // global.all.function
 // global.all.functions.entrance
 function getAll() {
-  global.all = {};
-  all.function = {};
-  all.functions = {};
-
-  // 这里可能有重复的 key 需要手动处理一下
-  for (const k of [
-    ...new Set([
-      ...Object.keys(command.function),
-      ...Object.keys(master.function),
-    ]),
-  ]) {
-    all.function[k] = [
-      ...new Set([
-        ...(command.function[k] || []),
-        ...(master.function[k] || []),
-      ]),
-    ];
-  }
-
-  // 这里没有重复的 key 直接连接即可
-  all.functions.entrance = {
-    ...command.functions.entrance,
-    ...master.functions.entrance,
+  const merge = (o, p, o1, o2) => {
+    o[p] = {};
+    // 这里可能有重复的 key 需要手动处理一下
+    for (const k of [
+      ...new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})]),
+    ]) {
+      o[p][k] = [
+        ...new Set([...((o1 || {})[k] || []), ...((o2 || {})[k] || [])]),
+      ];
+    }
   };
+
+  global.all = {};
+  global.all.functions = {};
+
+  merge(all, "function", command.function, master.function);
+  merge(
+    all.functions,
+    "entrance",
+    command.functions.entrance,
+    master.functions.entrance
+  );
+  merge(
+    all.functions,
+    "options",
+    command.functions.options,
+    master.functions.options
+  );
 }
 
 // global.command.usage
@@ -618,4 +704,27 @@ function hasEntrance(message, plugin, ...entrance) {
   return false;
 }
 
-export { readConfig, hasEntrance };
+function hasOption(func, ...options) {
+  if (
+    all.functions.options[func] &&
+    Array.isArray(all.functions.options[func])
+  ) {
+    for (const o of options) {
+      for (const pair of all.functions.options[func]) {
+        if (Object.values(pair).indexOf(o) > -1) {
+          return true;
+        }
+      }
+    }
+  }
+
+  return false;
+}
+
+function getOption(func, option) {
+  return hasOption(func, option)
+    ? lodash.map(all.functions.options[func], option)
+    : undefined;
+}
+
+export { readConfig, hasEntrance, hasOption, getOption };
