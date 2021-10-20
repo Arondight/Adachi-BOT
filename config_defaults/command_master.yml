@@ -19,10 +19,10 @@
 #       name: string            # 呈现给用户的功能名称（忽略大小写）
 #       usage: string           # 呈现给用户的功能格式
 #       description: string     # 呈现给用户的功能说明
-#       entrance:               # 功能入口（正则、插件唯一、忽略大小写）
+#       entrance:               # 功能入口（正则 、插件唯一、忽略大小写）
 #         - string
 #       options:                # 如果 type 为 option ，这里为候选项列表
-#         option_name: string   # 候选项（键禁止修改）
+#         option_name: string   # 候选项（键禁止修改，功能唯一）
 # ==============================================================================
 
 tools_master:

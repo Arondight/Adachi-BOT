@@ -41,13 +41,13 @@ async function Plugin(Message, bot) {
     let choice = 301;
 
     switch (cmd) {
-      case all.functions.options.pool.pool_200:
+      case all.functions.options.pool[200]:
         choice = 200;
         break;
-      case all.functions.options.pool.pool_301:
+      case all.functions.options.pool[301]:
         choice = 301;
         break;
-      case all.functions.options.pool.pool_302:
+      case all.functions.options.pool[302]:
         choice = 302;
         break;
     }

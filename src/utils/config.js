@@ -55,7 +55,7 @@
  *   enable: true
  *   weights: 9999
  *   regex:
- *     - ^HELLO\sworld(!)?\s*$
+ *     - ^hello\sworld(!)?\s*$
  *   functions:
  *     Hello_World:
  *       type: command
@@ -64,7 +64,7 @@
  *       usage:
  *       description: I will say hello to you
  *       entrance:
- *         - hello WORLD
+ *         - ^hello
  *
  * Eat:
  *   enable: true
@@ -79,11 +79,11 @@
  *       usage:
  *       description: What to eat
  *       entrance:
- *         - EAT
+ *         - ^eat
  *       options:
- *         Apple: "苹果"
- *         Banana: "香蕉"
- *         Egg: "蛋"
+ *         Apple: 苹果
+ *         Banana: 香蕉
+ *         Egg: 蛋
  * ==========================================================================
  *
  *

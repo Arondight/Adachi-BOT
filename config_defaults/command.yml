@@ -22,7 +22,7 @@
 #       entrance:               # 功能入口（正则 、插件唯一、忽略大小写）
 #         - string
 #       options:                # 如果 type 为 option ，这里为候选项列表
-#         option_name: string   # 候选项（键禁止修改）
+#         option_name: string   # 候选项（键禁止修改，功能唯一）
 # ==============================================================================
 
 aby:
@@ -152,9 +152,9 @@ gacha:
       entrance:
         - ^卡池
       options:
-        pool_200: 常驻
-        pool_301: 角色
-        pool_302: 武器
+        200: 常驻
+        301: 角色
+        302: 武器
     select:
       type: command
       weights: 9799
@@ -313,8 +313,8 @@ music:
       entrance:
         - ^音乐源
       options:
-        music_source_qq: QQ
-        music_source_163: 163
+        qq: QQ
+        163: 163
 
 overview:
   enable: true
