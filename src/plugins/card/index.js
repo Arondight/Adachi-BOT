@@ -25,7 +25,7 @@ async function Plugin(Message, bot) {
   let uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
+    await sendPrompt(sendID, userID, name, "查询游戏内信息", type, bot);
     return;
   }
 
