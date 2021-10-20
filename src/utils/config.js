@@ -560,6 +560,16 @@ function readSettingCookiesGreetingMenu() {
   if (![0, 1, 2].includes(config.atMe)) {
     config.atMe = defaultConfig.atMe;
   }
+
+  // menu 中每个值均为数组
+  Object.keys(config.menu).forEach(
+    (k) =>
+      (config.menu[k] = Array.isArray(config.menu[k])
+        ? config.menu[k]
+        : config.menu[k]
+        ? [config.menu[k]]
+        : [])
+  );
 }
 
 // global.alias ->  alias (lowercase): name (string)
