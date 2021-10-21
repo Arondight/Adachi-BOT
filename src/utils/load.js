@@ -7,6 +7,9 @@ import lodash from "lodash";
 import { hasAuth } from "./auth.js";
 import { getRandomInt } from "./tools.js";
 
+// 无需加锁
+const timestamp = {};
+
 async function loadPlugins() {
   let plugins = {};
   const enableList = { ...command.enable, ...master.enable };
@@ -165,8 +168,15 @@ async function processed(qqData, plugins, type, bot) {
             qqData.message[0].data.text = qqData.raw_message;
           }
 
-          plugins[plugin].run({ ...qqData, type }, bot);
-          return;
+          if (
+            config.requestInterval <
+            qqData.time -
+              (timestamp[qqData.user_id] || (timestamp[qqData.user_id] = 0))
+          ) {
+            timestamp[qqData.user_id] = qqData.time;
+            plugins[plugin].run({ ...qqData, type }, bot);
+            return;
+          }
         }
       }
     }
