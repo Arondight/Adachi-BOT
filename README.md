@@ -69,18 +69,18 @@ npm install
 ```
 sudo yum -y install epel-release
 sudo yum -y install chromium
-SHCONF="${HOME}/.bashrc"
+SHRC="${HOME}/.bashrc"
 BROWER_BIN='/usr/lib64/chromium-browser/chromium-browser'
 VAR_PATH='PUPPETEER_EXECUTABLE_PATH'
 VAR_SKIP='PUPPETEER_SKIP_CHROMIUM_DOWNLOAD'
-grep "$VAR_PATH" "$SHCONF" || ( echo "export ${VAR_PATH}='${BROWER_BIN}'" | tee -a "$SHCONF" )
-grep "$VAR_SKIP" "$SHCONF" || ( echo "export ${VAR_SKIP}='true'" | tee -a "$SHCONF" )
-source "$SHCONF"
+grep "$VAR_PATH" "$SHRC" || ( echo "export ${VAR_PATH}='${BROWER_BIN}'" | tee -a "$SHRC" )
+grep "$VAR_SKIP" "$SHRC" || ( echo "export ${VAR_SKIP}='true'" | tee -a "$SHRC" )
+source "$SHRC"
 npm install
 ```
 
 > 1. `BROWER_BIN` 需要设置为 `Chromium` 的二进制可执行文件路径，而非启动脚本或其链接的路径。
-> 2. `SHCONF` 是 `shell` 配置文件的路径，这里用的是 `bash` 。
+> 2. `SHRC` 是 `shell` 配置文件的路径，这里用的是 `bash` 。
 
 其二，通过任意合法途径获得一个可以访问国际互联网的 `http` 代理，然后执行以下命令。
 
@@ -149,6 +149,8 @@ npm install
 ```
 ./scripts/whats_updated_in_the_configuration_files.sh
 ```
+
+> 你可以使用 [Meld](http://meldmerge.org/) 把 `config_defaults/` 中的变更合并到 `config/` 里。
 
 #### 重启机器人
 

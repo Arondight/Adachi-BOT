@@ -36,18 +36,30 @@ async function write(dbName) {
 }
 
 async function includes(dbName, key, index, value) {
-  return undefined === db[dbName]
-    ? undefined
-    : db[dbName].chain.get(key).map(index).includes(value).value();
+  return (
+    db[dbName] && db[dbName].chain.get(key).map(index).includes(value).value()
+  );
+}
+
+async function remove(dbName, key, index) {
+  if (undefined === db[dbName]) {
+    return;
+  }
+
+  await mutex.acquire();
+  db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
+  mutex.release();
+
+  write(dbName);
 }
 
 async function get(dbName, key, index = undefined) {
-  if (undefined === db[dbName]) {
-    return undefined;
-  }
-  return undefined === index
-    ? db[dbName].chain.get(key).value()
-    : db[dbName].chain.get(key).find(index).value();
+  return (
+    db[dbName] &&
+    (undefined === index
+      ? db[dbName].chain.get(key).value()
+      : db[dbName].chain.get(key).find(index).value())
+  );
 }
 
 async function push(dbName, key, data) {
@@ -212,6 +224,7 @@ export default {
   has,
   write,
   includes,
+  remove,
   get,
   push,
   update,

@@ -12,7 +12,7 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
-  const whisper = `【${command.functions.entrance.rating[0]}】需要有一张背包中的圣遗物截图`;
+  const whisper = `【${command.functions.name.rating}】需要有一张背包中的圣遗物截图`;
 
   // 此命令和图片之间可以加任意个空格
   // https://github.com/Arondight/Adachi-BOT/issues/54

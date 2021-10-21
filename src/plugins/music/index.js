@@ -1,3 +1,6 @@
+/* global all */
+/* eslint no-undef: "error" */
+
 import db from "../../utils/database.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
@@ -20,7 +23,9 @@ async function Plugin(Message, bot) {
   switch (true) {
     case hasEntrance(msg, "music", "music"):
       data = await db.get("music", "source", { ID: sendID });
-      src = data ? data["Source"] : "163";
+      src = data
+        ? data["Source"]
+        : all.functions.options.music_source[163] || "163";
       ret = await musicID(msg, src);
 
       if (ret in errMsg) {

@@ -27,9 +27,9 @@ async function Plugin(Message, bot) {
   const sendID = "group" === type ? groupID : userID;
   const id = await getID(msg, userID); // 米游社 ID，这里正则限定了 msg 必然有 ID
   const mhyID = id;
-  const cardCmd = command.functions.entrance.card[0];
-  const saveCmd = command.functions.entrance.save[0];
-  const changeCmd = command.functions.entrance.change[0];
+  const cardCmd = command.functions.name.card;
+  const saveCmd = command.functions.name.save;
+  const changeCmd = command.functions.name.change;
   const okMsg = `使用【${cardCmd}】来查询游戏信息并更新您的游戏角色。`;
   const existMsg = `您已绑定通行证，使用【${changeCmd} ${mhyID}】。`;
   const unexistMsg = `您还未绑定通行证，使用【${saveCmd} ${mhyID}】。`;

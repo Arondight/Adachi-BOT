@@ -4,6 +4,7 @@
 import path from "path";
 import db from "./database.js";
 
+const COOKIE_TIMES_INVALID_MARK = 0xabadcafe;
 const cookies = config.cookies || [];
 let index = 0;
 
@@ -17,8 +18,8 @@ function isValidCookie(cookie) {
   // 缺点：依赖网络并且耗时较多
   if (
     "string" === typeof cookie &&
-    cookie.includes("account_id=") &&
-    cookie.includes("cookie_token=")
+    cookie.match(/cookie_token=\w+?\b/) &&
+    cookie.match(/account_id=\w+?\b/)
   ) {
     return true;
   }
@@ -90,6 +91,7 @@ async function getCookie(uid, use_cookie, bot) {
 
 async function writeInvalidCookie(cookie) {
   const dbName = "cookies_invalid";
+  const dbCookieName = "cookies";
   const [cookie_token] = cookie.match(/cookie_token=\w+?\b/) || [];
   const [account_id] = cookie.match(/account_id=\w+?\b/) || [];
 
@@ -97,6 +99,21 @@ async function writeInvalidCookie(cookie) {
     if (!(await db.includes(dbName, "cookie", "cookie", cookie))) {
       const initData = { cookie, cookie_token, account_id };
       await db.push(dbName, "cookie", initData);
+
+      // 不再使用该 Cookie
+      if (await db.includes(dbCookieName, "cookie", "cookie", cookie)) {
+        await db.update(
+          dbCookieName,
+          "cookie",
+          { cookie },
+          { times: COOKIE_TIMES_INVALID_MARK }
+        );
+      }
+
+      // 删除该 Cookie 所有的使用记录
+      if (await db.includes(dbCookieName, "uid", "cookie", cookie)) {
+        await db.remove(dbCookieName, "uid", { cookie });
+      }
     }
   }
 }
@@ -124,7 +141,7 @@ async function warnInvalidCookie(cookie) {
   return await textOfInvalidCookies();
 }
 
-async function tryToWarnInvalidCookie(cookie, message) {
+async function tryToWarnInvalidCookie(message, cookie) {
   const invalidResponseList = ["please login"];
 
   if (cookie && message) {
