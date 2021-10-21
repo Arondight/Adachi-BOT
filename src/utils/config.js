@@ -374,6 +374,19 @@ function getCommand(obj, key) {
     },
     {}
   );
+
+  // 所有 switch 转换为 option
+  // https://github.com/Arondight/Adachi-BOT/issues/242
+  Object.keys(global[key].functions.type).forEach((f) => {
+    if ("switch" === global[key].functions.type[f]) {
+      global[key].functions.type[f] = "option";
+      global[key].functions.options[f] = lodash.assign(
+        { on: "on" },
+        { off: "off" },
+        global[key].functions.options[f] || {}
+      );
+    }
+  });
 }
 
 // object: command or master
@@ -418,9 +431,7 @@ function makeUsage(object) {
           (object.functions.usage[func]
             ? object.functions.usage[func] + " "
             : "") +
-          ("switch" === type
-            ? "<on、off> "
-            : "option" === type
+          ("option" === type
             ? (object.functions.options[func] &&
                 "<" +
                   Object.values(object.functions.options[func]).join("、")) +
