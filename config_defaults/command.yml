@@ -5,22 +5,24 @@
 #
 # 1. 将此文件复制到 ../config/ 下进行修改，不要直接修改此文件。
 # 2. 每次更新时关注此文件的变更，在 ../config/ 下的同名文件中体现变更。
-# 3. 切勿修改注释中的硬编码项（ XXX ）。
-# 4. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
+# 3. 全局唯一的项目保证 ./command.yml 和 ./command_master.yml 中唯一。
 # ==============================================================================
-# plugin:                    # 插件名称（全局唯一、禁止修改、忽略大小写）
-#   enable: boolean          # 是否加载插件
-#   weights: number          # 权重越高，帮助信息里显示越靠前
-#   regex:                   # 插件入口（正则、全局唯一、忽略大小写、忽略行首空格）
+# plugin:                       # 插件名称（全局唯一、禁止修改、忽略大小写）
+#   enable: boolean             # 是否加载插件
+#   weights: number             # 权重越高，帮助信息里显示越靠前
+#   regex:                      # 插件入口（正则、全局唯一、忽略大小写、忽略行首空格）
 #     - string
 #   functions:
-#     function:              # 功能代号（全局唯一、禁止修改、忽略大小写）
-#       weights: number      # 权重越高，帮助信息里显示越靠前
-#       name: string         # 呈现给用户的功能名称（忽略大小写）
-#       usage: string        # 呈现给用户的功能格式
-#       description: string  # 呈现给用户的功能说明
-#       entrance:            # 功能入口（ startsWith 、插件唯一、忽略大小写）
+#     function:                 # 功能代号（全局唯一、禁止修改、忽略大小写）
+#       type: command           # 功能类型（ command 、 switch 、 option ）
+#       weights: number         # 权重越高，帮助信息里显示越靠前
+#       name: string            # 呈现给用户的功能名称（忽略大小写）
+#       usage: string           # 呈现给用户的功能格式
+#       description: string     # 呈现给用户的功能说明
+#       entrance:               # 功能入口（正则 、插件唯一、忽略大小写）
 #         - string
+#       options:                # 如果 type 为 option ，这里为候选项列表
+#         option_name: string   # 候选项（键禁止修改，功能唯一）
 # ==============================================================================
 
 aby:
@@ -32,137 +34,151 @@ aby:
     - ^(上期)?深渊\s*\[CQ:at,qq=.*$
   functions:
     aby:
+      type: command
       weights: 9999
       name: 深渊
       usage: "[游戏内UID、@群友]"
       description:
       entrance:
-        - 深渊
+        - ^深渊
     lastaby:
+      type: command
       weights: 9899
       name: 上期深渊
       usage: "[游戏内UID、@群友]"
       description:
       entrance:
-        - 上期深渊
+        - ^上期深渊
 
 artifacts:
   enable: true
   weights: 9299
   regex:
     - ^圣遗物\s*$
-    - ^圣遗物\s+(.+)$
+    - ^圣遗物\s+\S+\s*$
     - ^(强化|副本)\s*$
   functions:
     artifacts:
+      type: command
       weights: 9999
       name: 圣遗物
       usage: "[副本编号、副本名称]"
       description: 掉落一个圣遗物
       entrance:
-        - 圣遗物
+        - ^圣遗物
     strengthen:
+      type: command
       weights: 9899
       name: 强化
       usage:
       description: 强化掉落的上一个圣遗物
       entrance:
-        - 强化
+        - ^强化
     dungeons:
+      type: command
       weights: 9799
       name: 副本
       usage:
       description: 查看所有副本编号
       entrance:
-        - 副本
+        - ^副本
 
 card:
   enable: true
   weights: 9899
   regex:
     - ^米游社\s*$
-    - ^米游社\s+\d+.*$
+    - ^米游社\s+\d+\s*$
     - ^米游社\s*\[CQ:at,qq=.*$
   functions:
     card:
+      type: command
       weights: 9999
       name: 米游社
       usage: "[米游社通行证ID、@群友]"
       description: 查询并更新角色信息
       entrance:
-        - 米游社
+        - ^米游社
 
 character:
   enable: true
   weights: 9599
   regex:
-    - ^我的\s+.+$
-    - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s+.+$
+    - ^我的\s+\S+\s*$
+    - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s+\S+\s*$
   functions:
     character:
+      type: command
       weights: 9999
       name: 我的
       usage: <角色名>
       description: 查询我的角色
       entrance:
-        - 我的
+        - ^我的
     others_character:
+      type: command
       weights: 9899
       name: <游戏内UID、@群友>的
       usage: <角色名>
       description: 查询别人的角色
       entrance:
-        # 无功能入口
-        -
+        - ^((\[CQ:at,qq=.*?\])|(\d+))$
 
 gacha:
   enable: true
   weights: 9399
   regex:
     - ^十连\s*$
-    # XXX 此处的常驻、角色、武器仍然为硬编码
-    - ^卡池\s+(常驻|角色|武器)\s*$
+    - ^卡池\s+\S+\s*$
     - ^查看定轨\s*$
     - ^取消定轨\s*$
-    - ^定轨\s+.+$
+    - ^定轨\s+\S+\s*$
     - ^定轨\s*$
   functions:
     gacha:
+      type: command
       weights: 9999
       name: 十连
       usage:
       description:
       entrance:
-        - 十连
+        - ^十连
     pool:
+      type: option
       weights: 9899
       name: 卡池
-      # XXX 此处的常驻、角色、武器仍然为硬编码
-      usage: <常驻、角色、武器>
+      usage:
       description: 切换【十连】的卡池
       entrance:
-        - 卡池
+        - ^卡池
+      options:
+        200: 常驻
+        301: 角色
+        302: 武器
     select:
+      type: command
       weights: 9799
       name: 定轨
       usage: <武器名>
       description:
       entrance:
-        - 定轨
+        - ^定轨
     select-what:
+      type: command
       weights: 9699
       name: 查看定轨
       usage:
       description:
       entrance:
-        - 查看定轨
+        - ^查看定轨
     select-nothing:
+      type: command
       weights: 9599
       name: 取消定轨
       usage:
       description:
       entrance:
-        - 取消定轨
+        - ^取消定轨
 
 tools:
   enable: true
@@ -171,66 +187,75 @@ tools:
     - ^菜单\s*$
     - ^(今天)?吃什么\s*$
     - ^(求签|占卜)\s*$
-    - ^roll\s*([+-]?\d+)?$
+    - ^roll\s*$
+    - ^roll\s+[+-]?\d+\s*$
     - ^伟大的升华\s*$
     - ^help\s*$
     - ^带(个)?话\s+.+$
     - ^管理\s*$
   functions:
     menu:
+      type: command
       weights: 9999
       name: 今天吃什么
       usage:
       description:
       entrance:
-        - 今天吃什么
-        - 吃什么
-        - 菜单
+        - ^今天吃什么
+        - ^吃什么
+        - ^菜单
     prophecy:
+      type: command
       weights: 9899
       name: 求签
       usage:
       description:
       entrance:
-        - 求签
-        - 占卜
+        - ^求签
+        - ^占卜
     roll:
+      type: command
       weights: 9799
       name: roll
       usage: "[1-100]"
       description: 掷骰子
       entrance:
-        - roll
+        - ^roll
     # 此功能不显示在帮助信息中
     quote:
+      type: command
       weights: 9699
       name:
       usage:
       description:
       entrance:
-        - 伟大的升华
+        - ^伟大的升华
     feedback:
+      type: command
       weights: 299
       name: 带话
       usage: <单行图文>
       description: 给主人带话
       entrance:
-        - 带话
-        - 带个话
+        - ^带话
+        - ^带个话
     master:
+      type: command
       weights: 199
       name: 管理
       usage:
       description: 查看主人功能
       entrance:
-        - 管理
+        - ^管理
     help:
+      type: command
       weights: 99
       name: help
       usage:
       description: 查看本帮助
       entrance:
-        - help
+        - ^help
+
 material:
   enable: true
   weights: 9099
@@ -240,62 +265,71 @@ material:
     - ^周本\s*$
   functions:
     weapon:
+      type: command
       weights: 9999
       name: 武器
       usage:
       description: 武器素材表
       entrance:
-        - 武器
+        - ^武器
     talent:
+      type: command
       weights: 9989
       name: 天赋
       usage:
       description: 天赋素材表
       entrance:
-        - 天赋
+        - ^天赋
     weekly:
+      type: command
       weights: 9979
       name: 周本
       usage:
       description: 周本材料表
       entrance:
-        - 周本
+        - ^周本
 
 music:
   enable: true
   weights: 8999
   regex:
-    - ^点歌\s+.+$
-    - ^音乐源\s+.+$
+    - ^点歌\s+\S+\s*$
+    - ^音乐源\s+\S+\s*$
   functions:
     music:
+      type: command
       weights: 9999
       name: 点歌
       usage: <单行文本>
       description:
       entrance:
-        - 点歌
+        - ^点歌
     music_source:
+      type: option
       weights: 9899
       name: 音乐源
-      usage: <QQ、163>
+      usage:
       description: 切换【点歌】的音乐源
       entrance:
-        - 音乐源
+        - ^音乐源
+      options:
+        qq: QQ
+        163: 163
 
 overview:
   enable: true
   weights: 9499
   regex:
-    - ^(角色|武器|信息)\s+.+$
+    - ^(角色|武器|信息)\s+\S+\s*$
   functions:
     info:
+      type: command
       weights: 9999
       name: 信息
       usage: <角色名、武器名>
       description: 查询角色或武器的游戏数据
       entrance:
-        - 信息
+        - ^信息
         - 角色  # 历史原因
         - 武器  # 历史原因
 
@@ -304,16 +338,17 @@ package:
   weights: 9799
   regex:
     - ^uid\s*$
-    - ^uid\s+\d+.*$
+    - ^uid\s+\d+\s*$
     - ^uid\s*\[CQ:at,qq=.*$
   functions:
     package:
+      type: command
       weights: 9999
       name: uid
       usage: "[游戏内UID、@群友]"
       description: 查询并更新角色信息
       entrance:
-        - uid
+        - ^uid
 
 rating:
   enable: true
@@ -323,31 +358,33 @@ rating:
     - ^评分\s*\[CQ:image,file=.*$
   functions:
     rating:
+      type: command
       weights: 9999
       name: 评分
       usage: <背包中的圣遗物截图>
       description:
       entrance:
-        - 评分
+        - ^评分
 
 save:
   enable: true
   weights: 9999
   regex:
-    - ^(绑定|改绑)\s+\d+$
+    - ^(绑定|改绑)\s+\d+\s*$
   functions:
     save:
+      type: command
       weights: 9999
       name: 绑定
       usage: <米游社通行证ID>
       description:
       entrance:
-        - 绑定
+        - ^绑定
     change:
+      type: command
       weights: 9899
       name: 改绑
       usage: <米游社通行证ID>
       description:
       entrance:
-        - 改绑
-
+        - ^改绑

@@ -1,4 +1,4 @@
-/* global alias */
+/* global alias, all */
 /* eslint no-undef: "error" */
 
 import lodash from "lodash";
@@ -41,13 +41,13 @@ async function Plugin(Message, bot) {
     let choice = 301;
 
     switch (cmd) {
-      case "常驻":
+      case all.functions.options.pool[200]:
         choice = 200;
         break;
-      case "角色":
+      case all.functions.options.pool[301]:
         choice = 301;
         break;
-      case "武器":
+      case all.functions.options.pool[302]:
         choice = 302;
         break;
     }
