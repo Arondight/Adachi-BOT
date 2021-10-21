@@ -195,24 +195,24 @@ async function cleanCookiesInvalid() {
 }
 
 async function clean(dbName) {
-  switch (true) {
-    case "aby" === dbName:
+  switch (dbName) {
+    case "aby":
       return await cleanByTimeDB(
         dbName,
         ["user", "uid"],
         "aby",
         config.dbAbyEffectTime * 60 * 60 * 1000
       );
-    case "info" === dbName:
+    case "info":
       return await cleanByTimeDB(
         dbName,
         ["user", "uid"],
         "uid",
         config.dbInfoEffectTime * 60 * 60 * 1000
       );
-    case "cookies" === dbName:
+    case "cookies":
       return await cleanCookies();
-    case "cookies_invalid" === dbName:
+    case "cookies_invalid":
       return await cleanCookiesInvalid();
   }
 
