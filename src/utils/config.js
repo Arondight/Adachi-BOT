@@ -496,7 +496,7 @@ function readSettingCookiesGreetingMenu() {
   const prefixes = Setting.prefixes;
   const atMe = parseInt(Setting.atMe);
   const atUser = parseInt(Setting.atUser);
-  const repeatProb = parseInt(Setting.repeatProb);
+  const repeatProb = parseInt(parseFloat(Setting.repeatProb) * 100);
   const groupHello = parseInt(Setting.groupHello);
   const groupGreetingNew = parseInt(Setting.groupGreetingNew);
   const friendGreetingNew = parseInt(Setting.friendGreetingNew);

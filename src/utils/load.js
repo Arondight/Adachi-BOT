@@ -165,7 +165,7 @@ async function processed_text(qqData, plugins, type, bot) {
 }
 
 async function processed_group(qqData, bot) {
-  if (config.repeatProb > 0 && getRandomInt(100) < config.repeatProb) {
+  if (config.repeatProb > 0 && getRandomInt(100 * 100) < config.repeatProb) {
     // 复读群消息不需要 @
     await bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
   }
