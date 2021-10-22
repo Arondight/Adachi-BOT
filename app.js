@@ -91,7 +91,7 @@ async function report() {
     }允许用户 @ 机器人。`
   );
   say(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
-  say(`群消息复读的概率为 ${config.repeatProb}% 。`);
+  say(`群消息复读的概率为 ${(config.repeatProb / 100).toFixed(2)}% 。`);
   say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
   say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
   say(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);

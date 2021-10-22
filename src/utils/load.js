@@ -70,7 +70,7 @@ async function processed_group_increase(qqData, bot) {
   }
 }
 
-async function processed_text(qqData, plugins, type, bot) {
+async function processed_possible_command(qqData, plugins, type, bot) {
   // 处理 @ 机器人
   const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
   qqData.atMe = lodash
@@ -84,12 +84,12 @@ async function processed_text(qqData, plugins, type, bot) {
   if (qqData.atMe) {
     switch (config.atMe) {
       case 0:
-        return;
+        return false;
       case 1:
       // fall through
       case 2:
         if (!qqData.atMe) {
-          return;
+          return false;
         }
     }
 
@@ -116,7 +116,7 @@ async function processed_text(qqData, plugins, type, bot) {
   }
 
   if (!match) {
-    return;
+    return false;
   }
 
   qqData.raw_message = qqData.raw_message
@@ -133,7 +133,7 @@ async function processed_text(qqData, plugins, type, bot) {
       if (master.enable[plugin] && !config.masters.includes(qqData.user_id)) {
         const id = "group" === type ? qqData.group_id : qqData.user_id;
         await bot.sendMessage(id, "不能使用管理命令。", type, qqData.user_id);
-        return;
+        return true;
       }
 
       if (
@@ -157,7 +157,7 @@ async function processed_text(qqData, plugins, type, bot) {
         ) {
           timestamp[qqData.user_id] = qqData.time;
           plugins[plugin].run({ ...qqData, type }, bot);
-          return;
+          return true;
         }
       }
     }
@@ -165,7 +165,7 @@ async function processed_text(qqData, plugins, type, bot) {
 }
 
 async function processed_group(qqData, bot) {
-  if (config.repeatProb > 0 && getRandomInt(100) < config.repeatProb) {
+  if (config.repeatProb > 0 && getRandomInt(100 * 100) < config.repeatProb) {
     // 复读群消息不需要 @
     await bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
   }
@@ -211,8 +211,9 @@ async function processed(qqData, plugins, type, bot) {
   // 增加了变量 qqData.atMe: boolean
   //
   if (lodash.find(qqData.message, { type: "text" })) {
-    await processed_text(qqData, plugins, type, bot);
-    return;
+    if (await processed_possible_command(qqData, plugins, type, bot)) {
+      return;
+    }
   }
 
   //
