@@ -105,6 +105,7 @@
  *   repeatProb: 1,
  *   groupHello: 1,
  *   characterTryGetDetail: 1,
+ *   requestInterval: 1,
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
  *   cacheAbyEffectTime: 1,
@@ -141,6 +142,7 @@
  * groupGreetingNew: 1
  * friendGreetingNew: 1
  * characterTryGetDetail: 1
+ * requestInterval: 1
  * prefixes:
  *   -
  * cacheAbyEffectTime: 1
@@ -372,6 +374,19 @@ function getCommand(obj, key) {
     },
     {}
   );
+
+  // 所有 switch 转换为 option
+  // https://github.com/Arondight/Adachi-BOT/issues/242
+  Object.keys(global[key].functions.type).forEach((f) => {
+    if ("switch" === global[key].functions.type[f]) {
+      global[key].functions.type[f] = "option";
+      global[key].functions.options[f] = lodash.assign(
+        { on: "on" },
+        { off: "off" },
+        global[key].functions.options[f] || {}
+      );
+    }
+  });
 }
 
 // object: command or master
@@ -416,9 +431,7 @@ function makeUsage(object) {
           (object.functions.usage[func]
             ? object.functions.usage[func] + " "
             : "") +
-          ("switch" === type
-            ? "<on、off> "
-            : "option" === type
+          ("option" === type
             ? (object.functions.options[func] &&
                 "<" +
                   Object.values(object.functions.options[func]).join("、")) +
@@ -462,6 +475,8 @@ function readSettingCookiesGreetingMenu() {
     friendGreetingNew: 0,
     // 角色查询不尝试拉取数据
     characterTryGetDetail: 0,
+    // 不对用户的使用频率作出限制
+    requestInterval: 0,
     // 深渊记录缓存一小时
     cacheAbyEffectTime: 1,
     // 玩家数据缓存一小时
@@ -486,6 +501,7 @@ function readSettingCookiesGreetingMenu() {
   const groupGreetingNew = parseInt(Setting.groupGreetingNew);
   const friendGreetingNew = parseInt(Setting.friendGreetingNew);
   const characterTryGetDetail = parseInt(Setting.characterTryGetDetail);
+  const requestInterval = parseInt(Setting.requestInterval);
   const cacheAbyEffectTime = parseInt(Setting.cacheAbyEffectTime);
   const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
@@ -529,6 +545,7 @@ function readSettingCookiesGreetingMenu() {
     { groupGreetingNew },
     { friendGreetingNew },
     { characterTryGetDetail },
+    { requestInterval },
     { cacheAbyEffectTime },
     { cacheInfoEffectTime },
     { dbAbyEffectTime },

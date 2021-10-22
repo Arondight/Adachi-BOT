@@ -21,7 +21,7 @@
 #       description: string     # 呈现给用户的功能说明
 #       entrance:               # 功能入口（正则 、插件唯一、忽略大小写）
 #         - string
-#       options:                # 如果 type 为 option ，这里为候选项列表
+#       options:                # 候选项列表，插件自由使用， switch 约定 on 和 off 为开关选项
 #         option_name: string   # 候选项（键禁止修改，功能唯一）
 # ==============================================================================
 
