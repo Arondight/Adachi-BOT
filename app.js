@@ -96,6 +96,7 @@ async function report() {
   say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
   say(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
   say(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
+  say(`用户每隔 ${config.requestInterval} 秒可以使用一次机器人。`);
   say(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
   say(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
   say(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
