@@ -152,7 +152,7 @@
             <div class="card strongest-hit">
               <div class="banner-middle no-background">最强一击</div>
               <!--结构化模版开始-->
-              <div class="overall-challenge-times-by-char">
+              <div class="container-strongest-hit">
                 <div
                   class="challenge-times-per-char-base"
                   v-for="(damage,index) in damage_rank"
@@ -184,7 +184,7 @@
         </div>
       </div>
       <!--深渊模块开始-->
-      <div class="container-horizontal no-margin-top">
+      <div class="container-horizontal no-margin-left no-margin-top">
         <!--深渊数据开始-->
         <div class="card abyss" v-for="floor in floors" v-if="floor.index >= 9">
           <div class="level" v-for="level in floor.levels">
