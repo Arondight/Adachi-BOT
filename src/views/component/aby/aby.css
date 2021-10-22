@@ -35,6 +35,13 @@ body {
   margin-top: 0 !important;
 }
 
+.no-margin-left {
+  margin-left: 0 !important;
+}
+
+.no-margin-right {
+  margin-right: 0 !important;
+}
 .no-background {
   background-color: transparent !important;
 }
@@ -126,7 +133,7 @@ body {
 }
 
 .overview {
-  padding: 1%;
+  padding: 10px;
 }
 
 .userID {
@@ -151,7 +158,7 @@ body {
 
 .abyss-star {
   position: relative;
-  top: 2px;
+  top: 2px; /* 字体基线不幸没和思源黑体对齐，自食其果了属于是 */
   font-family: "Genshin Abyss", monospace;
   font-weight: 100;
   color: hsl(41, 37%, 89%);
@@ -169,6 +176,7 @@ body {
 
 .overall-challenge-times-by-char {
   width: 100%;
+  min-width: 770px;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -308,6 +316,17 @@ img.strongest-hit {
   font-weight: bold;
 }
 
+.container-strongest-hit {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .card.credit {
   display: flex;
   justify-content: center;
@@ -329,12 +348,14 @@ div.credit {
 
 .abyss-level-per-char-base {
   zoom: 90%;
-  margin-left: 10px;
+  margin-left: 12px;
   margin-right: 3px;
 }
 
 .card.abyss {
-  width: 330px;
+  width: 100%;
+  max-width: 338px;
+  margin-left: 10px;
   align-items: stretch;
   padding-bottom: 10px;
 }
