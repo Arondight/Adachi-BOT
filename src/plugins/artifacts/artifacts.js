@@ -193,7 +193,7 @@ async function getArtifact(userID, type) {
   const initialProperty = getInitial(initPropertyNum, subStats);
   const fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
 
-  if (!artifactID) {
+  if (undefined === artifactID) {
     return artifactID;
   }
 
