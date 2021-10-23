@@ -193,7 +193,7 @@ async function getArtifact(userID, type) {
   const initialProperty = getInitial(initPropertyNum, subStats);
   const fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
 
-  if (!artifactID) {
+  if (undefined === artifactID) {
     return artifactID;
   }
 
@@ -223,7 +223,11 @@ function domainInfo() {
 
   for (const i in domains) {
     if (domains[i]) {
-      domainsMsg += domains[i].name + `: ${i}\n`;
+      domainsMsg += `${[
+        i,
+        domains[i].name,
+        ...(Array.isArray(domains[i].alias) ? domains[i].alias : []),
+      ].join("、")}\n`;
     }
   }
 

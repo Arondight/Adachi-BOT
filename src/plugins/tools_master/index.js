@@ -4,6 +4,7 @@ import { count } from "./count.js";
 import { reply } from "./reply.js";
 import { search } from "./search.js";
 import { status } from "./status.js";
+import { cookiesInvalid } from "./cookies_invalid.js";
 
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
@@ -40,6 +41,9 @@ async function Plugin(Message, bot) {
       break;
     case hasEntrance(msg, "tools_master", "status"):
       status(sendID, type, userID, bot);
+      break;
+    case hasEntrance(msg, "tools_master", "cookies_invalid"):
+      cookiesInvalid(sendID, type, userID, bot);
       break;
   }
 }

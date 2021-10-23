@@ -1,10 +1,13 @@
+/* global all */
+/* eslint no-undef: "error" */
+
 import { gachaUpdate } from "../../utils/update.js";
 import { setAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 
-function parse(msg) {
+function parse(msg, func) {
   const id = parseInt(msg.match(/[0-9]+/g)[0]);
-  const isOn = msg.includes("on");
+  const isOn = msg.includes(all.functions.options[func].on);
   return [id, isOn];
 }
 
@@ -18,19 +21,19 @@ async function response(id, target, auth, type, isOn, user, bot) {
 }
 
 async function setFeedbackAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "feedback_auth");
   await setAuth("feedback", target, isOn);
   await response(id, target, "带话", type, isOn ? "允许" : "禁止", user, bot);
 }
 
 async function setMusicAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "music_auth");
   await setAuth("music", target, isOn);
   await response(id, target, "点歌", type, isOn ? "允许" : "禁止", user, bot);
 }
 
 async function setGachaAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "gacha_auth");
   await setAuth("gacha", target, isOn);
   await response(
     id,
@@ -44,7 +47,7 @@ async function setGachaAuth(msg, id, type, user, bot) {
 }
 
 async function setArtifactAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "artifact_auth");
   await setAuth("artifact", target, isOn);
   await response(
     id,
@@ -58,7 +61,7 @@ async function setArtifactAuth(msg, id, type, user, bot) {
 }
 
 async function setRatingAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "rating_auth");
   await setAuth("rating", target, isOn);
   await response(
     id,
@@ -72,7 +75,7 @@ async function setRatingAuth(msg, id, type, user, bot) {
 }
 
 async function setQueryGameInfoAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "query_gameinfo_auth");
   await setAuth("query", target, isOn);
   await response(
     id,
@@ -86,7 +89,7 @@ async function setQueryGameInfoAuth(msg, id, type, user, bot) {
 }
 
 async function setCharacterOverviewAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "character_overview_auth");
   await setAuth("overview", target, isOn);
   await response(
     id,
@@ -100,11 +103,19 @@ async function setCharacterOverviewAuth(msg, id, type, user, bot) {
 }
 
 async function setReplyAuth(msg, id, type, user, bot) {
-  const [target, isOn] = parse(msg);
+  const [target, isOn] = parse(msg, "reply_auth");
   const list = new Map([...bot.fl, ...bot.gl]);
 
   await setAuth("reply", target, isOn);
-  await response(id, target, "响应消息", type, isOn ? "允许" : "禁止", user);
+  await response(
+    id,
+    target,
+    "响应消息",
+    type,
+    isOn ? "允许" : "禁止",
+    user,
+    bot
+  );
 
   // 如果是群或者好友，发一条消息给对方，群友就不发了
   list.forEach(async (item) => {

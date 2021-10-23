@@ -1,4 +1,4 @@
-/* global command */
+/* global artifacts, command */
 /* eslint no-undef: "error" */
 
 import db from "../../utils/database.js";
@@ -47,7 +47,7 @@ async function Plugin(Message, bot) {
       } else {
         await bot.sendMessage(
           sendID,
-          `请先使用【${command.functions.entrance.artifacts[0]}】抽取一个圣遗物后再【${command.functions.entrance.strengthen[0]}】。`,
+          `请先使用【${command.functions.name.artifacts}】抽取一个圣遗物后再【${command.functions.name.strengthen}】。`,
           type,
           userID
         );
@@ -62,7 +62,13 @@ async function Plugin(Message, bot) {
       return;
     }
 
-    const id = arg.match(/\d+/g);
+    let [id] = arg.match(/\d+/g) || [];
+
+    if (!id) {
+      const text = arg.toLowerCase();
+      const name = artifacts.domains.alias[text] || text;
+      id = artifacts.domains.name[name];
+    }
 
     if (id && id < domainMax() + 1) {
       await getArtifact(userID, parseInt(id));
@@ -70,7 +76,7 @@ async function Plugin(Message, bot) {
     } else {
       await bot.sendMessage(
         sendID,
-        `请正确输入副本编号，可以使用【${command.functions.entrance.dungeons[0]}】查看所有编号。`,
+        `请正确输入副本，可以使用【${command.functions.name.dungeons}】查看所有副本。`,
         type,
         userID
       );
