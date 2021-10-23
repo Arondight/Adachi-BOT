@@ -322,7 +322,7 @@
           this.energy_skill_rank = res.data.energy_skill_rank;
           this.damage_rank = res.data.damage_rank;
 
-          this.floors = res.data.floors;
+          this.floors = res.data.floors.slice(-4);
         });
       },
     });
