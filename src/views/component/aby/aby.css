@@ -357,6 +357,7 @@ div.credit {
   margin-left: 10px;
   align-items: stretch;
   padding-bottom: 10px;
+  justify-content: flex-start;
 }
 
 .abyss-char-windows {
@@ -376,7 +377,7 @@ div.credit {
 
 .hide {
   visibility: hidden;
-  height: 0;
+  height: 0 !important;
 }
 
 .banner-placeholder {
@@ -388,4 +389,12 @@ div.credit {
 .text-placeholder {
   text-align: center;
   font-weight: 100;
+}
+
+.abyss-empty-record-placeholder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 }

@@ -192,7 +192,10 @@
         <!--深渊数据开始-->
         <div class="card abyss" v-for="n in 4">
           <!--placeholder开始，如果该楼层有数据就显示数据，如果没有数据则显示"NO DATA"-->
-          <div :class="floors.hasOwnProperty(n-1) ? 'hide':''">
+          <div
+            class="abyss-empty-record-placeholder"
+            :class="floors.hasOwnProperty(n-1) ? 'hide':''"
+          >
             <div class="banner-left banner-abyss banner-placeholder">
               <p>{{parseInt(n)+8}}-X</p>
             </div>
@@ -204,7 +207,7 @@
                 <p class="text-placeholder">
                   如果确定游戏中有过该层的通关记录，
                 </p>
-                <p class="text-placeholder">请一小时后再进行查看。</p>
+                <p class="text-placeholder">请稍后再进行查询。</p>
               </div>
             </div>
           </div>
