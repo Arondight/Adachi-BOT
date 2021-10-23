@@ -263,7 +263,7 @@ npm run restart
 | [Xm798](https://github.com/Xm798) | 贡献了诸多资源文件 |
 | [buzhibujuelb](https://github.com/buzhibujuelb) | 添加了武器定轨机制，美化了抽卡效果 |
 | [coolrc136](https://github.com/coolrc136) | 为项目提供了直接技术支持 |
-| [impasse](https://github.com/impasse) | 为我学习 JavaScript 提供了诸多帮助 |
+| [ixCiel](https://github.com/ixCiel) | 优化了 Cookie 池使用逻辑 |
 
 > 名单先后顺序根据账号首字母排列。
 
