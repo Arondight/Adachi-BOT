@@ -366,3 +366,26 @@ div.credit {
 .container-abyss-window {
   margin-top: 10px;
 }
+
+.abyss-details {
+  justify-content: flex-start;
+}
+
+.abyss-details-placeholder {
+}
+
+.hide {
+  visibility: hidden;
+  height: 0;
+}
+
+.banner-placeholder {
+  position: absolute;
+  top: 0;
+  height: 30px;
+}
+
+.text-placeholder {
+  text-align: center;
+  font-weight: 100;
+}
