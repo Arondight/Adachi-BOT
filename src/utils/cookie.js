@@ -80,7 +80,7 @@ async function getCookie(uid, use_cookie, bot) {
   const dbName = "cookies";
 
   if (!(await db.includes(dbName, "uid", "uid", uid))) {
-    const initData = { uid, date: "", cookie: "", times: "" };
+    const initData = { uid, date: "", cookie: "", times: 0 };
     await db.push(dbName, "uid", initData);
   }
 
