@@ -155,6 +155,7 @@ gacha:
         200: 常驻
         301: 角色
         302: 武器
+        999: 彩蛋
     select:
       type: command
       weights: 9799

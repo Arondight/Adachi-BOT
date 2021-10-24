@@ -24,7 +24,7 @@ async function Plugin(Message, bot) {
     case hasEntrance(msg, "music", "music"):
       data = await db.get("music", "source", { ID: sendID });
       src = data
-        ? data["Source"]
+        ? data.Source
         : all.functions.options.music_source[163] || "163";
       ret = await musicID(msg, src);
 
