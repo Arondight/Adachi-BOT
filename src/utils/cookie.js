@@ -89,6 +89,19 @@ async function getCookie(uid, use_cookie, bot) {
   return cookie;
 }
 
+async function markCookieUnusable(cookie) {
+  const dbName = "cookies";
+
+  if (cookie && (await db.includes(dbName, "cookie", "cookie", cookie))) {
+    await db.update(
+      dbName,
+      "cookie",
+      { cookie },
+      { times: COOKIE_TIMES_INVALID_MARK }
+    );
+  }
+}
+
 async function writeInvalidCookie(cookie) {
   const dbName = "cookies_invalid";
   const dbCookieName = "cookies";
@@ -99,16 +112,7 @@ async function writeInvalidCookie(cookie) {
     if (!(await db.includes(dbName, "cookie", "cookie", cookie))) {
       const initData = { cookie, cookie_token, account_id };
       await db.push(dbName, "cookie", initData);
-
-      // 不再使用该 Cookie
-      if (await db.includes(dbCookieName, "cookie", "cookie", cookie)) {
-        await db.update(
-          dbCookieName,
-          "cookie",
-          { cookie },
-          { times: COOKIE_TIMES_INVALID_MARK }
-        );
-      }
+      await markCookieUnusable(cookie);
 
       // 删除该 Cookie 所有的使用记录
       if (await db.includes(dbCookieName, "uid", "cookie", cookie)) {
@@ -143,6 +147,7 @@ async function warnInvalidCookie(cookie) {
 
 async function tryToWarnInvalidCookie(message, cookie) {
   const invalidResponseList = ["please login"];
+  const reachMaxTimeResponseList = ["access the genshin game records of up to"];
 
   if (cookie && message) {
     const errInfo = message.toLowerCase();
@@ -150,6 +155,13 @@ async function tryToWarnInvalidCookie(message, cookie) {
     for (const res of invalidResponseList.map((c) => c.toLowerCase())) {
       if (errInfo.includes(res)) {
         return await warnInvalidCookie(cookie);
+      }
+    }
+
+    for (const res of reachMaxTimeResponseList.map((c) => c.toLowerCase())) {
+      if (errInfo.includes(res)) {
+        markCookieUnusable(cookie);
+        return undefined;
       }
     }
   }
