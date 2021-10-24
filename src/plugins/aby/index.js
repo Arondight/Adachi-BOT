@@ -65,7 +65,7 @@ async function Plugin(Message, bot) {
       return;
     }
 
-    if (!abyInfo["floors"].length) {
+    if (!abyInfo.floors.length) {
       await bot.sendMessage(sendID, "无渊月螺旋记录。", type, userID);
       return;
     }

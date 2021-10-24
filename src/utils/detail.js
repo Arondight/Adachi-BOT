@@ -166,7 +166,7 @@ async function basePromise(mhyID, userID, bot) {
     return await detailError(errInfo);
   }
 
-  const baseInfo = data.list.find((el) => 2 === el["game_id"]);
+  const baseInfo = data.list.find((el) => 2 === el.game_id);
 
   if (!baseInfo) {
     return await detailError(errInfo);
@@ -237,7 +237,7 @@ async function detailPromise(uid, server, userID, bot) {
     `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
   );
 
-  const characterID = data.avatars.map((el) => el["id"]);
+  const characterID = data.avatars.map((el) => el.id);
   return characterID;
 }
 
@@ -274,12 +274,12 @@ async function characterPromise(uid, server, character_ids, bot) {
       ]);
       let artifact = [];
       let constellationNum = 0;
-      const constellations = el["constellations"].reverse();
+      const constellations = el.constellations.reverse();
 
       for (const level in constellations) {
         if (constellations[level]) {
-          if (constellations[level]["is_actived"]) {
-            constellationNum = constellations[level]["pos"];
+          if (constellations[level].is_actived) {
+            constellationNum = constellations[level].pos;
             break;
           }
         }

@@ -1,4 +1,4 @@
-/* global all, artifacts, command, config, master */
+/* global all, artifacts, command, config, eggs, master */
 /* eslint no-undef: "error" */
 
 /* ==========================================================================
@@ -195,6 +195,25 @@
  *
  *
  * ==========================================================================
+ * global.eggs
+ * --------------------------------------------------------------------------
+ * { '刻晴': '角色', '天空之刃': '武器' }
+ * --------------------------------------------------------------------------
+ * ../../config/pool_eggs.yml
+ * --------------------------------------------------------------------------
+ * items:
+ *   -
+ *     type: 角色
+ *     names:
+ *       - 刻晴
+ *   -
+ *     type: 武器
+ *     names:
+ *       - 天空之刃
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  * global.artifacts
  * --------------------------------------------------------------------------
  * {
@@ -240,6 +259,7 @@ const Command = loadYML("command");
 const Master = loadYML("command_master");
 const Alias = loadYML("alias");
 const Menu = loadYML("menu");
+const Eggs = loadYML("pool_eggs");
 const Artifacts = loadYML("artifacts");
 
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
@@ -603,6 +623,18 @@ function readAlias() {
   );
 }
 
+// eggs: name -> type (string)
+function readEggs() {
+  global.eggs = {};
+
+  Array.isArray(Eggs.items) &&
+    Eggs.items.forEach((c) => {
+      if (c.type && Array.isArray(c.names)) {
+        c.names.forEach((n) => (eggs[n] = c.type));
+      }
+    });
+}
+
 // artifacts.domains.name -> name (lowercase): id (number)
 // artifacts.domains.alias -> alias (lowercase): name (string, lowercase)
 function readArtifacts() {
@@ -681,6 +713,7 @@ async function readConfig() {
   readSettingCookiesGreetingMenu();
   readCommand();
   readAlias();
+  readEggs();
   readArtifacts();
   getUsage();
   getAll();

@@ -50,7 +50,7 @@ async function musicQQ(keyword) {
         type: "music",
         data: {
           type: "qq",
-          id: jbody["data"]["song"]["itemlist"][0]["id"],
+          id: jbody.data.song.itemlist[0].id,
         },
       },
     ];
@@ -96,7 +96,7 @@ async function music163(keyword) {
         type: "music",
         data: {
           type: "163",
-          id: jbody["result"]["songs"][0]["id"],
+          id: jbody.result.songs[0].id,
         },
       },
     ];

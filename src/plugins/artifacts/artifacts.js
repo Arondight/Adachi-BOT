@@ -197,7 +197,7 @@ async function getArtifact(userID, type) {
     return artifactID;
   }
 
-  const name = artifacts[artifactID]["subName"][slot];
+  const name = artifacts[artifactID].subName[slot];
 
   await db.update(
     "artifact",
