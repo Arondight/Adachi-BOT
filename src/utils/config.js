@@ -197,17 +197,19 @@
  * ==========================================================================
  * global.eggs
  * --------------------------------------------------------------------------
- * { '刻晴': '角色', '天空之刃': '武器' }
+ * { type: { '刻晴': '角色', '天空之刃': '武器' }, star: { '刻晴': 5, '天空之刃': 5 } }
  * --------------------------------------------------------------------------
  * ../../config/pool_eggs.yml
  * --------------------------------------------------------------------------
  * items:
  *   -
  *     type: 角色
+ *     star: 5
  *     names:
  *       - 刻晴
  *   -
  *     type: 武器
+ *     star: 5
  *     names:
  *       - 天空之刃
  * ==========================================================================
@@ -623,14 +625,19 @@ function readAlias() {
   );
 }
 
-// eggs: name -> type (string)
+// eggs.type: name -> type (string)
+// eggs.star: name -> type (string)
 function readEggs() {
   global.eggs = {};
+  eggs.type = {};
+  eggs.star = {};
 
   Array.isArray(Eggs.items) &&
     Eggs.items.forEach((c) => {
-      if (c.type && Array.isArray(c.names)) {
-        c.names.forEach((n) => (eggs[n] = c.type));
+      if (Array.isArray(c.names)) {
+        const star = parseInt(c.star) || 3;
+        c.type && c.names.forEach((n) => (eggs.type[n] = c.type));
+        c.names.forEach((n) => (eggs.star[n] = star));
       }
     });
 }

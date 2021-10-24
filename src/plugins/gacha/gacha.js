@@ -119,13 +119,13 @@ async function getStar(userID, choice) {
 }
 
 async function gachaOnceEggs() {
-  const keys = Object.keys(eggs);
+  const keys = Object.keys(eggs.type);
   const index = getRandomInt(keys.length) - 1;
   const name = keys[index];
 
   return {
-    ...{ item_type: name ? eggs[name] : "角色", item_name: name || "刻晴" },
-    star: 5,
+    ...{ item_type: eggs.type[name] || "角色", item_name: name || "刻晴" },
+    star: eggs.star[name] || 3,
     times: 1,
   };
 }

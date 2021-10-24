@@ -13,6 +13,7 @@ items:
 
   -
     type: 角色
+    star: 5
     names:
       # 风
       - 温迪
@@ -47,6 +48,7 @@ items:
 
   -
     type: 武器
+    star: 5
     names:
       # 单手剑
       - 苍古自由之誓
