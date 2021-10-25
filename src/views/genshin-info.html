@@ -1,223 +1,250 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <title>genshin-card</title>
+    <script src="../../data/js/vue.min.js"></script>
+    <script src="./component/card/card.js"></script>
+    <link rel="stylesheet" href="./component/card/card.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>genshin-card</title>
-  <script src="../../data/js/vue.min.js"></script>
-  <script src="./component/card/card.js"></script>
-  <link rel="stylesheet" href="./component/card/card.css" />
-</head>
+  <body>
+    <div id="app">
+      <upper
+        :uid="uid"
+        :nickname="nickname"
+        :level="level"
+        :stats="stats"
+        :exploration="explorations"
+        :profile="profile"
+        :homeslevel="homeslevel"
+        :maxcomfort="maxcomfort"
+        :maps="homes"
+      ></upper>
+      <div class="avatars-box" v-for="avatars in avatarsData">
+        <middle :avatars="avatars"></middle>
+      </div>
 
-<body>
-  <div id="app">
-    <upper :uid="uid" :nickname="nickname" :level="level" :stats="stats" :exploration="explorations" :profile="profile"
-      :homeslevel="homeslevel" :maxcomfort="maxcomfort" :maps="homes"></upper>
-    <div class="avatars-box" v-for="avatars in avatarsData">
-      <middle :avatars="avatars"></middle>
+      <bottom></bottom>
     </div>
 
-    <bottom></bottom>
-  </div>
-
-  <template id="upper">
-    <div>
-      <div class="background">
-        <img src="http://localhost:9934/resources/Version2/module/uid-upper-v2-2.png" alt="ERROR" />
-      </div>
-      <img :src="Picture" alt="ERROR" class="profile" />
-      <div class="base-info">
-        <p class="nickname">{{nickname}}</p>
-        <p class="uid">UID: {{uid}}</p>
-      </div>
-      <div class="detail detail-left">
-        <p class="stats">{{stats.active_day_number}}</p>
-        <p class="stats">{{stats.achievement_number}}</p>
-        <p class="stats">{{stats.avatar_number}}</p>
-        <p class="stats">{{stats.spiral_abyss}}</p>
-        <p class="stats">{{stats.domain_number}}</p>
-      </div>
-      <div class="detail detail-middle">
-        <p class="stats">{{stats.common_chest_number}}</p>
-        <p class="stats">{{stats.exquisite_chest_number}}</p>
-        <p class="stats">{{stats.precious_chest_number}}</p>
-        <p class="stats">{{stats.luxurious_chest_number}}</p>
-        <p class="stats">{{stats.magic_chest_number}}</p>
-      </div>
-      <div class="detail detail-right">
-        <p class="stats">{{stats.anemoculus_number}}</p>
-        <p class="stats">{{stats.geoculus_number}}</p>
-        <p class="stats">{{stats.electroculus_number}}</p>
-      </div>
-
-      <div class="exploration">
-        <div class="mondstadt">
-          <div class="exp">{{ percentage(3) }}</div>
-          <div class="level">LV.{{ expLevel(3) }}</div>
+    <template id="upper">
+      <div>
+        <div class="background">
+          <img
+            src="http://localhost:9934/resources/Version2/module/uid-upper-v2-2.png"
+            alt="ERROR"
+          />
         </div>
-        <div class="dragonspine">
-          <div class="exp">{{ percentage(1) }}</div>
-          <div class="level">LV.{{ expLevel(1) }}</div>
+        <img :src="Picture" alt="ERROR" class="profile" />
+        <div class="base-info">
+          <p class="nickname">{{nickname}}</p>
+          <p class="uid">UID: {{uid}}</p>
         </div>
-        <div class="liyue">
-          <div class="exp">{{ percentage(2) }}</div>
-          <div class="level">LV.{{ expLevel(2) }}</div>
+        <div class="detail detail-left">
+          <p class="stats">{{stats.active_day_number}}</p>
+          <p class="stats">{{stats.achievement_number}}</p>
+          <p class="stats">{{stats.avatar_number}}</p>
+          <p class="stats">{{stats.spiral_abyss}}</p>
+          <p class="stats">{{stats.domain_number}}</p>
         </div>
-        <div class="inazuma">
-          <div class="exp">{{ percentage(0) }}</div>
-          <div class="level">LV.{{ expLevel(0) }}</div>
-          <div class="sakura">LV.{{exploration[0].offerings[0].level}}</div>
+        <div class="detail detail-middle">
+          <p class="stats">{{stats.common_chest_number}}</p>
+          <p class="stats">{{stats.exquisite_chest_number}}</p>
+          <p class="stats">{{stats.precious_chest_number}}</p>
+          <p class="stats">{{stats.luxurious_chest_number}}</p>
+          <p class="stats">{{stats.magic_chest_number}}</p>
         </div>
-      </div>
+        <div class="detail detail-right">
+          <p class="stats">{{stats.anemoculus_number}}</p>
+          <p class="stats">{{stats.geoculus_number}}</p>
+          <p class="stats">{{stats.electroculus_number}}</p>
+        </div>
 
-      <div class="home">
-        <p class="title-and-level">尘歌壶 Lv.{{ homeslevel }}</p>
-        <div class="map">
+        <div class="exploration">
+          <div class="mondstadt">
+            <div class="exp">{{ percentage(3) }}</div>
+            <div class="level">LV.{{ expLevel(3) }}</div>
+          </div>
+          <div class="dragonspine">
+            <div class="exp">{{ percentage(1) }}</div>
+            <div class="level">LV.{{ expLevel(1) }}</div>
+          </div>
+          <div class="liyue">
+            <div class="exp">{{ percentage(2) }}</div>
+            <div class="level">LV.{{ expLevel(2) }}</div>
+          </div>
+          <div class="inazuma">
+            <div class="exp">{{ percentage(0) }}</div>
+            <div class="level">LV.{{ expLevel(0) }}</div>
+            <div class="sakura">LV.{{exploration[0].offerings[0].level}}</div>
+          </div>
+        </div>
 
-          <div class="home-box" v-for="data in homedata">
-            <img class="home-background" :src="'http://localhost:9934/resources/item/'+data.name+'.png'"
-              alt="ERROR" />
-            <div class="unlock" v-if="data.level !== -1">
-              <div class="box-block unlock-block"></div>
-              <div class="box-block unlock-content-block">
-                <p class="box-content name">{{ data.name }}</p>
-                <p class="box-content level">洞天等级</p>
-                <p class="box-content comfort">{{ data.comfort_level_name }}</p>
+        <div class="home">
+          <p class="title-and-level">尘歌壶 Lv.{{ homeslevel }}</p>
+          <div class="map">
+            <div class="home-box" v-for="data in homedata">
+              <img
+                class="home-background"
+                :src="'http://localhost:9934/resources/item/'+data.name+'.png'"
+                alt="ERROR"
+              />
+              <div class="unlock" v-if="data.level !== -1">
+                <div class="box-block unlock-block"></div>
+                <div class="box-block unlock-content-block">
+                  <p class="box-content name">{{ data.name }}</p>
+                  <p class="box-content level">洞天等级</p>
+                  <p class="box-content comfort">
+                    {{ data.comfort_level_name }}
+                  </p>
+                </div>
+              </div>
+              <div class="locked" v-else>
+                <div class="box-block locked-block"></div>
+                <img
+                  class="lock-icon"
+                  src="http://localhost:9934/resources/item/lock.png"
+                  alt="ERROR"
+                />
               </div>
             </div>
-            <div class="locked" v-else>
-              <div class="box-block locked-block"></div>
-              <img class="lock-icon" src="http://localhost:9934/resources/item/lock.png" alt="ERROR" />
+          </div>
+          <p class="comfort-num">仙力: {{ maxcomfort }}</p>
+        </div>
+
+        <img
+          src="http://localhost:9934/resources/module/card-new-package.png"
+          alt="ERROR"
+        />
+      </div>
+    </template>
+
+    <template id="avatar-element">
+      <div>
+        <div class="element">
+          <div
+            class="con num"
+            v-if="avatar.actived_constellation_num!=0&&avatar.actived_constellation_num<=5"
+          >
+            {{avatar.actived_constellation_num}}
+          </div>
+          <div class="con num6" v-else-if="avatar.actived_constellation_num==6">
+            {{avatar.actived_constellation_num}}
+          </div>
+          <div class="element-border" :class="avatar.element"></div>
+          <img class="profile" :src="avatar.icon" alt="ERROR" />
+          <div class="avatar-info">
+            <p class="name">{{avatar.name}}</p>
+            <div>
+              <p class="level">Lv.{{avatar.level}}</p>
+              <p class="fetter" v-show="avatar.name!=='旅行者'">
+                ❤{{avatar.fetter}}
+              </p>
+              <br />
+              <p class="weapon-name">{{avatar.weapon.name}}</p>
+              <p class="weapon-affix">★{{avatar.weapon.affix_level}}</p>
             </div>
           </div>
-
         </div>
-        <p class="comfort-num">仙力: {{ maxcomfort }}</p>
       </div>
+    </template>
 
-      <img src="http://localhost:9934/resources/module/card-new-package.png" alt="ERROR" />
-    </div>
-  </template>
-
-  <template id="avatar-element">
-    <div>
-      <div class="element">
-        <div class="con num" v-if="avatar.actived_constellation_num!=0&&avatar.actived_constellation_num<=5">
-          {{avatar.actived_constellation_num}}
-        </div>
-        <div class="con num6" v-else-if="avatar.actived_constellation_num==6">
-          {{avatar.actived_constellation_num}}
-        </div>
-        <div class="element-border" :class="avatar.element"></div>
-        <img class="profile" :src="avatar.icon" alt="ERROR" />
-        <div class="avatar-info">
-          <p class="name">{{avatar.name}}</p>
-          <div>
-            <p class="level">Lv.{{avatar.level}}</p>
-            <p class="fetter" v-show="avatar.name!=='旅行者'">
-              ❤{{avatar.fetter}}
-            </p>
-            <br />
-            <p class="weapon-name">{{avatar.weapon.name}}</p>
-            <p class="weapon-affix">★{{avatar.weapon.affix_level}}</p>
+    <template id="middle">
+      <div>
+        <div class="box">
+          <div class="avatar" v-for="avatar in avatars">
+            <avatar-element :avatar="avatar"></avatar-element>
           </div>
+          <img
+            class="backdrop"
+            src="http://localhost:9934/resources/module/card-new-middle.png"
+            alt="ERROR"
+          />
         </div>
       </div>
-    </div>
-  </template>
+    </template>
 
-  <template id="middle">
-    <div>
-      <div class="box">
-        <div class="avatar" v-for="avatar in avatars">
-          <avatar-element :avatar="avatar"></avatar-element>
+    <template id="bottom">
+      <div>
+        <div class="background">
+          <img
+            src="http://localhost:9934/resources/module/card-new-bottom.png"
+            alt="ERROR"
+          />
         </div>
-        <img class="backdrop" src="http://localhost:9934/resources/module/card-new-middle.png"
-          alt="ERROR" />
       </div>
-    </div>
-  </template>
+    </template>
 
-
-
-  <template id="bottom">
-    <div>
-      <div class="background">
-        <img src="http://localhost:9934/resources/module/card-new-bottom.png" alt="ERROR" />
-      </div>
-    </div>
-  </template>
-
-
-  <script>
-    new Vue({
-      el: "#app",
-      data: {
-        retcode: 1,
-        nickname: "",
-        uid: 0,
-        level: 0,
-        profile: 0,
-        stats: {},
-        avatarsData: [],
-        explorations: [],
-        avatar_number: 0,
-        homes: [],
-        homeslevel: 0,
-        maxcomfort: 0
-      },
-      components: {
-        upper,
-        middle,
-        bottom
-      },
-      methods: {
-        cutArray(array, step) {
-          let newArray = [];
-          let index = 0,
-            len = array.length;
-          while (index < len) {
-            newArray.push(array.slice(index, (index += step)));
-          }
-          return newArray;
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          retcode: 1,
+          nickname: "",
+          uid: 0,
+          level: 0,
+          profile: 0,
+          stats: {},
+          avatarsData: [],
+          explorations: [],
+          avatar_number: 0,
+          homes: [],
+          homeslevel: 0,
+          maxcomfort: 0,
         },
-        readJSON(file, callback) {
-          fetch(file).then((res) => {
-            return res.json().then((data) => {
-              callback(data);
-            });
-          });
+        components: {
+          upper,
+          middle,
+          bottom,
         },
-      },
-      mounted() {
-        this.readJSON("../../data/record/genshin-info.json", (res) => {
-          this.nickname = res.nickname;
-          this.uid = res.uid;
-          this.level = res.level;
-
-          let avatarsList = res.avatars;
-          this.stats = res.stats;
-          this.homes = res.homes;
-          this.avatar_number = avatarsList.length;
-          this.explorations = res.explorations;
-          this.profile =
-            avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
-
-          avatarsList.sort((x, y) => {
-            if (x.level === y.level) {
-              return y.fetter - x.fetter;
-            } else {
-              return y.level - x.level;
+        methods: {
+          cutArray(array, step) {
+            let newArray = [];
+            let index = 0,
+              len = array.length;
+            while (index < len) {
+              newArray.push(array.slice(index, (index += step)));
             }
+            return newArray;
+          },
+          readJSON(file, callback) {
+            fetch(file).then((res) => {
+              return res.json().then((data) => {
+                callback(data);
+              });
+            });
+          },
+        },
+        mounted() {
+          this.readJSON("../../data/record/genshin-info.json", (res) => {
+            this.nickname = res.nickname;
+            this.uid = res.uid;
+            this.level = res.level;
+
+            let avatarsList = res.avatars;
+            this.stats = res.stats;
+            this.homes = res.homes;
+            this.avatar_number = avatarsList.length;
+            this.explorations = res.explorations;
+            this.profile =
+              avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
+
+            avatarsList.sort((x, y) => {
+              if (x.level === y.level) {
+                return y.fetter - x.fetter;
+              } else {
+                return y.level - x.level;
+              }
+            });
+            this.avatarsData = this.cutArray(avatarsList, 7);
+
+            this.homeslevel = res.homes[0].level !== 0 ? res.homes[0].level : 0;
+            this.maxcomfort =
+              res.homes[0].comfort_num !== 0 ? res.homes[0].comfort_num : 0;
           });
-          this.avatarsData = this.cutArray(avatarsList, 7);
-
-          this.homeslevel = res.homes[0].level !== 0 ? res.homes[0].level : 0;
-          this.maxcomfort = res.homes[0].comfort_num !== 0 ? res.homes[0].comfort_num : 0;
-        });
-      },
-    });
-  </script>
-</body>
-
+        },
+      });
+    </script>
+  </body>
 </html>

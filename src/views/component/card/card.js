@@ -5,8 +5,8 @@ const upper = {
     nickname: String,
     level: Number,
     profile: Number,
-    homeslevel:Number,
-    maxcomfort:Number,
+    homeslevel: Number,
+    maxcomfort: Number,
     maps: Object,
     exploration: {
       type: Object,
@@ -39,19 +39,19 @@ const upper = {
       },
     },
   },
-    methods: {
-     findMap(type) {
-       let info = this.maps.find((el) => el.name === type);
-       return info ? info : { name: type, level: -1 };
-     },
+  methods: {
+    findMap(type) {
+      let info = this.maps.find((el) => el.name === type);
+      return info ? info : { name: type, level: -1 };
     },
+  },
   computed: {
     Picture() {
       return (
         "http://localhost:9934/resources/characters/profile/" +
         this.profile +
         ".png"
-      )
+      );
     },
     worldLevel() {
       if (this.level >= 55) {
@@ -95,8 +95,8 @@ const upper = {
         }
       };
     },
-    homedata(){
-      let homedata =[];
+    homedata() {
+      let homedata = [];
       homedata.push(this.findMap("罗浮洞"));
       homedata.push(this.findMap("翠黛峰"));
       homedata.push(this.findMap("清琼岛"));

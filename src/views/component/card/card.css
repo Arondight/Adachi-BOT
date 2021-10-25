@@ -214,154 +214,149 @@ img {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.925);
 }
 
-
 .exploration {
-	position: absolute;
-	color: rgb(255, 255, 255);
-	font-size: 25px;
-	width: 1030px;
-	top: 641px;
-	left: 400px;
-	display: flex;
-	flex-wrap: wrap;
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-size: 25px;
+  width: 1030px;
+  top: 641px;
+  left: 400px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .mondstadt,
 .liyue,
 .dragonspine,
 .inazuma {
-	width: 290px;
-	padding-right: 225px;
-	padding-bottom: 93px;
+  width: 290px;
+  padding-right: 225px;
+  padding-bottom: 93px;
 }
 
 .exp,
 .level {
-	width: 45px;
+  width: 45px;
 }
 
 .exp {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .inazuma {
-	margin-top: -9px;
+  margin-top: -9px;
 }
 
 .inazuma .exp,
 .inazuma .level {
-	margin-bottom: 0.15cm;
+  margin-bottom: 0.15cm;
 }
-.home  {
-	position: absolute;
-	width: 296px;
-	height: 750px;
-	left: 1088px;
-	top: 64px;
-	border-radius: 20px;
-	background-color: rgb(228, 222, 213);
-}
-
-.home  .title-and-level,
-.home  .comfort-num {
-	position: relative;
-	color: rgb(64, 64, 64);
-	width: 296px;
-	text-align: center;
+.home {
+  position: absolute;
+  width: 296px;
+  height: 750px;
+  left: 1088px;
+  top: 64px;
+  border-radius: 20px;
+  background-color: rgb(228, 222, 213);
 }
 
-.home  .title-and-level {
-	font-size: 28px;
-	top: 13px;
+.home .title-and-level,
+.home .comfort-num {
+  position: relative;
+  color: rgb(64, 64, 64);
+  width: 296px;
+  text-align: center;
 }
 
-.home  .comfort-num {
-	font-size: 22px;
-	top: 23px;
+.home .title-and-level {
+  font-size: 28px;
+  top: 13px;
 }
 
-.home  .map {
-	position: relative;
-	top: 7px
+.home .comfort-num {
+  font-size: 22px;
+  top: 23px;
 }
 
-
-
-
-
-.home-box  {
-	position: relative;
-	margin-top: -5px;
-	top: 16px;
+.home .map {
+  position: relative;
+  top: 7px;
 }
 
-.home-box  .home-background {
-	width: 184px;
-	margin-bottom: 15px;
-	margin-left: 56px;
-	border-radius: 32px;
-	z-index: 1;
+.home-box {
+  position: relative;
+  margin-top: -5px;
+  top: 16px;
 }
 
-.home-box  .unlock,
-.home-box  .locked {
-	position: absolute;
-	top: 0;
+.home-box .home-background {
+  width: 184px;
+  margin-bottom: 15px;
+  margin-left: 56px;
+  border-radius: 32px;
+  z-index: 1;
 }
 
-.home-box  .box-block {
-	width: 184px;
-	height: 184px;
-	margin-left: 56px;
-	border-radius: 32px;
+.home-box .unlock,
+.home-box .locked {
+  position: absolute;
+  top: 0;
 }
 
-.home-box  .locked-block {
-	background-color: rgba(0, 0, 0, 0.6);
+.home-box .box-block {
+  width: 184px;
+  height: 184px;
+  margin-left: 56px;
+  border-radius: 32px;
 }
 
-.home-box  .lock-icon {
-	position: absolute;
-	height: 80px;
-	width: 66px;
-	top: 52px;
-	left: 115px;
+.home-box .locked-block {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.home-box  .unlock-block {
-	background-color: rgba(0, 0, 0, 0.22);
+.home-box .lock-icon {
+  position: absolute;
+  height: 80px;
+  width: 66px;
+  top: 52px;
+  left: 115px;
 }
 
-.home-box  .unlock-content-block {
-	position: relative;
-	background-color: rgba(0, 0, 0, 0.3);
-	height: 122px;
-	top: -153px;
-	border-radius: 0;
+.home-box .unlock-block {
+  background-color: rgba(0, 0, 0, 0.22);
 }
 
-.home-box  .box-content {
-	position: relative;
-	width: 184px;
-	text-align: center;
+.home-box .unlock-content-block {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 122px;
+  top: -153px;
+  border-radius: 0;
 }
 
-.home-box  .name {
-	position: relative;
-	color: rgb(242, 210, 134);
-	padding-top: 14px;
-	font-size: 25px;
-	padding-bottom: 12px;
+.home-box .box-content {
+  position: relative;
+  width: 184px;
+  text-align: center;
 }
 
-.home-box  .level {
-	font-size: 22px;
-	color: rgb(227, 221, 194);
+.home-box .name {
+  position: relative;
+  color: rgb(242, 210, 134);
+  padding-top: 14px;
+  font-size: 25px;
+  padding-bottom: 12px;
 }
 
-.home-box  .comfort {
-	font-size: 20px;
-	color: rgb(255, 255, 255);
-	margin-top: 2px;
-	-webkit-text-stroke: 0.012cm rgb(92, 82, 4);
+.home-box .level {
+  font-size: 22px;
+  color: rgb(227, 221, 194);
+}
+
+.home-box .comfort {
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  margin-top: 2px;
+  -webkit-text-stroke: 0.012cm rgb(92, 82, 4);
 }
