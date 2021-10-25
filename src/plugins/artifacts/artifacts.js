@@ -193,11 +193,11 @@ async function getArtifact(userID, type) {
   const initialProperty = getInitial(initPropertyNum, subStats);
   const fortifiedProperty = getFortified(initPropertyNum, subStats, improves);
 
-  if (!artifactID) {
+  if (undefined === artifactID) {
     return artifactID;
   }
 
-  const name = artifacts[artifactID]["subName"][slot];
+  const name = artifacts[artifactID].subName[slot];
 
   await db.update(
     "artifact",

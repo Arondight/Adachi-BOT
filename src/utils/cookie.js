@@ -2,6 +2,7 @@
 /* eslint no-undef: "error" */
 
 import path from "path";
+import lodash from "lodash";
 import db from "./database.js";
 
 const COOKIE_TIMES_INVALID_MARK = 0xabadcafe;
@@ -28,6 +29,7 @@ function isValidCookie(cookie) {
 }
 
 async function getEffectiveCookie(uid, s, use_cookie) {
+  const dbName = "cookies";
   let p = index;
   increaseIndex();
 
@@ -40,12 +42,12 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     return undefined;
   }
 
-  if (!(await db.includes("cookies", "cookie", "cookie", cookie))) {
+  if (!(await db.includes(dbName, "cookie", "cookie", cookie))) {
     const initData = { cookie, date: today, times: 0 };
-    await db.push("cookies", "cookie", initData);
+    await db.push(dbName, "cookie", initData);
   }
 
-  let { date, times } = await db.get("cookies", "cookie", { cookie });
+  let { date, times } = await db.get(dbName, "cookie", { cookie });
 
   if (date && date === today && times && times >= 30) {
     return s >= cookies.length
@@ -60,21 +62,29 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     times = times ? times + 1 : 1;
 
     if (use_cookie) {
-      await db.update("cookies", "cookie", { cookie }, { date, times });
+      await db.update(dbName, "cookie", { cookie }, { date, times });
     }
 
-    await db.update("cookies", "uid", { uid }, { date, cookie });
+    await db.update(
+      dbName,
+      "uid",
+      { uid },
+      lodash.assign({ date, cookie }, use_cookie ? { times } : {})
+    );
+
     return cookie;
   }
 }
 
 async function getCookie(uid, use_cookie, bot) {
-  if (!(await db.includes("cookies", "uid", "uid", uid))) {
-    const initData = { uid, date: "", cookie: "" };
-    await db.push("cookies", "uid", initData);
+  const dbName = "cookies";
+
+  if (!(await db.includes(dbName, "uid", "uid", uid))) {
+    const initData = { uid, date: "", cookie: "", times: 0 };
+    await db.push(dbName, "uid", initData);
   }
 
-  let { date, cookie } = (await db.get("cookies", "uid", { uid })) || {};
+  let { date, cookie } = (await db.get(dbName, "uid", { uid })) || {};
   const today = new Date().toLocaleDateString();
 
   if (!(date && cookie && date === today)) {
@@ -89,6 +99,27 @@ async function getCookie(uid, use_cookie, bot) {
   return cookie;
 }
 
+async function markCookieUnusable(cookie) {
+  const dbName = "cookies";
+
+  if (cookie && (await db.includes(dbName, "cookie", "cookie", cookie))) {
+    let { times } = (await db.get(dbName, "cookie", { cookie })) || {};
+
+    // Cookie 标记为无效
+    await db.update(
+      dbName,
+      "cookie",
+      { cookie },
+      { times: COOKIE_TIMES_INVALID_MARK }
+    );
+
+    // 删除最后一个绑定关系
+    if (times) {
+      await db.remove(dbName, "uid", { cookie, times });
+    }
+  }
+}
+
 async function writeInvalidCookie(cookie) {
   const dbName = "cookies_invalid";
   const dbCookieName = "cookies";
@@ -99,16 +130,7 @@ async function writeInvalidCookie(cookie) {
     if (!(await db.includes(dbName, "cookie", "cookie", cookie))) {
       const initData = { cookie, cookie_token, account_id };
       await db.push(dbName, "cookie", initData);
-
-      // 不再使用该 Cookie
-      if (await db.includes(dbCookieName, "cookie", "cookie", cookie)) {
-        await db.update(
-          dbCookieName,
-          "cookie",
-          { cookie },
-          { times: COOKIE_TIMES_INVALID_MARK }
-        );
-      }
+      await markCookieUnusable(cookie);
 
       // 删除该 Cookie 所有的使用记录
       if (await db.includes(dbCookieName, "uid", "cookie", cookie)) {
@@ -143,6 +165,7 @@ async function warnInvalidCookie(cookie) {
 
 async function tryToWarnInvalidCookie(message, cookie) {
   const invalidResponseList = ["please login"];
+  const reachMaxTimeResponseList = ["access the genshin game records of up to"];
 
   if (cookie && message) {
     const errInfo = message.toLowerCase();
@@ -150,6 +173,13 @@ async function tryToWarnInvalidCookie(message, cookie) {
     for (const res of invalidResponseList.map((c) => c.toLowerCase())) {
       if (errInfo.includes(res)) {
         return await warnInvalidCookie(cookie);
+      }
+    }
+
+    for (const res of reachMaxTimeResponseList.map((c) => c.toLowerCase())) {
+      if (errInfo.includes(res)) {
+        markCookieUnusable(cookie);
+        return undefined;
       }
     }
   }

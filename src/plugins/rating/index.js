@@ -114,20 +114,20 @@ async function Plugin(Message, bot) {
     const items = main_item ? [ret[item_type]] : ret[item_type];
 
     for (let item of items) {
-      if (!maxValue[item_type][item["type"]]) {
+      if (!maxValue[item_type][item.type]) {
         continue;
       }
 
-      if (!item["value"].includes("%")) {
+      if (!item.value.includes("%")) {
         continue;
       }
 
-      const value = parseInt(item["value"]);
+      const value = parseInt(item.value);
 
-      if (value > maxValue[item_type][item["type"]]) {
-        let text = `评分：调整属性 ${item_type}:${item["type"]} (${item["value"]}`;
-        item["value"] = (value / 10).toFixed(1).toString() + "%";
-        text += ` -> ${item["value"]})`;
+      if (value > maxValue[item_type][item.type]) {
+        let text = `评分：调整属性 ${item_type}:${item.type} (${item.value}`;
+        item.value = (value / 10).toFixed(1).toString() + "%";
+        text += ` -> ${item.value})`;
         bot.logger.debug(text);
       }
     }
@@ -151,7 +151,7 @@ async function Plugin(Message, bot) {
   ret = await response.json();
 
   if (400 === response.status) {
-    if (lodash.hasIn(ret, "code") && 50003 === ret["code"]) {
+    if (lodash.hasIn(ret, "code") && 50003 === ret.code) {
       await bot.sendMessage(
         sendID,
         "您上传了正确的截图，但是 AI 未能识别，请重新截图。",
@@ -171,12 +171,12 @@ async function Plugin(Message, bot) {
   }
 
   if (200 === response.status || lodash.hasIn(ret, "total_percent")) {
-    data = `您的${prop["pos"]}评分为 ${ret["total_percent"]} 分！
-${prop["main_item"]["name"]}：${prop["main_item"]["value"]}
+    data = `您的${prop.pos}评分为 ${ret.total_percent} 分！
+${prop.main_item.name}：${prop.main_item.value}
 ==========`;
 
-    prop["sub_item"].forEach((item) => {
-      data += `\n${item["name"]}：${item["value"]}`;
+    prop.sub_item.forEach((item) => {
+      data += `\n${item.name}：${item.value}`;
     });
     await bot.sendMessage(sendID, data, type, userID);
     return;

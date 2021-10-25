@@ -91,7 +91,7 @@ async function report() {
     }允许用户 @ 机器人。`
   );
   say(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
-  say(`群消息复读的概率为 ${config.repeatProb}% 。`);
+  say(`群消息复读的概率为 ${(config.repeatProb / 100).toFixed(2)}% 。`);
   say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
   say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
   say(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
@@ -106,39 +106,38 @@ async function report() {
 async function run() {
   const plugins = await loadPlugins();
 
-  ++config.repeatProb;
-
   for (const bot of bots) {
     // 监听上线事件
-    bot.on("system.online", async (msgData) => {
-      await processed(msgData, plugins, "online", bot);
-    });
+    bot.on(
+      "system.online",
+      async (msgData) => await processed(msgData, plugins, "online", bot)
+    );
 
     // 监听群消息事件
-    bot.on("message.group", async (msgData) => {
-      const info = (await bot.getGroupInfo(msgData.group_id)).data;
-
-      // 禁言时不发送消息
-      // https://github.com/Arondight/Adachi-BOT/issues/28
-      if (0 === info.shutup_time_me) {
-        await processed(msgData, plugins, "group", bot);
-      }
-    });
+    bot.on(
+      "message.group",
+      async (msgData) => await processed(msgData, plugins, "group", bot)
+    );
 
     // 监听好友消息事件
-    bot.on("message.private", async (msgData) => {
-      await processed(msgData, plugins, "private", bot);
-    });
+    bot.on(
+      "message.private",
+      async (msgData) => await processed(msgData, plugins, "private", bot)
+    );
 
     // 监听加好友事件
-    bot.on("notice.friend.increase", async (msgData) => {
-      await processed(msgData, plugins, "friend.increase", bot);
-    });
+    bot.on(
+      "notice.friend.increase",
+      async (msgData) =>
+        await processed(msgData, plugins, "friend.increase", bot)
+    );
 
     // 监听入群事件
-    bot.on("notice.group.increase", async (msgData) => {
-      await processed(msgData, plugins, "group.increase", bot);
-    });
+    bot.on(
+      "notice.group.increase",
+      async (msgData) =>
+        await processed(msgData, plugins, "group.increase", bot)
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-/* global all, artifacts, command, config, master */
+/* global all, artifacts, command, config, eggs, master */
 /* eslint no-undef: "error" */
 
 /* ==========================================================================
@@ -195,6 +195,27 @@
  *
  *
  * ==========================================================================
+ * global.eggs
+ * --------------------------------------------------------------------------
+ * { type: { '刻晴': '角色', '天空之刃': '武器' }, star: { '刻晴': 5, '天空之刃': 5 } }
+ * --------------------------------------------------------------------------
+ * ../../config/pool_eggs.yml
+ * --------------------------------------------------------------------------
+ * items:
+ *   -
+ *     type: 角色
+ *     star: 5
+ *     names:
+ *       - 刻晴
+ *   -
+ *     type: 武器
+ *     star: 5
+ *     names:
+ *       - 天空之刃
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  * global.artifacts
  * --------------------------------------------------------------------------
  * {
@@ -240,6 +261,7 @@ const Command = loadYML("command");
 const Master = loadYML("command_master");
 const Alias = loadYML("alias");
 const Menu = loadYML("menu");
+const Eggs = loadYML("pool_eggs");
 const Artifacts = loadYML("artifacts");
 
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
@@ -496,7 +518,7 @@ function readSettingCookiesGreetingMenu() {
   const prefixes = Setting.prefixes;
   const atMe = parseInt(Setting.atMe);
   const atUser = parseInt(Setting.atUser);
-  const repeatProb = parseInt(Setting.repeatProb);
+  const repeatProb = parseInt(parseFloat(Setting.repeatProb) * 100);
   const groupHello = parseInt(Setting.groupHello);
   const groupGreetingNew = parseInt(Setting.groupGreetingNew);
   const friendGreetingNew = parseInt(Setting.friendGreetingNew);
@@ -603,6 +625,23 @@ function readAlias() {
   );
 }
 
+// eggs.type: name -> type (string)
+// eggs.star: name -> type (string)
+function readEggs() {
+  global.eggs = {};
+  eggs.type = {};
+  eggs.star = {};
+
+  Array.isArray(Eggs.items) &&
+    Eggs.items.forEach((c) => {
+      if (Array.isArray(c.names)) {
+        const star = parseInt(c.star) || 3;
+        c.type && c.names.forEach((n) => (eggs.type[n] = c.type));
+        c.names.forEach((n) => (eggs.star[n] = star));
+      }
+    });
+}
+
 // artifacts.domains.name -> name (lowercase): id (number)
 // artifacts.domains.alias -> alias (lowercase): name (string, lowercase)
 function readArtifacts() {
@@ -681,6 +720,7 @@ async function readConfig() {
   readSettingCookiesGreetingMenu();
   readCommand();
   readAlias();
+  readEggs();
   readArtifacts();
   getUsage();
   getAll();

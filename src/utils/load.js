@@ -45,34 +45,57 @@ async function loadPlugins() {
   return plugins;
 }
 
-async function processed_friend_increase(qqData, bot) {
+async function isGroupBan(qqData, bot) {
+  const info = (await bot.getGroupInfo(qqData.group_id)).data;
+
+  // getGroupInfo 未获取到有效数据则认为没有被禁言
+  if (info && 0 !== info.shutup_time_me) {
+    let time = new Date(0);
+    time.setUTCSeconds(info.shutup_time_me);
+    bot.logger.debug(
+      `禁言：因已被组群 ${
+        qqData.group_name + "（ " + qqData.group_id + " ）"
+      }禁言拒绝发送消息，${time.toLocaleString()} 禁言结束。`
+    );
+    return true;
+  }
+  return false;
+}
+
+async function processedFriendIncrease(qqData, bot) {
   if (config.friendGreetingNew) {
     // 私聊不需要 @
     await bot.sendMessage(qqData.user_id, config.greetingNew, "private");
   }
 }
 
-async function processed_group_increase(qqData, bot) {
-  if (bot.uin === qqData.user_id) {
-    // 如果加入了新群，尝试向全群问好
-    // 群通知不需要 @
-    await bot.sendMessage(qqData.group_id, config.greetingHello, "group");
-  } else {
-    // 如果有新群友，尝试向新群友问好
-    if (config.groupGreetingNew && (await hasAuth(qqData.group_id, "reply"))) {
-      await bot.sendMessage(
-        qqData.group_id,
-        config.greetingNew,
-        "group",
-        qqData.user_id
-      );
+async function processedGroupIncrease(qqData, bot) {
+  if (!(await isGroupBan(qqData, bot))) {
+    if (bot.uin === qqData.user_id) {
+      // 如果加入了新群，尝试向全群问好
+      // 群通知不需要 @
+      await bot.sendMessage(qqData.group_id, config.greetingHello, "group");
+    } else {
+      // 如果有新群友，尝试向新群友问好
+      if (
+        config.groupGreetingNew &&
+        (await hasAuth(qqData.group_id, "reply"))
+      ) {
+        await bot.sendMessage(
+          qqData.group_id,
+          config.greetingNew,
+          "group",
+          qqData.user_id
+        );
+      }
     }
   }
 }
 
-async function processed_text(qqData, plugins, type, bot) {
+async function processedPossibleCommand(qqData, plugins, type, bot) {
   // 处理 @ 机器人
   const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
+  // 增加了变量 qqData.atMe: boolean
   qqData.atMe = lodash
     .chain(qqData.message)
     .filter({ type: "at" })
@@ -84,12 +107,12 @@ async function processed_text(qqData, plugins, type, bot) {
   if (qqData.atMe) {
     switch (config.atMe) {
       case 0:
-        return;
+        return false;
       case 1:
       // fall through
       case 2:
         if (!qqData.atMe) {
-          return;
+          return false;
         }
     }
 
@@ -116,7 +139,7 @@ async function processed_text(qqData, plugins, type, bot) {
   }
 
   if (!match) {
-    return;
+    return false;
   }
 
   qqData.raw_message = qqData.raw_message
@@ -133,7 +156,11 @@ async function processed_text(qqData, plugins, type, bot) {
       if (master.enable[plugin] && !config.masters.includes(qqData.user_id)) {
         const id = "group" === type ? qqData.group_id : qqData.user_id;
         await bot.sendMessage(id, "不能使用管理命令。", type, qqData.user_id);
-        return;
+        return true;
+      }
+
+      if ("group" === type && (await isGroupBan(qqData, bot))) {
+        return true;
       }
 
       if (
@@ -157,31 +184,32 @@ async function processed_text(qqData, plugins, type, bot) {
         ) {
           timestamp[qqData.user_id] = qqData.time;
           plugins[plugin].run({ ...qqData, type }, bot);
-          return;
+          return true;
         }
       }
     }
   }
 }
 
-async function processed_group(qqData, bot) {
-  if (config.repeatProb > 0 && getRandomInt(100) < config.repeatProb) {
+async function processedGroup(qqData, bot) {
+  if (
+    config.repeatProb > 0 &&
+    getRandomInt(100 * 100) < config.repeatProb + 1 &&
+    !(await isGroupBan(qqData, bot))
+  ) {
     // 复读群消息不需要 @
     await bot.sendMessage(qqData.group_id, qqData.raw_message, "group");
   }
 }
 
-async function processed_online(qqData, bot) {
+async function processedOnline(bot) {
   if (config.groupHello) {
     bot.gl.forEach(async (group) => {
-      const info = (await bot.getGroupInfo(group.group_id)).data;
       const greeting = (await hasAuth(group.group_id, "reply"))
         ? config.greetingOnline
         : config.greetingDie;
 
-      // 禁言时不发送消息
-      // https://github.com/Arondight/Adachi-BOT/issues/28
-      if (0 === info.shutup_time_me && "string" === typeof greeting) {
+      if (!(await isGroupBan(group, bot)) && "string" === typeof greeting) {
         // 群通知不需要 @
         await bot.sendMessage(group.group_id, greeting, "group");
       }
@@ -194,7 +222,7 @@ async function processed(qqData, plugins, type, bot) {
   // 如果好友增加了，尝试向新朋友问好
   //
   if (type === "friend.increase") {
-    await processed_friend_increase(qqData, bot);
+    await processedFriendIncrease(qqData, bot);
     return;
   }
 
@@ -202,24 +230,24 @@ async function processed(qqData, plugins, type, bot) {
   // 如果有新成员加入了组群，尝试向新成员或者全群问好
   //
   if (type === "group.increase") {
-    await processed_group_increase(qqData, bot);
+    await processedGroupIncrease(qqData, bot);
     return;
   }
 
   //
   // 如果收到的信息是命令，尝试指派插件处理命令
-  // 增加了变量 qqData.atMe: boolean
   //
   if (lodash.find(qqData.message, { type: "text" })) {
-    await processed_text(qqData, plugins, type, bot);
-    return;
+    if (await processedPossibleCommand(qqData, plugins, type, bot)) {
+      return;
+    }
   }
 
   //
   // 如果不是命令，且为群消息，随机复读群消息
   //
   if ("group" === type) {
-    await processed_group(qqData, bot);
+    await processedGroup(qqData, bot);
     return;
   }
 
@@ -227,7 +255,7 @@ async function processed(qqData, plugins, type, bot) {
   // 如果机器人上线，尝试所有群发送一遍上线通知
   //
   if ("online" === type) {
-    await processed_online(qqData, bot);
+    await processedOnline(bot);
     return;
   }
 }
