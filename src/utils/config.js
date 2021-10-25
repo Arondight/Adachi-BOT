@@ -29,6 +29,7 @@
  * {
  *   functions: {
  *     type: { hello_world: 'command', eat: 'option' },
+ *     show: { hello_world: true, eat: true },
  *     weights: { hello_world: 9999, eat: 9999 },
  *     name: { hello_world: 'hello world', eat: 'eat' },
  *     usage: { hello_world: undefined, eat: undefined },
@@ -59,6 +60,7 @@
  *   functions:
  *     Hello_World:
  *       type: command
+ *       show: true
  *       weights: 9999
  *       name: hello world
  *       usage:
@@ -74,6 +76,7 @@
  *   functions:
  *     eat:
  *       type: option
+ *       show: true
  *       weights: 9999
  *       name: eat
  *       usage:
@@ -269,6 +272,7 @@ const Artifacts = loadYML("artifacts");
 // global[key].regex                 -> regex (lowercase):     plugin (string)
 // global[key].function              -> function (lowercase):  plugin (array of string, lowercase)
 // global[key].functions.type        -> function (lowercase):  type (string)
+// global[key].functions.show        -> function (lowercase):  is_show (boolean)
 // global[key].functions.weights     -> function (lowercase):  weights (number)
 // global[key].functions.name        -> function (lowercase):  name (string)
 // global[key].functions.usage       -> function (lowercase):  usage (string)
@@ -290,14 +294,16 @@ function getCommand(obj, key) {
           let p1 = k;
           let p2 = v[key];
 
-          lowercase[0] && (p1 = "string" === typeof k ? k.toLowerCase() : k);
-          lowercase[1] &&
+          true === lowercase[0] &&
+            (p1 = "string" === typeof k ? k.toLowerCase() : k);
+          true === lowercase[1] &&
             (p2 = "string" === typeof v[key] ? v[key].toLowerCase() : v[key]);
 
           if (true === revert) {
-            p2 && (pair[p2] = p1);
+            undefined !== p2 && (pair[p2] = p1);
           } else {
-            p1 && (pair[p1] = p2 || defaultValue);
+            undefined !== p1 &&
+              (pair[p1] = undefined === p2 ? defaultValue : p2);
           }
           return pair;
         }
@@ -335,13 +341,17 @@ function getCommand(obj, key) {
                 });
               }
             };
-            let p1 = lowercase[0] ? transToLowerCase(k) : k;
-            let p2 = lowercase[1] ? transToLowerCase(c) : c;
+            let p1 = true === lowercase[0] ? transToLowerCase(k) : k;
+            let p2 = true === lowercase[1] ? transToLowerCase(c) : c;
 
             if (true === revert) {
-              p2 && (pair[p2] || (pair[p2] = [])).push(p1);
+              undefined !== p2 &&
+                (undefined === pair[p2] ? (pair[p2] = []) : pair[p2]).push(p1);
             } else {
-              p1 && (pair[p1] || (pair[p1] = [])).push(p2 || defaultValue);
+              undefined !== p1 &&
+                (undefined === pair[p1] ? (pair[p1] = []) : pair[p1]).push(
+                  undefined === p2 ? defaultValue : p2
+                );
             }
           });
           return pair;
@@ -366,6 +376,7 @@ function getCommand(obj, key) {
     };
 
     add(obj, key, name, "type", map, [true, false], 0);
+    add(obj, key, name, "show", map, [true, false], true);
     add(obj, key, name, "weights", map, [true, false], 0);
     add(obj, key, name, "name", map, [true, false]);
     add(obj, key, name, "usage", map, [true, false]);
@@ -399,16 +410,18 @@ function getCommand(obj, key) {
 
   // 所有 switch 转换为 option
   // https://github.com/Arondight/Adachi-BOT/issues/242
-  Object.keys(global[key].functions.type).forEach((f) => {
-    if ("switch" === global[key].functions.type[f]) {
-      global[key].functions.type[f] = "option";
-      global[key].functions.options[f] = lodash.assign(
-        { on: "on" },
-        { off: "off" },
-        global[key].functions.options[f] || {}
-      );
-    }
-  });
+  if (global[key].functions.type) {
+    Object.keys(global[key].functions.type).forEach((f) => {
+      if ("switch" === global[key].functions.type[f]) {
+        global[key].functions.type[f] = "option";
+        global[key].functions.options[f] = lodash.assign(
+          { on: "on" },
+          { off: "off" },
+          global[key].functions.options[f] || {}
+        );
+      }
+    });
+  }
 }
 
 // object: command or master
@@ -442,7 +455,7 @@ function makeUsage(object) {
     );
 
     for (const func of functionList.keys()) {
-      if (object.functions.name[func]) {
+      if (true === object.functions.show[func] && object.functions.name[func]) {
         const type = object.functions.type[func] || "command";
 
         text +=
