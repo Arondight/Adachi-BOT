@@ -4,6 +4,7 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { hasEntrance } from "../../utils/config.js";
 import { basePromise, notePromise } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 import { setUserCookie } from "../../utils/cookie.js";
