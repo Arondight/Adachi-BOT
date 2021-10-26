@@ -70,15 +70,15 @@ async function Plugin(Message, bot) {
   let [day, hour, min, sec] = getTime(parseInt(data.resin_recovery_time), (baseTime - nowTime)/1000);
   message += `
 树脂回满时间：${hour}时${min}分${sec}秒`;
-    let num = 1;
-    for (var expedition of data.expeditions) {
-        if (expedition && expedition.status == "Ongoing") {
-            [day, hour, min, sec] = getTime(parseInt(expedition.remained_time), (baseTime - nowTime) / 1000);
-            message += `
+  let num = 1;
+  for (var expedition of data.expeditions) {
+    if (expedition && expedition.status == "Ongoing") {
+      [day, hour, min, sec] = getTime(parseInt(expedition.remained_time), (baseTime - nowTime) / 1000);
+      message += `
 派遣${num}：${hour}时${min}分${sec}秒`;
-        }
-        num++;
     }
+    num++;
+  }
   await bot.sendMessage(sendID, message , type, userID);
   //await render({ uid, data }, "genshin-note", sendID, type, userID, bot);
 }
