@@ -325,7 +325,7 @@ async function notePromise(uid, server, userID, bot) {
       bot.logger.debug(
         `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的实时便笺。`
       );
-      return Promise.reject("");
+      return dbData
     }
   }
 
