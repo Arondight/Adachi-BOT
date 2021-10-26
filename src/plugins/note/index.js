@@ -9,6 +9,14 @@ import { basePromise, notePromise } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 import { setUserCookie } from "../../utils/cookie.js";
 
+function getTime(s, offset) {
+    const sec = s + offset;
+    const min = sec / 60;
+    const hour = min / 60;
+    const day = hour / 24;
+    return [day, hour % 24, min % 60, sec % 60];
+}
+
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
   const userID = Message.user_id;
@@ -16,7 +24,7 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const sendID = "group" === type ? groupID : userID;
   const dbInfo = await getID(msg, userID); // 米游社 ID
-  let uid, data, region;
+  let uid, data, region, baseTime;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
     await sendPrompt(sendID, userID, "查询游戏内信息", type, bot);
@@ -38,7 +46,9 @@ async function Plugin(Message, bot) {
       return;
     }
     region = baseInfo[1];
-    data = await notePromise(uid, region, userID, bot);
+    const noteInfo = await notePromise(uid, region, userID, bot);
+    data = noteInfo[1];
+    baseTime = noteInfo[0];
     if (!data) {
       await bot.sendMessage(
         sendID,
@@ -55,7 +65,12 @@ async function Plugin(Message, bot) {
       return;
     }
   }
-  await bot.sendMessage(sendID, `树脂${data.current_resin}/${data.max_resin} 委托${data.finished_task_num}/${data.total_task_num} 派遣${data.current_expedition_num}/${data.max_expedition_num}`, type, userID);
+  const nowTime = new Date().valueOf();
+  let message = `树脂${data.current_resin}/${data.max_resin} 委托${data.finished_task_num}/${data.total_task_num} 派遣${data.current_expedition_num}/${data.max_expedition_num}`;
+  const [day, hour, min, sec] = getTime(parseInt(data.resin_recovery_time), baseTime - nowTime);
+  message += `
+树脂回满时间：${hour}时${min}分${sec}秒`;
+  await bot.sendMessage(sendID, message , type, userID);
   //await render({ uid, data }, "genshin-note", sendID, type, userID, bot);
 }
 

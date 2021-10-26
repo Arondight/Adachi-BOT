@@ -325,7 +325,7 @@ async function notePromise(uid, server, userID, bot) {
       bot.logger.debug(
         `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的实时便笺。`
       );
-      return dbData
+      return [lastTime, dbData];
     }
   }
 
@@ -354,7 +354,7 @@ async function notePromise(uid, server, userID, bot) {
     `缓存：新增 ${uid} 的实时便笺，缓存 ${config.cacheAbyEffectTime} 小时。`
   );
 
-  return data;
+  return [nowTime, data];
 }
 export {
   abyPromise,
