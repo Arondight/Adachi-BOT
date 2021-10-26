@@ -158,10 +158,13 @@ async function cleanByTimeDB(
 
   for (const i in records) {
     const uid = records[i][dbKey[1]];
+    let release;
 
     // 没有基准字段则删除该记录（因为很可能是错误数据）
     if (!uid || !(await has(dbName, dbKey[0], i, dbKey[1]))) {
+      release = await mutexDataForDB[dbName].acquire();
       records.splice(i, 1);
+      release();
       nums++;
       continue;
     }
@@ -172,7 +175,9 @@ async function cleanByTimeDB(
     const now = new Date().valueOf();
 
     if (!time || now - time > milliseconds) {
+      release = await mutexDataForDB[dbName].acquire();
       records.splice(i, 1);
+      release();
       nums++;
     }
   }
@@ -190,6 +195,7 @@ async function cleanCookies() {
 
   for (const key of keys) {
     let records = await get(dbName, key);
+    const release = await mutexDataForDB[dbName].acquire();
 
     for (const i in records) {
       // 1. 没有基准字段则删除该记录
@@ -199,6 +205,8 @@ async function cleanCookies() {
         nums++;
       }
     }
+
+    release();
   }
 
   await write(dbName);
@@ -210,6 +218,7 @@ async function cleanCookiesInvalid() {
   const dbName = "cookies_invalid";
   const cookies = (await get(dbName, "cookie")) || [];
   let nums = 0;
+  const release = await mutexDataForDB[dbName].acquire();
 
   for (const i in cookies) {
     if (
@@ -220,6 +229,8 @@ async function cleanCookiesInvalid() {
       nums++;
     }
   }
+
+  release();
 
   await write(dbName);
   return nums;
