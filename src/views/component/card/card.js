@@ -8,19 +8,7 @@ const upper = {
     homeslevel: Number,
     maxcomfort: Number,
     maps: Object,
-    exploration: {
-      type: Object,
-      default() {
-        return [
-          {
-            level: 0,
-            exploration_percentage: 0,
-            icon: "",
-            offerings: [],
-          },
-        ];
-      },
-    },
+    exploration: Object,
     stats: {
       type: Object,
       default() {
@@ -85,6 +73,13 @@ const upper = {
       return (type) => {
         if (this.exploration[type]) {
           return this.exploration[type].level;
+        }
+      };
+    },
+    sakura() {
+      return () => {
+        if (this.exploration[0]) {
+          return this.exploration[0].offerings[0].level;
         }
       };
     },
