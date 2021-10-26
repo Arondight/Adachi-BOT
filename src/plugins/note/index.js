@@ -32,7 +32,7 @@ async function Plugin(Message, bot) {
     const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
     if (hasEntrance(msg, "note", "set_user_cookie")) {
-      const cookie = msg.slice(4);
+      const cookie = msg.slice(9);
       setUserCookie(uid, cookie, bot);
       await bot.sendMessage(sendID, `已设置cookie`, type, userID);
       return;
