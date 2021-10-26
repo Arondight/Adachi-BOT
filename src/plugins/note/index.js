@@ -73,7 +73,7 @@ async function Plugin(Message, bot) {
   message += `
 [每日委托]奖励${data.is_extra_task_reward_received ? "已领取" : "未领取"}`;
   message += `
-[本周剩余消耗减半次数${data.remain_resin_discount_num}/${data.resin_discount_num_limit}`;
+本周剩余消耗减半次数${data.remain_resin_discount_num}/${data.resin_discount_num_limit}`;
   let num = 1;
   for (var expedition of data.expeditions) {
     if (expedition)
