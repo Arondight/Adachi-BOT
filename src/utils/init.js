@@ -19,6 +19,7 @@ async function initDB() {
   await db.init("map");
   await db.init("music", { source: [] });
   await db.init("time");
+  await db.init("note", { user: [], cookie: [] });
 }
 
 async function initBrowser() {

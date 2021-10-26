@@ -187,21 +187,21 @@ async function tryToWarnInvalidCookie(message, cookie) {
   return undefined;
 }
 
-async function getUserCookie(userId, bot) {
-  if (!(await db.includes("cookies", "user", "userId", userId))) {
-    const initData = { userId, cookie: "" };
-    await db.push("cookies", "user", initData);
+async function getUserCookie(user, bot) {
+  if (!(await db.includes("note", "cookie", "user", user))) {
+    const initData = { user, cookie: "" };
+    await db.push("note", "cookie", initData);
   }
-  let { cookie } = await db.get("cookies", "user", { userId });
+  let { cookie } = await db.get("note", "cookie", { user });
   return cookie;
 }
 
-async function setUserCookie(userId, userCookie, bot) {
-  if (!(await db.includes("cookies", "user", "userId", userId))) {
-    const initData = { userId, cookie: "" };
-    await db.push("cookies", "user", initData);
+async function setUserCookie(user, userCookie, bot) {
+  if (!(await db.includes("note", "cookie", "user", user))) {
+    const initData = { user, cookie: "" };
+    await db.push("note", "cookie", initData);
   }
-  await db.update("cookies", "user", { userId }, { cookie: userCookie });
+  await db.update("note", "cookie", { user }, { cookie: userCookie });
 }
 
 export { getCookie, textOfInvalidCookies, tryToWarnInvalidCookie, getUserCookie, setUserCookie };
