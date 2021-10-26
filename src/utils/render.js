@@ -29,7 +29,7 @@ async function render(data, name, id, type, user, bot) {
     await page.setViewport({
       width: await page.evaluate(() => document.body.clientWidth),
       height: await page.evaluate(() => document.body.clientHeight),
-      deviceScaleFactor: 4,
+      deviceScaleFactor: 2,
     });
     await page.goto(`http://localhost:9934/src/views/${name}.html`);
     const html = await page.$("body", { waitUntil: "networkidle0" });
