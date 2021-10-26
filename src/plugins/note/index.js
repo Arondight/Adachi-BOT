@@ -67,9 +67,17 @@ async function Plugin(Message, bot) {
   }
   const nowTime = new Date().valueOf();
   let message = `树脂${data.current_resin}/${data.max_resin} 委托${data.finished_task_num}/${data.total_task_num} 派遣${data.current_expedition_num}/${data.max_expedition_num}`;
-  const [day, hour, min, sec] = getTime(parseInt(data.resin_recovery_time), (baseTime - nowTime)/1000);
+  let [day, hour, min, sec] = getTime(parseInt(data.resin_recovery_time), (baseTime - nowTime)/1000);
   message += `
 树脂回满时间：${hour}时${min}分${sec}秒`;
+    let num = 1;
+    for (var expedition of data.expeditions) {
+        if (expedition && expedition.status == "Ongoing") {
+            [day, hour, min, sec] = getTime(parseInt(expedition.remained_time), (baseTime - nowTime) / 1000);
+            message += `
+派遣${num}：${hour}时${min}分${sec}秒`;
+        }
+    }
   await bot.sendMessage(sendID, message , type, userID);
   //await render({ uid, data }, "genshin-note", sendID, type, userID, bot);
 }
