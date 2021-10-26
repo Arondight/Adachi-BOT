@@ -81,7 +81,7 @@
           <div class="inazuma">
             <div class="exp">{{ percentage(0) }}</div>
             <div class="level">LV.{{ expLevel(0) }}</div>
-            <div class="sakura">LV.{{exploration[0].offerings[0].level}}</div>
+            <div class="sakura">LV.{{sakura()}}</div>
           </div>
         </div>
 
@@ -191,7 +191,7 @@
           profile: 0,
           stats: {},
           avatarsData: [],
-          explorations: [],
+          explorations: Object,
           avatar_number: 0,
           homes: [],
           homeslevel: 0,
