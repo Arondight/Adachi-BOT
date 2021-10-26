@@ -77,6 +77,7 @@ async function Plugin(Message, bot) {
             message += `
 派遣${num}：${hour}时${min}分${sec}秒`;
         }
+        num++;
     }
   await bot.sendMessage(sendID, message , type, userID);
   //await render({ uid, data }, "genshin-note", sendID, type, userID, bot);
