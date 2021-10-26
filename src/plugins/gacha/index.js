@@ -64,7 +64,7 @@ async function Plugin(Message, bot) {
     );
   } else if (hasEntrance(msg, "gacha", "gacha")) {
     const data = await getGachaResult(userID, name);
-    await render(data, "genshin-gacha", sendID, type, userID, bot);
+    await render(data, "genshin-gacha", sendID, type, userID, bot, 1.5);
   } else if (hasEntrance(msg, "gacha", "select-what")) {
     const { choice } = await db.get("gacha", "user", { userID });
 

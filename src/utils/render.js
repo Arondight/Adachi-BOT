@@ -7,7 +7,7 @@ import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
 
-async function render(data, name, id, type, user, bot) {
+async function render(data, name, id, type, user, bot, scale = 1) {
   let base64;
 
   await fs.writeFile(
@@ -23,13 +23,18 @@ async function render(data, name, id, type, user, bot) {
     await page.setViewport({
       width: await page.evaluate(() => document.body.clientWidth),
       height: await page.evaluate(() => document.body.clientHeight),
-      deviceScaleFactor: 2,
+      deviceScaleFactor: scale,
     });
     await page.goto(`http://localhost:9934/src/views/${name}.html`);
     await page.evaluateHandle("document.fonts.ready");
 
     const html = await page.$("body", { waitUntil: "networkidle0" });
-    base64 = await html.screenshot({ encoding: "base64" });
+    base64 = await html.screenshot({
+      encoding: "base64",
+      type: "jpeg",
+      quality: 100,
+      omitBackground: true,
+    });
     await page.close();
   } catch (e) {
     bot.logger.error(`${name} 功能绘图失败：${e}`, user);
