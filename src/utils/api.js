@@ -19,6 +19,8 @@ const __API = {
     "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json",
   FETCH_ABY_DETAIL:
     "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
+  FETCH_ROLE_DAILY_NOTE:
+    "https://api-takumi.mihoyo.com/game_record/app/genshin/api/dailyNote",
 };
 const HEADERS = {
   "User-Agent":
@@ -105,6 +107,16 @@ function getGachaDetail(gachaID) {
   }).then((res) => res.json());
 }
 
+function getDailyNote(role_id, server, cookie) {
+  const query = { role_id, server };
+
+  return fetch(`${__API.FETCH_ROLE_DAILY_NOTE}?${new URLSearchParams(query)}`, {
+    method: "GET",
+    qs: query,
+    headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
+  }).then((res) => res.json());
+}
+
 export {
   getInfo,
   getAbyDetail,
@@ -113,4 +125,5 @@ export {
   getCharacters,
   getGachaList,
   getGachaDetail,
+  getDailyNote,
 };

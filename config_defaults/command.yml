@@ -341,3 +341,25 @@ save:
       description:
       entrance:
         - 改绑
+
+note:
+  enable: true
+  weights: 9999
+  regex:
+    - ^设置Cookie\s+.+$
+    - ^实时便笺\s*$
+  functions:
+    set_user_cookie:
+      weights: 9999
+      name: 设置Cookie
+      usage: <米游社Cookie>
+      description:
+      entrance:
+        - 设置Cookie
+    get_note:
+      weights: 9899
+      name: 实时便笺
+      usage:
+      description:
+      entrance:
+        - 实时便笺

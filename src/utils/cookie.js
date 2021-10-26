@@ -90,4 +90,21 @@ async function getCookie(uid, use_cookie, bot) {
   return cookie;
 }
 
-export { getCookie };
+async function getUserCookie(userId, bot) {
+  if (!(await db.includes("cookies", "user", "userId", userId))) {
+    const initData = { userId, cookie: "" };
+    await db.push("cookies", "user", initData);
+  }
+  let { cookie } = await db.get("cookies", "user", { userId });
+  return cookie;
+}
+
+async function setUserCookie(userId, userCookie, bot) {
+  if (!(await db.includes("cookies", "user", "userId", userId))) {
+    const initData = { userId, cookie: "" };
+    await db.push("cookies", "user", initData);
+  }
+  await db.update("cookies", "user", { userId }, { cookie: userCookie });
+}
+
+export { getCookie, getUserCookie, setUserCookie };

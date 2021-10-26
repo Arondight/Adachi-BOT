@@ -4,8 +4,8 @@
 import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
-import { getCookie } from "./cookie.js";
-import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
+import { getCookie, getUserCookie } from "./cookie.js";
+import { getBase, getDetail, getCharacters, getAbyDetail, getDailyNote } from "./api.js";
 
 async function userInitialize(userID, uid, nickname, level) {
   if (!(await db.includes("character", "user", "userID", userID))) {
@@ -18,6 +18,10 @@ async function userInitialize(userID, uid, nickname, level) {
 
   if (!(await db.includes("time", "user", "aby", uid))) {
     await db.push("time", "user", { aby: uid, time: 0 });
+  }
+
+  if (!(await db.includes("time", "user", "note", uid))) {
+    await db.push("time", "user", { note: uid, time: 0 });
   }
 
   if (!(await db.includes("info", "user", "uid", uid))) {
@@ -252,4 +256,53 @@ async function characterPromise(uid, server, character_ids, bot) {
   return;
 }
 
-export { abyPromise, basePromise, detailPromise, characterPromise };
+async function notePromise(uid, server, userID, bot) {
+    await userInitialize(userID, uid, "", -1);
+    await db.update("character", "user", { userID }, { uid });
+
+    const nowTime = new Date().valueOf();
+    const { time: lastTime } = (await db.get("time", "user", { note: uid })) || {};
+    const { data: dbData } = (await db.get("note", "user", { uid })) || {};
+
+    // 尝试使用缓存
+    if (dbData) {
+        if (
+            lastTime &&
+            nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000
+        ) {
+            bot.logger.debug(
+                `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的实时便笺。`
+            );
+            return Promise.reject("");
+        }
+    }
+
+    const cookie = await getUserCookie(uid, bot);
+    if (!cookie)
+        return Promise.reject(`未设置私人cookie`);
+
+    const { retcode, message, data } = await getDailyNote(
+        uid,
+        server,
+        cookie
+    );
+
+    if (retcode !== 0) {
+        return Promise.reject(`米游社接口报错: ${message}`);
+    }
+
+    if (!(await db.includes("note", "user", "uid", uid))) {
+        const initData = { uid, data: [] };
+        await db.push("note", "user", initData);
+    }
+
+    await db.update("note", "user", { uid }, { data });
+    await db.update("time", "user", { note: uid }, { time: nowTime });
+    bot.logger.debug(
+        `缓存：新增 ${uid} 的实时便笺，缓存 ${config.cacheAbyEffectTime} 小时。`
+    );
+
+    return data;
+}
+
+export { abyPromise, basePromise, detailPromise, characterPromise, notePromise };
