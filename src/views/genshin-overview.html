@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
   <head>
     <meta charset="UTF-8" />
     <title>genshin-overview</title>
@@ -18,6 +18,8 @@
         />
         <div class="content">
           <p class="title-and-name">「{{ title }}·{{ name }}」</p>
+        </div>
+        <div class="introduction">
           <p class="introduce">{{ introduce }}</p>
         </div>
         <div class="dotted"></div>
@@ -34,30 +36,38 @@
           <p class="value main">{{ mainValue }}</p>
           <p class="title main">{{ mainStat }}</p>
         </div>
-        <p class="time">{{ time }}</p>
         <div class="materials">
-          <div class="item-list">
-            <p class="title">突破材料:</p>
-            <div class="list">
-              <img
-                class="item"
-                v-for="el in ascension[0]"
-                :src="icon(el)"
-                alt="ERROR"
-              />
-            </div>
-          </div>
-          <div class="item-list">
-            <p class="title"></p>
-            <div class="list">
-              <img
-                class="item"
-                v-for="el in ascension[1]"
-                :src="icon(el)"
-                alt="ERROR"
-              />
-            </div>
-          </div>
+          <table class="weapon-table">
+            <tbody>
+              <tr>
+                <td class="title-weapon-ascension"><span>突破材料</span></td>
+                <td class="image-weapon-ascension">
+                  <div class="item-list">
+                    <div class="list-weapon">
+                      <img
+                        class="item"
+                        v-for="el in ascension[0]"
+                        :src="icon(el)"
+                        alt="ERROR"
+                      />
+                    </div>
+                  </div>
+                  <div class="item-list">
+                    <p class="title"></p>
+                    <div class="list-weapon">
+                      <img
+                        class="item"
+                        v-for="el in ascension[1]"
+                        :src="icon(el)"
+                        alt="ERROR"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td class="time-weapon-ascension"><p>{{ time }}</p></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="skill">
           <p class="name">{{ skillName }}</p>
@@ -90,47 +100,68 @@
           <p class="value main">{{ mainValue }}</p>
           <p class="title main">{{ mainStat }}</p>
         </div>
-        <p class="time">{{ time }}</p>
         <div class="materials">
-          <div class="item-list">
-            <p class="title">升级材料</p>
-            <div class="list">
-              <img
-                class="item"
-                v-for="el in levelUp"
-                :src="icon(el)"
-                alt="ERROR"
-              />
-            </div>
-          </div>
-
-          <div class="item-list">
-            <p class="title">天赋材料</p>
-            <div class="list">
-              <img
-                class="item"
-                v-for="el in talent"
-                :src="icon(el)"
-                alt="ERROR"
-              />
-            </div>
-          </div>
-          <div class="item-list">
-            <p class="title">突破材料</p>
-            <div class="list">
-              <img
-                class="item"
-                v-for="el in ascension"
-                :src="icon(el)"
-                alt="ERROR"
-              />
-            </div>
-          </div>
+          <table class="character-table">
+            <tr>
+              <td class="material-character-levelup">
+                <p class="title">升级材料</p>
+              </td>
+              <td>
+                <div class="item-list">
+                  <div class="list">
+                    <img
+                      class="item"
+                      v-for="el in levelUp"
+                      :src="icon(el)"
+                      alt="ERROR"
+                    />
+                  </div>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="material-character-talent">
+                <p class="title">天赋材料</p>
+              </td>
+              <td>
+                <div class="item-list">
+                  <div class="list">
+                    <img
+                      class="item"
+                      v-for="el in talent"
+                      :src="icon(el)"
+                      alt="ERROR"
+                    />
+                  </div>
+                </div>
+              </td>
+              <td style="text-align: right"><p>{{ time }}</p></td>
+            </tr>
+            <tr>
+              <td class="material-character-ascension">
+                <p class="title">突破材料</p>
+              </td>
+              <td>
+                <div class="item-list">
+                  <div class="list">
+                    <img
+                      class="item"
+                      v-for="el in ascension"
+                      :src="icon(el)"
+                      alt="ERROR"
+                    />
+                  </div>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          </table>
         </div>
         <div class="constellation">
           <div class="box" v-for="i in 4">
-            <p class="level">{{ numCN[i-1] }}</p>
-            <p class="content">{{ constellations[i-1] }}</p>
+            <p class="level">{{ numCN[i - 1] }}</p>
+            <p class="content">{{ constellations[i - 1] }}</p>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ ARTIFACT_IDS=(
 # ==============================================================================
 # 所有的洞天。
 HOMES=(
-  '罗浮洞'   '翠黛峰'   '清琼岛'
+  '罗浮洞'   '翠黛峰'   '清琼岛'   '绘绮庭'
 )
 # ==============================================================================
 # 所有的游戏角色。
@@ -460,6 +460,11 @@ function syncCustom()
   do
     rpath="${file##${CUSTOM_RES}}"
     thisdir="${RDIR}/$(dirname ${rpath})"
+
+    if [[ '/README.txt' == "$rpath" ]]
+    then
+      continue
+    fi
 
     echo -e "Custom\t${rpath}"
     mkdir -p "$thisdir"

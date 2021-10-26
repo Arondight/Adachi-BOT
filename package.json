@@ -31,7 +31,7 @@
     "startup": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 startup",
     "unstartup": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 unstartup",
     "list": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 list bot",
-    "log": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 log bot"
+    "log": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 log --lines 100 bot"
   },
   "dependencies": {
     "cross-env": "7.0.3",

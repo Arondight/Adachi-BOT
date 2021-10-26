@@ -36,18 +36,30 @@ async function write(dbName) {
 }
 
 async function includes(dbName, key, index, value) {
-  return undefined === db[dbName]
-    ? undefined
-    : db[dbName].chain.get(key).map(index).includes(value).value();
+  return (
+    db[dbName] && db[dbName].chain.get(key).map(index).includes(value).value()
+  );
+}
+
+async function remove(dbName, key, index) {
+  if (undefined === db[dbName]) {
+    return;
+  }
+
+  await mutex.acquire();
+  db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
+  mutex.release();
+
+  write(dbName);
 }
 
 async function get(dbName, key, index = undefined) {
-  if (undefined === db[dbName]) {
-    return undefined;
-  }
-  return undefined === index
-    ? db[dbName].chain.get(key).value()
-    : db[dbName].chain.get(key).find(index).value();
+  return (
+    db[dbName] &&
+    (undefined === index
+      ? db[dbName].chain.get(key).value()
+      : db[dbName].chain.get(key).find(index).value())
+  );
 }
 
 async function push(dbName, key, data) {
@@ -131,7 +143,6 @@ async function cleanByTimeDB(
     if (!time || now - time > milliseconds) {
       records.splice(i, 1);
       nums++;
-      continue;
     }
   }
 
@@ -139,8 +150,8 @@ async function cleanByTimeDB(
   return nums;
 }
 
+// 清理不是今天的数据
 async function cleanCookies() {
-  // 清理不是今天的数据
   const dbName = "cookies";
   const keys = ["cookie", "uid"];
   const today = new Date().toLocaleDateString();
@@ -155,7 +166,6 @@ async function cleanCookies() {
       if (!records[i].date || today != records[i].date) {
         records.splice(i, 1);
         nums++;
-        continue;
       }
     }
   }
@@ -164,24 +174,46 @@ async function cleanCookies() {
   return nums;
 }
 
+// 清理不在配置文件的数据
+async function cleanCookiesInvalid() {
+  const dbName = "cookies_invalid";
+  const cookies = (await get(dbName, "cookie")) || [];
+  let nums = 0;
+
+  for (const i in cookies) {
+    if (
+      !cookies[i].cookie ||
+      !(config.cookies || []).includes(cookies[i].cookie)
+    ) {
+      cookies.splice(i, 1);
+      nums++;
+    }
+  }
+
+  await write(dbName);
+  return nums;
+}
+
 async function clean(dbName) {
-  switch (true) {
-    case "aby" === dbName:
+  switch (dbName) {
+    case "aby":
       return await cleanByTimeDB(
         dbName,
         ["user", "uid"],
         "aby",
         config.dbAbyEffectTime * 60 * 60 * 1000
       );
-    case "info" === dbName:
+    case "info":
       return await cleanByTimeDB(
         dbName,
         ["user", "uid"],
         "uid",
         config.dbInfoEffectTime * 60 * 60 * 1000
       );
-    case "cookies" === dbName:
+    case "cookies":
       return await cleanCookies();
+    case "cookies_invalid":
+      return await cleanCookiesInvalid();
   }
 
   return 0;
@@ -192,6 +224,7 @@ export default {
   has,
   write,
   includes,
+  remove,
   get,
   push,
   update,

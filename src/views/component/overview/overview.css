@@ -1,10 +1,28 @@
+@font-face {
+  font-family: GenshinUsedFont;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
+@font-face {
+  font-family: HuaWen;
+  src: url("../../../../data/font/HWXingKai.ttf");
+}
+
+@font-face {
+  font-family: "LXGW WenKai Screen";
+  src: url("../../../../data/font/LXGWWenKaiMono-Bold.ttf");
+}
+
 body {
   width: 1026px;
   height: 527px;
 }
+
 * {
   margin: 0;
   padding: 0;
+  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
+  color: rgb(93, 105, 131);
 }
 
 img {
@@ -16,14 +34,6 @@ html {
   font-family: GenshinUsedFont, monospace;
 }
 
-@font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
-}
-@font-face {
-  font-family: HuaWen;
-  src: url("../../../../data/font/HWXingKai.ttf");
-}
 .info-base .background {
   position: absolute;
 }
@@ -45,32 +55,40 @@ html {
 
 .info-base .content {
   position: absolute;
-  top: 14px;
+  left: 527px;
+  top: 25px;
 }
 
-.info-base .content .title-and-name {
-  position: absolute;
-  font-family: HuaWen, GenshinUsedFont, monospace;
-  color: var(--styleInfoColor);
+.title-and-name {
+  position: relative;
+  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
+  color: #333 !important;
   font-size: 18pt;
-  top: 21px;
   width: 600px;
-  left: 494px;
 }
 
-.info-base .content .introduce {
+.introduction {
   position: absolute;
+  top: 53px;
+  height: 51px;
+  left: 543px;
+  width: 450px;
+  text-align: justify;
+}
+
+.introduce {
+  position: relative;
+  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
   color: rgb(99, 112, 139);
-  left: 509px;
-  top: 48px;
   font-size: 11.23pt;
-  width: 480px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .info-base .dotted {
   position: absolute;
-  width: 474px;
-  left: 512px;
+  width: 450px;
+  left: 543px;
   border-bottom: 2px dashed;
   top: 104px;
   color: var(--dottedColor);
@@ -78,7 +96,8 @@ html {
 
 .character {
   position: absolute;
-  left: 512px;
+  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
+  left: 543px;
   top: 14px;
 }
 
@@ -94,12 +113,14 @@ html {
   width: 237px;
   margin-bottom: 5px;
 }
+
 .base-info .element {
   position: absolute;
   width: 237px;
   left: 237px;
   margin-bottom: 5px;
 }
+
 .base-info .cv {
   position: absolute;
   top: 23px;
@@ -133,17 +154,17 @@ html {
 
 .data-block {
   position: relative;
-  width: 474px;
+  width: 450px;
   top: 95px;
   height: 22px;
+  /*调试用代码，记得之后改回来*/
+  /*background-color: rgb(211, 200, 187);*/
   background-color: var(--backgroundColor);
 }
 
 .data-block .star-icon {
   position: absolute;
-  height: 19px;
-  top: 1px;
-  left: 4px;
+  height: 22px;
   display: inline-block;
   margin-right: 50px;
 }
@@ -158,20 +179,32 @@ html {
 .data-block .title {
   font-size: 14px;
   text-align: center;
-  top: 4px;
   color: rgba(255, 255, 255, 0.75);
 }
 
 .data-block .value {
-  font-size: 20px;
-  margin: 0 24px 0 12px;
+  font-size: 19px;
+  margin: 0 12px 0 12px;
   color: rgb(255, 255, 255);
+}
+
+.value.atk,
+.title.atk,
+.value.main,
+.title.main {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.title.atk,
+.title.main {
+  font-size: 17px;
 }
 
 .materials {
   position: relative;
-  top: 103px;
-  left: 12px;
+  top: 106px;
 }
 
 .time {
@@ -196,10 +229,9 @@ html {
   position: relative;
   display: table-cell;
   font-size: 23pt;
-  width: 45px;
+  width: 38px;
   vertical-align: middle;
-  text-align: center;
-  font-family: HuaWen, monospace;
+  font-family: "LXGW WenKai Screen", monospace;
 }
 
 .character .constellation .content {
@@ -209,12 +241,13 @@ html {
   height: 45px;
   padding-left: 5px;
   font-size: 10.46pt;
-  width: 416px;
+  width: 408px;
+  text-align: justify;
 }
 
 .weapon {
   position: absolute;
-  left: 512px;
+  left: 543px;
   width: 450px;
   top: 112px;
 }
@@ -247,34 +280,35 @@ html {
 
 .weapon .materials {
   position: relative;
-  top: 14px;
+  top: 18px;
 }
 
 .weapon .time {
-  top: 62px;
+  top: 74px;
 }
 
 .weapon .skill {
   position: relative;
   top: 26px;
-  left: 9px;
 }
 
 .weapon .skill .name {
   position: relative;
   font-size: 18.46pt;
-  font-family: HuaWen, GenshinUsedFont, monospace;
+  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
   color: rgb(85, 97, 120);
 }
 
 .weapon .skill .content {
   position: relative;
-  width: auto;
+  width: 451px;
   word-break: break-all;
   word-wrap: break-word;
+  text-align: justify;
   color: rgb(118, 130, 157);
   top: 7px;
-  left: 13px;
+  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
+  /* left: 13px; */
 }
 
 .item-list {
@@ -287,15 +321,43 @@ html {
   position: absolute;
   display: inline-block;
   font-size: 11.15pt;
-  top: 7px;
   color: rgb(93, 105, 131);
+}
+
+.title-weapon-ascension,
+.time-weapon-ascension {
+  color: rgb(93, 105, 131);
+}
+
+table.weapon-table,
+table.character-table {
+  border-spacing: 0 !important;
+  width: 460px;
+  margin: 0;
+  padding: 0;
+}
+
+td.title-weapon-ascension {
+  width: fit-content;
+}
+
+td.time-weapon-ascension,
+material-character-ascension {
+  text-align: right;
+}
+
+.list-weapon {
+  position: relative;
+  display: inline-block;
+  height: 32px;
+  left: 15px;
 }
 
 .item-list .list {
   position: relative;
   display: inline-block;
   height: 32px;
-  left: 83px;
+  left: 15px;
 }
 
 .item-list .item {

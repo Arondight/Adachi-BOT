@@ -5,6 +5,7 @@ import {
   basePromise,
   detailPromise,
   characterPromise,
+  handleDetailError,
 } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
@@ -24,7 +25,7 @@ async function Plugin(Message, bot) {
   let uid;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, name, "查询游戏内信息", type);
+    await sendPrompt(sendID, userID, name, "查询游戏内信息", type, bot);
     return;
   }
 
@@ -44,9 +45,16 @@ async function Plugin(Message, bot) {
     const detailInfo = await detailPromise(...baseInfo, userID, bot);
     await characterPromise(...baseInfo, detailInfo, bot);
   } catch (e) {
-    // 抛出空串则使用缓存
-    if ("" !== e) {
-      await bot.sendMessage(sendID, e, type, userID);
+    const ret = await handleDetailError(e);
+
+    if (!ret) {
+      await bot.sendMaster(sendID, e, type, userID);
+      return;
+    }
+
+    if (Array.isArray(ret)) {
+      ret[0] && (await bot.sendMessage(sendID, ret[0], type, userID));
+      ret[1] && (await bot.sendMaster(sendID, ret[1], type, userID));
       return;
     }
   }

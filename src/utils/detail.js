@@ -4,8 +4,55 @@
 import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
-import { getCookie, getUserCookie } from "./cookie.js";
-import { getBase, getDetail, getCharacters, getAbyDetail, getDailyNote } from "./api.js";
+import { getCookie, tryToWarnInvalidCookie, getUserCookie } from "./cookie.js";
+import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
+
+async function detailError(
+  message,
+  cache = false,
+  master = false,
+  message_master = ""
+) {
+  return Promise.reject({
+    detail: true,
+    message,
+    cache,
+    master,
+    message_master,
+  });
+}
+
+async function returnDetailErrorForPossibleInvalidCookie(message, cookie) {
+  const warnInvalidCookie = await tryToWarnInvalidCookie(message, cookie);
+  const masterArgs = warnInvalidCookie
+    ? [true, warnInvalidCookie]
+    : [false, ""];
+  return await detailError(`米游社接口报错: ${message}`, false, ...masterArgs);
+}
+
+// return true if we use cache
+async function handleDetailError(e) {
+  let messages = [];
+
+  if (true === e.detail) {
+    // 尝试使用缓存
+    if (true !== e.cache) {
+      if ("string" === typeof e.message) {
+        messages.push(e.message);
+      }
+
+      if (true === e.master && "string" === typeof e.message_master) {
+        messages.push(e.message_master);
+      }
+
+      return messages;
+    }
+
+    return true;
+  }
+
+  return false;
+}
 
 async function userInitialize(userID, uid, nickname, level) {
   if (!(await db.includes("character", "user", "userID", userID))) {
@@ -81,7 +128,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
       bot.logger.debug(
         `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`
       );
-      return Promise.reject("");
+      return await detailError("", true);
     }
   }
 
@@ -94,7 +141,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
   );
 
   if (retcode !== 0) {
-    return Promise.reject(`米游社接口报错: ${message}`);
+    return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
   }
 
   if (!(await db.includes("aby", "user", "uid", uid))) {
@@ -114,26 +161,30 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
 async function basePromise(mhyID, userID, bot) {
   const cookie = await getCookie("MHY" + mhyID, false, bot);
   const { retcode, message, data } = await getBase(mhyID, cookie);
-
   const errInfo =
     "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
 
   if (retcode !== 0) {
-    return Promise.reject(`米游社接口报错: ${message}`);
+    return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
   } else if (!data.list || 0 === data.list.length) {
-    return Promise.reject(errInfo);
+    return await detailError(errInfo);
   }
 
-  const baseInfo = data.list.find((el) => 2 === el["game_id"]);
+  const baseInfo = data.list.find((el) => 2 === el.game_id);
 
   if (!baseInfo) {
-    return Promise.reject(errInfo);
+    return await detailError(errInfo);
   }
 
   const { game_role_id, nickname, region, level } = baseInfo;
   const uid = parseInt(game_role_id);
   await userInitialize(userID, uid, nickname, level);
   await db.update("info", "user", { uid }, { level, nickname });
+
+  if (await db.includes("map", "user", "userID", userID)) {
+    await db.update("map", "user", { userID }, { UID: uid });
+  }
+
   return [uid, region];
 }
 
@@ -151,10 +202,10 @@ async function detailPromise(uid, server, userID, bot) {
     const { retcode, message } = await db.get("info", "user", { uid });
 
     if (retcode !== 0) {
-      return Promise.reject(`米游社接口报错: ${message}`);
+      return await detailError(`米游社接口报错: ${message}`);
     }
 
-    return Promise.reject("");
+    return await detailError("", true);
   }
 
   const cookie = await getCookie(uid, true, bot);
@@ -167,7 +218,8 @@ async function detailPromise(uid, server, userID, bot) {
       { uid },
       { message, retcode: parseInt(retcode) }
     );
-    return Promise.reject(`米游社接口报错: ${message}`);
+
+    return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
   }
 
   await db.update(
@@ -189,7 +241,7 @@ async function detailPromise(uid, server, userID, bot) {
     `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
   );
 
-  const characterID = data.avatars.map((el) => el["id"]);
+  const characterID = data.avatars.map((el) => el.id);
   return characterID;
 }
 
@@ -203,7 +255,7 @@ async function characterPromise(uid, server, character_ids, bot) {
   );
 
   if (retcode !== 0) {
-    return Promise.reject(`米游社接口报错: ${message}`);
+    return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
   }
 
   let avatars = [];
@@ -226,12 +278,12 @@ async function characterPromise(uid, server, character_ids, bot) {
       ]);
       let artifact = [];
       let constellationNum = 0;
-      const constellations = el["constellations"].reverse();
+      const constellations = el.constellations.reverse();
 
       for (const level in constellations) {
         if (constellations[level]) {
-          if (constellations[level]["is_actived"]) {
-            constellationNum = constellations[level]["pos"];
+          if (constellations[level].is_actived) {
+            constellationNum = constellations[level].pos;
             break;
           }
         }
@@ -304,5 +356,10 @@ async function notePromise(uid, server, userID, bot) {
 
     return data;
 }
-
-export { abyPromise, basePromise, detailPromise, characterPromise, notePromise };
+export {
+  abyPromise,
+  basePromise,
+  detailPromise,
+  characterPromise,
+  handleDetailError,
+};

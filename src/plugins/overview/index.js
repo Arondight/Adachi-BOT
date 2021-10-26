@@ -19,7 +19,7 @@ async function Plugin(Message, bot) {
     !(await hasAuth(userID, "overview")) ||
     !(await hasAuth(sendID, "overview"))
   ) {
-    await sendPrompt(sendID, userID, name, "查询游戏数据", type);
+    await sendPrompt(sendID, userID, name, "查询游戏数据", type, bot);
     return;
   }
 
@@ -29,7 +29,9 @@ async function Plugin(Message, bot) {
   }
 
   try {
-    data = await getInfo(alias[text] || text);
+    data = await getInfo(
+      alias["string" === typeof text ? text.toLowerCase() : text] || text
+    );
   } catch (e) {
     await bot.sendMessage(
       sendID,

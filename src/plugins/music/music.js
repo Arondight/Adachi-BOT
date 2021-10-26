@@ -1,13 +1,10 @@
+/* global all */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
 import db from "../../utils/database.js";
-
-const MUSICSRC = {
-  SRC_QQ: "QQ",
-  SRC_163: "163",
-};
-Object.freeze(MUSICSRC);
 
 const ERRCODE = {
   ERR_SRC: "1",
@@ -53,7 +50,7 @@ async function musicQQ(keyword) {
         type: "music",
         data: {
           type: "qq",
-          id: jbody["data"]["song"]["itemlist"][0]["id"],
+          id: jbody.data.song.itemlist[0].id,
         },
       },
     ];
@@ -99,7 +96,7 @@ async function music163(keyword) {
         type: "music",
         data: {
           type: "163",
-          id: jbody["result"]["songs"][0]["id"],
+          id: jbody.result.songs[0].id,
         },
       },
     ];
@@ -111,8 +108,8 @@ async function music163(keyword) {
 async function musicID(msg, source) {
   const [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
-    [MUSICSRC.SRC_QQ]: musicQQ,
-    [MUSICSRC.SRC_163]: music163,
+    [all.functions.options.music_source.qq || "qq"]: musicQQ,
+    [all.functions.options.music_source[163] || "163"]: music163,
   };
 
   if (!(source in worker)) {
@@ -123,20 +120,29 @@ async function musicID(msg, source) {
 }
 
 async function musicSrc(msg, id) {
-  const [source] = msg.split(/(?<=^\S+)\s/).slice(1);
+  let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
   const data = await db.get("music", "source", { ID: id });
 
-  if (!Object.values(MUSICSRC).includes(source)) {
-    return false;
-  }
+  if ("string" === typeof source) {
+    source = source.toLowerCase();
 
-  if (undefined === data) {
-    await db.push("music", "source", {
-      ID: id,
-      Source: source,
-    });
-  } else {
-    await db.update("music", "source", { ID: id }, { ...data, Source: source });
+    if (!Object.values(all.functions.options.music_source).includes(source)) {
+      return false;
+    }
+
+    if (undefined === data) {
+      await db.push("music", "source", {
+        ID: id,
+        Source: source,
+      });
+    } else {
+      await db.update(
+        "music",
+        "source",
+        { ID: id },
+        { ...data, Source: source }
+      );
+    }
   }
 
   return source;

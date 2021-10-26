@@ -14,11 +14,11 @@ async function Plugin(Message, bot) {
   const sendID = "group" === type ? groupID : userID;
   const cacheDir = path.resolve(rootdir, "data", "image", "material");
   const weaponURL =
-    "https://upload-bbs.mihoyo.com/upload/2021/09/01/75833613/252ef04dceaf14e0f2a7f2a4bff505ba_7296608011964896512.png";
+    "https://upload-bbs.mihoyo.com/upload/2021/10/13/75379475/b56eedc27bbaf530dd3c523b1105e74b_7322607822838656788.png";
   const talentURL =
-    "https://upload-bbs.mihoyo.com/upload/2021/09/01/75833613/b99595a6030c285a556117c220b9bcde_5428581671541209105.png";
+    "https://upload-bbs.mihoyo.com/upload/2021/09/21/75833613/db0f03fcfb1b4afb6238e7ce8bb12a95_5543274064496215355.png";
   const weeklyURL =
-    "https://upload-bbs.mihoyo.com/upload/2021/09/01/75833613/a9e9053f6463eeeb877e8f005308f06e_7792132300760355574.png";
+    "https://upload-bbs.mihoyo.com/upload/2021/09/21/75833613/f6b05ab0563fc7a8404b7906d8a67707_8883237440326538461.png";
   let thisURL = weeklyURL;
 
   imageCache.setOptions({
