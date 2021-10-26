@@ -4,10 +4,11 @@
 import { Low, JSONFileSync } from "lowdb";
 import path from "path";
 import lodash from "lodash";
-import { Mutex } from "./mutex.js";
+import { Mutex } from "async-mutex";
 
 const db = {};
-const mutex = new Mutex();
+const mutexData = new Mutex();
+const mutexWrite = new Mutex();
 
 // 如果数据库不存在，将自动创建新的空数据库。
 async function init(dbName, defaultElement = { user: [] }) {
@@ -17,27 +18,28 @@ async function init(dbName, defaultElement = { user: [] }) {
   db[dbName] = new Low(adapter);
   await db[dbName].read();
   db[dbName].data = db[dbName].data || defaultElement;
-  db[dbName].chain = lodash.chain(db[dbName].data);
-  db[dbName].write();
+  db[dbName].chain = await lodash.chain(db[dbName].data);
+  await db[dbName].write();
 }
 
 async function has(dbName, ...path) {
   return undefined === db[dbName]
     ? false
-    : db[dbName].chain.hasIn(path).value();
+    : await db[dbName].chain.hasIn(path).value();
 }
 
 async function write(dbName) {
   if (db[dbName]) {
-    await mutex.acquire();
-    db[dbName].write();
-    mutex.release();
+    const release = await mutexWrite.acquire();
+    await db[dbName].write();
+    release();
   }
 }
 
 async function includes(dbName, key, index, value) {
   return (
-    db[dbName] && db[dbName].chain.get(key).map(index).includes(value).value()
+    db[dbName] &&
+    (await db[dbName].chain.get(key).map(index).includes(value).value())
   );
 }
 
@@ -46,19 +48,19 @@ async function remove(dbName, key, index) {
     return;
   }
 
-  await mutex.acquire();
-  db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
-  mutex.release();
+  const release = await mutexData.acquire();
+  db[dbName].data[key] = await db[dbName].chain.get(key).reject(index).value();
+  release();
 
-  write(dbName);
+  await write(dbName);
 }
 
 async function get(dbName, key, index = undefined) {
   return (
     db[dbName] &&
     (undefined === index
-      ? db[dbName].chain.get(key).value()
-      : db[dbName].chain.get(key).find(index).value())
+      ? await db[dbName].chain.get(key).value()
+      : await db[dbName].chain.get(key).find(index).value())
   );
 }
 
@@ -67,11 +69,11 @@ async function push(dbName, key, data) {
     return;
   }
 
-  await mutex.acquire();
-  db[dbName].chain.get(key).push(data).value();
-  mutex.release();
+  const release = await mutexData.acquire();
+  await db[dbName].chain.get(key).push(data).value();
+  release();
 
-  write(dbName);
+  await write(dbName);
 }
 
 async function update(dbName, key, index, data) {
@@ -79,11 +81,11 @@ async function update(dbName, key, index, data) {
     return;
   }
 
-  await mutex.acquire();
-  db[dbName].chain.get(key).find(index).assign(data).value();
-  mutex.release();
+  const release = await mutexData.acquire();
+  await db[dbName].chain.get(key).find(index).assign(data).value();
+  release();
 
-  write(dbName);
+  await write(dbName);
 }
 
 async function set(dbName, key, data) {
@@ -91,11 +93,11 @@ async function set(dbName, key, data) {
     return;
   }
 
-  await mutex.acquire();
-  db[dbName].chain.set(key, data).value();
-  mutex.release();
+  const release = await mutexData.acquire();
+  await db[dbName].chain.set(key, data).value();
+  release();
 
-  write(dbName);
+  await write(dbName);
 }
 
 async function cleanByTimeDB(

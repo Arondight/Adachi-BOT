@@ -34,6 +34,7 @@
     "log": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 log --lines 100 bot"
   },
   "dependencies": {
+    "async-mutex": "0.3.2",
     "cross-env": "7.0.3",
     "express": "4.17.1",
     "image-cache": "1.0.1",
