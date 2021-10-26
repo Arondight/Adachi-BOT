@@ -87,8 +87,8 @@ body {
 .element .character-image {
   position: absolute;
   display: inline-block;
-  margin: 0 3px;
-  width: 106px;
+  /* margin: 0 3px; */
+  width: 107px;
   height: 473px;
   bottom: 129px;
 }
