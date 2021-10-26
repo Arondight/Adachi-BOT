@@ -5,7 +5,7 @@ import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
 import { getCookie, tryToWarnInvalidCookie, getUserCookie } from "./cookie.js";
-import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
+import { getBase, getDetail, getCharacters, getAbyDetail, getDailyNote } from "./api.js";
 
 async function detailError(
   message,
