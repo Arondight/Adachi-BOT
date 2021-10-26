@@ -309,52 +309,52 @@ async function characterPromise(uid, server, character_ids, bot) {
 }
 
 async function notePromise(uid, server, userID, bot) {
-    await userInitialize(userID, uid, "", -1);
-    await db.update("character", "user", { userID }, { uid });
+  await userInitialize(userID, uid, "", -1);
+  await db.update("character", "user", { userID }, { uid });
 
-    const nowTime = new Date().valueOf();
-    const { time: lastTime } = (await db.get("time", "user", { note: uid })) || {};
-    const { data: dbData } = (await db.get("note", "user", { uid })) || {};
+  const nowTime = new Date().valueOf();
+  const { time: lastTime } = (await db.get("time", "user", { note: uid })) || {};
+  const { data: dbData } = (await db.get("note", "user", { uid })) || {};
 
-    // 尝试使用缓存
-    if (dbData) {
-        if (
-            lastTime &&
-            nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000
-        ) {
-            bot.logger.debug(
-                `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的实时便笺。`
-            );
-            return Promise.reject("");
-        }
+  // 尝试使用缓存
+  if (dbData) {
+    if (
+      lastTime &&
+      nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000
+    ) {
+      bot.logger.debug(
+        `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的实时便笺。`
+      );
+      return Promise.reject("");
     }
+  }
 
-    const cookie = await getUserCookie(uid, bot);
-    if (!cookie)
-        return Promise.reject(`未设置私人cookie`);
+  const cookie = await getUserCookie(uid, bot);
+  if (!cookie)
+    return Promise.reject(`未设置私人cookie`);
 
-    const { retcode, message, data } = await getDailyNote(
-        uid,
-        server,
-        cookie
-    );
+  const { retcode, message, data } = await getDailyNote(
+    uid,
+    server,
+    cookie
+  );
 
-    if (retcode !== 0) {
-        return Promise.reject(`米游社接口报错: ${message}`);
-    }
+  if (retcode !== 0) {
+    return Promise.reject(`米游社接口报错: ${message}`);
+  }
 
-    if (!(await db.includes("note", "user", "uid", uid))) {
-        const initData = { uid, data: [] };
-        await db.push("note", "user", initData);
-    }
+  if (!(await db.includes("note", "user", "uid", uid))) {
+    const initData = { uid, data: [] };
+    await db.push("note", "user", initData);
+  }
 
-    await db.update("note", "user", { uid }, { data });
-    await db.update("time", "user", { note: uid }, { time: nowTime });
-    bot.logger.debug(
-        `缓存：新增 ${uid} 的实时便笺，缓存 ${config.cacheAbyEffectTime} 小时。`
-    );
+  await db.update("note", "user", { uid }, { data });
+  await db.update("time", "user", { note: uid }, { time: nowTime });
+  bot.logger.debug(
+    `缓存：新增 ${uid} 的实时便笺，缓存 ${config.cacheAbyEffectTime} 小时。`
+  );
 
-    return data;
+  return data;
 }
 export {
   abyPromise,
@@ -362,4 +362,5 @@ export {
   detailPromise,
   characterPromise,
   handleDetailError,
+  notePromise,
 };
