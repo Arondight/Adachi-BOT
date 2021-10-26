@@ -70,13 +70,21 @@ async function Plugin(Message, bot) {
   let [day, hour, min, sec] = getTime(parseInt(data.resin_recovery_time), (baseTime - nowTime)/1000);
   message += `
 树脂回满时间：${hour}时${min}分${sec}秒`;
+  message += `
+[每日委托]奖励${data.is_extra_task_reward_received ? "已领取" : "未领取"}`;
+  message += `
+[本周剩余消耗减半次数${data.remain_resin_discount_num}/${data.resin_discount_num_limit}`;
   let num = 1;
   for (var expedition of data.expeditions) {
-    if (expedition && expedition.status == "Ongoing") {
-      [day, hour, min, sec] = getTime(parseInt(expedition.remained_time), (baseTime - nowTime) / 1000);
-      message += `
+    if (expedition)
+      if (expedition.status == "Ongoing") {
+        [day, hour, min, sec] = getTime(parseInt(expedition.remained_time), (baseTime - nowTime) / 1000);
+        message += `
 派遣${num}：${hour}时${min}分${sec}秒`;
-    }
+      } else if (expedition.status == "Finished") {
+        message += `
+派遣${num}：已完成`;
+      }
     num++;
   }
   await bot.sendMessage(sendID, message , type, userID);
