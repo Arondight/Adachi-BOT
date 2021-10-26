@@ -16,7 +16,6 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const sendID = "group" === type ? groupID : userID;
   const dbInfo = await getID(msg, userID); // 米游社 ID
-  const cookie = msg.slice(4);
   let uid, data, region;
 
   if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
@@ -33,6 +32,7 @@ async function Plugin(Message, bot) {
     const baseInfo = await basePromise(dbInfo, userID, bot);
     uid = baseInfo[0];
     if (hasEntrance(msg, "note", "set_user_cookie")) {
+      const cookie = msg.slice(4);
       setUserCookie(uid, cookie, bot);
       await bot.sendMessage(sendID, `已设置cookie`, type, userID);
       return;
