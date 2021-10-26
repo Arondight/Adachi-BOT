@@ -11,7 +11,7 @@ import { getID } from "../../utils/id.js";
 
 const generateImage = async (uid, id, type, user, bot) => {
   const data = await db.get("info", "user", { uid });
-  await render(data, "genshin-card", id, type, user, bot, 1.5);
+  await render(data, "genshin-card", id, type, user, bot);
 };
 
 async function Plugin(Message, bot) {

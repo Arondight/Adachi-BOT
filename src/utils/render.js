@@ -7,7 +7,7 @@ import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
 
-async function render(data, name, id, type, user, bot, scale = 1) {
+async function render(data, name, id, type, user, bot, scale = 1.5) {
   let base64;
 
   await fs.writeFile(
