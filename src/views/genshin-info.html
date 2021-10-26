@@ -2,10 +2,10 @@
 <html lang="zh-cn">
   <head>
     <meta charset="UTF-8" />
-    <title>genshin-info</title>
-    <script src="./component/card/card.js"></script>
-    <link rel="stylesheet" type="text/css" href="./component/card/card.css" />
+    <title>genshin-card</title>
     <script src="../../data/js/vue.min.js"></script>
+    <script src="./component/card/card.js"></script>
+    <link rel="stylesheet" href="./component/card/card.css" />
   </head>
 
   <body>
@@ -13,21 +13,28 @@
       <upper
         :uid="uid"
         :nickname="nickname"
+        :level="level"
         :stats="stats"
         :exploration="explorations"
         :profile="profile"
+        :homeslevel="homeslevel"
+        :maxcomfort="maxcomfort"
+        :maps="homes"
       ></upper>
-      <home :maps="homes"></home>
       <div class="avatars-box" v-for="avatars in avatarsData">
         <middle :avatars="avatars"></middle>
       </div>
+
       <bottom></bottom>
     </div>
 
     <template id="upper">
       <div>
         <div class="background">
-          <img src="./component/info/info-new-upper.png" alt="ERROR" />
+          <img
+            src="http://localhost:9934/resources/Version2/module/uid-upper-v2-2.png"
+            alt="ERROR"
+          />
         </div>
         <img :src="Picture" alt="ERROR" class="profile" />
         <div class="base-info">
@@ -39,73 +46,73 @@
           <p class="stats">{{stats.achievement_number}}</p>
           <p class="stats">{{stats.avatar_number}}</p>
           <p class="stats">{{stats.spiral_abyss}}</p>
+          <p class="stats">{{stats.domain_number}}</p>
         </div>
         <div class="detail detail-middle">
           <p class="stats">{{stats.common_chest_number}}</p>
           <p class="stats">{{stats.exquisite_chest_number}}</p>
           <p class="stats">{{stats.precious_chest_number}}</p>
           <p class="stats">{{stats.luxurious_chest_number}}</p>
+          <p class="stats">{{stats.magic_chest_number}}</p>
         </div>
         <div class="detail detail-right">
           <p class="stats">{{stats.anemoculus_number}}</p>
           <p class="stats">{{stats.geoculus_number}}</p>
           <p class="stats">{{stats.electroculus_number}}</p>
         </div>
-        <div class="explorationbox">
-          <div class="explorationdiv">
-            <div class="expbackground">
-              <img :src="icon(0)" alt="ERROR" />
-              <div class="explist">
-                <div class="exploration daoqi-exp">
-                  探索度：{{percentage(0)}}
-                </div>
-                <div class="exploration daoqi-level">
-                  声望等级：{{expLevel(0)}}级
-                </div>
-                <div class="exploration daoqi-offerlevel">
-                  {{exploration[0].offerings[0].name}}等级：{{exploration[0].offerings[0].level}}级
-                </div>
-              </div>
-            </div>
 
-            <div class="expbackground">
-              <img :src="icon(1)" alt="ERROR" />
-              <div class="explist">
-                <div class="exploration dragonspine-exp">
-                  探索度：{{percentage(1)}}
-                </div>
-                <div class="exploration dragonspine-offerlevel">
-                  {{exploration[1].offerings[0].name}}等级：{{exploration[1].offerings[0].level}}级
-                </div>
-              </div>
-            </div>
+        <div class="exploration">
+          <div class="mondstadt">
+            <div class="exp">{{ percentage(3) }}</div>
+            <div class="level">LV.{{ expLevel(3) }}</div>
           </div>
-          <div class="explorationdiv">
-            <div class="expbackground">
-              <img :src="icon(2)" alt="ERROR" />
-              <div class="explist">
-                <div class="exploration liyue-exp">
-                  探索度：{{percentage(2)}}
-                </div>
-                <div class="exploration liyue-level">
-                  声望等级：{{expLevel(2)}}级
-                </div>
-              </div>
-            </div>
-
-            <div class="expbackground">
-              <img :src="icon(3)" alt="ERROR" />
-              <div class="explist">
-                <div class="exploration mengde-exp">
-                  探索度：{{percentage(3)}}
-                </div>
-                <div class="exploration mengde-level">
-                  声望等级：{{expLevel(3)}}级
-                </div>
-              </div>
-            </div>
+          <div class="dragonspine">
+            <div class="exp">{{ percentage(1) }}</div>
+            <div class="level">LV.{{ expLevel(1) }}</div>
+          </div>
+          <div class="liyue">
+            <div class="exp">{{ percentage(2) }}</div>
+            <div class="level">LV.{{ expLevel(2) }}</div>
+          </div>
+          <div class="inazuma">
+            <div class="exp">{{ percentage(0) }}</div>
+            <div class="level">LV.{{ expLevel(0) }}</div>
+            <div class="sakura">LV.{{exploration[0].offerings[0].level}}</div>
           </div>
         </div>
+
+        <div class="home">
+          <p class="title-and-level">尘歌壶 Lv.{{ homeslevel }}</p>
+          <div class="map">
+            <div class="home-box" v-for="data in homedata">
+              <img
+                class="home-background"
+                :src="'http://localhost:9934/resources/item/'+data.name+'.png'"
+                alt="ERROR"
+              />
+              <div class="unlock" v-if="data.level !== -1">
+                <div class="box-block unlock-block"></div>
+                <div class="box-block unlock-content-block">
+                  <p class="box-content name">{{ data.name }}</p>
+                  <p class="box-content level">洞天等级</p>
+                  <p class="box-content comfort">
+                    {{ data.comfort_level_name }}
+                  </p>
+                </div>
+              </div>
+              <div class="locked" v-else>
+                <div class="box-block locked-block"></div>
+                <img
+                  class="lock-icon"
+                  src="http://localhost:9934/resources/item/lock.png"
+                  alt="ERROR"
+                />
+              </div>
+            </div>
+          </div>
+          <p class="comfort-num">仙力: {{ maxcomfort }}</p>
+        </div>
+
         <img
           src="http://localhost:9934/resources/module/card-new-package.png"
           alt="ERROR"
@@ -125,7 +132,6 @@
           <div class="con num6" v-else-if="avatar.actived_constellation_num==6">
             {{avatar.actived_constellation_num}}
           </div>
-          <!-- <img src="http://localhost:9934/resources/module/element.png" alt="ERROR" class="Anemo"/> -->
           <div class="element-border" :class="avatar.element"></div>
           <img class="profile" :src="avatar.icon" alt="ERROR" />
           <div class="avatar-info">
@@ -170,39 +176,6 @@
       </div>
     </template>
 
-    <template id="home-map">
-      <div class="map">
-        <img class="home-img" :src="bgImg" alt="ERROR" />
-        <div class="unlock" v-if="data.level !== -1">
-          <div class="map-block unlock-block"></div>
-          <div class="map-block unlock-content-block">
-            <p class="map-content map-level">{{data.comfort_level_name}}</p>
-            <p class="map-content map-comfort">洞天仙力</p>
-            <p class="map-content map-comfort">{{data.comfort_num}}</p>
-          </div>
-        </div>
-        <div class="locked" v-else>
-          <div class="map-block lock-block"></div>
-          <img
-            class="lock-img"
-            src="http://localhost:9934/resources/item/lock.png"
-            alt="ERROR"
-          />
-        </div>
-      </div>
-    </template>
-
-    <template id="home">
-      <div class="home">
-        <p class="home-title">尘歌壶</p>
-        <div class="map">
-          <home-map :data="hole"></home-map>
-          <home-map :data="mountain"></home-map>
-          <home-map :data="island"></home-map>
-        </div>
-      </div>
-    </template>
-
     <script>
       new Vue({
         el: "#app",
@@ -217,12 +190,13 @@
           explorations: [],
           avatar_number: 0,
           homes: [],
+          homeslevel: 0,
+          maxcomfort: 0,
         },
         components: {
           upper,
           middle,
           bottom,
-          home,
         },
         methods: {
           cutArray(array, step) {
@@ -264,6 +238,10 @@
               }
             });
             this.avatarsData = this.cutArray(avatarsList, 7);
+
+            this.homeslevel = res.homes[0].level !== 0 ? res.homes[0].level : 0;
+            this.maxcomfort =
+              res.homes[0].comfort_num !== 0 ? res.homes[0].comfort_num : 0;
           });
         },
       });

@@ -15,6 +15,7 @@
 #   functions:
 #     function:                 # 功能代号（全局唯一、禁止修改、忽略大小写）
 #       type: command           # 功能类型（ command 、 switch 、 option ）
+#       show: boolean           # 是否显示在帮助信息中，不影响实际使用
 #       weights: number         # 权重越高，帮助信息里显示越靠前
 #       name: string            # 呈现给用户的功能名称（忽略大小写）
 #       usage: string           # 呈现给用户的功能格式
@@ -35,6 +36,7 @@ aby:
   functions:
     aby:
       type: command
+      show: true
       weights: 9999
       name: 深渊
       usage: "[游戏内UID、@群友]"
@@ -43,6 +45,7 @@ aby:
         - ^深渊
     lastaby:
       type: command
+      show: true
       weights: 9899
       name: 上期深渊
       usage: "[游戏内UID、@群友]"
@@ -60,6 +63,7 @@ artifacts:
   functions:
     artifacts:
       type: command
+      show: true
       weights: 9999
       name: 圣遗物
       usage: "[副本编号、副本名称]"
@@ -68,6 +72,7 @@ artifacts:
         - ^圣遗物
     strengthen:
       type: command
+      show: true
       weights: 9899
       name: 强化
       usage:
@@ -76,6 +81,7 @@ artifacts:
         - ^强化
     dungeons:
       type: command
+      show: true
       weights: 9799
       name: 副本
       usage:
@@ -93,6 +99,7 @@ card:
   functions:
     card:
       type: command
+      show: true
       weights: 9999
       name: 米游社
       usage: "[米游社通行证ID、@群友]"
@@ -109,6 +116,7 @@ character:
   functions:
     character:
       type: command
+      show: true
       weights: 9999
       name: 我的
       usage: <角色名>
@@ -117,6 +125,7 @@ character:
         - ^我的
     others_character:
       type: command
+      show: true
       weights: 9899
       name: <游戏内UID、@群友>的
       usage: <角色名>
@@ -137,6 +146,7 @@ gacha:
   functions:
     gacha:
       type: command
+      show: true
       weights: 9999
       name: 十连
       usage:
@@ -145,6 +155,7 @@ gacha:
         - ^十连
     pool:
       type: option
+      show: true
       weights: 9899
       name: 卡池
       usage:
@@ -158,6 +169,7 @@ gacha:
         999: 彩蛋
     select:
       type: command
+      show: true
       weights: 9799
       name: 定轨
       usage: <武器名>
@@ -166,6 +178,7 @@ gacha:
         - ^定轨
     select-what:
       type: command
+      show: true
       weights: 9699
       name: 查看定轨
       usage:
@@ -174,6 +187,7 @@ gacha:
         - ^查看定轨
     select-nothing:
       type: command
+      show: true
       weights: 9599
       name: 取消定轨
       usage:
@@ -197,6 +211,7 @@ tools:
   functions:
     menu:
       type: command
+      show: true
       weights: 9999
       name: 今天吃什么
       usage:
@@ -207,6 +222,7 @@ tools:
         - ^菜单
     prophecy:
       type: command
+      show: true
       weights: 9899
       name: 求签
       usage:
@@ -216,23 +232,26 @@ tools:
         - ^占卜
     roll:
       type: command
+      show: true
       weights: 9799
       name: roll
       usage: "[1-100]"
       description: 掷骰子
       entrance:
         - ^roll
-    # 此功能不显示在帮助信息中
     quote:
+      # 此功能不显示在帮助信息中
       type: command
+      show: false
       weights: 9699
-      name:
+      name: 伟大的升华
       usage:
       description:
       entrance:
         - ^伟大的升华
     feedback:
       type: command
+      show: true
       weights: 299
       name: 带话
       usage: <单行图文>
@@ -242,6 +261,7 @@ tools:
         - ^带个话
     master:
       type: command
+      show: true
       weights: 199
       name: 管理
       usage:
@@ -250,6 +270,7 @@ tools:
         - ^管理
     help:
       type: command
+      show: true
       weights: 99
       name: help
       usage:
@@ -267,6 +288,7 @@ material:
   functions:
     weapon:
       type: command
+      show: true
       weights: 9999
       name: 武器
       usage:
@@ -275,6 +297,7 @@ material:
         - ^武器
     talent:
       type: command
+      show: true
       weights: 9989
       name: 天赋
       usage:
@@ -283,6 +306,7 @@ material:
         - ^天赋
     weekly:
       type: command
+      show: true
       weights: 9979
       name: 周本
       usage:
@@ -299,6 +323,7 @@ music:
   functions:
     music:
       type: command
+      show: true
       weights: 9999
       name: 点歌
       usage: <单行文本>
@@ -307,6 +332,7 @@ music:
         - ^点歌
     music_source:
       type: option
+      show: true
       weights: 9899
       name: 音乐源
       usage:
@@ -325,6 +351,7 @@ overview:
   functions:
     info:
       type: command
+      show: true
       weights: 9999
       name: 信息
       usage: <角色名、武器名>
@@ -344,6 +371,7 @@ package:
   functions:
     package:
       type: command
+      show: true
       weights: 9999
       name: uid
       usage: "[游戏内UID、@群友]"
@@ -360,6 +388,7 @@ rating:
   functions:
     rating:
       type: command
+      show: true
       weights: 9999
       name: 评分
       usage: <背包中的圣遗物截图>
@@ -375,6 +404,7 @@ save:
   functions:
     save:
       type: command
+      show: true
       weights: 9999
       name: 绑定
       usage: <米游社通行证ID>
@@ -383,6 +413,7 @@ save:
         - ^绑定
     change:
       type: command
+      show: true
       weights: 9899
       name: 改绑
       usage: <米游社通行证ID>

@@ -5,6 +5,9 @@ const upper = {
     nickname: String,
     level: Number,
     profile: Number,
+    homeslevel: Number,
+    maxcomfort: Number,
+    maps: Object,
     exploration: {
       type: Object,
       default() {
@@ -34,6 +37,12 @@ const upper = {
           spiral_abyss: "0-0",
         };
       },
+    },
+  },
+  methods: {
+    findMap(type) {
+      let info = this.maps.find((el) => el.name === type);
+      return info ? info : { name: type, level: -1 };
     },
   },
   computed: {
@@ -86,6 +95,14 @@ const upper = {
         }
       };
     },
+    homedata() {
+      let homedata = [];
+      homedata.push(this.findMap("罗浮洞"));
+      homedata.push(this.findMap("翠黛峰"));
+      homedata.push(this.findMap("清琼岛"));
+      homedata.push(this.findMap("绘绮庭"));
+      return homedata;
+    },
   },
 };
 
@@ -120,54 +137,4 @@ const middle = {
 
 const bottom = {
   template: "#bottom",
-};
-
-const HomeMap = {
-  template: "#home-map",
-  props: {
-    data: {
-      type: Object,
-      default() {
-        return {
-          comfort_level_name: "",
-          comfort_num: 0,
-        };
-      },
-    },
-  },
-  computed: {
-    bgImg() {
-      return `http://localhost:9934/resources/item/${this.data.name}.png`;
-    },
-  },
-};
-
-const home = {
-  template: "#home",
-  data() {
-    return {
-      island: {},
-      hole: {},
-      mountain: {},
-    };
-  },
-  props: {
-    maps: Object,
-  },
-  components: {
-    HomeMap,
-  },
-  methods: {
-    findMap(type) {
-      let info = this.maps.find((el) => el.name === type);
-      return info ? info : { name: type, level: -1 };
-    },
-  },
-  watch: {
-    maps() {
-      this.hole = this.findMap("罗浮洞");
-      this.mountain = this.findMap("翠黛峰");
-      this.island = this.findMap("清琼岛");
-    },
-  },
 };
