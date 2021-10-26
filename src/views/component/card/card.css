@@ -39,14 +39,14 @@ img {
 }
 
 .detail {
-  top: 294px;
+  top: 304px;
   position: absolute;
 }
 
 .stats {
   color: rgb(64, 64, 64);
   font-size: 32px;
-  padding-bottom: 10pt;
+  padding-bottom: 13pt;
 }
 
 .detail-left {
@@ -152,94 +152,6 @@ img {
   margin-left: 2px;
 }
 
-.home {
-  position: absolute;
-  width: 296px;
-  height: 750px;
-  left: 1088px;
-  top: 64px;
-  border-radius: 20px;
-  background-color: rgb(228, 222, 213);
-}
-
-.home-title {
-  position: relative;
-  font-size: 30px;
-  color: rgb(64, 64, 64);
-  width: 296px;
-  text-align: center;
-  top: 13px;
-}
-
-.map {
-  position: relative;
-  top: 16px;
-}
-
-.home-img {
-  width: 208px;
-  margin-bottom: 15px;
-  margin-left: 44px;
-  border-radius: 32px;
-  z-index: 1;
-}
-
-.unlock,
-.locked {
-  position: absolute;
-  top: 0;
-}
-
-.map-block {
-  width: 208px;
-  height: 208px;
-  margin-left: 44px;
-  border-radius: 32px;
-}
-
-.lock-block {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.lock-img {
-  position: absolute;
-  height: 80px;
-  width: 66px;
-  top: 64px;
-  left: 115px;
-}
-
-.unlock-block {
-  background-color: rgba(0, 0, 0, 0.22);
-}
-
-.unlock-content-block {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.3);
-  height: 122px;
-  top: -165px;
-  border-radius: 0;
-}
-
-.map-content {
-  position: relative;
-  width: 208px;
-  text-align: center;
-}
-
-.map-level {
-  position: relative;
-  color: rgb(242, 210, 134);
-  padding-top: 14px;
-  font-size: 24px;
-  padding-bottom: 12px;
-}
-
-.map-comfort {
-  font-size: 22px;
-  color: rgb(255, 255, 255);
-}
-
 @font-face {
   font-family: GenshinUsedFont;
   src: url("../../../../data/font/HYWenHei-85W.ttf");
@@ -302,42 +214,149 @@ img {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.925);
 }
 
-.explorationbox {
+.exploration {
   position: absolute;
   color: rgb(255, 255, 255);
-  font-size: 22px;
-  top: 500px;
-  width: 1000px;
-  left: 67px;
-  text-align: center;
-}
-
-.explorationdiv {
+  font-size: 25px;
+  width: 1030px;
+  top: 641px;
+  left: 400px;
   display: flex;
+  flex-wrap: wrap;
+}
 
-  font-size: 22px;
-  margin-top: 20px;
-  width: 1000px;
+.mondstadt,
+.liyue,
+.dragonspine,
+.inazuma {
+  width: 290px;
+  padding-right: 225px;
+  padding-bottom: 93px;
+}
+
+.exp,
+.level {
+  width: 45px;
+}
+
+.exp {
+  margin-bottom: 20px;
+}
+
+.inazuma {
+  margin-top: -9px;
+}
+
+.inazuma .exp,
+.inazuma .level {
+  margin-bottom: 0.15cm;
+}
+.home {
+  position: absolute;
+  width: 296px;
+  height: 750px;
+  left: 1088px;
+  top: 64px;
+  border-radius: 20px;
+  background-color: rgb(228, 222, 213);
+}
+
+.home .title-and-level,
+.home .comfort-num {
+  position: relative;
+  color: rgb(64, 64, 64);
+  width: 296px;
   text-align: center;
 }
-.expbackground {
-  border-radius: 10px;
-  margin-left: 18px;
-  color: rgb(255, 255, 255);
-  background-color: #051225;
-  width: 480px;
-  height: 150px;
-}
 
-.expbackground img {
-  float: left;
-  width: 150px;
-}
-
-.explist {
-  margin-top: 34px;
-  float: right;
+.home .title-and-level {
   font-size: 28px;
-  width: 330px;
-  left: 20px;
+  top: 13px;
+}
+
+.home .comfort-num {
+  font-size: 22px;
+  top: 23px;
+}
+
+.home .map {
+  position: relative;
+  top: 7px;
+}
+
+.home-box {
+  position: relative;
+  margin-top: -5px;
+  top: 16px;
+}
+
+.home-box .home-background {
+  width: 184px;
+  margin-bottom: 15px;
+  margin-left: 56px;
+  border-radius: 32px;
+  z-index: 1;
+}
+
+.home-box .unlock,
+.home-box .locked {
+  position: absolute;
+  top: 0;
+}
+
+.home-box .box-block {
+  width: 184px;
+  height: 184px;
+  margin-left: 56px;
+  border-radius: 32px;
+}
+
+.home-box .locked-block {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.home-box .lock-icon {
+  position: absolute;
+  height: 80px;
+  width: 66px;
+  top: 52px;
+  left: 115px;
+}
+
+.home-box .unlock-block {
+  background-color: rgba(0, 0, 0, 0.22);
+}
+
+.home-box .unlock-content-block {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 122px;
+  top: -153px;
+  border-radius: 0;
+}
+
+.home-box .box-content {
+  position: relative;
+  width: 184px;
+  text-align: center;
+}
+
+.home-box .name {
+  position: relative;
+  color: rgb(242, 210, 134);
+  padding-top: 14px;
+  font-size: 25px;
+  padding-bottom: 12px;
+}
+
+.home-box .level {
+  font-size: 22px;
+  color: rgb(227, 221, 194);
+}
+
+.home-box .comfort {
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  margin-top: 2px;
+  -webkit-text-stroke: 0.012cm rgb(92, 82, 4);
 }

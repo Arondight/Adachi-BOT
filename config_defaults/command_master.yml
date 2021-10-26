@@ -15,6 +15,7 @@
 #   functions:
 #     function:                 # 功能代号（全局唯一、禁止修改、忽略大小写）
 #       type: command           # 功能类型（ command 、 switch 、 option ）
+#       show: boolean           # 是否显示在帮助信息中，不影响实际使用
 #       weights: number         # 权重越高，帮助信息里显示越靠前
 #       name: string            # 呈现给用户的功能名称（忽略大小写）
 #       usage: string           # 呈现给用户的功能格式
@@ -39,6 +40,7 @@ tools_master:
   functions:
     reply:
       type: command
+      show: true
       weights: 9999
       name: 回话
       usage: <QQ号、群号> <文本...>
@@ -47,6 +49,7 @@ tools_master:
         - ^回(个)?话
     group_boardcast:
       type: command
+      show: true
       weights: 9899
       name: 群广播
       usage: <单行图文...>
@@ -55,6 +58,7 @@ tools_master:
         - ^群广播
     private_boardcast:
       type: command
+      show: true
       weights: 9799
       name: 好友广播
       usage: <单行图文...>
@@ -63,6 +67,7 @@ tools_master:
         - ^好友广播
     group_search:
       type: command
+      show: true
       weights: 9699
       name: 群列表
       usage:
@@ -71,6 +76,7 @@ tools_master:
         - ^群列表
     private_search:
       type: command
+      show: true
       weights: 9699
       name: 好友列表
       usage:
@@ -79,6 +85,7 @@ tools_master:
         - ^好友列表
     search:
       type: command
+      show: true
       weights: 9599
       name: 查找列表
       usage: <关键字>
@@ -87,6 +94,7 @@ tools_master:
         - ^查找列表
     count:
       type: command
+      show: true
       weights: 9499
       name: 统计列表
       usage:
@@ -95,6 +103,7 @@ tools_master:
         - ^统计列表
     status:
       type: command
+      show: true
       weights: 9399
       name: 系统状态
       usage:
@@ -103,6 +112,7 @@ tools_master:
         - ^系统(状态|信息)
     cookies_invalid:
       type: command
+      show: true
       weights: 9299
       name: 报告无效Cookie
       usage:
@@ -120,6 +130,7 @@ master:
   functions:
     feedback_auth:
       type: switch
+      show: true
       weights: 9999
       name: 带话权限
       usage: <QQ号、群号>
@@ -131,6 +142,7 @@ master:
         off: off
     music_auth:
       type: switch
+      show: true
       weights: 9899
       name: 点歌权限
       usage: <QQ号、群号>
@@ -142,6 +154,7 @@ master:
         off: off
     gacha_auth:
       type: switch
+      show: true
       weights: 9799
       name: 十连权限
       usage: <QQ号、群号>
@@ -153,6 +166,7 @@ master:
         off: off
     artifact_auth:
       type: switch
+      show: true
       weights: 9699
       name: 圣遗物权限
       usage: <QQ号、群号>
@@ -164,6 +178,7 @@ master:
         off: off
     rating_auth:
       type: switch
+      show: true
       weights: 9599
       name: 评分权限
       usage: <QQ号、群号>
@@ -175,6 +190,7 @@ master:
         off: off
     query_gameinfo_auth:
       type: switch
+      show: true
       weights: 9499
       name: 游戏数据权限
       usage: <QQ号、群号>
@@ -186,6 +202,7 @@ master:
         off: off
     character_overview_auth:
       type: switch
+      show: true
       weights: 9399
       name: 官方数据权限
       usage: <QQ号、群号>
@@ -197,6 +214,7 @@ master:
         off: off
     reply_auth:
       type: switch
+      show: true
       weights: 9299
       name: 响应消息
       usage: <QQ号、群号>
@@ -208,6 +226,7 @@ master:
         off: off
     refresh_wish_detail:
       type: command
+      show: true
       weights: 9199
       name: 刷新卡池
       usage:

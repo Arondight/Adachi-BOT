@@ -225,6 +225,8 @@ API2_ARTIFACT_FILES=(
   'artifact.yml'
 )
 API2_MODULE_FILES=(
+  'mys-upper-v2-2.png'
+  'uid-upper-v2-2.png'
   'artifact.png'
   'card-bottom.png'
   'card-middle.png'

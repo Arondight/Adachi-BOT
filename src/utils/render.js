@@ -3,16 +3,22 @@
 
 import fs from "fs";
 import path from "path";
-import { Mutex } from "./mutex.js";
+import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
 
 async function render(data, name, id, type, user, bot) {
   let base64;
 
-  try {
-    await mutex.acquire();
+  await fs.writeFile(
+    path.resolve(rootdir, "data", "record", `${name}.json`),
+    JSON.stringify(data),
+    () => {}
+  );
 
+  const release = await mutex.acquire();
+
+  try {
     const page = await browser.newPage();
 
     await fs.writeFile(
@@ -26,17 +32,13 @@ async function render(data, name, id, type, user, bot) {
       deviceScaleFactor: 4,
     });
     await page.goto(`http://localhost:9934/src/views/${name}.html`);
-
-    const htmlElement = await page.$("body");
-    base64 = await htmlElement.screenshot({
-      encoding: "base64",
-    });
-
+    const html = await page.$("body", { waitUntil: "networkidle0" });
+    base64 = await html.screenshot({ encoding: "base64" });
     await page.close();
   } catch (e) {
     bot.logger.error(`${name} 功能绘图失败：${e}`, user);
   } finally {
-    mutex.release();
+    release();
   }
 
   if (base64) {
