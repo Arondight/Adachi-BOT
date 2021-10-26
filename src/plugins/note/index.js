@@ -55,7 +55,7 @@ async function Plugin(Message, bot) {
       return;
     }
   }
-  await bot.sendMessage(sendID, data, type, userID);
+  await bot.sendMessage(sendID, `树脂${data.current_resin}/${data.max_expedition_num} 委托${data.finished_task_num}/${data.total_task_num} 派遣${data.current_expedition_num}/${data.max_expedition_num}`, type, userID);
   //await render({ uid, data }, "genshin-note", sendID, type, userID, bot);
 }
 
