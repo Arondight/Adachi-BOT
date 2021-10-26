@@ -20,6 +20,11 @@ async function render(data, name, id, type, user, bot) {
       JSON.stringify(data),
       () => {}
     );
+    await page.setViewport({
+      width: await page.evaluate(() => document.body.clientWidth),
+      height: await page.evaluate(() => document.body.clientHeight),
+      deviceScaleFactor: 4,
+    });
     await page.goto(`http://localhost:9934/src/views/${name}.html`);
 
     const htmlElement = await page.$("body");
