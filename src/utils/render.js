@@ -21,6 +21,16 @@ async function render(data, name, id, type, user, bot) {
   try {
     const page = await browser.newPage();
 
+    await fs.writeFile(
+      path.resolve(rootdir, "data", "record", `${name}.json`),
+      JSON.stringify(data),
+      () => {}
+    );
+    await page.setViewport({
+      width: await page.evaluate(() => document.body.clientWidth),
+      height: await page.evaluate(() => document.body.clientHeight),
+      deviceScaleFactor: 4,
+    });
     await page.goto(`http://localhost:9934/src/views/${name}.html`);
     const html = await page.$("body", { waitUntil: "networkidle0" });
     base64 = await html.screenshot({ encoding: "base64" });
