@@ -10,11 +10,11 @@ import { getID } from "../../utils/id.js";
 import { setUserCookie } from "../../utils/cookie.js";
 
 function getTime(s, offset) {
-    const sec = s + offset;
-    const min = sec / 60;
-    const hour = min / 60;
-    const day = hour / 24;
-    return [day, hour % 24, min % 60, sec % 60];
+  const sec = parseInt(s + offset);
+  const min = parseInt(sec / 60);
+  const hour = parseInt(min / 60);
+  const day = parseInt(hour / 24);
+  return [day, hour % 24, min % 60, sec % 60];
 }
 
 async function Plugin(Message, bot) {
