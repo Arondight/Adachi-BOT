@@ -1,14 +1,4 @@
 @font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
-}
-
-@font-face {
-  font-family: HuaWen;
-  src: url("../../../../data/font/HWXingKai.ttf");
-}
-
-@font-face {
   font-family: "LXGW WenKai Screen";
   src: url("../../../../data/font/LXGWWenKaiMono-Bold.ttf");
 }
