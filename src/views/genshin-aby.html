@@ -194,7 +194,7 @@
           <!--placeholder开始，如果该楼层有数据就显示数据，如果没有数据则显示"NO DATA"-->
           <div
             class="abyss-empty-record-placeholder"
-            :class="floors.hasOwnProperty(n-1) ? 'hide':''"
+            v-if="!floors.hasOwnProperty(n-1)"
           >
             <div class="banner-left banner-abyss banner-placeholder">
               <p>{{parseInt(n)+8}}-X</p>
