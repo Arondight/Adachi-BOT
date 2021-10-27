@@ -131,18 +131,15 @@ character:
       usage: <角色名>
       description: 查询别人的角色
       entrance:
-        - ^((\[CQ:at,qq=.*?\])|(\d+))$
+        - ^((\[CQ:at,qq=.*?\])|(\d+))
 
 gacha:
   enable: true
   weights: 9399
   regex:
-    - ^十连\s*$
-    - ^卡池\s+\S+\s*$
-    - ^查看定轨\s*$
-    - ^取消定轨\s*$
-    - ^定轨\s+\S+\s*$
-    - ^定轨\s*$
+    - ^(十连|定轨)\s*$
+    - ^(卡池|定轨)\s+\S+\s*$
+    - ^(查看|取消)定轨\s*$
   functions:
     gacha:
       type: command
@@ -199,15 +196,10 @@ tools:
   enable: true
   weights: 99
   regex:
-    - ^菜单\s*$
+    - ^(help|roll|菜单|管理|伟大的升华|求签|占卜)\s*$
     - ^(今天)?吃什么\s*$
-    - ^(求签|占卜)\s*$
-    - ^roll\s*$
     - ^roll\s+[+-]?\d+\s*$
-    - ^伟大的升华\s*$
-    - ^help\s*$
     - ^带(个)?话\s+.+$
-    - ^管理\s*$
   functions:
     menu:
       type: command
@@ -217,8 +209,7 @@ tools:
       usage:
       description:
       entrance:
-        - ^今天吃什么
-        - ^吃什么
+        - ^(今天)?吃什么
         - ^菜单
     prophecy:
       type: command
@@ -228,8 +219,7 @@ tools:
       usage:
       description:
       entrance:
-        - ^求签
-        - ^占卜
+        - ^(求签|占卜)
     roll:
       type: command
       show: true
@@ -257,8 +247,7 @@ tools:
       usage: <单行图文>
       description: 给主人带话
       entrance:
-        - ^带话
-        - ^带个话
+        - ^带(个)?话
     master:
       type: command
       show: true
@@ -282,9 +271,7 @@ material:
   enable: true
   weights: 9099
   regex:
-    - ^武器\s*$
-    - ^天赋\s*$
-    - ^周本\s*$
+    - ^(武器|天赋|周本)\s*$
   functions:
     weapon:
       type: command
@@ -318,8 +305,7 @@ music:
   enable: true
   weights: 8999
   regex:
-    - ^点歌\s+\S+\s*$
-    - ^音乐源\s+\S+\s*$
+    - ^(点歌|音乐源)\s+\S+\s*$
   functions:
     music:
       type: command
@@ -357,9 +343,7 @@ overview:
       usage: <角色名、武器名>
       description: 查询角色或武器的游戏数据
       entrance:
-        - ^信息
-        - 角色  # 历史原因
-        - 武器  # 历史原因
+        - ^(信息|角色|武器)
 
 package:
   enable: true
