@@ -65,21 +65,23 @@ const upper = {
     },
     percentage(props) {
       return (id) => {
-        let data = props.exploration.find( el => el.id === id );
-			return `${ data?data.exploration_percentage/10:0 }%`;
-    };
+        let data = props.exploration.find((el) => el.id === id);
+        return `${data ? data.exploration_percentage / 10 : 0}%`;
+      };
     },
 
     expLevel(props) {
       return (id) => {
-        let data = props.exploration.find( el => el.id === id );
-			return `Lv.${ data?data.level:0 }`;
-    };
+        let data = props.exploration.find((el) => el.id === id);
+        return `Lv.${data ? data.level : 0}`;
+      };
     },
     sakura(props) {
       return () => {
-        let data = props.exploration.find( el => el.id === 4 );
-        return `Lv.${ data?data.offerings.find( el => el.name === '神樱眷顾' ).level:0 }`;
+        let data = props.exploration.find((el) => el.id === 4);
+        return `Lv.${
+          data ? data.offerings.find((el) => el.name === "神樱眷顾").level : 0
+        }`;
       };
     },
     homedata() {
