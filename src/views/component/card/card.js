@@ -7,8 +7,9 @@ const upper = {
     profile: Number,
     homeslevel: Number,
     maxcomfort: Number,
-    maps: Object,
     exploration: Object,
+    maps: Object,
+    offerings: Object,
     stats: {
       type: Object,
       default() {
@@ -62,32 +63,23 @@ const upper = {
         return 0;
       }
     },
-    percentage() {
-      return (type) => {
-        if (this.exploration[type]) {
-          return this.exploration[type].exploration_percentage / 10 + "%";
-        }
-      };
+    percentage(props) {
+      return (id) => {
+        let data = props.exploration.find( el => el.id === id );
+			return `${ data?data.exploration_percentage/10:0 }%`;
+    };
     },
-    expLevel() {
-      return (type) => {
-        if (this.exploration[type]) {
-          return this.exploration[type].level;
-        }
-      };
+
+    expLevel(props) {
+      return (id) => {
+        let data = props.exploration.find( el => el.id === id );
+			return `Lv.${ data?data.level:0 }`;
+    };
     },
-    sakura() {
+    sakura(props) {
       return () => {
-        if (this.exploration[0]) {
-          return this.exploration[0].offerings[0].level;
-        }
-      };
-    },
-    icon() {
-      return (type) => {
-        if (this.exploration[type]) {
-          return this.exploration[type].icon;
-        }
+        let data = props.exploration.find( el => el.id === 4 );
+        return `Lv.${ data?data.offerings.find( el => el.name === '神樱眷顾' ).level:0 }`;
       };
     },
     homedata() {
