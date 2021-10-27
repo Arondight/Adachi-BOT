@@ -15,11 +15,11 @@
         :nickname="nickname"
         :level="level"
         :stats="stats"
-        :exploration="explorations"
         :profile="profile"
         :homeslevel="homeslevel"
         :maxcomfort="maxcomfort"
         :maps="homes"
+        :exploration="explorations"
       ></upper>
       <div class="avatars-box" v-for="avatars in avatarsData">
         <middle :avatars="avatars"></middle>
@@ -67,21 +67,21 @@
 
         <div class="exploration">
           <div class="mondstadt">
-            <div class="exp">{{ percentage(3) }}</div>
-            <div class="level">LV.{{ expLevel(3) }}</div>
+            <div class="exp">{{percentage(1)}}</div>
+            <div class="level">{{expLevel(1)}}</div>
           </div>
           <div class="dragonspine">
-            <div class="exp">{{ percentage(1) }}</div>
-            <div class="level">LV.{{ expLevel(1) }}</div>
+            <div class="exp">{{percentage(2)}}</div>
+            <div class="level">{{expLevel(2)}}</div>
           </div>
           <div class="liyue">
-            <div class="exp">{{ percentage(2) }}</div>
-            <div class="level">LV.{{ expLevel(2) }}</div>
+            <div class="exp">{{percentage(3)}}</div>
+            <div class="level">{{expLevel(3)}}</div>
           </div>
           <div class="inazuma">
-            <div class="exp">{{ percentage(0) }}</div>
-            <div class="level">LV.{{ expLevel(0) }}</div>
-            <div class="sakura">LV.{{sakura()}}</div>
+            <div class="exp">{{percentage(4)}}</div>
+            <div class="level">{{expLevel(4)}}</div>
+            <div class="sakura">{{sakura()}}</div>
           </div>
         </div>
 
@@ -191,7 +191,7 @@
           profile: 0,
           stats: {},
           avatarsData: [],
-          explorations: Object,
+          explorations:  [],
           avatar_number: 0,
           homes: [],
           homeslevel: 0,
@@ -228,9 +228,9 @@
 
             let avatarsList = res.avatars;
             this.stats = res.stats;
+            this.explorations = res.explorations;
             this.homes = res.homes;
             this.avatar_number = avatarsList.length;
-            this.explorations = res.explorations;
             this.profile =
               avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
 
@@ -249,6 +249,8 @@
           });
         },
       });
+
+      
     </script>
   </body>
 </html>
