@@ -372,14 +372,6 @@ div.credit {
   justify-content: flex-start;
 }
 
-.abyss-details-placeholder {
-}
-
-.hide {
-  visibility: hidden;
-  height: 0 !important;
-}
-
 .banner-placeholder {
   position: absolute;
   top: 0;
