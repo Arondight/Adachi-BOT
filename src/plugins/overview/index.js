@@ -13,7 +13,7 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
-  const [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data;
 
   if (
@@ -29,10 +29,10 @@ async function Plugin(Message, bot) {
     return;
   }
 
+  text = "string" === typeof text ? text.toLowerCase() : "";
+
   try {
-    data = await getInfo(
-      alias.all["string" === typeof text ? text.toLowerCase() : text] || text
-    );
+    data = await getInfo(alias.all[text] || text);
   } catch (e) {
     const guess = lodash
       .chain(alias.allNames)

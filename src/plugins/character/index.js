@@ -73,10 +73,8 @@ async function Plugin(Message, bot) {
     return;
   }
 
-  character =
-    alias.character[
-      "string" === typeof character ? character.toLowerCase() : character
-    ] || character;
+  character = "string" === typeof character ? character.toLowerCase() : "";
+  character = alias.character[character] || character;
 
   try {
     let dbInfo = isMyChar ? await getID(msg, userID) : await getUID(msg);
