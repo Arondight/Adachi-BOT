@@ -305,7 +305,8 @@ music:
   enable: true
   weights: 8999
   regex:
-    - ^(点歌|音乐源)\s+\S+\s*$
+    - ^点歌\s+.+$
+    - ^音乐源\s+\S+\s*$
   functions:
     music:
       type: command

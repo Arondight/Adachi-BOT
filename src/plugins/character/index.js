@@ -1,6 +1,7 @@
 /* global alias, command, config */
 /* eslint no-undef: "error" */
 
+import lodash from "lodash";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
@@ -16,6 +17,27 @@ import {
 async function getCharacter(uid, character) {
   const { avatars } = (await db.get("info", "user", { uid })) || {};
   return avatars ? avatars.find((e) => e.name === character) : false;
+}
+
+async function getNotFoundText(isMyChar, character) {
+  const cmd = [command.functions.name.card, command.functions.name.package];
+  const cmdStr = `【${cmd.join("】、【")}】`;
+  const text = config.characterTryGetDetail
+    ? `看上去${isMyChar ? "您" : "他"}尚未拥有该角色`
+    : `如果${
+        isMyChar ? "您" : "他"
+      }拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
+  const guess = lodash
+    .chain(alias.characterNames)
+    .filter((c) => c.includes(character))
+    .join("、")
+    .value();
+
+  const notFoundText = `查询失败，${text}。${
+    guess ? "\n您要查询的是不是：\n" + guess : ""
+  }`;
+
+  return notFoundText;
 }
 
 async function Plugin(Message, bot) {
@@ -51,10 +73,8 @@ async function Plugin(Message, bot) {
     return;
   }
 
-  character =
-    alias[
-      "string" === typeof character ? character.toLowerCase() : character
-    ] || character;
+  character = "string" === typeof character ? character.toLowerCase() : "";
+  character = alias.character[character] || character;
 
   try {
     let dbInfo = isMyChar ? await getID(msg, userID) : await getUID(msg);
@@ -81,17 +101,9 @@ async function Plugin(Message, bot) {
 
     if (!data) {
       if (!config.characterTryGetDetail) {
-        const cmd = [
-          command.functions.name.card,
-          command.functions.name.package,
-        ];
-        const cmdStr = `【${cmd.join("】、【")}】`;
-
         await bot.sendMessage(
           sendID,
-          `查询失败，如果${
-            isMyChar ? "您" : "他"
-          }拥有该角色，使用${cmdStr}更新游戏角色后再次查询。`,
+          await getNotFoundText(isMyChar, character),
           type,
           userID
         );
@@ -120,7 +132,7 @@ async function Plugin(Message, bot) {
   if (!data) {
     await bot.sendMessage(
       sendID,
-      `看上去${isMyChar ? "您" : "他"}尚未拥有该角色。`,
+      await getNotFoundText(isMyChar, character),
       type,
       userID
     );

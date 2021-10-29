@@ -1,6 +1,7 @@
 /* global alias */
 /* eslint no-undef: "error" */
 
+import lodash from "lodash";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
@@ -12,7 +13,7 @@ async function Plugin(Message, bot) {
   const type = Message.type;
   const name = Message.sender.nickname;
   const sendID = "group" === type ? groupID : userID;
-  const [text] = msg.split(/(?<=^\S+)\s/).slice(1);
+  let [text] = msg.split(/(?<=^\S+)\s/).slice(1);
   let data;
 
   if (
@@ -28,14 +29,22 @@ async function Plugin(Message, bot) {
     return;
   }
 
+  text = "string" === typeof text ? text.toLowerCase() : "";
+
   try {
-    data = await getInfo(
-      alias["string" === typeof text ? text.toLowerCase() : text] || text
-    );
+    data = await getInfo(alias.all[text] || text);
   } catch (e) {
+    const guess = lodash
+      .chain(alias.allNames)
+      .filter((c) => c.includes(text))
+      .join("、")
+      .value();
+
     await bot.sendMessage(
       sendID,
-      "查询失败，请检查名称是否正确。",
+      `查询失败，未知的名称${text}。${
+        guess ? "\n您要查询的是不是：\n" + guess : ""
+      }`,
       type,
       userID
     );

@@ -1,4 +1,4 @@
-/* global all, artifacts, command, config, eggs, master */
+/* global all, alias, artifacts, command, config, eggs, master */
 /* eslint no-undef: "error" */
 
 /* ==========================================================================
@@ -168,37 +168,37 @@
  * ==========================================================================
  * global.alias
  * --------------------------------------------------------------------------
- * { '77': '七七', '冰猫': '迪奥娜', 'dio娜': '迪奥娜', dio: '迪奥娜' }
+ * {
+ *   character: { '猫': '迪奥娜', 'dio娜': '迪奥娜', dio: '迪奥娜' },
+ *   weapon: { '柴火棍': '护摩之杖', homo: '护摩之杖' },
+ *   all: {
+ *     '猫': '迪奥娜',
+ *     'dio娜': '迪奥娜',
+ *     dio: '迪奥娜',
+ *     '柴火棍': '护摩之杖',
+ *     homo: '护摩之杖'
+ *   },
+ *   characterNames: [ '猫', '迪奥娜', 'dio娜', 'dio' ],
+ *   weaponNames: [ '柴火棍', '护摩之杖', 'homo' ],
+ *   allNames: [
+ *     '猫',     '迪奥娜',
+ *     'dio娜',  'dio',
+ *     '柴火棍', '护摩之杖',
+ *     'homo'
+ *   ]
+ * }
  * --------------------------------------------------------------------------
  * ../../config/alias.yml
  * --------------------------------------------------------------------------
- * 迪奥娜:
- *   - 冰猫
- *   - Dio娜
- *   - DIO
- * 七七:
- *   - 77
- * ==========================================================================
- *
- *
- * ==========================================================================
- * global.eggs
- * --------------------------------------------------------------------------
- * { type: { '刻晴': '角色', '天空之刃': '武器' }, star: { '刻晴': 5, '天空之刃': 5 } }
- * --------------------------------------------------------------------------
- * ../../config/pool_eggs.yml
- * --------------------------------------------------------------------------
- * items:
- *   -
- *     type: 角色
- *     star: 5
- *     names:
- *       - 刻晴
- *   -
- *     type: 武器
- *     star: 5
- *     names:
- *       - 天空之刃
+ * character:
+ *   迪奥娜:
+ *     - 猫
+ *     - dio娜
+ *     - dio
+ * weapon:
+ *   护摩之杖:
+ *     - 柴火棍
+ *     - homo
  * ==========================================================================
  *
  *
@@ -224,6 +224,27 @@
  *
  *
  * ==========================================================================
+ * global.eggs
+ * --------------------------------------------------------------------------
+ * { type: { '刻晴': '角色', '天空之刃': '武器' }, star: { '刻晴': 5, '天空之刃': 5 } }
+ * --------------------------------------------------------------------------
+ * ../../config/pool_eggs.yml
+ * --------------------------------------------------------------------------
+ * items:
+ *   -
+ *     type: 角色
+ *     star: 5
+ *     names:
+ *       - 刻晴
+ *   -
+ *     type: 武器
+ *     star: 5
+ *     names:
+ *       - 天空之刃
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  *                            以上为数据结构
  * ========================================================================== */
 
@@ -235,15 +256,15 @@ import { loadYML } from "./yaml.js";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const Setting = loadYML("setting");
-const Cookies = loadYML("cookies");
-const Greeting = loadYML("greeting");
-const Command = loadYML("command");
-const Master = loadYML("command_master");
 const Alias = loadYML("alias");
-const Menu = loadYML("menu");
-const Eggs = loadYML("pool_eggs");
 const Artifacts = loadYML("artifacts");
+const Command = loadYML("command");
+const Cookies = loadYML("cookies");
+const Eggs = loadYML("pool_eggs");
+const Greeting = loadYML("greeting");
+const Master = loadYML("command_master");
+const Menu = loadYML("menu");
+const Setting = loadYML("setting");
 
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
 // global[key].weights               -> plugin (lowercase):    weights (number)
@@ -604,16 +625,26 @@ function readSettingCookiesGreetingMenu() {
 
 // global.alias ->  alias (lowercase): name (string)
 function readAlias() {
-  global.alias = lodash.reduce(
-    Alias,
-    (pair, v, k) => {
-      (v || []).forEach(
-        (c) => (pair["string" === typeof c ? c.toLowerCase() : c] = k)
-      );
-      return pair;
-    },
-    {}
-  );
+  const getSection = (s) =>
+    lodash.reduce(
+      Alias[s] || {},
+      (pair, v, k) => {
+        (v || []).forEach(
+          (c) => (pair["string" === typeof c ? c.toLowerCase() : c] = k)
+        );
+        return pair;
+      },
+      {}
+    );
+  const getNames = (o) => lodash.chain(o).toPairs().flatten().uniq().value();
+
+  global.alias = {};
+  alias.character = getSection("character");
+  alias.weapon = getSection("weapon");
+  alias.all = lodash.assign({}, alias.character, alias.weapon);
+  alias.characterNames = getNames(alias.character);
+  alias.weaponNames = getNames(alias.weapon);
+  alias.allNames = getNames(alias.all);
 }
 
 // eggs.type: name -> type (string)
@@ -686,6 +717,7 @@ function getAll() {
   global.all = {};
   global.all.functions = {};
   all.functions.options = lodash.assign(
+    {},
     command.functions.options,
     master.functions.options
   );
