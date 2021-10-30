@@ -257,9 +257,9 @@ npm run restart
 
 | 人员 | 贡献 |
 | --- | --- |
-| [490720818](https://github.com/490720818) | 编写了深渊查询的原始版本 |
-| [Mark9804](https://github.com/Mark9804) | 贡献了诸多资源文件，[前端部分](src/views)的开发及维护 |
-| [SilveryStar](https://github.com/SilveryStar) | 编写了项目的原始版本，这是一切的开始 |
+| [490720818](https://github.com/490720818) | [前端部分](src/views)的开发及维护，编写了深渊查询的原始版本 |
+| [Mark9804](https://github.com/Mark9804) | [前端部分](src/views)的开发及维护，贡献了诸多资源文件 |
+| [SilveryStar](https://github.com/SilveryStar) | 编写了项目的原始版本，提供了大量资源文件 |
 | [Xm798](https://github.com/Xm798) | 贡献了诸多资源文件 |
 | [buzhibujuelb](https://github.com/buzhibujuelb) | 添加了武器定轨机制，美化了抽卡效果 |
 | [coolrc136](https://github.com/coolrc136) | 为项目提供了直接技术支持 |
