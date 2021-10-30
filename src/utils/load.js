@@ -218,42 +218,32 @@ async function processedOnline(bot) {
 }
 
 async function processed(qqData, plugins, type, bot) {
-  //
   // 如果好友增加了，尝试向新朋友问好
-  //
   if (type === "friend.increase") {
     await processedFriendIncrease(qqData, bot);
     return;
   }
 
-  //
   // 如果有新成员加入了组群，尝试向新成员或者全群问好
-  //
   if (type === "group.increase") {
     await processedGroupIncrease(qqData, bot);
     return;
   }
 
-  //
   // 如果收到的信息是命令，尝试指派插件处理命令
-  //
   if (lodash.find(qqData.message, { type: "text" })) {
     if (await processedPossibleCommand(qqData, plugins, type, bot)) {
       return;
     }
   }
 
-  //
   // 如果不是命令，且为群消息，随机复读群消息
-  //
   if ("group" === type) {
     await processedGroup(qqData, bot);
     return;
   }
 
-  //
   // 如果机器人上线，尝试所有群发送一遍上线通知
-  //
   if ("online" === type) {
     await processedOnline(bot);
     return;

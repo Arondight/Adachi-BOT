@@ -32,7 +32,6 @@ async function getNotFoundText(isMyChar, character) {
     .filter((c) => c.includes(character))
     .join("、")
     .value();
-
   const notFoundText = `查询失败，${text}。${
     guess ? "\n您要查询的是不是：\n" + guess : ""
   }`;
