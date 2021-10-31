@@ -5,6 +5,101 @@ import lodash from "lodash";
 import fetch from "node-fetch";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 
+function adjustProp(obj, bot) {
+  const maxValue = {
+    main_item: {
+      // 主属性直接设置为最大值
+      atk: 46.6, // 大攻击
+      hp: 46.6, // 大生命
+      df: 58.3, // 大防御
+      er: 51.8, // 充能
+      cr: 31.1, // 暴击率
+      cd: 62.6, // 暴击伤害
+      phys: 58.3, // 物伤
+      anemo: 46.6, // 风伤
+      geo: 46.6, // 岩伤
+      cryo: 46.6, // 冰伤
+      hydro: 46.6, // 水伤
+      elec: 46.6, // 雷伤
+      pyro: 46.6, // 火伤
+      heal: 35.9, // 治疗
+      em: 187, // 元素精通
+      atk2: 311, // 小攻击
+      hp2: 4780, // 小生命
+    },
+    sub_item: {
+      // 副属性只调整带百分号的，因为不带百分号的不会出现小数点
+      atk: 35.0, // 大攻击
+      hp: 35.0, // 大生命
+      df: 43.7, // 大防御
+      er: 38.9, // 充能
+      cr: 23.3, // 暴击率
+      cd: 46.6, // 暴击伤害
+    },
+  };
+  const level = 20;
+  const star = 5;
+  const say = (type, item, before, after) =>
+    bot.logger.debug(
+      `评分：调整属性 ${type}：${item} （ ${before} -> ${after} ）`
+    );
+
+  // 等级设置为 20
+  if (level !== obj.level) {
+    say("等级", "level", obj.level, level);
+    obj.level = level;
+  }
+
+  // 星级设置为 5
+  if (star !== obj.star) {
+    say("星级", "star", obj.star, star);
+    obj.star = star;
+  }
+
+  // 主属性直接设置为最大值
+  if (maxValue.main_item[obj.main_item.type]) {
+    const value = parseFloat(obj.main_item.value);
+
+    if (obj.main_item.value.includes("%")) {
+      if (value > maxValue.main_item[obj.main_item.type]) {
+        const before = obj.main_item.value;
+        obj.main_item.value = `${maxValue.main_item[obj.main_item.type]}%`;
+        say("主属性", obj.main_item.type, before, obj.main_item.value);
+      }
+    } else {
+      let type =
+        "atk" === obj.main_item.type
+          ? "atk2"
+          : "hp" === obj.main_item.type
+          ? "hp2"
+          : "em";
+
+      if (value !== maxValue.main_item[type]) {
+        const before = obj.main_item.value;
+        obj.main_item.value = `${maxValue.main_item[type]}`;
+        say("主属性", obj.main_item.type, before, obj.main_item.value);
+      }
+    }
+  }
+
+  // 试图调整副词条中丢失小数点的条目
+  for (const item of obj.sub_item || []) {
+    if (!maxValue.sub_item[item.type] || !item.value.includes("%")) {
+      continue;
+    }
+
+    const value = parseFloat(item.value);
+
+    if (value > maxValue.sub_item[item.type]) {
+      const before = item.value;
+      item.value = `${(value / 10).toFixed(1).toString()}%`;
+      say("副属性", item.type, before, item.value);
+    }
+  }
+
+  return obj;
+}
+
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
   const userID = Message.user_id;
@@ -76,67 +171,7 @@ async function Plugin(Message, bot) {
     return;
   }
 
-  ret = await response.json();
-  // 只调整带百分号的，因为不带百分号的不会出现小数点
-  const maxValue = {
-    main_item: {
-      atk: "46.6", // 大攻击
-      hp: "46.6", // 大生命
-      df: "58.3", // 大防御
-      er: "51.8", // 充能
-      cr: "31.1", // 暴击率
-      cd: "62.6", // 暴击伤害
-      phys: "58.3", // 物伤
-      anemo: "46.6", // 风伤
-      geo: "46.6", // 岩伤
-      cryo: "46.6", // 冰伤
-      hydro: "46.6", // 水伤
-      elec: "46.6", // 雷伤
-      pyro: "46.6", // 火伤
-      heal: "35.9", // 治疗
-    },
-    sub_item: {
-      atk: "35.0", // 大攻击
-      hp: "35.0", // 大生命
-      df: "43.7", // 大防御
-      er: "38.9", // 充能
-      cr: "23.3", // 暴击率
-      cd: "46.6", // 暴击伤害
-    },
-  };
-
-  for (const item_type of Object.keys(maxValue)) {
-    if (!ret[item_type]) {
-      continue;
-    }
-
-    const main_item = "main_item" == item_type ? true : false;
-    const items = main_item ? [ret[item_type]] : ret[item_type];
-
-    for (let item of items) {
-      if (!maxValue[item_type][item.type]) {
-        continue;
-      }
-
-      if (!item.value.includes("%")) {
-        continue;
-      }
-
-      const value = parseInt(item.value);
-
-      if (value > maxValue[item_type][item.type]) {
-        let text = `评分：调整属性 ${item_type}:${item.type} (${item.value}`;
-        item.value = (value / 10).toFixed(1).toString() + "%";
-        text += ` -> ${item.value})`;
-        bot.logger.debug(text);
-      }
-    }
-
-    if (main_item) {
-      ret[item_type] = items[0];
-    }
-  }
-
+  ret = adjustProp(await response.json(), bot);
   body = JSON.stringify(ret);
   prop = ret;
 
@@ -171,13 +206,11 @@ async function Plugin(Message, bot) {
   }
 
   if (200 === response.status || lodash.hasIn(ret, "total_percent")) {
-    data = `您的${prop.pos}评分为 ${ret.total_percent} 分！
-${prop.main_item.name}：${prop.main_item.value}
-==========`;
-
+    data = `您的${prop.pos}（${prop.main_item.name}）评分为 ${ret.total_percent} 分！\n==========`;
     prop.sub_item.forEach((item) => {
       data += `\n${item.name}：${item.value}`;
     });
+
     await bot.sendMessage(sendID, data, type, userID);
     return;
   }
