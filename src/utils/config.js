@@ -681,7 +681,12 @@ function readSettingCookiesGreetingMenu() {
   );
 }
 
-// global.alias ->  alias (lowercase): name (string)
+// global.alias.character       ->  alias (lowercase): character (string, lowercase)
+// global.alias.weapon          ->  alias (lowercase): weapon (string, lowercase)
+// global.alias.all             ->  alias (lowercase): name (string, lowercase)
+// global.alias.characterNames  ->  character names (array of string, lowercase)
+// global.alias.weaponNames     ->  weapon names (array of string, lowercase)
+// global.alias.allNames        ->  names (array of string, lowercase)
 function readAlias() {
   const getSection = (s) =>
     lodash.reduce(
@@ -713,15 +718,15 @@ function readEggs() {
   Array.isArray(Eggs.items) &&
     Eggs.items.forEach((c) => {
       if (Array.isArray(c.names)) {
-        const star = parseInt(c.star) || 3;
+        const star = parseInt(c.star) || 5;
         c.type && c.names.forEach((n) => (eggs.type[n] = c.type));
         c.names.forEach((n) => (eggs.star[n] = star));
       }
     });
 }
 
-// artifacts.weights          -> array of array of number
-// artifacts.values           -> array of array of number
+// artifacts.weights          -> weights (array of array of number)
+// artifacts.values           -> values (array of array of number)
 // artifacts.artifacts.id     -> suit (lowercase):  id (number)
 // artifacts.artifacts.rarity -> id:                rarity (number)
 // artifacts.artifacts.suit   -> id:                suit (string, lowercase)
