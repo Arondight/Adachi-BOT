@@ -1,10 +1,10 @@
-/* global bots */
+/* global bots, rootdir */
 /* eslint no-undef: "error" */
 
 import schedule from "node-schedule";
 import puppeteer from "puppeteer";
+import express from "express";
 import db from "./database.js";
-import { server } from "./server.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
 
 async function initDB() {
@@ -46,7 +46,15 @@ async function cleanDBJob() {
   return nums;
 }
 
+function serve(port = 9934) {
+  const server = express();
+  server.use(express.static(rootdir));
+  server.listen(port, "localhost");
+}
+
 async function init() {
+  serve(9934);
+
   await initDB();
   await initBrowser();
 
@@ -55,8 +63,6 @@ async function init() {
 
   schedule.scheduleJob("1 */1 * * *", () => updateGachaJob());
   schedule.scheduleJob("1 */1 * * *", async () => await cleanDBJob());
-
-  server(9934);
 }
 
 export default init;

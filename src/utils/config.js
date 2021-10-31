@@ -292,6 +292,8 @@
 import lodash from "lodash";
 import url from "url";
 import path from "path";
+import fs from "fs";
+import { mkdir } from "./file.js";
 import { loadYML } from "./yaml.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
@@ -880,14 +882,27 @@ function getUsage() {
   makeUsage(master);
 }
 
+// For /src/views/*
+function writeViewsConfig() {
+  const dir = path.join(rootdir, "data", "config");
+  const data = { rootdir };
+
+  fs.writeFileSync(
+    path.resolve(mkdir(dir), "views.json"),
+    JSON.stringify(data),
+    "utf8"
+  );
+}
+
 async function readConfig() {
   readSettingCookiesGreetingMenu();
-  readCommand();
   readAlias();
   readEggs();
   readArtifacts();
-  getUsage();
+  readCommand();
   getAll();
+  getUsage();
+  writeViewsConfig();
 }
 
 function hasEntrance(message, plugin, ...entrance) {

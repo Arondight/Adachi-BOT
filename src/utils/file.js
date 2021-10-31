@@ -13,6 +13,14 @@ function readlink(filepath) {
   return filepath;
 }
 
+function mkdir(dir) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
+  return dir;
+}
+
 function ls(dir, buffer) {
   dir = readlink(dir);
   buffer = buffer || [];
@@ -48,4 +56,4 @@ function du(filepath) {
   return size;
 }
 
-export { ls, du };
+export { readlink, mkdir, ls, du };

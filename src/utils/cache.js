@@ -7,11 +7,11 @@ import util from "util";
 import md5 from "md5";
 import fetch from "node-fetch";
 import { once } from "events";
-import { du } from "./file.js";
+import { du, mkdir } from "./file.js";
 
 function getCachedPath(url, dir) {
-  const workdir = dir || path.resolve(rootdir, "data", "cache");
-  return url && path.resolve(workdir, md5(url));
+  const workdir = dir || path.join(rootdir, "data", "cache");
+  return url && path.join(mkdir(workdir), md5(url));
 }
 
 async function isCached(url, dir) {
