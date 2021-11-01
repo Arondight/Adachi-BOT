@@ -171,7 +171,7 @@ async function tryToWarnInvalidCookie(message, cookie) {
     const errInfo = message.toLowerCase();
 
     for (const res of invalidResponseList.map((c) => c.toLowerCase())) {
-      if (errInfo.includes(res)) {
+      if ("" === errInfo || errInfo.includes(res)) {
         return await warnInvalidCookie(cookie);
       }
     }

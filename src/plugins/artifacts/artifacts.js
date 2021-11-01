@@ -1,9 +1,9 @@
+/* global artifacts */
+/* eslint no-undef: "error" */
+
 import randomFloat from "random-float";
 import db from "../../utils/database.js";
-import { loadYML } from "../../utils/yaml.js";
 
-const artifactCfg = loadYML("artifacts");
-const { artifacts, domains, weights, values } = artifactCfg;
 const propertyName = [
   "生命值",
   "生命值",
@@ -24,28 +24,17 @@ const propertyName = [
   "火元素伤害加成",
   "治疗加成",
 ];
-const dailyFortune = 0;
 
 function randomInt(Min, Max) {
   const range = Max - Min + 1;
   return Min + Math.floor(Math.random() * range);
 }
 
-function getArtifactID(domainID) {
-  let num;
-
-  if (domainID === -1) {
-    num = artifacts.length;
-    return randomInt(0, num - 1);
-  } else {
-    num = domains.length;
-
-    if (domainID >= num) {
-      return undefined;
-    } else {
-      return domains[domainID].product[randomInt(0, 1)];
-    }
-  }
+function getArtifactID(id) {
+  return -1 === id
+    ? randomInt(0, Object.values(artifacts.domains.id).length - 1)
+    : artifacts.domains.name[id] &&
+        artifacts.domains.product[id][randomInt(0, 1)];
 }
 
 function getRandomProperty(arr, type) {
@@ -68,7 +57,7 @@ function getRandomProperty(arr, type) {
 }
 
 function getSlot() {
-  return getRandomProperty(weights[0], 0);
+  return getRandomProperty(artifacts.weights[0], 0);
 }
 
 function getMainStat(slot) {
@@ -78,10 +67,11 @@ function getMainStat(slot) {
     return 6;
   } else {
     let float = [];
-    const len = weights[slot].length;
+    const len = artifacts.weights[slot].length;
 
     for (let i = 0; i < len; i++) {
-      float.push(weights[slot][i] * (1 + dailyFortune));
+      // XXX 在这里可以添加运气权重
+      float.push(artifacts.weights[slot][i]);
     }
 
     return getRandomProperty(float, -1);
@@ -93,10 +83,11 @@ function getSubStats(mainStat) {
   let sub = [];
 
   for (let i = 0; i < 10; i++) {
-    let w = weights[1][i] * randomInt(0, 1e3);
+    let w = artifacts.weights[1][i] * randomInt(0, 1e3);
 
+    // XXX 在这里可以添加运气权重
     if (i > 4) {
-      w *= 1 + dailyFortune;
+      w *= 1;
     }
 
     arr.push([i, w]);
@@ -108,7 +99,10 @@ function getSubStats(mainStat) {
 
   for (let i = 0, num = 0; i < 10 && num < 4; i++) {
     if (arr[i][0] !== mainStat) {
-      sub.push({ stat: arr[i][0], grade: getRandomProperty(weights[6], 0) });
+      sub.push({
+        stat: arr[i][0],
+        grade: getRandomProperty(artifacts.weights[6], 0),
+      });
       num++;
     }
   }
@@ -117,7 +111,7 @@ function getSubStats(mainStat) {
 }
 
 function getInit() {
-  return getRandomProperty(weights[5], 0) ? 4 : 3;
+  return getRandomProperty(artifacts.weights[5], 0) ? 4 : 3;
 }
 
 function getImproves() {
@@ -126,7 +120,7 @@ function getImproves() {
   for (let i = 0; i < 5; i++) {
     improves.push({
       place: randomInt(0, 3),
-      grade: getRandomProperty(weights[6], 0),
+      grade: getRandomProperty(artifacts.weights[6], 0),
     });
   }
 
@@ -158,7 +152,7 @@ function getInitial(num, subStats) {
   for (let i = 0; i < num; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
-    property[id] = values[lv][id];
+    property[id] = artifacts.values[lv][id];
   }
 
   return toArray(property);
@@ -170,14 +164,14 @@ function getFortified(num, subStats, improves) {
   for (let i = 0; i < 4; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
-    property[id] = values[lv][id];
+    property[id] = artifacts.values[lv][id];
   }
 
   for (let i = 0; i < num + 1; i++) {
     const p = improves[i].place;
     const id = subStats[p].stat;
     const lv = improves[i].grade;
-    property[id] += values[lv][id];
+    property[id] += artifacts.values[lv][id];
   }
 
   return toArray(property);
@@ -197,7 +191,7 @@ async function getArtifact(userID, type) {
     return artifactID;
   }
 
-  const name = artifacts[artifactID].subName[slot];
+  const name = artifacts.artifacts.names[artifactID][slot];
 
   await db.update(
     "artifact",
@@ -219,23 +213,24 @@ async function getArtifact(userID, type) {
 }
 
 function domainInfo() {
-  let domainsMsg = "";
+  let info = "";
 
-  for (const i in domains) {
-    if (domains[i]) {
-      domainsMsg += `${[
-        i,
-        domains[i].name,
-        ...(Array.isArray(domains[i].alias) ? domains[i].alias : []),
-      ].join("、")}\n`;
-    }
-  }
+  Object.values(artifacts.domains.id).forEach(
+    (id) =>
+      (info += `${[
+        id,
+        artifacts.domains.name[id],
+        ...(Array.isArray(artifacts.domains.aliasOf[id])
+          ? artifacts.domains.aliasOf[id]
+          : []),
+      ].join("、")}\n`)
+  );
 
-  return domainsMsg;
+  return info;
 }
 
 function domainMax() {
-  return domains.length - 1;
+  return Math.max(...(Object.values(artifacts.domains.id) || [0]));
 }
 
 export { getArtifact, domainInfo, domainMax };

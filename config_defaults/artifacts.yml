@@ -43,94 +43,104 @@ values:
 artifacts:
   -
     id: 0
-    maxRarity: 5
-    mainName: 悠古的磐岩
-    subName: [ 盘陀裂生之花, 嵯峨群峰之翼, 星罗圭壁之晷, 巉岩琢塑之樽, 不动玄石之相 ]
+    rarity: 5
+    suit: 悠古的磐岩
+    names: [ 盘陀裂生之花, 嵯峨群峰之翼, 星罗圭壁之晷, 巉岩琢塑之樽, 不动玄石之相 ]
   -
     id: 1
-    maxRarity: 5
-    mainName: 冰风迷途的勇士
-    subName: [ 历经风雪的思念, 摧冰而行的执望, 冰雪故园的终期, 遍结寒霜的傲骨, 破冰踏雪的回音 ]
+    rarity: 5
+    suit: 冰风迷途的勇士
+    names: [ 历经风雪的思念, 摧冰而行的执望, 冰雪故园的终期, 遍结寒霜的傲骨, 破冰踏雪的回音 ]
   -
     id: 2
-    maxRarity: 5
-    mainName: 染血的骑士道
-    subName: [ 染血的铁之心, 染血的黑之羽, 染血骑士之时, 染血骑士之杯, 染血的铁假面 ]
+    rarity: 5
+    suit: 染血的骑士道
+    names: [ 染血的铁之心, 染血的黑之羽, 染血骑士之时, 染血骑士之杯, 染血的铁假面 ]
   -
     id: 3
-    maxRarity: 5
-    mainName: 炽烈的炎之魔女
-    subName: [ 魔女的炎之花, 魔女常燃之羽, 魔女破灭之时, 魔女的心之火, 焦灼的魔女帽 ]
+    rarity: 5
+    suit: 炽烈的炎之魔女
+    names: [ 魔女的炎之花, 魔女常燃之羽, 魔女破灭之时, 魔女的心之火, 焦灼的魔女帽 ]
   -
     id: 4
-    maxRarity: 5
-    mainName: 角斗士的终幕礼
-    subName: [ 角斗士的留恋, 角斗士的归宿, 角斗士的希冀, 角斗士的酣醉, 角斗士的凯旋 ]
+    rarity: 5
+    suit: 角斗士的终幕礼
+    names: [ 角斗士的留恋, 角斗士的归宿, 角斗士的希冀, 角斗士的酣醉, 角斗士的凯旋 ]
   -
     id: 5
-    maxRarity: 5
-    mainName: 沉沦之心
-    subName: [ 饰金胸花, 追忆之风, 坚铜罗盘, 沉波之盏, 酒渍船帽 ]
+    rarity: 5
+    suit: 沉沦之心
+    names: [ 饰金胸花, 追忆之风, 坚铜罗盘, 沉波之盏, 酒渍船帽 ]
   -
     id: 6
-    maxRarity: 5
-    mainName: 渡过烈火的贤人
-    subName: [ 渡火者的决绝, 渡火者的解脱, 渡火者的煎熬, 渡火者的醒悟, 渡火者的智慧 ]
+    rarity: 5
+    suit: 渡过烈火的贤人
+    names: [ 渡火者的决绝, 渡火者的解脱, 渡火者的煎熬, 渡火者的醒悟, 渡火者的智慧 ]
   -
     id: 7
-    maxRarity: 5
-    mainName: 被怜爱的少女
-    subName: [ 远方的少女之心, 少女飘摇的思念, 少女苦短的良辰, 少女片刻的闲暇, 少女易逝的芳颜 ]
+    rarity: 5
+    suit: 被怜爱的少女
+    names: [ 远方的少女之心, 少女飘摇的思念, 少女苦短的良辰, 少女片刻的闲暇, 少女易逝的芳颜 ]
   -
     id: 8
-    maxRarity: 5
-    mainName: 昔日宗室之仪
-    subName: [ 宗室之花, 宗室之翎, 宗室时计, 宗室银瓮, 宗室面具 ]
+    rarity: 5
+    suit: 昔日宗室之仪
+    names: [ 宗室之花, 宗室之翎, 宗室时计, 宗室银瓮, 宗室面具 ]
   -
     id: 9
-    maxRarity: 5
-    mainName: 逆飞的流星
-    subName: [ 夏祭之花, 夏祭终末, 夏祭之刻, 夏祭水玉, 夏祭之面 ]
+    rarity: 5
+    suit: 逆飞的流星
+    names: [ 夏祭之花, 夏祭终末, 夏祭之刻, 夏祭水玉, 夏祭之面 ]
   -
     id: 10
-    maxRarity: 5
-    mainName: 如雷的盛怒
-    subName: [ 雷鸟的怜悯, 雷灾的孑遗, 雷霆的时计, 降雷的凶兆, 唤雷的头冠 ]
+    rarity: 5
+    suit: 如雷的盛怒
+    names: [ 雷鸟的怜悯, 雷灾的孑遗, 雷霆的时计, 降雷的凶兆, 唤雷的头冠 ]
   -
     id: 11
-    maxRarity: 5
-    mainName: 平息鸣雷的尊者
-    subName: [ 平雷之心, 平雷之羽, 平雷之刻, 平雷之器, 平雷之冠 ]
+    rarity: 5
+    suit: 平息鸣雷的尊者
+    names: [ 平雷之心, 平雷之羽, 平雷之刻, 平雷之器, 平雷之冠 ]
   -
     id: 12
-    maxRarity: 5
-    mainName: 翠绿之影
-    subName: [ 野花记忆的绿野, 猎人青翠的箭羽, 翠绿猎人的笃定, 翠绿猎人的容器, 翠绿的猎人之冠 ]
+    rarity: 5
+    suit: 翠绿之影
+    names: [ 野花记忆的绿野, 猎人青翠的箭羽, 翠绿猎人的笃定, 翠绿猎人的容器, 翠绿的猎人之冠 ]
   -
     id: 13
-    maxRarity: 5
-    mainName: 流浪大地的乐团
-    subName: [ 乐团的晨光, 琴师的箭羽, 终幕的时计, 吟游者之壶, 指挥的礼帽 ]
+    rarity: 5
+    suit: 流浪大地的乐团
+    names: [ 乐团的晨光, 琴师的箭羽, 终幕的时计, 吟游者之壶, 指挥的礼帽 ]
   -
     id: 14
-    maxRarity: 5
-    mainName: 苍白之火
-    subName: [ 无垢之花, 贤医之羽, 停摆之刻, 超越之盏, 嗤笑之面 ]
+    rarity: 5
+    suit: 苍白之火
+    names: [ 无垢之花, 贤医之羽, 停摆之刻, 超越之盏, 嗤笑之面 ]
   -
     id: 15
-    maxRarity: 5
-    mainName: 千岩牢固
-    subName: [ 勋绩之花, 昭武翎羽, 金铜时昼, 盟誓金爵, 将帅兜鍪 ]
+    rarity: 5
+    suit: 千岩牢固
+    names: [ 勋绩之花, 昭武翎羽, 金铜时昼, 盟誓金爵, 将帅兜鍪 ]
   -
     id: 16
-    maxRarity: 5
-    mainName: 绝缘之旗印
-    subName: [ 明威之镡, 切落之羽, 雷云之笼, 绯花之壶, 华饰之兜 ]
+    rarity: 5
+    suit: 绝缘之旗印
+    names: [ 明威之镡, 切落之羽, 雷云之笼, 绯花之壶, 华饰之兜 ]
   -
     id: 17
-    maxRarity: 5
-    mainName: 追忆之注连
-    subName: [ 羁缠之花, 思忆之矢, 朝露之时, 祈望之心, 无常之面 ]
+    rarity: 5
+    suit: 追忆之注连
+    names: [ 羁缠之花, 思忆之矢, 朝露之时, 祈望之心, 无常之面 ]
+  -
+    id: 18
+    rarity: 5
+    suit: 华馆梦醒形骸记
+    names: [ 荣花之期, 华馆之羽, 众生之谣, 梦醒之瓢, 形骸之笠 ]
+  -
+    id: 19
+    rarity: 5
+    suit: 海染砗磲
+    names: [ 海染之花, 渊宫之羽, 离别之贝, 真珠之笼, 海祇之冠 ]
 
 #
 # 副本掉落设置。别名 alias 忽略大小写。
@@ -181,4 +191,3 @@ domains:
     name: 椛染之庭
     alias: [ 绝缘本, 追忆本, 充能本, 吸能本 ]
     product: [ 16, 17 ]
-

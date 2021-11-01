@@ -1,4 +1,12 @@
-# pm2
+# Backup files
+*~
+*.swp
+
+# Tags
+.tags*
+tags
+
+# Directory of pm2
 *.pm2/
 
 # Logs
@@ -107,7 +115,7 @@ dist
 .tern-port
 
 # macOS auto generated desktop file
-.DS_Store
+.DS_Store/
 
 # IDE auto generated file
-.idea
+.idea/

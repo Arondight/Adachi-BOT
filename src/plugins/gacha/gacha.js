@@ -125,7 +125,7 @@ async function gachaOnceEggs() {
 
   return {
     ...{ item_type: eggs.type[name] || "角色", item_name: name || "刻晴" },
-    star: eggs.star[name] || 3,
+    star: eggs.star[name] || 5,
     times: 1,
   };
 }
