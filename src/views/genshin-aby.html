@@ -197,7 +197,7 @@
             v-if="!floors.hasOwnProperty(n-1)"
           >
             <div class="banner-left banner-abyss banner-placeholder">
-              <p>{{parseInt(n)+8}}-X</p>
+              <p>{{parseInt(n) + 8}}-X</p>
             </div>
             <div class="container-vertical">
               <div class="abyss-details-placeholder">
@@ -216,7 +216,9 @@
             <div v-for="level in floors[n-1].levels">
               <div class="battle" v-for="battle in level.battles">
                 <div class="banner-left banner-abyss" v-if="battle.index==1">
-                  <p>{{floors[n - 1].index}}-{{level.index}}</p>
+                  <p style="font-size: 20px">
+                    {{floors[n - 1].index}}-{{level.index}}
+                  </p>
                   <div class="container-abyss-stars">
                     <p
                       class="abyss-star less-glow"
@@ -226,14 +228,27 @@
                       *
                     </p>
                   </div>
-                  <div>
-                    <p class="abyss-time">
+                  <div class="abyss-time">
+                    <p>
                       {{formatDate(new Date(battle.timestamp * 1000),
-                      "yy.MM.dd")}}
+                      "yy/MM/dd")}}
                     </p>
-                    <p class="abyss-time">
-                      {{formatDate(new Date(battle.timestamp * 1000),
-                      "hh:mm:ss")}}
+                    <p>
+                      <!--因为不是等宽字体，所以要给冒号做单独kerning来确保视觉效果-->
+                      <span
+                        >{{formatDate(new Date(battle.timestamp * 1000),
+                        "hh")}}</span
+                      >
+                      <span class="kerning">:</span>
+                      <span
+                        >{{formatDate(new Date(battle.timestamp * 1000),
+                        "mm")}}</span
+                      >
+                      <span class="kerning">:</span>
+                      <span
+                        >{{formatDate(new Date(battle.timestamp * 1000),
+                        "ss")}}</span
+                      >
                     </p>
                   </div>
                 </div>
@@ -305,11 +320,11 @@
           this.uid = res.uid;
           this.start_time = formatDate(
             new Date(res.data.start_time * 1000),
-            "yyyy.MM.dd"
+            "yyyy/MM/dd"
           );
           this.end_time = formatDate(
             new Date(res.data.end_time * 1000),
-            "yyyy.MM.dd"
+            "yyyy/MM/dd"
           );
           this.total_battle_times = res.data.total_battle_times;
           this.max_floor = res.data.max_floor;

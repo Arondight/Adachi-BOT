@@ -293,7 +293,6 @@ body {
 .banner-abyss {
   justify-content: space-between;
   align-items: center;
-  padding-right: 5px;
 }
 
 .container-abyss-stars {
@@ -343,6 +342,10 @@ div.credit {
 
 .abyss-time {
   font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 9px;
 }
 
 .abyss-level-per-char-base {
@@ -389,4 +392,12 @@ div.credit {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+}
+
+.kerning {
+  margin-left: -0.22em;
+  margin-right: -0.22em;
+  /*处理冒号不垂直居中的问题*/
+  position: relative;
+  top: -0.1em;
 }

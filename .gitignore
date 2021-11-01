@@ -119,3 +119,4 @@ dist
 
 # IDE auto generated file
 .idea/
+.DS_Store
