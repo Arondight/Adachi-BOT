@@ -67,9 +67,6 @@ body {
   justify-content: space-between;
 }
 
-.container-horizontal.char-side {
-}
-
 .char-rounded {
   margin-right: 10px;
   min-width: 58px;
@@ -218,9 +215,6 @@ body {
   flex-wrap: nowrap;
   align-items: stretch;
   justify-content: flex-end;
-}
-
-.celtic-triangle {
 }
 
 .background-general.star-4,
