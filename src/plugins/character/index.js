@@ -7,6 +7,7 @@ import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID, getUID } from "../../utils/id.js";
+import { guessPossibleNames } from "../../utils/tools.js";
 import {
   basePromise,
   detailPromise,
@@ -19,7 +20,7 @@ async function getCharacter(uid, character) {
   return avatars ? avatars.find((e) => e.name === character) : false;
 }
 
-async function getNotFoundText(isMyChar, character) {
+async function getNotFoundText(character, isMyChar) {
   const cmd = [command.functions.name.card, command.functions.name.package];
   const cmdStr = `【${cmd.join("】、【")}】`;
   const text = config.characterTryGetDetail
@@ -27,11 +28,7 @@ async function getNotFoundText(isMyChar, character) {
     : `如果${
         isMyChar ? "您" : "他"
       }拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
-  const guess = lodash
-    .chain(alias.characterNames)
-    .filter((c) => c.includes(character))
-    .join("、")
-    .value();
+  const guess = guessPossibleNames(character, alias.characterNames);
   const notFoundText = `查询失败，${text}。${
     guess ? "\n您要查询的是不是：\n" + guess : ""
   }`;
@@ -102,7 +99,7 @@ async function Plugin(Message, bot) {
       if (!config.characterTryGetDetail) {
         await bot.sendMessage(
           sendID,
-          await getNotFoundText(isMyChar, character),
+          await getNotFoundText(character, isMyChar),
           type,
           userID
         );
@@ -131,7 +128,7 @@ async function Plugin(Message, bot) {
   if (!data) {
     await bot.sendMessage(
       sendID,
-      await getNotFoundText(isMyChar, character),
+      await getNotFoundText(character, isMyChar),
       type,
       userID
     );

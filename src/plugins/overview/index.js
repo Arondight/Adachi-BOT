@@ -5,6 +5,16 @@ import lodash from "lodash";
 import { render } from "../../utils/render.js";
 import { hasAuth, sendPrompt } from "../../utils/auth.js";
 import { getInfo } from "../../utils/api.js";
+import { guessPossibleNames } from "../../utils/tools.js";
+
+function getNotFoundText(text) {
+  const guess = guessPossibleNames(text, alias.allNames);
+  const notFoundText = `查询失败，未知的名称${text}。${
+    guess ? "\n您要查询的是不是：\n" + guess : ""
+  }`;
+
+  return notFoundText;
+}
 
 async function Plugin(Message, bot) {
   const msg = Message.raw_message;
@@ -34,20 +44,7 @@ async function Plugin(Message, bot) {
   try {
     data = await getInfo(alias.all[text] || text);
   } catch (e) {
-    const guess = lodash
-      .chain(alias.allNames)
-      .filter((c) => c.includes(text))
-      .join("、")
-      .value();
-
-    await bot.sendMessage(
-      sendID,
-      `查询失败，未知的名称${text}。${
-        guess ? "\n您要查询的是不是：\n" + guess : ""
-      }`,
-      type,
-      userID
-    );
+    await bot.sendMessage(sendID, getNotFoundText(text), type, userID);
     return;
   }
 

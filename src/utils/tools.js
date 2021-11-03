@@ -1,3 +1,5 @@
+import lodash from "lodash";
+
 function randomString(length) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -15,4 +17,23 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max) + 1;
 }
 
-export { randomString, getRandomInt };
+function guessPossibleNames(name, names) {
+  let words = [];
+
+  if (!Array.isArray(names) || names.includes(name)) {
+    return undefined;
+  }
+
+  for (const n of [...name]) {
+    words = lodash
+      .chain(names)
+      .filter((c) => c.includes(n))
+      .concat(words)
+      .uniq()
+      .value();
+  }
+
+  return words.join("、");
+}
+
+export { randomString, getRandomInt, guessPossibleNames };

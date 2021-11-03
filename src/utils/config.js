@@ -1,4 +1,4 @@
-/* global all, alias, artifacts, command, config, eggs, master */
+/* global all, alias, artifacts, command, config, eggs, master, rootdir */
 /* eslint no-undef: "error" */
 
 /* ==========================================================================
