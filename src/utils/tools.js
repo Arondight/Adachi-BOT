@@ -24,6 +24,9 @@ function guessPossibleNames(name, names) {
     return undefined;
   }
 
+  words = lodash.concat(words, name.match(/\b(\w|\d)+?\b/g));
+  name = name.replace(/(\w|\d|\s)/g, "");
+
   for (const n of [...name]) {
     words = lodash
       .chain(names)
