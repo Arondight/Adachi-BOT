@@ -192,16 +192,20 @@ async function detailPromise(uid, server, userID, bot) {
   const { time } = await db.get("time", "user", { uid });
 
   if (time && nowTime - time < config.cacheInfoEffectTime * 60 * 60 * 1000) {
-    bot.logger.debug(
-      `缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`
-    );
-    const { retcode, message } = await db.get("info", "user", { uid });
+    const { retcode } = (await db.get("info", "user", { uid })) || {};
 
-    if (retcode !== 0) {
-      return await detailError(`米游社接口报错: ${message}`);
+    if (0 === retcode) {
+      bot.logger.debug(
+        `缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`
+      );
+      const { retcode, message } = await db.get("info", "user", { uid });
+
+      if (retcode !== 0) {
+        return await detailError(`米游社接口报错: ${message}`);
+      }
+
+      return await detailError("", true);
     }
-
-    return await detailError("", true);
   }
 
   const cookie = await getCookie(uid, true, bot);

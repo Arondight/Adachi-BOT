@@ -22,17 +22,17 @@
 
 ### 部署
 
+本项目原则上只做 Linux 系统的支持，所有代码合入主线之前也只在 Linux 上进行测试，推荐使用一个主流的[发行版](https://zh.wikipedia.org/wiki/Linux%E5%8F%91%E8%A1%8C%E7%89%88)（例如 [CentOS](https://www.centos.org/) ）进行部署。如果你执意要在 Windows 系统上进行部署，请参照我在 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中写的《如何在 Windows 系统上进行部署》，注意虽然这份说明是出自我之手，但是不表示我推荐在 Windows 系统上部署本项目。
+
 #### 准备环境
 
 > 建议提供一个内存和交换空间容量**总和**达到 `1.5 GiB` 的 Linux 环境进行部署，以运行无头浏览器。
 
-首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较旧版本的 Node.js 。
-
-<details>
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较旧版本的 Node.js 。下面演示了两个常用的发行版系列中安装新版 Node.js 的方法，其他发行版请自行解决此问题。
 
 ##### CentOS、RHEL
 
-```
+```sh
 sudo yum -y remove nodejs
 curl -fsSL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
 sudo yum -y install nodejs
@@ -40,61 +40,73 @@ sudo yum -y install nodejs
 
 ##### Ubuntu、Debian
 
-```
+```sh
 sudo apt -y remove nodejs
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt -y install nodejs
 ```
 
-</details>
+#### 克隆项目
 
-#### 部署项目
 
-> 本项目原则上只做 Linux 系统的支持，所有代码合入主线之前也只在 Linux 上进行测试，推荐使用一个主流的[发行版](https://zh.wikipedia.org/wiki/Linux%E5%8F%91%E8%A1%8C%E7%89%88)（例如 [CentOS](https://www.centos.org/) ）进行部署。如果你执意要在 Windows 系统上进行部署，请参照我在 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中写的《如何在 Windows 系统上进行部署》，注意虽然这份说明是出自我之手，但是不表示我推荐在 Windows 系统上部署本项目。
-
-```
+```sh
 git clone https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
-npm install
 ```
 
-如果 `puppeteer` 模块下载 `Chromium` 失败，那么玩家的数据查询功能将无法使用，此时……
+#### 安装依赖模块
 
-<details>
+你需要使用 `npm` 命令安装所需的依赖模块，但是因为 `puppeteer` 在安装过程中具有特殊性，所以整个安装过程有了两种思路，你可以在下面的安装方法中任选其一。
 
-你有两种选择。首先删除 `./node_modules/` 目录。
+##### 其一，（推荐）使用系统自带的 Chromium
 
-其一，（推荐）使用系统自带的 `Chromium` ，这里以 `CentOS` 为例，执行以下命令。
+这种做法的好处有三个。
 
-```
+1. 包管理器会为你提供 Chromium 安装和运行所需要的依赖。
+2. 包管理器可以给你提供 Chromium 安全和功能更新。
+3. 你不需要在一个系统里装多份 Chromium 浏览器。
+
+你要做的是用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径，配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。这样 `puppeteer` 就可以使用系统自带的 Chromium 。这里以 `CentOS` 为例，执行以下命令。
+
+```sh
 sudo yum -y install epel-release
 sudo yum -y install chromium
+
 SHRC="${HOME}/.bashrc"
-BROWER_BIN='/usr/lib64/chromium-browser/chromium-browser'
+BROWER='/usr/lib64/chromium-browser/chromium-browser'
 VAR_PATH='PUPPETEER_EXECUTABLE_PATH'
 VAR_SKIP='PUPPETEER_SKIP_CHROMIUM_DOWNLOAD'
-grep "$VAR_PATH" "$SHRC" || ( echo "export ${VAR_PATH}='${BROWER_BIN}'" | tee -a "$SHRC" )
+grep "$VAR_PATH" "$SHRC" || ( echo "export ${VAR_PATH}='${BROWER}'" | tee -a "$SHRC" )
 grep "$VAR_SKIP" "$SHRC" || ( echo "export ${VAR_SKIP}='true'" | tee -a "$SHRC" )
 source "$SHRC"
+
 npm install
 ```
 
-> 1. `BROWER_BIN` 需要设置为 `Chromium` 的二进制可执行文件路径，而非启动脚本或其链接的路径。
-> 2. `SHRC` 是 `shell` 配置文件的路径，这里用的是 `bash` 。
+> 1. `BROWER` 需要设置为 Chromium 的二进制 ELF 路径，而**非启动脚本或其链接**的路径。
+> 2. `SHRC` 是 Shell 配置文件的路径，这里的 Shell 是 `bash` 。
 
-其二，通过任意合法途径获得一个可以访问国际互联网的 `http` 代理，然后执行以下命令。
+##### 其二，让 npm 为你安装一个 Chromium
 
+这需要你的系统有访问国际互联网的能力，如果可以访问，直接执行以下命令。
+
+```sh
+npm install
 ```
-npm_config_proxy=http://<ip>:<port> npm install
+
+如果无法访问，那么你需要通过任意合法途径获得一个可以访问国际互联网的 `http` 代理，然后执行以下命令。
+
+```sh
+npm_config_proxy=http://<代理地址>:<代理端口> npm install
 ```
 
-</details>
+> 注意使用此方法安装 Chromium ，你需要自行解决它的运行依赖问题（例如缺少动态库）。
 
 ### 配置
 
-首次配置，进入本项目所在的目录 `./Adachi-BOT/`，执行以下命令复制默认配置文件 `setting.yml` 和 `cookies.yml` 。
+首次配置，进入本项目所在的目录 `./Adachi-BOT/`，执行以下命令从 `./config_defaults/` 下复制默认配置文件 `setting.yml` 和 `cookies.yml` 到 `./config/` 中。
 
-```
+```sh
 cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 ```
 
@@ -105,9 +117,8 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | [setting.yml](config_defaults/setting.yml) | 基本配置选项 |
 | [cookies.yml](config_defaults/cookies.yml) | 米游社Cookie |
 
-> 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
-
-你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护（例如 `artifacts.yml` ），那就不要把它们放到 `./config/` 下。通常来说，你只需要在 `./config/` 下存放 `setting.yml` 和 `cookies.yml` 就够了。
+> 1. 你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护，那就不要把它们放到 `./config/` 下。请详细阅读相关配置文件中注释的说明。
+> 2. 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
 
 ### 运行
 
@@ -133,28 +144,28 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 #### 检查更新
 
-```
+```sh
 ./scripts/is_there_an_update_available.sh
 ```
 
 #### 进行更新
 
-```
+```sh
 git pull -p
 npm install
 ```
 
 #### 查看配置文件变更
 
-```
+```sh
 ./scripts/whats_updated_in_the_configuration_files.sh
 ```
 
-> 你可以使用 [Meld](http://meldmerge.org/) 把 `config_defaults/` 中的变更合并到 `config/` 里。
+> 你可以使用 [Meld](http://meldmerge.org/) 把 `./config_defaults/` 中的变更合并到 `./config/` 里。
 
 #### 重启机器人
 
-```
+```sh
 npm run restart
 ```
 
