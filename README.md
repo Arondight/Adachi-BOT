@@ -60,13 +60,13 @@ cd ./Adachi-BOT/
 
 ##### 其一，（推荐）使用系统自带的 Chromium
 
-你需要使用包管理器安装 Chromium ，然后配置对应的环境变量让 `puppeteer` 直接使用系统自带的 Chromium 。这种做法的好处有三个。
+这种做法的好处有三个。
 
 1. 包管理器会为你提供 Chromium 安装和运行所需要的依赖。
 2. 包管理器可以给你提供 Chromium 安全和功能更新。
 3. 你不需要在一个系统里装多份 Chromium 浏览器。
 
-你要做的是用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径，配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。这里以 `CentOS` 为例，执行以下命令。
+你要做的是用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径，配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。这样 `puppeteer` 就可以使用系统自带的 Chromium 。这里以 `CentOS` 为例，执行以下命令。
 
 ```sh
 sudo yum -y install epel-release
@@ -83,7 +83,7 @@ source "$SHRC"
 npm install
 ```
 
-> 1. `BROWER` 需要设置为 Chromium 的二进制可执行文件路径，而非启动脚本或其链接的路径。
+> 1. `BROWER` 需要设置为 Chromium 的二进制 ELF 路径，而**非启动脚本或其链接**的路径。
 > 2. `SHRC` 是 Shell 配置文件的路径，这里的 Shell 是 `bash` 。
 
 ##### 其二，让 npm 为你安装一个 Chromium
@@ -117,9 +117,8 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | [setting.yml](config_defaults/setting.yml) | 基本配置选项 |
 | [cookies.yml](config_defaults/cookies.yml) | 米游社Cookie |
 
-> 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
-
-你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护，那就不要把它们放到 `./config/` 下。请详细阅读相关配置文件中注释的说明。
+> 1. 你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护，那就不要把它们放到 `./config/` 下。请详细阅读相关配置文件中注释的说明。
+> 2. 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
 
 ### 运行
 
