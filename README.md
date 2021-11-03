@@ -52,7 +52,6 @@ sudo apt -y install nodejs
 ```sh
 git clone https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
-npm install
 ```
 
 #### 安装依赖模块
