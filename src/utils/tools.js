@@ -19,15 +19,17 @@ function getRandomInt(max) {
 
 function guessPossibleNames(name, names) {
   let words = [];
+  let keys = [];
 
   if (!Array.isArray(names) || names.includes(name)) {
     return undefined;
   }
 
-  words = lodash.concat(words, name.match(/\b(\w|\d)+?\b/g));
+  keys = lodash.concat(words, name.match(/\b(\w|\d)+?\b/g));
   name = name.replace(/(\w|\d|\s)/g, "");
+  keys = lodash.concat(keys, [...name]);
 
-  for (const n of [...name]) {
+  for (const n of [...keys]) {
     words = lodash
       .chain(names)
       .filter((c) => c.includes(n))
