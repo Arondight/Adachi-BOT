@@ -1,4 +1,4 @@
-async function count(id, msg, type, user, bot) {
+async function count(id, text, type, user, bot) {
   let report = "";
   let num = 0;
 

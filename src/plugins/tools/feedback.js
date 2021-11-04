@@ -1,7 +1,7 @@
 import { hasAuth, sayAuth } from "../../utils/auth.js";
 
-async function feedback(id, uname, msg, type, user, gname, bot) {
-  const info = msg.split(/(?<=^\S+)\s/).slice(1);
+async function feedback(id, uname, text, type, user, gname, bot) {
+  const info = text.split(/(?<=^\S+)\s/).slice(1);
 
   if (!(await hasAuth(id, "feedback")) || !(await hasAuth(user, "feedback"))) {
     await sayAuth(id, user, uname, "带话", type, bot);

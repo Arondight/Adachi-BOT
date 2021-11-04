@@ -1,6 +1,6 @@
-async function reply(id, msg, type, user, bot) {
-  const target = parseInt(msg.match(/[0-9]+/g)[0]);
-  const [text] = msg.split(/(?<=\d+\S+)\s/).slice(1);
+async function reply(id, text, type, user, bot) {
+  const target = parseInt(text.match(/[0-9]+/g)[0]);
+  const [msg] = text.split(/(?<=\d+\S+)\s/).slice(1);
   const list = new Map([...bot.fl, ...bot.gl]);
 
   list.forEach(async (item) => {
@@ -9,7 +9,7 @@ async function reply(id, msg, type, user, bot) {
 
     if (itemID == target) {
       // 送话无法 @
-      await bot.say(itemID, `主人让我送个话：\n${text}`, curType);
+      await bot.say(itemID, `主人让我送个话：\n${msg}`, curType);
       // 私聊无法 @
       await bot.say(id, `我已经给${itemID}送话了。`, "private");
     }

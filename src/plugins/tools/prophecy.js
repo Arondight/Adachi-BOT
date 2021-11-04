@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-async function prophecy(id, msg, type, user, bot) {
+async function prophecy(id, text, type, user, bot) {
   const seed = Math.round(Date.now() / 1000);
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
