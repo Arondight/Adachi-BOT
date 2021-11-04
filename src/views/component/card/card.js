@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const upper = {
   template: "#upper",
   props: {
@@ -36,11 +37,7 @@ const upper = {
   },
   computed: {
     Picture() {
-      return (
-        "http://localhost:9934/resources/characters/profile/" +
-        this.profile +
-        ".png"
-      );
+      return "http://localhost:9934/resources/characters/profile/" + this.profile + ".png";
     },
     worldLevel() {
       if (this.level >= 55) {
@@ -79,9 +76,7 @@ const upper = {
     sakura(props) {
       return () => {
         let data = props.exploration.find((el) => el.id === 4);
-        return `Lv.${
-          data ? data.offerings.find((el) => el.name === "神樱眷顾").level : 0
-        }`;
+        return `Lv.${data ? data.offerings.find((el) => el.name === "神樱眷顾").level : 0}`;
       };
     },
     homedata() {
@@ -112,6 +107,7 @@ const AvatarElement = {
   },
 };
 
+// eslint-disable-next-line no-unused-vars
 const middle = {
   template: "#middle",
   props: {
@@ -124,6 +120,7 @@ const middle = {
   },
 };
 
+// eslint-disable-next-line no-unused-vars
 const bottom = {
   template: "#bottom",
 };

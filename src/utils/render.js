@@ -10,11 +10,7 @@ const mutex = new Mutex();
 async function render(data, name, id, type, user, bot, scale = 1.5) {
   let base64;
 
-  await fs.writeFile(
-    path.resolve(rootdir, "data", "record", `${name}.json`),
-    JSON.stringify(data),
-    () => {}
-  );
+  await fs.writeFile(path.resolve(rootdir, "data", "record", `${name}.json`), JSON.stringify(data), () => {});
 
   const release = await mutex.acquire();
 
@@ -44,7 +40,7 @@ async function render(data, name, id, type, user, bot, scale = 1.5) {
 
   if (base64) {
     const imageCQ = `[CQ:image,file=base64://${base64}]`;
-    await bot.sendMessage(id, imageCQ, type, user, "\n");
+    await bot.say(id, imageCQ, type, user, "\n");
   }
 }
 

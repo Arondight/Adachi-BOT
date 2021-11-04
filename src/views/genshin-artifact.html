@@ -9,11 +9,7 @@
   <body>
     <div id="app">
       <div>
-        <img
-          class="background"
-          src="http://localhost:9934/resources/module/artifact.png"
-          alt="ERROR"
-        />
+        <img class="background" src="http://localhost:9934/resources/module/artifact.png" alt="ERROR" />
         <div class="content">
           <p class="name">{{base.name}}</p>
           <p class="slot">{{Slot}}</p>
@@ -21,11 +17,7 @@
             <p class="property">{{statName}}</p>
             <p class="data">{{statData}}</p>
           </div>
-          <img
-            class="rarity"
-            src="http://localhost:9934/resources/item/rarity.png"
-            alt="ERROR"
-          />
+          <img class="rarity" src="http://localhost:9934/resources/item/rarity.png" alt="ERROR" />
           <img class="image" :src="artifactImage" alt="ERROR" />
           <p class="level">+{{base.level}}</p>
           <ul class="list" v-for="v in data">

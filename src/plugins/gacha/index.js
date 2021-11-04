@@ -4,14 +4,14 @@
 import lodash from "lodash";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { hasAuth, sayAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getGachaResult } from "./gacha.js";
 
-async function userInitialize(userID) {
-  if (!(await db.includes("gacha", "user", "userID", userID))) {
+async function userInitialize(uid) {
+  if (!(await db.includes("gacha", "user", "uid", uid))) {
     await db.push("gacha", "user", {
-      userID,
+      userID: uid,
       choice: 301,
       indefinite: { five: 1, four: 1, isUp: undefined },
       character: { five: 1, four: 1, isUp: 0 },
@@ -21,23 +21,17 @@ async function userInitialize(userID) {
   }
 }
 
-async function Plugin(Message, bot) {
-  const msg = Message.raw_message;
-  const userID = Message.user_id;
-  const groupID = Message.group_id;
-  const type = Message.type;
-  const sendID = "group" === type ? groupID : userID;
-  const name = Message.sender.nickname;
-  let [cmd] = msg.split(/(?<=^\S+)\s/).slice(1);
+async function Plugin(msg, bot) {
+  let [cmd] = msg.text.split(/(?<=^\S+)\s/).slice(1);
 
-  await userInitialize(userID);
+  await userInitialize(msg.uid);
 
-  if (!(await hasAuth(userID, "gacha")) || !(await hasAuth(sendID, "gacha"))) {
-    await sendPrompt(sendID, userID, name, "祈愿十连", type, bot);
+  if (!(await hasAuth(msg.uid, "gacha")) || !(await hasAuth(msg.sid, "gacha"))) {
+    await sayAuth(msg.sid, msg.uid, msg.name, "祈愿十连", msg.type, bot);
     return;
   }
 
-  if (hasEntrance(msg, "gacha", "pool")) {
+  if (hasEntrance(msg.text, "gacha", "pool")) {
     let choice = 301;
 
     switch (cmd) {
@@ -55,97 +49,57 @@ async function Plugin(Message, bot) {
         break;
     }
 
-    await db.update("gacha", "user", { userID }, { choice });
-    await bot.sendMessage(
-      sendID,
-      `您的卡池已切换至：${all.functions.options.pool[choice]}。`,
-      type,
-      userID
-    );
-  } else if (hasEntrance(msg, "gacha", "gacha")) {
-    const data = await getGachaResult(userID, name);
-    await render(data, "genshin-gacha", sendID, type, userID, bot);
-  } else if (hasEntrance(msg, "gacha", "select-what")) {
-    const { choice } = await db.get("gacha", "user", { userID });
+    await db.update("gacha", "user", { userID: msg.uid }, { choice });
+    await bot.say(msg.sid, `您的卡池已切换至：${all.functions.options.pool[choice]}。`, msg.type, msg.uid);
+  } else if (hasEntrance(msg.text, "gacha", "gacha")) {
+    const data = await getGachaResult(msg.uid, msg.name);
+    await render(data, "genshin-gacha", msg.sid, msg.type, msg.uid, bot);
+  } else if (hasEntrance(msg.text, "gacha", "select-what")) {
+    const { choice } = await db.get("gacha", "user", { userID: msg.uid });
 
     if (choice !== 302) {
-      await bot.sendMessage(
-        sendID,
-        "当前非武器卡池无法查看定轨。",
-        type,
-        userID
-      );
+      await bot.say(msg.sid, "当前非武器卡池无法查看定轨。", msg.type, msg.uid);
       return;
     }
 
     const table = await db.get("gacha", "data", { gacha_type: 302 });
-    const { path } = await db.get("gacha", "user", { userID });
+    const { path } = await db.get("gacha", "user", { userID: msg.uid });
 
-    if (null === path.course)
-      await bot.sendMessage(sendID, "当前未指定定轨武器。", type, userID);
-    else
-      await bot.sendMessage(
-        sendID,
-        `当前定轨${table.upFiveStar[path.course].item_name}，命定值为 ${
-          path.fate
-        } 。`,
-        type,
-        userID
-      );
-  } else if (hasEntrance(msg, "gacha", "select-nothing")) {
+    if (null === path.course) {
+      await bot.say(msg.sid, "当前未指定定轨武器。", msg.type, msg.uid);
+    } else {
+      const text = `当前定轨${table.upFiveStar[path.course].item_name}，命定值为 ${path.fate} 。`;
+      await bot.say(msg.sid, text, msg.type, msg.uid);
+    }
+  } else if (hasEntrance(msg.text, "gacha", "select-nothing")) {
     const path = { course: null, fate: 0 };
-    await db.update("gacha", "user", { userID }, { path });
-    await bot.sendMessage(sendID, "已取消定轨。", type, userID);
+    await db.update("gacha", "user", { userID: msg.uid }, { path });
+    await bot.say(msg.sid, "已取消定轨。", msg.type, msg.uid);
     return;
-  } else if (hasEntrance(msg, "gacha", "select")) {
-    const { choice } = await db.get("gacha", "user", { userID });
+  } else if (hasEntrance(msg.text, "gacha", "select")) {
+    const { choice } = await db.get("gacha", "user", { userID: msg.uid });
 
     if (choice !== 302) {
-      await bot.sendMessage(
-        sendID,
-        "当前非武器卡池无法进行定轨。",
-        type,
-        userID
-      );
+      await bot.say(msg.sid, "当前非武器卡池无法进行定轨。", msg.type, msg.uid);
       return;
     }
 
     const table = await db.get("gacha", "data", { gacha_type: 302 });
-    cmd =
-      alias.weapon["string" === typeof cmd ? cmd.toLowerCase() : cmd] || cmd;
+    cmd = alias.weapon["string" === typeof cmd ? cmd.toLowerCase() : cmd] || cmd;
 
     if (cmd && lodash.find(table.upFiveStar, { item_name: cmd })) {
-      await bot.sendMessage(
-        sendID,
-        `定轨${cmd}成功，命定值已清零。`,
-        type,
-        userID
-      );
+      await bot.say(msg.sid, `定轨${cmd}成功，命定值已清零。`, msg.type, msg.uid);
       const path = {
         course: lodash.findIndex(table.upFiveStar, { item_name: cmd }),
         fate: 0,
       };
-      await db.update("gacha", "user", { userID }, { path });
+      await db.update("gacha", "user", { userID: msg.uid }, { path });
     } else {
-      await bot.sendMessage(
-        sendID,
-        `请从当前 UP 武器${lodash
-          .map(table.upFiveStar, "item_name")
-          .join("、")}中选择一个进行定轨。`,
-        type,
-        userID
-      );
+      const text = `请从当前 UP 武器${lodash.map(table.upFiveStar, "item_name").join("、")}中选择一个进行定轨。`;
+      await bot.say(msg.sid, text, msg.type, msg.uid);
       return;
     }
   }
 }
 
-async function Wrapper(Message, bot) {
-  try {
-    await Plugin(Message, bot);
-  } catch (e) {
-    bot.logger.error(e);
-  }
-}
-
-export { Wrapper as run };
+export { Plugin as run };

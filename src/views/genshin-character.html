@@ -87,13 +87,7 @@
         <img class="weapon-image" :src="weapon.icon" alt="ERROR" />
         <div class="weapon-context">
           <p class="weapon-name">{{weapon.name}}</p>
-          <p
-            v-if="len !== 0"
-            class="weapon-refine"
-            :style="{ width: len + 'px' }"
-          >
-            精炼{{weapon.affix_level}}阶
-          </p>
+          <p v-if="len !== 0" class="weapon-refine" :style="{ width: len + 'px' }">精炼{{weapon.affix_level}}阶</p>
           <p class="weapon-rarity">{{rarity}}</p>
           <p class="weapon-level">Lv.{{weapon.level}}</p>
           <p class="weapon-desc">{{weapon.desc}}</p>
@@ -124,30 +118,12 @@
         },
         methods: {
           setStyle(colorList) {
-            document.documentElement.style.setProperty(
-              "--baseInfoColor",
-              colorList[0]
-            );
-            document.documentElement.style.setProperty(
-              "--contentColor",
-              colorList[1]
-            );
-            document.documentElement.style.setProperty(
-              "--backgroundColor",
-              colorList[2]
-            );
-            document.documentElement.style.setProperty(
-              "--elementColor",
-              colorList[3]
-            );
-            document.documentElement.style.setProperty(
-              "--titleColor",
-              colorList[4]
-            );
-            document.documentElement.style.setProperty(
-              "--splitLineColor",
-              colorList[5]
-            );
+            document.documentElement.style.setProperty("--baseInfoColor", colorList[0]);
+            document.documentElement.style.setProperty("--contentColor", colorList[1]);
+            document.documentElement.style.setProperty("--backgroundColor", colorList[2]);
+            document.documentElement.style.setProperty("--elementColor", colorList[3]);
+            document.documentElement.style.setProperty("--titleColor", colorList[4]);
+            document.documentElement.style.setProperty("--splitLineColor", colorList[5]);
           },
           getLength(str) {
             return str.replace(/[\u0391-\uFFE5]/g, "aa").length / 2;
@@ -256,9 +232,7 @@
             let artifacts = [];
             for (let i = 1; i <= 5; i++) {
               let info = character.artifact.find((el) => el.pos === i);
-              artifacts[i] = info
-                ? character.artifact.find((el) => el.pos === i)
-                : "empty";
+              artifacts[i] = info ? character.artifact.find((el) => el.pos === i) : "empty";
             }
             this.artifacts = artifacts;
           });

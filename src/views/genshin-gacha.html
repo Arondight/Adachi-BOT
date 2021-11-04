@@ -14,10 +14,7 @@
 
     <template id="background">
       <div class="background">
-        <img
-          src="http://localhost:9934/resources/gacha/items/background.png"
-          alt="ERROR"
-        />
+        <img src="http://localhost:9934/resources/gacha/items/background.png" alt="ERROR" />
         <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
       </div>
     </template>
@@ -35,9 +32,7 @@
           <img class="character-image" :src="characterImage" alt="ERROR" />
         </div>
         <img class="type-image" :src="typeImage" alt="ERROR" />
-        <div class="times" v-if="data.times !== undefined">
-          「{{data.times}} 抽」
-        </div>
+        <div class="times" v-if="data.times !== undefined">「{{data.times}} 抽」</div>
       </div>
     </template>
 
@@ -94,39 +89,21 @@
         },
         computed: {
           starBackground() {
-            return (
-              "http://localhost:9934/resources/gacha/items/" +
-              this.bgType[this.data.star - 3] +
-              ".png"
-            );
+            return "http://localhost:9934/resources/gacha/items/" + this.bgType[this.data.star - 3] + ".png";
           },
           starImage() {
-            return (
-              "http://localhost:9934/resources/gacha/items/" +
-              this.starType[this.data.star - 3] +
-              ".png"
-            );
+            return "http://localhost:9934/resources/gacha/items/" + this.starType[this.data.star - 3] + ".png";
           },
           characterImage() {
-            return (
-              "http://localhost:9934/resources/Version2/wish/character/" +
-              this.data.item_name +
-              ".png"
-            );
+            return "http://localhost:9934/resources/Version2/wish/character/" + this.data.item_name + ".png";
           },
           weaponImage() {
-            return (
-              "http://localhost:9934/resources/Version2/wish/weapon/" +
-              this.data.item_name +
-              ".png"
-            );
+            return "http://localhost:9934/resources/Version2/wish/weapon/" + this.data.item_name + ".png";
           },
           typeImage() {
             const type = this.data.item_type === "武器" ? "type" : "element";
             const name = this.data.type;
-            return (
-              `http://localhost:9934/resources/gacha/${type}/` + name + ".png"
-            );
+            return `http://localhost:9934/resources/gacha/${type}/` + name + ".png";
           },
         },
       };

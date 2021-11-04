@@ -13,9 +13,7 @@
         <div class="container-vertical abyss-briefing">
           <div class="card overview">
             <div class="title">深境螺旋战绩</div>
-            <div class="overall-challenge-date">
-              {{start_time}} - {{end_time}}
-            </div>
+            <div class="overall-challenge-date">{{start_time}} - {{end_time}}</div>
             <!--结构化模版开始-->
             <div class="overall-challenge-times-by-char">
               <div
@@ -24,15 +22,8 @@
                 v-if="index < 9"
                 :key="index"
               >
-                <div
-                  class="background-general"
-                  :class="'star-' + reveal.rarity"
-                >
-                  <img
-                    class="avatar-general"
-                    :src="reveal.avatar_icon"
-                    alt="ERROR"
-                  />
+                <div class="background-general" :class="'star-' + reveal.rarity">
+                  <img class="avatar-general" :src="reveal.avatar_icon" alt="ERROR" />
                 </div>
                 <div class="description-general">{{reveal.value}}次</div>
               </div>
@@ -49,15 +40,8 @@
                 v-if="index < 14"
                 :key="index"
               >
-                <div
-                  class="background-rounded"
-                  :class="'star-' + defeat.rarity"
-                >
-                  <img
-                    class="avatar-rounded"
-                    :src="imageUrlReplacement(defeat.avatar_icon)"
-                    alt="ERROR"
-                  />
+                <div class="background-rounded" :class="'star-' + defeat.rarity">
+                  <img class="avatar-rounded" :src="imageUrlReplacement(defeat.avatar_icon)" alt="ERROR" />
                 </div>
                 <div class="avatar-info">{{defeat.value}}</div>
               </div>
@@ -72,15 +56,8 @@
                 v-if="index < 14"
                 :key="index"
               >
-                <div
-                  class="background-rounded"
-                  :class="'star-' + take_damage.rarity"
-                >
-                  <img
-                    class="avatar-rounded"
-                    :src="imageUrlReplacement(take_damage.avatar_icon)"
-                    alt="ERROR"
-                  />
+                <div class="background-rounded" :class="'star-' + take_damage.rarity">
+                  <img class="avatar-rounded" :src="imageUrlReplacement(take_damage.avatar_icon)" alt="ERROR" />
                 </div>
                 <div class="avatar-info">{{take_damage.value}}</div>
               </div>
@@ -95,15 +72,8 @@
                 v-if="index < 14"
                 :key="index"
               >
-                <div
-                  class="background-rounded"
-                  :class="'star-' + normal_skill.rarity"
-                >
-                  <img
-                    class="avatar-rounded"
-                    :src="imageUrlReplacement(normal_skill.avatar_icon)"
-                    alt="ERROR"
-                  />
+                <div class="background-rounded" :class="'star-' + normal_skill.rarity">
+                  <img class="avatar-rounded" :src="imageUrlReplacement(normal_skill.avatar_icon)" alt="ERROR" />
                 </div>
                 <div class="avatar-info">{{normal_skill.value}}</div>
               </div>
@@ -118,15 +88,8 @@
                 v-if="index < 14"
                 :key="index"
               >
-                <div
-                  class="background-rounded"
-                  :class="'star-' + energy_skill.rarity"
-                >
-                  <img
-                    class="avatar-rounded"
-                    :src="imageUrlReplacement(energy_skill.avatar_icon)"
-                    alt="ERROR"
-                  />
+                <div class="background-rounded" :class="'star-' + energy_skill.rarity">
+                  <img class="avatar-rounded" :src="imageUrlReplacement(energy_skill.avatar_icon)" alt="ERROR" />
                 </div>
                 <div class="avatar-info">{{energy_skill.value}}</div>
               </div>
@@ -144,9 +107,7 @@
             <div class="banner-middle">最深抵达</div>
             <div class="banner-summary">{{max_floor}}</div>
             <div class="banner-middle">获得渊星</div>
-            <div class="banner-summary">
-              {{total_star}}<span class="abyss-star large">*</span>
-            </div>
+            <div class="banner-summary">{{total_star}}<span class="abyss-star large">*</span></div>
           </div>
           <div class="container-horizontal no-margin">
             <div class="card strongest-hit">
@@ -159,21 +120,12 @@
                   v-if="index = 1"
                   :key="index"
                 >
-                  <div
-                    class="background-general"
-                    :class="'star-' + damage.rarity"
-                  >
+                  <div class="background-general" :class="'star-' + damage.rarity">
                     <!--<div class="celtic-triangle">-->
-                    <img
-                      class="strongest-hit"
-                      :src="imageUrlReplacement(damage.avatar_icon)"
-                      alt="ERROR"
-                    />
+                    <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
                     <!--</div>-->
                   </div>
-                  <div class="description-general strongest-hit">
-                    {{damage.value}}
-                  </div>
+                  <div class="description-general strongest-hit">{{damage.value}}</div>
                 </div>
               </div>
               <!--结构化模版结束-->
@@ -186,16 +138,11 @@
         </div>
       </div>
       <!--深渊模块开始-->
-      <div
-        class="container-horizontal abyss-details no-margin-left no-margin-top"
-      >
+      <div class="container-horizontal abyss-details no-margin-left no-margin-top">
         <!--深渊数据开始-->
         <div class="card abyss" v-for="n in 4">
           <!--placeholder开始，如果该楼层有数据就显示数据，如果没有数据则显示"NO DATA"-->
-          <div
-            class="abyss-empty-record-placeholder"
-            v-if="!floors.hasOwnProperty(n-1)"
-          >
+          <div class="abyss-empty-record-placeholder" v-if="!floors.hasOwnProperty(n-1)">
             <div class="banner-left banner-abyss banner-placeholder">
               <p>{{parseInt(n) + 8}}-X</p>
             </div>
@@ -204,9 +151,7 @@
                 <p class="text-placeholder">----NO DATA----</p>
                 <p class="text-placeholder">没有找到该层的深境螺旋记录。</p>
                 <p class="text-placeholder">可能是米游社数据暂未刷新，</p>
-                <p class="text-placeholder">
-                  如果确定游戏中有过该层的通关记录，
-                </p>
+                <p class="text-placeholder">如果确定游戏中有过该层的通关记录，</p>
                 <p class="text-placeholder">请稍后再进行查询。</p>
               </div>
             </div>
@@ -216,60 +161,28 @@
             <div v-for="level in floors[n-1].levels">
               <div class="battle" v-for="battle in level.battles">
                 <div class="banner-left banner-abyss" v-if="battle.index==1">
-                  <p style="font-size: 20px">
-                    {{floors[n - 1].index}}-{{level.index}}
-                  </p>
+                  <p style="font-size: 20px">{{floors[n - 1].index}}-{{level.index}}</p>
                   <div class="container-abyss-stars">
-                    <p
-                      class="abyss-star less-glow"
-                      v-for="index in level.star"
-                      v-if="battle.index==1"
-                    >
-                      *
-                    </p>
+                    <p class="abyss-star less-glow" v-for="index in level.star" v-if="battle.index==1">*</p>
                   </div>
                   <div class="abyss-time">
-                    <p>
-                      {{formatDate(new Date(battle.timestamp * 1000),
-                      "yy/MM/dd")}}
-                    </p>
+                    <p>{{formatDate(new Date(battle.timestamp * 1000), "yy/MM/dd")}}</p>
                     <p>
                       <!--因为不是等宽字体，所以要给冒号做单独kerning来确保视觉效果-->
-                      <span
-                        >{{formatDate(new Date(battle.timestamp * 1000),
-                        "hh")}}</span
-                      >
+                      <span>{{formatDate(new Date(battle.timestamp * 1000), "hh")}}</span>
                       <span class="kerning">:</span>
-                      <span
-                        >{{formatDate(new Date(battle.timestamp * 1000),
-                        "mm")}}</span
-                      >
+                      <span>{{formatDate(new Date(battle.timestamp * 1000), "mm")}}</span>
                       <span class="kerning">:</span>
-                      <span
-                        >{{formatDate(new Date(battle.timestamp * 1000),
-                        "ss")}}</span
-                      >
+                      <span>{{formatDate(new Date(battle.timestamp * 1000), "ss")}}</span>
                     </p>
                   </div>
                 </div>
                 <!--下面就是展示人物的屎山代码了，睡起来改-->
                 <div class="container-abyss-window">
-                  <div
-                    class="container-horizontal abyss-char-windows no-margin"
-                  >
-                    <div
-                      class="abyss-level-per-char-base"
-                      v-for="avatar in battle.avatars"
-                    >
-                      <div
-                        class="background-general"
-                        :class="'star-' + avatar.rarity"
-                      >
-                        <img
-                          class="avatar-general"
-                          :src="avatar.icon"
-                          alt="ERROR"
-                        />
+                  <div class="container-horizontal abyss-char-windows no-margin">
+                    <div class="abyss-level-per-char-base" v-for="avatar in battle.avatars">
+                      <div class="background-general" :class="'star-' + avatar.rarity">
+                        <img class="avatar-general" :src="avatar.icon" alt="ERROR" />
                       </div>
                       <div class="description-general">LV.{{avatar.level}}</div>
                     </div>
@@ -318,14 +231,8 @@
       mounted() {
         this.readJSON("../../data/record/genshin-aby.json", (res) => {
           this.uid = res.uid;
-          this.start_time = formatDate(
-            new Date(res.data.start_time * 1000),
-            "yyyy/MM/dd"
-          );
-          this.end_time = formatDate(
-            new Date(res.data.end_time * 1000),
-            "yyyy/MM/dd"
-          );
+          this.start_time = formatDate(new Date(res.data.start_time * 1000), "yyyy/MM/dd");
+          this.end_time = formatDate(new Date(res.data.end_time * 1000), "yyyy/MM/dd");
           this.total_battle_times = res.data.total_battle_times;
           this.max_floor = res.data.max_floor;
           this.total_star = res.data.total_star;
@@ -344,10 +251,7 @@
 
     function formatDate(date, fmt) {
       if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(
-          RegExp.$1,
-          (date.getFullYear() + "").substr(4 - RegExp.$1.length)
-        );
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
       }
       let o = {
         "M+": date.getMonth() + 1,
@@ -359,10 +263,7 @@
       for (let k in o) {
         if (new RegExp(`(${k})`).test(fmt)) {
           let str = o[k] + "";
-          fmt = fmt.replace(
-            RegExp.$1,
-            1 === RegExp.$1.length ? str : padLeftZero(str)
-          );
+          fmt = fmt.replace(RegExp.$1, 1 === RegExp.$1.length ? str : padLeftZero(str));
         }
       }
       return fmt;

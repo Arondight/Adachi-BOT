@@ -3,58 +3,45 @@
 
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { hasAuth, sayAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getArtifact, domainInfo, domainMax } from "./artifacts.js";
 
-async function userInitialize(userID) {
-  if (!(await db.includes("artifact", "user", "userID", userID))) {
-    await db.push("artifact", "user", { userID, initial: {}, fortified: {} });
+async function userInitialize(id) {
+  if (!(await db.includes("artifact", "user", "msg", id))) {
+    await db.push("artifact", "user", { userID: id, initial: {}, fortified: {} });
   }
 }
 
-async function Plugin(Message, bot) {
-  const msg = Message.raw_message;
-  const userID = Message.user_id;
-  const groupID = Message.group_id;
-  const type = Message.type;
-  const sendID = "group" === type ? groupID : userID;
-  const name = Message.sender.nickname;
-  const [cmd, arg] = msg.split(/(?<=^\S+)\s/).slice(0, 2);
+async function Plugin(msg, bot) {
+  const [cmd, arg] = msg.text.split(/(?<=^\S+)\s/).slice(0, 2);
   let data;
 
-  await userInitialize(userID);
+  await userInitialize(msg.uid);
 
-  if (
-    !(await hasAuth(userID, "artifact")) ||
-    !(await hasAuth(sendID, "artifact"))
-  ) {
-    await sendPrompt(sendID, userID, name, "抽取圣遗物", type, bot);
+  if (!(await hasAuth(msg.uid, "artifact")) || !(await hasAuth(msg.sid, "artifact"))) {
+    await sayAuth(msg.sid, msg.uid, msg.name, "抽取圣遗物", msg.type, bot);
     return;
   }
 
   if (undefined === arg) {
     if (hasEntrance(cmd, "artifacts", "artifacts")) {
-      await getArtifact(userID, -1);
-      data = ((await db.get("artifact", "user", { userID })) || {}).initial;
+      await getArtifact(msg.uid, -1);
+      data = ((await db.get("artifact", "user", { userID: msg.uid })) || {}).initial;
     } else if (hasEntrance(cmd, "artifacts", "strengthen")) {
       const { initial, fortified } = await db.get("artifact", "user", {
-        userID,
+        userID: msg.uid,
       });
 
       if (JSON.stringify(initial) !== "{}") {
         data = fortified;
       } else {
-        await bot.sendMessage(
-          sendID,
-          `请先使用【${command.functions.name.artifacts}】抽取一个圣遗物后再【${command.functions.name.strengthen}】。`,
-          type,
-          userID
-        );
+        const text = `请先使用【${command.functions.name.artifacts}】抽取一个圣遗物后再【${command.functions.name.strengthen}】。`;
+        await bot.say(msg.sid, text, msg.type, msg.uid);
         return;
       }
     } else if (hasEntrance(cmd, "artifacts", "dungeons")) {
-      await bot.sendMessage(sendID, domainInfo(), type, userID, "\n");
+      await bot.say(msg.sid, domainInfo(), msg.type, msg.uid, "\n");
       return;
     }
   } else {
@@ -71,28 +58,16 @@ async function Plugin(Message, bot) {
     }
 
     if (undefined !== id && id < domainMax() + 1) {
-      await getArtifact(userID, parseInt(id));
-      data = ((await db.get("artifact", "user", { userID })) || {}).initial;
+      await getArtifact(msg.uid, parseInt(id));
+      data = ((await db.get("artifact", "user", { userID: msg.uid })) || {}).initial;
     } else {
-      await bot.sendMessage(
-        sendID,
-        `请正确输入副本，可以使用【${command.functions.name.dungeons}】查看所有副本。`,
-        type,
-        userID
-      );
+      const text = `请正确输入副本，可以使用【${command.functions.name.dungeons}】查看所有副本。`;
+      await bot.say(msg.sid, text, msg.type, msg.uid);
       return;
     }
   }
 
-  await render(data, "genshin-artifact", sendID, type, userID, bot, 1.2);
+  await render(data, "genshin-artifact", msg.sid, msg.type, msg.uid, bot, 1.2);
 }
 
-async function Wrapper(Message, bot) {
-  try {
-    await Plugin(Message, bot);
-  } catch (e) {
-    bot.logger.error(e);
-  }
-}
-
-export { Wrapper as run };
+export { Plugin as run };
