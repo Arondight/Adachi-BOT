@@ -17,11 +17,7 @@ function isValidCookie(cookie) {
   // XXX 是否要使用某个 API 真正地去验证 Cookie 合法性？
   // 优点：真正地能区分 Cookie 是否有效
   // 缺点：依赖网络并且耗时较多
-  if (
-    "string" === typeof cookie &&
-    cookie.match(/cookie_token=\w+?\b/) &&
-    cookie.match(/account_id=\w+?\b/)
-  ) {
+  if ("string" === typeof cookie && cookie.match(/cookie_token=\w+?\b/) && cookie.match(/account_id=\w+?\b/)) {
     return true;
   }
 
@@ -50,9 +46,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
   let { date, times } = await db.get(dbName, "cookie", { cookie });
 
   if (date && date === today && times && times >= 30) {
-    return s >= cookies.length
-      ? cookie
-      : await getEffectiveCookie(uid, s + 1, use_cookie);
+    return s >= cookies.length ? cookie : await getEffectiveCookie(uid, s + 1, use_cookie);
   } else {
     if (date && date != today) {
       times = 0;
@@ -65,12 +59,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       await db.update(dbName, "cookie", { cookie }, { date, times });
     }
 
-    await db.update(
-      dbName,
-      "uid",
-      { uid },
-      lodash.assign({ date, cookie }, use_cookie ? { times } : {})
-    );
+    await db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
 
     return cookie;
   }
@@ -106,12 +95,7 @@ async function markCookieUnusable(cookie) {
     let { times } = (await db.get(dbName, "cookie", { cookie })) || {};
 
     // Cookie 标记为无效
-    await db.update(
-      dbName,
-      "cookie",
-      { cookie },
-      { times: COOKIE_TIMES_INVALID_MARK }
-    );
+    await db.update(dbName, "cookie", { cookie }, { times: COOKIE_TIMES_INVALID_MARK });
 
     // 删除最后一个绑定关系
     if (times) {

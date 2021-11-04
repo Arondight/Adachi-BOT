@@ -1,19 +1,13 @@
 /* global alias, command, config */
 /* eslint no-undef: "error" */
 
-import lodash from "lodash";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { hasAuth, sayAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID, getUID } from "../../utils/id.js";
 import { guessPossibleNames } from "../../utils/tools.js";
-import {
-  basePromise,
-  detailPromise,
-  characterPromise,
-  handleDetailError,
-} from "../../utils/detail.js";
+import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
 
 async function getCharacter(uid, character) {
   const { avatars } = (await db.get("info", "user", { uid })) || {};
@@ -25,26 +19,16 @@ async function getNotFoundText(character, isMyChar) {
   const cmdStr = `【${cmd.join("】、【")}】`;
   const text = config.characterTryGetDetail
     ? `看上去${isMyChar ? "您" : "他"}尚未拥有该角色`
-    : `如果${
-        isMyChar ? "您" : "他"
-      }拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
+    : `如果${isMyChar ? "您" : "他"}拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
   const guess = guessPossibleNames(character, alias.characterNames);
-  const notFoundText = `查询失败，${text}。${
-    guess ? "\n您要查询的是不是：\n" + guess : ""
-  }`;
+  const notFoundText = `查询失败，${text}。${guess ? "\n您要查询的是不是：\n" + guess : ""}`;
 
   return notFoundText;
 }
 
-async function Plugin(Message, bot) {
-  const msg = Message.raw_message;
-  const userID = Message.user_id;
-  const groupID = Message.group_id;
-  const type = Message.type;
-  const name = Message.sender.nickname;
-  const sendID = "group" === type ? groupID : userID;
-  const isMyChar = hasEntrance(msg, "character", "character");
-  let text = msg;
+async function Plugin(msg, bot) {
+  const isMyChar = hasEntrance(msg.text, "character", "character");
+  let text = msg.text;
   let uid;
   let data;
 
@@ -59,13 +43,13 @@ async function Plugin(Message, bot) {
     character = textParts[2];
   }
 
-  if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, name, "查询游戏内信息", type, bot);
+  if (!(await hasAuth(msg.uid, "query")) || !(await hasAuth(msg.sid, "query"))) {
+    await sayAuth(msg.sid, msg.uid, msg.name, "查询游戏内信息", msg.type, bot);
     return;
   }
 
   if (!character) {
-    await bot.sendMessage(sendID, "请正确输入角色名称。", type, userID);
+    await bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid);
     return;
   }
 
@@ -73,15 +57,15 @@ async function Plugin(Message, bot) {
   character = alias.character[character] || character;
 
   try {
-    let dbInfo = isMyChar ? await getID(msg, userID) : await getUID(msg);
+    let dbInfo = isMyChar ? await getID(msg.text, msg.uid) : await getUID(msg.text);
     let baseInfo;
 
     if (!isMyChar && (!dbInfo || "string" === typeof dbInfo)) {
-      dbInfo = await getID(msg, userID); // 米游社 ID
+      dbInfo = await getID(msg.text, msg.uid); // 米游社 ID
     }
 
     if ("string" === typeof dbInfo) {
-      await bot.sendMessage(sendID, dbInfo, type, userID);
+      await bot.say(msg.sid, dbInfo, msg.type, msg.uid);
       return;
     }
 
@@ -89,7 +73,7 @@ async function Plugin(Message, bot) {
       baseInfo = dbInfo;
       uid = baseInfo[0];
     } else {
-      baseInfo = await basePromise(dbInfo, userID, bot);
+      baseInfo = await basePromise(dbInfo, msg.uid, bot);
       uid = baseInfo[0];
     }
 
@@ -97,15 +81,10 @@ async function Plugin(Message, bot) {
 
     if (!data) {
       if (!config.characterTryGetDetail) {
-        await bot.sendMessage(
-          sendID,
-          await getNotFoundText(character, isMyChar),
-          type,
-          userID
-        );
+        await bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
         return;
       } else {
-        const detailInfo = await detailPromise(...baseInfo, userID, bot);
+        const detailInfo = await detailPromise(...baseInfo, msg.uid, bot);
         await characterPromise(...baseInfo, detailInfo, bot);
         data = await getCharacter(uid, character);
       }
@@ -114,36 +93,23 @@ async function Plugin(Message, bot) {
     const ret = await handleDetailError(e);
 
     if (!ret) {
-      await bot.sendMaster(sendID, e, type, userID);
+      await bot.sayMaster(msg.sid, e, msg.type, msg.uid);
       return;
     }
 
     if (Array.isArray(ret)) {
-      ret[0] && (await bot.sendMessage(sendID, ret[0], type, userID));
-      ret[1] && (await bot.sendMaster(sendID, ret[1], type, userID));
+      ret[0] && (await bot.say(msg.sid, ret[0], msg.type, msg.uid));
+      ret[1] && (await bot.sayMaster(msg.sid, ret[1], msg.type, msg.uid));
       return;
     }
   }
 
   if (!data) {
-    await bot.sendMessage(
-      sendID,
-      await getNotFoundText(character, isMyChar),
-      type,
-      userID
-    );
+    await bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
     return;
   }
 
-  await render({ uid, data }, "genshin-character", sendID, type, userID, bot);
+  await render({ uid, data }, "genshin-character", msg.sid, msg.type, msg.uid, bot);
 }
 
-async function Wrapper(Message, bot) {
-  try {
-    await Plugin(Message, bot);
-  } catch (e) {
-    bot.logger.error(e);
-  }
-}
-
-export { Wrapper as run };
+export { Plugin as run };

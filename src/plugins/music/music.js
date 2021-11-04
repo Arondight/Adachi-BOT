@@ -26,8 +26,7 @@ async function musicQQ(keyword) {
   const headers = {
     "Content-Length": body.length,
     "Content-Type": "application/x-www-form-urlencoded",
-    "User-Agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
   const response = await fetch(url, {
     method: "POST",
@@ -105,8 +104,8 @@ async function music163(keyword) {
   return ERRCODE.ERR_404;
 }
 
-async function musicID(msg, source) {
-  const [keyword] = msg.split(/(?<=^\S+)\s/).slice(1);
+async function musicID(text, source) {
+  const [keyword] = text.split(/(?<=^\S+)\s/).slice(1);
   const worker = {
     [all.functions.options.music_source.qq || "qq"]: musicQQ,
     [all.functions.options.music_source[163] || "163"]: music163,
@@ -119,8 +118,8 @@ async function musicID(msg, source) {
   return await worker[source](keyword);
 }
 
-async function musicSrc(msg, id) {
-  let [source] = msg.split(/(?<=^\S+)\s/).slice(1);
+async function musicSrc(text, id) {
+  let [source] = text.split(/(?<=^\S+)\s/).slice(1);
   const data = await db.get("music", "source", { ID: id });
 
   if ("string" === typeof source) {
@@ -136,12 +135,7 @@ async function musicSrc(msg, id) {
         Source: source,
       });
     } else {
-      await db.update(
-        "music",
-        "source",
-        { ID: id },
-        { ...data, Source: source }
-      );
+      await db.update("music", "source", { ID: id }, { ...data, Source: source });
     }
   }
 

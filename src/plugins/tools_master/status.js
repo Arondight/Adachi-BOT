@@ -1,6 +1,3 @@
-/* global rootdir */
-/* eslint no-undef: "error" */
-
 import moment from "moment";
 import si from "systeminformation";
 import pb from "pretty-bytes";
@@ -17,16 +14,12 @@ async function status(id, type, user, bot) {
   const str = `平台：${os.platform}（${os.distro}）
 内核：${os.kernel}
 架构：${os.arch}
-CPU：${load.currentLoad && load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${
-    cpu.brand
-  } @ ${cpu.speed}Ghz）
-内存：${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(
-    mem.total
-  )}）
+CPU：${load.currentLoad && load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${cpu.speed}Ghz）
+内存：${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(mem.total)}）
 启动：${moment.duration(time.uptime * 1000).humanize()}
 数据：${pb(du(path.join("data", "db")))}`;
 
-  await bot.sendMessage(id, str, type, user, "\n");
+  await bot.say(id, str, type, user, "\n");
 }
 
 export { status };

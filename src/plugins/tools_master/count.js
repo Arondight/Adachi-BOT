@@ -1,4 +1,4 @@
-async function count(id, msg, type, user, bot) {
+async function count(id, text, type, user, bot) {
   let report = "";
   let num = 0;
 
@@ -14,7 +14,7 @@ async function count(id, msg, type, user, bot) {
 
   report += `\n群友个数：${num}`;
 
-  await bot.sendMessage(id, report, type, user, "\n");
+  await bot.say(id, report, type, user, "\n");
   return;
 }
 
