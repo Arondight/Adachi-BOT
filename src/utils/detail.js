@@ -7,12 +7,7 @@ import db from "./database.js";
 import { getCookie, tryToWarnInvalidCookie } from "./cookie.js";
 import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
 
-async function detailError(
-  message,
-  cache = false,
-  master = false,
-  message_master = ""
-) {
+async function detailError(message, cache = false, master = false, message_master = "") {
   return Promise.reject({
     detail: true,
     message,
@@ -24,9 +19,7 @@ async function detailError(
 
 async function returnDetailErrorForPossibleInvalidCookie(message, cookie) {
   const warnInvalidCookie = await tryToWarnInvalidCookie(message, cookie);
-  const masterArgs = warnInvalidCookie
-    ? [true, warnInvalidCookie]
-    : [false, ""];
+  const masterArgs = warnInvalidCookie ? [true, warnInvalidCookie] : [false, ""];
   return await detailError(`米游社接口报错: ${message}`, false, ...masterArgs);
 }
 
@@ -99,16 +92,10 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
     // 数据库中的期数
     const { schedule_id: db_schedule } = dbData || {};
     // 查询时的期数
-    let this_schedule =
-      31 +
-      (ntime.year() - ftime.year()) * 12 * 2 +
-      (ntime.month() - ftime.month()) * 2;
+    let this_schedule = 31 + (ntime.year() - ftime.year()) * 12 * 2 + (ntime.month() - ftime.month()) * 2;
 
     // 如果查询的时刻过了每月的十五号凌晨四点，查询时的期数加一
-    if (
-      ntime.date() - ftime.date() + 1 > 15 ||
-      (15 === ntime.date() && ntime.hours() >= ftime.hours())
-    ) {
+    if (ntime.date() - ftime.date() + 1 > 15 || (15 === ntime.date() && ntime.hours() >= ftime.hours())) {
       this_schedule++;
     }
 
@@ -116,25 +103,14 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
     this_schedule -= parseInt(schedule_type) - 1;
 
     // 如果查询的期数和数据库中的期数一致，尝试使用缓存
-    if (
-      db_schedule === this_schedule &&
-      lastTime &&
-      nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000
-    ) {
-      bot.logger.debug(
-        `缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`
-      );
+    if (db_schedule === this_schedule && lastTime && nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000) {
+      bot.logger.debug(`缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`);
       return await detailError("", true);
     }
   }
 
   const cookie = await getCookie(uid, true, bot);
-  const { retcode, message, data } = await getAbyDetail(
-    uid,
-    schedule_type,
-    server,
-    cookie
-  );
+  const { retcode, message, data } = await getAbyDetail(uid, schedule_type, server, cookie);
 
   if (retcode !== 0) {
     return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
@@ -147,9 +123,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
 
   await db.update("aby", "user", { uid }, { data });
   await db.update("time", "user", { aby: uid }, { time: nowTime });
-  bot.logger.debug(
-    `缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`
-  );
+  bot.logger.debug(`缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`);
 
   return data;
 }
@@ -157,8 +131,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
 async function basePromise(mhyID, userID, bot) {
   const cookie = await getCookie("MHY" + mhyID, false, bot);
   const { retcode, message, data } = await getBase(mhyID, cookie);
-  const errInfo =
-    "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
+  const errInfo = "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
 
   if (retcode !== 0) {
     return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
@@ -195,9 +168,7 @@ async function detailPromise(uid, server, userID, bot) {
     const { retcode } = (await db.get("info", "user", { uid })) || {};
 
     if (0 === retcode) {
-      bot.logger.debug(
-        `缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`
-      );
+      bot.logger.debug(`缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`);
       const { retcode, message } = await db.get("info", "user", { uid });
 
       if (retcode !== 0) {
@@ -212,12 +183,7 @@ async function detailPromise(uid, server, userID, bot) {
   const { retcode, message, data } = await getDetail(uid, server, cookie);
 
   if (retcode !== 0) {
-    await db.update(
-      "info",
-      "user",
-      { uid },
-      { message, retcode: parseInt(retcode) }
-    );
+    await db.update("info", "user", { uid }, { message, retcode: parseInt(retcode) });
 
     return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
   }
@@ -237,9 +203,7 @@ async function detailPromise(uid, server, userID, bot) {
 
   await db.update("time", "user", { uid }, { time: nowTime });
 
-  bot.logger.debug(
-    `缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`
-  );
+  bot.logger.debug(`缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`);
 
   const characterID = data.avatars.map((el) => el.id);
   return characterID;
@@ -247,12 +211,7 @@ async function detailPromise(uid, server, userID, bot) {
 
 async function characterPromise(uid, server, character_ids, bot) {
   const cookie = await getCookie(uid, true, bot);
-  const { retcode, message, data } = await getCharacters(
-    uid,
-    server,
-    character_ids,
-    cookie
-  );
+  const { retcode, message, data } = await getCharacters(uid, server, character_ids, cookie);
 
   if (retcode !== 0) {
     return await returnDetailErrorForPossibleInvalidCookie(message, cookie);
@@ -264,18 +223,8 @@ async function characterPromise(uid, server, character_ids, bot) {
   for (const i in characterList) {
     if (characterList[i]) {
       const el = characterList[i];
-      const base = lodash.omit(el, [
-        "image",
-        "weapon",
-        "reliquaries",
-        "constellations",
-      ]);
-      const weapon = lodash.omit(el.weapon, [
-        "id",
-        "type",
-        "promote_level",
-        "type_name",
-      ]);
+      const base = lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
+      const weapon = lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
       let artifact = [];
       let constellationNum = 0;
       const constellations = el.constellations.reverse();
@@ -291,11 +240,7 @@ async function characterPromise(uid, server, character_ids, bot) {
 
       for (const posID in el.reliquaries) {
         if (el.reliquaries[posID]) {
-          const posInfo = lodash.omit(el.reliquaries[posID], [
-            "id",
-            "set",
-            "pos_name",
-          ]);
+          const posInfo = lodash.omit(el.reliquaries[posID], ["id", "set", "pos_name"]);
           artifact.push(posInfo);
         }
       }
@@ -308,10 +253,4 @@ async function characterPromise(uid, server, character_ids, bot) {
   return;
 }
 
-export {
-  abyPromise,
-  basePromise,
-  detailPromise,
-  characterPromise,
-  handleDetailError,
-};
+export { abyPromise, basePromise, detailPromise, characterPromise, handleDetailError };

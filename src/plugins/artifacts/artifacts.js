@@ -33,8 +33,7 @@ function randomInt(Min, Max) {
 function getArtifactID(id) {
   return -1 === id
     ? randomInt(0, Object.values(artifacts.domains.id).length - 1)
-    : artifacts.domains.name[id] &&
-        artifacts.domains.product[id][randomInt(0, 1)];
+    : artifacts.domains.name[id] && artifacts.domains.product[id][randomInt(0, 1)];
 }
 
 function getRandomProperty(arr, type) {
@@ -220,9 +219,7 @@ function domainInfo() {
       (info += `${[
         id,
         artifacts.domains.name[id],
-        ...(Array.isArray(artifacts.domains.aliasOf[id])
-          ? artifacts.domains.aliasOf[id]
-          : []),
+        ...(Array.isArray(artifacts.domains.aliasOf[id]) ? artifacts.domains.aliasOf[id] : []),
       ].join("、")}\n`)
   );
 

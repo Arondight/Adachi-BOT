@@ -3,22 +3,11 @@
 
 import fs from "fs";
 import path from "path";
-import lodash from "lodash";
 import db from "../../utils/database.js";
 
-const configdir = path.resolve(
-  rootdir,
-  "resources",
-  "Version2",
-  "wish",
-  "config"
-);
-const element = JSON.parse(
-  fs.readFileSync(path.resolve(configdir, "character.json"))
-);
-const types = JSON.parse(
-  fs.readFileSync(path.resolve(configdir, "weapon.json"))
-);
+const configdir = path.resolve(rootdir, "resources", "Version2", "wish", "config");
+const element = JSON.parse(fs.readFileSync(path.resolve(configdir, "character.json")));
+const types = JSON.parse(fs.readFileSync(path.resolve(configdir, "weapon.json")));
 
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max) + 1;

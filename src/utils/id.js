@@ -8,11 +8,7 @@ function getUID(msg) {
   let id = parseInt(msg);
   let idstr = id ? id.toString() : undefined;
 
-  if (
-    !idstr ||
-    idstr.length !== 9 ||
-    (idstr[0] !== "1" && idstr[0] !== "2" && idstr[0] !== "5")
-  ) {
+  if (!idstr || idstr.length !== 9 || (idstr[0] !== "1" && idstr[0] !== "2" && idstr[0] !== "5")) {
     return errInfo;
   }
 
@@ -80,12 +76,7 @@ async function getID(msg, userID, isMhyID = true) {
     }
 
     return undefined; // 返回 undefined ，无法验证一个 QQ 号码是否为合法 UID
-  } else if (
-    id !== undefined &&
-    idstr &&
-    idstr.length >= 6 &&
-    idstr.length < 10
-  ) {
+  } else if (id !== undefined && idstr && idstr.length >= 6 && idstr.length < 10) {
     // 字符串中的 ID 大致合法
     return isMhyID ? id : getUID(id);
   } else if (await db.includes("map", "user", "userID", userID)) {

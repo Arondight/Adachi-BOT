@@ -2,7 +2,6 @@
 /* eslint no-undef: "error" */
 
 import fs from "fs";
-import url from "url";
 import path from "path";
 
 function readlink(filepath) {

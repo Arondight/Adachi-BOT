@@ -3,7 +3,7 @@
 
 import lodash from "lodash";
 import fetch from "node-fetch";
-import { hasAuth, sendPrompt } from "../../utils/auth.js";
+import { hasAuth, sayAuth } from "../../utils/auth.js";
 
 function adjustProp(obj, bot) {
   const maxValue = {
@@ -40,9 +40,7 @@ function adjustProp(obj, bot) {
   const level = 20;
   const star = 5;
   const say = (type, item, before, after) =>
-    bot.logger.debug(
-      `评分：调整属性 ${type}：${item} （ ${before} -> ${after} ）`
-    );
+    bot.logger.debug(`评分：调整属性 ${type}：${item} （ ${before} -> ${after} ）`);
 
   // 等级设置为 20
   if (level !== obj.level) {
@@ -67,12 +65,7 @@ function adjustProp(obj, bot) {
         say("主属性", obj.main_item.type, before, obj.main_item.value);
       }
     } else {
-      let type =
-        "atk" === obj.main_item.type
-          ? "atk2"
-          : "hp" === obj.main_item.type
-          ? "hp2"
-          : "em";
+      let type = "atk" === obj.main_item.type ? "atk2" : "hp" === obj.main_item.type ? "hp2" : "em";
 
       if (value !== maxValue.main_item[type]) {
         const before = obj.main_item.value;
@@ -100,13 +93,7 @@ function adjustProp(obj, bot) {
   return obj;
 }
 
-async function Plugin(Message, bot) {
-  const msg = Message.raw_message;
-  const userID = Message.user_id;
-  const groupID = Message.group_id;
-  const type = Message.type;
-  const name = Message.sender.nickname;
-  const sendID = "group" === type ? groupID : userID;
+async function Plugin(msg, bot) {
   const whisper = `【${command.functions.name.rating}】需要有一张背包中的圣遗物截图`;
 
   // 此命令和图片之间可以加任意个空格
@@ -118,23 +105,15 @@ async function Plugin(Message, bot) {
   };
   let data, response, ret, prop;
 
-  if (
-    !(await hasAuth(userID, "rating")) ||
-    !(await hasAuth(sendID, "rating"))
-  ) {
-    await sendPrompt(sendID, userID, name, "圣遗物评分", type, bot);
+  if (!(await hasAuth(msg.uid, "rating")) || !(await hasAuth(msg.sid, "rating"))) {
+    await sayAuth(msg.sid, msg.uid, name, "圣遗物评分", msg.type, bot);
     return;
   }
 
   try {
     response = await fetch(url, { method: "GET" });
   } catch {
-    await bot.sendMessage(
-      sendID,
-      `您看上去没有发送圣遗物属性截图，${whisper}。`,
-      type,
-      userID
-    );
+    await bot.say(msg.sid, `您看上去没有发送圣遗物属性截图，${whisper}。`, msg.type, msg.uid);
     return;
   }
 
@@ -142,12 +121,7 @@ async function Plugin(Message, bot) {
     ret = await response.arrayBuffer();
     data = Buffer.from(ret).toString("base64");
   } else {
-    await bot.sendMessage(
-      sendID,
-      "没有正确接收到截图，请再试一次。",
-      type,
-      userID
-    );
+    await bot.say(msg.sid, "没有正确接收到截图，请再试一次。", msg.type, msg.uid);
     return;
   }
 
@@ -167,7 +141,7 @@ async function Plugin(Message, bot) {
   });
 
   if (200 != response.status) {
-    await bot.sendMessage(sendID, `AI 识别出错，${whisper}。`, type, userID);
+    await bot.say(msg.sid, `AI 识别出错，${whisper}。`, msg.type, msg.uid);
     return;
   }
 
@@ -187,19 +161,9 @@ async function Plugin(Message, bot) {
 
   if (400 === response.status) {
     if (lodash.hasIn(ret, "code") && 50003 === ret.code) {
-      await bot.sendMessage(
-        sendID,
-        "您上传了正确的截图，但是 AI 未能识别，请重新截图。",
-        type,
-        userID
-      );
+      await bot.say(msg.sid, "您上传了正确的截图，但是 AI 未能识别，请重新截图。", msg.type, msg.uid);
     } else {
-      await bot.sendMessage(
-        sendID,
-        `圣遗物评分出错，${whisper}。`,
-        type,
-        userID
-      );
+      await bot.say(msg.sid, `圣遗物评分出错，${whisper}。`, msg.type, msg.uid);
     }
 
     return;
@@ -211,24 +175,11 @@ async function Plugin(Message, bot) {
       data += `\n${item.name}：${item.value}`;
     });
 
-    await bot.sendMessage(sendID, data, type, userID);
+    await bot.say(msg.sid, data, msg.type, msg.uid);
     return;
   }
 
-  await bot.sendMessage(
-    sendID,
-    "发生了一个未知错误，请再试一次。",
-    type,
-    userID
-  );
+  await bot.say(msg.sid, "发生了一个未知错误，请再试一次。", msg.type, msg.uid);
 }
 
-async function Wrapper(Message, bot) {
-  try {
-    await Plugin(Message, bot);
-  } catch (e) {
-    bot.logger.error(e);
-  }
-}
-
-export { Wrapper as run };
+export { Plugin as run };

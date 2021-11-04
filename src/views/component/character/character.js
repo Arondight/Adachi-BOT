@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const background = {
   template: "#background",
   props: {
@@ -10,32 +11,17 @@ const background = {
   },
   computed: {
     image() {
-      return (
-        "http://localhost:9934/resources/Version2/character/" +
-        this.character +
-        ".png"
-      );
+      return "http://localhost:9934/resources/Version2/character/" + this.character + ".png";
     },
   },
 };
 
+// eslint-disable-next-line no-unused-vars
 const baseInfo = {
   template: "#base-info",
   data() {
     return {
-      numberCN: [
-        "零",
-        "一",
-        "二",
-        "三",
-        "四",
-        "五",
-        "六",
-        "七",
-        "八",
-        "九",
-        "十",
-      ],
+      numberCN: ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"],
     };
   },
   props: {
@@ -88,15 +74,12 @@ const emptyBox = {
   props: ["pos"],
   computed: {
     image() {
-      return (
-        "http://localhost:9934/resources/Version2/artifact/other/" +
-        this.pos +
-        ".png"
-      );
+      return "http://localhost:9934/resources/Version2/artifact/other/" + this.pos + ".png";
     },
   },
 };
 
+// eslint-disable-next-line no-unused-vars
 const reliquaries = {
   template: "#reliquaries",
   props: {
@@ -110,6 +93,7 @@ const reliquaries = {
   },
 };
 
+// eslint-disable-next-line no-unused-vars
 const weaponBox = {
   template: "#weapon-box",
   data() {

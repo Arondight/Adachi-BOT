@@ -54,13 +54,7 @@ async function includes(dbName, key, index, value) {
   }
 
   const release = await mutexMemoryForDB[dbName].acquire();
-  const result = (await db[dbName].chain
-    .get(key)
-    .map(index)
-    .includes(value)
-    .value())
-    ? true
-    : false;
+  const result = (await db[dbName].chain.get(key).map(index).includes(value).value()) ? true : false;
   release();
 
   return result;
@@ -85,9 +79,7 @@ async function get(dbName, key, index = undefined) {
 
   const release = await mutexMemoryForDB[dbName].acquire();
   const result =
-    undefined === index
-      ? await db[dbName].chain.get(key).value()
-      : await db[dbName].chain.get(key).find(index).value();
+    undefined === index ? await db[dbName].chain.get(key).value() : await db[dbName].chain.get(key).find(index).value();
   release();
 
   return result;
@@ -129,12 +121,7 @@ async function set(dbName, key, data) {
   await write(dbName);
 }
 
-async function cleanByTimeDB(
-  dbName,
-  dbKey = ["user", "uid"],
-  timeRecord = "uid",
-  milliseconds = 60 * 60 * 1000
-) {
+async function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
   let nums = 0;
 
   if (!(await has(dbName, dbKey[0]))) {
@@ -221,10 +208,7 @@ async function cleanCookiesInvalid() {
   const release = await mutexMemoryForDB[dbName].acquire();
 
   for (const i in cookies) {
-    if (
-      !cookies[i].cookie ||
-      !(config.cookies || []).includes(cookies[i].cookie)
-    ) {
+    if (!cookies[i].cookie || !(config.cookies || []).includes(cookies[i].cookie)) {
       cookies.splice(i, 1);
       nums++;
     }
@@ -239,19 +223,9 @@ async function cleanCookiesInvalid() {
 async function clean(dbName) {
   switch (dbName) {
     case "aby":
-      return await cleanByTimeDB(
-        dbName,
-        ["user", "uid"],
-        "aby",
-        config.dbAbyEffectTime * 60 * 60 * 1000
-      );
+      return await cleanByTimeDB(dbName, ["user", "uid"], "aby", config.dbAbyEffectTime * 60 * 60 * 1000);
     case "info":
-      return await cleanByTimeDB(
-        dbName,
-        ["user", "uid"],
-        "uid",
-        config.dbInfoEffectTime * 60 * 60 * 1000
-      );
+      return await cleanByTimeDB(dbName, ["user", "uid"], "uid", config.dbInfoEffectTime * 60 * 60 * 1000);
     case "cookies":
       return await cleanCookies();
     case "cookies_invalid":

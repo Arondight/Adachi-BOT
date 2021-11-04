@@ -31,10 +31,7 @@
     <template id="upper">
       <div>
         <div class="background">
-          <img
-            src="http://localhost:9934/resources/Version2/module/uid-upper-v2-2.png"
-            alt="ERROR"
-          />
+          <img src="http://localhost:9934/resources/Version2/module/uid-upper-v2-2.png" alt="ERROR" />
         </div>
         <img :src="Picture" alt="ERROR" class="profile" />
         <div class="base-info">
@@ -95,38 +92,26 @@
                 <div class="box-block unlock-content-block">
                   <p class="box-content name">{{ data.name }}</p>
                   <p class="box-content level">洞天等级</p>
-                  <p class="box-content comfort">
-                    {{ data.comfort_level_name }}
-                  </p>
+                  <p class="box-content comfort">{{ data.comfort_level_name }}</p>
                 </div>
               </div>
               <div class="locked" v-else>
                 <div class="box-block locked-block"></div>
-                <img
-                  class="lock-icon"
-                  src="http://localhost:9934/resources/item/lock.png"
-                  alt="ERROR"
-                />
+                <img class="lock-icon" src="http://localhost:9934/resources/item/lock.png" alt="ERROR" />
               </div>
             </div>
           </div>
           <p class="comfort-num">仙力: {{ maxcomfort }}</p>
         </div>
 
-        <img
-          src="http://localhost:9934/resources/module/card-new-package.png"
-          alt="ERROR"
-        />
+        <img src="http://localhost:9934/resources/module/card-new-package.png" alt="ERROR" />
       </div>
     </template>
 
     <template id="avatar-element">
       <div>
         <div class="element">
-          <div
-            class="con num"
-            v-if="avatar.actived_constellation_num!=0&&avatar.actived_constellation_num<=5"
-          >
+          <div class="con num" v-if="avatar.actived_constellation_num!=0&&avatar.actived_constellation_num<=5">
             {{avatar.actived_constellation_num}}
           </div>
           <div class="con num6" v-else-if="avatar.actived_constellation_num==6">
@@ -138,9 +123,7 @@
             <p class="name">{{avatar.name}}</p>
             <div>
               <p class="level">Lv.{{avatar.level}}</p>
-              <p class="fetter" v-show="avatar.name!=='旅行者'">
-                ❤{{avatar.fetter}}
-              </p>
+              <p class="fetter" v-show="avatar.name!=='旅行者'">❤{{avatar.fetter}}</p>
               <br />
               <p class="weapon-name">{{avatar.weapon.name}}</p>
               <p class="weapon-affix">★{{avatar.weapon.affix_level}}</p>
@@ -156,11 +139,7 @@
           <div class="avatar" v-for="avatar in avatars">
             <avatar-element :avatar="avatar"></avatar-element>
           </div>
-          <img
-            class="backdrop"
-            src="http://localhost:9934/resources/module/card-new-middle.png"
-            alt="ERROR"
-          />
+          <img class="backdrop" src="http://localhost:9934/resources/module/card-new-middle.png" alt="ERROR" />
         </div>
       </div>
     </template>
@@ -168,10 +147,7 @@
     <template id="bottom">
       <div>
         <div class="background">
-          <img
-            src="http://localhost:9934/resources/module/card-new-bottom.png"
-            alt="ERROR"
-          />
+          <img src="http://localhost:9934/resources/module/card-new-bottom.png" alt="ERROR" />
         </div>
       </div>
     </template>
@@ -227,8 +203,7 @@
             this.homes = res.homes;
             this.avatar_number = avatarsList.length;
             this.explorations = res.explorations;
-            this.profile =
-              avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
+            this.profile = avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
 
             avatarsList.sort((x, y) => {
               if (x.level === y.level) {
@@ -240,8 +215,7 @@
             this.avatarsData = this.cutArray(avatarsList, 7);
 
             this.homeslevel = res.homes[0].level !== 0 ? res.homes[0].level : 0;
-            this.maxcomfort =
-              res.homes[0].comfort_num !== 0 ? res.homes[0].comfort_num : 0;
+            this.maxcomfort = res.homes[0].comfort_num !== 0 ? res.homes[0].comfort_num : 0;
           });
         },
       });

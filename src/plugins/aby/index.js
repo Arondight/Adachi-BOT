@@ -1,11 +1,7 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { hasAuth, sendPrompt } from "../../utils/auth.js";
-import {
-  basePromise,
-  abyPromise,
-  handleDetailError,
-} from "../../utils/detail.js";
+import { hasAuth, sayAuth } from "../../utils/auth.js";
+import { basePromise, abyPromise, handleDetailError } from "../../utils/detail.js";
 import { hasEntrance } from "../../utils/config.js";
 import { getID } from "../../utils/id.js";
 
@@ -14,85 +10,71 @@ async function generateImage(uid, id, type, user, bot) {
   await render(data, "genshin-aby", id, type, user, bot, 2);
 }
 
-async function Plugin(Message, bot) {
-  const msg = Message.raw_message;
-  const userID = Message.user_id;
-  const groupID = Message.group_id;
-  const type = Message.type;
-  const name = Message.sender.nickname;
-  const sendID = "group" === type ? groupID : userID;
-  let dbInfo = await getID(msg, userID, false); // UID
+async function Plugin(msg, bot) {
+  let dbInfo = await getID(msg.text, msg.uid, false); // UID
   let schedule_type = "1";
 
-  if (hasEntrance(msg, "aby", "lastaby")) {
+  if (hasEntrance(msg.text, "aby", "lastaby")) {
     schedule_type = "2";
   }
 
-  if (!(await hasAuth(userID, "query")) || !(await hasAuth(sendID, "query"))) {
-    await sendPrompt(sendID, userID, name, "查询游戏内信息", type, bot);
+  if (!(await hasAuth(msg.uid, "query")) || !(await hasAuth(msg.sid, "query"))) {
+    await sayAuth(msg.sid, msg.uid, msg.name, "查询游戏内信息", msg.type, bot);
     return;
   }
 
   if ("string" === typeof dbInfo) {
-    await bot.sendMessage(sendID, dbInfo, type, userID);
+    await bot.say(msg.sid, dbInfo, msg.type, msg.uid);
     return;
   }
 
   try {
     // 这里处理 undefined 返回值，如果没有给出 UID，通过 QQ 号查询 UID
     if (undefined === dbInfo) {
-      dbInfo = await getID(msg, userID); // 米游社 ID
+      dbInfo = await getID(msg.text, msg.uid); // 米游社 ID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, dbInfo, type, userID);
+        await bot.say(msg.sid, dbInfo, msg.type, msg.uid);
         return;
       }
 
-      const baseInfo = await basePromise(dbInfo, userID, bot);
+      const baseInfo = await basePromise(dbInfo, msg.uid, bot);
       const uid = baseInfo[0];
-      dbInfo = await getID(uid, userID, false); // UID
+      dbInfo = await getID(uid, msg.uid, false); // UID
 
       if ("string" === typeof dbInfo) {
-        await bot.sendMessage(sendID, dbInfo, type, userID);
+        await bot.say(msg.sid, dbInfo, msg.type, msg.uid);
         return;
       }
     }
 
-    const abyInfo = await abyPromise(...dbInfo, userID, schedule_type, bot);
+    const abyInfo = await abyPromise(...dbInfo, msg.uid, schedule_type, bot);
 
     if (!abyInfo) {
-      await bot.sendMessage(sendID, "您似乎从未挑战过深境螺旋。", type, userID);
+      await bot.say(msg.sid, "您似乎从未挑战过深境螺旋。", msg.type, msg.uid);
       return;
     }
 
     if (!abyInfo.floors.length) {
-      await bot.sendMessage(sendID, "无渊月螺旋记录。", type, userID);
+      await bot.say(msg.sid, "无渊月螺旋记录。", msg.type, msg.uid);
       return;
     }
   } catch (e) {
     const ret = await handleDetailError(e);
 
     if (!ret) {
-      await bot.sendMaster(sendID, e, type, userID);
+      await bot.sayMaster(msg.sid, e, msg.type, msg.uid);
       return;
     }
 
     if (Array.isArray(ret)) {
-      ret[0] && (await bot.sendMessage(sendID, ret[0], type, userID));
-      ret[1] && (await bot.sendMaster(sendID, ret[1], type, userID));
+      ret[0] && (await bot.say(msg.sid, ret[0], msg.type, msg.uid));
+      ret[1] && (await bot.sayMaster(msg.sid, ret[1], msg.type, msg.uid));
       return;
     }
   }
 
-  await generateImage(dbInfo[0], sendID, type, userID, bot);
+  await generateImage(dbInfo[0], msg.sid, msg.type, msg.uid, bot);
 }
 
-async function Wrapper(Message, bot) {
-  try {
-    await Plugin(Message, bot);
-  } catch (e) {
-    bot.logger.error(e);
-  }
-}
-
-export { Wrapper as run };
+export { Plugin as run };

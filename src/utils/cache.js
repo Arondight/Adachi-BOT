@@ -20,10 +20,7 @@ async function isCached(url, dir) {
   if (fs.existsSync(filepath)) {
     const response = await fetch(url, { method: "HEAD" });
 
-    if (
-      200 !== response.status ||
-      du(filepath) !== (await response.headers.get("Content-length"))
-    ) {
+    if (200 !== response.status || du(filepath) !== (await response.headers.get("Content-length"))) {
       return false;
     }
 

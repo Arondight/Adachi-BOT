@@ -11,7 +11,7 @@ async function search(id, msg, type, user, bot) {
     });
     report += report ? "" : "没有加入任何群。";
 
-    await bot.sendMessage(id, report, type, user);
+    await bot.say(id, report, type, user);
     return;
   }
 
@@ -21,7 +21,7 @@ async function search(id, msg, type, user, bot) {
     });
     report += report ? "" : "没有添加任何好友。";
 
-    await bot.sendMessage(id, report, type, user);
+    await bot.say(id, report, type, user);
     return;
   }
 
@@ -38,7 +38,7 @@ async function search(id, msg, type, user, bot) {
     });
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
 
-    await bot.sendMessage(id, report, type, user, "\n");
+    await bot.say(id, report, type, user, "\n");
     return;
   }
 }

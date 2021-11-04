@@ -11,11 +11,7 @@
     <div id="app">
       <div class="info-base">
         <img class="background" :src="infoBackground" alt="ERROR" />
-        <img
-          :class="'角色' === type ? 'character' : 'weapon'"
-          :src="mainImage"
-          alt="ERROR"
-        />
+        <img :class="'角色' === type ? 'character' : 'weapon'" :src="mainImage" alt="ERROR" />
         <div class="content">
           <p class="title-and-name">「{{ title }}·{{ name }}」</p>
         </div>
@@ -44,23 +40,13 @@
                 <td class="image-weapon-ascension">
                   <div class="item-list">
                     <div class="list-weapon">
-                      <img
-                        class="item"
-                        v-for="el in ascension[0]"
-                        :src="icon(el)"
-                        alt="ERROR"
-                      />
+                      <img class="item" v-for="el in ascension[0]" :src="icon(el)" alt="ERROR" />
                     </div>
                   </div>
                   <div class="item-list">
                     <p class="title"></p>
                     <div class="list-weapon">
-                      <img
-                        class="item"
-                        v-for="el in ascension[1]"
-                        :src="icon(el)"
-                        alt="ERROR"
-                      />
+                      <img class="item" v-for="el in ascension[1]" :src="icon(el)" alt="ERROR" />
                     </div>
                   </div>
                 </td>
@@ -109,12 +95,7 @@
               <td>
                 <div class="item-list">
                   <div class="list">
-                    <img
-                      class="item"
-                      v-for="el in levelUp"
-                      :src="icon(el)"
-                      alt="ERROR"
-                    />
+                    <img class="item" v-for="el in levelUp" :src="icon(el)" alt="ERROR" />
                   </div>
                 </div>
               </td>
@@ -127,12 +108,7 @@
               <td>
                 <div class="item-list">
                   <div class="list">
-                    <img
-                      class="item"
-                      v-for="el in talent"
-                      :src="icon(el)"
-                      alt="ERROR"
-                    />
+                    <img class="item" v-for="el in talent" :src="icon(el)" alt="ERROR" />
                   </div>
                 </div>
               </td>
@@ -145,12 +121,7 @@
               <td>
                 <div class="item-list">
                   <div class="list">
-                    <img
-                      class="item"
-                      v-for="el in ascension"
-                      :src="icon(el)"
-                      alt="ERROR"
-                    />
+                    <img class="item" v-for="el in ascension" :src="icon(el)" alt="ERROR" />
                   </div>
                 </div>
               </td>
@@ -215,14 +186,10 @@
             this.type = res.type;
             this.introduce = res.introduce;
             this.infoBackground =
-              "http://localhost:9934/resources/Version2/info/other/BaseBackground" +
-              res.rarity +
-              ".png";
+              "http://localhost:9934/resources/Version2/info/other/BaseBackground" + res.rarity + ".png";
             this.mainImage =
               "http://localhost:9934/resources/Version2/" +
-              (res.type === "角色"
-                ? "character/" + res.id + ".png"
-                : "weapon/" + res.name + ".png");
+              (res.type === "角色" ? "character/" + res.id + ".png" : "weapon/" + res.name + ".png");
 
             this.skillName = res.skillName;
             this.skillContent = res.skillContent;
@@ -240,60 +207,28 @@
             this.talent = res.talentMaterials;
             this.time = res.time;
             this.constellations = res.constellations;
-            this.starIcon =
-              "http://localhost:9934/resources/Version2/info/other/BaseStar" +
-              res.rarity +
-              ".png";
+            this.starIcon = "http://localhost:9934/resources/Version2/info/other/BaseStar" + res.rarity + ".png";
             this.numCN = ["一", "二", "四", "六"];
 
             if (5 === this.rarity) {
-              document.documentElement.style.setProperty(
-                "--styleColor",
-                "rgb(205, 167, 101)"
-              );
-              document.documentElement.style.setProperty(
-                "--backgroundColor",
-                "rgb(211, 200, 187)"
-              );
-              document.documentElement.style.setProperty(
-                "--dottedColor",
-                "rgb(198, 156, 80)"
-              );
+              document.documentElement.style.setProperty("--styleColor", "rgb(205, 167, 101)");
+              document.documentElement.style.setProperty("--backgroundColor", "rgb(211, 200, 187)");
+              document.documentElement.style.setProperty("--dottedColor", "rgb(198, 156, 80)");
             } else if (4 === this.rarity) {
-              document.documentElement.style.setProperty(
-                "--styleColor",
-                "rgb(142, 115, 170)"
-              );
-              document.documentElement.style.setProperty(
-                "--backgroundColor",
-                "rgb(211, 211, 212)"
-              );
-              document.documentElement.style.setProperty(
-                "--dottedColor",
-                "rgb(72, 83, 101)"
-              );
+              document.documentElement.style.setProperty("--styleColor", "rgb(142, 115, 170)");
+              document.documentElement.style.setProperty("--backgroundColor", "rgb(211, 211, 212)");
+              document.documentElement.style.setProperty("--dottedColor", "rgb(72, 83, 101)");
             } else {
-              document.documentElement.style.setProperty(
-                "--styleColor",
-                "rgb(98, 191, 218)"
-              );
-              document.documentElement.style.setProperty(
-                "--backgroundColor",
-                "rgb(210, 212, 225)"
-              );
-              document.documentElement.style.setProperty(
-                "--dottedColor",
-                "rgb(3, 149, 166"
-              );
+              document.documentElement.style.setProperty("--styleColor", "rgb(98, 191, 218)");
+              document.documentElement.style.setProperty("--backgroundColor", "rgb(210, 212, 225)");
+              document.documentElement.style.setProperty("--dottedColor", "rgb(3, 149, 166");
             }
           });
         },
       });
 
       function icon(name) {
-        return (
-          "http://localhost:9934/resources/Version2/info/image/" + name + ".png"
-        );
+        return "http://localhost:9934/resources/Version2/info/image/" + name + ".png";
       }
     </script>
   </body>

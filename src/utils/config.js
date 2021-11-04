@@ -331,13 +331,7 @@ const Setting = loadYML("setting");
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
 // global[key].functions.option      -> function (lowercase):  option (array of object, lowercase)
 function getCommand(obj, key) {
-  const reduce = (
-    obj,
-    key,
-    lowercase = [false, false],
-    defaultValue = undefined,
-    revert = false
-  ) =>
+  const reduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
     lodash.reduce(
       obj,
       (p, v, k) => {
@@ -368,34 +362,20 @@ function getCommand(obj, key) {
       {}
     );
 
-  const deepReduce = (
-    obj,
-    key,
-    lowercase = [false, false],
-    defaultValue = undefined,
-    revert = false
-  ) =>
+  const deepReduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
     lodash.reduce(
       obj,
       (p, v, k) => {
         if (key) {
-          (v[key]
-            ? Array.isArray(v[key])
-              ? v[key]
-              : Object.entries(v[key] || {})
-            : []
-          ).forEach((c) => {
+          (v[key] ? (Array.isArray(v[key]) ? v[key] : Object.entries(v[key] || {})) : []).forEach((c) => {
             const transToLowerCase = (o) => {
               if ("string" === typeof o) {
                 return o.toLowerCase();
               } else if (Array.isArray(o)) {
-                return lodash.transform(o, (r, c) =>
-                  r.push("string" === typeof c ? c.toLowerCase() : c)
-                );
+                return lodash.transform(o, (r, c) => r.push("string" === typeof c ? c.toLowerCase() : c));
               } else {
                 return lodash.transform(o, (r, v, k) => {
-                  r[(k = "string" === typeof k ? k.toLowerCase() : k)] =
-                    "string" === typeof v ? v.toLowerCase() : v;
+                  r[(k = "string" === typeof k ? k.toLowerCase() : k)] = "string" === typeof v ? v.toLowerCase() : v;
                 });
               }
             };
@@ -408,9 +388,7 @@ function getCommand(obj, key) {
               }
             } else {
               if (undefined !== p1) {
-                (undefined === p[p1] ? (p[p1] = []) : p[p1]).push(
-                  undefined === p2 ? defaultValue : p2
-                );
+                (undefined === p[p1] ? (p[p1] = []) : p[p1]).push(undefined === p2 ? defaultValue : p2);
               }
             }
           });
@@ -480,11 +458,7 @@ function getCommand(obj, key) {
         global[key].functions.type[f] = "option";
         global[key].functions.options[f] = lodash
           .chain({})
-          .assign(
-            { on: "on" },
-            { off: "off" },
-            global[key].functions.options[f] || {}
-          )
+          .assign({ on: "on" }, { off: "off" }, global[key].functions.options[f] || {})
           .pick(["on", "off"])
           .value();
       }
@@ -500,9 +474,7 @@ function makeUsage(obj) {
 
   const listMark = "🔘";
   const commentMark = "👉";
-  const pluginList = new Map(
-    Object.entries(obj.weights).sort((a, b) => b[1] - a[1])
-  );
+  const pluginList = new Map(Object.entries(obj.weights).sort((a, b) => b[1] - a[1]));
   let text = "";
 
   for (const plugin of pluginList.keys()) {
@@ -518,9 +490,7 @@ function makeUsage(obj) {
       }
     }
 
-    const functionList = new Map(
-      Object.entries(functionWeights).sort((a, b) => b[1] - a[1])
-    );
+    const functionList = new Map(Object.entries(functionWeights).sort((a, b) => b[1] - a[1]));
 
     for (const func of functionList.keys()) {
       if (true === obj.functions.show[func] && obj.functions.name[func]) {
@@ -533,9 +503,7 @@ function makeUsage(obj) {
           " " +
           (obj.functions.usage[func] ? obj.functions.usage[func] + " " : "") +
           ("option" === type
-            ? (obj.functions.options[func] &&
-                "<" + Object.values(obj.functions.options[func]).join("、")) +
-              "> "
+            ? (obj.functions.options[func] && "<" + Object.values(obj.functions.options[func]).join("、")) + "> "
             : "") +
           (obj.functions.description[func] ? commentMark + " " : "") +
           (obj.functions.description[func] || "") +
@@ -544,9 +512,7 @@ function makeUsage(obj) {
     }
   }
 
-  text += text
-    ? "-------------------\n<> 表示必填，[] 表示可选，前面需加空格"
-    : "我什么都不会哦。";
+  text += text ? "-------------------\n<> 表示必填，[] 表示可选，前面需加空格" : "我什么都不会哦。";
 
   obj.usage = text;
 }
@@ -602,11 +568,7 @@ function readSettingCookiesGreetingMenu() {
   const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
-  const cookies = Cookies
-    ? Array.isArray(Cookies.cookies)
-      ? Cookies.cookies
-      : []
-    : [];
+  const cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
   const greetingOnline = Greeting.online;
   const greetingDie = Greeting.die;
   const greetingHello = Greeting.hello;
@@ -674,12 +636,7 @@ function readSettingCookiesGreetingMenu() {
 
   // menu 中每个值均为数组
   Object.keys(config.menu).forEach(
-    (k) =>
-      (config.menu[k] = Array.isArray(config.menu[k])
-        ? config.menu[k]
-        : config.menu[k]
-        ? [config.menu[k]]
-        : [])
+    (k) => (config.menu[k] = Array.isArray(config.menu[k]) ? config.menu[k] : config.menu[k] ? [config.menu[k]] : [])
   );
 }
 
@@ -694,9 +651,7 @@ function readAlias() {
     lodash.reduce(
       Alias[s] || {},
       (p, v, k) => {
-        (v || []).forEach(
-          (c) => (p["string" === typeof c ? c.toLowerCase() : c] = k)
-        );
+        (v || []).forEach((c) => (p["string" === typeof c ? c.toLowerCase() : c] = k));
         return p;
       },
       {}
@@ -739,11 +694,7 @@ function readEggs() {
 // artifacts.domains.aliasOf  -> id:                alias (array of string, lowercase)
 // artifacts.domains.product  -> id:                product (array of number)
 function readArtifacts() {
-  const reduce = (
-    prop,
-    key = [undefined, undefined],
-    lowercase = [false, false]
-  ) =>
+  const reduce = (prop, key = [undefined, undefined], lowercase = [false, false]) =>
     key.includes(undefined) ||
     lodash.reduce(
       Artifacts[prop] || [],
@@ -755,12 +706,7 @@ function readArtifacts() {
           p1 = "string" === typeof p1 ? p1.toLowerCase() : p1;
         }
         if (true === lowercase[1]) {
-          p2 =
-            "string" === typeof p2
-              ? p2.toLowerCase()
-              : Array.isArray(p2)
-              ? p2.map((c) => c.toLowerCase())
-              : p2;
+          p2 = "string" === typeof p2 ? p2.toLowerCase() : Array.isArray(p2) ? p2.map((c) => c.toLowerCase()) : p2;
         }
 
         p[p1] = p2;
@@ -768,11 +714,7 @@ function readArtifacts() {
       },
       {}
     );
-  const deepReduce = (
-    prop,
-    key = [undefined, undefined],
-    lowercase = [false, false]
-  ) =>
+  const deepReduce = (prop, key = [undefined, undefined], lowercase = [false, false]) =>
     key.includes(undefined) ||
     lodash.reduce(
       Artifacts[prop] || [],
@@ -786,12 +728,7 @@ function readArtifacts() {
               p1 = "string" === typeof p1 ? p1.toLowerCase() : p1;
             }
             if (true === lowercase[1]) {
-              p2 =
-                "string" === typeof p2
-                  ? p2.toLowerCase()
-                  : Array.isArray(p2)
-                  ? p2.map((c) => c.toLowerCase())
-                  : p2;
+              p2 = "string" === typeof p2 ? p2.toLowerCase() : Array.isArray(p2) ? p2.map((c) => c.toLowerCase()) : p2;
             }
 
             p[p1] = p2;
@@ -808,32 +745,16 @@ function readArtifacts() {
 
   artifacts.artifacts = {};
   artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);
-  artifacts.artifacts.rarity = reduce(
-    "artifacts",
-    ["id", "rarity"],
-    [false, false]
-  );
+  artifacts.artifacts.rarity = reduce("artifacts", ["id", "rarity"], [false, false]);
   artifacts.artifacts.suit = reduce("artifacts", ["id", "suit"], [false, true]);
-  artifacts.artifacts.names = reduce(
-    "artifacts",
-    ["id", "names"],
-    [false, true]
-  );
+  artifacts.artifacts.names = reduce("artifacts", ["id", "names"], [false, true]);
 
   artifacts.domains = {};
   artifacts.domains.id = reduce("domains", ["name", "id"], [true, false]);
   artifacts.domains.name = reduce("domains", ["id", "name"], [false, true]);
-  artifacts.domains.alias = deepReduce(
-    "domains",
-    ["alias", "name"],
-    [true, true]
-  );
+  artifacts.domains.alias = deepReduce("domains", ["alias", "name"], [true, true]);
   artifacts.domains.aliasOf = reduce("domains", ["id", "alias"], [false, true]);
-  artifacts.domains.product = reduce(
-    "domains",
-    ["id", "product"],
-    [false, false]
-  );
+  artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
 }
 
 // global.command
@@ -850,29 +771,16 @@ function getAll() {
   const merge = (o, p, o1, o2) => {
     o[p] = {};
     // 这里可能有重复的 key 需要手动处理一下
-    for (const k of [
-      ...new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})]),
-    ]) {
-      o[p][k] = [
-        ...new Set([...((o1 || {})[k] || []), ...((o2 || {})[k] || [])]),
-      ];
+    for (const k of [...new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})])]) {
+      o[p][k] = [...new Set([...((o1 || {})[k] || []), ...((o2 || {})[k] || [])])];
     }
   };
 
   all.functions = {};
-  all.functions.options = lodash.assign(
-    {},
-    command.functions.options,
-    master.functions.options
-  );
+  all.functions.options = lodash.assign({}, command.functions.options, master.functions.options);
 
   merge(all, "function", command.function, master.function);
-  merge(
-    all.functions,
-    "entrance",
-    command.functions.entrance,
-    master.functions.entrance
-  );
+  merge(all.functions, "entrance", command.functions.entrance, master.functions.entrance);
 }
 
 // global.command.usage
@@ -887,11 +795,7 @@ function writeViewsConfig() {
   const dir = path.join(rootdir, "data", "config");
   const data = { rootdir };
 
-  fs.writeFileSync(
-    path.resolve(mkdir(dir), "views.json"),
-    JSON.stringify(data),
-    "utf8"
-  );
+  fs.writeFileSync(path.resolve(mkdir(dir), "views.json"), JSON.stringify(data), "utf8");
 }
 
 async function readConfig() {
