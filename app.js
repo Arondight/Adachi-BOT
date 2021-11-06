@@ -69,27 +69,27 @@ async function login() {
 
 async function report() {
   // 只打印一次日志
-  const report = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
+  const log = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
 
-  report(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
-  report(
+  log(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
+  log(
     0 === config.prefixes.length || config.prefixes.includes(null)
       ? "所有的消息都将被视为命令。"
       : `命令前缀设置为 ${config.prefixes.join(" 、 ")} 。`
   );
-  report(`${2 === config.atMe ? "只" : 0 === config.atMe ? "不" : ""}允许用户 @ 机器人。`);
-  report(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
-  report(`群消息复读的概率为 ${(config.repeatProb / 100).toFixed(2)}% 。`);
-  report(`上线${config.groupHello ? "" : "不"}发送群通知。`);
-  report(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
-  report(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
-  report(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
-  report(`用户每隔 ${config.requestInterval} 秒可以使用一次机器人。`);
-  report(`${config.deleteGroupMsgTime ? config.deleteGroupMsgTime + " 秒后" : "不"}尝试撤回机器人发送的群消息`);
-  report(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
-  report(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
-  report(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
-  report(`清理数据库 info 中超过 ${config.dbInfoEffectTime} 小时的记录。`);
+  log(`${2 === config.atMe ? "只" : 0 === config.atMe ? "不" : ""}允许用户 @ 机器人。`);
+  log(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
+  log(`群消息复读的概率为 ${(config.repeatProb / 100).toFixed(2)}% 。`);
+  log(`上线${config.groupHello ? "" : "不"}发送群通知。`);
+  log(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
+  log(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
+  log(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
+  log(`用户每隔 ${config.requestInterval} 秒可以使用一次机器人。`);
+  log(`${config.deleteGroupMsgTime ? config.deleteGroupMsgTime + " 秒后" : "不"}尝试撤回机器人发送的群消息`);
+  log(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
+  log(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
+  log(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
+  log(`清理数据库 info 中超过 ${config.dbInfoEffectTime} 小时的记录。`);
 }
 
 async function run() {
