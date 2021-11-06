@@ -6,7 +6,7 @@ async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "package", "package"):
       if (false !== (await checkAuth(msg, "package"))) {
-        await doPackage(msg);
+        doPackage(msg);
       }
       break;
   }

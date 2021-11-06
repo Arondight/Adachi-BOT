@@ -8,27 +8,27 @@ async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "gacha", "pool"):
       if (false !== (await checkAuth(msg, "pool"))) {
-        await doPool(msg);
+        doPool(msg);
       }
       break;
     case hasEntrance(msg.text, "gacha", "gacha"):
       if (false !== (await checkAuth(msg, "gacha"))) {
-        await doGacha(msg);
+        doGacha(msg);
       }
       break;
     case hasEntrance(msg.text, "gacha", "select-what"):
       if (false !== (await checkAuth(msg, "select-what"))) {
-        await doSelectWhat(msg);
+        doSelectWhat(msg);
       }
       break;
     case hasEntrance(msg.text, "gacha", "select-nothing"):
       if (false !== (await checkAuth(msg, "select-nothing"))) {
-        await doSelectNothing(msg);
+        doSelectNothing(msg);
       }
       break;
     case hasEntrance(msg.text, "gacha", "select"):
       if (false !== (await checkAuth(msg, "select"))) {
-        await doSelect(msg);
+        doSelect(msg);
       }
       break;
   }

@@ -8,17 +8,17 @@ async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "artifacts", "artifacts"):
       if (false !== (await checkAuth(msg.uid, "artifacts"))) {
-        await doArtifacts(msg);
+        doArtifacts(msg);
       }
       break;
     case hasEntrance(msg.text, "artifacts", "strengthen"):
       if (false !== (await checkAuth(msg.uid, "strengthen"))) {
-        await doStrengthen(msg);
+        doStrengthen(msg);
       }
       break;
     case hasEntrance(msg.text, "artifacts", "dungeons"):
       if (false !== (await checkAuth(msg.uid, "dungeons"))) {
-        await msg.bot.say(msg.sid, domainInfo(), msg.type, msg.uid, "\n");
+        msg.bot.say(msg.sid, domainInfo(), msg.type, msg.uid, "\n");
       }
       break;
   }

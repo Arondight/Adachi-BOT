@@ -6,12 +6,12 @@ async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "music", "music"):
       if (false !== (await checkAuth(msg, "music"))) {
-        await doMusic(msg);
+        doMusic(msg);
       }
       break;
     case hasEntrance(msg.text, "music", "music_source"):
       if (false !== (await checkAuth(msg, "music_source"))) {
-        await doMusicSource(msg);
+        doMusicSource(msg);
       }
       break;
   }
