@@ -1,13 +1,11 @@
 import db from "../../utils/database.js";
 import { textOfInvalidCookies } from "../../utils/cookie.js";
 
-async function cookiesInvalid(id, type, user, bot) {
-  const dbName = "cookies_invalid";
+async function cookiesInvalid(msg) {
   const text = await textOfInvalidCookies();
 
-  await db.clean(dbName);
-  await bot.say(id, text || "未发现无效 Cookie 。", type, user, text ? "\n" : " ");
-  return;
+  await db.clean("cookies_invalid");
+  await msg.bot.say(msg.sid, text || "未发现无效 Cookie 。", msg.type, msg.uid, text ? "\n" : " ");
 }
 
 export { cookiesInvalid };

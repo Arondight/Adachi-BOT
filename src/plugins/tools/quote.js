@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-async function quote(id, text, type, user, bot) {
+async function quote(msg) {
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
@@ -11,10 +11,10 @@ async function quote(id, text, type, user, bot) {
 
   if (200 === response.status) {
     const { quote, from } = await response.json();
-    return await bot.say(id, `${quote}\n${from}`, type, user, "\n");
+    return await msg.bot.say(msg.sid, `${quote}\n${from}`, msg.type, msg.uid, "\n");
   }
 
-  await bot.say(id, "伟大的升华！", type, user);
+  await msg.bot.say(msg.sid, "伟大的升华！", msg.type, msg.uid);
 }
 
 export { quote };

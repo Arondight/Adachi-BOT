@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-async function prophecy(id, text, type, user, bot) {
+async function prophecy(msg) {
   const seed = Math.round(Date.now() / 1000);
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
@@ -15,11 +15,11 @@ async function prophecy(id, text, type, user, bot) {
     const { fortuneSummary, signText, unSignText } = data || {};
     const message = `${fortuneSummary}：${signText}。\n${unSignText}`;
 
-    await bot.say(id, message, type, user, "\n");
+    await msg.bot.say(msg.sid, message, msg.type, msg.uid, "\n");
     return;
   }
 
-  await bot.say(id, "今日星光黯淡，不宜求签……", type, user);
+  await msg.bot.say(msg.sid, "今日星光黯淡，不宜求签……", msg.type, msg.uid);
 }
 
 export { prophecy };
