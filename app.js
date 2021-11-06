@@ -16,35 +16,29 @@ async function login() {
     });
 
     bot.say = async (id, msg, type = "private", sender = undefined, delimiter = " ", atSender = true) => {
-      if (!msg || "" === msg) {
-        return;
-      }
-
-      switch (true) {
-        case "group" === type: {
-          if (config.atUser && sender && atSender) {
-            msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
+      if (msg && "" !== msg) {
+        switch (type) {
+          case "group": {
+            if (config.atUser && sender && atSender) {
+              msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
+            }
+            const { message_id: mid } = (await bot.sendGroupMsg(id, msg)).data || {};
+            const isAdmin = "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
+            if (undefined !== mid && config.deleteGroupMsgTime > 0 && isAdmin) {
+              setTimeout(bot.deleteMsg.bind(bot), config.deleteGroupMsgTime * 1000, mid);
+            }
+            break;
           }
-          const { message_id: mid } = (await bot.sendGroupMsg(id, msg)).data || {};
-          const isAdmin = "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
-          if (undefined !== mid && config.deleteGroupMsgTime > 0 && isAdmin) {
-            setTimeout(bot.deleteMsg.bind(bot), config.deleteGroupMsgTime * 1000, mid);
-          }
-          break;
+          case "private":
+            await bot.sendPrivateMsg(id, msg);
+            break;
         }
-        case "private" === type:
-          await bot.sendPrivateMsg(id, msg);
-          break;
       }
     };
 
     bot.sayMaster = async (id, msg, type, user) => {
       if (Array.isArray(config.masters) && config.masters.length) {
-        config.masters.forEach(async (master) => {
-          if (master) {
-            await bot.sendPrivateMsg(master, msg);
-          }
-        });
+        config.masters.forEach(async (master) => master && (await bot.sendPrivateMsg(master, msg)));
       } else {
         await bot.say(id, "未设置我的主人。", type, user);
       }
