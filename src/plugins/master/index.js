@@ -1,7 +1,7 @@
 import { setAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { gachaUpdate } from "../../utils/update.js";
-import { parse } from "./auth.js";
+import { parse } from "./parse.js";
 import { setReplyAuth } from "./reply_auth.js";
 
 async function Plugin(msg) {
