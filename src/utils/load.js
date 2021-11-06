@@ -4,11 +4,12 @@
 import fs from "fs";
 import path from "path";
 import lodash from "lodash";
-import { hasAuth } from "./auth.js";
+import { checkAuth } from "./auth.js";
 import { getRandomInt } from "./tools.js";
 
 // 无需加锁
 const timestamp = {};
+const replyAuthName = "响应消息";
 
 async function loadPlugins() {
   let plugins = {};
@@ -71,7 +72,7 @@ async function processedGroupIncrease(msg, bot) {
       await bot.say(msg.group_id, config.greetingHello, "group");
     } else {
       // 如果有新群友，尝试向新群友问好
-      if (config.groupGreetingNew && (await hasAuth(msg.group_id, "reply"))) {
+      if (config.groupGreetingNew && false !== (await checkAuth({ uid: msg.group_id }, replyAuthName, false))) {
         await bot.say(msg.group_id, config.greetingNew, "group", msg.user_id);
       }
     }
@@ -81,8 +82,7 @@ async function processedGroupIncrease(msg, bot) {
 async function processedPossibleCommand(msg, plugins, type, bot) {
   // 处理 @ 机器人
   const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
-  // 增加了变量 msg.atMe: boolean
-  msg.atMe = lodash
+  const atMe = lodash
     .chain(msg.message)
     .filter({ type: "at" })
     .find({ data: { qq: bot.uin } })
@@ -90,14 +90,14 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
     ? true
     : false;
 
-  if (msg.atMe) {
+  if (atMe) {
     switch (config.atMe) {
       case 0:
         return false;
       case 1:
       // fall through
       case 2:
-        if (!msg.atMe) {
+        if (!atMe) {
           return false;
         }
     }
@@ -147,23 +147,26 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
         return true;
       }
 
-      if ((await hasAuth(msg.group_id, "reply")) && (await hasAuth(msg.user_id, "reply"))) {
-        // 同步 oicq 数据结构
-        if (lodash.hasIn(msg.message, [0, "data", "text"])) {
-          msg.message = lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
-          msg.message[0].data.text = msg.raw_message;
-        }
+      // 同步 oicq 数据结构
+      if (lodash.hasIn(msg.message, [0, "data", "text"])) {
+        msg.message = lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
+        msg.message[0].data.text = msg.raw_message;
+      }
 
-        // 添加自定义属性
-        msg.text = msg.raw_message;
-        msg.type = type;
-        msg.uid = msg.user_id;
-        msg.gid = msg.group_id;
-        msg.sid = "group" === msg.type ? msg.gid : msg.uid;
-        msg.name = msg.sender.nickname;
+      // 添加自定义属性
+      msg.text = msg.raw_message;
+      msg.type = type;
+      msg.uid = msg.user_id;
+      msg.gid = msg.group_id;
+      msg.sid = "group" === msg.type ? msg.gid : msg.uid;
+      msg.name = msg.sender.nickname;
+      msg.atMe = atMe;
+      msg.bot = bot;
 
+      if (false !== (await checkAuth(msg, replyAuthName, false))) {
         if (config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
           timestamp[msg.user_id] = msg.time;
+          // 参数 bot 为了和可能存在的旧插件做兼容
           plugins[plugin].run(msg, bot);
           return true;
         }
@@ -182,7 +185,10 @@ async function processedGroup(msg, bot) {
 async function processedOnline(bot) {
   if (config.groupHello) {
     bot.gl.forEach(async (group) => {
-      const greeting = (await hasAuth(group.group_id, "reply")) ? config.greetingOnline : config.greetingDie;
+      const greeting =
+        false !== (await checkAuth({ uid: group.group_id }, replyAuthName, false))
+          ? config.greetingOnline
+          : config.greetingDie;
 
       if (!(await isGroupBan(group, bot)) && "string" === typeof greeting) {
         // 群通知不需要 @

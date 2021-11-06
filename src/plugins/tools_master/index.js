@@ -6,25 +6,25 @@ import { search } from "./search.js";
 import { status } from "./status.js";
 import { cookiesInvalid } from "./cookies_invalid.js";
 
-async function Plugin(msg, bot) {
+async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "tools_master", "group_boardcast", "private_boardcast"):
-      boardcast(msg.sid, msg.text, msg.type, msg.uid, bot);
+      await boardcast(msg);
       break;
     case hasEntrance(msg.text, "tools_master", "reply"):
-      reply(msg.sid, msg.text, msg.type, msg.uid, bot);
+      await reply(msg);
       break;
     case hasEntrance(msg.text, "tools_master", "group_search", "private_search", "search"):
-      search(msg.sid, msg.text, msg.type, msg.uid, bot);
+      await search(msg);
       break;
     case hasEntrance(msg.text, "tools_master", "count"):
-      count(msg.sid, msg.text, msg.type, msg.uid, bot);
+      await count(msg);
       break;
     case hasEntrance(msg.text, "tools_master", "status"):
-      status(msg.sid, msg.type, msg.uid, bot);
+      await status(msg);
       break;
     case hasEntrance(msg.text, "tools_master", "cookies_invalid"):
-      cookiesInvalid(msg.sid, msg.type, msg.uid, bot);
+      await cookiesInvalid(msg);
       break;
   }
 }
