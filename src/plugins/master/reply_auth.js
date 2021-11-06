@@ -2,7 +2,7 @@
 /* eslint no-undef: "error" */
 
 import { setAuth } from "../../utils/auth.js";
-import { parse } from "./auth.js";
+import { parse } from "./parse.js";
 
 async function setReplyAuth(msg) {
   const [id, isOn] = parse(msg.text, "reply_auth");
