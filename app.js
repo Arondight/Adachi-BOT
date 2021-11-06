@@ -35,7 +35,7 @@ async function login() {
         }
       }
     };
-
+    bot.sendMessage = bot.say;
     bot.sayMaster = async (id, msg, type, user) => {
       if (Array.isArray(config.masters) && config.masters.length) {
         config.masters.forEach(async (master) => master && (await bot.sendPrivateMsg(master, msg)));
@@ -43,6 +43,7 @@ async function login() {
         await bot.say(id, "未设置我的主人。", type, user);
       }
     };
+    bot.sendMaster = bot.sayMaster;
 
     bots.push(bot);
 
