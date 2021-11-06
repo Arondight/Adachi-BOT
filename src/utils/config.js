@@ -103,7 +103,8 @@
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
  *   characterTryGetDetail: 1,
- *   requestInterval: 1,
+ *   requestInterval: 0,
+ *   deleteGroupMsgTime: 0,
  *   cacheAbyEffectTime: 1,
  *   cacheInfoEffectTime: 1,
  *   dbAbyEffectTime: 1,
@@ -134,7 +135,8 @@
  * groupGreetingNew: 1
  * friendGreetingNew: 1
  * characterTryGetDetail: 1
- * requestInterval: 1
+ * requestInterval: 0
+ * deleteGroupMsgTime: 0
  * prefixes:
  *   -
  * cacheAbyEffectTime: 1
