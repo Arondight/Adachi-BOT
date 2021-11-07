@@ -22,9 +22,15 @@ async function login() {
             if (config.atUser && sender && atSender) {
               msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
             }
+
+            // XXX 当前 2021年11月7日08:10:36 非管理员允许撤回两分钟以内的消息
+            const permissionOK =
+              config.deleteGroupMsgTime < 120
+                ? true
+                : "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
             const { message_id: mid } = (await bot.sendGroupMsg(id, msg)).data || {};
-            const isAdmin = "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
-            if (undefined !== mid && config.deleteGroupMsgTime > 0 && isAdmin) {
+
+            if (undefined !== mid && config.deleteGroupMsgTime > 0 && permissionOK) {
               setTimeout(bot.deleteMsg.bind(bot), config.deleteGroupMsgTime * 1000, mid);
             }
             break;
