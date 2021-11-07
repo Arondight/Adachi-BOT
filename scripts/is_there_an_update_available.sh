@@ -4,9 +4,8 @@
   remoteUrl='https://github.com/Arondight/Adachi-BOT.git'
   remoteBranch='master'
 
-  remoteID=$(git ls-remote -qh "$remoteUrl" "$remoteBranch" 2>/dev/null \
-    | awk '{print $1}')
-  localID=$(git rev-list HEAD)
+  remoteID=$(git ls-remote -qh "$remoteUrl" "$remoteBranch" 2>/dev/null | awk '{print $1}')
+  localID=$(git rev-list HEAD | head -1)
 
   if [[ -z "$remoteID" ]]
   then
