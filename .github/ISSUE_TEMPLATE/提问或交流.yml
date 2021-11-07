@@ -10,3 +10,11 @@ body:
     attributes:
       value: |
         请移步 [discussions](https://github.com/Arondight/Adachi-BOT/discussions) ，非常感谢。
+  - type: checkboxes
+    id: discussions
+    attributes:
+      label: 我已了解
+      description:
+      options:
+        - label: 我已了解
+          required: true
