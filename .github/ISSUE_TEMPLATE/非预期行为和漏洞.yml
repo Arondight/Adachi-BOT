@@ -6,7 +6,7 @@ assignees:
   - Arondight
 body:
   - type: textarea
-    id: 问题描述
+    id: question
     attributes:
       label: 问题描述
       description: 请在此详细描述你遇到的非预期行为或漏洞。
@@ -15,7 +15,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: 复现流程
+    id: operation
     attributes:
       label: 复现流程
       description: 请告诉我们如何操作才有可能重现你的问题，以便我们定位和解决。
@@ -24,7 +24,7 @@ body:
     validations:
       required: false
   - type: textarea
-    id: 后台日志
+    id: log
     attributes:
       label: 后台日志
       description: 请运行命令 `npm run log` ，并将出现问题时后台输出的日志粘贴在此处。
@@ -34,7 +34,7 @@ body:
     validations:
       required: false
   - type: textarea
-    id: 代码状态：最新提交
+    id: git-log
     attributes:
       label: 代码状态：最新提交
       description: 请将命令 `git log -1` 的输出结果粘贴在此处。
@@ -43,7 +43,7 @@ body:
     validations:
       required: false
   - type: textarea
-    id: 代码状态：是否修改
+    id: git-status
     attributes:
       label: 代码状态：是否修改
       description: 请将命令 `git status` 的输出结果粘贴在此处。
@@ -52,27 +52,25 @@ body:
     validations:
       required: false
   - type: input
-    id: 代码状态： Node.js 版本
+    id: node-version
     attributes:
-      label: 代码状态： Node.js 版本
+      label: 运行环境： Node.js 版本
       description: 请将命令 `node --version` 的输出结果粘贴在此处。
-      render: Text
       placeholder: 例如 `v16.13.0` 。
     validations:
       required: false
   - type: input
-    id: 代码状态： npm 版本
+    id: npm-version
     attributes:
-      label: 代码状态： Node.js 版本
+      label: 运行环境： Node.js 版本
       description: 请将命令 `npm --version` 的输出结果粘贴在此处。
-      render: Text
       placeholder: 例如 `8.1.0` 。
     validations:
       required: false
   - type: dropdown
-    id: 操作系统
+    id: os
     attributes:
-      label: 操作系统
+      label: 运行环境：操作系统
       description: 请选择你运行机器人使用的操作系统
       options:
         - Linux
