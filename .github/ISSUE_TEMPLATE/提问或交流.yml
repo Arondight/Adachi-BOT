@@ -1,0 +1,12 @@
+name: 提问或交流
+description: 我只是想提问或交流。
+title: 请移步 discussions
+labels:
+  - invalid
+assignees:
+  - Arondight
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请移步 [discussions](https://github.com/Arondight/Adachi-BOT/discussions) ，非常感谢。
