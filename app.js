@@ -16,34 +16,40 @@ async function login() {
     });
 
     bot.say = async (id, msg, type = "private", sender = undefined, delimiter = " ", atSender = true) => {
-      if (!msg || "" === msg) {
-        return;
-      }
+      if (msg && "" !== msg) {
+        switch (type) {
+          case "group": {
+            if (config.atUser && sender && atSender) {
+              msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
+            }
 
-      switch (true) {
-        case "group" === type:
-          if (config.atUser && sender && atSender) {
-            msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
+            // XXX 当前 2021年11月7日08:10:36 非管理员允许撤回两分钟以内的消息
+            const permissionOK =
+              config.deleteGroupMsgTime < 120
+                ? true
+                : "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
+            const { message_id: mid } = (await bot.sendGroupMsg(id, msg)).data || {};
+
+            if (undefined !== mid && config.deleteGroupMsgTime > 0 && permissionOK) {
+              setTimeout(bot.deleteMsg.bind(bot), config.deleteGroupMsgTime * 1000, mid);
+            }
+            break;
           }
-          await bot.sendGroupMsg(id, msg);
-          break;
-        case "private" === type:
-          await bot.sendPrivateMsg(id, msg);
-          break;
+          case "private":
+            await bot.sendPrivateMsg(id, msg);
+            break;
+        }
       }
     };
-
+    bot.sendMessage = bot.say;
     bot.sayMaster = async (id, msg, type, user) => {
       if (Array.isArray(config.masters) && config.masters.length) {
-        config.masters.forEach(async (master) => {
-          if (master) {
-            await bot.sendPrivateMsg(master, msg);
-          }
-        });
+        config.masters.forEach(async (master) => master && (await bot.sendPrivateMsg(master, msg)));
       } else {
         await bot.say(id, "未设置我的主人。", type, user);
       }
     };
+    bot.sendMaster = bot.sayMaster;
 
     bots.push(bot);
 
@@ -70,26 +76,27 @@ async function login() {
 
 async function report() {
   // 只打印一次日志
-  const say = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
+  const log = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
 
-  say(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
-  say(
+  log(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
+  log(
     0 === config.prefixes.length || config.prefixes.includes(null)
       ? "所有的消息都将被视为命令。"
       : `命令前缀设置为 ${config.prefixes.join(" 、 ")} 。`
   );
-  say(`${2 === config.atMe ? "只" : 0 === config.atMe ? "不" : ""}允许用户 @ 机器人。`);
-  say(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
-  say(`群消息复读的概率为 ${(config.repeatProb / 100).toFixed(2)}% 。`);
-  say(`上线${config.groupHello ? "" : "不"}发送群通知。`);
-  say(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
-  say(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
-  say(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
-  say(`用户每隔 ${config.requestInterval} 秒可以使用一次机器人。`);
-  say(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
-  say(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
-  say(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
-  say(`清理数据库 info 中超过 ${config.dbInfoEffectTime} 小时的记录。`);
+  log(`${2 === config.atMe ? "只" : 0 === config.atMe ? "不" : ""}允许用户 @ 机器人。`);
+  log(`群回复将${config.atUser ? "" : "不"}会 @ 用户。`);
+  log(`群消息复读的概率为 ${(config.repeatProb / 100).toFixed(2)}% 。`);
+  log(`上线${config.groupHello ? "" : "不"}发送群通知。`);
+  log(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
+  log(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
+  log(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
+  log(`用户每隔 ${config.requestInterval} 秒可以使用一次机器人。`);
+  log(`${config.deleteGroupMsgTime ? config.deleteGroupMsgTime + " 秒后" : "不"}尝试撤回机器人发送的群消息`);
+  log(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);
+  log(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
+  log(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
+  log(`清理数据库 info 中超过 ${config.dbInfoEffectTime} 小时的记录。`);
 }
 
 async function run() {

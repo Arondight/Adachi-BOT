@@ -124,7 +124,7 @@ master:
   enable: true
   weights: 9999
   regex:
-    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据)权限\s+\d+\s+\S+\s*$
+    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s+\d+\s+\S+\s*$
     - ^响应消息\s+\d+\s+\S+\s*$
     - ^刷新卡池\s*$
   functions:
@@ -134,7 +134,7 @@ master:
       weights: 9999
       name: 带话权限
       usage: <QQ号、群号>
-      description: 【带话】
+      description:
       entrance:
         - ^带话权限
       options:
@@ -146,7 +146,7 @@ master:
       weights: 9899
       name: 点歌权限
       usage: <QQ号、群号>
-      description: 【点歌】
+      description:
       entrance:
         - ^点歌权限
       options:
@@ -158,7 +158,7 @@ master:
       weights: 9799
       name: 十连权限
       usage: <QQ号、群号>
-      description: 【十连】
+      description:
       entrance:
         - ^十连权限
       options:
@@ -170,7 +170,7 @@ master:
       weights: 9699
       name: 圣遗物权限
       usage: <QQ号、群号>
-      description: 【圣遗物】【强化】
+      description:
       entrance:
         - ^圣遗物权限
       options:
@@ -182,7 +182,7 @@ master:
       weights: 9599
       name: 评分权限
       usage: <QQ号、群号>
-      description: 【评分】
+      description:
       entrance:
         - ^评分权限
       options:
@@ -194,7 +194,7 @@ master:
       weights: 9499
       name: 游戏数据权限
       usage: <QQ号、群号>
-      description: 【深渊】【上期深渊】【米游社】【uid】
+      description:
       entrance:
         - ^游戏数据权限
       options:
@@ -206,16 +206,28 @@ master:
       weights: 9399
       name: 官方数据权限
       usage: <QQ号、群号>
-      description: 【角色】【武器】
+      description:
       entrance:
         - ^官方数据权限
+      options:
+        on: on
+        off: off
+    fun_auth:
+      type: switch
+      show: true
+      weights: 9299
+      name: 娱乐功能权限
+      usage: <QQ号、群号>
+      description:
+      entrance:
+        - ^娱乐功能权限
       options:
         on: on
         off: off
     reply_auth:
       type: switch
       show: true
-      weights: 9299
+      weights: 1099
       name: 响应消息
       usage: <QQ号、群号>
       description:
@@ -227,7 +239,7 @@ master:
     refresh_wish_detail:
       type: command
       show: true
-      weights: 9199
+      weights: 99
       name: 刷新卡池
       usage:
       description:

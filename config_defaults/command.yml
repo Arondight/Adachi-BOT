@@ -230,7 +230,6 @@ tools:
       entrance:
         - ^roll
     quote:
-      # 此功能不显示在帮助信息中
       type: command
       show: false
       weights: 9699
