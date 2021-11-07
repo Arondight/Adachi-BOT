@@ -1,7 +1,9 @@
 name: 非预期行为和漏洞
-description: 报告一个非预期行为和漏洞报告
-title: "非预期行为和漏洞报告：<你的报告标题>"
-labels: ["bug", "question"]
+description: 报告一个非预期行为和漏洞报告。
+title: 非预期行为和漏洞报告：<你的报告标题>
+labels:
+  - bug
+  - question
 assignees:
   - Arondight
 body:
