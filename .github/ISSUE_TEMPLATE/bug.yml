@@ -35,24 +35,22 @@ body:
       #value:
     validations:
       required: false
-  - type: textarea
+  - type: input
     id: git-log
     attributes:
       label: 代码状态：最新提交
-      description: 请将命令 `git log -1` 的输出结果粘贴在此处。
-      render: Text
+      description: 请将命令 `git log -1 --format=oneline` 的输出结果粘贴在此处。
       #placeholder:
     validations:
       required: false
-  - type: textarea
+  - type: checkboxes
     id: git-status
     attributes:
       label: 代码状态：是否修改
-      description: 请将命令 `git status` 的输出结果粘贴在此处。
-      render: Text
-      #placeholder:
-    validations:
-      required: false
+      description: 如果命令 `git status -s` 无任何输出则勾选下面的选项。
+      options:
+        - label: 我已确定运行命令 `git status -s` 无任何输出。
+          required: false
   - type: input
     id: node-version
     attributes:
@@ -64,7 +62,7 @@ body:
   - type: input
     id: npm-version
     attributes:
-      label: 运行环境： Node.js 版本
+      label: 运行环境： npm 版本
       description: 请将命令 `npm --version` 的输出结果粘贴在此处。
       placeholder: 例如 8.1.0 。
     validations:
