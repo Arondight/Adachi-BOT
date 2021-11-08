@@ -7,6 +7,10 @@ labels:
 assignees:
   - Arondight
 body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您的提交，请至少填写下方带红色星花标记的部分。
   - type: textarea
     id: question
     attributes:
@@ -24,7 +28,7 @@ body:
       placeholder: 在此输入 Markdown 文本。
       #value:
     validations:
-      required: false
+      required: true
   - type: textarea
     id: log
     attributes:
@@ -38,18 +42,18 @@ body:
   - type: input
     id: git-log
     attributes:
-      label: 代码状态：最新提交
+      label: 代码状态：当前提交
       description: 请将命令 `git log -1 --format=oneline` 的输出结果粘贴在此处。
       #placeholder:
     validations:
-      required: false
+      required: true
   - type: checkboxes
     id: git-status
     attributes:
       label: 代码状态：是否修改
-      description: 如果命令 `git status -s` 无任何输出则勾选下面的选项。
+      description: 运行命令 `git status -s` 无任何输出则勾选下面的选项。
       options:
-        - label: 我已确定运行命令 `git status -s` 无任何输出。
+        - label: 运行此命令无任何输出。
           required: false
   - type: input
     id: node-version

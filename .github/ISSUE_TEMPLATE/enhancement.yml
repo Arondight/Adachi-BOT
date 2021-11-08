@@ -7,6 +7,10 @@ labels:
 assignees:
   - Arondight
 body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您的提交，请至少填写下方带红色星花标记的部分。
   - type: textarea
     id: question
     attributes:
@@ -19,7 +23,7 @@ body:
   - type: input
     id: git-log
     attributes:
-      label: 代码状态：最新提交
+      label: 代码状态：当前提交
       description: 请将命令 `git log -1 --format=oneline` 的输出结果粘贴在此处。
       #placeholder:
     validations:
