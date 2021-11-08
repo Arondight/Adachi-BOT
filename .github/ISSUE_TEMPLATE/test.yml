@@ -1,5 +1,5 @@
-name: 中文
-description: 中文
+name: 中文测试啊啊啊对对对
+description: 中文测试啊啊啊对对对
 #title: 你的标题
 labels:
   - enhancement
@@ -10,8 +10,8 @@ body:
   - type: textarea
     id: question
     attributes:
-      label: 中文
-      description: 中文
+      label: 中文测试啊啊啊对对对
+      description: 中文测试啊啊啊对对对
       #placeholder:
       #value:
     validations:
@@ -19,8 +19,8 @@ body:
   - type: textarea
     id: git-log
     attributes:
-      label: 中文
-      description: 中文
+      label: 中文测试啊啊啊对对对
+      description: 中文测试啊啊啊对对对
       render: Text
       #placeholder:
     validations:
