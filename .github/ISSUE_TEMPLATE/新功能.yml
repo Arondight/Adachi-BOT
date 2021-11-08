@@ -1,6 +1,6 @@
 name: 新功能
 description: 提交一个新功能请求。
-title: 新功能请求：<你的报告标题>
+title:
 labels:
   - enhancement
   - question

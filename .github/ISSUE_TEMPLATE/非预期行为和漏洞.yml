@@ -1,6 +1,6 @@
 name: 非预期行为和漏洞
 description: 报告一个非预期行为和漏洞报告。
-title: 非预期行为和漏洞报告：<你的报告标题>
+title:
 labels:
   - bug
   - question
@@ -58,7 +58,7 @@ body:
     attributes:
       label: 运行环境： Node.js 版本
       description: 请将命令 `node --version` 的输出结果粘贴在此处。
-      placeholder: 例如 `v16.13.0` 。
+      placeholder: 例如 v16.13.0 。
     validations:
       required: false
   - type: input
@@ -66,7 +66,7 @@ body:
     attributes:
       label: 运行环境： Node.js 版本
       description: 请将命令 `npm --version` 的输出结果粘贴在此处。
-      placeholder: 例如 `8.1.0` 。
+      placeholder: 例如 8.1.0 。
     validations:
       required: false
   - type: dropdown
