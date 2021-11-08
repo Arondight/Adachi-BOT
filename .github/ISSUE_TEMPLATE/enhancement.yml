@@ -12,7 +12,7 @@ body:
     attributes:
       label: 问题描述
       description: 请在此详细描述你想新增的功能。
-      #placeholder:
+      placeholder: 在此输入 Markdown 文本。
       #value:
     validations:
       required: true

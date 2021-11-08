@@ -12,7 +12,7 @@ body:
     attributes:
       label: 问题描述
       description: 请在此详细描述你遇到的非预期行为或漏洞。
-      #placeholder:
+      placeholder: 在此输入 Markdown 文本。
       #value:
     validations:
       required: true
@@ -21,7 +21,7 @@ body:
     attributes:
       label: 复现流程
       description: 请告诉我们如何操作才有可能重现你的问题，以便我们定位和解决。
-      #placeholder:
+      placeholder: 在此输入 Markdown 文本。
       #value:
     validations:
       required: false
@@ -31,7 +31,7 @@ body:
       label: 后台日志
       description: 请运行命令 `npm run log` ，并将出现问题时后台输出的日志粘贴在此处。
       render: Text
-      #placeholder:
+      placeholder: 在此输入日志，将被转化为代码块。
       #value:
     validations:
       required: false
