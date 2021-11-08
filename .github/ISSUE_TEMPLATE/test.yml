@@ -1,0 +1,27 @@
+name: test
+description: just a test
+#title: 你的标题
+labels:
+  - enhancement
+  - question
+assignees:
+  - Arondight
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: label1
+      description: description1
+      #placeholder:
+      #value:
+    validations:
+      required: true
+  - type: textarea
+    id: git-log
+    attributes:
+      label: label2
+      description: description2
+      render: Text
+      #placeholder:
+    validations:
+      required: false
