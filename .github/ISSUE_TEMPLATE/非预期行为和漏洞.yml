@@ -12,8 +12,8 @@ body:
     attributes:
       label: 问题描述
       description: 请在此详细描述你遇到的非预期行为或漏洞。
-      placeholder:
-      value:
+      #placeholder:
+      #value:
     validations:
       required: true
   - type: textarea
@@ -21,8 +21,8 @@ body:
     attributes:
       label: 复现流程
       description: 请告诉我们如何操作才有可能重现你的问题，以便我们定位和解决。
-      placeholder:
-      value:
+      #placeholder:
+      #value:
     validations:
       required: false
   - type: textarea
@@ -31,8 +31,8 @@ body:
       label: 后台日志
       description: 请运行命令 `npm run log` ，并将出现问题时后台输出的日志粘贴在此处。
       render: Text
-      placeholder:
-      value:
+      #placeholder:
+      #value:
     validations:
       required: false
   - type: textarea
@@ -41,7 +41,7 @@ body:
       label: 代码状态：最新提交
       description: 请将命令 `git log -1` 的输出结果粘贴在此处。
       render: Text
-      placeholder:
+      #placeholder:
     validations:
       required: false
   - type: textarea
@@ -50,7 +50,7 @@ body:
       label: 代码状态：是否修改
       description: 请将命令 `git status` 的输出结果粘贴在此处。
       render: Text
-      placeholder:
+      #placeholder:
     validations:
       required: false
   - type: input
