@@ -14,7 +14,7 @@ async function count(msg) {
 
   report += `\n群友个数：${num}`;
 
-  await msg.bot.say(msg.sid, report, msg.type, msg.uid, "\n");
+  msg.bot.say(msg.sid, report, msg.type, msg.uid, "\n");
   return;
 }
 

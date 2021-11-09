@@ -1,0 +1,30 @@
+name: 新功能
+description: 提交一个新功能请求。
+#title: 你的标题
+labels:
+  - enhancement
+  - question
+assignees:
+  - Arondight
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您的提交，请至少填写下方带红色星花标记的部分。
+  - type: textarea
+    id: question
+    attributes:
+      label: 问题描述
+      description: 请在此详细描述你想新增的功能。
+      placeholder: 在此输入 Markdown 文本。
+      #value:
+    validations:
+      required: true
+  - type: input
+    id: git-log
+    attributes:
+      label: 代码状态：当前提交
+      description: 请将命令 `git log -1 --format=oneline` 的输出结果粘贴在此处。
+      #placeholder:
+    validations:
+      required: false

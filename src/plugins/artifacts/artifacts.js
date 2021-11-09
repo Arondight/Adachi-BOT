@@ -32,12 +32,12 @@ async function doArtifacts(msg) {
       data = ((await db.get("artifact", "user", { userID: msg.uid })) || {}).initial;
     } else {
       const text = `请正确输入副本，可以使用【${command.functions.name.dungeons}】查看所有副本。`;
-      await msg.bot.say(msg.sid, text, msg.type, msg.uid);
+      msg.bot.say(msg.sid, text, msg.type, msg.uid);
       return;
     }
   }
 
-  await render(data, "genshin-artifact", msg.sid, msg.type, msg.uid, msg.bot, 1.2);
+  render(msg, data, "genshin-artifact", 1.2);
 }
 
 export { doArtifacts };

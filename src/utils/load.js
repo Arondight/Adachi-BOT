@@ -166,7 +166,7 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
       if (false !== (await checkAuth(msg, replyAuthName, false))) {
         if (config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
           timestamp[msg.user_id] = msg.time;
-          // 参数 bot 为了和可能存在的旧插件做兼容
+          // 参数 bot 为了兼容可能存在的旧插件
           plugins[plugin].run(msg, bot);
           return true;
         }

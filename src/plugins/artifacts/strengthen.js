@@ -10,17 +10,17 @@ async function doStrengthen(msg) {
 
   await init(msg.uid);
 
-  const { initial, fortified } = await db.get("artifact", "user", { userID: msg.uid });
+  const { initial, fortified } = (await db.get("artifact", "user", { userID: msg.uid })) || {};
 
   if (JSON.stringify(initial) !== "{}") {
     data = fortified;
   } else {
     const text = `请先使用【${command.functions.name.artifacts}】抽取一个圣遗物后再【${command.functions.name.strengthen}】。`;
-    await msg.bot.say(msg.sid, text, msg.type, msg.uid);
+    msg.bot.say(msg.sid, text, msg.type, msg.uid);
     return;
   }
 
-  await render(data, "genshin-artifact", msg.sid, msg.type, msg.uid, msg.bot, 1.2);
+  render(msg, data, "genshin-artifact", 1.2);
 }
 
 export { doStrengthen };

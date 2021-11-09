@@ -1,0 +1,86 @@
+name: 非预期行为和漏洞
+description: 提交一个非预期行为和漏洞报告。
+#title:
+labels:
+  - bug
+  - question
+assignees:
+  - Arondight
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您的提交，请至少填写下方带红色星花标记的部分。
+  - type: textarea
+    id: question
+    attributes:
+      label: 问题描述
+      description: 请在此详细描述你遇到的非预期行为或漏洞。
+      placeholder: 在此输入 Markdown 文本。
+      #value:
+    validations:
+      required: true
+  - type: textarea
+    id: operation
+    attributes:
+      label: 复现流程
+      description: 请告诉我们如何操作才有可能重现你的问题，以便我们定位和解决。
+      placeholder: 在此输入 Markdown 文本。
+      #value:
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: 后台日志
+      description: 请运行命令 `npm run log` ，并将出现问题时后台输出的日志粘贴在此处。
+      render: Text
+      placeholder: 在此输入日志，将被转化为代码块。
+      #value:
+    validations:
+      required: false
+  - type: input
+    id: git-log
+    attributes:
+      label: 代码状态：当前提交
+      description: 请将命令 `git log -1 --format=oneline` 的输出结果粘贴在此处。
+      #placeholder:
+    validations:
+      required: true
+  - type: dropdown
+    id: git-status
+    attributes:
+      label: 代码状态：是否修改
+      description: 运行命令 `git diff-index --quiet HEAD && echo 'Clean' || echo 'Dirty'` 并观察输出是。
+      options:
+        - Clean
+        - Dirty
+    validations:
+      required: false
+  - type: input
+    id: node-version
+    attributes:
+      label: 运行环境： Node.js 版本
+      description: 请将命令 `node --version` 的输出结果粘贴在此处。
+      placeholder: 例如 v16.13.0 。
+    validations:
+      required: false
+  - type: input
+    id: npm-version
+    attributes:
+      label: 运行环境： npm 版本
+      description: 请将命令 `npm --version` 的输出结果粘贴在此处。
+      placeholder: 例如 8.1.0 。
+    validations:
+      required: false
+  - type: dropdown
+    id: os
+    attributes:
+      label: 运行环境：操作系统
+      description: 请选择你运行机器人使用的操作系统
+      options:
+        - Linux
+        - macOS
+        - Windows
+    validations:
+      required: true

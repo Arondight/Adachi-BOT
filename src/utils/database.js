@@ -1,29 +1,30 @@
 /* global config, rootdir */
 /* eslint no-undef: "error" */
 
-import { Low, JSONFileSync } from "lowdb";
 import path from "path";
 import lodash from "lodash";
+import merge from "merge-deep";
+import { Low, JSONFile } from "lowdb";
 import { Mutex } from "async-mutex";
 
 const db = {};
-let mutexMemoryForDB = {};
-let mutexFileForDB = {};
+const mutexMemory = {};
+const mutexFile = {};
 
 // 如果数据库不存在，将自动创建新的空数据库。
 async function init(dbName, defaultElement = { user: [] }) {
   const file = path.resolve(rootdir, "data", "db", `${dbName}.json`);
-  const adapter = new JSONFileSync(file);
+  const adapter = new JSONFile(file);
 
   db[dbName] = new Low(adapter);
   await db[dbName].read();
   db[dbName].data = db[dbName].data || defaultElement;
-  db[dbName].chain = await lodash.chain(db[dbName].data);
+  db[dbName].chain = lodash.chain(db[dbName].data);
 
-  mutexFileForDB[dbName] = new Mutex();
-  mutexMemoryForDB[dbName] = new Mutex();
+  mutexFile[dbName] = new Mutex();
+  mutexMemory[dbName] = new Mutex();
 
-  const release = await mutexFileForDB[dbName].acquire();
+  const release = await mutexFile[dbName].acquire();
   await db[dbName].write();
   release();
 }
@@ -33,8 +34,8 @@ async function has(dbName, ...path) {
     return false;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
-  const result = (await db[dbName].chain.hasIn(path).value()) ? true : false;
+  const release = await mutexMemory[dbName].acquire();
+  const result = db[dbName].chain.hasIn(path).value() ? true : false;
   release();
 
   return result;
@@ -42,7 +43,7 @@ async function has(dbName, ...path) {
 
 async function write(dbName) {
   if (db[dbName]) {
-    const release = await mutexFileForDB[dbName].acquire();
+    const release = await mutexFile[dbName].acquire();
     await db[dbName].write();
     release();
   }
@@ -53,8 +54,8 @@ async function includes(dbName, key, index, value) {
     return false;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
-  const result = (await db[dbName].chain.get(key).map(index).includes(value).value()) ? true : false;
+  const release = await mutexMemory[dbName].acquire();
+  const result = db[dbName].chain.get(key).map(index).includes(value).value() ? true : false;
   release();
 
   return result;
@@ -65,8 +66,8 @@ async function remove(dbName, key, index) {
     return;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
-  db[dbName].data[key] = await db[dbName].chain.get(key).reject(index).value();
+  const release = await mutexMemory[dbName].acquire();
+  db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
   release();
 
   await write(dbName);
@@ -77,12 +78,12 @@ async function get(dbName, key, index = undefined) {
     return undefined;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
+  const release = await mutexMemory[dbName].acquire();
   const result =
-    undefined === index ? await db[dbName].chain.get(key).value() : await db[dbName].chain.get(key).find(index).value();
+    undefined === index ? db[dbName].chain.get(key).value() : merge(...db[dbName].chain.get(key).filter(index).value());
   release();
 
-  return result;
+  return result && (lodash.isEmpty(result) ? undefined : result);
 }
 
 async function push(dbName, key, data) {
@@ -90,8 +91,8 @@ async function push(dbName, key, data) {
     return;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
-  await db[dbName].chain.get(key).push(data).value();
+  const release = await mutexMemory[dbName].acquire();
+  db[dbName].data[key].push(data);
   release();
 
   await write(dbName);
@@ -102,10 +103,16 @@ async function update(dbName, key, index, data) {
     return;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
-  await db[dbName].chain.get(key).find(index).assign(data).value();
-  release();
+  const old = await get(dbName, key, index);
 
+  if (undefined !== old) {
+    await remove(dbName, key, index);
+    const release = await mutexMemory[dbName].acquire();
+    data = merge({}, old, data);
+    release();
+  }
+
+  await push(dbName, key, data);
   await write(dbName);
 }
 
@@ -114,8 +121,8 @@ async function set(dbName, key, data) {
     return;
   }
 
-  const release = await mutexMemoryForDB[dbName].acquire();
-  await db[dbName].chain.set(key, data).value();
+  const release = await mutexMemory[dbName].acquire();
+  db[dbName].chain.set(key, data).value();
   release();
 
   await write(dbName);
@@ -149,7 +156,7 @@ async function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid"
 
     // 没有基准字段则删除该记录（因为很可能是错误数据）
     if (!uid || !(await has(dbName, dbKey[0], i, dbKey[1]))) {
-      release = await mutexMemoryForDB[dbName].acquire();
+      release = await mutexMemory[dbName].acquire();
       records.splice(i, 1);
       release();
       nums++;
@@ -162,7 +169,7 @@ async function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid"
     const now = new Date().valueOf();
 
     if (!time || now - time > milliseconds) {
-      release = await mutexMemoryForDB[dbName].acquire();
+      release = await mutexMemory[dbName].acquire();
       records.splice(i, 1);
       release();
       nums++;
@@ -182,7 +189,7 @@ async function cleanCookies() {
 
   for (const key of keys) {
     let records = await get(dbName, key);
-    const release = await mutexMemoryForDB[dbName].acquire();
+    const release = await mutexMemory[dbName].acquire();
 
     for (const i in records) {
       // 1. 没有基准字段则删除该记录
@@ -205,7 +212,7 @@ async function cleanCookiesInvalid() {
   const dbName = "cookies_invalid";
   const cookies = (await get(dbName, "cookie")) || [];
   let nums = 0;
-  const release = await mutexMemoryForDB[dbName].acquire();
+  const release = await mutexMemory[dbName].acquire();
 
   for (const i in cookies) {
     if (!cookies[i].cookie || !(config.cookies || []).includes(cookies[i].cookie)) {
@@ -235,15 +242,4 @@ async function clean(dbName) {
   return 0;
 }
 
-export default {
-  init,
-  has,
-  write,
-  includes,
-  remove,
-  get,
-  push,
-  update,
-  set,
-  clean,
-};
+export default { init, has, write, includes, remove, get, push, update, set, clean };

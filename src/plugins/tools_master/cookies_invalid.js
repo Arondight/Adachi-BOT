@@ -5,7 +5,7 @@ async function cookiesInvalid(msg) {
   const text = await textOfInvalidCookies();
 
   await db.clean("cookies_invalid");
-  await msg.bot.say(msg.sid, text || "未发现无效 Cookie 。", msg.type, msg.uid, text ? "\n" : " ");
+  msg.bot.say(msg.sid, text || "未发现无效 Cookie 。", msg.type, msg.uid, text ? "\n" : " ");
 }
 
 export { cookiesInvalid };

@@ -29,7 +29,7 @@ async function doSave(msg, action = "save") {
   const unexistMsg = `您还未绑定通行证，使用【${saveCmd} ${mhyID}】。`;
 
   if ("string" === typeof id) {
-    await msg.bot.say(msg.sid, id, msg.type, msg.uid);
+    msg.bot.say(msg.sid, id, msg.type, msg.uid);
     return;
   }
 
@@ -37,19 +37,19 @@ async function doSave(msg, action = "save") {
     case "save":
       if (!(await db.includes("map", "user", "userID", msg.uid))) {
         await db.push("map", "user", { userID: msg.uid, mhyID });
-        await msg.bot.say(msg.sid, `通行证绑定成功，${okMsg}`, msg.type, msg.uid);
+        msg.bot.say(msg.sid, `通行证绑定成功，${okMsg}`, msg.type, msg.uid);
         await setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
-        await msg.bot.say(msg.sid, existMsg, msg.type, msg.uid);
+        msg.bot.say(msg.sid, existMsg, msg.type, msg.uid);
       }
       break;
     case "change":
       if (await db.includes("map", "user", "userID", msg.uid)) {
         await db.update("map", "user", { userID: msg.uid }, { mhyID });
-        await msg.bot.say(msg.sid, `通行证改绑成功，${okMsg}`, msg.type, msg.uid);
+        msg.bot.say(msg.sid, `通行证改绑成功，${okMsg}`, msg.type, msg.uid);
         await setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
-        await msg.bot.say(msg.sid, unexistMsg, msg.type, msg.uid);
+        msg.bot.say(msg.sid, unexistMsg, msg.type, msg.uid);
       }
       break;
   }

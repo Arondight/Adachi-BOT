@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 提问和交流
+    url: https://github.com/Arondight/Adachi-BOT/discussions
+    about: 如果你只是想提问和交流，请选择此项。

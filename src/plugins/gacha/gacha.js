@@ -5,7 +5,7 @@ import { init } from "./init.js";
 async function doGacha(msg) {
   await init(msg.uid);
   const data = await getGachaResult(msg.uid, msg.name);
-  await render(data, "genshin-gacha", msg.sid, msg.type, msg.uid, msg.bot);
+  render(msg, data, "genshin-gacha");
 }
 
 export { doGacha };

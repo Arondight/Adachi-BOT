@@ -9,9 +9,9 @@ async function reply(msg) {
 
     if (itemID == target) {
       // 送话无法 @
-      await msg.bot.say(itemID, `主人让我送个话：\n${text}`, curType);
+      msg.bot.say(itemID, `主人让我送个话：\n${text}`, curType);
       // 私聊无法 @
-      await msg.bot.say(msg.sid, `我已经给${itemID}送话了。`, "private");
+      msg.bot.say(msg.sid, `我已经给${itemID}送话了。`, "private");
     }
   });
 }

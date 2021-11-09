@@ -23,7 +23,7 @@ async function login() {
               msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
             }
 
-            // XXX 当前 2021年11月7日08:10:36 非管理员允许撤回两分钟以内的消息
+            // XXX 非管理员允许撤回两分钟以内的消息
             const permissionOK =
               config.deleteGroupMsgTime < 120
                 ? true
@@ -41,7 +41,6 @@ async function login() {
         }
       }
     };
-    bot.sendMessage = bot.say;
     bot.sayMaster = async (id, msg, type, user) => {
       if (Array.isArray(config.masters) && config.masters.length) {
         config.masters.forEach(async (master) => master && (await bot.sendPrivateMsg(master, msg)));
@@ -49,6 +48,8 @@ async function login() {
         await bot.say(id, "未设置我的主人。", type, user);
       }
     };
+    // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件
+    bot.sendMessage = bot.say;
     bot.sendMaster = bot.sayMaster;
 
     bots.push(bot);

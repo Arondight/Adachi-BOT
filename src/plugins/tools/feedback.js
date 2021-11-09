@@ -7,8 +7,8 @@ https://github.com/Arondight/Adachi-BOT/issues`;
     `${msg.name}（${msg.uid}）给主人带个话：\n${info}`;
 
   // 私聊无法 @
-  await msg.bot.sayMaster(msg.sid, textMaster, msg.type, msg.uid);
-  await msg.bot.say(msg.sid, text, msg.type, msg.uid);
+  msg.bot.sayMaster(msg.sid, textMaster, msg.type, msg.uid);
+  msg.bot.say(msg.sid, text, msg.type, msg.uid);
 }
 
 export { feedback };

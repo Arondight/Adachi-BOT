@@ -43,7 +43,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     await db.push(dbName, "cookie", initData);
   }
 
-  let { date, times } = await db.get(dbName, "cookie", { cookie });
+  let { date, times } = (await db.get(dbName, "cookie", { cookie })) || {};
 
   if (date && date === today && times && times >= 30) {
     return s >= cookies.length ? cookie : await getEffectiveCookie(uid, s + 1, use_cookie);
@@ -81,7 +81,7 @@ async function getCookie(uid, use_cookie, bot) {
   }
 
   if (!cookie) {
-    return Promise.reject("获取 Cookie 失败！");
+    return Promise.reject("无法获取可用 Cookie ！");
   }
 
   bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);

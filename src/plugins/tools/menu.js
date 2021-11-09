@@ -12,7 +12,7 @@ async function menu(msg) {
 午餐：${lunch ? lunch[getRandomInt(lunch.length) - 1] : food}
 晚餐：${dinner ? dinner[getRandomInt(dinner.length) - 1] : food}`;
 
-  await msg.bot.say(msg.sid, message, msg.type, msg.uid);
+  msg.bot.say(msg.sid, message, msg.type, msg.uid);
 }
 
 export { menu };

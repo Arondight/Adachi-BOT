@@ -117,8 +117,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
   }
 
   if (!(await db.includes("aby", "user", "uid", uid))) {
-    const initData = { uid, data: [] };
-    await db.push("aby", "user", initData);
+    await db.push("aby", "user", { uid, data: {} });
   }
 
   await db.update("aby", "user", { uid }, { data });
@@ -162,14 +161,14 @@ async function detailPromise(uid, server, userID, bot) {
   await db.update("character", "user", { userID }, { uid });
 
   const nowTime = new Date().valueOf();
-  const { time } = await db.get("time", "user", { uid });
+  const { time } = (await db.get("time", "user", { uid })) || {};
 
   if (time && nowTime - time < config.cacheInfoEffectTime * 60 * 60 * 1000) {
     const { retcode } = (await db.get("info", "user", { uid })) || {};
 
     if (0 === retcode) {
       bot.logger.debug(`缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`);
-      const { retcode, message } = await db.get("info", "user", { uid });
+      const { retcode, message } = (await db.get("info", "user", { uid })) || {};
 
       if (retcode !== 0) {
         return await detailError(`米游社接口报错: ${message}`);
