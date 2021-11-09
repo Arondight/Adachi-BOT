@@ -291,10 +291,11 @@
  *                            以上为数据结构
  * ========================================================================== */
 
-import lodash from "lodash";
 import url from "url";
 import path from "path";
 import fs from "fs";
+import lodash from "lodash";
+import merge from "merge-deep";
 import { mkdir } from "./file.js";
 import { loadYML } from "./yaml.js";
 
@@ -770,23 +771,14 @@ function readCommand() {
   getCommand(Master, "master");
 }
 
-// 目前就这两个的值是数组，其他的直接连接即可
 // global.all.function
+// global.all.functions.options
 // global.all.functions.entrance
 function getAll() {
-  const merge = (o, p, o1, o2) => {
-    o[p] = {};
-    // 这里可能有重复的 key 需要手动处理一下
-    for (const k of [...new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})])]) {
-      o[p][k] = [...new Set([...((o1 || {})[k] || []), ...((o2 || {})[k] || [])])];
-    }
-  };
-
+  all.function = merge({}, command.function, master.function);
   all.functions = {};
   all.functions.options = lodash.assign({}, command.functions.options, master.functions.options);
-
-  merge(all, "function", command.function, master.function);
-  merge(all.functions, "entrance", command.functions.entrance, master.functions.entrance);
+  all.functions.entrance = merge({}, command.functions.entrance, master.functions.entrance);
 }
 
 // global.command.usage

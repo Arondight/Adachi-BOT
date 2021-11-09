@@ -117,8 +117,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
   }
 
   if (!(await db.includes("aby", "user", "uid", uid))) {
-    const initData = { uid, data: [] };
-    await db.push("aby", "user", initData);
+    await db.push("aby", "user", { uid, data: {} });
   }
 
   await db.update("aby", "user", { uid }, { data });
@@ -223,8 +222,8 @@ async function characterPromise(uid, server, character_ids, bot) {
   for (const i in characterList) {
     if (characterList[i]) {
       const el = characterList[i];
-      const base = await lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
-      const weapon = await lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
+      const base = lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
+      const weapon = lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
       let artifact = [];
       let constellationNum = 0;
       const constellations = el.constellations.reverse();
@@ -240,7 +239,7 @@ async function characterPromise(uid, server, character_ids, bot) {
 
       for (const posID in el.reliquaries) {
         if (el.reliquaries[posID]) {
-          const posInfo = await lodash.omit(el.reliquaries[posID], ["id", "set", "pos_name"]);
+          const posInfo = lodash.omit(el.reliquaries[posID], ["id", "set", "pos_name"]);
           artifact.push(posInfo);
         }
       }

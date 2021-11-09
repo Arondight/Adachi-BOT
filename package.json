@@ -41,6 +41,7 @@
     "lodash": "4.17.21",
     "lowdb": "3.0.0",
     "md5": "2.3.0",
+    "merge-deep": "3.0.3",
     "moment": "2.29.1",
     "moment-timezone": "0.5.33",
     "node-fetch": "3.0.0",

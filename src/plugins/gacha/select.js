@@ -19,15 +19,15 @@ async function doSelect(msg) {
   const table = (await db.get("gacha", "data", { gacha_type: 302 })) || {};
   cmd = alias.weapon["string" === typeof cmd ? cmd.toLowerCase() : cmd] || cmd;
 
-  if (cmd && (await lodash.find(table.upFiveStar, { item_name: cmd }))) {
+  if (cmd && lodash.find(table.upFiveStar, { item_name: cmd })) {
     msg.bot.say(msg.sid, `定轨${cmd}成功，命定值已清零。`, msg.type, msg.uid);
     const path = {
-      course: await lodash.findIndex(table.upFiveStar, { item_name: cmd }),
+      course: lodash.findIndex(table.upFiveStar, { item_name: cmd }),
       fate: 0,
     };
     await db.update("gacha", "user", { userID: msg.uid }, { path });
   } else {
-    const text = `请从当前 UP 武器${await lodash.map(table.upFiveStar, "item_name").join("、")}中选择一个进行定轨。`;
+    const text = `请从当前 UP 武器${lodash.map(table.upFiveStar, "item_name").join("、")}中选择一个进行定轨。`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
   }
 }

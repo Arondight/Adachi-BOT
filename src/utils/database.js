@@ -1,9 +1,10 @@
 /* global config, rootdir */
 /* eslint no-undef: "error" */
 
-import { Low, JSONFileSync } from "lowdb";
 import path from "path";
 import lodash from "lodash";
+import merge from "merge-deep";
+import { Low, JSONFile } from "lowdb";
 import { Mutex } from "async-mutex";
 
 const db = {};
@@ -13,12 +14,12 @@ const mutexFile = {};
 // 如果数据库不存在，将自动创建新的空数据库。
 async function init(dbName, defaultElement = { user: [] }) {
   const file = path.resolve(rootdir, "data", "db", `${dbName}.json`);
-  const adapter = new JSONFileSync(file);
+  const adapter = new JSONFile(file);
 
   db[dbName] = new Low(adapter);
   await db[dbName].read();
   db[dbName].data = db[dbName].data || defaultElement;
-  db[dbName].chain = await lodash.chain(db[dbName].data);
+  db[dbName].chain = lodash.chain(db[dbName].data);
 
   mutexFile[dbName] = new Mutex();
   mutexMemory[dbName] = new Mutex();
@@ -34,7 +35,7 @@ async function has(dbName, ...path) {
   }
 
   const release = await mutexMemory[dbName].acquire();
-  const result = (await db[dbName].chain.hasIn(path).value()) ? true : false;
+  const result = db[dbName].chain.hasIn(path).value() ? true : false;
   release();
 
   return result;
@@ -54,7 +55,7 @@ async function includes(dbName, key, index, value) {
   }
 
   const release = await mutexMemory[dbName].acquire();
-  const result = (await db[dbName].chain.get(key).map(index).includes(value).value()) ? true : false;
+  const result = db[dbName].chain.get(key).map(index).includes(value).value() ? true : false;
   release();
 
   return result;
@@ -66,7 +67,7 @@ async function remove(dbName, key, index) {
   }
 
   const release = await mutexMemory[dbName].acquire();
-  db[dbName].data[key] = await db[dbName].chain.get(key).reject(index).value();
+  db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
   release();
 
   await write(dbName);
@@ -79,10 +80,10 @@ async function get(dbName, key, index = undefined) {
 
   const release = await mutexMemory[dbName].acquire();
   const result =
-    undefined === index ? await db[dbName].chain.get(key).value() : await db[dbName].chain.get(key).find(index).value();
+    undefined === index ? db[dbName].chain.get(key).value() : merge(...db[dbName].chain.get(key).filter(index).value());
   release();
 
-  return result;
+  return result && (lodash.isEmpty(result) ? undefined : result);
 }
 
 async function push(dbName, key, data) {
@@ -91,7 +92,7 @@ async function push(dbName, key, data) {
   }
 
   const release = await mutexMemory[dbName].acquire();
-  await db[dbName].chain.get(key).push(data).value();
+  db[dbName].data[key].push(data);
   release();
 
   await write(dbName);
@@ -102,10 +103,16 @@ async function update(dbName, key, index, data) {
     return;
   }
 
-  const release = await mutexMemory[dbName].acquire();
-  await db[dbName].chain.get(key).find(index).assign(data).value();
-  release();
+  const old = await get(dbName, key, index);
 
+  if (undefined !== old) {
+    await remove(dbName, key, index);
+    const release = await mutexMemory[dbName].acquire();
+    data = merge({}, old, data);
+    release();
+  }
+
+  await push(dbName, key, data);
   await write(dbName);
 }
 
@@ -115,7 +122,7 @@ async function set(dbName, key, data) {
   }
 
   const release = await mutexMemory[dbName].acquire();
-  await db[dbName].chain.set(key, data).value();
+  db[dbName].chain.set(key, data).value();
   release();
 
   await write(dbName);
