@@ -1,6 +1,6 @@
 name: 非预期行为和漏洞
 description: 提交一个非预期行为和漏洞报告。
-#title: 你的标题
+#title:
 labels:
   - bug
   - question
@@ -47,14 +47,16 @@ body:
       #placeholder:
     validations:
       required: true
-  - type: checkboxes
+  - type: dropdown
     id: git-status
     attributes:
       label: 代码状态：是否修改
-      description: 运行命令 `git status -s` 无任何输出则勾选下面的选项。
+      description: 运行命令 `git diff-index --quiet HEAD && echo 'Clean' || echo 'Dirty'` 并观察输出。
       options:
-        - label: 运行此命令无任何输出。
-          required: false
+        - 输出了 `Clean` 。
+        - 输出了 `Dirty` 。
+    validations:
+      required: false
   - type: input
     id: node-version
     attributes:
