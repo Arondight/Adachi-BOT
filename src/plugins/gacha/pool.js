@@ -25,7 +25,7 @@ async function doPool(msg) {
 
   await init(msg.uid);
   await db.update("gacha", "user", { userID: msg.uid }, { choice });
-  await msg.bot.say(msg.sid, `您的卡池已切换至：${all.functions.options.pool[choice]}。`, msg.type, msg.uid);
+  msg.bot.say(msg.sid, `您的卡池已切换至：${all.functions.options.pool[choice]}。`, msg.type, msg.uid);
 }
 
 export { doPool };

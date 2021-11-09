@@ -162,14 +162,14 @@ async function detailPromise(uid, server, userID, bot) {
   await db.update("character", "user", { userID }, { uid });
 
   const nowTime = new Date().valueOf();
-  const { time } = await db.get("time", "user", { uid });
+  const { time } = (await db.get("time", "user", { uid })) || {};
 
   if (time && nowTime - time < config.cacheInfoEffectTime * 60 * 60 * 1000) {
     const { retcode } = (await db.get("info", "user", { uid })) || {};
 
     if (0 === retcode) {
       bot.logger.debug(`缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`);
-      const { retcode, message } = await db.get("info", "user", { uid });
+      const { retcode, message } = (await db.get("info", "user", { uid })) || {};
 
       if (retcode !== 0) {
         return await detailError(`米游社接口报错: ${message}`);
@@ -223,8 +223,8 @@ async function characterPromise(uid, server, character_ids, bot) {
   for (const i in characterList) {
     if (characterList[i]) {
       const el = characterList[i];
-      const base = lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
-      const weapon = lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
+      const base = await lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
+      const weapon = await lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
       let artifact = [];
       let constellationNum = 0;
       const constellations = el.constellations.reverse();
@@ -240,7 +240,7 @@ async function characterPromise(uid, server, character_ids, bot) {
 
       for (const posID in el.reliquaries) {
         if (el.reliquaries[posID]) {
-          const posInfo = lodash.omit(el.reliquaries[posID], ["id", "set", "pos_name"]);
+          const posInfo = await lodash.omit(el.reliquaries[posID], ["id", "set", "pos_name"]);
           artifact.push(posInfo);
         }
       }

@@ -103,14 +103,14 @@ async function imageOrc(msg, url) {
   try {
     response = await fetch(url, { method: "GET" });
   } catch {
-    await msg.bot.say(msg.sid, `您看上去没有发送正确的圣遗物属性截图。`, msg.type, msg.uid);
+    msg.bot.say(msg.sid, `您看上去没有发送正确的圣遗物属性截图。`, msg.type, msg.uid);
     return undefined;
   }
 
   if (200 === response.status) {
     data = Buffer.from(await response.arrayBuffer()).toString("base64");
   } else {
-    await msg.bot.say(msg.sid, "没有正确接收到截图，请再试一次。", msg.type, msg.uid);
+    msg.bot.say(msg.sid, "没有正确接收到截图，请再试一次。", msg.type, msg.uid);
     return undefined;
   }
 
@@ -124,7 +124,7 @@ async function imageOrc(msg, url) {
   });
 
   if (200 != response.status) {
-    await msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid);
+    msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid);
     return undefined;
   }
 

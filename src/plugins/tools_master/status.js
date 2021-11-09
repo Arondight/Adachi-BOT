@@ -19,7 +19,7 @@ CPU：${load.currentLoad && load.currentLoad.toFixed(2)}%（${cpu.manufacturer} 
 启动：${moment.duration(time.uptime * 1000).humanize()}
 数据：${pb(du(path.join("data", "db")))}`;
 
-  await msg.bot.say(msg.sid, str, msg.type, msg.uid, "\n");
+  msg.bot.say(msg.sid, str, msg.type, msg.uid, "\n");
 }
 
 export { status };

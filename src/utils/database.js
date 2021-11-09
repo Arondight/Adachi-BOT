@@ -79,10 +79,12 @@ async function get(dbName, key, index = undefined) {
 
   const release = await mutexMemory[dbName].acquire();
   const result =
-    undefined === index ? await db[dbName].chain.get(key).value() : await db[dbName].chain.get(key).find(index).value();
+    undefined === index
+      ? await db[dbName].chain.get(key).value()
+      : await lodash.merge(...(await db[dbName].chain.get(key).filter(index).value()));
   release();
 
-  return result;
+  return result && ((await lodash.isEmpty(result)) ? undefined : result);
 }
 
 async function push(dbName, key, data) {
@@ -102,10 +104,16 @@ async function update(dbName, key, index, data) {
     return;
   }
 
-  const release = await mutexMemory[dbName].acquire();
-  await db[dbName].chain.get(key).find(index).assign(data).value();
-  release();
+  const old = await get(dbName, key, index);
 
+  if (undefined !== old) {
+    await remove(dbName, key, index);
+    const release = await mutexMemory[dbName].acquire();
+    data = await lodash.merge(old, data);
+    release();
+  }
+
+  await push(dbName, key, data);
   await write(dbName);
 }
 

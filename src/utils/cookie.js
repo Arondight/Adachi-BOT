@@ -43,7 +43,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
     await db.push(dbName, "cookie", initData);
   }
 
-  let { date, times } = await db.get(dbName, "cookie", { cookie });
+  let { date, times } = (await db.get(dbName, "cookie", { cookie })) || {};
 
   if (date && date === today && times && times >= 30) {
     return s >= cookies.length ? cookie : await getEffectiveCookie(uid, s + 1, use_cookie);
@@ -59,7 +59,7 @@ async function getEffectiveCookie(uid, s, use_cookie) {
       await db.update(dbName, "cookie", { cookie }, { date, times });
     }
 
-    await db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
+    await db.update(dbName, "uid", { uid }, await lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
 
     return cookie;
   }

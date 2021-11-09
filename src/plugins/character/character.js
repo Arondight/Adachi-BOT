@@ -53,7 +53,7 @@ async function doCharacter(msg, isMyChar = true) {
   const character = await getName(msg.text);
 
   if (undefined === character) {
-    await msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid);
+    msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid);
     return;
   }
 
@@ -66,7 +66,7 @@ async function doCharacter(msg, isMyChar = true) {
     }
 
     if ("string" === typeof dbInfo) {
-      await msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid);
+      msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid);
       return;
     }
 
@@ -82,7 +82,7 @@ async function doCharacter(msg, isMyChar = true) {
 
     if (!data) {
       if (!config.characterTryGetDetail) {
-        await msg.bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
+        msg.bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
         return;
       } else {
         const detailInfo = await detailPromise(...baseInfo, msg.uid, msg.bot);
@@ -94,23 +94,23 @@ async function doCharacter(msg, isMyChar = true) {
     const ret = await handleDetailError(e);
 
     if (!ret) {
-      await msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
+      msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
       return;
     }
 
     if (Array.isArray(ret)) {
-      ret[0] && (await msg.bot.say(msg.sid, ret[0], msg.type, msg.uid));
-      ret[1] && (await msg.bot.sayMaster(msg.sid, ret[1], msg.type, msg.uid));
+      ret[0] && msg.bot.say(msg.sid, ret[0], msg.type, msg.uid);
+      ret[1] && msg.bot.sayMaster(msg.sid, ret[1], msg.type, msg.uid);
       return;
     }
   }
 
   if (!data) {
-    await msg.bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
+    msg.bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
     return;
   }
 
-  await render({ uid, data }, "genshin-character", msg.sid, msg.type, msg.uid, msg.bot);
+  render(msg, { uid, data }, "genshin-character");
 }
 
 export { doCharacter };

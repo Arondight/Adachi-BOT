@@ -9,7 +9,7 @@ async function setReplyAuth(msg) {
   const list = new Map([...msg.bot.fl, ...msg.bot.gl]);
 
   if (config.masters.includes(id)) {
-    await msg.bot.say(id, "我永远都不会不理主人哦~", "private");
+    msg.bot.say(id, "我永远都不会不理主人哦~", "private");
     return;
   }
 
@@ -22,7 +22,7 @@ async function setReplyAuth(msg) {
 
     if (itemID == id) {
       // 群通知不需要 @
-      await msg.bot.say(id, `主人已${isOn ? "允许" : "禁止"}我响应消息。`, curType);
+      msg.bot.say(id, `主人已${isOn ? "允许" : "禁止"}我响应消息。`, curType);
     }
   });
 }

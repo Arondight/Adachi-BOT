@@ -7,17 +7,17 @@ import { doStrengthen } from "./strengthen.js";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "artifacts", "artifacts"):
-      if (false !== (await checkAuth(msg.uid, "artifacts"))) {
+      if (false !== (await checkAuth(msg, "artifacts"))) {
         doArtifacts(msg);
       }
       break;
     case hasEntrance(msg.text, "artifacts", "strengthen"):
-      if (false !== (await checkAuth(msg.uid, "strengthen"))) {
+      if (false !== (await checkAuth(msg, "strengthen"))) {
         doStrengthen(msg);
       }
       break;
     case hasEntrance(msg.text, "artifacts", "dungeons"):
-      if (false !== (await checkAuth(msg.uid, "dungeons"))) {
+      if (false !== (await checkAuth(msg, "dungeons"))) {
         msg.bot.say(msg.sid, domainInfo(), msg.type, msg.uid, "\n");
       }
       break;

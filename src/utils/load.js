@@ -82,11 +82,11 @@ async function processedGroupIncrease(msg, bot) {
 async function processedPossibleCommand(msg, plugins, type, bot) {
   // 处理 @ 机器人
   const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
-  const atMe = lodash
+  const atMe = (await lodash
     .chain(msg.message)
     .filter({ type: "at" })
     .find({ data: { qq: bot.uin } })
-    .value()
+    .value())
     ? true
     : false;
 
@@ -148,8 +148,8 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
       }
 
       // 同步 oicq 数据结构
-      if (lodash.hasIn(msg.message, [0, "data", "text"])) {
-        msg.message = lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
+      if (await lodash.hasIn(msg.message, [0, "data", "text"])) {
+        msg.message = await lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
         msg.message[0].data.text = msg.raw_message;
       }
 
@@ -212,7 +212,7 @@ async function processed(msg, plugins, type, bot) {
   }
 
   // 如果收到的信息是命令，尝试指派插件处理命令
-  if (lodash.find(msg.message, { type: "text" })) {
+  if (await lodash.find(msg.message, { type: "text" })) {
     if (await processedPossibleCommand(msg, plugins, type, bot)) {
       return;
     }

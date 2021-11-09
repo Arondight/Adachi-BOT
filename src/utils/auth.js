@@ -20,7 +20,7 @@ async function setAuth(msg, func, id, isOn, report = true) {
   }
 
   if (true === report && undefined !== msg.bot) {
-    await msg.bot.sayMaster(msg.sid, text, msg.type, msg.uid);
+    msg.bot.sayMaster(msg.sid, text, msg.type, msg.uid);
   }
 }
 
@@ -38,7 +38,7 @@ async function checkAuth(msg, func, report = true) {
 
   if (false === uauth || false === gauth) {
     if (true === report && undefined !== msg.bot) {
-      await msg.bot.say(msg.sid, `您当前无【${command.functions.name[func]}】权限。`, msg.type, msg.uid);
+      msg.bot.say(msg.sid, `您当前无【${command.functions.name[func]}】权限。`, msg.type, msg.uid);
     }
     return false;
   }
