@@ -8,13 +8,13 @@ import { getCookie, tryToWarnInvalidCookie } from "./cookie.js";
 import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
 
 function detailError(message, cache = false, master = false, message_master = "") {
-  return {
+  return Promise.reject({
     detail: true,
     message,
     cache,
     master,
     message_master,
-  };
+  });
 }
 
 function getDetailErrorForPossibleInvalidCookie(message, cookie) {

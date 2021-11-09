@@ -38,7 +38,7 @@ async function doAby(msg, schedule_type = 1) {
       return;
     }
 
-    if (!abyInfo.floors.length) {
+    if (Array.isArray(abyInfo.floors) && 0 === abyInfo.floors.length) {
       msg.bot.say(msg.sid, "无渊月螺旋记录。", msg.type, msg.uid);
       return;
     }
