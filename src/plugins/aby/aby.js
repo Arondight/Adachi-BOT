@@ -4,7 +4,7 @@ import { basePromise, abyPromise, handleDetailError } from "../../utils/detail.j
 import { getID } from "../../utils/id.js";
 
 async function doAby(msg, schedule_type = 1) {
-  let dbInfo = await getID(msg.text, msg.uid, false); // UID
+  let dbInfo = getID(msg.text, msg.uid, false); // UID
 
   if ("string" === typeof dbInfo) {
     msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid);
@@ -14,7 +14,7 @@ async function doAby(msg, schedule_type = 1) {
   try {
     // 这里处理 undefined 返回值，如果没有给出 UID，通过 QQ 号查询 UID
     if (undefined === dbInfo) {
-      dbInfo = await getID(msg.text, msg.uid); // 米游社 ID
+      dbInfo = getID(msg.text, msg.uid); // 米游社 ID
 
       if ("string" === typeof dbInfo) {
         msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid);
@@ -23,7 +23,7 @@ async function doAby(msg, schedule_type = 1) {
 
       const baseInfo = await basePromise(dbInfo, msg.uid, msg.bot);
       const uid = baseInfo[0];
-      dbInfo = await getID(uid, msg.uid, false); // UID
+      dbInfo = getID(uid, msg.uid, false); // UID
 
       if ("string" === typeof dbInfo) {
         msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid);
@@ -43,7 +43,7 @@ async function doAby(msg, schedule_type = 1) {
       return;
     }
   } catch (e) {
-    const ret = await handleDetailError(e);
+    const ret = handleDetailError(e);
 
     if (!ret) {
       msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
@@ -57,7 +57,7 @@ async function doAby(msg, schedule_type = 1) {
     }
   }
 
-  const data = await db.get("aby", "user", { uid: dbInfo[0] });
+  const data = db.get("aby", "user", { uid: dbInfo[0] });
   render(msg, data, "genshin-aby", 2);
 }
 

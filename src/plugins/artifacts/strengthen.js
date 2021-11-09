@@ -5,12 +5,12 @@ import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { init } from "./init.js";
 
-async function doStrengthen(msg) {
+function doStrengthen(msg) {
   let data;
 
-  await init(msg.uid);
+  init(msg.uid);
 
-  const { initial, fortified } = (await db.get("artifact", "user", { userID: msg.uid })) || {};
+  const { initial, fortified } = db.get("artifact", "user", { userID: msg.uid }) || {};
 
   if (JSON.stringify(initial) !== "{}") {
     data = fortified;

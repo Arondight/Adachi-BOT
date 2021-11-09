@@ -5,7 +5,7 @@ import { doCard } from "./card.js";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "card", "card"):
-      if (false !== (await checkAuth(msg, "card"))) {
+      if (false !== checkAuth(msg, "card")) {
         doCard(msg);
       }
       break;

@@ -176,7 +176,7 @@ function getFortified(num, subStats, improves) {
   return toArray(property);
 }
 
-async function getArtifact(userID, type) {
+function getArtifact(userID, type) {
   const artifactID = getArtifactID(type);
   const slot = getSlot();
   const mainStat = getMainStat(slot);
@@ -192,7 +192,7 @@ async function getArtifact(userID, type) {
 
   const name = artifacts.artifacts.names[artifactID][slot];
 
-  await db.update(
+  db.update(
     "artifact",
     "user",
     { userID },

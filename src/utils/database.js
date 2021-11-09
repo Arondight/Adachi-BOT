@@ -3,140 +3,120 @@
 
 import path from "path";
 import lodash from "lodash";
-import merge from "merge-deep";
-import { Low, JSONFile } from "lowdb";
-import { Mutex } from "async-mutex";
+import mergeDeep from "merge-deep";
+import { LowSync, JSONFileSync } from "lowdb";
 
 const db = {};
-const mutexMemory = {};
-const mutexFile = {};
 
 // 如果数据库不存在，将自动创建新的空数据库。
-async function init(dbName, defaultElement = { user: [] }) {
+function init(dbName, defaultElement = { user: [] }) {
   const file = path.resolve(rootdir, "data", "db", `${dbName}.json`);
-  const adapter = new JSONFile(file);
+  const adapter = new JSONFileSync(file);
 
-  db[dbName] = new Low(adapter);
-  await db[dbName].read();
+  db[dbName] = new LowSync(adapter);
+  db[dbName].read();
   db[dbName].data = db[dbName].data || defaultElement;
   db[dbName].chain = lodash.chain(db[dbName].data);
-
-  mutexFile[dbName] = new Mutex();
-  mutexMemory[dbName] = new Mutex();
-
-  const release = await mutexFile[dbName].acquire();
-  await db[dbName].write();
-  release();
+  db[dbName].write();
 }
 
-async function has(dbName, ...path) {
+function has(dbName, ...path) {
   if (undefined === db[dbName]) {
     return false;
   }
 
-  const release = await mutexMemory[dbName].acquire();
   const result = db[dbName].chain.hasIn(path).value() ? true : false;
-  release();
-
   return result;
 }
 
-async function write(dbName) {
+function write(dbName) {
   if (db[dbName]) {
-    const release = await mutexFile[dbName].acquire();
-    await db[dbName].write();
-    release();
+    db[dbName].write();
   }
 }
 
-async function includes(dbName, key, index, value) {
+function includes(dbName, key, index, value) {
   if (undefined === db[dbName]) {
     return false;
   }
 
-  const release = await mutexMemory[dbName].acquire();
   const result = db[dbName].chain.get(key).map(index).includes(value).value() ? true : false;
-  release();
-
   return result;
 }
 
-async function remove(dbName, key, index) {
+function remove(dbName, key, index) {
   if (undefined === db[dbName]) {
     return;
   }
 
-  const release = await mutexMemory[dbName].acquire();
   db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
-  release();
-
-  await write(dbName);
+  write(dbName);
 }
 
-async function get(dbName, key, index = undefined) {
+function get(dbName, key, index = undefined) {
   if (undefined === db[dbName]) {
     return undefined;
   }
 
-  const release = await mutexMemory[dbName].acquire();
   const result =
-    undefined === index ? db[dbName].chain.get(key).value() : merge(...db[dbName].chain.get(key).filter(index).value());
-  release();
-
+    undefined === index
+      ? db[dbName].chain.get(key).value()
+      : mergeDeep(...db[dbName].chain.get(key).filter(index).value());
   return result && (lodash.isEmpty(result) ? undefined : result);
 }
 
-async function push(dbName, key, data) {
+function push(dbName, key, data) {
   if (undefined === db[dbName]) {
     return;
   }
 
-  const release = await mutexMemory[dbName].acquire();
   db[dbName].data[key].push(data);
-  release();
-
-  await write(dbName);
+  write(dbName);
 }
 
-async function update(dbName, key, index, data) {
+function update(dbName, key, index, data) {
   if (undefined === db[dbName]) {
     return;
   }
 
-  const old = await get(dbName, key, index);
+  db[dbName].chain.get(key).find(index).assign(data).value();
+  write(dbName);
+}
+
+function merge(dbName, key, index, data) {
+  if (undefined === db[dbName]) {
+    return;
+  }
+
+  const old = get(dbName, key, index);
 
   if (undefined !== old) {
-    await remove(dbName, key, index);
-    const release = await mutexMemory[dbName].acquire();
-    data = merge({}, old, data);
-    release();
+    remove(dbName, key, index);
+    data = mergeDeep({}, old, data);
   }
 
-  await push(dbName, key, data);
-  await write(dbName);
+  push(dbName, key, data);
+  write(dbName);
 }
 
-async function set(dbName, key, data) {
+function set(dbName, key, data) {
   if (undefined === db[dbName]) {
     return;
   }
 
-  const release = await mutexMemory[dbName].acquire();
   db[dbName].chain.set(key, data).value();
-  release();
-
-  await write(dbName);
+  write(dbName);
 }
 
-async function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
+function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
   let nums = 0;
 
-  if (!(await has(dbName, dbKey[0]))) {
+  if (!has(dbName, dbKey[0])) {
     return nums;
   }
 
-  const timeDBRecords = await get("time", "user");
-  let records = await get(dbName, dbKey[0]);
+  const timeDBRecords = get("time", "user");
+  let records = get(dbName, dbKey[0]);
 
   if (!records) {
     return nums;
@@ -145,51 +125,45 @@ async function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid"
   // 无效的 time 数据库，则清空对应数据库的指定字段
   if (!timeDBRecords || !timeDBRecords.length) {
     nums = records.length;
-    await set(dbName, dbKey[0], []);
-    await set("time", "user", []);
+    set(dbName, dbKey[0], []);
+    set("time", "user", []);
     return nums;
   }
 
   for (const i in records) {
     const uid = records[i][dbKey[1]];
-    let release;
 
     // 没有基准字段则删除该记录（因为很可能是错误数据）
-    if (!uid || !(await has(dbName, dbKey[0], i, dbKey[1]))) {
-      release = await mutexMemory[dbName].acquire();
+    if (!uid || !has(dbName, dbKey[0], i, dbKey[1])) {
       records.splice(i, 1);
-      release();
       nums++;
       continue;
     }
 
     // 没有对应 uid 的时间戳或者时间到现在已超过 milliseconds 则删除该记录
-    const timePair = await get("time", "user", { [timeRecord]: uid });
+    const timePair = get("time", "user", { [timeRecord]: uid });
     const time = timePair ? timePair.time : undefined;
     const now = new Date().valueOf();
 
     if (!time || now - time > milliseconds) {
-      release = await mutexMemory[dbName].acquire();
       records.splice(i, 1);
-      release();
       nums++;
     }
   }
 
-  await write(dbName);
+  write(dbName);
   return nums;
 }
 
 // 清理不是今天的数据
-async function cleanCookies() {
+function cleanCookies() {
   const dbName = "cookies";
   const keys = ["cookie", "uid"];
   const today = new Date().toLocaleDateString();
   let nums = 0;
 
   for (const key of keys) {
-    let records = await get(dbName, key);
-    const release = await mutexMemory[dbName].acquire();
+    let records = get(dbName, key);
 
     for (const i in records) {
       // 1. 没有基准字段则删除该记录
@@ -199,20 +173,17 @@ async function cleanCookies() {
         nums++;
       }
     }
-
-    release();
   }
 
-  await write(dbName);
+  write(dbName);
   return nums;
 }
 
 // 清理不在配置文件的数据
-async function cleanCookiesInvalid() {
+function cleanCookiesInvalid() {
   const dbName = "cookies_invalid";
-  const cookies = (await get(dbName, "cookie")) || [];
+  const cookies = get(dbName, "cookie") || [];
   let nums = 0;
-  const release = await mutexMemory[dbName].acquire();
 
   for (const i in cookies) {
     if (!cookies[i].cookie || !(config.cookies || []).includes(cookies[i].cookie)) {
@@ -221,25 +192,23 @@ async function cleanCookiesInvalid() {
     }
   }
 
-  release();
-
-  await write(dbName);
+  write(dbName);
   return nums;
 }
 
-async function clean(dbName) {
+function clean(dbName) {
   switch (dbName) {
     case "aby":
-      return await cleanByTimeDB(dbName, ["user", "uid"], "aby", config.dbAbyEffectTime * 60 * 60 * 1000);
+      return cleanByTimeDB(dbName, ["user", "uid"], "aby", config.dbAbyEffectTime * 60 * 60 * 1000);
     case "info":
-      return await cleanByTimeDB(dbName, ["user", "uid"], "uid", config.dbInfoEffectTime * 60 * 60 * 1000);
+      return cleanByTimeDB(dbName, ["user", "uid"], "uid", config.dbInfoEffectTime * 60 * 60 * 1000);
     case "cookies":
-      return await cleanCookies();
+      return cleanCookies();
     case "cookies_invalid":
-      return await cleanCookiesInvalid();
+      return cleanCookiesInvalid();
   }
 
   return 0;
 }
 
-export default { init, has, write, includes, remove, get, push, update, set, clean };
+export default { init, has, write, includes, remove, get, push, update, merge, set, clean };

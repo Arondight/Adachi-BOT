@@ -1,4 +1,4 @@
-async function count(msg) {
+function count(msg) {
   let report = "";
   let num = 0;
 

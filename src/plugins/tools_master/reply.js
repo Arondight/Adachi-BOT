@@ -1,9 +1,9 @@
-async function reply(msg) {
+function reply(msg) {
   const target = parseInt(msg.text.match(/[0-9]+/g)[0]);
   const [text] = msg.text.split(/(?<=\d+\S+)\s/).slice(1);
   const list = new Map([...msg.bot.fl, ...msg.bot.gl]);
 
-  list.forEach(async (item) => {
+  list.forEach((item) => {
     const curType = item.group_id ? "group" : "private";
     const itemID = "group" === curType ? item.group_id : item.user_id;
 

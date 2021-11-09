@@ -12,27 +12,27 @@ import { roll } from "./roll.js";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "tools", "menu"):
-      if (false !== (await checkAuth(msg, "menu"))) {
+      if (false !== checkAuth(msg, "menu")) {
         menu(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "prophecy"):
-      if (false !== (await checkAuth(msg, "prophecy"))) {
+      if (false !== checkAuth(msg, "prophecy")) {
         prophecy(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "roll"):
-      if (false !== (await checkAuth(msg, "roll"))) {
+      if (false !== checkAuth(msg, "roll")) {
         roll(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "quote"):
-      if (false !== (await checkAuth(msg, "quote"))) {
+      if (false !== checkAuth(msg, "quote")) {
         quote(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "feedback"):
-      if (false !== (await checkAuth(msg, "feedback"))) {
+      if (false !== checkAuth(msg, "feedback")) {
         feedback(msg);
       }
       break;

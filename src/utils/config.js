@@ -295,7 +295,7 @@ import url from "url";
 import path from "path";
 import fs from "fs";
 import lodash from "lodash";
-import merge from "merge-deep";
+import mergeDeep from "merge-deep";
 import { mkdir } from "./file.js";
 import { loadYML } from "./yaml.js";
 
@@ -775,10 +775,10 @@ function readCommand() {
 // global.all.functions.options
 // global.all.functions.entrance
 function getAll() {
-  all.function = merge({}, command.function, master.function);
+  all.function = mergeDeep({}, command.function, master.function);
   all.functions = {};
   all.functions.options = lodash.assign({}, command.functions.options, master.functions.options);
-  all.functions.entrance = merge({}, command.functions.entrance, master.functions.entrance);
+  all.functions.entrance = mergeDeep({}, command.functions.entrance, master.functions.entrance);
 }
 
 // global.command.usage
@@ -796,7 +796,7 @@ function writeViewsConfig() {
   fs.writeFileSync(path.resolve(mkdir(dir), "views.json"), JSON.stringify(data), "utf8");
 }
 
-async function readConfig() {
+function readConfig() {
   readSettingCookiesGreetingMenu();
   readAlias();
   readEggs();

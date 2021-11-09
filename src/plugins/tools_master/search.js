@@ -1,6 +1,6 @@
 import { hasEntrance } from "../../utils/config.js";
 
-async function search(msg) {
+function search(msg) {
   const [str] = msg.text.split(/(?<=^\S+)\s/).slice(1);
   const listAll = new Map([...msg.bot.fl, ...msg.bot.gl]);
   let report = "";
@@ -26,7 +26,7 @@ async function search(msg) {
   }
 
   if (hasEntrance(msg.text, "tools_master", "search")) {
-    listAll.forEach(async (item) => {
+    listAll.forEach((item) => {
       const isGroup = item.group_name ? true : false;
       const itemName = isGroup ? item.group_name : item.nickname;
       const itemID = isGroup ? item.group_id : item.user_id;

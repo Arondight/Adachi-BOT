@@ -1,6 +1,6 @@
 import { getRandomInt } from "../../utils/tools.js";
 
-async function roll(msg) {
+function roll(msg) {
   let cmd = msg.text.match(/[+-]?[0-9]+/g);
 
   if (null === cmd) {

@@ -1,6 +1,6 @@
 import { hasEntrance } from "../../utils/config.js";
 
-async function boardcast(msg) {
+function boardcast(msg) {
   const [text] = msg.text.split(/(?<=^\S+)\s/).slice(1);
   let report = "";
 

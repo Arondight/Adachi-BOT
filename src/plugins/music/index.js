@@ -5,12 +5,12 @@ import { doMusic, doMusicSource } from "./music.js";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "music", "music"):
-      if (false !== (await checkAuth(msg, "music"))) {
+      if (false !== checkAuth(msg, "music")) {
         doMusic(msg);
       }
       break;
     case hasEntrance(msg.text, "music", "music_source"):
-      if (false !== (await checkAuth(msg, "music_source"))) {
+      if (false !== checkAuth(msg, "music_source")) {
         doMusicSource(msg);
       }
       break;

@@ -7,12 +7,12 @@ import { getID, getUID } from "../../utils/id.js";
 import { guessPossibleNames } from "../../utils/tools.js";
 import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
 
-async function getCharacter(uid, character) {
-  const { avatars } = (await db.get("info", "user", { uid })) || {};
+function getCharacter(uid, character) {
+  const { avatars } = db.get("info", "user", { uid }) || {};
   return avatars ? avatars.find((e) => e.name === character) : false;
 }
 
-async function getNotFoundText(character, isMyChar) {
+function getNotFoundText(character, isMyChar) {
   const cmd = [command.functions.name.card, command.functions.name.package];
   const cmdStr = `【${cmd.join("】、【")}】`;
   const text = config.characterTryGetDetail
@@ -24,7 +24,7 @@ async function getNotFoundText(character, isMyChar) {
   return notFoundText;
 }
 
-async function getName(text) {
+function getName(text) {
   if (text.match(/^\[CQ:at,qq=\d+,text=.+?\]/)) {
     text = text.replace(/\[CQ:at,qq=\d+,text=.+?\]\s*/, "");
   }
@@ -50,7 +50,7 @@ async function doCharacter(msg, isMyChar = true) {
   let uid;
   let data;
 
-  const character = await getName(msg.text);
+  const character = getName(msg.text);
 
   if (undefined === character) {
     msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid);
@@ -58,11 +58,11 @@ async function doCharacter(msg, isMyChar = true) {
   }
 
   try {
-    let dbInfo = isMyChar ? await getID(msg.text, msg.uid) : await getUID(msg.text);
+    let dbInfo = isMyChar ? getID(msg.text, msg.uid) : getUID(msg.text);
     let baseInfo;
 
     if (!isMyChar && (!dbInfo || "string" === typeof dbInfo)) {
-      dbInfo = await getID(msg.text, msg.uid); // 米游社 ID
+      dbInfo = getID(msg.text, msg.uid); // 米游社 ID
     }
 
     if ("string" === typeof dbInfo) {
@@ -78,20 +78,20 @@ async function doCharacter(msg, isMyChar = true) {
       uid = baseInfo[0];
     }
 
-    data = await getCharacter(uid, character);
+    data = getCharacter(uid, character);
 
     if (!data) {
       if (!config.characterTryGetDetail) {
-        msg.bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
+        msg.bot.say(msg.sid, getNotFoundText(character, isMyChar), msg.type, msg.uid);
         return;
       } else {
         const detailInfo = await detailPromise(...baseInfo, msg.uid, msg.bot);
         await characterPromise(...baseInfo, detailInfo, msg.bot);
-        data = await getCharacter(uid, character);
+        data = getCharacter(uid, character);
       }
     }
   } catch (e) {
-    const ret = await handleDetailError(e);
+    const ret = handleDetailError(e);
 
     if (!ret) {
       msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
@@ -106,7 +106,7 @@ async function doCharacter(msg, isMyChar = true) {
   }
 
   if (!data) {
-    msg.bot.say(msg.sid, await getNotFoundText(character, isMyChar), msg.type, msg.uid);
+    msg.bot.say(msg.sid, getNotFoundText(character, isMyChar), msg.type, msg.uid);
     return;
   }
 

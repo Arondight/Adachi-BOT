@@ -51,7 +51,7 @@ function getUID(msg) {
 //          isMhyID is false -> undefined
 //      4. 其他情况       =>
 //          string
-async function getID(msg, userID, isMhyID = true) {
+function getID(msg, userID, isMhyID = true) {
   let msgstr = msg.toString();
   let idInMsg = msgstr.match(/\d+/g);
   let id = idInMsg ? parseInt(idInMsg[0]) : undefined;
@@ -67,8 +67,8 @@ async function getID(msg, userID, isMhyID = true) {
   if (cqmsg) {
     // 字符串中包含 CQ 码
     if (isMhyID) {
-      if (await db.includes("map", "user", "userID", id)) {
-        return ((await db.get("map", "user", { userID: id })) || {}).mhyID;
+      if (db.includes("map", "user", "userID", id)) {
+        return (db.get("map", "user", { userID: id }) || {}).mhyID;
       }
 
       errInfo = "暂未绑定米游社通行证。";
@@ -79,10 +79,10 @@ async function getID(msg, userID, isMhyID = true) {
   } else if (id !== undefined && idstr && idstr.length >= 6 && idstr.length < 10) {
     // 字符串中的 ID 大致合法
     return isMhyID ? id : getUID(id);
-  } else if (await db.includes("map", "user", "userID", userID)) {
+  } else if (db.includes("map", "user", "userID", userID)) {
     // 字符串中无看似合法的 ID
     if (isMhyID) {
-      return ((await db.get("map", "user", { userID })) || {}).mhyID; // 返回米游社 ID 或者 undefined
+      return (db.get("map", "user", { userID }) || {}).mhyID; // 返回米游社 ID 或者 undefined
     }
 
     return undefined; // 返回 undefined ，无法验证一个空的 UID

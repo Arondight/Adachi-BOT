@@ -1,8 +1,8 @@
 import db from "../../utils/database.js";
 
-async function init(uid) {
-  if (!(await db.includes("gacha", "user", "uid", uid))) {
-    await db.push("gacha", "user", {
+function init(uid) {
+  if (!db.includes("gacha", "user", "uid", uid)) {
+    db.push("gacha", "user", {
       userID: uid,
       choice: 301,
       indefinite: { five: 1, four: 1, isUp: undefined },

@@ -4,7 +4,7 @@
 import { setAuth } from "../../utils/auth.js";
 import { parse } from "./parse.js";
 
-async function setReplyAuth(msg) {
+function setReplyAuth(msg) {
   const [id, isOn] = parse(msg.text, "reply_auth");
   const list = new Map([...msg.bot.fl, ...msg.bot.gl]);
 
@@ -13,10 +13,10 @@ async function setReplyAuth(msg) {
     return;
   }
 
-  await setAuth(msg, "响应消息", ...parse(msg.text, "reply_auth"));
+  setAuth(msg, "响应消息", ...parse(msg.text, "reply_auth"));
 
   // 如果是群或者好友，发一条消息给对方，群友就不发了
-  list.forEach(async (item) => {
+  list.forEach((item) => {
     const curType = item.group_id ? "group" : "private";
     const itemID = item.group_id ? item.group_id : item.user_id;
 

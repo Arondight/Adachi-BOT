@@ -8,7 +8,7 @@ import { loadPlugins, processed } from "./src/utils/load.js";
 
 global.bots = [];
 
-async function login() {
+function login() {
   for (const account of config.accounts) {
     const bot = createClient(account.qq, {
       platform: account.platform,
@@ -36,16 +36,16 @@ async function login() {
             break;
           }
           case "private":
-            await bot.sendPrivateMsg(id, msg);
+            bot.sendPrivateMsg(id, msg);
             break;
         }
       }
     };
     bot.sayMaster = async (id, msg, type, user) => {
       if (Array.isArray(config.masters) && config.masters.length) {
-        config.masters.forEach(async (master) => master && (await bot.sendPrivateMsg(master, msg)));
+        config.masters.forEach((master) => master && bot.sendPrivateMsg(master, msg));
       } else {
-        await bot.say(id, "未设置我的主人。", type, user);
+        bot.say(id, "未设置我的主人。", type, user);
       }
     };
     // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件
@@ -75,7 +75,7 @@ async function login() {
   }
 }
 
-async function report() {
+function report() {
   // 只打印一次日志
   const log = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
 
@@ -105,24 +105,23 @@ async function run() {
 
   for (const bot of bots) {
     // 监听上线事件
-    bot.on("system.online", async (msg) => await processed(msg, plugins, "online", bot));
+    bot.on("system.online", (msg) => processed(msg, plugins, "online", bot));
     // 监听群消息事件
-    bot.on("message.group", async (msg) => await processed(msg, plugins, "group", bot));
+    bot.on("message.group", (msg) => processed(msg, plugins, "group", bot));
     // 监听好友消息事件
-    bot.on("message.private", async (msg) => await processed(msg, plugins, "private", bot));
+    bot.on("message.private", (msg) => processed(msg, plugins, "private", bot));
     // 监听加好友事件
-    bot.on("notice.friend.increase", async (msg) => await processed(msg, plugins, "friend.increase", bot));
+    bot.on("notice.friend.increase", (msg) => processed(msg, plugins, "friend.increase", bot));
     // 监听入群事件
-    bot.on("notice.group.increase", async (msg) => await processed(msg, plugins, "group.increase", bot));
+    bot.on("notice.group.increase", (msg) => processed(msg, plugins, "group.increase", bot));
   }
 }
 
 async function main() {
-  await readConfig()
-    .then(async () => await login())
-    .then(async () => await init())
-    .then(async () => await report())
-    .then(async () => await run());
+  readConfig();
+  login();
+  report();
+  await init().then(async () => await run());
 }
 
 main();

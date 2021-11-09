@@ -4,7 +4,7 @@
 import db from "../../utils/database.js";
 import { init } from "./init.js";
 
-async function doPool(msg) {
+function doPool(msg) {
   const [cmd] = msg.text.split(/(?<=^\S+)\s/).slice(1);
   let choice = 301;
 
@@ -23,8 +23,8 @@ async function doPool(msg) {
       break;
   }
 
-  await init(msg.uid);
-  await db.update("gacha", "user", { userID: msg.uid }, { choice });
+  init(msg.uid);
+  db.update("gacha", "user", { userID: msg.uid }, { choice });
   msg.bot.say(msg.sid, `您的卡池已切换至：${all.functions.options.pool[choice]}。`, msg.type, msg.uid);
 }
 

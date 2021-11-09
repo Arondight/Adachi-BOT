@@ -5,12 +5,12 @@ import { doSave } from "./save.js";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "save", "save"):
-      if (false !== (await checkAuth(msg, "save"))) {
+      if (false !== checkAuth(msg, "save")) {
         doSave(msg, "save");
       }
       break;
     case hasEntrance(msg.text, "save", "change"):
-      if (false !== (await checkAuth(msg, "change"))) {
+      if (false !== checkAuth(msg, "change")) {
         doSave(msg, "change");
       }
       break;

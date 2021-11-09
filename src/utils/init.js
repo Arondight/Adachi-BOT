@@ -7,18 +7,18 @@ import express from "express";
 import db from "./database.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
 
-async function initDB() {
-  await db.init("aby");
-  await db.init("artifact");
-  await db.init("authority");
-  await db.init("character");
-  await db.init("cookies", { cookie: [], uid: [] });
-  await db.init("cookies_invalid", { cookie: [] });
-  await db.init("gacha", { user: [], data: [] });
-  await db.init("info");
-  await db.init("map");
-  await db.init("music", { source: [] });
-  await db.init("time");
+function initDB() {
+  db.init("aby");
+  db.init("artifact");
+  db.init("authority");
+  db.init("character");
+  db.init("cookies", { cookie: [], uid: [] });
+  db.init("cookies_invalid", { cookie: [] });
+  db.init("gacha", { user: [], data: [] });
+  db.init("info");
+  db.init("map");
+  db.init("music", { source: [] });
+  db.init("time");
 }
 
 async function initBrowser() {
@@ -28,20 +28,20 @@ async function initBrowser() {
   });
 }
 
-async function cleanDB(name) {
-  let nums = await db.clean(name);
+function cleanDB(name) {
+  let nums = db.clean(name);
 
   // 只打印一次日志
   bots[0] && bots[0].logger.debug(`清理：删除数据库 ${name} 中 ${nums} 条无用记录。`);
   return nums;
 }
 
-async function cleanDBJob() {
+function cleanDBJob() {
   let nums = 0;
-  nums += await cleanDB("aby");
-  nums += await cleanDB("cookies");
-  nums += await cleanDB("cookies_invalid");
-  nums += await cleanDB("info");
+  nums += cleanDB("aby");
+  nums += cleanDB("cookies");
+  nums += cleanDB("cookies_invalid");
+  nums += cleanDB("info");
   return nums;
 }
 
@@ -52,16 +52,14 @@ function serve(port = 9934) {
 }
 
 async function init() {
-  serve(9934);
-
-  await initDB();
   await initBrowser();
-
+  serve(9934);
+  initDB();
   updateGachaJob();
-  await cleanDBJob();
+  cleanDBJob();
 
-  schedule.scheduleJob("1 */1 * * *", () => updateGachaJob());
-  schedule.scheduleJob("1 */1 * * *", async () => await cleanDBJob());
+  schedule.scheduleJob("1 */1 * * *", async () => updateGachaJob());
+  schedule.scheduleJob("1 */1 * * *", async () => cleanDBJob());
 }
 
 export { init };

@@ -40,8 +40,8 @@ async function loadPlugins() {
   return plugins;
 }
 
-async function isGroupBan(msg, bot) {
-  const info = (await bot.getGroupInfo(msg.group_id)).data;
+function isGroupBan(msg, bot) {
+  const info = bot.getGroupInfo(msg.group_id).data;
 
   // getGroupInfo 未获取到有效数据则认为没有被禁言
   if (info && 0 !== info.shutup_time_me) {
@@ -57,29 +57,29 @@ async function isGroupBan(msg, bot) {
   return false;
 }
 
-async function processedFriendIncrease(msg, bot) {
+function processedFriendIncrease(msg, bot) {
   if (config.friendGreetingNew) {
     // 私聊不需要 @
-    await bot.say(msg.user_id, config.greetingNew, "private");
+    bot.say(msg.user_id, config.greetingNew, "private");
   }
 }
 
-async function processedGroupIncrease(msg, bot) {
-  if (!(await isGroupBan(msg, bot))) {
+function processedGroupIncrease(msg, bot) {
+  if (!isGroupBan(msg, bot)) {
     if (bot.uin === msg.user_id) {
       // 如果加入了新群，尝试向全群问好
       // 群通知不需要 @
-      await bot.say(msg.group_id, config.greetingHello, "group");
+      bot.say(msg.group_id, config.greetingHello, "group");
     } else {
       // 如果有新群友，尝试向新群友问好
-      if (config.groupGreetingNew && false !== (await checkAuth({ uid: msg.group_id }, replyAuthName, false))) {
-        await bot.say(msg.group_id, config.greetingNew, "group", msg.user_id);
+      if (config.groupGreetingNew && false !== checkAuth({ uid: msg.group_id }, replyAuthName, false)) {
+        bot.say(msg.group_id, config.greetingNew, "group", msg.user_id);
       }
     }
   }
 }
 
-async function processedPossibleCommand(msg, plugins, type, bot) {
+function processedPossibleCommand(msg, plugins, type, bot) {
   // 处理 @ 机器人
   const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
   const atMe = lodash
@@ -139,11 +139,11 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
       // 只允许管理者执行主人命令
       if (master.enable[plugin] && !config.masters.includes(msg.user_id)) {
         const id = "group" === type ? msg.group_id : msg.user_id;
-        await bot.say(id, "不能使用管理命令。", type, msg.user_id);
+        bot.say(id, "不能使用管理命令。", type, msg.user_id);
         return true;
       }
 
-      if ("group" === type && (await isGroupBan(msg, bot))) {
+      if ("group" === type && isGroupBan(msg, bot)) {
         return true;
       }
 
@@ -163,7 +163,7 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
       msg.atMe = atMe;
       msg.bot = bot;
 
-      if (false !== (await checkAuth(msg, replyAuthName, false))) {
+      if (false !== checkAuth(msg, replyAuthName, false)) {
         if (config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
           timestamp[msg.user_id] = msg.time;
           // 参数 bot 为了兼容可能存在的旧插件
@@ -175,58 +175,56 @@ async function processedPossibleCommand(msg, plugins, type, bot) {
   }
 }
 
-async function processedGroup(msg, bot) {
-  if (config.repeatProb > 0 && getRandomInt(100 * 100) < config.repeatProb + 1 && !(await isGroupBan(msg, bot))) {
+function processedGroup(msg, bot) {
+  if (config.repeatProb > 0 && getRandomInt(100 * 100) < config.repeatProb + 1 && !isGroupBan(msg, bot)) {
     // 复读群消息不需要 @
-    await bot.say(msg.group_id, msg.raw_message, "group");
+    bot.say(msg.group_id, msg.raw_message, "group");
   }
 }
 
-async function processedOnline(bot) {
+function processedOnline(bot) {
   if (config.groupHello) {
-    bot.gl.forEach(async (group) => {
+    bot.gl.forEach((group) => {
       const greeting =
-        false !== (await checkAuth({ uid: group.group_id }, replyAuthName, false))
-          ? config.greetingOnline
-          : config.greetingDie;
+        false !== checkAuth({ uid: group.group_id }, replyAuthName, false) ? config.greetingOnline : config.greetingDie;
 
-      if (!(await isGroupBan(group, bot)) && "string" === typeof greeting) {
+      if (!isGroupBan(group, bot) && "string" === typeof greeting) {
         // 群通知不需要 @
-        await bot.say(group.group_id, greeting, "group");
+        bot.say(group.group_id, greeting, "group");
       }
     });
   }
 }
 
-async function processed(msg, plugins, type, bot) {
+function processed(msg, plugins, type, bot) {
   // 如果好友增加了，尝试向新朋友问好
   if (type === "friend.increase") {
-    await processedFriendIncrease(msg, bot);
+    processedFriendIncrease(msg, bot);
     return;
   }
 
   // 如果有新成员加入了组群，尝试向新成员或者全群问好
   if (type === "group.increase") {
-    await processedGroupIncrease(msg, bot);
+    processedGroupIncrease(msg, bot);
     return;
   }
 
   // 如果收到的信息是命令，尝试指派插件处理命令
   if (lodash.find(msg.message, { type: "text" })) {
-    if (await processedPossibleCommand(msg, plugins, type, bot)) {
+    if (processedPossibleCommand(msg, plugins, type, bot)) {
       return;
     }
   }
 
   // 如果不是命令，且为群消息，随机复读群消息
   if ("group" === type) {
-    await processedGroup(msg, bot);
+    processedGroup(msg, bot);
     return;
   }
 
   // 如果机器人上线，尝试所有群发送一遍上线通知
   if ("online" === type) {
-    await processedOnline(bot);
+    processedOnline(bot);
     return;
   }
 }
