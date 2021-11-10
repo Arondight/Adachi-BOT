@@ -61,7 +61,7 @@ function get(dbName, key, index = undefined) {
   const result =
     undefined === index
       ? db[dbName].chain.get(key).value()
-      : mergeDeep(...db[dbName].chain.get(key).filter(index).value());
+      : mergeDeep(...db[dbName].chain.get(key).filter(index).reverse().value());
   return result && (lodash.isEmpty(result) ? undefined : result);
 }
 

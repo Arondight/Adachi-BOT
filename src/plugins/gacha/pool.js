@@ -24,7 +24,7 @@ function doPool(msg) {
   }
 
   init(msg.uid);
-  db.update("gacha", "user", { userID: msg.uid }, { choice });
+  db.merge("gacha", "user", { userID: msg.uid }, { choice });
   msg.bot.say(msg.sid, `您的卡池已切换至：${all.functions.options.pool[choice]}。`, msg.type, msg.uid);
 }
 

@@ -192,6 +192,7 @@ function getArtifact(userID, type) {
 
   const name = artifacts.artifacts.names[artifactID][slot];
 
+  // XXX db.merge 不适用
   db.update(
     "artifact",
     "user",
