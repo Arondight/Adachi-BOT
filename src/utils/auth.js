@@ -16,7 +16,7 @@ function setAuth(msg, func, id, isOn, report = true) {
   if (undefined === data) {
     db.push("authority", "user", { userID: id, [func]: isOn });
   } else {
-    db.merge("authority", "user", { userID: id }, { ...data, [func]: isOn });
+    db.update("authority", "user", { userID: id }, { ...data, [func]: isOn });
   }
 
   if (true === report && undefined !== msg.bot) {

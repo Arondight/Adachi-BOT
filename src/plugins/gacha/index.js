@@ -13,7 +13,7 @@ async function Plugin(msg) {
       break;
     case hasEntrance(msg.text, "gacha", "gacha"):
       if (false !== checkAuth(msg, "gacha")) {
-        doGacha(msg);
+        doGacha(msg, 10);
       }
       break;
     case hasEntrance(msg.text, "gacha", "select-what"):

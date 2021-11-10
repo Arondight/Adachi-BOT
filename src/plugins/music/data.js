@@ -132,7 +132,7 @@ function musicSrc(text, id) {
     if (undefined === data) {
       db.push("music", "source", { ID: id, Source: source });
     } else {
-      db.merge("music", "source", { ID: id }, { ...data, Source: source });
+      db.update("music", "source", { ID: id }, { ...data, Source: source });
     }
   }
 

@@ -1,11 +1,10 @@
 import { render } from "../../utils/render.js";
-import { getGachaResult } from "./data.js";
+import { gachaTimes } from "./data.js";
 import { init } from "./init.js";
 
-function doGacha(msg) {
+function doGacha(msg, times = 10) {
   init(msg.uid);
-  const data = getGachaResult(msg.uid, msg.name);
-  render(msg, data, "genshin-gacha");
+  render(msg, gachaTimes(msg.uid, msg.name, times), "genshin-gacha");
 }
 
 export { doGacha };

@@ -1,63 +1,45 @@
-/*!
- * merge-deep <https://github.com/jonschlinkert/merge-deep>
- *
- * Copyright (c) 2014-2015, Jon Schlinkert.
- * Licensed under the MIT License.
- */
+/* ========================================================================== *
+ * 文件的原始版本来源于 merge-deep 。
+ * https://github.com/jonschlinkert/merge-deep/blob/11e5dd5/index.js
+ * ========================================================================== */
 
-'use strict';
+import clone from "clone-deep";
+import kindOf from "kind-of";
 
-var union = require('arr-union');
-var clone = require('clone-deep');
-var typeOf = require('kind-of');
+function isObject(o) {
+  return "object" === kindOf(o) || "function" === kindOf(o);
+}
 
-module.exports = function mergeDeep(orig, objects) {
-  if (!isObject(orig) && !Array.isArray(orig)) {
-    orig = {};
-  }
+function isValidKey(k) {
+  return "__proto__" !== k && "constructor" !== k && "prototype" !== k;
+}
 
-  var target = clone(orig);
-  var len = arguments.length;
-  var idx = 0;
+function hasOwn(o, k) {
+  return Object.prototype.hasOwnProperty.call(o, k);
+}
 
-  while (++idx < len) {
-    var val = arguments[idx];
-
-    if (isObject(val) || Array.isArray(val)) {
-      merge(target, val);
-    }
-  }
-  return target;
-};
-
-function merge(target, obj) {
-  for (var key in obj) {
-    if (!isValidKey(key) || !hasOwn(obj, key)) {
+function merge(o1, o2) {
+  for (const k in o2) {
+    if (!isValidKey(k) || !hasOwn(o2, k)) {
       continue;
     }
 
-    var oldVal = obj[key];
-    var newVal = target[key];
+    o1[k] = isObject(o1[k]) && isObject(o2[k]) ? merge(o1[k], o2[k]) : clone(o2[k]);
+  }
 
-    if (isObject(newVal) && isObject(oldVal)) {
-      target[key] = merge(newVal, oldVal);
-    } else if (Array.isArray(newVal)) {
-      target[key] = union([], newVal, oldVal);
-    } else {
-      target[key] = clone(oldVal);
+  return o1;
+}
+
+function mergeDeep(obj, ...rest) {
+  const t = clone(isObject(obj) || Array.isArray(obj) ? obj : {});
+
+  for (const o of rest) {
+    if (isObject(o) || Array.isArray(o)) {
+      merge(t, o);
     }
   }
-  return target;
+
+  return t;
 }
 
-function hasOwn(obj, key) {
-  return Object.prototype.hasOwnProperty.call(obj, key);
-}
-
-function isObject(val) {
-  return typeOf(val) === 'object' || typeOf(val) === 'function';
-}
-
-function isValidKey(key) {
-  return key !== '__proto__' && key !== 'constructor' && key !== 'prototype';
-}
+export { mergeDeep };

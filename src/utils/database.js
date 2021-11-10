@@ -3,8 +3,8 @@
 
 import path from "path";
 import lodash from "lodash";
-import mergeDeep from "merge-deep";
 import { LowSync, JSONFileSync } from "lowdb";
+import { mergeDeep } from "./merge.js";
 
 const db = {};
 
@@ -79,20 +79,11 @@ function update(dbName, key, index, data) {
     return;
   }
 
-  db[dbName].chain.get(key).find(index).assign(data).value();
-  write(dbName);
-}
-
-function merge(dbName, key, index, data) {
-  if (undefined === db[dbName]) {
-    return;
-  }
-
   const old = get(dbName, key, index);
 
   if (undefined !== old) {
     remove(dbName, key, index);
-    data = mergeDeep({}, old, data);
+    data = mergeDeep(old, data);
   }
 
   push(dbName, key, data);
@@ -211,4 +202,4 @@ function clean(dbName) {
   return 0;
 }
 
-export default { init, has, write, includes, remove, get, push, update, merge, set, clean };
+export default { init, has, write, includes, remove, get, push, update, set, clean };

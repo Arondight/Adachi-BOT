@@ -18,7 +18,7 @@
     "genshin-impact"
   ],
   "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+    "node": "^14.13.1 || >=16.0.0"
   },
   "scripts": {
     "test": "echo 'No test specified' && exit 0",
@@ -34,13 +34,14 @@
     "log": "npx cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ pm2 log --lines 100 bot"
   },
   "dependencies": {
+    "clone-deep": "4.0.1",
     "cross-env": "7.0.3",
     "express": "4.17.1",
     "js-yaml": "4.1.0",
+    "kind-of": "6.0.3",
     "lodash": "4.17.21",
     "lowdb": "3.0.0",
     "md5": "2.3.0",
-    "merge-deep": "3.0.3",
     "moment": "2.29.1",
     "moment-timezone": "0.5.33",
     "node-fetch": "3.0.0",

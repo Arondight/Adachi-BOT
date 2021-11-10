@@ -77,7 +77,7 @@ function userInitialize(userID, uid, nickname, level) {
 
 async function abyPromise(uid, server, userID, schedule_type, bot) {
   userInitialize(userID, uid, "", -1);
-  db.merge("character", "user", { userID }, { uid });
+  db.update("character", "user", { userID }, { uid });
 
   const nowTime = new Date().valueOf();
   const { time: lastTime } = db.get("time", "user", { aby: uid }) || {};
@@ -120,9 +120,8 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
     db.push("aby", "user", { uid, data: {} });
   }
 
-  // XXX db.merge 不适用
   db.update("aby", "user", { uid }, { data });
-  db.merge("time", "user", { aby: uid }, { time: nowTime });
+  db.update("time", "user", { aby: uid }, { time: nowTime });
   bot.logger.debug(`缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`);
 
   return data;
@@ -149,11 +148,10 @@ async function basePromise(mhyID, userID, bot) {
   const uid = parseInt(game_role_id);
 
   userInitialize(userID, uid, nickname, level);
-  // XXX db.merge 不适用
   db.update("info", "user", { uid }, { level, nickname });
 
   if (db.includes("map", "user", "userID", userID)) {
-    db.merge("map", "user", { userID }, { UID: uid });
+    db.update("map", "user", { userID }, { UID: uid });
   }
 
   return [uid, region];
@@ -161,7 +159,7 @@ async function basePromise(mhyID, userID, bot) {
 
 async function detailPromise(uid, server, userID, bot) {
   userInitialize(userID, uid, "", -1);
-  db.merge("character", "user", { userID }, { uid });
+  db.update("character", "user", { userID }, { uid });
 
   const nowTime = new Date().valueOf();
   const { time } = db.get("time", "user", { uid }) || {};
@@ -185,12 +183,10 @@ async function detailPromise(uid, server, userID, bot) {
   const { retcode, message, data } = await getDetail(uid, server, cookie);
 
   if (retcode !== 0) {
-    // XXX db.merge 不适用
     db.update("info", "user", { uid }, { message, retcode: parseInt(retcode) });
     return getDetailErrorForPossibleInvalidCookie(message, cookie);
   }
 
-  // XXX db.merge 不适用
   db.update(
     "info",
     "user",
@@ -204,7 +200,7 @@ async function detailPromise(uid, server, userID, bot) {
     }
   );
 
-  db.merge("time", "user", { uid }, { time: nowTime });
+  db.update("time", "user", { uid }, { time: nowTime });
   bot.logger.debug(`缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`);
   const characterID = data.avatars.map((el) => el.id);
   return characterID;
@@ -250,7 +246,6 @@ async function characterPromise(uid, server, character_ids, bot) {
     }
   }
 
-  // XXX db.merge 不适用
   db.update("info", "user", { uid }, { avatars });
   return;
 }

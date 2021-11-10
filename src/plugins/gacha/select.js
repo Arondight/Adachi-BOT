@@ -25,7 +25,7 @@ function doSelect(msg) {
       course: lodash.findIndex(table.upFiveStar, { item_name: cmd }),
       fate: 0,
     };
-    db.merge("gacha", "user", { userID: msg.uid }, { path });
+    db.update("gacha", "user", { userID: msg.uid }, { path });
   } else {
     const text = `请从当前 UP 武器${lodash.map(table.upFiveStar, "item_name").join("、")}中选择一个进行定轨。`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
@@ -57,7 +57,7 @@ function doSelectNothing(msg) {
   const path = { course: null, fate: 0 };
 
   init(msg.uid);
-  db.merge("gacha", "user", { userID: msg.uid }, { path });
+  db.update("gacha", "user", { userID: msg.uid }, { path });
   msg.bot.say(msg.sid, "已取消定轨。", msg.type, msg.uid);
 }
 

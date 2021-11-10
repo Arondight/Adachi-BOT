@@ -56,10 +56,10 @@ function getEffectiveCookie(uid, s, use_cookie) {
     times = times ? times + 1 : 1;
 
     if (use_cookie) {
-      db.merge(dbName, "cookie", { cookie }, { date, times });
+      db.update(dbName, "cookie", { cookie }, { date, times });
     }
 
-    db.merge(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
+    db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
 
     return cookie;
   }
@@ -95,7 +95,7 @@ function markCookieUnusable(cookie) {
     let { times } = db.get(dbName, "cookie", { cookie }) || {};
 
     // Cookie 标记为无效
-    db.merge(dbName, "cookie", { cookie }, { times: COOKIE_TIMES_INVALID_MARK });
+    db.update(dbName, "cookie", { cookie }, { times: COOKIE_TIMES_INVALID_MARK });
 
     // 删除最后一个绑定关系
     if (times) {
