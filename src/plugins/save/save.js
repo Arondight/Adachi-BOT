@@ -5,14 +5,14 @@ import db from "../../utils/database.js";
 import { getID } from "../../utils/id.js";
 
 function setCacheTimeout(uid, mhyID, bot) {
-  if (db.includes("map", "user", "uid", uid)) {
+  if (db.includes("map", "user", "userID", uid)) {
     const { UID: id } = db.get("map", "user", { userID: uid }) || {};
     const reason = "因米游社 ID 变更而强制超时";
 
     if (id) {
-      db.update("time", "user", { aby: id }, { time: 0 });
+      db.merge("time", "user", { aby: id }, { time: 0 });
       bot.logger.debug(`缓存：用户 ${id} 的深渊数据${reason}。`);
-      db.update("time", "user", { uid: id }, { time: 0 });
+      db.merge("time", "user", { uid: id }, { time: 0 });
       bot.logger.debug(`缓存：用户 ${id} 的玩家数据${reason}。`);
     }
   }
@@ -45,7 +45,7 @@ function doSave(msg, action = "save") {
       break;
     case "change":
       if (db.includes("map", "user", "userID", msg.uid)) {
-        db.update("map", "user", { userID: msg.uid }, { mhyID });
+        db.merge("map", "user", { userID: msg.uid }, { mhyID });
         msg.bot.say(msg.sid, `通行证改绑成功，${okMsg}`, msg.type, msg.uid);
         setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
