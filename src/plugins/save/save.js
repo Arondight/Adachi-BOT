@@ -5,7 +5,7 @@ import db from "../../utils/database.js";
 import { getID } from "../../utils/id.js";
 
 function setCacheTimeout(uid, mhyID, bot) {
-  if (db.includes("map", "user", "uid", uid)) {
+  if (db.includes("map", "user", "userID", uid)) {
     const { UID: id } = db.get("map", "user", { userID: uid }) || {};
     const reason = "因米游社 ID 变更而强制超时";
 

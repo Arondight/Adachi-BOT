@@ -137,14 +137,14 @@ function gachaOnce(userID, choice, table) {
       // 定轨武器已设置并触发定轨
       result = table.upFiveStar[path.course];
       path.fate = 0;
-      db.update("gacha", "user", { userID }, { path });
+      db.merge("gacha", "user", { userID }, { path });
     } else {
       // 无定轨，或未触发定轨
       if (up) {
         const index = getRandomInt(table.upFiveStar.length) - 1;
         result = table.upFiveStar[index];
         path.fate = index === path.course ? 0 : path.fate + 1;
-        db.update("gacha", "user", { userID }, { path });
+        db.merge("gacha", "user", { userID }, { path });
       } else {
         const index = getRandomInt(table.nonUpFiveStar.length) - 1;
         result = table.nonUpFiveStar[index];
@@ -193,7 +193,7 @@ function gachaTimes(userID, nickname, times = 10) {
   let data = {};
 
   if (!uchoice) {
-    db.update("gacha", "user", { userID }, { choice });
+    db.merge("gacha", "user", { userID }, { choice });
   }
 
   ({ name, five, four, isUp } = getChoiceData(userID, choice));
@@ -211,7 +211,7 @@ function gachaTimes(userID, nickname, times = 10) {
   // 彩蛋卡池不写入数据库
   if (999 !== choice) {
     data[name] = { five, four, isUp };
-    db.update("gacha", "user", { userID }, data);
+    db.merge("gacha", "user", { userID }, data);
   }
 
   return result;
