@@ -4,22 +4,22 @@
 import db from "../../utils/database.js";
 import { getID } from "../../utils/id.js";
 
-async function setCacheTimeout(uid, mhyID, bot) {
-  if (await db.includes("map", "user", "uid", uid)) {
-    const { UID: id } = (await db.get("map", "user", { userID: uid })) || {};
+function setCacheTimeout(uid, mhyID, bot) {
+  if (db.includes("map", "user", "uid", uid)) {
+    const { UID: id } = db.get("map", "user", { userID: uid }) || {};
     const reason = "因米游社 ID 变更而强制超时";
 
     if (id) {
-      await db.update("time", "user", { aby: id }, { time: 0 });
+      db.update("time", "user", { aby: id }, { time: 0 });
       bot.logger.debug(`缓存：用户 ${id} 的深渊数据${reason}。`);
-      await db.update("time", "user", { uid: id }, { time: 0 });
+      db.update("time", "user", { uid: id }, { time: 0 });
       bot.logger.debug(`缓存：用户 ${id} 的玩家数据${reason}。`);
     }
   }
 }
 
-async function doSave(msg, action = "save") {
-  const id = await getID(msg.text, msg.uid); // 米游社 ID，这里正则限定了 msg 必然有 ID
+function doSave(msg, action = "save") {
+  const id = getID(msg.text, msg.uid); // 米游社 ID，这里正则限定了 msg 必然有 ID
   const mhyID = id;
   const cardCmd = command.functions.name.card;
   const saveCmd = command.functions.name.save;
@@ -35,19 +35,19 @@ async function doSave(msg, action = "save") {
 
   switch (action) {
     case "save":
-      if (!(await db.includes("map", "user", "userID", msg.uid))) {
-        await db.push("map", "user", { userID: msg.uid, mhyID });
+      if (!db.includes("map", "user", "userID", msg.uid)) {
+        db.push("map", "user", { userID: msg.uid, mhyID });
         msg.bot.say(msg.sid, `通行证绑定成功，${okMsg}`, msg.type, msg.uid);
-        await setCacheTimeout(msg.uid, mhyID, msg.bot);
+        setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
         msg.bot.say(msg.sid, existMsg, msg.type, msg.uid);
       }
       break;
     case "change":
-      if (await db.includes("map", "user", "userID", msg.uid)) {
-        await db.update("map", "user", { userID: msg.uid }, { mhyID });
+      if (db.includes("map", "user", "userID", msg.uid)) {
+        db.update("map", "user", { userID: msg.uid }, { mhyID });
         msg.bot.say(msg.sid, `通行证改绑成功，${okMsg}`, msg.type, msg.uid);
-        await setCacheTimeout(msg.uid, mhyID, msg.bot);
+        setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
         msg.bot.say(msg.sid, unexistMsg, msg.type, msg.uid);
       }

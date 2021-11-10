@@ -5,7 +5,7 @@ import { doRating } from "./rating.js";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "rating", "rating"):
-      if (false !== (await checkAuth(msg, "rating"))) {
+      if (false !== checkAuth(msg, "rating")) {
         doRating(msg);
       }
       break;

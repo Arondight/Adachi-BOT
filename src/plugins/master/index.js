@@ -13,23 +13,23 @@ async function Plugin(msg) {
     }
     case hasEntrance(msg.text, "master", "music_auth"): {
       const parsed = parse(msg.text, "music_auth");
-      await setAuth(msg, "music", ...parsed);
+      setAuth(msg, "music", ...parsed);
       setAuth(msg, "music_source", ...parsed);
       break;
     }
     case hasEntrance(msg.text, "master", "gacha_auth"): {
       const parsed = parse(msg.text, "gacha_auth");
-      await setAuth(msg, "gacha", ...parsed);
-      await setAuth(msg, "pool", ...parsed);
-      await setAuth(msg, "select", ...parsed);
-      await setAuth(msg, "select-nothing", ...parsed);
+      setAuth(msg, "gacha", ...parsed);
+      setAuth(msg, "pool", ...parsed);
+      setAuth(msg, "select", ...parsed);
+      setAuth(msg, "select-nothing", ...parsed);
       setAuth(msg, "select-what", ...parsed);
       break;
     }
     case hasEntrance(msg.text, "master", "artifact_auth"): {
       const parsed = parse(msg.text, "artifact_auth");
-      await setAuth(msg, "artifacts", ...parsed);
-      await setAuth(msg, "strengthen", ...parsed);
+      setAuth(msg, "artifacts", ...parsed);
+      setAuth(msg, "strengthen", ...parsed);
       setAuth(msg, "dungeons", ...parsed);
       break;
     }
@@ -40,29 +40,29 @@ async function Plugin(msg) {
     }
     case hasEntrance(msg.text, "master", "query_gameinfo_auth"): {
       const parsed = parse(msg.text, "query_gameinfo_auth");
-      await setAuth(msg, "save", ...parsed);
-      await setAuth(msg, "change", ...parsed);
-      await setAuth(msg, "aby", ...parsed);
-      await setAuth(msg, "lastaby", ...parsed);
-      await setAuth(msg, "card", ...parsed);
-      await setAuth(msg, "package", ...parsed);
-      await setAuth(msg, "character", ...parsed);
+      setAuth(msg, "save", ...parsed);
+      setAuth(msg, "change", ...parsed);
+      setAuth(msg, "aby", ...parsed);
+      setAuth(msg, "lastaby", ...parsed);
+      setAuth(msg, "card", ...parsed);
+      setAuth(msg, "package", ...parsed);
+      setAuth(msg, "character", ...parsed);
       setAuth(msg, "others_character", ...parsed);
       break;
     }
     case hasEntrance(msg.text, "master", "character_overview_auth"): {
       const parsed = parse(msg.text, "character_overview_auth");
-      await setAuth(msg, "info", ...parsed);
-      await setAuth(msg, "weapon", ...parsed);
-      await setAuth(msg, "talent", ...parsed);
+      setAuth(msg, "info", ...parsed);
+      setAuth(msg, "weapon", ...parsed);
+      setAuth(msg, "talent", ...parsed);
       setAuth(msg, "weekly", ...parsed);
       break;
     }
     case hasEntrance(msg.text, "master", "fun_auth"): {
       const parsed = parse(msg.text, "fun_auth");
-      await setAuth(msg, "menu", ...parsed);
-      await setAuth(msg, "prophecy", ...parsed);
-      await setAuth(msg, "roll", ...parsed);
+      setAuth(msg, "menu", ...parsed);
+      setAuth(msg, "prophecy", ...parsed);
+      setAuth(msg, "roll", ...parsed);
       setAuth(msg, "quote", ...parsed);
       break;
     }

@@ -118,9 +118,9 @@ async function musicID(text, source) {
   return await worker[source](keyword);
 }
 
-async function musicSrc(text, id) {
+function musicSrc(text, id) {
   let [source] = text.split(/(?<=^\S+)\s/).slice(1);
-  const data = await db.get("music", "source", { ID: id });
+  const data = db.get("music", "source", { ID: id });
 
   if ("string" === typeof source) {
     source = source.toLowerCase();
@@ -130,12 +130,9 @@ async function musicSrc(text, id) {
     }
 
     if (undefined === data) {
-      await db.push("music", "source", {
-        ID: id,
-        Source: source,
-      });
+      db.push("music", "source", { ID: id, Source: source });
     } else {
-      await db.update("music", "source", { ID: id }, { ...data, Source: source });
+      db.update("music", "source", { ID: id }, { ...data, Source: source });
     }
   }
 

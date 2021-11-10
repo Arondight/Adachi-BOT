@@ -3,20 +3,20 @@
 
 import db from "./database.js";
 
-async function hasAuth(id, func) {
-  const data = (await db.get("authority", "user", { userID: id })) || {};
+function hasAuth(id, func) {
+  const data = db.get("authority", "user", { userID: id }) || {};
   return data[func] && true === data[func];
 }
 
-async function setAuth(msg, func, id, isOn, report = true) {
+function setAuth(msg, func, id, isOn, report = true) {
   const name = command.functions.name[func] ? `【${command.functions.name[func]}】` : func;
   const text = `我已经开始${isOn ? "允许" : "禁止"} ${id} 的${name}功能！`;
-  const data = await db.get("authority", "user", { userID: id });
+  const data = db.get("authority", "user", { userID: id });
 
   if (undefined === data) {
-    await db.push("authority", "user", { userID: id, [func]: isOn });
+    db.push("authority", "user", { userID: id, [func]: isOn });
   } else {
-    await db.update("authority", "user", { userID: id }, { ...data, [func]: isOn });
+    db.merge("authority", "user", { userID: id }, { ...data, [func]: isOn });
   }
 
   if (true === report && undefined !== msg.bot) {
@@ -28,9 +28,9 @@ async function setAuth(msg, func, id, isOn, report = true) {
 //    true:      有权限
 //    false:     没权限
 //    undefined: 没设置权限
-async function checkAuth(msg, func, report = true) {
-  const uauth = await hasAuth(msg.uid, func);
-  const gauth = await hasAuth(msg.sid, func);
+function checkAuth(msg, func, report = true) {
+  const uauth = hasAuth(msg.uid, func);
+  const gauth = hasAuth(msg.sid, func);
 
   if (undefined == uauth && undefined === gauth) {
     return undefined;
