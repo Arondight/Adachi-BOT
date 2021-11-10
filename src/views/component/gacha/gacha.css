@@ -18,18 +18,46 @@ body {
 }
 
 .bg-info {
-  position: fixed;
+  position: absolute;
   top: 20px;
-  left: 20px;
+  left: 83px;
+  width: 1120px;
+  overflow-wrap: anywhere;
   font-size: 35px;
   color: rgb(255, 255, 255);
+  text-shadow: 0 0 6px #333333;
   z-index: 9999;
+}
+
+.patch-close-button,
+.patch-share-button {
+  position: absolute;
+  border-radius: 50px;
+  z-index: 1;
+}
+
+.patch-close-button {
+  left: 1128px;
+  top: 9px;
+  width: 62px;
+  height: 63px;
+  background-image: linear-gradient(0deg, #272936, #262b36);
+  box-shadow: 0 0 5px #282a39;
+}
+
+.patch-share-button {
+  top: 636px;
+  left: 1011px;
+  width: 182px;
+  height: 56px;
+  background-image: linear-gradient(0deg, #2a2c36, #2b2a38);
 }
 
 .gacha-box {
   position: relative;
   display: inline-flex;
   top: 24px;
+  z-index: 1;
 }
 
 .gacha-box:first-child {

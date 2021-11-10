@@ -8,14 +8,20 @@
   </head>
   <body>
     <div id="app">
+      <div class="patch-close-button"></div>
+      <div class="patch-share-button"></div>
       <background :user="user" :type="type"></background>
       <gacha-box :data="gachaList"></gacha-box>
     </div>
 
     <template id="background">
       <div class="background">
-        <img src="http://localhost:9934/resources/gacha/items/background.png" alt="ERROR" />
         <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
+        <img
+          src="http://localhost:9934/resources/gacha/items/background.png"
+          alt="ERROR"
+          style="position: absolute; z-index: -1"
+        />
       </div>
     </template>
 
