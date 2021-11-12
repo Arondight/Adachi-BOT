@@ -1,15 +1,19 @@
-/* global browser, rootdir */
+/* global browser, config, rootdir */
 /* eslint no-undef: "error" */
 
 import fs from "fs";
 import path from "path";
 
-async function render(msg, data, name, scale = 1.5) {
+async function render(msg, data, name, scale = 1.5, hello = false) {
   let base64;
 
-  await fs.writeFile(path.resolve(rootdir, "data", "record", `${name}.json`), JSON.stringify(data), () => {});
+  if (hello && config.warnTimeCosts) {
+    msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid);
+  }
 
   try {
+    await fs.writeFile(path.resolve(rootdir, "data", "record", `${name}.json`), JSON.stringify(data), () => {});
+
     const page = await browser.newPage();
     await page.setViewport({
       width: await page.evaluate(() => document.body.clientWidth),
@@ -28,6 +32,8 @@ async function render(msg, data, name, scale = 1.5) {
     await page.close();
   } catch (e) {
     msg.bot.logger.error(`${name} 功能绘图失败：${e}`, msg.uid);
+    msg.bot.say(msg.sid, "绘图失败。", msg.type, msg.uid);
+    return;
   }
 
   if (base64) {

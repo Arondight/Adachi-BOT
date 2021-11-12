@@ -92,6 +92,7 @@ function report() {
   log(`${config.groupGreetingNew ? "" : "不"}向新群友问好。`);
   log(`${config.friendGreetingNew ? "" : "不"}向新好友问好。`);
   log(`角色查询${config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
+  log(`耗时操作前${config.warnTimeCosts ? "" : "不"}发送提示。`);
   log(`用户每隔 ${config.requestInterval} 秒可以使用一次机器人。`);
   log(`${config.deleteGroupMsgTime ? config.deleteGroupMsgTime + " 秒后" : "不"}尝试撤回机器人发送的群消息`);
   log(`深渊记录将缓存 ${config.cacheAbyEffectTime} 小时。`);

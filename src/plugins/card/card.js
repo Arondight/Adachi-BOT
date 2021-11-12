@@ -38,7 +38,7 @@ async function doCard(msg) {
   }
 
   const data = db.get("info", "user", { uid });
-  render(msg, data, "genshin-card");
+  render(msg, data, "genshin-card", 1.5, true);
 }
 
 export { doCard };

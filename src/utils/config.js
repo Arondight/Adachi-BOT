@@ -539,6 +539,8 @@ function readSettingCookiesGreetingMenu() {
     friendGreetingNew: 0,
     // 角色查询不尝试拉取数据
     characterTryGetDetail: 0,
+    // 耗时操作前不发送提示
+    warnTimeCosts: 0,
     // 不对用户的使用频率作出限制
     requestInterval: 0,
     // 不尝试撤回发送的群消息
@@ -567,6 +569,7 @@ function readSettingCookiesGreetingMenu() {
   const groupGreetingNew = parseInt(Setting.groupGreetingNew);
   const friendGreetingNew = parseInt(Setting.friendGreetingNew);
   const characterTryGetDetail = parseInt(Setting.characterTryGetDetail);
+  const warnTimeCosts = parseInt(Setting.warnTimeCosts);
   const requestInterval = parseInt(Setting.requestInterval);
   const deleteGroupMsgTime = parseInt(Setting.deleteGroupMsgTime);
   const cacheAbyEffectTime = parseInt(Setting.cacheAbyEffectTime);
@@ -606,6 +609,7 @@ function readSettingCookiesGreetingMenu() {
     { groupGreetingNew },
     { friendGreetingNew },
     { characterTryGetDetail },
+    { warnTimeCosts },
     { requestInterval },
     { deleteGroupMsgTime },
     { cacheAbyEffectTime },
