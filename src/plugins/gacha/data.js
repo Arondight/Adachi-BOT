@@ -3,6 +3,7 @@
 
 import fs from "fs";
 import path from "path";
+import lodash from "lodash";
 import db from "../../utils/database.js";
 
 const configdir = path.resolve(rootdir, "resources", "Version2", "wish", "config");
@@ -197,7 +198,7 @@ function gachaTimes(userID, nickname, times = 10) {
   }
 
   ({ name, five, four, isUp } = getChoiceData(userID, choice));
-  let result = { data: [], type: name, user: nickname };
+  let result = { data: [], count: [], type: name, user: nickname };
 
   for (let i = 0; i < times; ++i) {
     gachaResults.push(gachaOnce(userID, choice, gachaTable));
@@ -207,6 +208,17 @@ function gachaTimes(userID, nickname, times = 10) {
     c.type = ("武器" === c.item_type ? types : element)[c.item_name];
     result.data.push(c);
   });
+
+  // 增加统计信息
+  const chain = lodash.chain(result.data);
+  chain
+    .keyBy("item_name")
+    .keys()
+    .each((c) => {
+      const a = chain.filter({ item_name: c }).value();
+      result.count.push(lodash.omit({ ...a[0], ...{ count: a.length } }, "times"));
+    })
+    .value();
 
   // 彩蛋卡池不写入数据库
   if (999 !== choice) {
