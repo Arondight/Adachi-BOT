@@ -198,11 +198,21 @@ function gachaTimes(userID, nickname, times = 10) {
   }
 
   ({ name, five, four, isUp } = getChoiceData(userID, choice));
-  let result = { data: [], count: [], type: name, user: nickname };
 
   for (let i = 0; i < times; ++i) {
     gachaResults.push(gachaOnce(userID, choice, gachaTable));
   }
+
+  let result = {
+    type: name,
+    user: nickname,
+    data: [],
+    count: [],
+    five: [],
+    names: { five: [], four: [], three: [] },
+    name_nums: { five: 0, four: 0, three: 0 },
+    item_nums: { five: 0, four: 0, three: 0 },
+  };
 
   gachaResults.forEach((c) => {
     c.type = ("武器" === c.item_type ? types : element)[c.item_name];
@@ -211,6 +221,21 @@ function gachaTimes(userID, nickname, times = 10) {
 
   // 增加统计信息
   const chain = lodash.chain(result.data);
+  const getNames = (n) => chain.filter({ star: n }).keyBy("item_name").keys().value();
+
+  result.names.five = getNames(5);
+  result.names.four = getNames(4);
+  result.names.three = getNames(3);
+  result.name_nums.five = result.names.five.length;
+  result.name_nums.four = result.names.four.length;
+  result.name_nums.three = result.names.three.length;
+  result.item_nums.five = chain.filter({ star: 5 }).value().length;
+  result.item_nums.four = chain.filter({ star: 4 }).value().length;
+  result.item_nums.three = chain.filter({ star: 3 }).value().length;
+  chain
+    .filter({ star: 5 })
+    .each((c) => result.five.push(c))
+    .value();
   chain
     .keyBy("item_name")
     .keys()
