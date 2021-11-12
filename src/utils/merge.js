@@ -18,28 +18,26 @@ function hasOwn(o, k) {
   return Object.prototype.hasOwnProperty.call(o, k);
 }
 
-function merge(o1, o2) {
+function doMerge(o1, o2) {
   for (const k in o2) {
-    if (!isValidKey(k) || !hasOwn(o2, k)) {
-      continue;
+    if (isValidKey(k) && hasOwn(o2, k)) {
+      o1[k] = isObject(o1[k]) && isObject(o2[k]) ? doMerge(o1[k], o2[k]) : clone(o2[k]);
     }
-
-    o1[k] = isObject(o1[k]) && isObject(o2[k]) ? merge(o1[k], o2[k]) : clone(o2[k]);
   }
 
   return o1;
 }
 
-function mergeDeep(obj, ...rest) {
+function merge(obj, ...rest) {
   const t = clone(isObject(obj) || Array.isArray(obj) ? obj : {});
 
   for (const o of rest) {
     if (isObject(o) || Array.isArray(o)) {
-      merge(t, o);
+      doMerge(t, o);
     }
   }
 
   return t;
 }
 
-export { mergeDeep };
+export { merge };

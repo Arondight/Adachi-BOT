@@ -4,7 +4,7 @@
 import path from "path";
 import lodash from "lodash";
 import { LowSync, JSONFileSync } from "lowdb";
-import { mergeDeep } from "./merge.js";
+import { merge } from "./merge.js";
 
 const db = {};
 
@@ -61,7 +61,7 @@ function get(dbName, key, index = undefined) {
   const result =
     undefined === index
       ? db[dbName].chain.get(key).value()
-      : mergeDeep(...db[dbName].chain.get(key).filter(index).reverse().value());
+      : merge(...db[dbName].chain.get(key).filter(index).reverse().value());
   return result && (lodash.isEmpty(result) ? undefined : result);
 }
 
@@ -83,7 +83,7 @@ function update(dbName, key, index, data) {
 
   if (undefined !== old) {
     remove(dbName, key, index);
-    data = mergeDeep(old, data);
+    data = merge(old, data);
   }
 
   push(dbName, key, data);
