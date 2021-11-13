@@ -56,7 +56,7 @@ cd ./Adachi-BOT/
 
 #### 安装依赖模块
 
-你需要使用 `npm` 命令安装所需的依赖模块，但是因为 `puppeteer` 在安装过程中具有特殊性，所以整个安装过程有了两种思路，你可以在下面的安装方法中任选其一。
+你需要使用 `npm` 命令安装所需的依赖模块，但是因为 [Puppeteer](https://github.com/puppeteer/puppeteer.git) 在安装过程中具有特殊性，所以整个安装过程有了两种思路，你可以在下面的安装方法中任选其一。
 
 ##### 其一，（推荐）使用系统自带的 Chromium
 
@@ -66,7 +66,7 @@ cd ./Adachi-BOT/
 2. 包管理器会为你提供 Chromium 安全和功能更新。
 3. 你不需要在一个系统里装多份 Chromium 浏览器。
 
-你要做的是用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径，配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。这样 `puppeteer` 就可以使用系统自带的 Chromium 。这里以 `CentOS` 为例，执行以下命令。
+你要做的是用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径，配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。这样 Puppeteer 就可以使用系统自带的 Chromium 。这里以 CentOS 为例，执行以下命令。
 
 ```sh
 sudo yum -y install epel-release
