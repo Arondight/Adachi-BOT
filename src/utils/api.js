@@ -40,7 +40,7 @@ function getInfo(name) {
 function getAbyDetail(role_id, schedule_type, server, cookie) {
   const query = { role_id, schedule_type, server };
 
-  return fetch(`${__API.FETCH_ABY_DETAIL}?${new URLSearchParams(query)}`, {
+  return fetch(`${__API.FETCH_ABY_DETAIL}?${new URLSearchParams(query).toString()}`, {
     method: "GET",
     headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
   }).then((res) => res.json());
@@ -49,7 +49,7 @@ function getAbyDetail(role_id, schedule_type, server, cookie) {
 function getBase(uid, cookie) {
   const query = { uid };
 
-  return fetch(`${__API.FETCH_ROLE_ID}?${new URLSearchParams(query)}`, {
+  return fetch(`${__API.FETCH_ROLE_ID}?${new URLSearchParams(query).toString()}`, {
     method: "GET",
     headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },
   }).then((res) => res.json());
@@ -58,7 +58,7 @@ function getBase(uid, cookie) {
 function getDetail(role_id, server, cookie) {
   const query = { role_id, server };
 
-  return fetch(`${__API.FETCH_ROLE_INDEX}?${new URLSearchParams(query)}`, {
+  return fetch(`${__API.FETCH_ROLE_INDEX}?${new URLSearchParams(query).toString()}`, {
     method: "GET",
     qs: query,
     headers: { ...HEADERS, DS: getDS(query), Cookie: cookie },

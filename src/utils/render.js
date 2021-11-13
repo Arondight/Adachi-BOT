@@ -12,7 +12,10 @@ async function render(msg, data, name, scale = 1.5, hello = false) {
   }
 
   try {
-    await fs.writeFile(path.resolve(rootdir, "data", "record", `${name}.json`), JSON.stringify(data), () => {});
+    const dataStr = JSON.stringify(data);
+    const record = path.resolve(rootdir, "data", "record", `${name}.json`);
+    // 该文件仅用作调试，无实际作用亦不阻塞
+    fs.writeFile(record, dataStr, () => {});
 
     const page = await browser.newPage();
     await page.setViewport({
@@ -20,7 +23,9 @@ async function render(msg, data, name, scale = 1.5, hello = false) {
       height: await page.evaluate(() => document.body.clientHeight),
       deviceScaleFactor: scale,
     });
-    await page.goto(`http://localhost:9934/src/views/${name}.html`);
+    // 数据使用 URL 参数传入
+    const param = { data: new Buffer.from(dataStr, "utf8").toString("base64") };
+    await page.goto(`http://localhost:9934/src/views/${name}.html?${new URLSearchParams(param).toString()}`);
 
     const html = await page.$("body", { waitUntil: "networkidle0" });
     base64 = await html.screenshot({
@@ -29,7 +34,10 @@ async function render(msg, data, name, scale = 1.5, hello = false) {
       quality: 100,
       omitBackground: true,
     });
-    await page.close();
+
+    if (0 === config.viewDebug) {
+      await page.close();
+    }
   } catch (e) {
     msg.bot.logger.error(`${name} 功能绘图失败：${e}`, msg.uid);
     msg.bot.say(msg.sid, "绘图失败。", msg.type, msg.uid);

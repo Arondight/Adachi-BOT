@@ -99,6 +99,7 @@ function report() {
   log(`玩家信息将缓存 ${config.cacheInfoEffectTime} 小时。`);
   log(`清理数据库 aby 中超过 ${config.dbAbyEffectTime} 小时的记录。`);
   log(`清理数据库 info 中超过 ${config.dbInfoEffectTime} 小时的记录。`);
+  log(`${config.viewDebug ? "" : "不"}使用前端调试模式。`);
 }
 
 async function run() {
@@ -122,7 +123,8 @@ async function main() {
   readConfig();
   login();
   report();
-  await init().then(async () => await run());
+  await init();
+  await run();
 }
 
 main();

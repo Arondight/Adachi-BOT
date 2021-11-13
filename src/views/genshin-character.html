@@ -128,114 +128,108 @@
           getLength(str) {
             return str.replace(/[\u0391-\uFFE5]/g, "aa").length / 2;
           },
-          readJSON(file, callback) {
-            fetch(file).then((res) => {
-              return res.json().then((data) => {
-                callback(data);
-              });
-            });
-          },
         },
         mounted() {
-          this.readJSON("../../data/record/genshin-character.json", (res) => {
-            this.uid = res.uid;
+          const params = JSON.parse(
+            decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
+          );
+          const character = params.data || {};
 
-            let character = res.data;
-            this.id = character.id;
-            this.name = character.name;
-            this.fetter = character.fetter;
-            this.elementName = character.element;
-            this.level = character.level;
-            this.constellate = character.constellationNum;
-            this.weapon = character.weapon;
-            this.contextLen = 320 - this.getLength(this.weapon.name) * 31 - 18;
+          this.uid = params.uid;
+          this.id = character.id;
+          this.name = character.name;
+          this.fetter = character.fetter;
+          this.elementName = character.element;
+          this.level = character.level;
+          this.constellate = character.constellationNum;
+          this.weapon = character.weapon;
+          this.contextLen = 320 - this.getLength(this.weapon.name) * 31 - 18;
 
-            switch (this.elementName) {
-              case "Anemo":
-                this.setStyle([
-                  "rgb( 28,  91,  72)",
-                  "rgb( 44, 128, 100)",
-                  "rgb( 44, 128, 100)",
-                  "rgb( 44, 128, 100)",
-                  "rgb( 45, 148, 116)",
-                  "rgb( 59, 167, 132)",
-                ]);
-                break;
-              case "Cryo":
-                this.setStyle([
-                  "rgb( 50, 105, 133)",
-                  "rgb(  5, 162, 195)",
-                  "rgb( 16, 168, 212)",
-                  "rgb(  5, 162, 195)",
-                  "rgb(  6, 188, 240)",
-                  "rgb(  5, 165, 199)",
-                ]);
-                break;
-              case "Dendro":
-                this.setStyle([
-                  // 暂无
-                ]);
-                break;
-              case "Electro":
-                this.setStyle([
-                  "rgb( 46,  34,  84)",
-                  "rgb( 81,  56, 151)",
-                  "rgb( 83,  66, 146)",
-                  "rgb( 81,  56, 151)",
-                  "rgb(117,  93, 195)",
-                  "rgb( 80,  55, 161)",
-                ]);
-                break;
-              case "Geo":
-                this.setStyle([
-                  "rgb( 92,  76,  21)",
-                  "rgb(176, 141,  46)",
-                  "rgb(201, 144,  20)",
-                  "rgb(176, 141,  46)",
-                  "rgb(206, 171,  66)",
-                  "rgb(210, 155,  21)",
-                ]);
-                break;
-              case "Hydro":
-                this.setStyle([
-                  "rgb( 23,  64,  91)",
-                  "rgb( 43, 127, 175)",
-                  "rgb( 37, 106, 153)",
-                  "rgb( 43, 127, 175)",
-                  "rgb( 77, 162, 211)",
-                  "rgb( 42, 123, 174)",
-                ]);
-                break;
-              case "Pyro":
-                this.setStyle([
-                  "rgb(119,  31,  19)",
-                  "rgb(176,  45,  28)",
-                  "rgb(189,  46,  29)",
-                  "rgb(176,  45,  28)",
-                  "rgb(218,  52,  34)",
-                  "rgb(191,  61,  27)",
-                ]);
-                break;
-              case "None":
-                this.setStyle([
-                  // 绝版无派蒙配色模板
-                  "rgb( 72,  72,  72)",
-                  "rgb(111, 117, 113)",
-                  "rgb(111, 111, 111)",
-                  "rgb(111, 117, 113)",
-                  "rgb(136, 136, 136)",
-                  "rgb(123, 123, 123)",
-                ]);
-                break;
-            }
+          switch (this.elementName) {
+            case "Anemo":
+              this.setStyle([
+                "rgb( 28,  91,  72)",
+                "rgb( 44, 128, 100)",
+                "rgb( 44, 128, 100)",
+                "rgb( 44, 128, 100)",
+                "rgb( 45, 148, 116)",
+                "rgb( 59, 167, 132)",
+              ]);
+              break;
+            case "Cryo":
+              this.setStyle([
+                "rgb( 50, 105, 133)",
+                "rgb(  5, 162, 195)",
+                "rgb( 16, 168, 212)",
+                "rgb(  5, 162, 195)",
+                "rgb(  6, 188, 240)",
+                "rgb(  5, 165, 199)",
+              ]);
+              break;
+            case "Dendro":
+              this.setStyle([
+                // 暂无
+              ]);
+              break;
+            case "Electro":
+              this.setStyle([
+                "rgb( 46,  34,  84)",
+                "rgb( 81,  56, 151)",
+                "rgb( 83,  66, 146)",
+                "rgb( 81,  56, 151)",
+                "rgb(117,  93, 195)",
+                "rgb( 80,  55, 161)",
+              ]);
+              break;
+            case "Geo":
+              this.setStyle([
+                "rgb( 92,  76,  21)",
+                "rgb(176, 141,  46)",
+                "rgb(201, 144,  20)",
+                "rgb(176, 141,  46)",
+                "rgb(206, 171,  66)",
+                "rgb(210, 155,  21)",
+              ]);
+              break;
+            case "Hydro":
+              this.setStyle([
+                "rgb( 23,  64,  91)",
+                "rgb( 43, 127, 175)",
+                "rgb( 37, 106, 153)",
+                "rgb( 43, 127, 175)",
+                "rgb( 77, 162, 211)",
+                "rgb( 42, 123, 174)",
+              ]);
+              break;
+            case "Pyro":
+              this.setStyle([
+                "rgb(119,  31,  19)",
+                "rgb(176,  45,  28)",
+                "rgb(189,  46,  29)",
+                "rgb(176,  45,  28)",
+                "rgb(218,  52,  34)",
+                "rgb(191,  61,  27)",
+              ]);
+              break;
+            case "None":
+              this.setStyle([
+                // 绝版无派蒙配色模板
+                "rgb( 72,  72,  72)",
+                "rgb(111, 117, 113)",
+                "rgb(111, 111, 111)",
+                "rgb(111, 117, 113)",
+                "rgb(136, 136, 136)",
+                "rgb(123, 123, 123)",
+              ]);
+              break;
+          }
 
-            let artifacts = [];
-            for (let i = 1; i <= 5; i++) {
-              let info = character.artifact.find((el) => el.pos === i);
-              artifacts[i] = info ? character.artifact.find((el) => el.pos === i) : "empty";
-            }
-            this.artifacts = artifacts;
-          });
+          const artifacts = [];
+          for (let i = 1; i <= 5; i++) {
+            const info = character.artifact.find((el) => el.pos === i);
+            artifacts[i] = info ? character.artifact.find((el) => el.pos === i) : "empty";
+          }
+          this.artifacts = artifacts;
         },
       });
     </script>

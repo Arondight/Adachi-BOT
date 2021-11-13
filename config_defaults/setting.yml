@@ -102,3 +102,9 @@ cacheInfoEffectTime: 1
 dbAbyEffectTime: 1
 # 数据库 info 中存放了玩家信息
 dbInfoEffectTime: 168
+
+#
+# 前端调试模式，不再使用浏览器的无头模式，并且不再关闭标签页
+# 1:使用调试模式、 0:不使用调试模式
+#
+viewDebug: 0

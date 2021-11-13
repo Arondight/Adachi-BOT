@@ -168,62 +168,53 @@
           starIcon: "",
           numCN: [],
         },
-        methods: {
-          readJSON(file, callback) {
-            fetch(file).then((res) => {
-              return res.json().then((data) => {
-                callback(data);
-              });
-            });
-          },
-        },
         mounted() {
-          this.readJSON("../../data/record/genshin-overview.json", (res) => {
-            this.rarity = res.rarity;
-            this.name = res.name;
-            this.id = res.id;
-            this.title = res.title;
-            this.type = res.type;
-            this.introduce = res.introduce;
-            this.infoBackground =
-              "http://localhost:9934/resources/Version2/info/other/BaseBackground" + res.rarity + ".png";
-            this.mainImage =
-              "http://localhost:9934/resources/Version2/" +
-              (res.type === "角色" ? "character/" + res.id + ".png" : "weapon/" + res.name + ".png");
+          const params = JSON.parse(
+            decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
+          );
 
-            this.skillName = res.skillName;
-            this.skillContent = res.skillContent;
-            this.access = res.access;
+          this.rarity = params.rarity;
+          this.name = params.name;
+          this.id = params.id;
+          this.title = params.title;
+          this.type = params.type;
+          this.introduce = params.introduce;
+          this.infoBackground =
+            "http://localhost:9934/resources/Version2/info/other/BaseBackground" + params.rarity + ".png";
+          this.mainImage =
+            "http://localhost:9934/resources/Version2/" +
+            (params.type === "角色" ? "character/" + params.id + ".png" : "weapon/" + params.name + ".png");
+          this.skillName = params.skillName;
+          this.skillContent = params.skillContent;
+          this.access = params.access;
+          this.mainStat = params.mainStat;
+          this.baseATK = params.baseATK;
+          this.mainValue = params.mainValue;
+          this.birthday = params.birthday;
+          this.element = params.element;
+          this.constellationName = params.constellationName;
+          this.cv = params.cv;
+          this.ascension = params.ascensionMaterials;
+          this.levelUp = params.levelUpMaterials;
+          this.talent = params.talentMaterials;
+          this.time = params.time;
+          this.constellations = params.constellations;
+          this.starIcon = "http://localhost:9934/resources/Version2/info/other/BaseStar" + params.rarity + ".png";
+          this.numCN = ["一", "二", "四", "六"];
 
-            this.mainStat = res.mainStat;
-            this.baseATK = res.baseATK;
-            this.mainValue = res.mainValue;
-            this.birthday = res.birthday;
-            this.element = res.element;
-            this.constellationName = res.constellationName;
-            this.cv = res.cv;
-            this.ascension = res.ascensionMaterials;
-            this.levelUp = res.levelUpMaterials;
-            this.talent = res.talentMaterials;
-            this.time = res.time;
-            this.constellations = res.constellations;
-            this.starIcon = "http://localhost:9934/resources/Version2/info/other/BaseStar" + res.rarity + ".png";
-            this.numCN = ["一", "二", "四", "六"];
-
-            if (5 === this.rarity) {
-              document.documentElement.style.setProperty("--styleColor", "rgb(205, 167, 101)");
-              document.documentElement.style.setProperty("--backgroundColor", "rgb(211, 200, 187)");
-              document.documentElement.style.setProperty("--dottedColor", "rgb(198, 156, 80)");
-            } else if (4 === this.rarity) {
-              document.documentElement.style.setProperty("--styleColor", "rgb(142, 115, 170)");
-              document.documentElement.style.setProperty("--backgroundColor", "rgb(211, 211, 212)");
-              document.documentElement.style.setProperty("--dottedColor", "rgb(72, 83, 101)");
-            } else {
-              document.documentElement.style.setProperty("--styleColor", "rgb(98, 191, 218)");
-              document.documentElement.style.setProperty("--backgroundColor", "rgb(210, 212, 225)");
-              document.documentElement.style.setProperty("--dottedColor", "rgb(3, 149, 166");
-            }
-          });
+          if (5 === this.rarity) {
+            document.documentElement.style.setProperty("--styleColor", "rgb(205, 167, 101)");
+            document.documentElement.style.setProperty("--backgroundColor", "rgb(211, 200, 187)");
+            document.documentElement.style.setProperty("--dottedColor", "rgb(198, 156, 80)");
+          } else if (4 === this.rarity) {
+            document.documentElement.style.setProperty("--styleColor", "rgb(142, 115, 170)");
+            document.documentElement.style.setProperty("--backgroundColor", "rgb(211, 211, 212)");
+            document.documentElement.style.setProperty("--dottedColor", "rgb(72, 83, 101)");
+          } else {
+            document.documentElement.style.setProperty("--styleColor", "rgb(98, 191, 218)");
+            document.documentElement.style.setProperty("--backgroundColor", "rgb(210, 212, 225)");
+            document.documentElement.style.setProperty("--dottedColor", "rgb(3, 149, 166");
+          }
         },
       });
 

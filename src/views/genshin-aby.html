@@ -208,44 +208,32 @@
         total_battle_times: 0,
         max_floor: "",
         total_star: 0,
-
         reveal_rank: [],
         defeat_rank: [],
         take_damage_rank: [],
         normal_skill_rank: [],
         energy_skill_rank: [],
-
         damage_rank: [],
-
         floors: [],
       },
-      methods: {
-        readJSON(file, callback) {
-          fetch(file).then((res) => {
-            return res.json().then((data) => {
-              callback(data);
-            });
-          });
-        },
-      },
       mounted() {
-        this.readJSON("../../data/record/genshin-aby.json", (res) => {
-          this.uid = res.uid;
-          this.start_time = formatDate(new Date(res.data.start_time * 1000), "yyyy/MM/dd");
-          this.end_time = formatDate(new Date(res.data.end_time * 1000), "yyyy/MM/dd");
-          this.total_battle_times = res.data.total_battle_times;
-          this.max_floor = res.data.max_floor;
-          this.total_star = res.data.total_star;
+        const params = JSON.parse(
+          decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
+        );
 
-          this.reveal_rank = res.data.reveal_rank;
-          this.defeat_rank = res.data.defeat_rank;
-          this.take_damage_rank = res.data.take_damage_rank;
-          this.normal_skill_rank = res.data.normal_skill_rank;
-          this.energy_skill_rank = res.data.energy_skill_rank;
-          this.damage_rank = res.data.damage_rank;
-
-          this.floors = res.data.floors.slice(-4);
-        });
+        this.uid = params.uid;
+        this.start_time = formatDate(new Date(params.data.start_time * 1000), "yyyy/MM/dd");
+        this.end_time = formatDate(new Date(params.data.end_time * 1000), "yyyy/MM/dd");
+        this.total_battle_times = params.data.total_battle_times;
+        this.max_floor = params.data.max_floor;
+        this.total_star = params.data.total_star;
+        this.reveal_rank = params.data.reveal_rank;
+        this.defeat_rank = params.data.defeat_rank;
+        this.take_damage_rank = params.data.take_damage_rank;
+        this.normal_skill_rank = params.data.normal_skill_rank;
+        this.energy_skill_rank = params.data.energy_skill_rank;
+        this.damage_rank = params.data.damage_rank;
+        this.floors = params.data.floors.slice(-4);
       },
     });
 
@@ -253,16 +241,16 @@
       if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
       }
-      let o = {
+      const o = {
         "M+": date.getMonth() + 1,
         "d+": date.getDate(),
         "h+": date.getHours(),
         "m+": date.getMinutes(),
         "s+": date.getSeconds(),
       };
-      for (let k in o) {
+      for (const k in o) {
         if (new RegExp(`(${k})`).test(fmt)) {
-          let str = o[k] + "";
+          const str = o[k] + "";
           fmt = fmt.replace(RegExp.$1, 1 === RegExp.$1.length ? str : padLeftZero(str));
         }
       }
@@ -273,8 +261,8 @@
       return ("00" + str).substr(str.length);
     }
 
+    // 侧面转换成正面
     function imageUrlReplacement(imageURL) {
-      // 把侧面转换成正面，只要把url里面所有的"_side"给删掉：注意有的S是大写有的是小写，并且不止一处
       const regex = /_side/gi;
       return imageURL.replace(regex, "");
     }

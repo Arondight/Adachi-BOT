@@ -1,4 +1,4 @@
-/* global bots, rootdir */
+/* global bots, config, rootdir */
 /* eslint no-undef: "error" */
 
 import schedule from "node-schedule";
@@ -23,7 +23,7 @@ function initDB() {
 
 async function initBrowser() {
   global.browser = await puppeteer.launch({
-    headless: true,
+    headless: 0 === config.viewDebug,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 }

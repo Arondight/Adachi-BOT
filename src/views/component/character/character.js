@@ -63,7 +63,7 @@ const artifact = {
   },
   computed: {
     rarity() {
-      let star = "★";
+      const star = "★";
       return star.repeat(this.detail.rarity);
     },
   },
@@ -122,7 +122,7 @@ const weaponBox = {
   },
   computed: {
     rarity() {
-      let star = "★";
+      const star = "★";
       console.log(this.len);
       return star.repeat(this.weapon.rarity);
     },

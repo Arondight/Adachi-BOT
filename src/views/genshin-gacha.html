@@ -56,12 +56,12 @@
         props: ["user", "type"],
         computed: {
           time() {
-            let date = new Date();
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            let hour = date.getHours();
-            let minute = date.getMinutes();
-            let second = date.getSeconds();
+            const date = new Date();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hour = date.getHours();
+            const minute = date.getMinutes();
+            const second = date.getSeconds();
 
             if (hour < 10) hour = "0" + hour;
             if (minute < 10) minute = "0" + minute;
@@ -141,32 +141,28 @@
           gachaBox,
         },
         methods: {
-          readJSON(file, callback) {
-            fetch(file).then((res) => {
-              return res.json().then((data) => {
-                callback(data);
-              });
-            });
-          },
           sortValue(type) {
             return "角色" === type ? 1 : 0;
           },
         },
         mounted() {
-          this.readJSON("../../data/record/genshin-gacha.json", (res) => {
-            this.gachaList = res.data;
-            this.type = res.type;
-            this.user = res.user;
+          const params = JSON.parse(
+            decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
+          );
 
-            this.gachaList.sort((x, y) => {
-              let xv = this.sortValue(x.item_type);
-              let yv = this.sortValue(y.item_type);
-              if (x.star === y.star) {
-                return yv - xv;
-              } else {
-                return y.star - x.star;
-              }
-            });
+          this.gachaList = params.data;
+          this.type = params.type;
+          this.user = params.user;
+
+          this.gachaList.sort((x, y) => {
+            const xv = this.sortValue(x.item_type);
+            const yv = this.sortValue(y.item_type);
+
+            if (x.star === y.star) {
+              return yv - xv;
+            } else {
+              return y.star - x.star;
+            }
           });
         },
       });

@@ -553,6 +553,8 @@ function readSettingCookiesGreetingMenu() {
     dbAbyEffectTime: 1,
     // 数据库 info 的数据有效性为一星期
     dbInfoEffectTime: 168,
+    // 不使用前端调试模式
+    viewDebug: 0,
   };
 
   // 用于兼容旧配置，已经被 accounts 取代
@@ -576,6 +578,7 @@ function readSettingCookiesGreetingMenu() {
   const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
+  const viewDebug = parseInt(Setting.viewDebug);
   const cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
   const greetingOnline = Greeting.online;
   const greetingDie = Greeting.die;
@@ -616,6 +619,7 @@ function readSettingCookiesGreetingMenu() {
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
+    { viewDebug },
     { cookies },
     { greetingOnline },
     { greetingDie },
