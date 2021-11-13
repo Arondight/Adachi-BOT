@@ -5,3 +5,5 @@
 !db/
 !font/
 !js/
+!font/*
+!js/*

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genshin-overview</title>
-    <script src="../../data/js/vue.min.js"></script>
+    <script src="../../data/js/vue.js"></script>
     <link rel="stylesheet" href="./component/overview/overview.css" />
   </head>
 
@@ -168,6 +168,11 @@
           starIcon: "",
           numCN: [],
         },
+        methods: {
+          icon(name) {
+            return "http://localhost:9934/resources/Version2/info/image/" + name + ".png";
+          },
+        },
         mounted() {
           const params = JSON.parse(
             decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
@@ -217,10 +222,6 @@
           }
         },
       });
-
-      function icon(name) {
-        return "http://localhost:9934/resources/Version2/info/image/" + name + ".png";
-      }
     </script>
   </body>
 </html>

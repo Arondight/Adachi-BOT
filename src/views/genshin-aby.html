@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genshin-aby</title>
-    <script src="../../data/js/vue.min.js"></script>
+    <script src="../../data/js/vue.js"></script>
     <link rel="stylesheet" href="./component/aby/aby.css" />
   </head>
 
@@ -216,14 +216,41 @@
         damage_rank: [],
         floors: [],
       },
+      methods: {
+        padLeftZero(str) {
+          return ("00" + str).substr(str.length);
+        },
+        formatDate(date, fmt) {
+          if (/(y+)/.test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+          }
+          const o = {
+            "M+": date.getMonth() + 1,
+            "d+": date.getDate(),
+            "h+": date.getHours(),
+            "m+": date.getMinutes(),
+            "s+": date.getSeconds(),
+          };
+          for (const k in o) {
+            if (new RegExp(`(${k})`).test(fmt)) {
+              const str = o[k] + "";
+              fmt = fmt.replace(RegExp.$1, 1 === RegExp.$1.length ? str : this.padLeftZero(str));
+            }
+          }
+          return fmt;
+        },
+        imageUrlReplacement(imageURL) {
+          return imageURL.replace(/_side/gi, "");
+        },
+      },
       mounted() {
         const params = JSON.parse(
           decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
         );
 
         this.uid = params.uid;
-        this.start_time = formatDate(new Date(params.data.start_time * 1000), "yyyy/MM/dd");
-        this.end_time = formatDate(new Date(params.data.end_time * 1000), "yyyy/MM/dd");
+        this.start_time = this.formatDate(new Date(params.data.start_time * 1000), "yyyy/MM/dd");
+        this.end_time = this.formatDate(new Date(params.data.end_time * 1000), "yyyy/MM/dd");
         this.total_battle_times = params.data.total_battle_times;
         this.max_floor = params.data.max_floor;
         this.total_star = params.data.total_star;
@@ -236,35 +263,5 @@
         this.floors = params.data.floors.slice(-4);
       },
     });
-
-    function formatDate(date, fmt) {
-      if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-      }
-      const o = {
-        "M+": date.getMonth() + 1,
-        "d+": date.getDate(),
-        "h+": date.getHours(),
-        "m+": date.getMinutes(),
-        "s+": date.getSeconds(),
-      };
-      for (const k in o) {
-        if (new RegExp(`(${k})`).test(fmt)) {
-          const str = o[k] + "";
-          fmt = fmt.replace(RegExp.$1, 1 === RegExp.$1.length ? str : padLeftZero(str));
-        }
-      }
-      return fmt;
-    }
-
-    function padLeftZero(str) {
-      return ("00" + str).substr(str.length);
-    }
-
-    // 侧面转换成正面
-    function imageUrlReplacement(imageURL) {
-      const regex = /_side/gi;
-      return imageURL.replace(regex, "");
-    }
   </script>
 </html>
