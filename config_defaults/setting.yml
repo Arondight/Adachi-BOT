@@ -61,7 +61,7 @@ friendGreetingNew: 1
 characterTryGetDetail: 1
 # 耗时操作前是否发送提示
 # 1:发送、 0:不发送
-warnTimeCosts: 1
+warnTimeCosts: 0
 # 响应间隔，单位为秒，整数。每个 QQ 隔几秒才能使用一次机器人。
 # 设置为 0 则不做限制。
 # [0, Interger]
@@ -104,7 +104,8 @@ dbAbyEffectTime: 1
 dbInfoEffectTime: 168
 
 #
-# 前端调试模式，不再使用浏览器的无头模式，并且不再关闭标签页
-# 1:使用调试模式、 0:不使用调试模式
+# 前端调试模式，不再使用浏览器的无头模式，并且不再关闭标签页。
 #
+# 是否使用前端调试模式
+# 1:使用、 0:不使用
 viewDebug: 0

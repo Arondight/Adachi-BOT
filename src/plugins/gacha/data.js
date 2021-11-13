@@ -220,27 +220,28 @@ function gachaTimes(userID, nickname, times = 10) {
   });
 
   // 增加统计信息
-  const chain = lodash.chain(result.data);
-  const getNames = (n) => chain.filter({ star: n }).keyBy("item_name").keys().value();
+  const byStar = {
+    five: lodash.filter(result.data, { star: 5 }),
+    four: lodash.filter(result.data, { star: 4 }),
+    three: lodash.filter(result.data, { star: 3 }),
+  };
 
-  result.names.five = getNames(5);
-  result.names.four = getNames(4);
-  result.names.three = getNames(3);
+  result.names.five = lodash.keys(lodash.keyBy(byStar.five, "item_name"));
+  result.names.four = lodash.keys(lodash.keyBy(byStar.four, "item_name"));
+  result.names.three = lodash.keys(lodash.keyBy(byStar.three, "item_name"));
   result.name_nums.five = result.names.five.length;
   result.name_nums.four = result.names.four.length;
   result.name_nums.three = result.names.three.length;
-  result.item_nums.five = chain.filter({ star: 5 }).value().length;
-  result.item_nums.four = chain.filter({ star: 4 }).value().length;
-  result.item_nums.three = chain.filter({ star: 3 }).value().length;
-  chain
-    .filter({ star: 5 })
-    .each((c) => result.five.push(c))
-    .value();
-  chain
+  result.item_nums.five = byStar.five.length;
+  result.item_nums.four = byStar.four.length;
+  result.item_nums.three = byStar.three.length;
+  lodash.each(byStar.five, (c) => result.five.push(c));
+  lodash
+    .chain(result.data)
     .keyBy("item_name")
     .keys()
     .each((c) => {
-      const a = chain.filter({ item_name: c }).value();
+      const a = lodash.filter(result.data, { item_name: c });
       result.count.push(lodash.omit({ ...a[0], ...{ count: a.length } }, "times"));
     })
     .value();

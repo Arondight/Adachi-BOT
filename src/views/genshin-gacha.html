@@ -59,9 +59,9 @@
             const date = new Date();
             const month = date.getMonth() + 1;
             const day = date.getDate();
-            const hour = date.getHours();
-            const minute = date.getMinutes();
-            const second = date.getSeconds();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let second = date.getSeconds();
 
             if (hour < 10) hour = "0" + hour;
             if (minute < 10) minute = "0" + minute;
