@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "bot",
+      "script": "app.js",
+      "node_args": "--max-http-header-size=2097152",
+      "merge_logs": true,
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
