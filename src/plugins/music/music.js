@@ -11,6 +11,7 @@ async function doMusic(msg) {
 
   if (ret in errMsg) {
     msg.bot.say(msg.sid, errMsg[ret], msg.type, msg.uid);
+    return;
   }
 
   msg.bot.say(msg.sid, ret, msg.type); // 点歌不需要 @
