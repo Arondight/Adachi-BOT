@@ -107,18 +107,21 @@ function markCookieUnusable(cookie) {
 function writeInvalidCookie(cookie) {
   const dbName = "cookies_invalid";
   const dbCookieName = "cookies";
-  const [cookie_token] = cookie.match(/cookie_token=\w+?\b/) || [];
-  const [account_id] = cookie.match(/account_id=\w+?\b/) || [];
 
-  if (cookie_token && account_id) {
-    if (!db.includes(dbName, "cookie", "cookie", cookie)) {
-      const initData = { cookie, cookie_token, account_id };
-      db.push(dbName, "cookie", initData);
-      markCookieUnusable(cookie);
+  if ("string" === typeof cookie) {
+    const [cookie_token] = cookie.match(/cookie_token=\w+?\b/) || [];
+    const [account_id] = cookie.match(/account_id=\w+?\b/) || [];
 
-      // 删除该 Cookie 所有的使用记录
-      if (db.includes(dbCookieName, "uid", "cookie", cookie)) {
-        db.remove(dbCookieName, "uid", { cookie });
+    if (cookie_token && account_id) {
+      if (!db.includes(dbName, "cookie", "cookie", cookie)) {
+        const initData = { cookie, cookie_token, account_id };
+        db.push(dbName, "cookie", initData);
+        markCookieUnusable(cookie);
+
+        // 删除该 Cookie 所有的使用记录
+        if (db.includes(dbCookieName, "uid", "cookie", cookie)) {
+          db.remove(dbCookieName, "uid", { cookie });
+        }
       }
     }
   }
@@ -141,17 +144,19 @@ function textOfInvalidCookies() {
 }
 
 function warnInvalidCookie(cookie) {
-  const dbName = "cookies_invalid";
-  db.clean(dbName);
-  writeInvalidCookie(cookie);
-  return textOfInvalidCookies();
+  if ("string" === typeof cookie) {
+    const dbName = "cookies_invalid";
+    db.clean(dbName);
+    writeInvalidCookie(cookie);
+    return textOfInvalidCookies();
+  }
 }
 
 function tryToWarnInvalidCookie(message, cookie) {
   const invalidResponseList = ["please login"];
   const reachMaxTimeResponseList = ["access the genshin game records of up to"];
 
-  if (cookie && message) {
+  if ("string" === typeof cookie && undefined !== message) {
     const errInfo = message.toLowerCase();
 
     for (const res of invalidResponseList.map((c) => c.toLowerCase())) {
