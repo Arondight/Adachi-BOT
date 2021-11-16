@@ -22,6 +22,7 @@
   },
   "scripts": {
     "test": "exit 0",
+    "db": "npx node ./tools/db.js",
     "view": "npx node ./tools/view.js",
     "format": "npx prettier --config ./.prettierrc.json -uw ./app.js ./src/ ./tools/",
     "check": "npx eslint ./app.js ./src/ ./tools/",

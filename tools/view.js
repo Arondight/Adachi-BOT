@@ -13,15 +13,18 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const recordDir = path.resolve(__dirname, "..", "data", "record");
 const names = Object.fromEntries(
-  ls(recordDir).map((c) => {
-    const p = path.parse(c);
-    return [p.name.split("-").slice(-1)[0], p.name];
-  })
+  ls(recordDir)
+    .filter((c) => c.match(/\bgenshin-\w+?[.]json$/))
+    .map((c) => {
+      const p = path.parse(c);
+      return [p.name.split("-").slice(-1)[0], p.name];
+    })
 );
 
 async function main() {
   const argv = yargs(hideBin(process.argv))
-    .usage("-n <view>")
+    .usage("-n <string>")
+    .example("-n aby")
     .help("help")
     .alias("help", "h")
     .version(false)
@@ -65,7 +68,7 @@ async function main() {
       }
     }
 
-    console.log(`错误：未知的名称 ${argv.name} ，使用 -l 查看可用名称。`);
+    console.error(`错误：未知的名称 ${argv.name} ，使用 -l 查看可用名称。`);
     return -1;
   }
 
