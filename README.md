@@ -132,7 +132,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 | 停止 | `npm run stop` |
 | 允许开机启动 | `npm run startup` |
 | 禁止开机启动 | `npm run unstartup` |
-| 查看状态 | `npm run list` |
+| 查看状态 | `npm run info` |
 | 查看日志 | `npm run log` |
 
 > 1. 首次运行必须**进行初始化**以完成 QQ 的新设备认证，随后按下组合键 `Ctrl+C` 停止，此时初始化完成。

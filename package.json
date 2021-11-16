@@ -29,10 +29,11 @@
     "init": "npx node --max-http-header-size=2097152 ./app.js",
     "start": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 start ./.pm2.json; cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 save",
     "restart": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 restart ./.pm2.json",
-    "stop": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 stop bot",
+    "stop": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 stop ./.pm2.json",
     "startup": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 startup",
     "unstartup": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 unstartup",
     "list": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 list bot",
+    "info": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 info bot",
     "log": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 log --lines 100 bot"
   },
   "dependencies": {
