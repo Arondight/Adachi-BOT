@@ -237,11 +237,11 @@ body {
 }
 
 .avatar-rounded {
-  zoom: 21%;
+  zoom: 20%;
   position: relative;
-  transform: translateY(12px);
+  transform: translateY(34px);
   object-fit: cover;
-  clip-path: circle(115px at 128px 104px);
+  clip-path: circle(121px at 128px 86px);
 }
 
 .description-general {
@@ -370,8 +370,6 @@ div.credit {
 }
 
 .banner-placeholder {
-  position: absolute;
-  top: 0;
   height: 30px;
 }
 
