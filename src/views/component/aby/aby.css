@@ -237,11 +237,11 @@ body {
 }
 
 .avatar-rounded {
-  zoom: 20%;
+  zoom: 21%;
   position: relative;
-  transform: translateY(34px);
+  transform: translateY(12px);
   object-fit: cover;
-  clip-path: circle(121px at 128px 86px);
+  clip-path: circle(115px at 128px 104px);
 }
 
 .description-general {
