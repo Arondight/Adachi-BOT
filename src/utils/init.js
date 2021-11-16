@@ -1,8 +1,7 @@
-/* global bots, config, rootdir */
+/* global bots, rootdir */
 /* eslint no-undef: "error" */
 
 import schedule from "node-schedule";
-import puppeteer from "puppeteer";
 import express from "express";
 import db from "./database.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
@@ -19,13 +18,6 @@ function initDB() {
   db.init("map");
   db.init("music", { source: [] });
   db.init("time");
-}
-
-async function initBrowser() {
-  global.browser = await puppeteer.launch({
-    headless: 0 === config.viewDebug,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
 }
 
 function cleanDB(name) {
@@ -52,7 +44,6 @@ function serve(port = 9934) {
 }
 
 async function init() {
-  await initBrowser();
   serve(9934);
   initDB();
   updateGachaJob();

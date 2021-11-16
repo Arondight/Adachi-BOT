@@ -58,7 +58,7 @@ async function doAby(msg, schedule_type = 1) {
   }
 
   const data = db.get("aby", "user", { uid: dbInfo[0] });
-  render(msg, data, "genshin-aby", 2, true);
+  render(msg, data, "genshin-aby");
 }
 
 export { doAby };

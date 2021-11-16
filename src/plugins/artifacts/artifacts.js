@@ -37,7 +37,7 @@ function doArtifacts(msg) {
     }
   }
 
-  render(msg, data, "genshin-artifact", 1.2);
+  render(msg, data, "genshin-artifact");
 }
 
 export { doArtifacts };

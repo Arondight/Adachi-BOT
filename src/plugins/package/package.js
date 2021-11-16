@@ -49,7 +49,7 @@ async function doPackage(msg) {
   }
 
   const data = db.get("info", "user", { uid: dbInfo[0] });
-  render(msg, data, "genshin-info", 1.5, true);
+  render(msg, data, "genshin-info");
 }
 
 export { doPackage };

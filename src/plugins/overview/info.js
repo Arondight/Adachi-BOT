@@ -30,7 +30,7 @@ async function doInfo(msg) {
     return;
   }
 
-  render(msg, data, "genshin-overview", 2);
+  render(msg, data, "genshin-overview");
 }
 
 export { doInfo };
