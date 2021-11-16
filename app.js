@@ -15,7 +15,15 @@ function login() {
       log_level: "debug",
     });
 
-    bot.say = async (id, msg, type = "private", sender = undefined, delimiter = " ", atSender = true) => {
+    bot.say = async (
+      id,
+      msg,
+      type = "private",
+      sender = undefined,
+      tryDelete = false,
+      delimiter = " ",
+      atSender = true
+    ) => {
       if (msg && "" !== msg) {
         switch (type) {
           case "group": {
@@ -30,7 +38,7 @@ function login() {
                 : "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
             const { message_id: mid } = (await bot.sendGroupMsg(id, msg)).data || {};
 
-            if (undefined !== mid && config.deleteGroupMsgTime > 0 && permissionOK) {
+            if (true === tryDelete && undefined !== mid && config.deleteGroupMsgTime > 0 && permissionOK) {
               setTimeout(bot.deleteMsg.bind(bot), config.deleteGroupMsgTime * 1000, mid);
             }
             break;
@@ -49,7 +57,9 @@ function login() {
       }
     };
     // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件
-    bot.sendMessage = bot.say;
+    bot.sendMessage = async (id, msg, type = "private", sender = undefined, delimiter = " ", atSender = true) => {
+      await bot.say(id, msg, type, sender, true, delimiter, atSender);
+    };
     bot.sendMaster = bot.sayMaster;
 
     bots.push(bot);

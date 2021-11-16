@@ -29,7 +29,7 @@ function doSave(msg, action = "save") {
   const unexistMsg = `您还未绑定通行证，使用【${saveCmd} ${mhyID}】。`;
 
   if ("string" === typeof id) {
-    msg.bot.say(msg.sid, id, msg.type, msg.uid);
+    msg.bot.say(msg.sid, id, msg.type, msg.uid, true);
     return;
   }
 
@@ -37,19 +37,19 @@ function doSave(msg, action = "save") {
     case "save":
       if (!db.includes("map", "user", "userID", msg.uid)) {
         db.push("map", "user", { userID: msg.uid, mhyID });
-        msg.bot.say(msg.sid, `通行证绑定成功，${okMsg}`, msg.type, msg.uid);
+        msg.bot.say(msg.sid, `通行证绑定成功，${okMsg}`, msg.type, msg.uid, true);
         setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
-        msg.bot.say(msg.sid, existMsg, msg.type, msg.uid);
+        msg.bot.say(msg.sid, existMsg, msg.type, msg.uid, true);
       }
       break;
     case "change":
       if (db.includes("map", "user", "userID", msg.uid)) {
         db.update("map", "user", { userID: msg.uid }, { mhyID });
-        msg.bot.say(msg.sid, `通行证改绑成功，${okMsg}`, msg.type, msg.uid);
+        msg.bot.say(msg.sid, `通行证改绑成功，${okMsg}`, msg.type, msg.uid, true);
         setCacheTimeout(msg.uid, mhyID, msg.bot);
       } else {
-        msg.bot.say(msg.sid, unexistMsg, msg.type, msg.uid);
+        msg.bot.say(msg.sid, unexistMsg, msg.type, msg.uid, true);
       }
       break;
   }

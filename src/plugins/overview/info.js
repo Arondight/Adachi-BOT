@@ -17,7 +17,7 @@ async function doInfo(msg) {
   let data;
 
   if (!text) {
-    msg.bot.say(msg.sid, "请输入名称。", msg.type, msg.uid);
+    msg.bot.say(msg.sid, "请输入名称。", msg.type, msg.uid, true);
     return;
   }
 
@@ -26,7 +26,7 @@ async function doInfo(msg) {
   try {
     data = await getInfo(alias.all[text] || text);
   } catch (e) {
-    msg.bot.say(msg.sid, getNotFoundText(text), msg.type, msg.uid);
+    msg.bot.say(msg.sid, getNotFoundText(text), msg.type, msg.uid, true);
     return;
   }
 

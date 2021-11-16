@@ -18,7 +18,7 @@ async function Plugin(msg) {
       break;
     case hasEntrance(msg.text, "artifacts", "dungeons"):
       if (false !== checkAuth(msg, "dungeons")) {
-        msg.bot.say(msg.sid, domainInfo(), msg.type, msg.uid, "\n");
+        msg.bot.say(msg.sid, domainInfo(), msg.type, msg.uid, false, "\n");
       }
       break;
   }

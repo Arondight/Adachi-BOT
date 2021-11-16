@@ -19,7 +19,7 @@ async function doMusic(msg) {
 
 async function doMusicSource(msg) {
   const ret = musicSrc(msg.text, msg.sid);
-  msg.bot.say(msg.sid, ret ? `音乐源已切换为 ${ret} 。` : "音乐源切换失败。", msg.type, msg.uid);
+  msg.bot.say(msg.sid, ret ? `音乐源已切换为 ${ret} 。` : "音乐源切换失败。", msg.type, msg.uid, true);
 }
 
 export { doMusic, doMusicSource };

@@ -11,7 +11,7 @@ function search(msg) {
     });
     report += report ? "" : "没有加入任何群。";
 
-    msg.bot.say(msg.sid, report, msg.type, msg.uid);
+    msg.bot.say(msg.sid, report, msg.type, msg.uid, false);
     return;
   }
 
@@ -21,7 +21,7 @@ function search(msg) {
     });
     report += report ? "" : "没有添加任何好友。";
 
-    msg.bot.say(msg.sid, report, msg.type, msg.uid);
+    msg.bot.say(msg.sid, report, msg.type, msg.uid, false);
     return;
   }
 
@@ -38,7 +38,7 @@ function search(msg) {
     });
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${str} 的群或好友。`;
 
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, "\n");
+    msg.bot.say(msg.sid, report, msg.type, msg.uid, false, "\n");
     return;
   }
 }

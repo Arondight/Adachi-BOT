@@ -38,7 +38,7 @@ function checkAuth(msg, func, report = true) {
 
   if (false === uauth || false === gauth) {
     if (true === report && undefined !== msg.bot) {
-      msg.bot.say(msg.sid, `您当前无【${command.functions.name[func]}】权限。`, msg.type, msg.uid);
+      msg.bot.say(msg.sid, `您当前无【${command.functions.name[func]}】权限。`, msg.type, msg.uid, true);
     }
     return false;
   }

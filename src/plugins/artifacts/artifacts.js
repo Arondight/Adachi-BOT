@@ -32,7 +32,7 @@ function doArtifacts(msg) {
       data = (db.get("artifact", "user", { userID: msg.uid }) || {}).initial;
     } else {
       const text = `请正确输入副本，可以使用【${command.functions.name.dungeons}】查看所有副本。`;
-      msg.bot.say(msg.sid, text, msg.type, msg.uid);
+      msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
       return;
     }
   }

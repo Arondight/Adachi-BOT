@@ -71,7 +71,7 @@ async function Plugin(msg) {
       break;
     case hasEntrance(msg.text, "master", "refresh_wish_detail"):
       gachaUpdate();
-      msg.bot.say(msg.sid, "卡池内容已刷新。", msg.type, msg.uid);
+      msg.bot.say(msg.sid, "卡池内容已刷新。", msg.type, msg.uid, true);
       break;
   }
 }

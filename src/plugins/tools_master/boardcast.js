@@ -11,7 +11,7 @@ function boardcast(msg) {
       report += `${item.group_name}（${item.group_id}）\n`;
     });
     report += report ? "以上群已发送广播。" : "没有加入任何群。";
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, "\n");
+    msg.bot.say(msg.sid, report, msg.type, msg.uid, true, "\n");
     return;
   }
 
@@ -22,7 +22,7 @@ function boardcast(msg) {
       report += `${item.nickname}（${item.user_id}）\n`;
     });
     report += report ? "以上好友已发送广播。" : "没有添加任何好友。";
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, "\n");
+    msg.bot.say(msg.sid, report, msg.type, msg.uid, true, "\n");
     return;
   }
 }

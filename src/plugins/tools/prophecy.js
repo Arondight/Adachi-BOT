@@ -15,11 +15,11 @@ async function prophecy(msg) {
     const { fortuneSummary, signText, unSignText } = data || {};
     const message = `${fortuneSummary}：${signText}。\n${unSignText}`;
 
-    msg.bot.say(msg.sid, message, msg.type, msg.uid, "\n");
+    msg.bot.say(msg.sid, message, msg.type, msg.uid, true, "\n");
     return;
   }
 
-  msg.bot.say(msg.sid, "今日星光黯淡，不宜求签……", msg.type, msg.uid);
+  msg.bot.say(msg.sid, "今日星光黯淡，不宜求签……", msg.type, msg.uid, true);
 }
 
 export { prophecy };

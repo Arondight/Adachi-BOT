@@ -11,10 +11,10 @@ async function quote(msg) {
 
   if (200 === response.status) {
     const { quote, from } = await response.json();
-    return msg.bot.say(msg.sid, `${quote}\n${from}`, msg.type, msg.uid, "\n");
+    return msg.bot.say(msg.sid, `${quote}\n${from}`, msg.type, msg.uid, true, "\n");
   }
 
-  msg.bot.say(msg.sid, "伟大的升华！", msg.type, msg.uid);
+  msg.bot.say(msg.sid, "伟大的升华！", msg.type, msg.uid, true);
 }
 
 export { quote };

@@ -8,7 +8,7 @@ https://github.com/Arondight/Adachi-BOT/issues`;
 
   // 私聊无法 @
   msg.bot.sayMaster(msg.sid, textMaster, msg.type, msg.uid);
-  msg.bot.say(msg.sid, text, msg.type, msg.uid);
+  msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
 }
 
 export { feedback };
