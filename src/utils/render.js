@@ -40,6 +40,7 @@ let browser;
 async function launch() {
   if (undefined === browser) {
     browser = await puppeteer.launch({
+      defaultViewport: null,
       headless: 0 === config.viewDebug,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
