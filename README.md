@@ -119,6 +119,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 > 1. 你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护，那就不要把它们放到 `./config/` 下。请详细阅读相关配置文件中注释的说明。
 > 2. 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
+> 3. 当前任何配置文件的更改都需要重启机器人方可生效。
 
 ### 运行
 
