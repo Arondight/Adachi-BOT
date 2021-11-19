@@ -54,6 +54,17 @@ git clone https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
 ```
 
+<details>
+  <summary>使用代理克隆本项目</summary>
+
+如果你访问 `GitHub` 的速度很慢，那么你可以使用下面的代理克隆本项目。
+
+```
+git clone https://hub.fastgit.org/Arondight/Adachi-BOT.git
+```
+
+</details>
+
 #### 安装依赖模块
 
 你需要使用 `npm` 命令安装所需的依赖模块，但是因为 [Puppeteer](https://github.com/puppeteer/puppeteer.git) 在安装过程中具有特殊性，所以整个安装过程有了两种思路，你可以在下面的安装方法中任选其一。
