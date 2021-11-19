@@ -5,10 +5,13 @@ import { hasEntrance } from "../../utils/config.js";
 import { filterWordsByRegex } from "../../utils/tools.js";
 
 function boardcast(msg) {
-  const text = filterWordsByRegex(msg.text, ...master.functions.entrance.boardcast);
+  const text = filterWordsByRegex(
+    msg.text,
+    ...[...master.functions.entrance.group_boardcast, ...master.functions.entrance.private_boardcast]
+  );
   let report = "";
 
-  for (const t in [
+  for (const t of [
     ["group", "group_boardcast"],
     ["private", "private_boardcast"],
   ]) {

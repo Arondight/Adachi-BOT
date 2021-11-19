@@ -5,13 +5,13 @@ import { hasEntrance } from "../../utils/config.js";
 import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
 
 function search(msg) {
-  const text = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.search), /\S+/)[1];
+  const [text] = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.search), /\S+/);
   const listAll = new Map([...msg.bot.fl, ...msg.bot.gl]);
   let report = "";
 
-  for (const t in [
-    ["group", "group_boardcast"],
-    ["private", "private_boardcast"],
+  for (const t of [
+    ["group", "group_search"],
+    ["private", "private_search"],
   ]) {
     const [type, entrance] = t;
     const isGroup = "group" === type;
