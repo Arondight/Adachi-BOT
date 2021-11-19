@@ -47,22 +47,22 @@ function getEffectiveCookie(uid, s, use_cookie) {
 
   if (date && date === today && times && times >= 30) {
     return s >= cookies.length ? cookie : getEffectiveCookie(uid, s + 1, use_cookie);
-  } else {
-    if (date && date != today) {
-      times = 0;
-    }
-
-    date = today;
-    times = times ? times + 1 : 1;
-
-    if (use_cookie) {
-      db.update(dbName, "cookie", { cookie }, { date, times });
-    }
-
-    db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
-
-    return cookie;
   }
+
+  if (date && date != today) {
+    times = 0;
+  }
+
+  date = today;
+  times = times ? times + 1 : 1;
+
+  if (use_cookie) {
+    db.update(dbName, "cookie", { cookie }, { date, times });
+  }
+
+  db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
+
+  return cookie;
 }
 
 function getCookie(uid, use_cookie, bot) {
