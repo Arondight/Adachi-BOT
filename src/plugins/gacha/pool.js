@@ -1,11 +1,12 @@
-/* global all */
+/* global all, command */
 /* eslint no-undef: "error" */
 
 import db from "../../utils/database.js";
+import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
 import { init } from "./init.js";
 
 function doPool(msg) {
-  const [cmd] = msg.text.split(/(?<=^\S+)\s/).slice(1);
+  const [cmd] = getWordByRegex(filterWordsByRegex(msg.text, ...command.functions.entrance.pool), /\S+/);
   let choice = 301;
 
   switch (cmd) {

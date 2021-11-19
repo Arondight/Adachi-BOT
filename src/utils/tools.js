@@ -16,6 +16,34 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max) + 1;
 }
 
+// return [match, new, origin]
+function getWordByRegex(text, regstr) {
+  let r = regstr;
+  let w;
+
+  if ("string" === typeof r) {
+    r = new RegExp(r, "i");
+  }
+
+  if (r instanceof RegExp && (w = r.exec(text))) {
+    return [w[0], text.replace(r, "").trim(), text];
+  }
+
+  return [undefined, undefined, text];
+}
+
+function filterWordsByRegex(text, ...rest) {
+  for (const r of rest) {
+    const unmatch = getWordByRegex(text, r)[1];
+
+    if ("string" === typeof unmatch) {
+      text = unmatch;
+    }
+  }
+
+  return text;
+}
+
 function guessPossibleNames(name, names) {
   if (!Array.isArray(names) || names.includes(name)) {
     return undefined;
@@ -38,4 +66,4 @@ function guessPossibleNames(name, names) {
   return words.join("、");
 }
 
-export { randomString, getRandomInt, guessPossibleNames };
+export { randomString, getRandomInt, getWordByRegex, filterWordsByRegex, guessPossibleNames };

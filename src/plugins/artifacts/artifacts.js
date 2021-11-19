@@ -2,12 +2,13 @@
 /* eslint no-undef: "error" */
 
 import db from "../../utils/database.js";
+import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
 import { render } from "../../utils/render.js";
 import { getArtifact, domainMax } from "./data.js";
 import { init } from "./init.js";
 
 function doArtifacts(msg) {
-  const arg = (msg.text.split(/(?<=^\S+)\s/).slice(0, 2) || [])[1];
+  const [arg] = getWordByRegex(filterWordsByRegex(msg.text, ...command.functions.entrance.artifacts), /\S+/);
   let id;
   let data;
 

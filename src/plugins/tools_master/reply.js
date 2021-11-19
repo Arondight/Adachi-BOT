@@ -1,6 +1,10 @@
+/* global master */
+/* eslint no-undef: "error" */
+
+import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+
 function reply(msg) {
-  const target = parseInt(msg.text.match(/[0-9]+/g)[0]);
-  const [text] = msg.text.split(/(?<=\d+\S+)\s/).slice(1);
+  const [target, text] = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.reply), /[0-9]+/)[1];
   const list = new Map([...msg.bot.fl, ...msg.bot.gl]);
 
   list.forEach((item) => {

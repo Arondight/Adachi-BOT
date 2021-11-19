@@ -31,7 +31,7 @@ aby:
   weights: 9699
   regex:
     - ^(上期)?深渊\s*$
-    - ^(上期)?深渊\s+\d+.*$
+    - ^(上期)?深渊\s*\d+.*$
     - ^(上期)?深渊\s*\[CQ:at,qq=.*$
   functions:
     aby:
@@ -58,7 +58,7 @@ artifacts:
   weights: 9299
   regex:
     - ^圣遗物\s*$
-    - ^圣遗物\s+\S+\s*$
+    - ^圣遗物\s*\S+\s*$
     - ^(强化|副本)\s*$
   functions:
     artifacts:
@@ -94,7 +94,7 @@ card:
   weights: 9899
   regex:
     - ^米游社\s*$
-    - ^米游社\s+\d+\s*$
+    - ^米游社\s*\d+\s*$
     - ^米游社\s*\[CQ:at,qq=.*$
   functions:
     card:
@@ -111,8 +111,8 @@ character:
   enable: true
   weights: 9599
   regex:
-    - ^我的\s+\S+\s*$
-    - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s+\S+\s*$
+    - ^我的\s*\S+\s*$
+    - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s*\S+\s*$
   functions:
     character:
       type: command
@@ -138,7 +138,7 @@ gacha:
   weights: 9399
   regex:
     - ^(十连|定轨)\s*$
-    - ^(卡池|定轨)\s+\S+\s*$
+    - ^(卡池|定轨)\s*\S+\s*$
     - ^(查看|取消)定轨\s*$
   functions:
     gacha:
@@ -198,8 +198,8 @@ tools:
   regex:
     - ^(help|roll|菜单|管理(命令|功能)|伟大的升华|求签|占卜)\s*$
     - ^(今天)?吃什么\s*$
-    - ^roll\s+[+-]?\d+\s*$
-    - ^带(个)?话\s+.+$
+    - ^roll\s*[+-]?\d+\s*$
+    - ^带(个)?话\s*.+$
   functions:
     menu:
       type: command
@@ -304,8 +304,8 @@ music:
   enable: true
   weights: 8999
   regex:
-    - ^点歌\s+.+$
-    - ^音乐源\s+\S+\s*$
+    - ^点歌\s*.+$
+    - ^音乐源\s*\S+\s*$
   functions:
     music:
       type: command
@@ -333,7 +333,7 @@ overview:
   enable: true
   weights: 9499
   regex:
-    - ^(角色|武器|信息)\s+\S+\s*$
+    - ^(角色|武器|信息)\s*\S+\s*$
   functions:
     info:
       type: command
@@ -350,7 +350,7 @@ package:
   weights: 9799
   regex:
     - ^uid\s*$
-    - ^uid\s+\d+\s*$
+    - ^uid\s*\d+\s*$
     - ^uid\s*\[CQ:at,qq=.*$
   functions:
     package:
@@ -384,7 +384,7 @@ save:
   enable: true
   weights: 9999
   regex:
-    - ^(绑定|改绑)\s+\d+\s*$
+    - ^(绑定|改绑)\s*\d+\s*$
   functions:
     save:
       type: command

@@ -1,29 +1,31 @@
+/* global master */
+/* eslint no-undef: "error" */
+
 import { hasEntrance } from "../../utils/config.js";
+import { filterWordsByRegex } from "../../utils/tools.js";
 
 function boardcast(msg) {
-  const [text] = msg.text.split(/(?<=^\S+)\s/).slice(1);
+  const text = filterWordsByRegex(msg.text, ...master.functions.entrance.boardcast);
   let report = "";
 
-  if (hasEntrance(msg.text, "tools_master", "group_boardcast")) {
-    msg.bot.gl.forEach((item) => {
-      // 广播无法 @
-      msg.bot.say(item.group_id, `主人发送了一条群广播：\n${text}`, "group");
-      report += `${item.group_name}（${item.group_id}）\n`;
-    });
-    report += report ? "以上群已发送广播。" : "没有加入任何群。";
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, true, "\n");
-    return;
-  }
+  for (const t in [
+    ["group", "group_boardcast"],
+    ["private", "private_boardcast"],
+  ]) {
+    const [type, entrance] = t;
+    const isGroup = "group" === type;
+    const typestr = isGroup ? "群" : "好友";
+    const list = isGroup ? msg.bot.gl : msg.bot.fl;
 
-  if (hasEntrance(msg.text, "tools_master", "private_boardcast")) {
-    msg.bot.fl.forEach((item) => {
-      // 广播无法 @
-      msg.bot.say(item.user_id, `主人发送了一条好友广播：\n${text}`, "private");
-      report += `${item.nickname}（${item.user_id}）\n`;
-    });
-    report += report ? "以上好友已发送广播。" : "没有添加任何好友。";
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, true, "\n");
-    return;
+    if (hasEntrance(msg.text, "tools_master", entrance)) {
+      list.forEach((item) => {
+        // 广播无法 @
+        msg.bot.say(isGroup ? item.group_id : item.user_id, `主人发送了一条${typestr}广播：\n${text}`, type);
+        report += `${isGroup ? item.group_name : item.nickname}（${isGroup ? item.group_id : item.user_id}）\n`;
+      });
+      report += report ? `以上${typestr}已发送广播。` : `没有发现任何${typestr}。`;
+      msg.bot.say(msg.sid, report, msg.type, msg.uid, true, "\n");
+    }
   }
 }
 

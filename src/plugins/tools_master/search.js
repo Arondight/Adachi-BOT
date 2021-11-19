@@ -1,28 +1,32 @@
+/* global master */
+/* eslint no-undef: "error" */
+
 import { hasEntrance } from "../../utils/config.js";
+import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
 
 function search(msg) {
-  const [str] = msg.text.split(/(?<=^\S+)\s/).slice(1);
+  const text = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.search), /\S+/)[1];
   const listAll = new Map([...msg.bot.fl, ...msg.bot.gl]);
   let report = "";
 
-  if (hasEntrance(msg.text, "tools_master", "group_search")) {
-    msg.bot.gl.forEach((item) => {
-      report += `${item.group_name}（${item.group_id}）\n`;
-    });
-    report += report ? "" : "没有加入任何群。";
+  for (const t in [
+    ["group", "group_boardcast"],
+    ["private", "private_boardcast"],
+  ]) {
+    const [type, entrance] = t;
+    const isGroup = "group" === type;
+    const typestr = isGroup ? "群" : "好友";
+    const list = isGroup ? msg.bot.gl : msg.bot.fl;
 
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, false);
-    return;
-  }
+    if (hasEntrance(msg.text, "tools_master", entrance)) {
+      list.forEach((item) => {
+        report += `${isGroup ? item.group_name : item.nickname}（${isGroup ? item.group_id : item.user_id}）\n`;
+      });
 
-  if (hasEntrance(msg.text, "tools_master", "private_search")) {
-    msg.bot.fl.forEach((item) => {
-      report += `${item.nickname}（${item.user_id}）\n`;
-    });
-    report += report ? "" : "没有添加任何好友。";
-
-    msg.bot.say(msg.sid, report, msg.type, msg.uid, false);
-    return;
+      report += report ? "" : `没有发现任何${typestr}。`;
+      msg.bot.say(msg.sid, report, msg.type, msg.uid, false);
+      return;
+    }
   }
 
   if (hasEntrance(msg.text, "tools_master", "search")) {
@@ -32,11 +36,11 @@ function search(msg) {
       const itemID = isGroup ? item.group_id : item.user_id;
       const typeStr = isGroup ? "群组" : "好友";
 
-      if (itemName.includes(str) || itemID.toString().includes(str)) {
+      if (itemName.includes(text) || itemID.toString().includes(text)) {
         report += `${typeStr}：${itemName}（${itemID}）\n`;
       }
     });
-    report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${str} 的群或好友。`;
+    report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
 
     msg.bot.say(msg.sid, report, msg.type, msg.uid, false, "\n");
     return;

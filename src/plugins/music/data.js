@@ -1,10 +1,11 @@
-/* global all */
+/* global all, command */
 /* eslint no-undef: "error" */
 
 import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
 import db from "../../utils/database.js";
+import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
 
 const ERRCODE = {
   ERR_SRC: "1",
@@ -105,7 +106,7 @@ async function music163(keyword) {
 }
 
 async function musicID(text, source) {
-  const [keyword] = text.split(/(?<=^\S+)\s/).slice(1);
+  const args = filterWordsByRegex(text, ...command.functions.entrance.music);
   const worker = {
     [all.functions.options.music_source.qq || "qq"]: musicQQ,
     [all.functions.options.music_source[163] || "163"]: music163,
@@ -115,11 +116,11 @@ async function musicID(text, source) {
     return ERRCODE.ERR_SRC;
   }
 
-  return await worker[source](keyword);
+  return await worker[source](args);
 }
 
 function musicSrc(text, id) {
-  let [source] = text.split(/(?<=^\S+)\s/).slice(1);
+  let [source] = getWordByRegex(filterWordsByRegex(text, ...command.functions.entrance.music), /\S+/);
   const data = db.get("music", "source", { ID: id });
 
   if ("string" === typeof source) {

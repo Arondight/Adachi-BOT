@@ -1,14 +1,15 @@
-/* global alias */
+/* global alias, command */
 /* eslint no-undef: "error" */
 
 import lodash from "lodash";
 import db from "../../utils/database.js";
+import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
 import { init } from "./init.js";
 
 function doSelect(msg) {
   init(msg.uid);
 
-  let [cmd] = msg.text.split(/(?<=^\S+)\s/).slice(1);
+  let [cmd] = getWordByRegex(filterWordsByRegex(msg.text, ...command.functions.entrance.select), /\S+/);
   const { choice } = db.get("gacha", "user", { userID: msg.uid }) || {};
 
   if (choice !== 302) {

@@ -4,7 +4,7 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
-import { guessPossibleNames } from "../../utils/tools.js";
+import { getWordByRegex, filterWordsByRegex, guessPossibleNames } from "../../utils/tools.js";
 import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
 
 function getCharacter(uid, character) {
@@ -25,16 +25,12 @@ function getNotFoundText(character, isMyChar) {
 }
 
 function getName(text) {
-  if (text.match(/^\[CQ:at,qq=\d+,text=.+?\]/)) {
-    text = text.replace(/\[CQ:at,qq=\d+,text=.+?\]\s*/, "");
-  }
-
-  const textParts = text.split(/\s+/);
-  let character = textParts[1];
-
-  if (text.match(/^\d+\s+/)) {
-    character = textParts[2];
-  }
+  const filterd = filterWordsByRegex(
+    text,
+    ...[...command.functions.entrance.character, ...command.functions.entrance.others_character]
+  );
+  const match = getWordByRegex(filterd, /的/);
+  let [character] = getWordByRegex(match[1] || match[2], /\S+/);
 
   if (!character) {
     return undefined;

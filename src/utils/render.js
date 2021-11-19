@@ -51,7 +51,7 @@ async function render(msg, data, name) {
   let base64;
 
   if ((settings.hello[name] || settingsDefault.hello) && config.warnTimeCosts) {
-    msg && msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
+    msg.bot && msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
   }
 
   try {
@@ -61,7 +61,7 @@ async function render(msg, data, name) {
       // 该文件仅用于辅助前端调试，无实际作用亦不阻塞
       const record = path.resolve(rootdir, "data", "record", `${name}.json`);
       fs.writeFile(record, dataStr, () => {});
-      msg && msg.bot.logger.debug(`render：已生成 ${name} 功能的数据调试文件。`);
+      msg.bot && msg.bot.logger.debug(`render：已生成 ${name} 功能的数据调试文件。`);
     }
 
     await launch();
@@ -92,14 +92,15 @@ async function render(msg, data, name) {
       await page.close();
     }
   } catch (e) {
-    msg && msg.bot.logger.error(`render： ${name} 功能绘图失败：${e}`, msg.uid);
-    msg && msg.bot.say(msg.sid, "绘图失败。", msg.type, msg.uid, true);
+    msg.bot && msg.bot.logger.error(`render： ${name} 功能绘图失败：${e}`, msg.uid);
+    msg.bot && msg.bot.say(msg.sid, "绘图失败。", msg.type, msg.uid, true);
     return;
   }
 
   if (base64) {
     const imageCQ = `[CQ:image,file=base64://${base64}]`;
-    msg && msg.bot.say(msg.sid, imageCQ, msg.type, msg.uid, settings.delete[name] || settingsDefault.delete, "\n");
+    const toDelete = undefined === settings.delete[name] ? settingsDefault.delete : settings.delete[name];
+    msg.bot && msg.bot.say(msg.sid, imageCQ, msg.type, msg.uid, toDelete, "\n");
   }
 }
 
