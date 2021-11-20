@@ -25,12 +25,15 @@ function getNotFoundText(character, isMyChar) {
 }
 
 function getName(text) {
-  const filterd = filterWordsByRegex(
+  let character = filterWordsByRegex(
     text,
     ...[...command.functions.entrance.character, ...command.functions.entrance.others_character]
   );
-  const match = getWordByRegex(filterd, /的/);
-  let [character] = getWordByRegex(match[1] || match[2], /\S+/);
+
+  if (character.startsWith("的")) {
+    const match = getWordByRegex(character, /的/);
+    character = getWordByRegex(match[1] || match[2], /\S+/)[0];
+  }
 
   if (!character) {
     return undefined;

@@ -111,7 +111,7 @@ character:
   enable: true
   weights: 9599
   regex:
-    - ^我的\s*(\w|\h){0,30}\s*$
+    - ^我的\s*\w(\w|\s){0,30}\s*$
     - ^我的\s*[\u4e00-\u9fa5]{0,6}\s*$
     - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s*\S+\s*$
   functions:
@@ -368,7 +368,6 @@ rating:
   enable: true
   weights: 9199
   regex:
-    # https://github.com/Arondight/Adachi-BOT/issues/54
     - ^评分\s*\[CQ:image,file=.*$
   functions:
     rating:
