@@ -78,7 +78,7 @@ async function render(msg, data, name) {
 
     // 数据使用 URL 参数传入
     const param = { data: new Buffer.from(dataStr, "utf8").toString("base64") };
-    await page.goto(`http://localhost:9934/src/views/${name}.html?${new URLSearchParams(param).toString()}`);
+    await page.goto(`http://localhost:9934/src/views/${name}.html?${new URLSearchParams(param)}`);
 
     const html = await page.$("body", { waitUntil: "networkidle0" });
     base64 = await html.screenshot({

@@ -49,6 +49,7 @@ async function doPackage(msg) {
   }
 
   const data = db.get("info", "user", { uid: dbInfo[0] });
+  data.qqid = msg.uid;
   render(msg, data, "genshin-info");
 }
 
