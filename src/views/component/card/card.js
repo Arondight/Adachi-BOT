@@ -41,7 +41,7 @@ const upper = {
     Picture() {
       return undefined === this.qqid
         ? "http://localhost:9934/resources/characters/profile/" + this.profile + ".png"
-        : "https://q1.qlogo.cn/g?b=qq&s=5&nk=" + this.qqid.toString();
+        : "https://q1.qlogo.cn/g?b=qq&s=5&nk=" + this.qqid;
     },
     worldLevel() {
       if (this.level >= 55) {

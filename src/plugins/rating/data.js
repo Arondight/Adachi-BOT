@@ -80,7 +80,7 @@ function adjustProp(obj, bot) {
 
     if (value > maxValue.sub_item[item.type]) {
       const before = item.value;
-      item.value = `${(value / 10).toFixed(1).toString()}%`;
+      item.value = `${(value / 10).toFixed(1)}%`;
       say("副属性", item.type, before, item.value);
     }
   }
