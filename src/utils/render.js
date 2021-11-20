@@ -68,7 +68,7 @@ async function render(msg, data, name) {
     const page = await browser.newPage();
 
     // 只在机器人发送图片时设置 viewport
-    if (msg) {
+    if (msg.bot) {
       await page.setViewport({
         width: await page.evaluate(() => document.body.clientWidth),
         height: await page.evaluate(() => document.body.clientHeight),
