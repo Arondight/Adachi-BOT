@@ -14,13 +14,13 @@ img {
 }
 
 .profile {
-    position: absolute;
-    top: 71px;
-    left: 92px;
-    width: 160px;
-    border-radius: 320px;
-    border: 7px solid white;
-    box-shadow: 0 0 8px #e1dad0;
+  position: absolute;
+  top: 71px;
+  left: 92px;
+  width: 160px;
+  border-radius: 320px;
+  border: 7px solid white;
+  box-shadow: 0 0 8px #e1dad0;
 }
 
 .base-info {
