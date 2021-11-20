@@ -1,3 +1,6 @@
+/* global command */
+/* eslint no-undef: "error" */
+
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
@@ -40,9 +43,10 @@ async function doCard(msg) {
   }
 
   const data = db.get("info", "user", { uid });
+  const qqid = "" === args ? msg.uid : msg.text.includes("[CQ:at") ? parseInt(msg.text.match(/\d+/g)[0]) : undefined;
 
-  if ("" === args) {
-    data.qqid = msg.uid;
+  if (undefined !== qqid) {
+    data.qqid = qqid;
   }
 
   render(msg, data, "genshin-card");

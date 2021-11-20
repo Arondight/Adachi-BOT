@@ -56,7 +56,7 @@ function getID(msg, userID, isMhyID = true) {
   let idInMsg = msgstr.match(/\d+/g);
   let id = idInMsg ? parseInt(idInMsg[0]) : undefined;
   let idstr = id ? id.toString() : undefined;
-  let cqmsg = msgstr.includes("[CQ:at") ? true : false;
+  let cqmsg = msgstr.includes("[CQ:at");
   let errInfo = "";
 
   if (isMhyID && !userID) {
