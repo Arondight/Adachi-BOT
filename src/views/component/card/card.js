@@ -2,6 +2,7 @@
 const upper = {
   template: "#upper",
   props: {
+    qqid: Number,
     uid: Number,
     nickname: String,
     level: Number,
@@ -38,7 +39,9 @@ const upper = {
   },
   computed: {
     Picture() {
-      return "http://localhost:9934/resources/characters/profile/" + this.profile + ".png";
+      return undefined === this.qqid
+        ? "http://localhost:9934/resources/characters/profile/" + this.profile + ".png"
+        : "https://q1.qlogo.cn/g?b=qq&s=5&nk=" + this.qqid.toString();
     },
     worldLevel() {
       if (this.level >= 55) {
@@ -67,7 +70,6 @@ const upper = {
         return `${data ? data.exploration_percentage / 10 : 0}%`;
       };
     },
-
     expLevel(props) {
       return (id) => {
         const data = props.exploration.find((el) => el.id === id);

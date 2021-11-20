@@ -38,6 +38,7 @@ async function doCard(msg) {
   }
 
   const data = db.get("info", "user", { uid });
+  data.qqid = msg.uid;
   render(msg, data, "genshin-card");
 }
 

@@ -23,6 +23,7 @@
         解锁传送点
       </div>
       <upper
+        :qqid="qqid"
         :uid="uid"
         :nickname="nickname"
         :level="level"
@@ -169,6 +170,7 @@
       new Vue({
         el: "#app",
         data: {
+          qqid: undefined,
           retcode: 1,
           nickname: "",
           uid: 0,
@@ -205,6 +207,7 @@
           );
           const avatarsList = params.avatars || [];
 
+          this.qqid = params.qqid;
           this.nickname = params.nickname;
           this.uid = params.uid;
           this.level = params.level;
