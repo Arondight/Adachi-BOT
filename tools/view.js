@@ -63,7 +63,7 @@ async function main() {
       const data = JSON.parse(fs.readFileSync(dataFile, "utf-8"));
 
       if (data) {
-        render(undefined, data, view);
+        render({}, data, view);
         await new Promise(() => {}); // active but do nothing, never return
       }
     }
