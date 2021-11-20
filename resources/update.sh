@@ -463,7 +463,7 @@ function syncCustom()
     rpath="${file##${CUSTOM_RES}}"
     thisdir="${RDIR}/$(dirname ${rpath})"
 
-    if [[ '/README.txt' == "$rpath" ]]
+    if [[ 'README.txt' == $(basename "$rpath") ]]
     then
       continue
     fi

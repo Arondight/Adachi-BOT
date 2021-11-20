@@ -40,7 +40,7 @@ const upper = {
   computed: {
     Picture() {
       return undefined === this.qqid
-        ? "http://localhost:9934/resources/Version2/character/" + this.profile + ".png"
+        ? "http://localhost:9934/resources/paimon/paimon_logo.jpg"
         : "https://q1.qlogo.cn/g?b=qq&s=5&nk=" + this.qqid;
     },
     worldLevel() {
