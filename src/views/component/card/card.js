@@ -25,6 +25,7 @@ const upper = {
           precious_chest_number: 0,
           luxurious_chest_number: 0,
           spiral_abyss: "0-0",
+          way_point_number: 0,
         };
       },
     },

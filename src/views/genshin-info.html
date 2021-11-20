@@ -10,6 +10,18 @@
 
   <body>
     <div id="app">
+      <div
+        style="
+          position: absolute;
+          top: 474px;
+          left: 792px;
+          color: transparent;
+          text-shadow: 0 0 0.5px #404040;
+          font-size: 30px;
+        "
+      >
+        解锁传送点
+      </div>
       <upper
         :uid="uid"
         :nickname="nickname"
@@ -56,6 +68,7 @@
           <p class="stats">{{stats.anemoculus_number}}</p>
           <p class="stats">{{stats.geoculus_number}}</p>
           <p class="stats">{{stats.electroculus_number}}</p>
+          <p class="stats">{{stats.way_point_number}}</p>
         </div>
 
         <div class="exploration">
