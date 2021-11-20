@@ -191,8 +191,8 @@ domains:
     name: 椛染之庭
     alias: [ 绝缘本, 追忆本, 充能本, 吸能本 ]
     product: [ 16, 17 ]
-#  -
-#    id: 9
-#    name: 原子能量球
-#    alias: [ 防御本, 海染本 ]
-#    product: [ 18, 19 ]
+  -
+    id: 9
+    name: 沉眠之庭
+    alias: [ 防御本, 海染本 ]
+    product: [ 18, 19 ]
