@@ -113,7 +113,7 @@ character:
   regex:
     - ^我的\s*\w(\w|\s){0,30}\s*$
     - ^我的\s*[\u4e00-\u9fa5]{0,6}\s*$
-    - ^((\[CQ:at,qq=.*?\])|(\d+))\s*的\s*\S+\s*$
+    - ^((\[CQ:at,qq=.*?\])|([125]\d{8}))\s*的\s*\S+\s*$
   functions:
     character:
       type: command
