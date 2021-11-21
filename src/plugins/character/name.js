@@ -29,8 +29,8 @@ function isPossibleName(name) {
     const hash = simhash(name);
 
     for (const h of Object.values(alias.characterNames)) {
-      // 此处汉明距离 < 5 则认为双方具有较高的相似性
-      if (hamming(h, hash) < 5) {
+      // 此处汉明距离 < 4 则认为双方具有较高的相似性
+      if (hamming(h, hash) < 4) {
         return true;
       }
     }
