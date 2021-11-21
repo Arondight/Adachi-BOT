@@ -4,8 +4,9 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
-import { filterWordsByRegex, getWordByRegex, guessPossibleNames, hamming, simhash } from "../../utils/tools.js";
+import { guessPossibleNames } from "../../utils/tools.js";
 import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
+import { getName } from "./name.js";
 
 function getCharacter(uid, character) {
   const { avatars } = db.get("info", "user", { uid }) || {};
@@ -24,52 +25,14 @@ function getNotFoundText(character, isMyChar) {
   return notFoundText;
 }
 
-function getName(text) {
-  let character = filterWordsByRegex(
-    text,
-    ...[...command.functions.entrance.character, ...command.functions.entrance.others_character]
-  );
-
-  if (character.startsWith("的")) {
-    const match = getWordByRegex(character, /的/);
-    character = getWordByRegex(match[1] || match[2], /\S+/)[0];
-  }
-
-  if (!character) {
-    return undefined;
-  }
-
-  character = "string" === typeof character ? character.toLowerCase() : "";
-  character = alias.character[character] || character;
-
-  return character;
-}
-
-function isPossibleName(name) {
-  const hash = simhash(name);
-
-  for (const h of Object.values(alias.characterNames)) {
-    // 此处汉明距离 < 5 则认为双方具有较高的相似性
-    if (hamming(h, hash) < 5) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-async function doCharacter(msg, isMyChar = true) {
+async function doCharacter(msg, isMyChar = true, name = undefined) {
   let uid;
   let data;
 
-  const character = getName(msg.text);
+  const character = name || getName(msg.text);
 
   if (undefined === character) {
     msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid, true);
-    return;
-  }
-
-  if (!isPossibleName(character)) {
     return;
   }
 
