@@ -4,7 +4,7 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
-import { getWordByRegex, filterWordsByRegex, guessPossibleNames } from "../../utils/tools.js";
+import { hamming, simhash, getWordByRegex, filterWordsByRegex, guessPossibleNames } from "../../utils/tools.js";
 import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
 
 function getCharacter(uid, character) {
@@ -18,8 +18,8 @@ function getNotFoundText(character, isMyChar) {
   const text = config.characterTryGetDetail
     ? `看上去${isMyChar ? "您" : "他"}尚未拥有该角色`
     : `如果${isMyChar ? "您" : "他"}拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
-  const guess = guessPossibleNames(character, alias.characterNames);
-  const notFoundText = `查询失败，${text}。${guess ? "\n您要查询的是不是：\n" + guess : ""}`;
+  const guess = guessPossibleNames(character, Object.keys(alias.characterNames));
+  const notFoundText = `查询失败，${text}。${guess.length > 0 ? "\n您要查询的是不是：\n" + guess.join("、") : ""}`;
 
   return notFoundText;
 }
@@ -45,6 +45,19 @@ function getName(text) {
   return character;
 }
 
+function isPossibleName(name) {
+  const hash = simhash(name);
+
+  for (const h of Object.values(alias.characterNames)) {
+    // 此处汉明距离 < 5 则认为双方具有较高的相似性
+    if (hamming(h, hash) < 5) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 async function doCharacter(msg, isMyChar = true) {
   let uid;
   let data;
@@ -53,6 +66,10 @@ async function doCharacter(msg, isMyChar = true) {
 
   if (undefined === character) {
     msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid, true);
+    return;
+  }
+
+  if (!isPossibleName(character)) {
     return;
   }
 

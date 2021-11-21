@@ -41,7 +41,7 @@
  *   weights: { hello_world: 9999, eat: 9999 },
  *   regex: {
  *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ],
- *     '^eat\\S+\\s*$': [ 'eat' ]
+ *     '^eat\\s*\\S+\\s*$': [ 'eat' ]
  *   },
  *   function: { hello_world: [ 'hello_world' ], eat: [ 'eat' ] },
  *   usage: '🔘 hello world 👉 I will say hello to you\n' +
@@ -71,7 +71,7 @@
  *   enable: true
  *   weights: 9999
  *   regex:
- *     - ^eat\S+\s*$
+ *     - ^eat\s*\S+\s*$
  *   functions:
  *     eat:
  *       type: option
@@ -171,36 +171,37 @@
  * global.alias
  * --------------------------------------------------------------------------
  * {
- *   character: { '猫': '迪奥娜', 'dio娜': '迪奥娜', dio: '迪奥娜' },
+ *   character: { '猫': '迪奥娜', '奶猫': '迪奥娜', dio: '迪奥娜' },
  *   weapon: { '柴火棍': '护摩之杖', homo: '护摩之杖' },
- *   all: {
- *     '猫': '迪奥娜',
- *     'dio娜': '迪奥娜',
- *     dio: '迪奥娜',
- *     '柴火棍': '护摩之杖',
- *     homo: '护摩之杖'
+ *   all: { '猫': '迪奥娜', '奶猫': '迪奥娜', dio: '迪奥娜', '柴火棍': '护摩之杖', homo: '护摩之杖' },
+ *   characterNames: {
+ *     '猫': '0000101110010000100001000000100000000010000000000000100000000000',
+ *     '迪奥娜': '1010111110111001110000000100110010000110100000011010100000000000',
+ *     '奶猫': '1010111110011010111001100100110010000110100001010000100000000000',
+ *     dio: '1100101010101000001000110001100011110100011011100011000000000000'
  *   },
- *   characterNames: [ '猫', '迪奥娜', 'dio娜', 'dio' ],
- *   weaponNames: [ '柴火棍', '护摩之杖', 'homo' ],
- *   allNames: [
- *     '猫',     '迪奥娜',
- *     'dio娜',  'dio',
- *     '柴火棍', '护摩之杖',
- *     'homo'
- *   ]
+ *   weaponNames: {
+ *     '柴火棍': '1010111110000001110000000100110010000110000000101001000000000000',
+ *     '护摩之杖': '1010111110000111000001000100110010000110001111110101000000000000',
+ *     homo: '0100000000101101000100011100110001111110011011111000110000000000'
+ *   },
+ *   allNames: {
+ *     '猫': '0000101110010000100001000000100000000010000000000000100000000000',
+ *     '迪奥娜': '1010111110111001110000000100110010000110100000011010100000000000',
+ *     '奶猫': '1010111110011010111001100100110010000110100001010000100000000000',
+ *     dio: '1100101010101000001000110001100011110100011011100011000000000000',
+ *     '柴火棍': '1010111110000001110000000100110010000110000000101001000000000000',
+ *     '护摩之杖': '1010111110000111000001000100110010000110001111110101000000000000',
+ *     homo: '0100000000101101000100011100110001111110011011111000110000000000'
+ *   }
  * }
  * --------------------------------------------------------------------------
  * ../../config/alias.yml
  * --------------------------------------------------------------------------
  * character:
- *   迪奥娜:
- *     - 猫
- *     - dio娜
- *     - dio
+ *   迪奥娜: [ 猫, dio娜, dio ]
  * weapon:
- *   护摩之杖:
- *     - 柴火棍
- *     - homo
+ *   护摩之杖: [ 柴火棍, homo ]
  * ==========================================================================
  *
  *
@@ -296,6 +297,7 @@ import path from "path";
 import fs from "fs";
 import lodash from "lodash";
 import { mkdir } from "./file.js";
+import { simhash } from "./tools.js";
 import { loadYML } from "./yaml.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
@@ -331,7 +333,7 @@ const Setting = loadYML("setting");
 // global[key].functions.usage       -> function (lowercase):  usage (string)
 // global[key].functions.description -> function (lowercase):  description (string)
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
-// global[key].functions.option      -> function (lowercase):  option (array of object, lowercase)
+// global[key].functions.options     -> function (lowercase):  { { option: text } } (both lowercase)
 function getCommand(obj, key) {
   const reduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
     lodash.reduce(
@@ -657,9 +659,9 @@ function readSettingCookiesGreetingMenu() {
 // global.alias.character       ->  alias (lowercase): character (string, lowercase)
 // global.alias.weapon          ->  alias (lowercase): weapon (string, lowercase)
 // global.alias.all             ->  alias (lowercase): name (string, lowercase)
-// global.alias.characterNames  ->  character names (array of string, lowercase)
-// global.alias.weaponNames     ->  weapon names (array of string, lowercase)
-// global.alias.allNames        ->  names (array of string, lowercase)
+// global.alias.characterNames  ->  { name: simhash } (name lowercase)
+// global.alias.weaponNames     ->  { name: simhash } (name lowercase)
+// global.alias.allNames        ->  { name: simhash } (name lowercase)
 function readAlias() {
   const getSection = (s) =>
     lodash.reduce(
@@ -670,7 +672,15 @@ function readAlias() {
       },
       {}
     );
-  const getNames = (o) => lodash.chain(o).toPairs().flatten().uniq().value();
+  const getNames = (o) =>
+    lodash
+      .chain(o)
+      .toPairs()
+      .flatten()
+      .uniq()
+      .map((c) => [c, simhash(c)])
+      .fromPairs()
+      .value();
 
   alias.character = getSection("character");
   alias.weapon = getSection("weapon");

@@ -6,8 +6,10 @@ import { getInfo } from "../../utils/api.js";
 import { filterWordsByRegex, guessPossibleNames } from "../../utils/tools.js";
 
 function getNotFoundText(text) {
-  const guess = guessPossibleNames(text, alias.allNames);
-  const notFoundText = `查询失败，未知的名称${text}。${guess ? "\n您要查询的是不是：\n" + guess : ""}`;
+  const guess = guessPossibleNames(text, Object.keys(alias.allNames));
+  const notFoundText = `查询失败，未知的名称${text}。${
+    guess.length > 0 ? "\n您要查询的是不是：\n" + guess.join("、") : ""
+  }`;
 
   return notFoundText;
 }
