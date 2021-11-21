@@ -52,11 +52,11 @@ function segment(text) {
 }
 
 function guessPossibleNames(name, names) {
-  if (!Array.isArray(names) || names.includes(name)) {
-    return undefined;
-  }
-
   let words = [];
+
+  if (!Array.isArray(names) || names.includes(name)) {
+    return words;
+  }
 
   for (const n of [...segment(name)]) {
     words = lodash
