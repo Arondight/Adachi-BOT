@@ -5,7 +5,7 @@ import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
 import { getCookie, tryToWarnInvalidCookie } from "./cookie.js";
-import { getBase, getDetail, getCharacters, getAbyDetail } from "./api.js";
+import { getAbyDetail, getBase, getCharacters, getDetail } from "./api.js";
 
 function detailError(message, cache = false, master = false, message_master = "") {
   return Promise.reject({
@@ -250,4 +250,4 @@ async function characterPromise(uid, server, character_ids, bot) {
   return;
 }
 
-export { abyPromise, basePromise, detailPromise, characterPromise, handleDetailError };
+export { abyPromise, basePromise, characterPromise, detailPromise, handleDetailError };

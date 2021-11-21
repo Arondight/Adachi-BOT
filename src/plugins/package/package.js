@@ -3,7 +3,7 @@
 
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
+import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 import { filterWordsByRegex } from "../../utils/tools.js";
 

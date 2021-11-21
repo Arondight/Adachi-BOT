@@ -860,4 +860,4 @@ function hasEntrance(message, plugin, ...entrance) {
   return false;
 }
 
-export { readConfig, hasEntrance };
+export { hasEntrance, readConfig };

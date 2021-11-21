@@ -3,7 +3,7 @@
 
 import lodash from "lodash";
 import db from "../../utils/database.js";
-import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 import { init } from "./init.js";
 
 function doSelect(msg) {
@@ -62,4 +62,4 @@ function doSelectNothing(msg) {
   msg.bot.say(msg.sid, "已取消定轨。", msg.type, msg.uid, true);
 }
 
-export { doSelect, doSelectWhat, doSelectNothing };
+export { doSelect, doSelectNothing, doSelectWhat };

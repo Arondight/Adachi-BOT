@@ -70,7 +70,6 @@ function guessPossibleNames(name, names) {
   return words;
 }
 
-// simhash 算法
 function simhash(text) {
   const seg = segment(text);
   const km = new Map();
@@ -99,17 +98,16 @@ function simhash(text) {
   return result;
 }
 
-// 汉明距离
 function hamming(h1, h2) {
-  let distance = 0;
+  let d = 0;
 
   for (let i = 0; i < Math.min(h1.length, h2.length); i++) {
     if (h1[i] !== h2[i]) {
-      distance = distance + 1;
+      d++;
     }
   }
 
-  return distance;
+  return d;
 }
 
 function hammingText(s1, s2) {

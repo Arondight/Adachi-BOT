@@ -93,4 +93,4 @@ function getID(msg, userID, isMhyID = true) {
   return errInfo;
 }
 
-export { getUID, getID };
+export { getID, getUID };

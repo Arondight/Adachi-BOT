@@ -2,7 +2,7 @@
 /* eslint no-undef: "error" */
 
 import { hasEntrance } from "../../utils/config.js";
-import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 function search(msg) {
   const [text] = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.search), /\S+/);

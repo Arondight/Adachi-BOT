@@ -22,4 +22,4 @@ async function doMaterial(msg, url) {
   }
 }
 
-export { urls, doMaterial };
+export { doMaterial, urls };

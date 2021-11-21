@@ -46,4 +46,4 @@ function checkAuth(msg, func, report = true) {
   return true;
 }
 
-export { setAuth, checkAuth };
+export { checkAuth, setAuth };

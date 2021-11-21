@@ -55,4 +55,4 @@ function du(filepath) {
   return size;
 }
 
-export { readlink, mkdir, ls, du };
+export { du, ls, mkdir, readlink };

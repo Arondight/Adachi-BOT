@@ -1,7 +1,7 @@
 /* global master */
 /* eslint no-undef: "error" */
 
-import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 function reply(msg) {
   const [target, text] = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.reply), /\d+/);

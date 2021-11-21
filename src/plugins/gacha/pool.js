@@ -2,7 +2,7 @@
 /* eslint no-undef: "error" */
 
 import db from "../../utils/database.js";
-import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 import { init } from "./init.js";
 
 function doPool(msg) {

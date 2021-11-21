@@ -3,7 +3,7 @@
 
 import lodash from "lodash";
 import db from "./database.js";
-import { getGachaList, getGachaDetail } from "./api.js";
+import { getGachaDetail, getGachaList } from "./api.js";
 
 async function parseData(gachaID) {
   const data = await getGachaDetail(gachaID);

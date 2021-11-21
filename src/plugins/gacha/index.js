@@ -2,7 +2,7 @@ import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { doPool } from "./pool.js";
 import { doGacha } from "./gacha.js";
-import { doSelect, doSelectWhat, doSelectNothing } from "./select.js";
+import { doSelect, doSelectNothing, doSelectWhat } from "./select.js";
 
 async function Plugin(msg) {
   switch (true) {

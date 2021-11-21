@@ -3,7 +3,7 @@
 
 import path from "path";
 import lodash from "lodash";
-import { LowSync, JSONFileSync } from "lowdb";
+import { JSONFileSync, LowSync } from "lowdb";
 import { merge } from "./merge.js";
 
 const db = {};

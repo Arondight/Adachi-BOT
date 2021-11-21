@@ -4,8 +4,8 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
-import { hamming, simhash, getWordByRegex, filterWordsByRegex, guessPossibleNames } from "../../utils/tools.js";
-import { basePromise, detailPromise, characterPromise, handleDetailError } from "../../utils/detail.js";
+import { filterWordsByRegex, getWordByRegex, guessPossibleNames, hamming, simhash } from "../../utils/tools.js";
+import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
 
 function getCharacter(uid, character) {
   const { avatars } = db.get("info", "user", { uid }) || {};

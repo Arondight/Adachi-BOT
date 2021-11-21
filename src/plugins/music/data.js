@@ -5,7 +5,7 @@ import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
 import db from "../../utils/database.js";
-import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 const ERRCODE = {
   ERR_SRC: "1",

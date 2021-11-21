@@ -93,4 +93,4 @@ function getGachaDetail(gachaID) {
   }).then((res) => res.json());
 }
 
-export { getInfo, getAbyDetail, getBase, getDetail, getCharacters, getGachaList, getGachaDetail };
+export { getAbyDetail, getBase, getCharacters, getDetail, getGachaDetail, getGachaList, getInfo };
