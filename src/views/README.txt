@@ -18,4 +18,3 @@
 
 ./genshin-package.html
   【uid】
-

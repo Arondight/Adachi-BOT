@@ -12,8 +12,8 @@ async function Plugin(msg) {
     case hasEntrance(msg.text, "overview", "info"): {
       const name = getName(msg.text);
       if (
-        isPossibleName(name, Object.values(alias.allNames)) &&
         guessPossibleNames(name, Object.keys(alias.allNames)).length > 0 &&
+        isPossibleName(name, Object.values(alias.allNames)) &&
         false !== checkAuth(msg, "info")
       ) {
         doInfo(msg);

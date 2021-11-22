@@ -12,8 +12,8 @@ async function Plugin(msg) {
     case hasEntrance(msg.text, "character", "character"): {
       const name = getName(msg.text);
       if (
-        isPossibleName(name, Object.values(alias.characterNames)) &&
         guessPossibleNames(name, Object.keys(alias.characterNames)).length > 0 &&
+        isPossibleName(name, Object.values(alias.characterNames)) &&
         false !== checkAuth(msg, "character")
       ) {
         doCharacter(msg, true, name);
