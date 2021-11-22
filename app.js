@@ -1,6 +1,7 @@
 /* global bots, config */
 /* eslint no-undef: "error" */
 
+import lodash from "lodash";
 import { createClient } from "oicq";
 import { init } from "./src/utils/init.js";
 import { readConfig } from "./src/utils/config.js";
@@ -89,6 +90,7 @@ function report() {
   // 只打印一次日志
   const log = (text) => bots[0] && bots[0].logger.debug(`配置：${text}`);
 
+  log(`登录账号 ${lodash.map(config.accounts, "qq").join(" 、 ")} 。`);
   log(`管理者已设置为 ${config.masters.join(" 、 ")} 。`);
   log(
     0 === config.prefixes.length || config.prefixes.includes(null)
