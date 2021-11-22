@@ -22,6 +22,8 @@ function doPool(msg) {
     case all.functions.options.pool[999]:
       choice = 999;
       break;
+    default:
+      return;
   }
 
   init(msg.uid);
