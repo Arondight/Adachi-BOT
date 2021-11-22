@@ -13,7 +13,8 @@
         <img class="background" :src="infoBackground" alt="ERROR" />
         <img :class="'角色' === type ? 'character' : 'weapon'" :src="mainImage" alt="ERROR" />
         <div class="content">
-          <p class="title-and-name">「{{ title }}·{{ name }}」</p>
+          <p class="title-and-name" v-if="name == '旅行者'">「旅行者」</p>
+          <p class="title-and-name" v-else>「{{ title }}·{{ name }}」</p>
         </div>
         <div class="introduction">
           <p class="introduce">{{ introduce }}</p>
