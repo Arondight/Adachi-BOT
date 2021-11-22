@@ -1,0 +1,20 @@
+{
+  "type": "角色",
+  "title": "原子能量球",
+  "id": 10000007,
+  "name": "旅行者",
+  "introduce": "原子能量球",
+  "birthday": "原子能量球",
+  "element": "原子能量球",
+  "cv": "原子能量球",
+  "constellationName": "原子能量球",
+  "rarity": 5,
+  "mainStat": "原子能量球",
+  "mainValue": "24%",
+  "baseATK": 195,
+  "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "飓风之种"],
+  "levelUpMaterials": ["蒲公英籽", "破损的面具", "污秽的面具", "不祥的面具"],
+  "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之翎"],
+  "time": "原子能量球",
+  "constellations": ["原子能量球", "原子能量球", "原子能量球", "原子能量球"]
+}
