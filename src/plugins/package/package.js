@@ -60,7 +60,7 @@ async function doPackage(msg) {
     data.qqid = qqid;
   }
 
-  render(msg, data, "genshin-info");
+  render(msg, data, "genshin-package");
 }
 
 export { doPackage };

@@ -13,9 +13,9 @@
 ./genshin-gacha.html
   【十连】
 
-./genshin-info.html
-  【uid】
-
 ./genshin-overview.html
   【信息】
+
+./genshin-package.html
+  【uid】
 
