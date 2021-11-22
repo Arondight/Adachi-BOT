@@ -1,5 +1,6 @@
 import lodash from "lodash";
 import fnv from "fnv-plus";
+import levenshtein from "fastest-levenshtein";
 
 function randomString(length) {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -118,11 +119,10 @@ function hamming(h1, h2) {
 
 function isPossibleName(name, names) {
   if ("string" === typeof name && Array.isArray(names)) {
-    const h1 = simhash(name);
+    const s1 = name;
 
-    for (const h2 of names) {
-      // 此处汉明距离 < 4 则认为双方具有较高的相似性
-      if (hamming(h1, h2) < 4) {
+    for (const s2 of names) {
+      if (levenshtein.distance(s1, s2) / name.length < 0.4) {
         return true;
       }
     }

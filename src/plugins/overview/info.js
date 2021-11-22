@@ -1,9 +1,9 @@
-/* global alias, command */
+/* global alias */
 /* eslint no-undef: "error" */
 
 import { render } from "../../utils/render.js";
 import { getInfo } from "../../utils/api.js";
-import { filterWordsByRegex, guessPossibleNames } from "../../utils/tools.js";
+import { guessPossibleNames } from "../../utils/tools.js";
 
 function getNotFoundText(text) {
   const guess = guessPossibleNames(text, Object.keys(alias.allNames));
@@ -14,8 +14,8 @@ function getNotFoundText(text) {
   return notFoundText;
 }
 
-async function doInfo(msg, name = undefined) {
-  let text = name || filterWordsByRegex(msg.text, ...command.functions.entrance.info);
+async function doInfo(msg, name) {
+  let text = name;
   let data;
 
   if (!text) {

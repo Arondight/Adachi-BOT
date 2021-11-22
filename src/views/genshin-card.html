@@ -28,7 +28,6 @@
         :nickname="nickname"
         :level="level"
         :stats="stats"
-        :profile="profile"
         :homeslevel="homeslevel"
         :maxcomfort="maxcomfort"
         :maps="homes"
@@ -179,7 +178,6 @@
           nickname: "",
           uid: 0,
           level: 0,
-          profile: 0,
           stats: {},
           avatarsData: [],
           explorations: [],
@@ -219,7 +217,6 @@
           this.homes = params.homes;
           this.avatar_number = avatarsList.length;
           this.explorations = params.explorations;
-          this.profile = avatarsList[Math.floor(Math.random() * this.avatar_number)].id;
 
           avatarsList.sort((x, y) => {
             if (x.level === y.level) {

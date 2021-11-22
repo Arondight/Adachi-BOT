@@ -6,7 +6,6 @@ const upper = {
     uid: Number,
     nickname: String,
     level: Number,
-    profile: Number,
     homeslevel: Number,
     maxcomfort: Number,
     exploration: Object,

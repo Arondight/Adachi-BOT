@@ -6,7 +6,6 @@ import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
 import { guessPossibleNames } from "../../utils/tools.js";
 import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
-import { getName } from "./name.js";
 
 function getCharacter(uid, character) {
   const { avatars } = db.get("info", "user", { uid }) || {};
@@ -25,11 +24,11 @@ function getNotFoundText(character, isMyChar) {
   return notFoundText;
 }
 
-async function doCharacter(msg, isMyChar = true, name = undefined) {
+async function doCharacter(msg, name, isMyChar = false) {
   let uid;
   let data;
 
-  const character = name || getName(msg.text);
+  const character = name;
 
   if (undefined === character) {
     msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid, true);

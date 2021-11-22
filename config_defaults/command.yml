@@ -94,7 +94,8 @@ card:
   weights: 9899
   regex:
     - ^米游社\s*$
-    - ^米游社\s*\d+\s*$
+    # XXX 如果 ../src/utils/id.js 中的 getID 变更，这里需要同步改动
+    - ^米游社\s*\d{6,10}\s*$
     - ^米游社\s*\[CQ:at,qq=.*$
   functions:
     card:
@@ -384,7 +385,8 @@ save:
   enable: true
   weights: 9999
   regex:
-    - ^(绑定|改绑)\s*\d+\s*$
+    # XXX 如果 ../src/utils/id.js 中的 getID 变更，这里需要同步改动
+    - ^(绑定|改绑)\s*\d{6,10}\s*$
   functions:
     save:
       type: command

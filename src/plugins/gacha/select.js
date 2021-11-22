@@ -1,15 +1,10 @@
-/* global alias, command */
-/* eslint no-undef: "error" */
-
 import lodash from "lodash";
 import db from "../../utils/database.js";
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 import { init } from "./init.js";
 
-function doSelect(msg) {
+function doSelect(msg, name) {
   init(msg.uid);
 
-  let [cmd] = getWordByRegex(filterWordsByRegex(msg.text, ...command.functions.entrance.select), /\S+/);
   const { choice } = db.get("gacha", "user", { userID: msg.uid }) || {};
 
   if (choice !== 302) {
@@ -18,12 +13,11 @@ function doSelect(msg) {
   }
 
   const table = db.get("gacha", "data", { gacha_type: 302 }) || {};
-  cmd = alias.weapon["string" === typeof cmd ? cmd.toLowerCase() : cmd] || cmd;
 
-  if (cmd && lodash.find(table.upFiveStar, { item_name: cmd })) {
-    msg.bot.say(msg.sid, `定轨${cmd}成功，命定值已清零。`, msg.type, msg.uid, true);
+  if (name && lodash.find(table.upFiveStar, { item_name: name })) {
+    msg.bot.say(msg.sid, `定轨${name}成功，命定值已清零。`, msg.type, msg.uid, true);
     const path = {
-      course: lodash.findIndex(table.upFiveStar, { item_name: cmd }),
+      course: lodash.findIndex(table.upFiveStar, { item_name: name }),
       fate: 0,
     };
     db.update("gacha", "user", { userID: msg.uid }, { path });
