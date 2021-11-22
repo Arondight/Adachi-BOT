@@ -334,7 +334,7 @@ overview:
   enable: true
   weights: 9499
   regex:
-    - ^(角色|武器|信息)\s*\S+\s*$
+    - ^信息\s*\S+\s*$
   functions:
     info:
       type: command
@@ -344,7 +344,7 @@ overview:
       usage: <角色名、武器名>
       description: 查询角色或武器的游戏数据
       entrance:
-        - ^(信息|角色|武器)
+        - ^信息
 
 package:
   enable: true

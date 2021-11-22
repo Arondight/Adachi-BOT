@@ -54,7 +54,7 @@ function segment(text) {
 function guessPossibleNames(name, names) {
   let words = [];
 
-  if (!Array.isArray(names) || names.includes(name)) {
+  if ("string" !== typeof name || !Array.isArray(names)) {
     return words;
   }
 
