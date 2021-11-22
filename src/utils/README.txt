@@ -72,9 +72,9 @@
   filterWordsByRegex:     根据正则过滤匹配的子串
   getRandomInt:           返回随机整数
   getWordByRegex:         根据正则获取匹配的子串
-  guessPossibleNames:     根据字符串数组猜那些元素可能包含某个名字
+  guessPossibleNames:     猜测字符串数组中哪些元素可能包含某个名字
   hamming:                计算两个 simhash 的汉明距离
-  hammingText:            计算两段文本的汉明距离
+  isPossibleName:         根据字符串数组猜测给出的是否可能为一个名字
   randomString:           返回随机字符串
   segment:                简单的词语拆分
   simhash:                计算 simhash

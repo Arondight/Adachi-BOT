@@ -14,8 +14,8 @@ function getNotFoundText(text) {
   return notFoundText;
 }
 
-async function doInfo(msg) {
-  let text = filterWordsByRegex(msg.text, ...command.functions.entrance.info);
+async function doInfo(msg, name = undefined) {
+  let text = name || filterWordsByRegex(msg.text, ...command.functions.entrance.info);
   let data;
 
   if (!text) {

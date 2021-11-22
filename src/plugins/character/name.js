@@ -1,7 +1,7 @@
 /* global alias, command */
 /* eslint no-undef: "error" */
 
-import { filterWordsByRegex, getWordByRegex, hamming, simhash } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 function getName(text) {
   let character = filterWordsByRegex(
@@ -24,19 +24,4 @@ function getName(text) {
   return character;
 }
 
-function isPossibleName(name) {
-  if ("string" === typeof name) {
-    const hash = simhash(name);
-
-    for (const h of Object.values(alias.characterNames)) {
-      // 此处汉明距离 < 4 则认为双方具有较高的相似性
-      if (hamming(h, hash) < 4) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
-export { getName, isPossibleName };
+export { getName };

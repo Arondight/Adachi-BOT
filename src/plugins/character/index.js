@@ -1,13 +1,17 @@
+/* global alias */
+/* eslint no-undef: "error" */
+
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
+import { isPossibleName } from "../../utils/tools.js";
 import { doCharacter } from "./character.js";
-import { getName, isPossibleName } from "./name.js";
+import { getName } from "./name.js";
 
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "character", "character"): {
       const name = getName(msg.text);
-      if (isPossibleName(name) && false !== checkAuth(msg, "character")) {
+      if (isPossibleName(name, Object.values(alias.characterNames)) && false !== checkAuth(msg, "character")) {
         doCharacter(msg, true, name);
       }
       break;

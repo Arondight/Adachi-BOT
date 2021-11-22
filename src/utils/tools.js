@@ -58,6 +58,12 @@ function guessPossibleNames(name, names) {
     return words;
   }
 
+  for (const n of names) {
+    if (n.includes(name)) {
+      return names.filter((n) => n.includes(name));
+    }
+  }
+
   for (const n of [...segment(name)]) {
     words = lodash
       .chain(names)
@@ -110,8 +116,19 @@ function hamming(h1, h2) {
   return d;
 }
 
-function hammingText(s1, s2) {
-  return hamming(simhash(s1), simhash(s2));
+function isPossibleName(name, names) {
+  if ("string" === typeof name && Array.isArray(names)) {
+    const h1 = simhash(name);
+
+    for (const h2 of names) {
+      // 此处汉明距离 < 4 则认为双方具有较高的相似性
+      if (hamming(h1, h2) < 4) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 export {
@@ -120,7 +137,7 @@ export {
   getWordByRegex,
   guessPossibleNames,
   hamming,
-  hammingText,
+  isPossibleName,
   randomString,
   segment,
   simhash,
