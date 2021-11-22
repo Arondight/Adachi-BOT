@@ -122,7 +122,7 @@ function isPossibleName(name, names) {
     const s1 = name;
 
     for (const s2 of names) {
-      if (levenshtein.distance(s1, s2) / name.length < 0.4) {
+      if (levenshtein.distance(s1, s2) / s1.length < 0.5) {
         return true;
       }
     }
