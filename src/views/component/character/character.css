@@ -139,6 +139,11 @@ body {
   position: relative;
 }
 
+.artifact {
+  display: flex;
+  align-items: center;
+}
+
 .empty-box,
 .artifact {
   font-size: 24px;
@@ -149,11 +154,11 @@ body {
 
 .artifact-image {
   width: 130px;
+  height: 130px;
 }
 
 .artifact-context {
   position: relative;
-  top: -37px;
   display: inline-block;
   width: 190px;
 }
