@@ -3,20 +3,20 @@
 
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
-import { isPossibleName } from "../../utils/tools.js";
+import { guessPossibleNames } from "../../utils/tools.js";
 import { getName } from "./name.js";
 import { doInfo } from "./info.js";
 
 async function Plugin(msg) {
+  const name = getName(msg.text);
+  const guess = guessPossibleNames(name, alias.allNames);
+
   switch (true) {
-    case hasEntrance(msg.text, "overview", "info"): {
-      const name = getName(msg.text);
-      const names = Object.keys(alias.allNames);
-      if (isPossibleName(name, names) && false !== checkAuth(msg, "info")) {
-        doInfo(msg, name);
+    case hasEntrance(msg.text, "overview", "info"):
+      if (guess.length > 0 && false !== checkAuth(msg, "info")) {
+        doInfo(msg, 1 == guess.length ? guess[0] : name, guess);
       }
       break;
-    }
   }
 }
 

@@ -2,6 +2,8 @@ import lodash from "lodash";
 import fnv from "fnv-plus";
 import levenshtein from "fastest-levenshtein";
 
+const levenshteinSimilarityMaxValue = 0.5;
+
 function randomString(length) {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const charactersLength = characters.length;
@@ -52,31 +54,6 @@ function segment(text) {
   return lodash.concat([], text.match(regex), [...(text.replace(regex, "").replace(/\s/g, "") || [])]);
 }
 
-function guessPossibleNames(name, names) {
-  let words = [];
-
-  if ("string" !== typeof name || !Array.isArray(names)) {
-    return words;
-  }
-
-  for (const n of names) {
-    if (n.includes(name)) {
-      return names.filter((n) => n.includes(name));
-    }
-  }
-
-  for (const n of [...segment(name)]) {
-    words = lodash
-      .chain(names)
-      .filter((c) => c.includes(n))
-      .concat(words)
-      .uniq()
-      .value();
-  }
-
-  return words;
-}
-
 function simhash(text) {
   const seg = segment(text);
   const km = new Map();
@@ -117,18 +94,45 @@ function hamming(h1, h2) {
   return d;
 }
 
+function similarity(s1, s2) {
+  return "string" === typeof s1 && "string" === typeof s2
+    ? levenshtein.distance(s1, s2) / s1.length
+    : Number.MAX_SAFE_INTEGER;
+}
+
 function isPossibleName(name, names) {
-  if ("string" === typeof name && Array.isArray(names)) {
+  if ("string" === typeof name) {
     const s1 = name;
 
     for (const s2 of names) {
-      if (levenshtein.distance(s1, s2) / s1.length < 0.5) {
+      if ("string" === typeof s2 && similarity(s1, s2) <= levenshteinSimilarityMaxValue) {
         return true;
       }
     }
   }
 
   return false;
+}
+
+function guessPossibleNames(name, names) {
+  let words = [];
+
+  if ("string" === typeof name && names.length > 0) {
+    words = lodash
+      .chain(names)
+      .reduce((p, v) => {
+        const n = similarity(name, v);
+        n <= levenshteinSimilarityMaxValue && (p[v] = n);
+        return p;
+      }, {})
+      .toPairs()
+      .sortBy(1)
+      .fromPairs()
+      .keys()
+      .value();
+  }
+
+  return words;
 }
 
 export {
@@ -141,4 +145,5 @@ export {
   randomString,
   segment,
   simhash,
+  similarity,
 };

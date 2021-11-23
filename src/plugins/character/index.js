@@ -3,27 +3,25 @@
 
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
-import { isPossibleName } from "../../utils/tools.js";
+import { guessPossibleNames } from "../../utils/tools.js";
 import { doCharacter } from "./character.js";
 import { getName } from "./name.js";
 
 async function Plugin(msg) {
+  const name = getName(msg.text);
+  const guess = guessPossibleNames(name, alias.characterNames);
+
   switch (true) {
-    case hasEntrance(msg.text, "character", "character"): {
-      const name = getName(msg.text);
-      const names = Object.keys(alias.characterNames);
-      if (isPossibleName(name, names) && false !== checkAuth(msg, "character")) {
-        doCharacter(msg, name, true);
+    case hasEntrance(msg.text, "character", "character"):
+      if (guess.length > 0 && false !== checkAuth(msg, "character")) {
+        doCharacter(msg, 1 === guess.length ? guess[0] : name, true, guess);
       }
       break;
-    }
-    case hasEntrance(msg.text, "character", "others_character"): {
-      const name = getName(msg.text);
-      if (false !== checkAuth(msg, "others_character")) {
-        doCharacter(msg, name);
+    case hasEntrance(msg.text, "character", "others_character"):
+      if (guess.length > 0 && false !== checkAuth(msg, "others_character")) {
+        doCharacter(msg, 1 === guess.length ? guess[0] : name, false, guess);
       }
       break;
-    }
   }
 }
 

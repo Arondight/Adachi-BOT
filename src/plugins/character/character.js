@@ -4,7 +4,6 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
-import { guessPossibleNames } from "../../utils/tools.js";
 import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
 
 function getCharacter(uid, character) {
@@ -12,23 +11,26 @@ function getCharacter(uid, character) {
   return avatars ? avatars.find((e) => e.name === character) : false;
 }
 
-function getNotFoundText(character, isMyChar) {
+function getNotFoundText(character, isMyChar, guess = []) {
   const cmd = [command.functions.name.card, command.functions.name.package];
   const cmdStr = `【${cmd.join("】、【")}】`;
   const text = config.characterTryGetDetail
     ? `看上去${isMyChar ? "您" : "他"}尚未拥有该角色`
     : `如果${isMyChar ? "您" : "他"}拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
-  const guess = guessPossibleNames(character, Object.keys(alias.characterNames));
-  const notFoundText = `查询失败，${text}。${guess.length > 0 ? "\n您要查询的是不是：\n" + guess.join("、") : ""}`;
+  let notFoundText = `查询失败，${text}。`;
+
+  if (!alias.characterNames.includes(character) && guess.length > 0) {
+    notFoundText += `\n您要查询的是不是：\n${guess.join("、")}`;
+  }
 
   return notFoundText;
 }
 
-async function doCharacter(msg, name, isMyChar = false) {
+async function doCharacter(msg, name, isMyChar = false, guess = []) {
   let uid;
   let data;
 
-  const character = name;
+  const character = alias.character[name] || name;
 
   if (undefined === character) {
     msg.bot.say(msg.sid, "请正确输入角色名称。", msg.type, msg.uid, true);
@@ -60,7 +62,8 @@ async function doCharacter(msg, name, isMyChar = false) {
 
     if (!data) {
       if (!config.characterTryGetDetail) {
-        msg.bot.say(msg.sid, getNotFoundText(character, isMyChar), msg.type, msg.uid, true);
+        const text = getNotFoundText(character, isMyChar, guess);
+        msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
         return;
       } else {
         const detailInfo = await detailPromise(...baseInfo, msg.uid, msg.bot);
@@ -84,7 +87,8 @@ async function doCharacter(msg, name, isMyChar = false) {
   }
 
   if (!data) {
-    msg.bot.say(msg.sid, getNotFoundText(character, isMyChar), msg.type, msg.uid, true);
+    const text = getNotFoundText(character, isMyChar, guess);
+    msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
     return;
   }
 
