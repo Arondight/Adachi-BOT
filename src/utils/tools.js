@@ -1,8 +1,11 @@
+/* global alias */
+/* eslint no-undef: "error" */
+
 import lodash from "lodash";
 import fnv from "fnv-plus";
 import levenshtein from "fastest-levenshtein";
 
-const levenshteinSimilarityMaxValue = 0.5;
+const similarityMaxValue = 0.5;
 
 function randomString(length) {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -96,7 +99,7 @@ function hamming(h1, h2) {
 
 function similarity(s1, s2) {
   return "string" === typeof s1 && "string" === typeof s2
-    ? levenshtein.distance(s1, s2) / s1.length
+    ? levenshtein.distance(s1, s2) / Math.max(s1.length, s2.length)
     : Number.MAX_SAFE_INTEGER;
 }
 
@@ -105,7 +108,7 @@ function isPossibleName(name, names) {
     const s1 = name;
 
     for (const s2 of names) {
-      if ("string" === typeof s2 && similarity(s1, s2) <= levenshteinSimilarityMaxValue) {
+      if ("string" === typeof s2 && similarity(s1, s2) <= similarityMaxValue) {
         return true;
       }
     }
@@ -122,7 +125,7 @@ function guessPossibleNames(name, names) {
       .chain(names)
       .reduce((p, v) => {
         const n = similarity(name, v);
-        n <= levenshteinSimilarityMaxValue && (p[v] = n);
+        n <= similarityMaxValue && (p[v] = n);
         return p;
       }, {})
       .toPairs()
@@ -148,4 +151,5 @@ export {
   segment,
   simhash,
   similarity,
+  similarityMaxValue,
 };

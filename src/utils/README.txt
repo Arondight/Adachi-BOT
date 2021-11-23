@@ -78,6 +78,8 @@
   randomString            返回随机字符串
   segment                 简单的词语拆分
   simhash                 计算 simhash
+  similarity              计算两个字符串的相似度
+  similarityMaxValue      字符串相似的最大值
 
 ./update.js
   gachaUpdate             刷新卡池
