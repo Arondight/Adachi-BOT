@@ -110,7 +110,14 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
     }
   }
 
-  const cookie = getCookie(uid, true, bot);
+  let cookie;
+
+  try {
+    cookie = getCookie(uid, true, bot);
+  } catch (e) {
+    return detailError(e);
+  }
+
   const { retcode, message, data } = await getAbyDetail(uid, schedule_type, server, cookie);
 
   if (retcode !== 0) {
@@ -129,7 +136,14 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
 }
 
 async function basePromise(mhyID, userID, bot) {
-  const cookie = getCookie("MHY" + mhyID, false, bot);
+  let cookie;
+
+  try {
+    cookie = getCookie("MHY" + mhyID, false, bot);
+  } catch (e) {
+    return detailError(e);
+  }
+
   const { retcode, message, data } = await getBase(mhyID, cookie);
   const errInfo = "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
 
@@ -180,7 +194,14 @@ async function detailPromise(uid, server, userID, bot) {
     }
   }
 
-  const cookie = getCookie(uid, true, bot);
+  let cookie;
+
+  try {
+    cookie = getCookie(uid, true, bot);
+  } catch (e) {
+    return detailError(e);
+  }
+
   const { retcode, message, data } = await getDetail(uid, server, cookie);
 
   if (retcode !== 0) {
@@ -208,7 +229,14 @@ async function detailPromise(uid, server, userID, bot) {
 }
 
 async function characterPromise(uid, server, character_ids, bot) {
-  const cookie = getCookie(uid, true, bot);
+  let cookie;
+
+  try {
+    cookie = getCookie(uid, true, bot);
+  } catch (e) {
+    return detailError(e);
+  }
+
   const { retcode, message, data } = await getCharacters(uid, server, character_ids, cookie);
 
   if (retcode !== 0) {
