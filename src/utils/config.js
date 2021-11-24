@@ -668,8 +668,8 @@ function readNames() {
   global.names.weaponAlias = getSection("weapon");
   global.names.allAlias = lodash.assign({}, global.names.characterAlias, global.names.weaponAlias);
   global.names.character = getNames(global.names.characterAlias);
-  global.names.weaponNames = getNames(global.names.weaponAlias);
-  global.names.allNames = getNames(global.names.allAlias);
+  global.names.weapon = getNames(global.names.weaponAlias);
+  global.names.all = getNames(global.names.allAlias);
 }
 
 // global.eggs.type: name -> type (string)
