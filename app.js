@@ -1,3 +1,4 @@
+import figlet from "figlet";
 import lodash from "lodash";
 import { createClient } from "oicq";
 import { init } from "./src/utils/init.js";
@@ -85,6 +86,17 @@ function login() {
   global.bots.logger = global.bots[0] && global.bots[0].logger;
 }
 
+async function hello() {
+  const asciiArt = figlet.textSync(global.package.name, {
+    font: "Standard",
+    horizontalLayout: "full",
+    verticalLayout: "full",
+    width: 80,
+    whitespaceBreak: true,
+  });
+  global.bots.logger.debug(`\n${asciiArt}\n\t项目主页：${global.package.homepage}`);
+}
+
 function report() {
   // 只打印一次日志
   const log = (text) => global.bots.logger.debug(`配置：${text}`);
@@ -135,9 +147,10 @@ async function run() {
 async function main() {
   readConfig();
   login();
+  await hello();
   report();
   await init();
-  await run();
+  run();
 }
 
 main();

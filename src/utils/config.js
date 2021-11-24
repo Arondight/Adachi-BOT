@@ -9,6 +9,11 @@
  * '/path/to/Adachi-BOT'
  * ==========================================================================
  *
+ * ==========================================================================
+ * package
+ * --------------------------------------------------------------------------
+ * context of this project's package.json
+ * ==========================================================================
  *
  * ==========================================================================
  * global.all
@@ -179,8 +184,8 @@
  *     '护摩之杖': '护摩之杖'
  *   },
  *   character: [ '猫', '迪奥娜', 'dio' ],
- *   weaponNames: [ '柴火棍', '护摩之杖', 'homo' ],
- *   allNames: [ '猫', '迪奥娜', 'dio', '柴火棍', '护摩之杖', 'homo' ]
+ *   weapon: [ '柴火棍', '护摩之杖', 'homo' ],
+ *   all: [ '猫', '迪奥娜', 'dio', '柴火棍', '护摩之杖', 'homo' ]
  * }
  * --------------------------------------------------------------------------
  * ../../config/names.yml
@@ -279,8 +284,9 @@
  *                            以上为数据结构
  * ========================================================================== */
 
-import url from "url";
+import fs from "fs";
 import path from "path";
+import url from "url";
 import lodash from "lodash";
 import { loadYML } from "./yaml.js";
 
@@ -295,6 +301,7 @@ global.eggs = {};
 global.master = {};
 global.names = {};
 global.rootdir = path.resolve(__dirname, "..", "..");
+global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
 
 const Artifacts = loadYML("artifacts");
 const Command = loadYML("command");
