@@ -1,6 +1,3 @@
-/* global alias */
-/* eslint no-undef: "error" */
-
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { guessPossibleNames } from "../../utils/tools.js";
@@ -33,7 +30,7 @@ async function Plugin(msg) {
       break;
     case hasEntrance(msg.text, "gacha", "select"): {
       const name = getName(msg);
-      const guess = guessPossibleNames(name, alias.weaponNames);
+      const guess = guessPossibleNames(name, global.names.weapon);
       if (guess.length > 0 && false !== checkAuth(msg, "select")) {
         doSelect(msg, 1 == guess.length ? guess[0] : name);
       }

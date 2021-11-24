@@ -1,6 +1,3 @@
-/* global bots */
-/* eslint no-undef: "error" */
-
 import lodash from "lodash";
 import db from "./database.js";
 import { getGachaDetail, getGachaList } from "./api.js";
@@ -71,7 +68,7 @@ async function gachaUpdate() {
 
   db.set("gacha", "data", [indefinite, character, weapon]);
   // 只打印一次日志
-  bots[0] && bots[0].logger.debug("卡池：内容已刷新。");
+  global.bots.logger.debug("卡池：内容已刷新。");
 }
 
 export { gachaUpdate };

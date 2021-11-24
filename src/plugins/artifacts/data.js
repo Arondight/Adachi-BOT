@@ -1,6 +1,3 @@
-/* global artifacts */
-/* eslint no-undef: "error" */
-
 import randomFloat from "random-float";
 import db from "../../utils/database.js";
 
@@ -32,8 +29,8 @@ function randomInt(Min, Max) {
 
 function getArtifactID(id) {
   return -1 === id
-    ? randomInt(0, Object.values(artifacts.domains.id).length - 1)
-    : artifacts.domains.name[id] && artifacts.domains.product[id][randomInt(0, 1)];
+    ? randomInt(0, Object.values(global.artifacts.domains.id).length - 1)
+    : global.artifacts.domains.name[id] && global.artifacts.domains.product[id][randomInt(0, 1)];
 }
 
 function getRandomProperty(arr, type) {
@@ -56,7 +53,7 @@ function getRandomProperty(arr, type) {
 }
 
 function getSlot() {
-  return getRandomProperty(artifacts.weights[0], 0);
+  return getRandomProperty(global.artifacts.weights[0], 0);
 }
 
 function getMainStat(slot) {
@@ -66,11 +63,11 @@ function getMainStat(slot) {
     return 6;
   } else {
     let float = [];
-    const len = artifacts.weights[slot].length;
+    const len = global.artifacts.weights[slot].length;
 
     for (let i = 0; i < len; i++) {
       // XXX 在这里可以添加运气权重
-      float.push(artifacts.weights[slot][i]);
+      float.push(global.artifacts.weights[slot][i]);
     }
 
     return getRandomProperty(float, -1);
@@ -82,7 +79,7 @@ function getSubStats(mainStat) {
   let sub = [];
 
   for (let i = 0; i < 10; i++) {
-    let w = artifacts.weights[1][i] * randomInt(0, 1e3);
+    let w = global.artifacts.weights[1][i] * randomInt(0, 1e3);
 
     // XXX 在这里可以添加运气权重
     if (i > 4) {
@@ -100,7 +97,7 @@ function getSubStats(mainStat) {
     if (arr[i][0] !== mainStat) {
       sub.push({
         stat: arr[i][0],
-        grade: getRandomProperty(artifacts.weights[6], 0),
+        grade: getRandomProperty(global.artifacts.weights[6], 0),
       });
       num++;
     }
@@ -110,7 +107,7 @@ function getSubStats(mainStat) {
 }
 
 function getInit() {
-  return getRandomProperty(artifacts.weights[5], 0) ? 4 : 3;
+  return getRandomProperty(global.artifacts.weights[5], 0) ? 4 : 3;
 }
 
 function getImproves() {
@@ -119,7 +116,7 @@ function getImproves() {
   for (let i = 0; i < 5; i++) {
     improves.push({
       place: randomInt(0, 3),
-      grade: getRandomProperty(artifacts.weights[6], 0),
+      grade: getRandomProperty(global.artifacts.weights[6], 0),
     });
   }
 
@@ -151,7 +148,7 @@ function getInitial(num, subStats) {
   for (let i = 0; i < num; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
-    property[id] = artifacts.values[lv][id];
+    property[id] = global.artifacts.values[lv][id];
   }
 
   return toArray(property);
@@ -163,14 +160,14 @@ function getFortified(num, subStats, improves) {
   for (let i = 0; i < 4; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
-    property[id] = artifacts.values[lv][id];
+    property[id] = global.artifacts.values[lv][id];
   }
 
   for (let i = 0; i < num + 1; i++) {
     const p = improves[i].place;
     const id = subStats[p].stat;
     const lv = improves[i].grade;
-    property[id] += artifacts.values[lv][id];
+    property[id] += global.artifacts.values[lv][id];
   }
 
   return toArray(property);
@@ -190,7 +187,7 @@ function getArtifact(userID, type) {
     return artifactID;
   }
 
-  const name = artifacts.artifacts.names[artifactID][slot];
+  const name = global.artifacts.artifacts.names[artifactID][slot];
 
   db.update(
     "artifact",
@@ -214,12 +211,12 @@ function getArtifact(userID, type) {
 function domainInfo() {
   let info = "";
 
-  Object.values(artifacts.domains.id).forEach(
+  Object.values(global.artifacts.domains.id).forEach(
     (id) =>
       (info += `${[
         id,
-        artifacts.domains.name[id],
-        ...(Array.isArray(artifacts.domains.aliasOf[id]) ? artifacts.domains.aliasOf[id] : []),
+        global.artifacts.domains.name[id],
+        ...(Array.isArray(global.artifacts.domains.aliasOf[id]) ? global.artifacts.domains.aliasOf[id] : []),
       ].join("、")}\n`)
   );
 
@@ -227,7 +224,7 @@ function domainInfo() {
 }
 
 function domainMax() {
-  return Math.max(...(Object.values(artifacts.domains.id) || [0]));
+  return Math.max(...(Object.values(global.artifacts.domains.id) || [0]));
 }
 
 export { domainInfo, domainMax, getArtifact };

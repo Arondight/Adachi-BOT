@@ -1,12 +1,9 @@
-/* global all */
-/* eslint no-undef: "error" */
-
 import db from "../../utils/database.js";
 import { errMsg, musicID, musicSrc } from "./data.js";
 
 async function doMusic(msg) {
   const data = db.get("music", "source", { ID: msg.sid });
-  const src = data ? data.Source : all.functions.options.music_source[163] || "163";
+  const src = data ? data.Source : global.all.functions.options.music_source[163] || "163";
   const ret = await musicID(msg.text, src);
 
   if (ret in errMsg) {

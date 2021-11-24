@@ -1,6 +1,3 @@
-/* global command */
-/* eslint no-undef: "error" */
-
 import db from "./database.js";
 
 function hasAuth(id, func) {
@@ -9,7 +6,7 @@ function hasAuth(id, func) {
 }
 
 function setAuth(msg, func, id, isOn, report = true) {
-  const name = command.functions.name[func] ? `【${command.functions.name[func]}】` : func;
+  const name = global.command.functions.name[func] ? `【${global.command.functions.name[func]}】` : func;
   const text = `我已经开始${isOn ? "允许" : "禁止"} ${id} 的${name}功能！`;
   const data = db.get("authority", "user", { userID: id });
 
@@ -38,7 +35,7 @@ function checkAuth(msg, func, report = true) {
 
   if (false === uauth || false === gauth) {
     if (true === report && undefined !== msg.bot) {
-      msg.bot.say(msg.sid, `您当前无【${command.functions.name[func]}】权限。`, msg.type, msg.uid, true);
+      msg.bot.say(msg.sid, `您当前无【${global.command.functions.name[func]}】权限。`, msg.type, msg.uid, true);
     }
     return false;
   }

@@ -1,6 +1,3 @@
-/* global command */
-/* eslint no-undef: "error" */
-
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
@@ -9,7 +6,7 @@ import { filterWordsByRegex } from "../../utils/tools.js";
 
 async function doPackage(msg) {
   let dbInfo = getID(msg.text, msg.uid, false); // UID
-  const args = filterWordsByRegex(msg.text, ...command.functions.entrance.package);
+  const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.package);
 
   if ("string" === typeof dbInfo) {
     msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid, true);

@@ -1,6 +1,3 @@
-/* global rootdir */
-/* eslint no-undef: "error" */
-
 import path from "path";
 import { getCache } from "../../utils/cache.js";
 
@@ -13,7 +10,7 @@ const urls = {
 };
 
 async function doMaterial(msg, url) {
-  const cacheDir = path.resolve(rootdir, "data", "image", "material");
+  const cacheDir = path.resolve(global.rootdir, "data", "image", "material");
 
   if (url) {
     const data = await getCache(url, cacheDir, "base64");

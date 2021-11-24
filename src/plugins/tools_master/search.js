@@ -1,11 +1,8 @@
-/* global master */
-/* eslint no-undef: "error" */
-
 import { hasEntrance } from "../../utils/config.js";
 import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 function search(msg) {
-  const [text] = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.search), /\S+/);
+  const [text] = getWordByRegex(filterWordsByRegex(msg.text, ...global.master.functions.entrance.search), /\S+/);
   const listAll = new Map([...msg.bot.fl, ...msg.bot.gl]);
   let report = "";
 

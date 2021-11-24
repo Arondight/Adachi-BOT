@@ -1,10 +1,7 @@
-/* global master */
-/* eslint no-undef: "error" */
-
 import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 function reply(msg) {
-  const [target, text] = getWordByRegex(filterWordsByRegex(msg.text, ...master.functions.entrance.reply), /\d+/);
+  const [target, text] = getWordByRegex(filterWordsByRegex(msg.text, ...global.master.functions.entrance.reply), /\d+/);
   const list = new Map([...msg.bot.fl, ...msg.bot.gl]);
 
   list.forEach((item) => {

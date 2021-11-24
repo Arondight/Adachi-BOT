@@ -1,6 +1,3 @@
-/* global config */
-/* eslint no-undef: "error" */
-
 import moment from "moment-timezone";
 import lodash from "lodash";
 import db from "./database.js";
@@ -103,8 +100,12 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
     this_schedule -= parseInt(schedule_type) - 1;
 
     // 如果查询的期数和数据库中的期数一致，尝试使用缓存
-    if (db_schedule === this_schedule && lastTime && nowTime - lastTime < config.cacheAbyEffectTime * 60 * 60 * 1000) {
-      bot.logger.debug(`缓存：使用 ${uid} 在 ${config.cacheAbyEffectTime} 小时内的深渊记录缓存。`);
+    if (
+      db_schedule === this_schedule &&
+      lastTime &&
+      nowTime - lastTime < global.config.cacheAbyEffectTime * 60 * 60 * 1000
+    ) {
+      bot.logger.debug(`缓存：使用 ${uid} 在 ${global.config.cacheAbyEffectTime} 小时内的深渊记录缓存。`);
       return detailError("", true);
     }
   }
@@ -122,7 +123,7 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
 
   db.update("aby", "user", { uid }, { data });
   db.update("time", "user", { aby: uid }, { time: nowTime });
-  bot.logger.debug(`缓存：新增 ${uid} 的深渊记录，缓存 ${config.cacheAbyEffectTime} 小时。`);
+  bot.logger.debug(`缓存：新增 ${uid} 的深渊记录，缓存 ${global.config.cacheAbyEffectTime} 小时。`);
 
   return data;
 }
@@ -164,11 +165,11 @@ async function detailPromise(uid, server, userID, bot) {
   const nowTime = new Date().valueOf();
   const { time } = db.get("time", "user", { uid }) || {};
 
-  if (time && nowTime - time < config.cacheInfoEffectTime * 60 * 60 * 1000) {
+  if (time && nowTime - time < global.config.cacheInfoEffectTime * 60 * 60 * 1000) {
     const { retcode } = db.get("info", "user", { uid }) || {};
 
     if (0 === retcode) {
-      bot.logger.debug(`缓存：使用 ${uid} 在 ${config.cacheInfoEffectTime} 小时内的玩家数据缓存。`);
+      bot.logger.debug(`缓存：使用 ${uid} 在 ${global.config.cacheInfoEffectTime} 小时内的玩家数据缓存。`);
       const { retcode, message } = db.get("info", "user", { uid }) || {};
 
       if (retcode !== 0) {
@@ -201,7 +202,7 @@ async function detailPromise(uid, server, userID, bot) {
   );
 
   db.update("time", "user", { uid }, { time: nowTime });
-  bot.logger.debug(`缓存：新增 ${uid} 的玩家数据，缓存 ${config.cacheInfoEffectTime} 小时。`);
+  bot.logger.debug(`缓存：新增 ${uid} 的玩家数据，缓存 ${global.config.cacheInfoEffectTime} 小时。`);
   const characterID = data.avatars.map((el) => el.id);
   return characterID;
 }

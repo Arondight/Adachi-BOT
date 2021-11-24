@@ -1,6 +1,3 @@
-/* global command */
-/* eslint no-undef: "error" */
-
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
@@ -9,7 +6,7 @@ import { filterWordsByRegex } from "../../utils/tools.js";
 
 async function doCard(msg) {
   const dbInfo = getID(msg.text, msg.uid); // 米游社 ID
-  const args = filterWordsByRegex(msg.text, ...command.functions.entrance.card);
+  const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.card);
   let uid;
 
   if ("string" === typeof dbInfo) {

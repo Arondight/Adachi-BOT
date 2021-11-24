@@ -1,12 +1,9 @@
-/* global config */
-/* eslint no-undef: "error" */
-
 import path from "path";
 import lodash from "lodash";
 import db from "./database.js";
 
 const COOKIE_TIMES_INVALID_MARK = 0xabadcafe;
-const cookies = config.cookies || [];
+const cookies = global.config.cookies || [];
 let index = 0;
 
 function increaseIndex() {

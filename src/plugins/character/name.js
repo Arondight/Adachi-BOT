@@ -1,12 +1,9 @@
-/* global alias, command */
-/* eslint no-undef: "error" */
-
 import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 function getName(text) {
   let character = filterWordsByRegex(
     text,
-    ...[...command.functions.entrance.character, ...command.functions.entrance.others_character]
+    ...[...global.command.functions.entrance.character, ...global.command.functions.entrance.others_character]
   );
 
   if (character.startsWith("的")) {
@@ -19,7 +16,7 @@ function getName(text) {
   }
 
   character = "string" === typeof character ? character.toLowerCase() : "";
-  character = alias.character[character] || character;
+  character = global.names.characterAlias[character] || character;
 
   return character;
 }

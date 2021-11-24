@@ -1,13 +1,10 @@
-/* global master */
-/* eslint no-undef: "error" */
-
 import { hasEntrance } from "../../utils/config.js";
 import { filterWordsByRegex } from "../../utils/tools.js";
 
 function boardcast(msg) {
   const text = filterWordsByRegex(
     msg.text,
-    ...[...master.functions.entrance.group_boardcast, ...master.functions.entrance.private_boardcast]
+    ...[...global.master.functions.entrance.group_boardcast, ...global.master.functions.entrance.private_boardcast]
   );
   let report = "";
 

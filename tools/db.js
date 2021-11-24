@@ -1,6 +1,3 @@
-/* global rootdir */
-/* eslint no-undef: "error" */
-
 import path from "path";
 import url from "url";
 import yargs from "yargs";
@@ -12,7 +9,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 global.rootdir = path.resolve(__dirname, "..");
-const names = ls(path.resolve(rootdir, "data", "db"))
+const names = ls(path.resolve(global.rootdir, "data", "db"))
   .filter((c) => c.match(/\b\w+?[.]json$/))
   .map((c) => {
     const p = path.parse(c);

@@ -1,12 +1,9 @@
-/* global eggs, rootdir */
-/* eslint no-undef: "error" */
-
 import fs from "fs";
 import path from "path";
 import lodash from "lodash";
 import db from "../../utils/database.js";
 
-const configdir = path.resolve(rootdir, "resources", "Version2", "wish", "config");
+const configdir = path.resolve(global.rootdir, "resources", "Version2", "wish", "config");
 const element = JSON.parse(fs.readFileSync(path.resolve(configdir, "character.json")));
 const types = JSON.parse(fs.readFileSync(path.resolve(configdir, "weapon.json")));
 
@@ -107,13 +104,13 @@ function getStar(userID, choice) {
 }
 
 function gachaOnceEggs() {
-  const keys = Object.keys(eggs.type);
+  const keys = Object.keys(global.eggs.type);
   const index = getRandomInt(keys.length) - 1;
   const name = keys[index];
 
   return {
-    ...{ item_type: eggs.type[name] || "角色", item_name: name || "刻晴" },
-    star: eggs.star[name] || 5,
+    ...{ item_type: global.eggs.type[name] || "角色", item_name: name || "刻晴" },
+    star: global.eggs.star[name] || 5,
     times: 1,
   };
 }

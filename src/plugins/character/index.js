@@ -1,6 +1,3 @@
-/* global alias */
-/* eslint no-undef: "error" */
-
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { guessPossibleNames } from "../../utils/tools.js";
@@ -9,7 +6,7 @@ import { getName } from "./name.js";
 
 async function Plugin(msg) {
   const name = getName(msg.text);
-  const guess = guessPossibleNames(name, alias.characterNames);
+  const guess = guessPossibleNames(name, global.names.character);
 
   switch (true) {
     case hasEntrance(msg.text, "character", "character"):

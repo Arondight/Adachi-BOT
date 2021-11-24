@@ -1,6 +1,3 @@
-/* global alias */
-/* eslint no-undef: "error" */
-
 import lodash from "lodash";
 import db from "../../utils/database.js";
 import { init } from "./init.js";
@@ -16,7 +13,7 @@ function doSelect(msg, name) {
   }
 
   const table = db.get("gacha", "data", { gacha_type: 302 }) || {};
-  name = alias.weapon[name] || name;
+  name = global.names.weaponAlias[name] || name;
 
   if (name && lodash.find(table.upFiveStar, { item_name: name })) {
     msg.bot.say(msg.sid, `定轨${name}成功，命定值已清零。`, msg.type, msg.uid, true);
