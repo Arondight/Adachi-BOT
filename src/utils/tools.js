@@ -134,7 +134,7 @@ function guessPossibleNames(name, names) {
       .value();
 
     if (sorted.length > 0 && 1 === lodash.filter(sorted, (c) => c[1] === sorted[0][1]).length) {
-      words = [sorted[0][0]];
+      words = [global.names.allAlias[sorted[0][0]] || sorted[0][0]];
     } else {
       words = lodash
         .chain(sorted)
