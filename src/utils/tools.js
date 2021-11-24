@@ -118,20 +118,32 @@ function guessPossibleNames(name, names) {
   let words = [];
 
   if ("string" === typeof name && names.length > 0) {
-    words = lodash
+    const sorted = lodash
       .chain(names)
       .reduce((p, v) => {
-        const n = similarity(name, v);
-        n <= similarityMaxValue && (p[v] = n);
+        if ((v.startsWith(name) || v.endsWith(name)) && name.length / v.length >= 0.5) {
+          p[v] = 0.3;
+        } else {
+          const n = similarity(name, v);
+          n <= similarityMaxValue && (p[v] = n);
+        }
         return p;
       }, {})
       .toPairs()
       .sortBy(1)
-      .fromPairs()
-      .keys()
-      .map((c) => global.names.allAlias[c] || c)
-      .uniq()
       .value();
+
+    if (sorted.length > 0 && 1 === lodash.filter(sorted, (c) => c[1] === sorted[0][1]).length) {
+      words = [sorted[0][0]];
+    } else {
+      words = lodash
+        .chain(sorted)
+        .fromPairs()
+        .keys()
+        .map((c) => global.names.allAlias[c] || c)
+        .uniq()
+        .value();
+    }
   }
 
   return words;

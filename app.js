@@ -94,7 +94,7 @@ async function hello() {
     width: 120,
     whitespaceBreak: true,
   });
-  global.bots.logger.debug(`\n${asciiArt}\n\t\t项目主页：${global.package.homepage}`);
+  global.bots.logger.debug(`\n${asciiArt}\n\t\t\t项目主页：${global.package.homepage}`);
 }
 
 function report() {
