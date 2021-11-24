@@ -88,13 +88,13 @@ function login() {
 
 async function hello() {
   const asciiArt = figlet.textSync(global.package.name, {
-    font: "Standard",
+    font: "DOS Rebel",
     horizontalLayout: "full",
     verticalLayout: "full",
-    width: 80,
+    width: 120,
     whitespaceBreak: true,
   });
-  global.bots.logger.debug(`\n${asciiArt}\n\t项目主页：${global.package.homepage}`);
+  global.bots.logger.debug(`\n${asciiArt}\n\t\t项目主页：${global.package.homepage}`);
 }
 
 function report() {
