@@ -1,27 +1,24 @@
 import db from "../../utils/database.js";
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 import { render } from "../../utils/render.js";
 import { domainMax, getArtifact } from "./data.js";
 import { init } from "./init.js";
 
-function doArtifacts(msg) {
-  const [arg] = getWordByRegex(filterWordsByRegex(msg.text, ...global.command.functions.entrance.artifacts), /\S+/);
+function doArtifacts(msg, text = undefined) {
   let id;
   let data;
 
   init(msg.uid);
 
-  if ("string" === typeof arg) {
-    id = (arg.match(/\d+/g) || [])[0];
+  if ("string" === typeof text) {
+    id = (text.match(/\d+/g) || [])[0];
   }
 
-  if (undefined === arg) {
+  if (undefined === text) {
     getArtifact(msg.uid, -1);
     data = (db.get("artifact", "user", { userID: msg.uid }) || {}).initial;
   } else {
     if (undefined === id) {
-      const text = arg.toLowerCase();
-      const name = global.artifacts.domains.alias[text] || text;
+      const name = global.artifacts.domains.alias[text.toLowerCase()] || text;
       id = global.artifacts.domains.id[name];
     }
 
@@ -29,8 +26,8 @@ function doArtifacts(msg) {
       getArtifact(msg.uid, parseInt(id));
       data = (db.get("artifact", "user", { userID: msg.uid }) || {}).initial;
     } else {
-      const text = `请正确输入副本，可以使用【${global.command.functions.name.dungeons}】查看所有副本。`;
-      msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
+      const message = `请正确输入副本，可以使用【${global.command.functions.name.dungeons}】查看所有副本。`;
+      msg.bot.say(msg.sid, message, msg.type, msg.uid, true);
       return;
     }
   }
