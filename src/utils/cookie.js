@@ -78,7 +78,7 @@ function getCookie(uid, use_cookie, bot) {
   }
 
   if (!cookie) {
-    throw new Error("无法获取可用 Cookie ！");
+    throw "无法获取可用 Cookie ！";
   }
 
   bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
