@@ -118,14 +118,20 @@ function guessPossibleNames(name, names) {
   let words = [];
 
   if ("string" === typeof name && names.length > 0) {
+    let bestMatch = false;
     const sorted = lodash
       .chain(names)
-      .reduce((p, v) => {
-        if ((v.startsWith(name) || v.endsWith(name)) && name.length / v.length >= 0.5) {
-          p[v] = 0.3;
-        } else {
-          const n = similarity(name, v);
-          n <= similarityMaxValue && (p[v] = n);
+      .reduce((p, v, k) => {
+        if (false === bestMatch) {
+          const l = name.length / v.length;
+          if ((v.startsWith(name) || v.endsWith(name)) && l >= 0.5) {
+            if (0 === (p[v] = 1 - l)) {
+              bestMatch = true;
+            }
+          } else {
+            const n = similarity(name, v);
+            n <= similarityMaxValue && (p[v] = n);
+          }
         }
         return p;
       }, {})
