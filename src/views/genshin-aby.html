@@ -138,15 +138,15 @@
         </div>
       </div>
       <!--深渊模块开始-->
-      <div class="container-horizontal abyss-details no-margin-left no-margin-top">
+      <div class="container-horizontal abyss-details no-margin-left no-margin-top" v-if="displayFloorDetails">
         <!--深渊数据开始-->
-        <div class="card abyss" v-for="n in 4" v-if="floors.hasOwnProperty([n-1]['levels'])">
+        <div class="card abyss" v-for="n in 4">
           <!--placeholder开始，如果该楼层有数据就显示数据，如果没有数据则显示"NO DATA"-->
-          <div class="abyss-empty-record-placeholder" v-if="!floors.hasOwnProperty([n-1]['levels'])">
+          <div class="abyss-empty-record-placeholder" v-if="!floors.hasOwnProperty(n-1)">
             <div class="banner-left banner-abyss banner-placeholder">
               <p>{{parseInt(n) + 8}}-X</p>
             </div>
-            <div class="container-vertical">
+            <div class="container-vertical" >
               <div class="abyss-details-placeholder">
                 <p class="text-placeholder">----NO DATA----</p>
                 <p class="text-placeholder">没有找到该层的深境螺旋记录。</p>
@@ -215,6 +215,7 @@
         energy_skill_rank: [],
         damage_rank: [],
         floors: [],
+        displayFloorDetails: false,
       },
       methods: {
         padLeftZero(str) {
@@ -261,6 +262,12 @@
         this.energy_skill_rank = params.data.energy_skill_rank;
         this.damage_rank = params.data.damage_rank;
         this.floors = params.data.floors.slice(-4);
+
+        if (this.floors.length !== 0) {
+          if (this.floors[0]['levels'].length !== 0) {
+            this.displayFloorDetails = true;
+          }
+        }
       },
     });
   </script>
