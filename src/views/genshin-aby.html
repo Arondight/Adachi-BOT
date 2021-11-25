@@ -140,9 +140,9 @@
       <!--深渊模块开始-->
       <div class="container-horizontal abyss-details no-margin-left no-margin-top">
         <!--深渊数据开始-->
-        <div class="card abyss" v-for="n in 4">
+        <div class="card abyss" v-for="n in 4" v-if="floors.hasOwnProperty([n-1]['levels'])">
           <!--placeholder开始，如果该楼层有数据就显示数据，如果没有数据则显示"NO DATA"-->
-          <div class="abyss-empty-record-placeholder" v-if="!floors.hasOwnProperty(n-1)">
+          <div class="abyss-empty-record-placeholder" v-if="!floors.hasOwnProperty([n-1]['levels'])">
             <div class="banner-left banner-abyss banner-placeholder">
               <p>{{parseInt(n) + 8}}-X</p>
             </div>
@@ -150,9 +150,8 @@
               <div class="abyss-details-placeholder">
                 <p class="text-placeholder">----NO DATA----</p>
                 <p class="text-placeholder">没有找到该层的深境螺旋记录。</p>
-                <p class="text-placeholder">可能是米游社数据暂未刷新，</p>
-                <p class="text-placeholder">如果确定游戏中有过该层的通关记录，</p>
-                <p class="text-placeholder">请稍后再进行查询。</p>
+                <p class="text-placeholder">米哈游已禁止用户查询深渊记录，</p>
+                <p class="text-placeholder">请等待米哈游方面的更改。</p>
               </div>
             </div>
           </div>
