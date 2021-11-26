@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
@@ -102,7 +103,13 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
         let base = path.parse(data.artifact[i].icon).base.replace(/^UI_RelicIcon_/, "");
         base = base.replace(/^\d+?(?=_)/, global.artifacts.artifacts.icon[id[0]]);
         base = base.replace(/(?<=^\d+?)_\d(?=[.])/, `/${global.artifacts.path.indexOf(id[1])}`);
-        data.artifact[i].icon = `http://localhost:9934/resources/Version2/artifact/${base}`;
+
+        try {
+          fs.accessSync(path.resolve(global.rootdir, "resources", "Version2", "artifact", base), fs.constants.R_OK);
+          data.artifact[i].icon = `http://localhost:9934/resources/Version2/artifact/${base}`;
+        } catch (e) {
+          continue;
+        }
       }
     }
   }
