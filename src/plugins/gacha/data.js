@@ -19,6 +19,9 @@ function getChoiceData(userID, choice = 301) {
       return { name: "indefinite", ...indefinite };
     case 301:
       return { name: "character", ...character };
+    case 400:
+      // 400 使用 301 的保底
+      return { name: "character2", ...character };
     case 302:
       return { name: "weapon", ...weapon };
     case 999:
@@ -36,7 +39,7 @@ let name, five, four, isUp;
 // 数据参考: https://www.bilibili.com/read/cv10468091
 // 更新时间: 2021年6月16日15:57:34, 不保证概率更新的及时性
 function getFiveProb(counter, choice) {
-  if (200 === choice || 301 === choice) {
+  if (200 === choice || 400 === choice || 301 === choice) {
     return 60 + 600 * (counter > 73 ? counter - 73 : 0);
   } else {
     if (counter < 63) {
@@ -50,7 +53,7 @@ function getFiveProb(counter, choice) {
 }
 
 function getFourProb(counter, choice) {
-  if (200 === choice || 301 === choice) {
+  if (200 === choice || 400 === choice || 301 === choice) {
     return 510 + 5100 * (counter > 8 ? counter - 8 : 0);
   } else {
     if (counter < 8) {
@@ -245,7 +248,9 @@ function gachaTimes(userID, nickname, times = 10) {
 
   // 彩蛋卡池不写入数据库
   if (999 !== choice) {
-    data[name] = { five, four, isUp };
+    // 400 使用 301 的保底
+    const pool = 400 === choice ? "character" : name;
+    data[pool] = { five, four, isUp };
     db.update("gacha", "user", { userID }, data);
   }
 

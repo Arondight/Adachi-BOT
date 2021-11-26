@@ -12,8 +12,8 @@ function getNotFoundText(character, isMyChar, guess = []) {
   const cmd = [global.command.functions.name.card, global.command.functions.name.package];
   const cmdStr = `【${cmd.join("】、【")}】`;
   const text = global.config.characterTryGetDetail
-    ? `看上去${isMyChar ? "您" : "他"}尚未拥有该角色`
-    : `如果${isMyChar ? "您" : "他"}拥有该角色，使用${cmdStr}更新游戏角色后再次查询`;
+    ? `看上去${isMyChar ? "您" : "他"}尚未拥有或公开此角色`
+    : `如果${isMyChar ? "您" : "他"}拥有该角色并已经公开，使用${cmdStr}更新游戏角色后再次查询`;
   let notFoundText = `查询失败，${text}。`;
 
   if (!global.names.character.includes(character) && guess.length > 0) {
