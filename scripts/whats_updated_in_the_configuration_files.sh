@@ -1,6 +1,5 @@
 RDIR=$(dirname $(readlink -f "$0"))
 SKIPLIST=(
-  'alias.yml'
   'cookies.yml'
   'greeting.yml'
   'menu.yml'

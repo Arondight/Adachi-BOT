@@ -10,6 +10,29 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["vue"],
-  "rules": {}
+  "plugins": ["sort-exports"],
+  "rules": {
+    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
+      }
+    ],
+    "vue/comment-directive": 0
+  },
+  "overrides": [
+    {
+      "files": ["*.yaml", "*.yml"],
+      "plugins": ["yaml"],
+      "extends": ["plugin:yaml/recommended"]
+    },
+    {
+      "files": ["*.html"],
+      "plugins": ["vue"]
+    }
+  ]
 }

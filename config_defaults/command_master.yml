@@ -124,7 +124,7 @@ master:
   enable: true
   weights: 9999
   regex:
-    - ^(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s*\d+\s*\S+\s*$
+    - ^设置(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s*\d+\s*\S+\s*$
     - ^响应消息\s*\d+\s*\S+\s*$
     - ^刷新卡池\s*$
   functions:
@@ -132,11 +132,11 @@ master:
       type: switch
       show: true
       weights: 9999
-      name: 带话权限
+      name: 设置带话权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^带话权限
+        - ^设置带话权限
       options:
         on: on
         off: off
@@ -144,11 +144,11 @@ master:
       type: switch
       show: true
       weights: 9899
-      name: 点歌权限
+      name: 设置点歌权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^点歌权限
+        - ^设置点歌权限
       options:
         on: on
         off: off
@@ -156,11 +156,11 @@ master:
       type: switch
       show: true
       weights: 9799
-      name: 十连权限
+      name: 设置十连权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^十连权限
+        - ^设置十连权限
       options:
         on: on
         off: off
@@ -168,11 +168,11 @@ master:
       type: switch
       show: true
       weights: 9699
-      name: 圣遗物权限
+      name: 设置圣遗物权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^圣遗物权限
+        - ^设置圣遗物权限
       options:
         on: on
         off: off
@@ -180,11 +180,11 @@ master:
       type: switch
       show: true
       weights: 9599
-      name: 评分权限
+      name: 设置评分权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^评分权限
+        - ^设置评分权限
       options:
         on: on
         off: off
@@ -192,11 +192,11 @@ master:
       type: switch
       show: true
       weights: 9499
-      name: 游戏数据权限
+      name: 设置游戏数据权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^游戏数据权限
+        - ^设置游戏数据权限
       options:
         on: on
         off: off
@@ -204,11 +204,11 @@ master:
       type: switch
       show: true
       weights: 9399
-      name: 官方数据权限
+      name: 设置官方数据权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^官方数据权限
+        - ^设置官方数据权限
       options:
         on: on
         off: off
@@ -216,11 +216,11 @@ master:
       type: switch
       show: true
       weights: 9299
-      name: 娱乐功能权限
+      name: 设置娱乐功能权限
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^娱乐功能权限
+        - ^设置娱乐功能权限
       options:
         on: on
         off: off
@@ -228,11 +228,11 @@ master:
       type: switch
       show: true
       weights: 1099
-      name: 响应消息
+      name: 设置消息响应
       usage: <QQ号、群号>
       description:
       entrance:
-        - ^响应消息
+        - ^设置消息响应
       options:
         on: on
         off: off

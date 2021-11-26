@@ -1,16 +1,13 @@
-/* global config, rootdir */
-/* eslint no-undef: "error" */
-
 import path from "path";
 import lodash from "lodash";
-import { LowSync, JSONFileSync } from "lowdb";
+import { JSONFileSync, LowSync } from "lowdb";
 import { merge } from "./merge.js";
 
 const db = {};
 
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, defaultElement = { user: [] }) {
-  const file = path.resolve(rootdir, "data", "db", `${dbName}.json`);
+  const file = path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
   const adapter = new JSONFileSync(file);
 
   db[dbName] = new LowSync(adapter);
@@ -177,7 +174,7 @@ function cleanCookiesInvalid() {
   let nums = 0;
 
   for (const i in cookies) {
-    if (!cookies[i].cookie || !(config.cookies || []).includes(cookies[i].cookie)) {
+    if (!cookies[i].cookie || !(global.cookies || []).includes(cookies[i].cookie)) {
       cookies.splice(i, 1);
       nums++;
     }
@@ -190,9 +187,9 @@ function cleanCookiesInvalid() {
 function clean(dbName) {
   switch (dbName) {
     case "aby":
-      return cleanByTimeDB(dbName, ["user", "uid"], "aby", config.dbAbyEffectTime * 60 * 60 * 1000);
+      return cleanByTimeDB(dbName, ["user", "uid"], "aby", global.config.dbAbyEffectTime * 60 * 60 * 1000);
     case "info":
-      return cleanByTimeDB(dbName, ["user", "uid"], "uid", config.dbInfoEffectTime * 60 * 60 * 1000);
+      return cleanByTimeDB(dbName, ["user", "uid"], "uid", global.config.dbInfoEffectTime * 60 * 60 * 1000);
     case "cookies":
       return cleanCookies();
     case "cookies_invalid":

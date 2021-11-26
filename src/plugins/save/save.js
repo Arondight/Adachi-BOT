@@ -1,6 +1,3 @@
-/* global command */
-/* eslint no-undef: "error" */
-
 import db from "../../utils/database.js";
 import { getID } from "../../utils/id.js";
 
@@ -21,9 +18,9 @@ function setCacheTimeout(uid, mhyID, bot) {
 function doSave(msg, action = "save") {
   const id = getID(msg.text, msg.uid); // 米游社 ID，这里正则限定了 msg 必然有 ID
   const mhyID = id;
-  const cardCmd = command.functions.name.card;
-  const saveCmd = command.functions.name.save;
-  const changeCmd = command.functions.name.change;
+  const cardCmd = global.command.functions.name.card;
+  const saveCmd = global.command.functions.name.save;
+  const changeCmd = global.command.functions.name.change;
   const okMsg = `使用【${cardCmd}】来查询游戏信息并更新您的游戏角色。`;
   const existMsg = `您已绑定通行证，使用【${changeCmd} ${mhyID}】。`;
   const unexistMsg = `您还未绑定通行证，使用【${saveCmd} ${mhyID}】。`;

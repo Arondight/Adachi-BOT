@@ -1,12 +1,9 @@
-/* global config */
-/* eslint no-undef: "error" */
-
 import path from "path";
 import lodash from "lodash";
 import db from "./database.js";
 
 const COOKIE_TIMES_INVALID_MARK = 0xabadcafe;
-const cookies = config.cookies || [];
+const cookies = global.cookies || [];
 let index = 0;
 
 function increaseIndex() {
@@ -81,7 +78,7 @@ function getCookie(uid, use_cookie, bot) {
   }
 
   if (!cookie) {
-    return Promise.reject("无法获取可用 Cookie ！");
+    throw "无法获取可用 Cookie ！";
   }
 
   bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);

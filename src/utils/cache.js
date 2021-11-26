@@ -1,6 +1,3 @@
-/* global rootdir */
-/* eslint no-undef: "error" */
-
 import path from "path";
 import fs from "fs";
 import util from "util";
@@ -10,7 +7,7 @@ import { once } from "events";
 import { du, mkdir } from "./file.js";
 
 function getCachedPath(url, dir) {
-  const workdir = dir || path.join(rootdir, "data", "cache");
+  const workdir = dir || path.join(global.rootdir, "data", "cache");
   return url && path.join(mkdir(workdir), md5(url));
 }
 

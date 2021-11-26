@@ -47,8 +47,7 @@ body {
 .portrait {
   position: absolute;
   width: 515px;
-  height: 515px;
-  left: 557px;
+  right: 35px;
   top: 612px;
 }
 
@@ -139,6 +138,11 @@ body {
   position: relative;
 }
 
+.artifact {
+  display: flex;
+  align-items: center;
+}
+
 .empty-box,
 .artifact {
   font-size: 24px;
@@ -149,11 +153,11 @@ body {
 
 .artifact-image {
   width: 130px;
+  height: 130px;
 }
 
 .artifact-context {
   position: relative;
-  top: -37px;
   display: inline-block;
   width: 190px;
 }
@@ -189,7 +193,9 @@ body {
   position: absolute;
   left: 56px;
   top: 758px;
-  height: 369px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .weapon-image {
@@ -198,8 +204,6 @@ body {
 
 .weapon-context {
   margin: 10px 0 0 10px;
-  position: absolute;
-  display: inline-block;
   width: 320px;
   height: calc(100% - 10px);
 }

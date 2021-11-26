@@ -1,8 +1,10 @@
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
+import { guessPossibleNames } from "../../utils/tools.js";
+import { getName } from "./name.js";
 import { doPool } from "./pool.js";
 import { doGacha } from "./gacha.js";
-import { doSelect, doSelectWhat, doSelectNothing } from "./select.js";
+import { doSelect, doSelectNothing, doSelectWhat } from "./select.js";
 
 async function Plugin(msg) {
   switch (true) {
@@ -26,11 +28,14 @@ async function Plugin(msg) {
         doSelectNothing(msg);
       }
       break;
-    case hasEntrance(msg.text, "gacha", "select"):
-      if (false !== checkAuth(msg, "select")) {
-        doSelect(msg);
+    case hasEntrance(msg.text, "gacha", "select"): {
+      const name = getName(msg);
+      const guess = guessPossibleNames(name, global.names.weapon);
+      if (guess.length > 0 && false !== checkAuth(msg, "select")) {
+        doSelect(msg, 1 == guess.length ? guess[0] : name);
       }
       break;
+    }
   }
 }
 

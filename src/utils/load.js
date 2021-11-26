@@ -1,6 +1,3 @@
-/* global all, bots, command, config, master, rootdir */
-/* eslint no-undef: "error" */
-
 import fs from "fs";
 import path from "path";
 import lodash from "lodash";
@@ -13,27 +10,27 @@ const replyAuthName = "响应消息";
 
 async function loadPlugins() {
   let plugins = {};
-  const enableList = { ...command.enable, ...master.enable };
-  const pluginLoadPath = path.resolve(rootdir, "src", "plugins");
+  const enableList = { ...global.command.enable, ...global.master.enable };
+  const pluginLoadPath = path.resolve(global.rootdir, "src", "plugins");
   const pluginDirList =
     fs.readdirSync(pluginLoadPath).filter((f) => f && fs.statSync(path.resolve(pluginLoadPath, f)).isDirectory()) || [];
 
   for (const dir of pluginDirList) {
     const plugin = dir.toLowerCase();
 
-    if (plugin in all.function) {
+    if (plugin in global.all.function) {
       if (enableList[plugin] && true === enableList[plugin]) {
         try {
           plugins[plugin] = await import(`../plugins/${dir}/index.js`);
-          bots[0] && bots[0].logger.debug(`插件：加载 ${plugin} 成功。`);
+          global.bots.logger.debug(`插件：加载 ${plugin} 成功。`);
         } catch (e) {
-          bots[0] && bots[0].logger.error(`插件：加载 ${plugin} 失败（${e}）！`);
+          global.bots.logger.error(`插件：加载 ${plugin} 失败（${e}）！`);
         }
       } else {
-        bots[0] && bots[0].logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
+        global.bots.logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);
       }
     } else {
-      bots[0] && bots[0].logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
+      global.bots.logger.warn(`插件：拒绝加载未知插件 ${plugin} ！`);
     }
   }
 
@@ -58,9 +55,9 @@ function isGroupBan(msg, bot) {
 }
 
 function processedFriendIncrease(msg, bot) {
-  if (config.friendGreetingNew) {
+  if (global.config.friendGreetingNew) {
     // 私聊不需要 @
-    bot.say(msg.user_id, config.greetingNew, "private");
+    bot.say(msg.user_id, global.greeting.new, "private");
   }
 }
 
@@ -69,11 +66,11 @@ function processedGroupIncrease(msg, bot) {
     if (bot.uin === msg.user_id) {
       // 如果加入了新群，尝试向全群问好
       // 群通知不需要 @
-      bot.say(msg.group_id, config.greetingHello, "group");
+      bot.say(msg.group_id, global.greeting.hello, "group");
     } else {
       // 如果有新群友，尝试向新群友问好
-      if (config.groupGreetingNew && false !== checkAuth({ uid: msg.group_id }, replyAuthName, false)) {
-        bot.say(msg.group_id, config.greetingNew, "group", msg.user_id);
+      if (global.config.groupGreetingNew && false !== checkAuth({ uid: msg.group_id }, replyAuthName, false)) {
+        bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
       }
     }
   }
@@ -91,7 +88,7 @@ function processedPossibleCommand(msg, plugins, type, bot) {
     : false;
 
   if (atMe) {
-    switch (config.atMe) {
+    switch (global.config.atMe) {
       case 0:
         return false;
       case 1:
@@ -106,16 +103,16 @@ function processedPossibleCommand(msg, plugins, type, bot) {
     msg.raw_message = msg.raw_message.replace(atMeReg, "");
   }
 
-  const regexPool = { ...command.regex, ...master.regex };
-  const enableList = { ...command.enable, ...master.enable };
+  const regexPool = { ...global.command.regex, ...global.master.regex };
+  const enableList = { ...global.command.enable, ...global.master.enable };
   let match = false;
   let thisPrefix = null;
 
   // 匹配命令前缀
-  if (0 === config.prefixes.length || config.prefixes.includes(null)) {
+  if (0 === global.config.prefixes.length || global.config.prefixes.includes(null)) {
     match = true;
   } else {
-    for (const prefix of config.prefixes) {
+    for (const prefix of global.config.prefixes) {
       if (msg.raw_message.startsWith(prefix)) {
         match = true;
         thisPrefix = prefix;
@@ -137,7 +134,7 @@ function processedPossibleCommand(msg, plugins, type, bot) {
 
     if (enableList[plugin] && r.test(msg.raw_message)) {
       // 只允许管理者执行主人命令
-      if (master.enable[plugin] && !config.masters.includes(msg.user_id)) {
+      if (global.master.enable[plugin] && !global.config.masters.includes(msg.user_id)) {
         const id = "group" === type ? msg.group_id : msg.user_id;
         bot.say(id, "不能使用管理命令。", type, msg.user_id);
         return true;
@@ -164,7 +161,7 @@ function processedPossibleCommand(msg, plugins, type, bot) {
       msg.bot = bot;
 
       if (false !== checkAuth(msg, replyAuthName, false)) {
-        if (config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
+        if (global.config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
           timestamp[msg.user_id] = msg.time;
           // 参数 bot 为了兼容可能存在的旧插件
           plugins[plugin].run(msg, bot);
@@ -176,17 +173,19 @@ function processedPossibleCommand(msg, plugins, type, bot) {
 }
 
 function processedGroup(msg, bot) {
-  if (config.repeatProb > 0 && getRandomInt(100 * 100) < config.repeatProb + 1 && !isGroupBan(msg, bot)) {
+  if (global.config.repeatProb > 0 && getRandomInt(100 * 100) < global.config.repeatProb + 1 && !isGroupBan(msg, bot)) {
     // 复读群消息不需要 @
     bot.say(msg.group_id, msg.raw_message, "group");
   }
 }
 
 function processedOnline(bot) {
-  if (config.groupHello) {
+  if (global.config.groupHello) {
     bot.gl.forEach((group) => {
       const greeting =
-        false !== checkAuth({ uid: group.group_id }, replyAuthName, false) ? config.greetingOnline : config.greetingDie;
+        false !== checkAuth({ uid: group.group_id }, replyAuthName, false)
+          ? global.greeting.online
+          : global.greeting.die;
 
       if (!isGroupBan(group, bot) && "string" === typeof greeting) {
         // 群通知不需要 @

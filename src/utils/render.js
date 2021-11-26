@@ -1,6 +1,3 @@
-/* global config, rootdir */
-/* eslint no-undef: "error" */
-
 import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
@@ -41,7 +38,7 @@ async function launch() {
   if (undefined === browser) {
     browser = await puppeteer.launch({
       defaultViewport: null,
-      headless: 0 === config.viewDebug,
+      headless: 0 === global.config.viewDebug,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
   }
@@ -50,16 +47,16 @@ async function launch() {
 async function render(msg, data, name) {
   let base64;
 
-  if ((settings.hello[name] || settingsDefault.hello) && config.warnTimeCosts) {
+  if ((settings.hello[name] || settingsDefault.hello) && global.config.warnTimeCosts) {
     msg.bot && msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
   }
 
   try {
     const dataStr = JSON.stringify(data);
 
-    if ("string" === typeof rootdir) {
+    if ("string" === typeof global.rootdir) {
       // 该文件仅用于辅助前端调试，无实际作用亦不阻塞
-      const record = path.resolve(rootdir, "data", "record", `${name}.json`);
+      const record = path.resolve(global.rootdir, "data", "record", `${name}.json`);
       fs.writeFile(record, dataStr, () => {});
       msg.bot && msg.bot.logger.debug(`render：已生成 ${name} 功能的数据调试文件。`);
     }
@@ -88,7 +85,7 @@ async function render(msg, data, name) {
       omitBackground: true,
     });
 
-    if (0 === config.viewDebug) {
+    if (0 === global.config.viewDebug) {
       await page.close();
     }
   } catch (e) {

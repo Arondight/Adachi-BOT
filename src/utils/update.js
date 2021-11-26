@@ -1,9 +1,6 @@
-/* global bots */
-/* eslint no-undef: "error" */
-
 import lodash from "lodash";
 import db from "./database.js";
-import { getGachaList, getGachaDetail } from "./api.js";
+import { getGachaDetail, getGachaList } from "./api.js";
 
 async function parseData(gachaID) {
   const data = await getGachaDetail(gachaID);
@@ -42,36 +39,23 @@ async function parseData(gachaID) {
 }
 
 async function gachaUpdate() {
-  const gachaInfo = (await getGachaList()).data.list;
+  const info = await getGachaList();
+  const data = {};
 
-  if (undefined === gachaInfo[1]) {
-    return;
-  }
-
-  const getGachaCode = (gachaID) => {
-    const gacha = gachaInfo.filter((el) => el.gacha_type === gachaID);
-    let maxTime = 0;
-    let tmpGacha;
-
-    for (const g of gacha) {
-      const date = new Date(g.begin_time);
-
-      if (date.getTime() > maxTime) {
-        maxTime = date.getTime();
-        tmpGacha = g;
-      }
+  if (lodash.hasIn(info, ["data", "list"]) && Array.isArray(info.data.list)) {
+    for (const c of info.data.list) {
+      data[c.gacha_type] = await parseData(c.gacha_id);
     }
 
-    return tmpGacha.gacha_id;
-  };
+    const indefinite = data[200];
+    const character = data[301];
+    const character2 = data[400];
+    const weapon = data[302];
 
-  const indefinite = await parseData(gachaInfo[0].gacha_id);
-  const character = await parseData(getGachaCode(301));
-  const weapon = await parseData(getGachaCode(302));
-
-  db.set("gacha", "data", [indefinite, character, weapon]);
-  // 只打印一次日志
-  bots[0] && bots[0].logger.debug("卡池：内容已刷新。");
+    db.set("gacha", "data", [indefinite, character2, character, weapon]);
+    // 只打印一次日志
+    global.bots.logger.debug("卡池：内容已刷新。");
+  }
 }
 
 export { gachaUpdate };

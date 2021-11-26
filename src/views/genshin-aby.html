@@ -9,11 +9,11 @@
 
   <body>
     <div id="app">
-      <div class="container-horizontal">
-        <div class="container-vertical abyss-briefing">
+      <div class="container-vertical">
+        <div class="container-vertical">
           <div class="card overview">
-            <div class="title">深境螺旋战绩</div>
-            <div class="overall-challenge-date">{{start_time}} - {{end_time}}</div>
+            <div class="title">{{uid}} 的深境螺旋战绩</div>
+            <p class="overall-challenge-date">{{start_time}} - {{end_time}}</p>
             <!--结构化模版开始-->
             <div class="overall-challenge-times-by-char">
               <div
@@ -23,83 +23,12 @@
                 :key="index"
               >
                 <div class="background-general" :class="'star-' + reveal.rarity">
-                  <img class="avatar-general" :src="reveal.avatar_icon" alt="ERROR" />
+                  <img class="avatar-overall-battle-times" :src="reveal.avatar_icon" alt="ERROR" />
                 </div>
                 <div class="description-general">{{reveal.value}}次</div>
               </div>
             </div>
             <!--结构化模版结束-->
-          </div>
-          <div class="card detailed">
-            <div class="banner-left">最多击破</div>
-            <!--结构化模版开始-->
-            <div class="container-horizontal char-side">
-              <div
-                class="container-vertical-center char-rounded"
-                v-for="(defeat,index) in defeat_rank"
-                v-if="index < 14"
-                :key="index"
-              >
-                <div class="background-rounded" :class="'star-' + defeat.rarity">
-                  <img class="avatar-rounded" :src="imageUrlReplacement(defeat.avatar_icon)" alt="ERROR" />
-                </div>
-                <div class="avatar-info">{{defeat.value}}</div>
-              </div>
-            </div>
-            <!--结构化模版结束-->
-            <div class="banner-left no-margin-top">承受伤害</div>
-            <!--结构化模版开始-->
-            <div class="container-horizontal char-side">
-              <div
-                class="container-vertical-center char-rounded"
-                v-for="(take_damage,index)  in take_damage_rank"
-                v-if="index < 14"
-                :key="index"
-              >
-                <div class="background-rounded" :class="'star-' + take_damage.rarity">
-                  <img class="avatar-rounded" :src="imageUrlReplacement(take_damage.avatar_icon)" alt="ERROR" />
-                </div>
-                <div class="avatar-info">{{take_damage.value}}</div>
-              </div>
-            </div>
-            <!--结构化模版结束-->
-            <div class="banner-left no-margin-top">元素战技</div>
-            <!--结构化模版开始-->
-            <div class="container-horizontal char-side">
-              <div
-                class="container-vertical-center char-rounded"
-                v-for="(normal_skill,index) in normal_skill_rank"
-                v-if="index < 14"
-                :key="index"
-              >
-                <div class="background-rounded" :class="'star-' + normal_skill.rarity">
-                  <img class="avatar-rounded" :src="imageUrlReplacement(normal_skill.avatar_icon)" alt="ERROR" />
-                </div>
-                <div class="avatar-info">{{normal_skill.value}}</div>
-              </div>
-            </div>
-            <!--结构化模版结束-->
-            <div class="banner-left no-margin-top">元素爆发</div>
-            <!--结构化模版开始-->
-            <div class="container-horizontal char-side">
-              <div
-                class="container-vertical-center char-rounded"
-                v-for="(energy_skill,index) in energy_skill_rank"
-                v-if="index < 14"
-                :key="index"
-              >
-                <div class="background-rounded" :class="'star-' + energy_skill.rarity">
-                  <img class="avatar-rounded" :src="imageUrlReplacement(energy_skill.avatar_icon)" alt="ERROR" />
-                </div>
-                <div class="avatar-info">{{energy_skill.value}}</div>
-              </div>
-            </div>
-            <!--结构化模版结束-->
-          </div>
-        </div>
-        <div class="container-vertical abyss-personal-info">
-          <div class="card userID">
-            <div class="title uid">UID {{uid}}</div>
           </div>
           <div class="card summary">
             <div class="banner-middle first-banner">战斗次数</div>
@@ -109,36 +38,116 @@
             <div class="banner-middle">获得渊星</div>
             <div class="banner-summary">{{total_star}}<span class="abyss-star large">*</span></div>
           </div>
-          <div class="container-horizontal no-margin">
-            <div class="card strongest-hit">
-              <div class="banner-middle no-background">最强一击</div>
+          <div class="container-horizontal no-margin-left no-margin-right no-margin-bottom allow-wrap">
+            <!--米游社新API适配模版开始-->
+            <div class="card card-avatar-details">
+              <div class="banner-middle no-background">最多击破</div>
               <!--结构化模版开始-->
               <div class="container-strongest-hit">
                 <div
                   class="challenge-times-per-char-base"
-                  v-for="(damage,index) in damage_rank"
+                  v-for="(defeat,index) in defeat_rank"
                   v-if="index = 1"
                   :key="index"
                 >
-                  <div class="background-general" :class="'star-' + damage.rarity">
-                    <!--<div class="celtic-triangle">-->
-                    <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
-                    <!--</div>-->
+                  <div class="background-general" :class="'star-' + defeat.rarity">
+                    <img class="avatar-details" :src="imageUrlReplacement(defeat.avatar_icon)" alt="ERROR" />
                   </div>
-                  <div class="description-general strongest-hit">{{damage.value}}</div>
+                  <div class="description-general strongest-hit">{{defeat.value}}</div>
                 </div>
               </div>
               <!--结构化模版结束-->
             </div>
-            <div class="card credit">
-              <div class="credit no-margin">CREATED BY</div>
-              <div class="credit no-margin">Adachi-BOT</div>
+            <!--米游社新API适配模版结束-->
+            <!--米游社新API适配模版开始-->
+            <div class="card card-avatar-details">
+              <div class="banner-middle no-background">承受伤害</div>
+              <!--结构化模版开始-->
+              <div class="container-strongest-hit">
+                <div
+                  class="challenge-times-per-char-base"
+                  v-for="(take_damage,index)  in take_damage_rank"
+                  v-if="index = 1"
+                  :key="index"
+                >
+                  <div class="background-general" :class="'star-' + take_damage.rarity">
+                    <img class="avatar-details" :src="imageUrlReplacement(take_damage.avatar_icon)" alt="ERROR" />
+                  </div>
+                  <div class="description-general strongest-hit">{{take_damage.value}}</div>
+                </div>
+              </div>
+              <!--结构化模版结束-->
             </div>
+            <!--米游社新API适配模版结束-->
+            <!--米游社新API适配模版开始-->
+            <div class="card card-avatar-details">
+              <div class="banner-middle no-background">元素战技</div>
+              <!--结构化模版开始-->
+              <div class="container-strongest-hit">
+                <div
+                  class="challenge-times-per-char-base"
+                  v-for="(normal_skill,index) in normal_skill_rank"
+                  v-if="index = 1"
+                  :key="index"
+                >
+                  <div class="background-general" :class="'star-' + normal_skill.rarity">
+                    <img class="avatar-details" :src="imageUrlReplacement(normal_skill.avatar_icon)" alt="ERROR" />
+                  </div>
+                  <div class="description-general strongest-hit">{{normal_skill.value}}</div>
+                </div>
+              </div>
+              <!--结构化模版结束-->
+            </div>
+            <!--米游社新API适配模版结束-->
+            <!--米游社新API适配模版开始-->
+            <div class="card card-avatar-details">
+              <div class="banner-middle no-background">元素爆发</div>
+              <!--结构化模版开始-->
+              <div class="container-strongest-hit">
+                <div
+                  class="challenge-times-per-char-base"
+                  v-for="(energy_skill,index) in energy_skill_rank"
+                  v-if="index = 1"
+                  :key="index"
+                >
+                  <div class="background-general" :class="'star-' + energy_skill.rarity">
+                    <img class="avatar-details" :src="imageUrlReplacement(energy_skill.avatar_icon)" alt="ERROR" />
+                  </div>
+                  <div class="description-general strongest-hit">{{energy_skill.value}}</div>
+                </div>
+              </div>
+              <!--结构化模版结束-->
+            </div>
+            <!--米游社新API适配模版结束-->
+          </div>
+        </div>
+        <div class="container-horizontal no-margin-left no-margin-right no-margin-top">
+          <div class="card strongest-hit">
+            <div class="banner-middle no-background">最强一击</div>
+            <!--结构化模版开始-->
+            <div class="container-strongest-hit">
+              <div
+                class="challenge-times-per-char-base"
+                v-for="(damage,index) in damage_rank"
+                v-if="index = 1"
+                :key="index"
+              >
+                <div class="background-general" :class="'star-' + damage.rarity">
+                  <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
+                </div>
+                <div class="description-general strongest-hit">{{damage.value}}</div>
+              </div>
+            </div>
+            <!--结构化模版结束-->
+          </div>
+          <div class="card credit">
+            <div class="credit no-margin">CREATED BY</div>
+            <div class="credit no-margin">Adachi-BOT</div>
           </div>
         </div>
       </div>
       <!--深渊模块开始-->
-      <div class="container-horizontal abyss-details no-margin-left no-margin-top">
+      <div class="container-vertical abyss-details no-margin-left no-margin-top" v-if="displayFloorDetails">
         <!--深渊数据开始-->
         <div class="card abyss" v-for="n in 4">
           <!--placeholder开始，如果该楼层有数据就显示数据，如果没有数据则显示"NO DATA"-->
@@ -150,9 +159,9 @@
               <div class="abyss-details-placeholder">
                 <p class="text-placeholder">----NO DATA----</p>
                 <p class="text-placeholder">没有找到该层的深境螺旋记录。</p>
-                <p class="text-placeholder">可能是米游社数据暂未刷新，</p>
-                <p class="text-placeholder">如果确定游戏中有过该层的通关记录，</p>
-                <p class="text-placeholder">请稍后再进行查询。</p>
+                <p class="text-placeholder">可能米游社数据当前还未更新，</p>
+                <p class="text-placeholder">如果确实通关过当期该层深渊，</p>
+                <p class="text-placeholder">请等待一段时间再次尝试查询。</p>
               </div>
             </div>
           </div>
@@ -215,6 +224,7 @@
         energy_skill_rank: [],
         damage_rank: [],
         floors: [],
+        displayFloorDetails: false,
       },
       methods: {
         padLeftZero(str) {
@@ -261,6 +271,12 @@
         this.energy_skill_rank = params.data.energy_skill_rank;
         this.damage_rank = params.data.damage_rank;
         this.floors = params.data.floors.slice(-4);
+
+        if (this.floors.length !== 0) {
+          if (this.floors[0]["levels"].length !== 0) {
+            this.displayFloorDetails = true;
+          }
+        }
       },
     });
   </script>

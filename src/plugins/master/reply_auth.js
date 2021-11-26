@@ -1,6 +1,3 @@
-/* global config */
-/* eslint no-undef: "error" */
-
 import { setAuth } from "../../utils/auth.js";
 import { parse } from "./parse.js";
 
@@ -8,7 +5,7 @@ function setReplyAuth(msg) {
   const [id, isOn] = parse(msg.text, "reply_auth");
   const list = new Map([...msg.bot.fl, ...msg.bot.gl]);
 
-  if (config.masters.includes(id)) {
+  if (global.config.masters.includes(id)) {
     msg.bot.say(id, "我永远都不会不理主人哦~", "private");
     return;
   }

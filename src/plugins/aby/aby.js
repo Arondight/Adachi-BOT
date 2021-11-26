@@ -1,6 +1,6 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { basePromise, abyPromise, handleDetailError } from "../../utils/detail.js";
+import { abyPromise, basePromise, handleDetailError } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
 async function doAby(msg, schedule_type = 1) {

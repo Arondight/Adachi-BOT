@@ -1,6 +1,3 @@
-/* global command, master */
-/* eslint no-undef: "error" */
-
 import { checkAuth } from "../../utils/auth.js";
 import { hasEntrance } from "../../utils/config.js";
 import { feedback } from "./feedback.js";
@@ -37,10 +34,10 @@ async function Plugin(msg) {
       }
       break;
     case hasEntrance(msg.text, "tools", "help"):
-      msg.bot.say(msg.sid, command.usage, msg.type, msg.uid, true, "\n");
+      msg.bot.say(msg.sid, global.command.usage, msg.type, msg.uid, true, "\n");
       break;
     case hasEntrance(msg.text, "tools", "master"):
-      msg.bot.say(msg.sid, master.usage, msg.type, msg.uid, true, "\n");
+      msg.bot.say(msg.sid, global.master.usage, msg.type, msg.uid, true, "\n");
       break;
   }
 }
