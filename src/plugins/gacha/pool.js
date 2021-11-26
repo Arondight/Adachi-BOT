@@ -10,6 +10,9 @@ function doPool(msg) {
     case global.all.functions.options.pool[200]:
       choice = 200;
       break;
+    case global.all.functions.options.pool[400]:
+      choice = 400;
+      break;
     case global.all.functions.options.pool[301]:
       choice = 301;
       break;

@@ -13,6 +13,10 @@ img {
   display: block;
 }
 
+.avatars-box {
+  background-image: url("http://localhost:9934/resources/module/card-new-middle.png");
+}
+
 .qq-avatar {
   position: absolute;
   top: 71px;

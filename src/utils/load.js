@@ -57,7 +57,7 @@ function isGroupBan(msg, bot) {
 function processedFriendIncrease(msg, bot) {
   if (global.config.friendGreetingNew) {
     // 私聊不需要 @
-    bot.say(msg.user_id, global.config.greetingNew, "private");
+    bot.say(msg.user_id, global.greeting.new, "private");
   }
 }
 
@@ -66,11 +66,11 @@ function processedGroupIncrease(msg, bot) {
     if (bot.uin === msg.user_id) {
       // 如果加入了新群，尝试向全群问好
       // 群通知不需要 @
-      bot.say(msg.group_id, global.config.greetingHello, "group");
+      bot.say(msg.group_id, global.greeting.hello, "group");
     } else {
       // 如果有新群友，尝试向新群友问好
       if (global.config.groupGreetingNew && false !== checkAuth({ uid: msg.group_id }, replyAuthName, false)) {
-        bot.say(msg.group_id, global.config.greetingNew, "group", msg.user_id);
+        bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
       }
     }
   }
@@ -184,8 +184,8 @@ function processedOnline(bot) {
     bot.gl.forEach((group) => {
       const greeting =
         false !== checkAuth({ uid: group.group_id }, replyAuthName, false)
-          ? global.config.greetingOnline
-          : global.config.greetingDie;
+          ? global.greeting.online
+          : global.greeting.die;
 
       if (!isGroupBan(group, bot) && "string" === typeof greeting) {
         // 群通知不需要 @

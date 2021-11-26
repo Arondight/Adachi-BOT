@@ -174,7 +174,7 @@ function cleanCookiesInvalid() {
   let nums = 0;
 
   for (const i in cookies) {
-    if (!cookies[i].cookie || !(global.config.cookies || []).includes(cookies[i].cookie)) {
+    if (!cookies[i].cookie || !(global.cookies || []).includes(cookies[i].cookie)) {
       cookies.splice(i, 1);
       nums++;
     }
