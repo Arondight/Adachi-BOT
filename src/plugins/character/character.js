@@ -1,3 +1,4 @@
+import path from "path";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
@@ -87,6 +88,23 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
     const text = getNotFoundText(character, isMyChar, guess);
     msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
     return;
+  }
+
+  // 转换图片 URL 为本地资源
+  for (const i in data.artifact) {
+    if ("string" === typeof data.artifact[i].icon && data.artifact[i].icon.includes("UI_RelicIcon")) {
+      const id = data.artifact[i].icon
+        .match(/UI_RelicIcon_(\d+?)_(\d)/)
+        .slice(-2)
+        .map((c) => parseInt(c));
+
+      if (Array.isArray(id) && 2 === id.length) {
+        let base = path.parse(data.artifact[i].icon).base.replace(/^UI_RelicIcon_/, "");
+        base = base.replace(/^\d+?(?=_)/, global.artifacts.artifacts.icon[id[0]]);
+        base = base.replace(/(?<=^\d+?)_\d(?=[.])/, `/${global.artifacts.path.indexOf(id[1])}`);
+        data.artifact[i].icon = `http://localhost:9934/resources/Version2/artifact/${base}`;
+      }
+    }
   }
 
   render(msg, { uid, data }, "genshin-character");

@@ -258,9 +258,11 @@
  *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
  *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  *   ],
+ *   path: [ 4, 2, 5, 1, 3 ],
  *   artifacts: {
  *     id: { '悠古的磐岩': 0 },
  *     rarity: { '0': 5 },
+ *     icon: { '23499': 0 },
  *     suit: { '0': '悠古的磐岩' },
  *     names: { '0': [ '盘陀裂生之花', '嵯峨群峰之翼', '星罗圭壁之晷', '巉岩琢塑之樽', '不动玄石之相' ] }
  *   },
@@ -288,9 +290,11 @@
  *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+ * path: [ 4, 2, 5, 1, 3 ]
  * artifacts:
  *   - id: 0
  *     rarity: 5
+ *     icon: 23499
  *     suit: 悠古的磐岩
  *     names: [ 盘陀裂生之花, 嵯峨群峰之翼, 星罗圭壁之晷, 巉岩琢塑之樽, 不动玄石之相 ]
  * domains:
@@ -742,6 +746,7 @@ function readEggs() {
 // global.artifacts.values           -> values (array of array of number)
 // global.artifacts.artifacts.id     -> suit (lowercase):  id (number)
 // global.artifacts.artifacts.rarity -> id:                rarity (number)
+// global.artifacts.artifacts.icon   -> icon:              id (number)
 // global.artifacts.artifacts.suit   -> id:                suit (string, lowercase)
 // global.artifacts.artifacts.names  -> id:                names (array of string, lowercase)
 // global.artifacts.domains.id       -> name (lowercase):  id (number)
@@ -796,15 +801,14 @@ function readArtifacts() {
     );
 
   global.artifacts.weights = Artifacts.weights;
-
   global.artifacts.values = Artifacts.values;
-
+  global.artifacts.path = Artifacts.path;
   global.artifacts.artifacts = {};
   global.artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);
   global.artifacts.artifacts.rarity = reduce("artifacts", ["id", "rarity"], [false, false]);
+  global.artifacts.artifacts.icon = reduce("artifacts", ["icon", "id"], [false, false]);
   global.artifacts.artifacts.suit = reduce("artifacts", ["id", "suit"], [false, true]);
   global.artifacts.artifacts.names = reduce("artifacts", ["id", "names"], [false, true]);
-
   global.artifacts.domains = {};
   global.artifacts.domains.id = reduce("domains", ["name", "id"], [true, false]);
   global.artifacts.domains.name = reduce("domains", ["id", "name"], [false, true]);
