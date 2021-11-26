@@ -1,6 +1,3 @@
-/* global command */
-/* eslint no-undef: "error" */
-
 import db from "./database.js";
 
 function getUID(msg) {
@@ -56,7 +53,7 @@ function getID(msg, userID, isMhyID = true) {
   let idInMsg = msgstr.match(/\d+/g);
   let id = idInMsg ? parseInt(idInMsg[0]) : undefined;
   let idstr = id ? id.toString() : undefined;
-  let cqmsg = msgstr.includes("[CQ:at") ? true : false;
+  let cqmsg = msgstr.includes("[CQ:at");
   let errInfo = "";
 
   if (isMhyID && !userID) {
@@ -88,9 +85,9 @@ function getID(msg, userID, isMhyID = true) {
     return undefined; // 返回 undefined ，无法验证一个空的 UID
   }
 
-  errInfo = `您还未绑定米游社通行证，请使用 【${command.functions.name.save} 您的米游社通行证ID（非UID）】来关联米游社通行证。`;
+  errInfo = `您还未绑定米游社通行证，请使用 【${global.command.functions.name.save} 您的米游社通行证ID（非UID）】来关联米游社通行证。`;
 
   return errInfo;
 }
 
-export { getUID, getID };
+export { getID, getUID };

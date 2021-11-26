@@ -13,6 +13,7 @@ body {
   padding: 0;
   font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
   color: rgb(93, 105, 131);
+  -webkit-text-stroke: 0.02em;
 }
 
 img {

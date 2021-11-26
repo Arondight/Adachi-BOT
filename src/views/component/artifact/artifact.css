@@ -1,3 +1,8 @@
+@font-face {
+  font-family: GenshinUsedFont;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +22,8 @@ body {
 }
 
 .content {
-  position: relative;
+  position: absolute;
+  width: 100%;
 }
 
 .name {
@@ -55,39 +61,40 @@ body {
 }
 
 .rarity {
-  position: relative;
+  position: absolute;
   height: 52px;
   left: 31px;
-  top: -93px;
+  top: 365px;
 }
 
 .image {
-  position: relative;
-  left: 211px;
-  top: -92px;
+  position: absolute;
+  left: 571px;
+  top: 260px;
+  height: 320px;
   width: 320px;
+  transform: translate(-50%, -50%);
+}
+
+.level {
+  position: absolute;
+  color: white;
+  font-size: 31px;
+  top: 479px;
+  left: 45px;
+  width: 80px;
+  text-align: center;
+}
+
+.sub-properties {
+  position: absolute;
+  left: 76px;
+  top: 540px;
 }
 
 .list {
   position: relative;
   color: rgb(73, 83, 102);
   font-size: 30px;
-  top: -12px;
-  left: 76px;
   line-height: 50px;
-}
-
-.level {
-  position: relative;
-  color: white;
-  font-size: 31px;
-  top: -36px;
-  left: 45px;
-  width: 80px;
-  text-align: center;
-}
-
-@font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
 }

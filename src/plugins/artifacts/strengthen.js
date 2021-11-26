@@ -1,6 +1,3 @@
-/* global command */
-/* eslint no-undef: "error" */
-
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { init } from "./init.js";
@@ -15,7 +12,7 @@ function doStrengthen(msg) {
   if (JSON.stringify(initial) !== "{}") {
     data = fortified;
   } else {
-    const text = `请先使用【${command.functions.name.artifacts}】抽取一个圣遗物后再【${command.functions.name.strengthen}】。`;
+    const text = `请先使用【${global.command.functions.name.artifacts}】抽取一个圣遗物后再【${global.command.functions.name.strengthen}】。`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
     return;
   }

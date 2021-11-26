@@ -1,6 +1,3 @@
-/* global rootdir */
-/* eslint no-undef: "error" */
-
 import fs from "fs";
 import path from "path";
 import fetch from "node-fetch";
@@ -25,7 +22,7 @@ const HEADERS = {
 };
 
 function getInfo(name) {
-  const infoDir = path.resolve(rootdir, "resources", "Version2", "info", "docs");
+  const infoDir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
 
   return new Promise((resolve, reject) => {
     try {
@@ -93,4 +90,4 @@ function getGachaDetail(gachaID) {
   }).then((res) => res.json());
 }
 
-export { getInfo, getAbyDetail, getBase, getDetail, getCharacters, getGachaList, getGachaDetail };
+export { getAbyDetail, getBase, getCharacters, getDetail, getGachaDetail, getGachaList, getInfo };

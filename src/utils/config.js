@@ -1,6 +1,3 @@
-/* global all, alias, artifacts, command, config, eggs, master, rootdir */
-/* eslint no-undef: "error" */
-
 /* ==========================================================================
  *                            以下为数据结构
  * ==========================================================================
@@ -12,6 +9,11 @@
  * '/path/to/Adachi-BOT'
  * ==========================================================================
  *
+ * ==========================================================================
+ * package
+ * --------------------------------------------------------------------------
+ * context of this project's package.json
+ * ==========================================================================
  *
  * ==========================================================================
  * global.all
@@ -41,7 +43,7 @@
  *   weights: { hello_world: 9999, eat: 9999 },
  *   regex: {
  *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ],
- *     '^eat\\S+\\s*$': [ 'eat' ]
+ *     '^eat\\s*\\S+\\s*$': [ 'eat' ]
  *   },
  *   function: { hello_world: [ 'hello_world' ], eat: [ 'eat' ] },
  *   usage: '🔘 hello world 👉 I will say hello to you\n' +
@@ -71,7 +73,7 @@
  *   enable: true
  *   weights: 9999
  *   regex:
- *     - ^eat\S+\s*$
+ *     - ^eat\s*\S+\s*$
  *   functions:
  *     eat:
  *       type: option
@@ -109,14 +111,7 @@
  *   cacheInfoEffectTime: 1,
  *   dbAbyEffectTime: 1,
  *   dbInfoEffectTime: 168,
- *   cookies: [
- *     'UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...'
- *   ],
- *   greetingOnline: '上线了。',
- *   greetingDie: '上线了，但又没上。',
- *   greetingHello: '大家好。',
- *   greetingNew: '向你问好。',
- *   menu: { breakfast: [ '萝卜时蔬汤' ], lunch: [ '蜜酱胡萝卜煎肉' ], dinner: [ '渡来禽肉' ] }
+ *   viewDebug: 0
  * }
  * --------------------------------------------------------------------------
  * ../../config/setting.yml
@@ -143,11 +138,28 @@
  * cacheInfoEffectTime: 1
  * dbAbyEffectTime: 1
  * dbInfoEffectTime: 168
+ * viewDebug: 0
+  ==========================================================================
+ *
+ *
+  ==========================================================================
+ * global.cookies
+ * --------------------------------------------------------------------------
+ * [
+ *   'UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...'
+ * ]
  * --------------------------------------------------------------------------
  * ../../config/cookies.yml
  * --------------------------------------------------------------------------
  * cookies:
  *   - UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
+  ==========================================================================
+ *
+ *
+  ==========================================================================
+ * global.greeting
+ * --------------------------------------------------------------------------
+ * { online: '上线了。', die: '上线了，但又没上。', hello: '大家好。', new: '向你问好。' }
  * --------------------------------------------------------------------------
  * ../../config/greeting.yml
  * --------------------------------------------------------------------------
@@ -155,6 +167,13 @@
  * die: 上线了，但又没上。
  * hello: 大家好。
  * new: 向你问好。
+  ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.menu
+ * --------------------------------------------------------------------------
+ * { breakfast: [ '萝卜时蔬汤' ], lunch: [ '蜜酱胡萝卜煎肉' ], dinner: [ '蟹黄火腿焗时蔬' ] }
  * --------------------------------------------------------------------------
  * ../../config/menu.yml
  * --------------------------------------------------------------------------
@@ -163,44 +182,60 @@
  * lunch:
  *   - 蜜酱胡萝卜煎肉
  * dinner:
- *   - 渡来禽肉
+ *   - 蟹黄火腿焗时蔬
  * ==========================================================================
  *
  *
  * ==========================================================================
- * global.alias
+ * global.prophecy
  * --------------------------------------------------------------------------
  * {
- *   character: { '猫': '迪奥娜', 'dio娜': '迪奥娜', dio: '迪奥娜' },
- *   weapon: { '柴火棍': '护摩之杖', homo: '护摩之杖' },
- *   all: {
- *     '猫': '迪奥娜',
- *     'dio娜': '迪奥娜',
- *     dio: '迪奥娜',
- *     '柴火棍': '护摩之杖',
- *     homo: '护摩之杖'
- *   },
- *   characterNames: [ '猫', '迪奥娜', 'dio娜', 'dio' ],
- *   weaponNames: [ '柴火棍', '护摩之杖', 'homo' ],
- *   allNames: [
- *     '猫',     '迪奥娜',
- *     'dio娜',  'dio',
- *     '柴火棍', '护摩之杖',
- *     'homo'
+ *   data: [
+ *     {
+ *       summary: '大吉',
+ *       lucky: '★★★★★★★',
+ *       text: '今日大吉',
+ *       annotation: '今天你很幸运'
+ *     }
  *   ]
  * }
  * --------------------------------------------------------------------------
- * ../../config/alias.yml
+ * ../../config/prophecy.yml
+ * --------------------------------------------------------------------------
+ * data:
+ *   -
+ *     summary: 大吉
+ *     lucky: "★★★★★★★"
+ *     text: 今日大吉
+ *     annotation: 今天你很幸运
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.names
+ * --------------------------------------------------------------------------
+ * {
+ *   characterAlias: { '猫': '迪奥娜', dio: '迪奥娜', '迪奥娜': '迪奥娜' },
+ *   weaponAlias: { '柴火棍': '护摩之杖', homo: '护摩之杖', '护摩之杖': '护摩之杖' },
+ *   allAlias: {
+ *     '猫': '迪奥娜',
+ *     dio: '迪奥娜',
+ *     '迪奥娜': '迪奥娜',
+ *     '柴火棍': '护摩之杖',
+ *     homo: '护摩之杖',
+ *     '护摩之杖': '护摩之杖'
+ *   },
+ *   character: [ '猫', '迪奥娜', 'dio' ],
+ *   weapon: [ '柴火棍', '护摩之杖', 'homo' ],
+ *   all: [ '猫', '迪奥娜', 'dio', '柴火棍', '护摩之杖', 'homo' ]
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/names.yml
  * --------------------------------------------------------------------------
  * character:
- *   迪奥娜:
- *     - 猫
- *     - dio娜
- *     - dio
+ *   迪奥娜: [ 猫, dio ]
  * weapon:
- *   护摩之杖:
- *     - 柴火棍
- *     - homo
+ *   护摩之杖: [ 柴火棍, homo ]
  * ==========================================================================
  *
  *
@@ -223,9 +258,11 @@
  *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
  *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  *   ],
+ *   path: [ 4, 2, 5, 1, 3 ],
  *   artifacts: {
  *     id: { '悠古的磐岩': 0 },
  *     rarity: { '0': 5 },
+ *     icon: { '23499': 0 },
  *     suit: { '0': '悠古的磐岩' },
  *     names: { '0': [ '盘陀裂生之花', '嵯峨群峰之翼', '星罗圭壁之晷', '巉岩琢塑之樽', '不动玄石之相' ] }
  *   },
@@ -253,9 +290,11 @@
  *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
  *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+ * path: [ 4, 2, 5, 1, 3 ]
  * artifacts:
  *   - id: 0
  *     rarity: 5
+ *     icon: 23499
  *     suit: 悠古的磐岩
  *     names: [ 盘陀裂生之花, 嵯峨群峰之翼, 星罗圭壁之晷, 巉岩琢塑之樽, 不动玄石之相 ]
  * domains:
@@ -291,26 +330,25 @@
  *                            以上为数据结构
  * ========================================================================== */
 
-import url from "url";
-import path from "path";
 import fs from "fs";
+import path from "path";
+import url from "url";
 import lodash from "lodash";
-import { mkdir } from "./file.js";
 import { loadYML } from "./yaml.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-global.alias = {};
 global.all = {};
 global.artifacts = {};
 global.command = {};
 global.config = {};
 global.eggs = {};
 global.master = {};
+global.names = {};
 global.rootdir = path.resolve(__dirname, "..", "..");
+global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
 
-const Alias = loadYML("alias");
 const Artifacts = loadYML("artifacts");
 const Command = loadYML("command");
 const Cookies = loadYML("cookies");
@@ -318,6 +356,8 @@ const Eggs = loadYML("pool_eggs");
 const Greeting = loadYML("greeting");
 const Master = loadYML("command_master");
 const Menu = loadYML("menu");
+const Names = loadYML("names");
+const Prophecy = loadYML("prophecy");
 const Setting = loadYML("setting");
 
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
@@ -331,7 +371,7 @@ const Setting = loadYML("setting");
 // global[key].functions.usage       -> function (lowercase):  usage (string)
 // global[key].functions.description -> function (lowercase):  description (string)
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
-// global[key].functions.option      -> function (lowercase):  option (array of object, lowercase)
+// global[key].functions.options     -> function (lowercase):  { { option: text } } (both lowercase)
 function getCommand(obj, key) {
   const reduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
     lodash.reduce(
@@ -468,9 +508,9 @@ function getCommand(obj, key) {
   }
 }
 
-// obj: command or master
+// obj: global.command or global.master
 function makeUsage(obj) {
-  if (!(obj === command || obj === master)) {
+  if (!(obj === global.command || obj === global.master)) {
     return "";
   }
 
@@ -520,7 +560,7 @@ function makeUsage(obj) {
 }
 
 // global.config
-function readSettingCookiesGreetingMenu() {
+function readSetting() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
   const defaultConfig = {
     // 登录协议为 iPad
@@ -579,12 +619,6 @@ function readSettingCookiesGreetingMenu() {
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
   const viewDebug = parseInt(Setting.viewDebug);
-  const cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
-  const greetingOnline = Greeting.online;
-  const greetingDie = Greeting.die;
-  const greetingHello = Greeting.hello;
-  const greetingNew = Greeting.new;
-  const menu = Menu;
 
   const getConfig = (...pairs) => {
     pairs &&
@@ -593,9 +627,9 @@ function readSettingCookiesGreetingMenu() {
         const val = p[prop];
 
         if (undefined === defaultConfig[prop]) {
-          config[prop] = val;
+          global.config[prop] = val;
         }
-        config[prop] = val || defaultConfig[prop];
+        global.config[prop] = val || defaultConfig[prop];
       });
   };
 
@@ -619,17 +653,11 @@ function readSettingCookiesGreetingMenu() {
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
-    { viewDebug },
-    { cookies },
-    { greetingOnline },
-    { greetingDie },
-    { greetingHello },
-    { greetingNew },
-    { menu }
+    { viewDebug }
   );
 
   // 设置每个 QQ 账户的登录选项默认值
-  for (const option of config.accounts) {
+  for (const option of global.config.accounts) {
     // 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
     if (![1, 2, 3, 4, 5].includes(option.platform)) {
       option.platform = defaultConfig.platform;
@@ -637,76 +665,95 @@ function readSettingCookiesGreetingMenu() {
   }
 
   // 转化每个不为 null 的命令前缀的数据类型为 string
-  for (const i in config.prefixes) {
-    if (config.prefixes[i]) {
-      config.prefixes[i] = config.prefixes[i].toString();
+  for (const i in global.config.prefixes) {
+    if (global.config.prefixes[i]) {
+      global.config.prefixes[i] = global.config.prefixes[i].toString();
     }
   }
 
   // 设置选项 atMe 的默认值
-  if (![0, 1, 2].includes(config.atMe)) {
-    config.atMe = defaultConfig.atMe;
+  if (![0, 1, 2].includes(global.config.atMe)) {
+    global.config.atMe = defaultConfig.atMe;
   }
+}
+
+function readCookies() {
+  global.cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
+}
+
+function readGreeting() {
+  global.greeting = Greeting;
+}
+
+function readMenu() {
+  global.menu = Menu;
 
   // menu 中每个值均为数组
-  Object.keys(config.menu).forEach(
-    (k) => (config.menu[k] = Array.isArray(config.menu[k]) ? config.menu[k] : config.menu[k] ? [config.menu[k]] : [])
+  Object.keys(global.menu).forEach(
+    (k) => (global.menu[k] = Array.isArray(global.menu[k]) ? global.menu[k] : global.menu[k] ? [global.menu[k]] : [])
   );
 }
 
-// global.alias.character       ->  alias (lowercase): character (string, lowercase)
-// global.alias.weapon          ->  alias (lowercase): weapon (string, lowercase)
-// global.alias.all             ->  alias (lowercase): name (string, lowercase)
-// global.alias.characterNames  ->  character names (array of string, lowercase)
-// global.alias.weaponNames     ->  weapon names (array of string, lowercase)
-// global.alias.allNames        ->  names (array of string, lowercase)
-function readAlias() {
+function readProphecy() {
+  global.prophecy = Prophecy;
+  global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
+}
+
+// global.names.character       ->  names (lowercase): character (string, lowercase)
+// global.names.weapon          ->  names (lowercase): weapon (string, lowercase)
+// global.names.all             ->  names (lowercase): name (string, lowercase)
+// global.names.characterNames  ->  { name: simhash } (name lowercase)
+// global.names.weaponNames     ->  { name: simhash } (name lowercase)
+// global.names.allNames        ->  { name: simhash } (name lowercase)
+function readNames() {
   const getSection = (s) =>
     lodash.reduce(
-      Alias[s] || {},
+      Names[s] || {},
       (p, v, k) => {
-        (v || []).forEach((c) => (p["string" === typeof c ? c.toLowerCase() : c] = k));
+        (v || (v = [])).push(k);
+        v.forEach((c) => (p["string" === typeof c ? c.toLowerCase() : c] = k));
         return p;
       },
       {}
     );
   const getNames = (o) => lodash.chain(o).toPairs().flatten().uniq().value();
 
-  alias.character = getSection("character");
-  alias.weapon = getSection("weapon");
-  alias.all = lodash.assign({}, alias.character, alias.weapon);
-  alias.characterNames = getNames(alias.character);
-  alias.weaponNames = getNames(alias.weapon);
-  alias.allNames = getNames(alias.all);
+  global.names.characterAlias = getSection("character");
+  global.names.weaponAlias = getSection("weapon");
+  global.names.allAlias = lodash.assign({}, global.names.characterAlias, global.names.weaponAlias);
+  global.names.character = getNames(global.names.characterAlias);
+  global.names.weapon = getNames(global.names.weaponAlias);
+  global.names.all = getNames(global.names.allAlias);
 }
 
-// eggs.type: name -> type (string)
-// eggs.star: name -> type (string)
+// global.eggs.type: name -> type (string)
+// global.eggs.star: name -> type (string)
 function readEggs() {
-  eggs.type = {};
-  eggs.star = {};
+  global.eggs.type = {};
+  global.eggs.star = {};
 
   Array.isArray(Eggs.items) &&
     Eggs.items.forEach((c) => {
       if (Array.isArray(c.names)) {
         const star = parseInt(c.star) || 5;
-        c.type && c.names.forEach((n) => (eggs.type[n] = c.type));
-        c.names.forEach((n) => (eggs.star[n] = star));
+        c.type && c.names.forEach((n) => (global.eggs.type[n] = c.type));
+        c.names.forEach((n) => (global.eggs.star[n] = star));
       }
     });
 }
 
-// artifacts.weights          -> weights (array of array of number)
-// artifacts.values           -> values (array of array of number)
-// artifacts.artifacts.id     -> suit (lowercase):  id (number)
-// artifacts.artifacts.rarity -> id:                rarity (number)
-// artifacts.artifacts.suit   -> id:                suit (string, lowercase)
-// artifacts.artifacts.names  -> id:                names (array of string, lowercase)
-// artifacts.domains.id       -> name (lowercase):  id (number)
-// artifacts.domains.name     -> id:                name (string, lowercase)
-// artifacts.domains.alias    -> alias (lowercase): name (string, lowercase)
-// artifacts.domains.aliasOf  -> id:                alias (array of string, lowercase)
-// artifacts.domains.product  -> id:                product (array of number)
+// global.artifacts.weights          -> weights (array of array of number)
+// global.artifacts.values           -> values (array of array of number)
+// global.artifacts.artifacts.id     -> suit (lowercase):  id (number)
+// global.artifacts.artifacts.rarity -> id:                rarity (number)
+// global.artifacts.artifacts.icon   -> icon:              id (number)
+// global.artifacts.artifacts.suit   -> id:                suit (string, lowercase)
+// global.artifacts.artifacts.names  -> id:                names (array of string, lowercase)
+// global.artifacts.domains.id       -> name (lowercase):  id (number)
+// global.artifacts.domains.name     -> id:                name (string, lowercase)
+// global.artifacts.domains.alias    -> alias (lowercase): name (string, lowercase)
+// global.artifacts.domains.aliasOf  -> id:                alias (array of string, lowercase)
+// global.artifacts.domains.product  -> id:                product (array of number)
 function readArtifacts() {
   const reduce = (prop, key = [undefined, undefined], lowercase = [false, false]) =>
     key.includes(undefined) ||
@@ -753,22 +800,21 @@ function readArtifacts() {
       {}
     );
 
-  artifacts.weights = Artifacts.weights;
-
-  artifacts.values = Artifacts.values;
-
-  artifacts.artifacts = {};
-  artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);
-  artifacts.artifacts.rarity = reduce("artifacts", ["id", "rarity"], [false, false]);
-  artifacts.artifacts.suit = reduce("artifacts", ["id", "suit"], [false, true]);
-  artifacts.artifacts.names = reduce("artifacts", ["id", "names"], [false, true]);
-
-  artifacts.domains = {};
-  artifacts.domains.id = reduce("domains", ["name", "id"], [true, false]);
-  artifacts.domains.name = reduce("domains", ["id", "name"], [false, true]);
-  artifacts.domains.alias = deepReduce("domains", ["alias", "name"], [true, true]);
-  artifacts.domains.aliasOf = reduce("domains", ["id", "alias"], [false, true]);
-  artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
+  global.artifacts.weights = Artifacts.weights;
+  global.artifacts.values = Artifacts.values;
+  global.artifacts.path = Artifacts.path;
+  global.artifacts.artifacts = {};
+  global.artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);
+  global.artifacts.artifacts.rarity = reduce("artifacts", ["id", "rarity"], [false, false]);
+  global.artifacts.artifacts.icon = reduce("artifacts", ["icon", "id"], [false, false]);
+  global.artifacts.artifacts.suit = reduce("artifacts", ["id", "suit"], [false, true]);
+  global.artifacts.artifacts.names = reduce("artifacts", ["id", "names"], [false, true]);
+  global.artifacts.domains = {};
+  global.artifacts.domains.id = reduce("domains", ["name", "id"], [true, false]);
+  global.artifacts.domains.name = reduce("domains", ["id", "name"], [false, true]);
+  global.artifacts.domains.alias = deepReduce("domains", ["alias", "name"], [true, true]);
+  global.artifacts.domains.aliasOf = reduce("domains", ["id", "alias"], [false, true]);
+  global.artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
 }
 
 // global.command
@@ -792,51 +838,46 @@ function getAll() {
     }
   };
 
-  all.functions = {};
-  all.functions.options = lodash.assign({}, command.functions.options, master.functions.options);
-  merge(all, "function", command.function, master.function);
-  merge(all.functions, "entrance", command.functions.entrance, master.functions.entrance);
+  global.all.functions = {};
+  global.all.functions.options = lodash.assign({}, global.command.functions.options, global.master.functions.options);
+  merge(global.all, "function", global.command.function, global.master.function);
+  merge(global.all.functions, "entrance", global.command.functions.entrance, global.master.functions.entrance);
 }
 
 // global.command.usage
 // global.master.usage
 function getUsage() {
-  makeUsage(command);
-  makeUsage(master);
-}
-
-// For /src/views/*
-function writeViewsConfig() {
-  const dir = path.join(rootdir, "data", "config");
-  const data = { rootdir };
-
-  fs.writeFileSync(path.resolve(mkdir(dir), "views.json"), JSON.stringify(data), "utf8");
+  makeUsage(global.command);
+  makeUsage(global.master);
 }
 
 function readConfig() {
-  readSettingCookiesGreetingMenu();
-  readAlias();
+  readSetting();
+  readCookies();
+  readGreeting();
+  readMenu();
+  readProphecy();
+  readNames();
   readEggs();
   readArtifacts();
   readCommand();
   getAll();
   getUsage();
-  writeViewsConfig();
 }
 
 function hasEntrance(message, plugin, ...entrance) {
   const messageu = message.toLowerCase(); // 忽略大小写
 
-  if (all.function[plugin]) {
+  if (global.all.function[plugin]) {
     for (const e of entrance) {
       // 验证 entrance 是否在插件中
-      if (!all.function[plugin].includes(e)) {
+      if (!global.all.function[plugin].includes(e)) {
         continue;
       }
 
       // 验证 message 是否以 entrance 对应的字符串开始
-      if (Array.isArray(all.functions.entrance[e])) {
-        for (const t of all.functions.entrance[e]) {
+      if (Array.isArray(global.all.functions.entrance[e])) {
+        for (const t of global.all.functions.entrance[e]) {
           if (t) {
             if (new RegExp(t, "i").test(messageu)) {
               return true;
@@ -850,4 +891,4 @@ function hasEntrance(message, plugin, ...entrance) {
   return false;
 }
 
-export { readConfig, hasEntrance };
+export { hasEntrance, readConfig };

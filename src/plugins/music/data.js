@@ -1,11 +1,8 @@
-/* global all, command */
-/* eslint no-undef: "error" */
-
 import lodash from "lodash";
 import fetch from "node-fetch";
 import querystring from "querystring";
 import db from "../../utils/database.js";
-import { getWordByRegex, filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 
 const ERRCODE = {
   ERR_SRC: "1",
@@ -106,10 +103,10 @@ async function music163(keyword) {
 }
 
 async function musicID(text, source) {
-  const args = filterWordsByRegex(text, ...command.functions.entrance.music);
+  const args = filterWordsByRegex(text, ...global.command.functions.entrance.music);
   const worker = {
-    [all.functions.options.music_source.qq || "qq"]: musicQQ,
-    [all.functions.options.music_source[163] || "163"]: music163,
+    [global.all.functions.options.music_source.qq || "qq"]: musicQQ,
+    [global.all.functions.options.music_source[163] || "163"]: music163,
   };
 
   if (!(source in worker)) {
@@ -120,13 +117,13 @@ async function musicID(text, source) {
 }
 
 function musicSrc(text, id) {
-  let [source] = getWordByRegex(filterWordsByRegex(text, ...command.functions.entrance.music), /\S+/);
+  let [source] = getWordByRegex(filterWordsByRegex(text, ...global.command.functions.entrance.music), /\S+/);
   const data = db.get("music", "source", { ID: id });
 
   if ("string" === typeof source) {
     source = source.toLowerCase();
 
-    if (!Object.values(all.functions.options.music_source).includes(source)) {
+    if (!Object.values(global.all.functions.options.music_source).includes(source)) {
       return false;
     }
 

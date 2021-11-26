@@ -1,12 +1,9 @@
-/* global rootdir */
-/* eslint no-undef: "error" */
-
 import fs from "fs";
 import path from "path";
 
 function readlink(filepath) {
   if (!path.isAbsolute(filepath)) {
-    return path.resolve(rootdir, filepath);
+    return path.resolve(global.rootdir, filepath);
   }
 
   return filepath;
@@ -55,4 +52,4 @@ function du(filepath) {
   return size;
 }
 
-export { readlink, mkdir, ls, du };
+export { du, ls, mkdir, readlink };
