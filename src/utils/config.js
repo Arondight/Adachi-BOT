@@ -371,7 +371,7 @@ const Setting = loadYML("setting");
 // global[key].functions.usage       -> function (lowercase):  usage (string)
 // global[key].functions.description -> function (lowercase):  description (string)
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
-// global[key].functions.options     -> function (lowercase):  { { option: text } } (both lowercase)
+// global[key].functions.options     -> function (lowercase):  { function: { option: text } } (both lowercase)
 function getCommand(obj, key) {
   const reduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
     lodash.reduce(
