@@ -111,14 +111,7 @@
  *   cacheInfoEffectTime: 1,
  *   dbAbyEffectTime: 1,
  *   dbInfoEffectTime: 168,
- *   cookies: [
- *     'UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...'
- *   ],
- *   greetingOnline: '上线了。',
- *   greetingDie: '上线了，但又没上。',
- *   greetingHello: '大家好。',
- *   greetingNew: '向你问好。',
- *   menu: { breakfast: [ '萝卜时蔬汤' ], lunch: [ '蜜酱胡萝卜煎肉' ], dinner: [ '渡来禽肉' ] }
+ *   viewDebug: 0
  * }
  * --------------------------------------------------------------------------
  * ../../config/setting.yml
@@ -145,11 +138,28 @@
  * cacheInfoEffectTime: 1
  * dbAbyEffectTime: 1
  * dbInfoEffectTime: 168
+ * viewDebug: 0
+  ==========================================================================
+ *
+ *
+  ==========================================================================
+ * global.cookies
+ * --------------------------------------------------------------------------
+ * [
+ *   'UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...'
+ * ]
  * --------------------------------------------------------------------------
  * ../../config/cookies.yml
  * --------------------------------------------------------------------------
  * cookies:
  *   - UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
+  ==========================================================================
+ *
+ *
+  ==========================================================================
+ * global.greeting
+ * --------------------------------------------------------------------------
+ * { online: '上线了。', die: '上线了，但又没上。', hello: '大家好。', new: '向你问好。' }
  * --------------------------------------------------------------------------
  * ../../config/greeting.yml
  * --------------------------------------------------------------------------
@@ -157,6 +167,13 @@
  * die: 上线了，但又没上。
  * hello: 大家好。
  * new: 向你问好。
+  ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.menu
+ * --------------------------------------------------------------------------
+ * { breakfast: [ '萝卜时蔬汤' ], lunch: [ '蜜酱胡萝卜煎肉' ], dinner: [ '蟹黄火腿焗时蔬' ] }
  * --------------------------------------------------------------------------
  * ../../config/menu.yml
  * --------------------------------------------------------------------------
@@ -165,7 +182,32 @@
  * lunch:
  *   - 蜜酱胡萝卜煎肉
  * dinner:
- *   - 渡来禽肉
+ *   - 蟹黄火腿焗时蔬
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
+ * global.prophecy
+ * --------------------------------------------------------------------------
+ * {
+ *   data: [
+ *     {
+ *       summary: '大吉',
+ *       lucky: '★★★★★★★',
+ *       text: '今日大吉',
+ *       annotation: '今天你很幸运'
+ *     }
+ *   ]
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/prophecy.yml
+ * --------------------------------------------------------------------------
+ * data:
+ *   -
+ *     summary: 大吉
+ *     lucky: "★★★★★★★"
+ *     text: 今日大吉
+ *     annotation: 今天你很幸运
  * ==========================================================================
  *
  *
@@ -311,6 +353,7 @@ const Greeting = loadYML("greeting");
 const Master = loadYML("command_master");
 const Menu = loadYML("menu");
 const Names = loadYML("names");
+const Prophecy = loadYML("prophecy");
 const Setting = loadYML("setting");
 
 // global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
@@ -513,7 +556,7 @@ function makeUsage(obj) {
 }
 
 // global.config
-function readSettingCookiesGreetingMenu() {
+function readSetting() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
   const defaultConfig = {
     // 登录协议为 iPad
@@ -572,12 +615,6 @@ function readSettingCookiesGreetingMenu() {
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
   const viewDebug = parseInt(Setting.viewDebug);
-  const cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
-  const greetingOnline = Greeting.online;
-  const greetingDie = Greeting.die;
-  const greetingHello = Greeting.hello;
-  const greetingNew = Greeting.new;
-  const menu = Menu;
 
   const getConfig = (...pairs) => {
     pairs &&
@@ -612,13 +649,7 @@ function readSettingCookiesGreetingMenu() {
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
-    { viewDebug },
-    { cookies },
-    { greetingOnline },
-    { greetingDie },
-    { greetingHello },
-    { greetingNew },
-    { menu }
+    { viewDebug }
   );
 
   // 设置每个 QQ 账户的登录选项默认值
@@ -640,16 +671,28 @@ function readSettingCookiesGreetingMenu() {
   if (![0, 1, 2].includes(global.config.atMe)) {
     global.config.atMe = defaultConfig.atMe;
   }
+}
+
+function readCookies() {
+  global.cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
+}
+
+function readGreeting() {
+  global.greeting = Greeting;
+}
+
+function readMenu() {
+  global.menu = Menu;
 
   // menu 中每个值均为数组
-  Object.keys(global.config.menu).forEach(
-    (k) =>
-      (global.config.menu[k] = Array.isArray(global.config.menu[k])
-        ? global.config.menu[k]
-        : global.config.menu[k]
-        ? [global.config.menu[k]]
-        : [])
+  Object.keys(global.menu).forEach(
+    (k) => (global.menu[k] = Array.isArray(global.menu[k]) ? global.menu[k] : global.menu[k] ? [global.menu[k]] : [])
   );
+}
+
+function readProphecy() {
+  global.prophecy = Prophecy;
+  global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
 }
 
 // global.names.character       ->  names (lowercase): character (string, lowercase)
@@ -805,7 +848,11 @@ function getUsage() {
 }
 
 function readConfig() {
-  readSettingCookiesGreetingMenu();
+  readSetting();
+  readCookies();
+  readGreeting();
+  readMenu();
+  readProphecy();
   readNames();
   readEggs();
   readArtifacts();

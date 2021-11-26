@@ -1,6 +1,6 @@
 import { getRandomInt } from "../../utils/tools.js";
 
-const { breakfast, lunch, dinner } = global.config.menu;
+const { breakfast, lunch, dinner } = global.menu;
 
 function menu(msg) {
   const food = "派蒙";

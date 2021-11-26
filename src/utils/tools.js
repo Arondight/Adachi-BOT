@@ -121,7 +121,7 @@ function guessPossibleNames(name, names) {
     let bestMatch = false;
     const sorted = lodash
       .chain(names)
-      .reduce((p, v, k) => {
+      .reduce((p, v) => {
         if (false === bestMatch) {
           const l = name.length / v.length;
           if ((v.startsWith(name) || v.endsWith(name)) && l >= 0.5) {

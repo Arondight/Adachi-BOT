@@ -121,31 +121,30 @@
             <!--米游社新API适配模版结束-->
           </div>
         </div>
-          <div class="container-horizontal no-margin-left no-margin-right no-margin-top">
-            <div class="card strongest-hit">
-              <div class="banner-middle no-background">最强一击</div>
-              <!--结构化模版开始-->
-              <div class="container-strongest-hit">
-                <div
-                  class="challenge-times-per-char-base"
-                  v-for="(damage,index) in damage_rank"
-                  v-if="index = 1"
-                  :key="index"
-                >
-                  <div class="background-general" :class="'star-' + damage.rarity">
-                    <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
-                  </div>
-                  <div class="description-general strongest-hit">{{damage.value}}</div>
+        <div class="container-horizontal no-margin-left no-margin-right no-margin-top">
+          <div class="card strongest-hit">
+            <div class="banner-middle no-background">最强一击</div>
+            <!--结构化模版开始-->
+            <div class="container-strongest-hit">
+              <div
+                class="challenge-times-per-char-base"
+                v-for="(damage,index) in damage_rank"
+                v-if="index = 1"
+                :key="index"
+              >
+                <div class="background-general" :class="'star-' + damage.rarity">
+                  <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
                 </div>
+                <div class="description-general strongest-hit">{{damage.value}}</div>
               </div>
-              <!--结构化模版结束-->
             </div>
-            <div class="card credit">
-              <div class="credit no-margin">CREATED BY</div>
-              <div class="credit no-margin">Adachi-BOT</div>
-            </div>
+            <!--结构化模版结束-->
           </div>
-
+          <div class="card credit">
+            <div class="credit no-margin">CREATED BY</div>
+            <div class="credit no-margin">Adachi-BOT</div>
+          </div>
+        </div>
       </div>
       <!--深渊模块开始-->
       <div class="container-vertical abyss-details no-margin-left no-margin-top" v-if="displayFloorDetails">
@@ -156,7 +155,7 @@
             <div class="banner-left banner-abyss banner-placeholder">
               <p>{{parseInt(n) + 8}}-X</p>
             </div>
-            <div class="container-vertical" >
+            <div class="container-vertical">
               <div class="abyss-details-placeholder">
                 <p class="text-placeholder">----NO DATA----</p>
                 <p class="text-placeholder">没有找到该层的深境螺旋记录。</p>
@@ -274,7 +273,7 @@
         this.floors = params.data.floors.slice(-4);
 
         if (this.floors.length !== 0) {
-          if (this.floors[0]['levels'].length !== 0) {
+          if (this.floors[0]["levels"].length !== 0) {
             this.displayFloorDetails = true;
           }
         }

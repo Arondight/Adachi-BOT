@@ -3,7 +3,7 @@ import lodash from "lodash";
 import db from "./database.js";
 
 const COOKIE_TIMES_INVALID_MARK = 0xabadcafe;
-const cookies = global.config.cookies || [];
+const cookies = global.cookies || [];
 let index = 0;
 
 function increaseIndex() {
