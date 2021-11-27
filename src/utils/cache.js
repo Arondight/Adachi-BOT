@@ -13,9 +13,14 @@ function getCachedPath(url, dir) {
 
 async function isCached(url, dir) {
   const filepath = getCachedPath(url, dir);
+  let response;
 
   if (fs.existsSync(filepath)) {
-    const response = await fetch(url, { method: "HEAD" });
+    try {
+      response = await fetch(url, { method: "HEAD" });
+    } catch (e) {
+      return false;
+    }
 
     if (200 !== response.status || du(filepath) !== (await response.headers.get("Content-length"))) {
       return false;
