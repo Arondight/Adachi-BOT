@@ -129,7 +129,7 @@ async function musicID(text, source) {
 }
 
 function musicSrc(text, id) {
-  let [source] = getWordByRegex(filterWordsByRegex(text, ...global.command.functions.entrance.music), /\S+/);
+  let [source] = getWordByRegex(filterWordsByRegex(text, ...global.command.functions.entrance.music_source), /\S+/);
   const data = db.get("music", "source", { ID: id });
 
   if ("string" === typeof source) {
