@@ -493,7 +493,6 @@ function getCommand(obj, key) {
   );
 
   // 所有 switch 转换为 option
-  // https://github.com/Arondight/Adachi-BOT/issues/242
   if (global[key].functions.type) {
     Object.keys(global[key].functions.type).forEach((f) => {
       if ("switch" === global[key].functions.type[f]) {

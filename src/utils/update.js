@@ -53,7 +53,6 @@ async function gachaUpdate() {
     const weapon = data[302];
 
     db.set("gacha", "data", [indefinite, character2, character, weapon]);
-    // 只打印一次日志
     global.bots.logger.debug("卡池：内容已刷新。");
   }
 }

@@ -19,8 +19,6 @@ function initDB() {
 
 function cleanDB(name) {
   let nums = db.clean(name);
-
-  // 只打印一次日志
   global.bots.logger.debug(`清理：删除数据库 ${name} 中 ${nums} 条无用记录。`);
   return nums;
 }

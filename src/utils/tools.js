@@ -124,14 +124,21 @@ function guessPossibleNames(name, names) {
       .reduce((p, v) => {
         if (false === bestMatch) {
           const l = name.length / v.length;
-          if ((v.startsWith(name) || v.endsWith(name)) && l >= 0.5) {
-            if (0 === (p[v] = 1 - l)) {
-              bestMatch = true;
-            }
-          } else {
-            const n = similarity(name, v);
-            n <= similarityMaxValue && (p[v] = n);
+          let best;
+          let n;
+
+          // 0.3 六个字里面对两个
+          if ((v.startsWith(name) || v.endsWith(name)) && l >= 0.3) {
+            n = (1 - l) / 2;
+            best = n;
           }
+
+          if ((n = similarity(name, v)) <= similarityMaxValue) {
+            best = n < best ? n : best;
+          }
+
+          p[v] = best;
+          bestMatch = 0 === best;
         }
         return p;
       }, {})

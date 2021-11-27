@@ -20,15 +20,11 @@ function doPool(msg, name) {
     case global.all.functions.options.pool[999]:
       choice = 999;
       break;
-    default:
-      msg.bot.say(
-        msg.sid,
-        `所有卡池：${Object.values(global.all.functions.options.pool).join("、")}。`,
-        msg.type,
-        msg.uid,
-        true
-      );
+    default: {
+      const message = `所有卡池：${Object.values(global.all.functions.options.pool).join("、")}。`;
+      msg.bot.say(msg.sid, message, msg.type, msg.uid, true);
       return;
+    }
   }
 
   init(msg.uid);
