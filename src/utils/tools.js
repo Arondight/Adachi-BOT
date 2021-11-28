@@ -124,21 +124,25 @@ function guessPossibleNames(name, names) {
       .reduce((p, v) => {
         if (false === bestMatch) {
           const l = name.length / v.length;
-          let best;
+          let best = Number.MAX_SAFE_INTEGER;
           let n;
 
+          // 使用前后包含子串确定相似度
           // 0.3 六个字里面对两个
           if ((v.startsWith(name) || v.endsWith(name)) && l >= 0.3) {
             n = (1 - l) / 2;
             best = n;
           }
 
-          if ((n = similarity(name, v)) <= similarityMaxValue) {
-            best = n < best ? n : best;
-          }
+          // 使用编辑距离计算相似度
+          n = similarity(name, v);
+          best = n < best ? n : best;
 
-          p[v] = best;
-          bestMatch = 0 === best;
+          // 使用最佳相似度判断是否相似
+          if (best <= similarityMaxValue) {
+            p[v] = best;
+            bestMatch = 0 === best;
+          }
         }
         return p;
       }, {})
