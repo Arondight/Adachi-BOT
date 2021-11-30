@@ -190,7 +190,7 @@ domains:
   -
     id: 3
     name: 无妄引咎密宫
-    alias: [ 火本 ]
+    alias: [ 火本, 魔女本 ]
     product: [ 3, 6 ]
   -
     id: 4
@@ -200,12 +200,12 @@ domains:
   -
     id: 5
     name: 孤云凌霄之处
-    alias: [ 岩本 ]
+    alias: [ 岩本, 逆飞本 ]
     product: [ 0, 9 ]
   -
     id: 6
     name: 芬德尼尔之顶
-    alias: [ 冰本, 水本, 冰水本 ]
+    alias: [ 冰本, 水本 ]
     product: [ 1, 5 ]
   -
     id: 7
@@ -220,5 +220,5 @@ domains:
   -
     id: 9
     name: 沉眠之庭
-    alias: [ 防御本, 海染本 ]
+    alias: [ 防御本, 海染本, 蚌埠本 ]
     product: [ 18, 19 ]
