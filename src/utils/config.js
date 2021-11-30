@@ -327,6 +327,17 @@
  *
  *
  * ==========================================================================
+ * global.info.character
+ * --------------------------------------------------------------------------
+ * 数组中元素的数据结构与原文件一致。
+ * --------------------------------------------------------------------------
+ * ../../resources/Version2/info/docs/<角色名>.json
+ * --------------------------------------------------------------------------
+ * 请直接查看文件内容。
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  *                            以上为数据结构
  * ========================================================================== */
 
@@ -335,6 +346,7 @@ import path from "path";
 import url from "url";
 import lodash from "lodash";
 import { loadYML } from "./yaml.js";
+import { ls } from "./file.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -816,6 +828,28 @@ function readArtifacts() {
   global.artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
 }
 
+// Call after readNames()
+//
+// global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
+//                                        rarity, mainStat, mainValue, baseATK, ascensionMaterials, levelUpMaterials,
+//                                        talentMaterials, time, constellations }
+function readInfo() {
+  const names = Object.values(global.names.allAlias);
+  const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
+  const info = ls(dir)
+    .filter((c) => {
+      const p = path.parse(c);
+      return ".json" === p.ext && names.includes(p.name);
+    })
+    .map((c) => {
+      const p = path.parse(c);
+      return JSON.parse(fs.readFileSync(path.resolve(p.dir, p.base))) || {};
+    });
+
+  global.info = {};
+  global.info.character = info.filter((c) => "角色" === c.type);
+}
+
 // global.command
 // global.master
 function readCommand() {
@@ -859,6 +893,7 @@ function readConfig() {
   readNames();
   readEggs();
   readArtifacts();
+  readInfo();
   readCommand();
   getAll();
   getUsage();

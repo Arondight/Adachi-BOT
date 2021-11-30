@@ -65,8 +65,9 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
         msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
         return;
       } else {
+        // XXX 此处逻辑需要优化，米游社 API 设置最大查询个数后，此处应该仅更新查询的单个角色数据
         const detailInfo = await indexDetail(...baseInfo, msg.uid, msg.bot);
-        await characterDetail(...baseInfo, detailInfo, msg.bot);
+        await characterDetail(...baseInfo, detailInfo, true, msg.bot);
         data = getCharacter(uid, character);
       }
     }

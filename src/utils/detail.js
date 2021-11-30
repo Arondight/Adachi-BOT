@@ -1,4 +1,5 @@
 import moment from "moment-timezone";
+import pLimit from "p-limit";
 import lodash from "lodash";
 import db from "./database.js";
 import { getCookie, tryToWarnInvalidCookie } from "./cookie.js";
@@ -228,7 +229,8 @@ async function indexDetail(uid, server, userID, bot) {
   return characterID;
 }
 
-async function characterDetail(uid, server, character_ids, bot) {
+// 如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色，适应米游社 API 改版 https://github.com/Arondight/Adachi-BOT/issues/436
+async function characterDetail(uid, server, character_ids, guess = false, bot) {
   let cookie;
   let response;
 
@@ -245,12 +247,24 @@ async function characterDetail(uid, server, character_ids, bot) {
     return getDetailErrorForPossibleInvalidCookie(message, cookie);
   }
 
-  let avatars = [];
-  const characterList = data.avatars;
+  if (true === guess) {
+    // 每次最多同时查询 8 个
+    const limit = pLimit(8);
+    const promises = global.info.character
+      .map((c) => c.id)
+      .filter((c) => !character_ids.includes(c))
+      .map((c) => limit(() => getCharacters(uid, server, [c], cookie)));
+    const results = await Promise.allSettled(promises);
+    results.forEach(
+      (c) => "fulfilled" === c.status && 0 === c.value.retcode && data.avatars.push(c.value.data.avatars[0])
+    );
+  }
 
-  for (const i in characterList) {
-    if (characterList[i]) {
-      const el = characterList[i];
+  const avatars = [];
+
+  for (const i in data.avatars) {
+    if (data.avatars[i]) {
+      const el = data.avatars[i];
       const base = lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
       const weapon = lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
       let artifact = [];
