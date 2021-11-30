@@ -1,6 +1,6 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
+import { baseDetail, characterDetail, handleDetailError, indexDetail } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 import { filterWordsByRegex } from "../../utils/tools.js";
 
@@ -23,7 +23,7 @@ async function doPackage(msg) {
         return;
       }
 
-      const baseInfo = await basePromise(dbInfo, msg.uid, msg.bot);
+      const baseInfo = await baseDetail(dbInfo, msg.uid, msg.bot);
       const uid = baseInfo[0];
       dbInfo = getID(uid, msg.uid, false); // UID
 
@@ -33,8 +33,8 @@ async function doPackage(msg) {
       }
     }
 
-    const detailInfo = await detailPromise(...dbInfo, msg.uid, msg.bot);
-    await characterPromise(...dbInfo, detailInfo, msg.bot);
+    const detailInfo = await indexDetail(...dbInfo, msg.uid, msg.bot);
+    await characterDetail(...dbInfo, detailInfo, msg.bot);
   } catch (e) {
     const ret = handleDetailError(e);
 

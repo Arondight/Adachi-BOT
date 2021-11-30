@@ -3,7 +3,7 @@ import path from "path";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { getID, getUID } from "../../utils/id.js";
-import { basePromise, characterPromise, detailPromise, handleDetailError } from "../../utils/detail.js";
+import { baseDetail, characterDetail, handleDetailError, indexDetail } from "../../utils/detail.js";
 
 function getCharacter(uid, character) {
   const { avatars } = db.get("info", "user", { uid }) || {};
@@ -53,7 +53,7 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
       baseInfo = dbInfo;
       uid = baseInfo[0];
     } else {
-      baseInfo = await basePromise(dbInfo, msg.uid, msg.bot);
+      baseInfo = await baseDetail(dbInfo, msg.uid, msg.bot);
       uid = baseInfo[0];
     }
 
@@ -65,8 +65,8 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
         msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
         return;
       } else {
-        const detailInfo = await detailPromise(...baseInfo, msg.uid, msg.bot);
-        await characterPromise(...baseInfo, detailInfo, msg.bot);
+        const detailInfo = await indexDetail(...baseInfo, msg.uid, msg.bot);
+        await characterDetail(...baseInfo, detailInfo, msg.bot);
         data = getCharacter(uid, character);
       }
     }

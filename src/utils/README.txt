@@ -2,7 +2,7 @@
   getAbyDetail            获取深渊记录
   getBase                 获取账号基本信息
   getCharacters           获取账号角色信息
-  getDetail               获取账号信息
+  getIndex                获取账号信息
   getGachaDetail          获取卡池信息
   getGachaList            获取卡池列表
   getInfo                 获取游戏物品、角色的信息
@@ -36,10 +36,10 @@
   write                   写入数据库
 
 ./detail.js
-  abyPromise              获取深渊数据
-  basePromise             获取账号基本数据
-  characterPromise        获取账号角色数据
-  detailPromise           获取账号数据
+  abyDetail               获取深渊数据
+  baseDetail              获取账号基本数据
+  characterDetail         获取账号角色数据
+  indexDetail             获取账号数据
   handleDetailError       处理上面几个 *Promise 可能抛出的异常
 
 ./ds.js

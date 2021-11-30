@@ -1,6 +1,6 @@
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
-import { abyPromise, basePromise, handleDetailError } from "../../utils/detail.js";
+import { abyDetail, baseDetail, handleDetailError } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
 
 async function doAby(msg, schedule_type = 1) {
@@ -21,7 +21,7 @@ async function doAby(msg, schedule_type = 1) {
         return;
       }
 
-      const baseInfo = await basePromise(dbInfo, msg.uid, msg.bot);
+      const baseInfo = await baseDetail(dbInfo, msg.uid, msg.bot);
       const uid = baseInfo[0];
       dbInfo = getID(uid, msg.uid, false); // UID
 
@@ -31,7 +31,7 @@ async function doAby(msg, schedule_type = 1) {
       }
     }
 
-    const abyInfo = await abyPromise(...dbInfo, msg.uid, schedule_type.toString(), msg.bot);
+    const abyInfo = await abyDetail(...dbInfo, msg.uid, schedule_type.toString(), msg.bot);
 
     if (!abyInfo) {
       msg.bot.say(msg.sid, "您似乎从未挑战过深境螺旋。", msg.type, msg.uid, true);
