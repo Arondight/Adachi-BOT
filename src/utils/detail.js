@@ -227,7 +227,8 @@ async function indexDetail(uid, server, userID, bot) {
   return characterID;
 }
 
-// 如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色，适应米游社 API 改版 https://github.com/Arondight/Adachi-BOT/issues/436
+// 如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色，
+// 适应米游社 API 改版 https://github.com/Arondight/Adachi-BOT/issues/436
 async function characterDetail(uid, server, character_ids, guess = false, bot) {
   userInitialize(uid, "", -1);
 
@@ -251,15 +252,21 @@ async function characterDetail(uid, server, character_ids, guess = false, bot) {
     const MAX_THREADS_NUM = 6;
     const MAX_QUERY_NUM = 8;
     const limit = pLimit(MAX_THREADS_NUM);
-    const otherRoles = global.info.character.filter((c) => !character_ids.includes(c.id)).map((c) => c.id);
     const { roles: record } = db.get("character", "record", { uid });
+    const { stats } = db.get("info", "user", { uid });
     const knownRoles = (record || []).filter((c) => !character_ids.includes(c));
-    const possibleRoles = otherRoles.filter((c) => !knownRoles.includes(c));
     const knownRoleChunks = lodash.chunk(knownRoles, MAX_QUERY_NUM);
-    const promises = lodash
-      .uniq(knownRoleChunks.concat(possibleRoles))
-      .map((c) => limit(() => getCharacters(uid, server, Array.isArray(c) ? c : [c], cookie)));
+    const roleNumber = (stats || {}).avatar_number;
+    let queryList = knownRoleChunks;
+    let promises = [];
 
+    if (roleNumber !== (record || []).length) {
+      const otherRoles = global.info.character.filter((c) => !character_ids.includes(c.id)).map((c) => c.id);
+      const possibleRoles = otherRoles.filter((c) => !knownRoles.includes(c));
+      queryList = lodash.chain(queryList).concat(possibleRoles).uniq().value();
+    }
+
+    promises = queryList.map((c) => limit(() => getCharacters(uid, server, Array.isArray(c) ? c : [c], cookie)));
     (await Promise.allSettled(promises)).forEach(
       (c) =>
         "fulfilled" === c.status && 0 === c.value.retcode && (data.avatars = data.avatars.concat(c.value.data.avatars))
