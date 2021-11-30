@@ -39,9 +39,9 @@ function handleDetailError(e) {
   return false;
 }
 
-function userInitialize(userID, uid, nickname, level) {
-  if (!db.includes("character", "user", "userID", userID)) {
-    db.push("character", "user", { userID, uid: 0 });
+function userInitialize(uid, nickname, level) {
+  if (!db.includes("character", "record", "uid", uid)) {
+    db.push("character", "record", { uid, roles: [] });
   }
 
   if (!db.includes("time", "user", "uid", uid)) {
@@ -68,8 +68,7 @@ function userInitialize(userID, uid, nickname, level) {
 }
 
 async function abyDetail(uid, server, userID, schedule_type, bot) {
-  userInitialize(userID, uid, "", -1);
-  db.update("character", "user", { userID }, { uid });
+  userInitialize(uid, "", -1);
 
   const nowTime = new Date().valueOf();
   const { time: lastTime } = db.get("time", "user", { aby: uid }) || {};
@@ -161,7 +160,7 @@ async function baseDetail(mhyID, userID, bot) {
   const { game_role_id, nickname, region, level } = baseInfo;
   const uid = parseInt(game_role_id);
 
-  userInitialize(userID, uid, nickname, level);
+  userInitialize(uid, nickname, level);
   db.update("info", "user", { uid }, { level, nickname });
 
   if (db.includes("map", "user", "userID", userID)) {
@@ -172,8 +171,7 @@ async function baseDetail(mhyID, userID, bot) {
 }
 
 async function indexDetail(uid, server, userID, bot) {
-  userInitialize(userID, uid, "", -1);
-  db.update("character", "user", { userID }, { uid });
+  userInitialize(uid, "", -1);
 
   const nowTime = new Date().valueOf();
   const { time } = db.get("time", "user", { uid }) || {};
@@ -231,6 +229,8 @@ async function indexDetail(uid, server, userID, bot) {
 
 // 如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色，适应米游社 API 改版 https://github.com/Arondight/Adachi-BOT/issues/436
 async function characterDetail(uid, server, character_ids, guess = false, bot) {
+  userInitialize(uid, "", -1);
+
   let cookie;
   let response;
 
@@ -248,20 +248,29 @@ async function characterDetail(uid, server, character_ids, guess = false, bot) {
   }
 
   if (true === guess) {
-    // 每次最多同时查询 8 个
-    const limit = pLimit(8);
-    const promises = global.info.character
-      .map((c) => c.id)
-      .filter((c) => !character_ids.includes(c))
-      .map((c) => limit(() => getCharacters(uid, server, [c], cookie)));
-    const results = await Promise.allSettled(promises);
-    results.forEach(
-      (c) => "fulfilled" === c.status && 0 === c.value.retcode && data.avatars.push(c.value.data.avatars[0])
+    const MAX_THREADS_NUM = 6;
+    const MAX_QUERY_NUM = 8;
+    const limit = pLimit(MAX_THREADS_NUM);
+    const otherRoles = global.info.character.filter((c) => !character_ids.includes(c.id)).map((c) => c.id);
+    const { roles: record } = db.get("character", "record", { uid });
+    const knownRoles = (record || []).filter((c) => !character_ids.includes(c));
+    const possibleRoles = otherRoles.filter((c) => !knownRoles.includes(c));
+    const knownRoleChunks = lodash.chunk(knownRoles, MAX_QUERY_NUM);
+    const promises = lodash
+      .uniq(knownRoleChunks.concat(possibleRoles))
+      .map((c) => limit(() => getCharacters(uid, server, Array.isArray(c) ? c : [c], cookie)));
+
+    (await Promise.allSettled(promises)).forEach(
+      (c) =>
+        "fulfilled" === c.status && 0 === c.value.retcode && (data.avatars = data.avatars.concat(c.value.data.avatars))
     );
   }
 
-  const avatars = [];
+  // 将拥有的角色列表写入数据库
+  const allCharacters = data.avatars.map((c) => c.id);
+  await db.update("character", "record", { uid }, { roles: allCharacters });
 
+  const avatars = [];
   for (const i in data.avatars) {
     if (data.avatars[i]) {
       const el = data.avatars[i];

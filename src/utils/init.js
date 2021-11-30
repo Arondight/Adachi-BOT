@@ -7,7 +7,7 @@ function initDB() {
   db.init("aby");
   db.init("artifact");
   db.init("authority");
-  db.init("character");
+  db.init("character", { record: [] });
   db.init("cookies", { cookie: [], uid: [] });
   db.init("cookies_invalid", { cookie: [] });
   db.init("gacha", { user: [], data: [] });

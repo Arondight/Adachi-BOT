@@ -12,7 +12,10 @@ function init(dbName, defaultElement = { user: [] }) {
 
   db[dbName] = new LowSync(adapter);
   db[dbName].read();
-  db[dbName].data = db[dbName].data || defaultElement;
+  db[dbName].data = db[dbName].data || {};
+  Object.keys(defaultElement).forEach(
+    (c) => undefined === db[dbName].data[c] && Object.assign(db[dbName].data, { [c]: defaultElement[c] })
+  );
   db[dbName].chain = lodash.chain(db[dbName].data);
   db[dbName].write();
 }
