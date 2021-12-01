@@ -117,11 +117,15 @@ async function imageOrc(msg, url) {
   const form = { image: data };
   let body = JSON.stringify(form);
 
-  response = await fetch("https://api.genshin.pub/api/v1/app/ocr", {
-    method: "POST",
-    headers,
-    body,
-  });
+  try {
+    response = await fetch("https://api.genshin.pub/api/v1/app/ocr", {
+      method: "POST",
+      headers,
+      body,
+    });
+  } catch (e) {
+    msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);
+  }
 
   if (200 != response.status) {
     msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);

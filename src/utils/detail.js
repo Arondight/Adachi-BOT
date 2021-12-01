@@ -1,23 +1,18 @@
 import moment from "moment-timezone";
+import pLimit from "p-limit";
 import lodash from "lodash";
 import db from "./database.js";
 import { getCookie, tryToWarnInvalidCookie } from "./cookie.js";
-import { getAbyDetail, getBase, getCharacters, getDetail } from "./api.js";
+import { getAbyDetail, getBase, getCharacters, getIndex } from "./api.js";
 
 function detailError(message, cache = false, master = false, message_master = "") {
-  return Promise.reject({
-    detail: true,
-    message,
-    cache,
-    master,
-    message_master,
-  });
+  return { detail: true, message, cache, master, message_master };
 }
 
 function getDetailErrorForPossibleInvalidCookie(message, cookie) {
   const warnInvalidCookie = tryToWarnInvalidCookie(message, cookie);
   const masterArgs = warnInvalidCookie ? [true, warnInvalidCookie] : [false, ""];
-  return detailError(`米游社接口报错: ${message}`, false, ...masterArgs);
+  throw detailError(`米游社接口报错: ${message}`, false, ...masterArgs);
 }
 
 // return true if we use cache
@@ -44,9 +39,9 @@ function handleDetailError(e) {
   return false;
 }
 
-function userInitialize(userID, uid, nickname, level) {
-  if (!db.includes("character", "user", "userID", userID)) {
-    db.push("character", "user", { userID, uid: 0 });
+function userInitialize(uid, nickname, level) {
+  if (!db.includes("character", "record", "uid", uid)) {
+    db.push("character", "record", { uid, roles: [] });
   }
 
   if (!db.includes("time", "user", "uid", uid)) {
@@ -72,9 +67,8 @@ function userInitialize(userID, uid, nickname, level) {
   }
 }
 
-async function abyPromise(uid, server, userID, schedule_type, bot) {
-  userInitialize(userID, uid, "", -1);
-  db.update("character", "user", { userID }, { uid });
+async function abyDetail(uid, server, userID, schedule_type, bot) {
+  userInitialize(uid, "", -1);
 
   const nowTime = new Date().valueOf();
   const { time: lastTime } = db.get("time", "user", { aby: uid }) || {};
@@ -106,19 +100,21 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
       nowTime - lastTime < global.config.cacheAbyEffectTime * 60 * 60 * 1000
     ) {
       bot.logger.debug(`缓存：使用 ${uid} 在 ${global.config.cacheAbyEffectTime} 小时内的深渊记录缓存。`);
-      return detailError("", true);
+      throw detailError("", true);
     }
   }
 
   let cookie;
+  let response;
 
   try {
     cookie = getCookie(uid, true, bot);
+    response = await getAbyDetail(uid, schedule_type, server, cookie);
   } catch (e) {
-    return detailError(e);
+    throw detailError(e);
   }
 
-  const { retcode, message, data } = await getAbyDetail(uid, schedule_type, server, cookie);
+  const { retcode, message, data } = response;
 
   if (retcode !== 0) {
     return getDetailErrorForPossibleInvalidCookie(message, cookie);
@@ -135,34 +131,36 @@ async function abyPromise(uid, server, userID, schedule_type, bot) {
   return data;
 }
 
-async function basePromise(mhyID, userID, bot) {
+async function baseDetail(mhyID, userID, bot) {
   let cookie;
+  let response;
 
   try {
     cookie = getCookie("MHY" + mhyID, false, bot);
+    response = await getBase(mhyID, cookie);
   } catch (e) {
-    return detailError(e);
+    throw detailError(e);
   }
 
-  const { retcode, message, data } = await getBase(mhyID, cookie);
+  const { retcode, message, data } = response;
   const errInfo = "未查询到角色数据，请检查米哈游通行证是否有误或是否设置角色信息公开";
 
   if (retcode !== 0) {
     return getDetailErrorForPossibleInvalidCookie(message, cookie);
   } else if (!data.list || 0 === data.list.length) {
-    return detailError(errInfo);
+    throw detailError(errInfo);
   }
 
   const baseInfo = data.list.find((el) => 2 === el.game_id);
 
   if (!baseInfo) {
-    return detailError(errInfo);
+    throw detailError(errInfo);
   }
 
   const { game_role_id, nickname, region, level } = baseInfo;
   const uid = parseInt(game_role_id);
 
-  userInitialize(userID, uid, nickname, level);
+  userInitialize(uid, nickname, level);
   db.update("info", "user", { uid }, { level, nickname });
 
   if (db.includes("map", "user", "userID", userID)) {
@@ -172,9 +170,8 @@ async function basePromise(mhyID, userID, bot) {
   return [uid, region];
 }
 
-async function detailPromise(uid, server, userID, bot) {
-  userInitialize(userID, uid, "", -1);
-  db.update("character", "user", { userID }, { uid });
+async function indexDetail(uid, server, userID, bot) {
+  userInitialize(uid, "", -1);
 
   const nowTime = new Date().valueOf();
   const { time } = db.get("time", "user", { uid }) || {};
@@ -187,22 +184,24 @@ async function detailPromise(uid, server, userID, bot) {
       const { retcode, message } = db.get("info", "user", { uid }) || {};
 
       if (retcode !== 0) {
-        return detailError(`米游社接口报错: ${message}`);
+        throw detailError(`米游社接口报错: ${message}`);
       }
 
-      return detailError("", true);
+      throw detailError("", true);
     }
   }
 
   let cookie;
+  let response;
 
   try {
     cookie = getCookie(uid, true, bot);
+    response = await getIndex(uid, server, cookie);
   } catch (e) {
-    return detailError(e);
+    throw detailError(e);
   }
 
-  const { retcode, message, data } = await getDetail(uid, server, cookie);
+  const { retcode, message, data } = response;
 
   if (retcode !== 0) {
     db.update("info", "user", { uid }, { message, retcode: parseInt(retcode) });
@@ -228,27 +227,60 @@ async function detailPromise(uid, server, userID, bot) {
   return characterID;
 }
 
-async function characterPromise(uid, server, character_ids, bot) {
+// 如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色，
+// 适应米游社 API 改版 https://github.com/Arondight/Adachi-BOT/issues/436
+async function characterDetail(uid, server, character_ids, guess = false, bot) {
+  userInitialize(uid, "", -1);
+
   let cookie;
+  let response;
 
   try {
     cookie = getCookie(uid, true, bot);
+    response = await getCharacters(uid, server, character_ids, cookie);
   } catch (e) {
-    return detailError(e);
+    throw detailError(e);
   }
 
-  const { retcode, message, data } = await getCharacters(uid, server, character_ids, cookie);
+  const { retcode, message, data } = response;
 
   if (retcode !== 0) {
     return getDetailErrorForPossibleInvalidCookie(message, cookie);
   }
 
-  let avatars = [];
-  const characterList = data.avatars;
+  if (true === guess) {
+    const MAX_THREADS_NUM = 6;
+    const MAX_QUERY_NUM = 8;
+    const limit = pLimit(MAX_THREADS_NUM);
+    const { roles: record } = db.get("character", "record", { uid });
+    const { stats } = db.get("info", "user", { uid });
+    const knownRoles = (record || []).filter((c) => !character_ids.includes(c));
+    const knownRoleChunks = lodash.chunk(knownRoles, MAX_QUERY_NUM);
+    const roleNumber = (stats || {}).avatar_number;
+    let queryList = knownRoleChunks;
+    let promises = [];
 
-  for (const i in characterList) {
-    if (characterList[i]) {
-      const el = characterList[i];
+    if (roleNumber !== (record || []).length) {
+      const otherRoles = global.info.character.filter((c) => !character_ids.includes(c.id)).map((c) => c.id);
+      const possibleRoles = otherRoles.filter((c) => !knownRoles.includes(c));
+      queryList = lodash.chain(queryList).concat(possibleRoles).uniq().value();
+    }
+
+    promises = queryList.map((c) => limit(() => getCharacters(uid, server, Array.isArray(c) ? c : [c], cookie)));
+    (await Promise.allSettled(promises)).forEach(
+      (c) =>
+        "fulfilled" === c.status && 0 === c.value.retcode && (data.avatars = data.avatars.concat(c.value.data.avatars))
+    );
+  }
+
+  // 将拥有的角色列表写入数据库
+  const allCharacters = data.avatars.map((c) => c.id);
+  await db.update("character", "record", { uid }, { roles: allCharacters });
+
+  const avatars = [];
+  for (const i in data.avatars) {
+    if (data.avatars[i]) {
+      const el = data.avatars[i];
       const base = lodash.omit(el, ["image", "weapon", "reliquaries", "constellations"]);
       const weapon = lodash.omit(el.weapon, ["id", "type", "promote_level", "type_name"]);
       let artifact = [];
@@ -279,4 +311,4 @@ async function characterPromise(uid, server, character_ids, bot) {
   return;
 }
 
-export { abyPromise, basePromise, characterPromise, detailPromise, handleDetailError };
+export { abyDetail, baseDetail, characterDetail, handleDetailError, indexDetail };

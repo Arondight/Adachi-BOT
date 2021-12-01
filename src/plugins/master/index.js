@@ -70,8 +70,7 @@ async function Plugin(msg) {
       setReplyAuth(msg);
       break;
     case hasEntrance(msg.text, "master", "refresh_wish_detail"):
-      gachaUpdate();
-      msg.bot.say(msg.sid, "卡池内容已刷新。", msg.type, msg.uid, true);
+      msg.bot.say(msg.sid, `卡池内容${gachaUpdate() ? "已刷新" : "刷新失败"}。`, msg.type, msg.uid, true);
       break;
   }
 }

@@ -3,7 +3,14 @@ import db from "./database.js";
 import { getGachaDetail, getGachaList } from "./api.js";
 
 async function parseData(gachaID) {
-  const data = await getGachaDetail(gachaID);
+  let data;
+
+  try {
+    data = await getGachaDetail(gachaID);
+  } catch (e) {
+    return undefined;
+  }
+
   let detail = {
     gacha_type: parseInt(data.gacha_type),
     upFourStar: [],
@@ -35,27 +42,45 @@ async function parseData(gachaID) {
     const parsed = lodash.pick(el, ["item_type", "item_name"]);
     detail.threeStar.push(parsed);
   });
+
   return detail;
 }
 
 async function gachaUpdate() {
-  const info = await getGachaList();
   const data = {};
+  let info;
+
+  try {
+    info = await getGachaList();
+  } catch (e) {
+    return false;
+  }
 
   if (lodash.hasIn(info, ["data", "list"]) && Array.isArray(info.data.list)) {
     for (const c of info.data.list) {
-      data[c.gacha_type] = await parseData(c.gacha_id);
+      if (undefined === (data[c.gacha_type] = await parseData(c.gacha_id))) {
+        return false;
+      }
     }
 
     const indefinite = data[200];
     const character = data[301];
     const character2 = data[400];
     const weapon = data[302];
+    const record = [indefinite, character2, character, weapon];
 
-    db.set("gacha", "data", [indefinite, character2, character, weapon]);
-    // 只打印一次日志
+    for (const c of record) {
+      if (undefined === c) {
+        return false;
+      }
+    }
+
+    db.set("gacha", "data", record);
     global.bots.logger.debug("卡池：内容已刷新。");
+    return true;
   }
+
+  return false;
 }
 
 export { gachaUpdate };

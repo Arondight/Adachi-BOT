@@ -17,7 +17,7 @@ async function status(msg) {
 CPU：${load.currentLoad && load.currentLoad.toFixed(2)}%（${cpu.manufacturer} ${cpu.brand} @ ${cpu.speed}Ghz）
 内存：${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(mem.total)}）
 启动：${moment.duration(time.uptime * 1000).humanize()}
-数据：${pb(du(path.join("data", "db")))}`;
+数据：${pb(du(path.resolve("data", "db")))}`;
 
   msg.bot.say(msg.sid, str, msg.type, msg.uid, false, "\n");
 }

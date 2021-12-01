@@ -1,12 +1,10 @@
 import db from "../../utils/database.js";
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
 import { init } from "./init.js";
 
-function doPool(msg) {
-  const [cmd] = getWordByRegex(filterWordsByRegex(msg.text, ...global.command.functions.entrance.pool), /\S+/);
+function doPool(msg, name) {
   let choice = 301;
 
-  switch (cmd) {
+  switch (name) {
     case global.all.functions.options.pool[200]:
       choice = 200;
       break;
@@ -22,8 +20,11 @@ function doPool(msg) {
     case global.all.functions.options.pool[999]:
       choice = 999;
       break;
-    default:
+    default: {
+      const message = `所有卡池：${Object.values(global.all.functions.options.pool).join("、")}。`;
+      msg.bot.say(msg.sid, message, msg.type, msg.uid, true);
       return;
+    }
   }
 
   init(msg.uid);

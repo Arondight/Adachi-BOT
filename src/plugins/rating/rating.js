@@ -17,13 +17,18 @@ async function doRating(msg) {
     return;
   }
 
-  response = await fetch("https://api.genshin.pub/api/v1/relic/rate", {
-    method: "POST",
-    headers,
-    body: JSON.stringify(prop),
-  });
+  try {
+    response = await fetch("https://api.genshin.pub/api/v1/relic/rate", {
+      method: "POST",
+      headers,
+      body: JSON.stringify(prop),
+    });
 
-  ret = await response.json();
+    ret = await response.json();
+  } catch (e) {
+    msg.bot.say(msg.sid, `圣遗物评分出错。`, msg.type, msg.uid, true);
+    return;
+  }
 
   if (400 === response.status) {
     if (lodash.hasIn(ret, "code") && 50003 === ret.code) {

@@ -4,10 +4,16 @@ async function quote(msg) {
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
-  const response = await fetch("https://mao.coolrc.workers.dev/", {
-    method: "POST",
-    headers: headers,
-  });
+  let response;
+
+  try {
+    response = await fetch("https://mao.coolrc.workers.dev/", {
+      method: "POST",
+      headers: headers,
+    });
+  } catch (e) {
+    msg.bot.say(msg.sid, "伟大的升华！", msg.type, msg.uid, true);
+  }
 
   if (200 === response.status) {
     const { quote, from } = await response.json();

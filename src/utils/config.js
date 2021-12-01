@@ -327,6 +327,17 @@
  *
  *
  * ==========================================================================
+ * global.info.character
+ * --------------------------------------------------------------------------
+ * 数组中元素的数据结构与原文件一致。
+ * --------------------------------------------------------------------------
+ * ../../resources/Version2/info/docs/<角色名>.json
+ * --------------------------------------------------------------------------
+ * 请直接查看文件内容。
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  *                            以上为数据结构
  * ========================================================================== */
 
@@ -335,6 +346,7 @@ import path from "path";
 import url from "url";
 import lodash from "lodash";
 import { loadYML } from "./yaml.js";
+import { ls } from "./file.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -371,7 +383,7 @@ const Setting = loadYML("setting");
 // global[key].functions.usage       -> function (lowercase):  usage (string)
 // global[key].functions.description -> function (lowercase):  description (string)
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
-// global[key].functions.options     -> function (lowercase):  { { option: text } } (both lowercase)
+// global[key].functions.options     -> function (lowercase):  { function: { option: text } } (both lowercase)
 function getCommand(obj, key) {
   const reduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
     lodash.reduce(
@@ -493,7 +505,6 @@ function getCommand(obj, key) {
   );
 
   // 所有 switch 转换为 option
-  // https://github.com/Arondight/Adachi-BOT/issues/242
   if (global[key].functions.type) {
     Object.keys(global[key].functions.type).forEach((f) => {
       if ("switch" === global[key].functions.type[f]) {
@@ -595,6 +606,8 @@ function readSetting() {
     dbInfoEffectTime: 168,
     // 不使用前端调试模式
     viewDebug: 0,
+    // 不保存图片
+    saveImage: 0,
   };
 
   // 用于兼容旧配置，已经被 accounts 取代
@@ -619,6 +632,7 @@ function readSetting() {
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
   const viewDebug = parseInt(Setting.viewDebug);
+  const saveImage = parseInt(Setting.saveImage);
 
   const getConfig = (...pairs) => {
     pairs &&
@@ -653,7 +667,8 @@ function readSetting() {
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
-    { viewDebug }
+    { viewDebug },
+    { saveImage }
   );
 
   // 设置每个 QQ 账户的登录选项默认值
@@ -817,6 +832,28 @@ function readArtifacts() {
   global.artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
 }
 
+// Call after readNames()
+//
+// global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
+//                                        rarity, mainStat, mainValue, baseATK, ascensionMaterials, levelUpMaterials,
+//                                        talentMaterials, time, constellations }
+function readInfo() {
+  const names = Object.values(global.names.allAlias);
+  const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
+  const info = ls(dir)
+    .filter((c) => {
+      const p = path.parse(c);
+      return ".json" === p.ext && names.includes(p.name);
+    })
+    .map((c) => {
+      const p = path.parse(c);
+      return JSON.parse(fs.readFileSync(path.resolve(p.dir, p.base))) || {};
+    });
+
+  global.info = {};
+  global.info.character = info.filter((c) => "角色" === c.type);
+}
+
 // global.command
 // global.master
 function readCommand() {
@@ -860,6 +897,7 @@ function readConfig() {
   readNames();
   readEggs();
   readArtifacts();
+  readInfo();
   readCommand();
   getAll();
   getUsage();
