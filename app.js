@@ -86,7 +86,7 @@ function login() {
   global.bots.logger = global.bots[0] && global.bots[0].logger;
 }
 
-async function hello() {
+function hello() {
   const asciiArt = figlet.textSync(global.package.name, {
     font: "DOS Rebel",
     horizontalLayout: "full",
@@ -147,7 +147,7 @@ async function run() {
 async function main() {
   readConfig();
   login();
-  await hello();
+  hello();
   report();
   await init();
   run();
