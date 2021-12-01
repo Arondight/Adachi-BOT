@@ -606,6 +606,8 @@ function readSetting() {
     dbInfoEffectTime: 168,
     // 不使用前端调试模式
     viewDebug: 0,
+    // 不保存图片
+    saveImage: 0,
   };
 
   // 用于兼容旧配置，已经被 accounts 取代
@@ -630,6 +632,7 @@ function readSetting() {
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
   const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
   const viewDebug = parseInt(Setting.viewDebug);
+  const saveImage = parseInt(Setting.saveImage);
 
   const getConfig = (...pairs) => {
     pairs &&
@@ -664,7 +667,8 @@ function readSetting() {
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
     { dbInfoEffectTime },
-    { viewDebug }
+    { viewDebug },
+    { saveImage }
   );
 
   // 设置每个 QQ 账户的登录选项默认值

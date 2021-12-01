@@ -7,8 +7,8 @@ import { once } from "events";
 import { du, mkdir } from "./file.js";
 
 function getCachedPath(url, dir) {
-  const workdir = dir || path.join(global.rootdir, "data", "cache");
-  return url && path.join(mkdir(workdir), md5(url));
+  const workdir = dir || path.resolve(global.rootdir, "data", "cache");
+  return url && path.resolve(mkdir(workdir), md5(url));
 }
 
 async function isCached(url, dir) {

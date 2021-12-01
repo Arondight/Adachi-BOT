@@ -125,6 +125,7 @@ function report() {
   log(`清理数据库 aby 中超过 ${global.config.dbAbyEffectTime} 小时的记录。`);
   log(`清理数据库 info 中超过 ${global.config.dbInfoEffectTime} 小时的记录。`);
   log(`${global.config.viewDebug ? "" : "不"}使用前端调试模式。`);
+  log(`${global.config.saveImage ? "" : "不"}保存图片。`);
 }
 
 async function run() {
