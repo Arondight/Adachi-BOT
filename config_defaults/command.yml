@@ -31,7 +31,7 @@ aby:
   weights: 9699
   regex:
     - ^(上期)?深渊\s*$
-    - ^(上期)?深渊\s*\d+$
+    - ^(上期)?深渊\s*\d+\s*$
     - ^(上期)?深渊\s*\[CQ:at,qq=.*$
   functions:
     aby:
