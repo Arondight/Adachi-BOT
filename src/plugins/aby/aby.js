@@ -1,3 +1,4 @@
+import lodash from "lodash";
 import db from "../../utils/database.js";
 import { render } from "../../utils/render.js";
 import { abyDetail, baseDetail, handleDetailError } from "../../utils/detail.js";
@@ -48,18 +49,25 @@ async function doAby(msg, schedule_type = 1) {
     }
   }
 
-  if (!abyInfo) {
-    msg.bot.say(msg.sid, "您似乎从未挑战过深境螺旋。", msg.type, msg.uid, true);
-    return;
-  }
-
-  if (Array.isArray(abyInfo.floors) && 0 === abyInfo.floors.length) {
-    msg.bot.say(msg.sid, "无渊月螺旋记录。", msg.type, msg.uid, true);
-    return;
-  }
-
   const data = db.get("aby", "user", { uid: dbInfo[0] });
-  render(msg, data, "genshin-aby");
+
+  if (lodash.hasIn(data, "data")) {
+    if (undefined === data.data.max_floor || "0-0" === data.data.max_floor) {
+      msg.bot.say(msg.sid, "您似乎从未挑战过深境螺旋。", msg.type, msg.uid, true);
+      return;
+    }
+
+    if (Array.isArray(data.data.floors) && 0 === data.data.floors.length) {
+      msg.bot.say(msg.sid, "无渊月螺旋记录。", msg.type, msg.uid, true);
+      return;
+    }
+
+    render(msg, data, "genshin-aby");
+    return;
+  }
+
+  msg.bot.say(msg.sid, "没有查询到深渊信息。", msg.type, msg.uid, true);
+  return;
 }
 
 export { doAby };
