@@ -148,28 +148,60 @@ function warnInvalidCookie(cookie) {
   }
 }
 
-function tryToWarnInvalidCookie(message, cookie) {
-  const invalidResponseList = ["please login"];
-  const reachMaxTimeResponseList = ["access the genshin game records of up to"];
+// From https://github.com/thesadru/genshinstats/blob/master/genshinstats/errors.py
+// -----------------------------------------------------------------------------
+// retcode  readable description (not the response message)
+// -----------------------------------------------------------------------------
+//
+// general
+//
+// 10101:   Cannnot get data for more than 30 accounts per cookie per day.
+// -100:    Login cookies have not been provided or are incorrect.
+// 10001:   Login cookies have not been provided or are incorrect.
+// 10102:   User's data is not public.
+// 1009:    Could not find user; uid may not be valid.
+// -1:      Internal database error, see original message.
+// -10002:  Cannot get rewards info. Account has no game account binded to it.
+// -108:    Language is not valid.
+// 10103:   Cookies are correct but do not have a hoyolab account bound to them.
+//
+// code redemption
+//
+// -2003:   Invalid redemption code.
+// -2017:   Redemption code has been claimed already.
+// -2001:   Redemption code has expired.
+// -2021:   Cannot claim codes for account with adventure rank lower than 10.
+// -1073:   Cannot claim code. Account has no game account bound to it.
+// -1071:   Login cookies from redeem_code() have not been provided or are incorrect.
+//          Make sure you use account_id and cookie_token cookies.
+//
+// sign in
+//
+// -5003:   Already claimed daily reward today.
+// 2001:    Already checked into hoyolab today.
+//
+// gacha log
+//
+// -100:    Authkey is not valid. (if message is "authkey error")
+//          Login cookies have not been provided or are incorrect. (if message is not "authkey error")
+// -101:    Authkey has timed-out. Update it by opening the history page in Genshin.
+function tryToWarnInvalidCookie(retcode, cookie) {
+  const invalidCode = [-100, 10001];
+  const maxTimeCode = [10101];
+  let retVal;
 
-  if ("string" === typeof cookie && undefined !== message) {
-    const errInfo = message.toLowerCase();
-
-    for (const res of invalidResponseList.map((c) => c.toLowerCase())) {
-      if ("" === errInfo || errInfo.includes(res)) {
-        return warnInvalidCookie(cookie);
-      }
-    }
-
-    for (const res of reachMaxTimeResponseList.map((c) => c.toLowerCase())) {
-      if (errInfo.includes(res)) {
-        markCookieUnusable(cookie);
-        return undefined;
-      }
+  if ("string" === typeof cookie && 0 !== retcode) {
+    switch (true) {
+      case invalidCode.includes(retcode):
+        retVal = warnInvalidCookie(cookie);
+        break;
+      case maxTimeCode.includes(retcode):
+        retVal = markCookieUnusable(cookie);
+        break;
     }
   }
 
-  return undefined;
+  return retVal;
 }
 
 export { getCookie, textOfInvalidCookies, tryToWarnInvalidCookie };
