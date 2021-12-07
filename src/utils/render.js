@@ -10,8 +10,9 @@ const settings = {
     "genshin-card": true,
     "genshin-character": false,
     "genshin-gacha": false,
-    "genshin-overview": false,
     "genshin-info": true,
+    "genshin-material": false,
+    "genshin-overview": false,
   },
   scale: {
     "genshin-aby": 2,
@@ -19,8 +20,9 @@ const settings = {
     "genshin-card": 1.5,
     "genshin-character": 1.5,
     "genshin-gacha": 1.5,
-    "genshin-overview": 1.2,
     "genshin-info": 1.5,
+    "genshin-material": 1.2,
+    "genshin-overview": 1.2,
   },
   delete: {
     "genshin-aby": false,
@@ -28,8 +30,9 @@ const settings = {
     "genshin-card": false,
     "genshin-character": false,
     "genshin-gacha": true,
-    "genshin-overview": false,
     "genshin-info": false,
+    "genshin-material": false,
+    "genshin-overview": false,
   },
 };
 const settingsDefault = { hello: false, scale: 1.5, delete: false };
