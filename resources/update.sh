@@ -180,44 +180,24 @@ MATERIALS=(
 # ==============================================================================
 # 所有的 API 列表和部分文件。
 # ==============================================================================
-API_CHARACTER_PROFILE='characters/profile'
-API_GACHA_ITEMS='gacha/items'
-API_MODULE='module'
-API_ITEM='item'
 API2_ARTIFACT='Version2/artifact'
 API2_ARTIFACT_OTHER='Version2/artifact/other'
 API2_CHARACTER='Version2/character'
+API2_INFO_DOCS='Version2/info/docs'
+API2_INFO_IMAGE='Version2/info/image'
+API2_INFO_OTHER='Version2/info/other'
 API2_MODULE='Version2/module'
 API2_WEAPON='Version2/weapon'
-API2_INFO_DOCS='Version2/info/docs'
-API2_INFO_OTHER='Version2/info/other'
-API2_INFO_IMAGE='Version2/info/image'
-API2_WISH_CONFIG='Version2/wish/config'
 API2_WISH_CHARACTER='Version2/wish/character'
+API2_WISH_CONFIG='Version2/wish/config'
 API2_WISH_WEAPON='Version2/wish/weapon'
+API2_THUMB_CHARACTER='Version2/thumb/character'
+API2_THUMB_WEAPON='Version2/thumb/weapon'
+API_CHARACTER_PROFILE='characters/profile'
+API_GACHA_ITEMS='gacha/items'
+API_ITEM='item'
+API_MODULE='module'
 
-API_GACHA_ITEMS_FILES=(
-  'ThreeStar.png'
-  'FourStar.png'
-  'FiveStar.png'
-  'ThreeBackground.png'
-  'FourBackground.png'
-  'FiveBackground.png'
-  'background.png'
-)
-API_MODULE_FILES=(
-  'artifact.png'
-  'card-new-bottom.png'
-  'card-new-middle.png'
-  'card-new-package.png'
-  'card-new-upper.png'
-  'element.png'
-  'info-new-upper.png'
-)
-API_ITEM_FILES=(
-  'lock.png'
-  'rarity.png'
-)
 API2_ARTIFACT_OTHER_FILES=(
   'rarity.png'
 )
@@ -236,6 +216,28 @@ API2_MODULE_FILES=(
 API2_WISH_CONFIG_FILES=(
   'weapon.json'
   'character.json'
+)
+API_GACHA_ITEMS_FILES=(
+  'ThreeStar.png'
+  'FourStar.png'
+  'FiveStar.png'
+  'ThreeBackground.png'
+  'FourBackground.png'
+  'FiveBackground.png'
+  'background.png'
+)
+API_ITEM_FILES=(
+  'lock.png'
+  'rarity.png'
+)
+API_MODULE_FILES=(
+  'artifact.png'
+  'card-new-bottom.png'
+  'card-new-middle.png'
+  'card-new-package.png'
+  'card-new-upper.png'
+  'element.png'
+  'info-new-upper.png'
 )
 OTHER_FILES=(
   'Version2/slip/index.yml'
@@ -449,6 +451,12 @@ function getWish()
   fetch "$API2_WISH_WEAPON" 1 '.png' "${WEAPONS[@]}"
 }
 
+function getThumb()
+{
+  fetch "$API2_THUMB_CHARACTER" 0 '.png' "${CHARS[@]}"
+  fetch "$API2_THUMB_WEAPON" 0 '.png' "${WEAPONS[@]}"
+}
+
 # ==============================================================================
 # 后期处理
 # ==============================================================================
@@ -504,6 +512,7 @@ function listXML()
   getArtifacts
   getCharacter
   getWish
+  getThumb
 
   syncCustom
   listXML
