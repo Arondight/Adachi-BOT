@@ -11,12 +11,47 @@ const urls = {
 
 async function doMaterial(msg, url) {
   const cacheDir = path.resolve(global.rootdir, "data", "image", "material");
+  const dayOfWeek = new Date().getDay();
+  const materialList = {
+    1: "MonThu",
+    2: "TueFri",
+    3: "WedSat",
+    4: "MonThu",
+    5: "TueFri",
+    6: "WedSat",
+  };
+  const data = { character: {}, weapon: {} };
 
+  (global.material[materialList[dayOfWeek]] || []).forEach((n) => {
+    (global.info.character.filter((c) => c.name === n) || []).forEach((c) => {
+      const key = (c.talentMaterials || [])[2];
+      if ("string" === typeof key) {
+        (data.character[key] || (data.character[key] = [])).push(c.name);
+      }
+    });
+    (global.info.weapon.filter((c) => c.name === n) || []).forEach((c) => {
+      const key = ((c.ascensionMaterials || [])[0] || [])[2];
+      if ("string" === typeof key) {
+        (data.weapon[key] || (data.weapon[key] = [])).push(c.name);
+      }
+    });
+  });
+
+  // XXX 在能够发送今日素材 data 后，这里或许可以当做一个总体的列表提供 {
   if (url) {
     const data = await getCache(url, cacheDir, "base64");
     const text = `[CQ:image,file=base64://${data}]`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
+    return;
   }
+  // }
+
+  if (0 === Object.keys({ ...data.character, ...data.weapon }).length) {
+    msg.bot.say(msg.sid, "今天所有副本开放，没有可刷素材限制。", msg.type, msg.uid);
+    return;
+  }
+
+  // TODO 发送今日素材 data 给用户，可能需要调用 render
 }
 
 export { doMaterial, urls };

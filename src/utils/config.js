@@ -327,11 +327,26 @@
  *
  *
  * ==========================================================================
+ * global.info.material
+ * --------------------------------------------------------------------------
+ * { MonThu: [ '刻晴', '风鹰剑' ] }
+ * --------------------------------------------------------------------------
+ * ../../config/material.yml
+ * --------------------------------------------------------------------------
+ * MonThu:
+ *   - 刻晴
+ *   - 风鹰剑
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  * global.info.character
+ * global.info.weapon
  * --------------------------------------------------------------------------
  * 数组中元素的数据结构与原文件一致。
  * --------------------------------------------------------------------------
  * ../../resources/Version2/info/docs/<角色名>.json
+ * ../../resources/Version2/info/docs/<武器名>.json
  * --------------------------------------------------------------------------
  * 请直接查看文件内容。
  * ==========================================================================
@@ -366,6 +381,7 @@ const Command = loadYML("command");
 const Cookies = loadYML("cookies");
 const Eggs = loadYML("pool_eggs");
 const Greeting = loadYML("greeting");
+const Material = loadYML("material");
 const Master = loadYML("command_master");
 const Menu = loadYML("menu");
 const Names = loadYML("names");
@@ -832,11 +848,32 @@ function readArtifacts() {
   global.artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
 }
 
+// global.material.MonThu   -> array of name (string, lowercase)
+// global.material.TueFri   -> array of name (string, lowercase)
+// global.material.WedSat   -> array of name (string, lowercase)
+function readMaterial() {
+  global.material = {};
+
+  Object.keys(Material).forEach((k) => {
+    global.material[k] = Material[k];
+
+    if (Array.isArray(global.material[k])) {
+      for (let i = 0; i < global.material[k].length; ++i) {
+        if ("string" === typeof global.material[k][i]) {
+          global.material[k][i] = global.material[k][i].toLowerCase();
+        }
+      }
+    }
+  });
+}
+
 // Call after readNames()
 //
 // global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
 //                                        rarity, mainStat, mainValue, baseATK, ascensionMaterials, levelUpMaterials,
 //                                        talentMaterials, time, constellations }
+// global.info.weapon       -> array of { title, name, introduce, access, rarity, mainStat, mainValue, baseATK,
+//                                        ascensionMaterials, time, skillName, skillContent }
 function readInfo() {
   const names = Object.values(global.names.allAlias);
   const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
@@ -852,6 +889,7 @@ function readInfo() {
 
   global.info = {};
   global.info.character = info.filter((c) => "角色" === c.type);
+  global.info.weapon = info.filter((c) => "武器" === c.type);
 }
 
 // global.command
@@ -898,6 +936,7 @@ function readConfig() {
   readEggs();
   readArtifacts();
   readInfo();
+  readMaterial();
   readCommand();
   getAll();
   getUsage();

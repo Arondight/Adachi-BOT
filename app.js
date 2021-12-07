@@ -145,13 +145,11 @@ async function run() {
   }
 }
 
-async function main() {
+(async function main() {
   readConfig();
   login();
   hello();
   report();
   await init();
   run();
-}
-
-main();
+})();
