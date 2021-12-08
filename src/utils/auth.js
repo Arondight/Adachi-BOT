@@ -5,18 +5,28 @@ function hasAuth(id, func) {
   return data[func] && true === data[func];
 }
 
-function setAuth(msg, func, id, isOn, report = true) {
-  const name = global.command.functions.name[func] ? `【${global.command.functions.name[func]}】` : func;
-  const text = `我已经开始${isOn ? "允许" : "禁止"} ${id} 的${name}功能！`;
-  const data = db.get("authority", "user", { userID: id });
+function setAuth(msg, funcs = [], id, isOn, report = true) {
+  const names = [];
 
-  if (undefined === data) {
-    db.push("authority", "user", { userID: id, [func]: isOn });
-  } else {
-    db.update("authority", "user", { userID: id }, { ...data, [func]: isOn });
+  if (!Array.isArray(funcs)) {
+    funcs = [funcs];
+  }
+
+  for (let i = 0; i < funcs.length; ++i) {
+    const name = global.command.functions.name[funcs[i]] ? `【${global.command.functions.name[funcs[i]]}】` : funcs[i];
+    const data = db.get("authority", "user", { userID: id });
+
+    names.push(name);
+
+    if (undefined === data) {
+      db.push("authority", "user", { userID: id, [funcs[i]]: isOn });
+    } else {
+      db.update("authority", "user", { userID: id }, { ...data, [funcs[i]]: isOn });
+    }
   }
 
   if (true === report && undefined !== msg.bot) {
+    const text = `我已经开始${isOn ? "允许" : "禁止"} ${id} 的${names.join("")}功能！`;
     msg.bot.sayMaster(msg.sid, text, msg.type, msg.uid);
   }
 }
