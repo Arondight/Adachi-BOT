@@ -343,7 +343,7 @@
  * global.info.character
  * global.info.weapon
  * --------------------------------------------------------------------------
- * 数组中元素的数据结构与原文件一致。
+ * 数组中元素的数据结构与原文件一致，以字段 rarity 降序。
  * --------------------------------------------------------------------------
  * ../../resources/Version2/info/docs/<角色名>.json
  * ../../resources/Version2/info/docs/<武器名>.json
@@ -871,9 +871,9 @@ function readMaterial() {
 //
 // global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
 //                                        rarity, mainStat, mainValue, baseATK, ascensionMaterials, levelUpMaterials,
-//                                        talentMaterials, time, constellations }
+//                                        talentMaterials, time, constellations }, sorted by rarity
 // global.info.weapon       -> array of { title, name, introduce, access, rarity, mainStat, mainValue, baseATK,
-//                                        ascensionMaterials, time, skillName, skillContent }
+//                                        ascensionMaterials, time, skillName, skillContent }, sorted by rarity
 function readInfo() {
   const names = Object.values(global.names.allAlias);
   const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
@@ -888,8 +888,18 @@ function readInfo() {
     });
 
   global.info = {};
-  global.info.character = info.filter((c) => "角色" === c.type);
-  global.info.weapon = info.filter((c) => "武器" === c.type);
+  global.info.character = lodash
+    .sortBy(
+      info.filter((c) => "角色" === c.type),
+      "rarity"
+    )
+    .reverse();
+  global.info.weapon = lodash
+    .sortBy(
+      info.filter((c) => "武器" === c.type),
+      "rarity"
+    )
+    .reverse();
 }
 
 // global.command

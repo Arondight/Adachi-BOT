@@ -2,22 +2,11 @@ const template = `<div class="unit">
   <div class="top-box">
     <div class="ascension-name">{{ ascensionName }}</div>
     <div class="materials-list">
-      <img
-        v-for="name in data.ascension"
-        class="materials"
-        :src="img( name )"
-        alt="ERROR"
-      />
+      <img v-for="name in data.ascension" class="materials" :src="img(name)" alt="ERROR" />
     </div>
   </div>
   <div class="item-list">
-    <img
-      class="item"
-      v-for="d in data.list"
-      :src="mainImage( d.name )"
-      :style="styles( d.rarity )"
-      alt="ERROR"
-    />
+    <img class="item" v-for="d in data.list" :src="mainImage(d.name)" :style="styles(d.rarity)" alt="ERROR" />
   </div>
 </div>`;
 
