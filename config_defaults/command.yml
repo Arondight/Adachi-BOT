@@ -158,8 +158,8 @@ gacha:
       show: true
       weights: 9899
       name: 卡池
-      usage: [卡池名]
-      description: 有卡池名则切换【十连】的卡池，否则列出所有卡池名
+      usage:
+      description: 切换【十连】的卡池
       entrance:
         - ^卡池
       options:
