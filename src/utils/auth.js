@@ -12,18 +12,18 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
     funcs = [funcs];
   }
 
-  for (let i = 0; i < funcs.length; ++i) {
-    const name = global.command.functions.name[funcs[i]] ? `【${global.command.functions.name[funcs[i]]}】` : funcs[i];
+  funcs.forEach((f) => {
+    const name = global.command.functions.name[f] ? `【${global.command.functions.name[f]}】` : f;
     const data = db.get("authority", "user", { userID: id });
 
     names.push(name);
 
     if (undefined === data) {
-      db.push("authority", "user", { userID: id, [funcs[i]]: isOn });
+      db.push("authority", "user", { userID: id, [f]: isOn });
     } else {
-      db.update("authority", "user", { userID: id }, { ...data, [funcs[i]]: isOn });
+      db.update("authority", "user", { userID: id }, { ...data, [f]: isOn });
     }
-  }
+  });
 
   if (true === report && undefined !== msg.bot) {
     const text = `我已经开始${isOn ? "允许" : "禁止"} ${id} 的${names.join("")}功能！`;
