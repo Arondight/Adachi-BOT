@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "cross-env": "7.0.3",
-    "deasync": "0.1.24",
     "express": "4.17.1",
     "fastest-levenshtein": "1.0.12",
     "figlet": "1.5.2",
