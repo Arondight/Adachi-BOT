@@ -3,11 +3,9 @@ import lodash from "lodash";
 import { getCache } from "../../utils/cache.js";
 import { render } from "../../utils/render.js";
 
-const getUrl = (filepath) =>
-  `https://upload-bbs.mihoyo.com/upload/${"/" === filepath[0] ? filepath.substring(1) : filepath}`;
+const getUrl = (p) => `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
 const urls = {
-  weapon: getUrl("/2021/10/13/75379475/b56eedc27bbaf530dd3c523b1105e74b_7322607822838656788.png"),
-  talent: getUrl("/2021/09/21/75833613/db0f03fcfb1b4afb6238e7ce8bb12a95_5543274064496215355.png"),
+  talent: getUrl("/2021/09/21/75833613/db0f03fcfb1b4afb6238e7ce8bb12a95_5543274064496215355.png"), // 当前只判断 boolean ，无实际作用，无需更新
   weekly: getUrl("/2021/09/21/75833613/f6b05ab0563fc7a8404b7906d8a67707_8883237440326538461.png"),
 };
 

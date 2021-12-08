@@ -4,11 +4,6 @@ import { doMaterial, urls } from "./material.js";
 
 async function Plugin(msg) {
   switch (true) {
-    case hasEntrance(msg.text, "material", "weapon"):
-      if (false !== checkAuth(msg, "weapon")) {
-        doMaterial(msg, urls.weapon);
-      }
-      break;
     case hasEntrance(msg.text, "material", "talent"):
       if (false !== checkAuth(msg, "talent")) {
         doMaterial(msg, urls.talent);
