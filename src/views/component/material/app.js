@@ -1,12 +1,12 @@
 const template = `<div class="daily">
   <div class="outer">
-    <img v-for="i in 4" :src="starBASE64" class="corner-star" :class="'star' + i" alt="ERROR"/>
+    <img v-for="i in 4" :src="starBASE64" class="corner-star" :class="'star' + i" alt="ERROR" />
     <div v-for="i in 4" class="outer-circle" :class="'outer-circle' + i"></div>
     <div class="inner">
       <div v-for="i in 4" class="inner-circle" :class="'inner-circle' + i"></div>
       <div class="content" :class="{ 'has-empty': weapon.length === 0 || character === 0 }">
-        <DailyColumn :data="character" type="character"/>
-        <DailyColumn :data="weapon" type="weapon"/>
+        <DailyColumn :data="character" type="character" />
+        <DailyColumn :data="weapon" type="weapon" />
       </div>
     </div>
   </div>
