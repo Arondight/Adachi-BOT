@@ -1,19 +1,19 @@
-const template = `<div class="daily-column">
+const template = `<div class="material-column">
   <div class="title">{{ title }}</div>
-  <DailyUnit v-if="data.length !== 0" v-for="d in data" :data="d" :type="type" />
+  <MaterialUnit v-if="data.length !== 0" v-for="d in data" :data="d" :type="type" />
   <div v-else class="empty-box">今日没有可刷取材料的{{ type === "character" ? "角色" : "武器" }}</div>
 </div>`;
 
-import DailyUnit from "./unit.js";
+import MaterialUnit from "./unit.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent, computed } = Vue;
 
 export default defineComponent({
-  name: "DailyColumn",
+  name: "MaterialColumn",
   template,
   components: {
-    DailyUnit,
+    MaterialUnit,
   },
   props: {
     data: Array,

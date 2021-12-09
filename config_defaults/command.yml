@@ -274,17 +274,17 @@ material:
   enable: true
   weights: 9099
   regex:
-    - ^(武器|天赋|周本|(每日)?素材)\s*$
+    - ^(武器|天赋|周本|(今日)?素材)\s*$
   functions:
     talent:
       type: command
       show: true
       weights: 9989
-      name: 每日素材
+      name: 今日素材
       usage:
-      description: 每日素材表
+      description: 今日素材表
       entrance:
-        - ^(天赋|武器|(每日)?素材)
+        - ^(天赋|武器|(今日)?素材)
     weekly:
       type: command
       show: true

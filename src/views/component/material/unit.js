@@ -14,7 +14,7 @@ const template = `<div class="unit">
 const { defineComponent } = Vue;
 
 export default defineComponent({
-  name: "DailyUnit",
+  name: "MaterialUnit",
   template,
   props: {
     data: Object,
