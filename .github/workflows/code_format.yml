@@ -1,10 +1,10 @@
-name: Update resources in dev branch
+name: Code format
 
 on:
-  workflow_dispatch:
-  schedule:
-    # UTC
-    - cron: "0 20 * * *"
+  push:
+    branches:
+      - dev
+      - master
 
 jobs:
   resources_update:
@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: dev
-      - name: Update resources
-        run: ./resources/update.sh
+      - name: Install node modules
+        run: npm install
+      - name: Format code
+        run: npm run format
       - name: Config git
         run: |
           git config user.name 'github-actions'
@@ -24,9 +24,9 @@ jobs:
         run: |
           if [[ -n $(git status --porcelain) ]]
           then
+            git config user.name 'github-actions'
+            git config user.email 'github-actions@github.com'
             git add .
             git commit -m 'update resources'
             git push
-          else
-            echo "Nothing to commit."
           fi
