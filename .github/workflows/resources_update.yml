@@ -4,7 +4,7 @@ on:
     - cron: "0 20 * * *"
 
 jobs:
-  resources_update_dev:
+  resources_update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
