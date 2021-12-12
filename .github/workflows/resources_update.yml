@@ -1,17 +1,15 @@
 on:
-  push:
-    branches:
-      - dev
   schedule:
     # UTC
     - cron: "0 20 * * *"
 
 jobs:
-  resources_update:
+  resources_update_dev:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: |
+          git checkout dev
           ./resources/update.sh
 
           if [[ -n $(git status --porcelain) ]]
@@ -20,5 +18,5 @@ jobs:
             git config user.email 'github-actions@github.com'
             git add .
             git commit -m 'update resources'
-            git push
+            git push origin dev
           fi
