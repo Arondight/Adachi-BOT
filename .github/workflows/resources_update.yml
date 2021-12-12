@@ -1,4 +1,7 @@
+name: Update files in ./resources/
+
 on:
+  workflow_dispatch:
   schedule:
     # UTC
     - cron: "0 20 * * *"
