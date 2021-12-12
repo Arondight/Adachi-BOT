@@ -453,8 +453,8 @@ function getWish()
 
 function getThumb()
 {
-  fetch "$API2_THUMB_CHARACTER" 0 '.png' "${CHARS[@]}"
-  fetch "$API2_THUMB_WEAPON" 0 '.png' "${WEAPONS[@]}"
+  fetch "$API2_THUMB_CHARACTER" 1 '.png' "${CHARS[@]}"
+  fetch "$API2_THUMB_WEAPON" 1 '.png' "${WEAPONS[@]}"
 }
 
 # ==============================================================================

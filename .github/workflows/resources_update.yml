@@ -21,4 +21,4 @@ jobs:
             git add .
             git commit -m 'update resources'
             git push
-          endif
+          fi
