@@ -21,12 +21,12 @@ async function doMaterial(msg, url) {
   }
 
   const materialList = { 1: "MonThu", 2: "TueFri", 3: "WedSat", 4: "MonThu", 5: "TueFri", 6: "WedSat" };
-  const dayOfZhou = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  const dayOfZhou = ["日", "一", "二", "三", "四", "五", "六"].map((c) => `周${c}`);
   const [day] = getWordByRegex(msg.text, ".{2}");
   const dayOfWeek = dayOfZhou.includes(day) ? dayOfZhou.indexOf(day) : new Date().getDay();
 
   if (undefined === materialList[dayOfWeek]) {
-    msg.bot.say(msg.sid, `${day}所有副本都可以刷哦。`, msg.type, msg.uid);
+    msg.bot.say(msg.sid, `${day}所有副本都可以刷哦。`, msg.type, msg.uid, true);
     return;
   }
 
