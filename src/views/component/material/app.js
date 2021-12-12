@@ -5,8 +5,8 @@ const template = `<div class="material">
     <div class="inner">
       <div v-for="i in 4" class="inner-circle" :class="'inner-circle' + i"></div>
       <div class="content" :class="{ 'has-empty': weapon.length === 0 || character === 0 }">
-        <MaterialColumn :data="character" type="character" />
-        <MaterialColumn :data="weapon" type="weapon" />
+        <MaterialColumn :data="character" :day="day" type="character" />
+        <MaterialColumn :data="weapon" :day="day" type="weapon" />
       </div>
     </div>
   </div>
@@ -30,10 +30,12 @@ export default defineComponent({
     const params = JSON.parse(
       decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
     );
+    const day = params.day;
     const character = params.character.data;
     const weapon = params.weapon.data;
 
     return {
+      day,
       weapon,
       character,
       starBASE64,

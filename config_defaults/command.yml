@@ -19,6 +19,7 @@
 #       weights: number         # 权重越高，帮助信息里显示越靠前
 #       name: string            # 呈现给用户的功能名称（忽略大小写）
 #       usage: string           # 呈现给用户的功能格式
+#       revert: boolean         # 是否将 options 作为命令的前缀
 #       description: string     # 呈现给用户的功能说明
 #       entrance:               # 功能入口（*只*匹配功能名称的正则 、插件唯一、忽略大小写）
 #         - string
@@ -40,6 +41,7 @@ aby:
       weights: 9999
       name: 深渊
       usage: "[游戏内UID、@群友]"
+      revert: false
       description:
       entrance:
         - ^深渊
@@ -49,6 +51,7 @@ aby:
       weights: 9899
       name: 上期深渊
       usage: "[游戏内UID、@群友]"
+      revert: false
       description:
       entrance:
         - ^上期深渊
@@ -67,6 +70,7 @@ artifacts:
       weights: 9999
       name: 圣遗物
       usage: "[副本编号、副本名称]"
+      revert: false
       description: 掉落一个圣遗物
       entrance:
         - ^圣遗物
@@ -76,6 +80,7 @@ artifacts:
       weights: 9899
       name: 强化
       usage:
+      revert: false
       description: 强化掉落的上一个圣遗物
       entrance:
         - ^强化
@@ -85,6 +90,7 @@ artifacts:
       weights: 9799
       name: 副本
       usage:
+      revert: false
       description: 查看所有副本编号
       entrance:
         - ^副本
@@ -104,6 +110,7 @@ card:
       weights: 9999
       name: 米游社
       usage: "[米游社通行证ID、@群友]"
+      revert: false
       description: 查询并更新角色信息
       entrance:
         - ^米游社
@@ -122,18 +129,23 @@ character:
       weights: 9999
       name: 我的
       usage: <角色名>
+      revert: false
       description: 查询我的角色
       entrance:
         - ^我的
     others_character:
-      type: command
+      type: option
       show: true
       weights: 9899
-      name: <游戏内UID、@群友>的
+      name: 的
       usage: <角色名>
+      revert: true
       description: 查询别人的角色
       entrance:
         - ^((\[CQ:at,qq=.*?\])|(\d+))
+      options:
+        uid: 游戏内UID
+        at: "@群友"
 
 gacha:
   enable: true
@@ -150,6 +162,7 @@ gacha:
       weights: 9999
       name: 十连
       usage:
+      revert: false
       description:
       entrance:
         - ^十连
@@ -159,6 +172,7 @@ gacha:
       weights: 9899
       name: 卡池
       usage:
+      revert: false
       description: 切换【十连】的卡池
       entrance:
         - ^卡池
@@ -174,6 +188,7 @@ gacha:
       weights: 9799
       name: 定轨
       usage: <武器名>
+      revert: false
       description:
       entrance:
         - ^定轨
@@ -183,6 +198,7 @@ gacha:
       weights: 9699
       name: 查看定轨
       usage:
+      revert: false
       description:
       entrance:
         - ^查看定轨
@@ -192,6 +208,7 @@ gacha:
       weights: 9599
       name: 取消定轨
       usage:
+      revert: false
       description:
       entrance:
         - ^取消定轨
@@ -211,6 +228,7 @@ tools:
       weights: 9999
       name: 今天吃什么
       usage:
+      revert: false
       description:
       entrance:
         - ^(今天)?吃什么
@@ -221,6 +239,7 @@ tools:
       weights: 9899
       name: 求签
       usage:
+      revert: false
       description:
       entrance:
         - ^(求签|占卜)
@@ -230,6 +249,7 @@ tools:
       weights: 9799
       name: roll
       usage: "[1-100]"
+      revert: false
       description: 掷骰子
       entrance:
         - ^roll
@@ -239,6 +259,7 @@ tools:
       weights: 9699
       name: 伟大的升华
       usage:
+      revert: false
       description:
       entrance:
         - ^伟大的升华
@@ -248,6 +269,7 @@ tools:
       weights: 299
       name: 带话
       usage: <单行图文>
+      revert: false
       description: 给主人带话
       entrance:
         - ^带(个)?话
@@ -257,6 +279,7 @@ tools:
       weights: 199
       name: 管理命令
       usage:
+      revert: false
       description: 查看主人功能
       entrance:
         - ^管理(命令|功能)
@@ -266,6 +289,7 @@ tools:
       weights: 99
       name: help
       usage:
+      revert: false
       description: 查看本帮助
       entrance:
         - ^help
@@ -274,23 +298,35 @@ material:
   enable: true
   weights: 9099
   regex:
-    - ^(武器|天赋|周本|(今日)?素材)\s*$
+    - ^(今日|周(一|二|三|四|五|六|日))(素材)\s*$
+    - ^周本\s*$
   functions:
     talent:
-      type: command
+      type: option
       show: true
       weights: 9989
-      name: 今日素材
+      name: 素材
       usage:
-      description: 今日素材表
+      revert: true
+      description:
       entrance:
-        - ^(天赋|武器|(今日)?素材)
+        - ^(今日|周(一|二|三|四|五|六|日))(素材)
+      options:
+        0: 周日
+        1: 周一
+        2: 周二
+        3: 周三
+        4: 周四
+        5: 周五
+        6: 周六
+        999: 今日
     weekly:
       type: command
       show: true
       weights: 9979
       name: 周本
       usage:
+      revert: false
       description: 周本材料表
       entrance:
         - ^周本
@@ -308,6 +344,7 @@ music:
       weights: 9999
       name: 点歌
       usage: <单行文本>
+      revert: false
       description:
       entrance:
         - ^点歌
@@ -317,6 +354,7 @@ music:
       weights: 9899
       name: 音乐源
       usage:
+      revert: false
       description: 切换【点歌】的音乐源
       entrance:
         - ^音乐源
@@ -336,6 +374,7 @@ overview:
       weights: 9999
       name: 信息
       usage: <角色名、武器名>
+      revert: false
       description: 查询角色或武器的游戏数据
       entrance:
         - ^信息
@@ -354,6 +393,7 @@ package:
       weights: 9999
       name: uid
       usage: "[游戏内UID、@群友]"
+      revert: false
       description: 查询并更新角色信息
       entrance:
         - ^uid
@@ -370,6 +410,7 @@ rating:
       weights: 9999
       name: 评分
       usage: <背包中的圣遗物截图>
+      revert: false
       description:
       entrance:
         - ^评分
@@ -387,6 +428,7 @@ save:
       weights: 9999
       name: 绑定
       usage: <米游社通行证ID>
+      revert: false
       description:
       entrance:
         - ^绑定
@@ -396,6 +438,7 @@ save:
       weights: 9899
       name: 改绑
       usage: <米游社通行证ID>
+      revert: false
       description:
       entrance:
         - ^改绑

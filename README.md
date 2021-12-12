@@ -291,6 +291,6 @@ npm run restart
 
 > 名单先后顺序根据账号首字母排列。
 
-## Licenses
+## 许可
 
-[MIT](LICENSE) 。
+[MIT License](LICENSE) 。

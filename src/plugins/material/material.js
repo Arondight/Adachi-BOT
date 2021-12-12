@@ -2,6 +2,7 @@ import path from "path";
 import lodash from "lodash";
 import { getCache } from "../../utils/cache.js";
 import { render } from "../../utils/render.js";
+import { getWordByRegex } from "../../utils/tools.js";
 
 const getUrl = (p) => `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
 const urls = {
@@ -19,18 +20,13 @@ async function doMaterial(msg, url) {
     return;
   }
 
-  const dayOfWeek = new Date().getDay();
-  const materialList = {
-    1: "MonThu",
-    2: "TueFri",
-    3: "WedSat",
-    4: "MonThu",
-    5: "TueFri",
-    6: "WedSat",
-  };
+  const materialList = { 1: "MonThu", 2: "TueFri", 3: "WedSat", 4: "MonThu", 5: "TueFri", 6: "WedSat" };
+  const dayOfZhou = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  const [day] = getWordByRegex(msg.text, ".{2}");
+  const dayOfWeek = dayOfZhou.includes(day) ? dayOfZhou.indexOf(day) : new Date().getDay();
 
   if (undefined === materialList[dayOfWeek]) {
-    msg.bot.say(msg.sid, "今天所有副本开放，没有可刷素材限制。", msg.type, msg.uid);
+    msg.bot.say(msg.sid, `${day}所有副本都可以刷哦。`, msg.type, msg.uid);
     return;
   }
 
@@ -102,7 +98,7 @@ async function doMaterial(msg, url) {
     weapon.data.push(record);
   });
 
-  render(msg, { character, weapon }, "genshin-material");
+  render(msg, { day, character, weapon }, "genshin-material");
 }
 
 export { doMaterial, urls };

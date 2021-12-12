@@ -18,10 +18,11 @@ export default defineComponent({
   props: {
     data: Array,
     type: String,
+    day: String,
   },
   setup(props) {
     const title = computed(() => {
-      return `今日${props.type === "weapon" ? "武器" : "角色"}素材`;
+      return `${props.day}${props.type === "weapon" ? "武器" : "角色"}素材`;
     });
     return { title };
   },

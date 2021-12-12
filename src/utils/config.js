@@ -35,6 +35,7 @@
  *     weights: { hello_world: 9999, eat: 9999 },
  *     name: { hello_world: 'hello world', eat: 'eat' },
  *     usage: { hello_world: undefined, eat: undefined },
+ *     revert: { hello_world: false, eat: false },
  *     description: { hello_world: 'I will say hello to you', eat: 'What to eat' },
  *     entrance: { hello_world: [ '^hello' ], eat: [ '^eat' ] },
  *     options: { eat: { apple: '苹果', banana: '香蕉', egg: '蛋' } }
@@ -66,6 +67,7 @@
  *       weights: 9999
  *       name: hello world
  *       usage:
+ *       revert: false
  *       description: I will say hello to you
  *       entrance:
  *         - ^hello
@@ -81,6 +83,7 @@
  *       weights: 9999
  *       name: eat
  *       usage:
+ *       revert: false
  *       description: What to eat
  *       entrance:
  *         - ^eat
@@ -397,6 +400,7 @@ const Setting = loadYML("setting");
 // global[key].functions.weights     -> function (lowercase):  weights (number)
 // global[key].functions.name        -> function (lowercase):  name (string)
 // global[key].functions.usage       -> function (lowercase):  usage (string)
+// global[key].functions.revert      -> function (lowercase):  revert (boolean)
 // global[key].functions.description -> function (lowercase):  description (string)
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
 // global[key].functions.options     -> function (lowercase):  { function: { option: text } } (both lowercase)
@@ -492,6 +496,7 @@ function getCommand(obj, key) {
     add(obj, key, name, "weights", reduce, [true, false], 0);
     add(obj, key, name, "name", reduce, [true, false]);
     add(obj, key, name, "usage", reduce, [true, false]);
+    add(obj, key, name, "revert", reduce, [true, false], false);
     add(obj, key, name, "description", reduce, [true, false]);
     add(obj, key, name, "entrance", deepReduce, [true, true]);
     add(obj, key, name, "options", deepReduce, [true, true]);
@@ -568,13 +573,21 @@ function makeUsage(obj) {
         text +=
           listMark +
           " " +
-          obj.functions.name[func] +
-          " " +
-          (obj.functions.usage[func] ? obj.functions.usage[func] + " " : "") +
-          ("option" === type
-            ? (obj.functions.options[func] && "<" + Object.values(obj.functions.options[func]).join("、")) + "> "
-            : "") +
-          (obj.functions.description[func] ? commentMark + " " : "") +
+          (true === obj.functions.revert[func]
+            ? ("option" === type
+                ? null !== obj.functions.options[func] && Object.values(obj.functions.options[func]).join("、")
+                : "") +
+              obj.functions.name[func] +
+              " " +
+              (null !== obj.functions.usage[func] ? obj.functions.usage[func] + " " : "")
+            : obj.functions.name[func] +
+              " " +
+              (null !== obj.functions.usage[func] ? obj.functions.usage[func] + " " : "") +
+              ("option" === type
+                ? (null !== obj.functions.options[func] &&
+                    "<" + Object.values(obj.functions.options[func]).join("、")) + "> "
+                : "")) +
+          (null !== obj.functions.description[func] ? commentMark + " " : "") +
           (obj.functions.description[func] || "") +
           "\n";
       }

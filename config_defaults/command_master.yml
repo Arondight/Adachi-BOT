@@ -19,6 +19,7 @@
 #       weights: number         # 权重越高，帮助信息里显示越靠前
 #       name: string            # 呈现给用户的功能名称（忽略大小写）
 #       usage: string           # 呈现给用户的功能格式
+#       revert: boolean         # 是否将 options 作为命令的前缀
 #       description: string     # 呈现给用户的功能说明
 #       entrance:               # 功能入口（*只*匹配功能名称的正则 、插件唯一、忽略大小写）
 #         - string
@@ -44,6 +45,7 @@ tools_master:
       weights: 9999
       name: 回话
       usage: <QQ号、群号> <文本...>
+      revert: false
       description:
       entrance:
         - ^回(个)?话
@@ -53,6 +55,7 @@ tools_master:
       weights: 9899
       name: 群广播
       usage: <单行图文...>
+      revert: false
       description:
       entrance:
         - ^群广播
@@ -62,6 +65,7 @@ tools_master:
       weights: 9799
       name: 好友广播
       usage: <单行图文...>
+      revert: false
       description:
       entrance:
         - ^好友广播
@@ -71,6 +75,7 @@ tools_master:
       weights: 9699
       name: 群列表
       usage:
+      revert: false
       description: 查看所有群
       entrance:
         - ^群列表
@@ -80,6 +85,7 @@ tools_master:
       weights: 9699
       name: 好友列表
       usage:
+      revert: false
       description: 查看所有好友
       entrance:
         - ^好友列表
@@ -89,6 +95,7 @@ tools_master:
       weights: 9599
       name: 查找列表
       usage: <关键字>
+      revert: false
       description: 查找昵称、QQ号中包含关键字的好友和群
       entrance:
         - ^查找列表
@@ -98,6 +105,7 @@ tools_master:
       weights: 9499
       name: 统计列表
       usage:
+      revert: false
       description: 统计用户数量
       entrance:
         - ^统计列表
@@ -107,6 +115,7 @@ tools_master:
       weights: 9399
       name: 系统状态
       usage:
+      revert: false
       description:
       entrance:
         - ^系统(状态|信息)
@@ -116,6 +125,7 @@ tools_master:
       weights: 9299
       name: 报告无效Cookie
       usage:
+      revert: false
       description:
       entrance:
         - ^(报告)?无效Cookie
@@ -134,6 +144,7 @@ master:
       weights: 9999
       name: 设置带话权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置带话权限
@@ -146,6 +157,7 @@ master:
       weights: 9899
       name: 设置点歌权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置点歌权限
@@ -158,6 +170,7 @@ master:
       weights: 9799
       name: 设置十连权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置十连权限
@@ -170,6 +183,7 @@ master:
       weights: 9699
       name: 设置圣遗物权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置圣遗物权限
@@ -182,6 +196,7 @@ master:
       weights: 9599
       name: 设置评分权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置评分权限
@@ -194,6 +209,7 @@ master:
       weights: 9499
       name: 设置游戏数据权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置游戏数据权限
@@ -206,6 +222,7 @@ master:
       weights: 9399
       name: 设置官方数据权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置官方数据权限
@@ -218,6 +235,7 @@ master:
       weights: 9299
       name: 设置娱乐功能权限
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置娱乐功能权限
@@ -230,6 +248,7 @@ master:
       weights: 1099
       name: 设置消息响应
       usage: <QQ号、群号>
+      revert: false
       description:
       entrance:
         - ^设置消息响应
@@ -242,6 +261,7 @@ master:
       weights: 99
       name: 刷新卡池
       usage:
+      revert: false
       description:
       entrance:
         - ^刷新卡池
