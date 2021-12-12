@@ -14,16 +14,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Install node modules
         run: npm install
-      - name: Config git
-        run: |
-          git config user.name 'github-actions'
-          git config user.email 'github-actions@github.com'
       - name: Check code
         id: check-code
         run: |
           result=$(npm run check)
           echo ::set-output name=result::"$result"
-      - name: Commit and push
+      - name: Comment
         uses: peter-evans/commit-comment@v1
         with:
           body: ${{ steps.check-code.outputs.result }}
