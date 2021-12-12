@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: dev
       - run: |
-          git checkout -t origin/dev
           ./resources/update.sh
 
           if [[ -n $(git status --porcelain) ]]
@@ -21,5 +22,5 @@ jobs:
             git config user.email 'github-actions@github.com'
             git add .
             git commit -m 'update resources'
-            git push origin dev
+            git push
           fi
