@@ -15,14 +15,14 @@ const settings = {
     "genshin-overview": false,
   },
   scale: {
-    "genshin-aby": 2,
+    "genshin-aby": 1.5,
     "genshin-artifact": 1.2,
     "genshin-card": 1.5,
     "genshin-character": 1.5,
     "genshin-gacha": 1.5,
     "genshin-info": 1.5,
-    "genshin-material": 1.2,
-    "genshin-overview": 1.2,
+    "genshin-material": 2,
+    "genshin-overview": 2,
   },
   delete: {
     "genshin-aby": false,
