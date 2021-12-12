@@ -1,4 +1,4 @@
-name: Update files in ./resources/
+name: Update ./resources/ in dev branch
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          git checkout dev
+          git checkout -t origin/dev
           ./resources/update.sh
 
           if [[ -n $(git status --porcelain) ]]
