@@ -24,9 +24,9 @@ jobs:
         run: |
           if [[ -n $(git status --porcelain) ]]
           then
-            git config user.name 'github-actions'
-            git config user.email 'github-actions@github.com'
             git add .
-            git commit -m 'update resources'
+            git commit -m 'Format code'
             git push
+          else
+            echo "Nothing to commit."
           fi
