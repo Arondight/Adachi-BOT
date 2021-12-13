@@ -26,7 +26,10 @@ jobs:
         uses: peter-evans/commit-comment@v1
         if: ${{ '' != steps.check-code.outputs.result }}
         with:
-          body: "```${{ steps.get-comment-body.outputs.result }}\n```"
+          body: |-
+            ```
+            ${{ steps.get-comment-body.outputs.result }}
+            ```
       - name: Error if check failed
         if: ${{ '' != steps.check-code.outputs.result }}
         run: exit -1
