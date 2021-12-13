@@ -1,10 +1,6 @@
 name: Code check
 
-on:
-  push:
-    branches:
-      - dev
-      - master
+on: push
 
 jobs:
   code_check:
