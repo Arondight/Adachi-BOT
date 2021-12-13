@@ -908,10 +908,7 @@ function readMaterial() {
   global.material = {};
 
   lodash
-    .chain(keyFromZhou)
-    .values()
-    .concat()
-    .flatten()
+    .chain(keyFromZhou).values().concat().flatten()
     .uniq()
     .each((k) => (global.material[k] = []))
     .value();
