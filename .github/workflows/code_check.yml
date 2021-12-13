@@ -19,7 +19,7 @@ jobs:
         run: |
           check_output=$(npm run --silent check || :)
           check_failed='true'
-          [[ -n "$check_output" ]] && check_failed='false'
+          [[ -z "$check_output" ]] && check_failed='false'
           check_output=$(echo -e "\`\`\`${check_output}\n\`\`\`")
           check_output="${check_output//'%'/'%25'}"
           check_output="${check_output//$'\n'/'%0A'}"
