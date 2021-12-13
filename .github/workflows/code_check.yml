@@ -17,12 +17,13 @@ jobs:
       - name: Check code
         id: check-code
         run: |
-          result=$(npm run check | tail -n +6)
+          result=$(npm run --silent check)
           result="${result//'%'/'%25'}"
           result="${result//$'\n'/'%0A'}"
           result="${result//$'\r'/'%0D'}"
           echo ::set-output name=result::"$result"
       - name: Comment
         uses: peter-evans/commit-comment@v1
+        if: ${{ '' != steps.check-code.outputs.result }}
         with:
           body: ${{ steps.check-code.outputs.result }}
