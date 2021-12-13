@@ -24,12 +24,9 @@ jobs:
           echo ::set-output name=result::"$result"
       - name: Comment if check failed
         uses: peter-evans/commit-comment@v1
-        if: ${{ '' != steps.check-code.outputs.result }}
+        if: ${{ "" != steps.check-code.outputs.result }}
         with:
-          body: |-
-            ```
-            ${{ steps.get-comment-body.outputs.result }}
-            ```
+          body: ${{"```{ steps.get-comment-body.outputs.result }\n```"}}
       - name: Error if check failed
-        if: ${{ '' != steps.check-code.outputs.result }}
+        if: ${{ "" != steps.check-code.outputs.result }}
         run: exit -1
