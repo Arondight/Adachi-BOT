@@ -17,7 +17,7 @@ jobs:
       - name: Check code
         id: check-code
         run: |
-          result=$(npm run --silent check)
+          result=$(npm run --silent check || :)
           result="${result//'%'/'%25'}"
           result="${result//$'\n'/'%0A'}"
           result="${result//$'\r'/'%0D'}"
