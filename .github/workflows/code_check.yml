@@ -17,16 +17,20 @@ jobs:
       - name: Check code
         id: check-code
         run: |
-          result=$(npm run --silent check || :)
-          result="${result//'%'/'%25'}"
-          result="${result//$'\n'/'%0A'}"
-          result="${result//$'\r'/'%0D'}"
-          echo ::set-output name=result::"$result"
+          check_output=$(npm run --silent check || :)
+          check_failed='true'
+          [[ -n "$check_output" ]] && check_failed='false'
+          check_output=$(echo -e "\`\`\`${check_output}\n\`\`\`")
+          check_output="${check_output//'%'/'%25'}"
+          check_output="${check_output//$'\n'/'%0A'}"
+          check_output="${check_output//$'\r'/'%0D'}"
+          echo ::set-output name=check_output::"$check_output"
+          echo ::set-output name=check_failed::"$check_failed"
       - name: Comment if check failed
         uses: peter-evans/commit-comment@v1
-        if: ${{ '' != steps.check-code.outputs.result }}
+        if: ${{ 'true' == steps.check-code.outputs.check_failed }}
         with:
-          body: ${{ steps.check-code.outputs.result }}
+          body: ${{ steps.check-code.outputs.check_output }}
       - name: Error if check failed
-        if: ${{ '' != steps.check-code.outputs.result }}
+        if: ${{ 'true' == steps.check-code.outputs.check_failed }}
         run: exit -1
