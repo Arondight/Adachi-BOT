@@ -22,8 +22,11 @@ jobs:
           result="${result//$'\n'/'%0A'}"
           result="${result//$'\r'/'%0D'}"
           echo ::set-output name=result::"$result"
-      - name: Comment
+      - name: Comment if check failed
         uses: peter-evans/commit-comment@v1
         if: ${{ '' != steps.check-code.outputs.result }}
         with:
           body: ${{ steps.check-code.outputs.result }}
+      - name: Error if check failed
+        if: ${{ '' != steps.check-code.outputs.result }}
+        run: exit -1
