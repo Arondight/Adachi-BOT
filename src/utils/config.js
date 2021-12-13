@@ -334,11 +334,10 @@
  * --------------------------------------------------------------------------
  * { MonThu: [ '刻晴', '风鹰剑' ] }
  * --------------------------------------------------------------------------
- * ../../config/material.yml
+ * global.info.character
+ * global.info.weapon
  * --------------------------------------------------------------------------
- * MonThu:
- *   - 刻晴
- *   - 风鹰剑
+ * 数据结构见其后说明。
  * ==========================================================================
  *
  *
@@ -384,7 +383,6 @@ const Command = loadYML("command");
 const Cookies = loadYML("cookies");
 const Eggs = loadYML("pool_eggs");
 const Greeting = loadYML("greeting");
-const Material = loadYML("material");
 const Master = loadYML("command_master");
 const Menu = loadYML("menu");
 const Names = loadYML("names");
@@ -861,25 +859,6 @@ function readArtifacts() {
   global.artifacts.domains.product = reduce("domains", ["id", "product"], [false, false]);
 }
 
-// global.material.MonThu   -> array of name (string, lowercase)
-// global.material.TueFri   -> array of name (string, lowercase)
-// global.material.WedSat   -> array of name (string, lowercase)
-function readMaterial() {
-  global.material = {};
-
-  Object.keys(Material).forEach((k) => {
-    global.material[k] = Material[k];
-
-    if (Array.isArray(global.material[k])) {
-      for (let i = 0; i < global.material[k].length; ++i) {
-        if ("string" === typeof global.material[k][i]) {
-          global.material[k][i] = global.material[k][i].toLowerCase();
-        }
-      }
-    }
-  });
-}
-
 // Call after readNames()
 //
 // global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
@@ -913,6 +892,37 @@ function readInfo() {
       "rarity"
     )
     .reverse();
+}
+
+// global.material.MonThu   -> array of name (string, lowercase)
+// global.material.TueFri   -> array of name (string, lowercase)
+// global.material.WedSat   -> array of name (string, lowercase)
+function readMaterial() {
+  const keyFromZhou = {
+    周一: ["MonThu"],
+    周二: ["TueFri"],
+    周三: ["WedSat"],
+    旅行者每日占位符: ["MonThu", "TueFri", "WedSat"],
+  };
+
+  global.material = {};
+
+  lodash
+    .chain(keyFromZhou)
+    .values()
+    .concat()
+    .flatten()
+    .uniq()
+    .each((k) => (global.material[k] = []))
+    .value();
+
+  global.info.character.concat(global.info.weapon).forEach((c) =>
+    Object.keys(keyFromZhou).forEach((zhou) => {
+      if (undefined !== c.time && "string" === typeof c.time && c.time.includes(zhou)) {
+        keyFromZhou[zhou].forEach((k) => global.material[k].push(c.name.toString().toLowerCase()));
+      }
+    })
+  );
 }
 
 // global.command
@@ -950,6 +960,7 @@ function getUsage() {
 }
 
 function readConfig() {
+  // 不要改变调用顺序
   readSetting();
   readCookies();
   readGreeting();
