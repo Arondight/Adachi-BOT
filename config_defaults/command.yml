@@ -224,6 +224,23 @@ gacha:
       entrance:
         - ^取消定轨
 
+hello_world:
+  enable: true
+  weights: 10099
+  regex:
+    - ^hello\sworld$
+  functions:
+    hello_world:
+      type: command
+      show: true
+      weights: 9999
+      name: hello world
+      usage: null
+      revert: false
+      description: 向你致以诚挚的问候
+      entrance:
+        - ^hello
+
 tools:
   enable: true
   weights: 99
