@@ -1,23 +1,40 @@
+import fs from "fs";
 import path from "path";
 import lodash from "lodash";
-import { JSONFileSync, LowSync } from "lowdb";
+import { LowSync, MemorySync } from "lowdb";
 import { merge } from "./merge.js";
 
 const db = {};
 
+function names() {
+  return Object.keys(db) || [];
+}
+
+function dbFile(dbName) {
+  return path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
+}
+
+function saved(dbName) {
+  let data;
+
+  try {
+    data = JSON.parse(fs.readFileSync(dbFile(dbName)));
+  } catch (e) {
+    // Do nothing
+  }
+
+  return data;
+}
+
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, defaultElement = { user: [] }) {
-  const file = path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
-  const adapter = new JSONFileSync(file);
-
-  db[dbName] = new LowSync(adapter);
+  db[dbName] = new LowSync(new MemorySync());
   db[dbName].read();
-  db[dbName].data = db[dbName].data || {};
+  db[dbName].data = saved(dbName) || {};
   Object.keys(defaultElement).forEach(
     (c) => undefined === db[dbName].data[c] && Object.assign(db[dbName].data, { [c]: defaultElement[c] })
   );
   db[dbName].chain = lodash.chain(db[dbName].data);
-  db[dbName].write();
 }
 
 function has(dbName, ...path) {
@@ -29,9 +46,9 @@ function has(dbName, ...path) {
   return result;
 }
 
-function write(dbName) {
+function sync(dbName) {
   if (db[dbName]) {
-    db[dbName].write();
+    fs.writeFileSync(dbFile(dbName), JSON.stringify(db[dbName].data, null, 2));
   }
 }
 
@@ -50,7 +67,6 @@ function remove(dbName, key, index) {
   }
 
   db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
-  write(dbName);
 }
 
 function get(dbName, key, index = undefined) {
@@ -71,7 +87,6 @@ function push(dbName, key, data) {
   }
 
   db[dbName].data[key].push(data);
-  write(dbName);
 }
 
 function update(dbName, key, index, data) {
@@ -87,7 +102,6 @@ function update(dbName, key, index, data) {
   }
 
   push(dbName, key, data);
-  write(dbName);
 }
 
 function set(dbName, key, data) {
@@ -96,7 +110,6 @@ function set(dbName, key, data) {
   }
 
   db[dbName].chain.set(key, data).value();
-  write(dbName);
 }
 
 function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
@@ -142,7 +155,6 @@ function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", mill
     }
   }
 
-  write(dbName);
   return nums;
 }
 
@@ -166,7 +178,6 @@ function cleanCookies() {
     }
   }
 
-  write(dbName);
   return nums;
 }
 
@@ -183,7 +194,6 @@ function cleanCookiesInvalid() {
     }
   }
 
-  write(dbName);
   return nums;
 }
 
@@ -202,4 +212,4 @@ function clean(dbName) {
   return 0;
 }
 
-export default { init, has, write, includes, remove, get, push, update, set, clean };
+export default { clean, names, get, has, includes, init, push, remove, set, sync, update };

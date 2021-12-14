@@ -32,6 +32,13 @@ function cleanDBJob() {
   return nums;
 }
 
+function syncDBJob() {
+  db.names().forEach((n) => {
+    db.sync(n);
+    global.bots.logger.debug(`同步：将数据库 ${n} 缓存写入到磁盘。`);
+  });
+}
+
 function serve(port = 9934) {
   const server = express();
   server.use(express.static(global.rootdir));
@@ -44,8 +51,13 @@ async function init() {
   updateGachaJob();
   cleanDBJob();
 
+  process.on("SIGINT", syncDBJob);
+  process.on("SIGTERM", syncDBJob);
+  process.on("SIGHUP", syncDBJob);
+
   schedule.scheduleJob("1 */1 * * *", async () => updateGachaJob());
   schedule.scheduleJob("1 */1 * * *", async () => cleanDBJob());
+  schedule.scheduleJob("*/5 * * * *", async () => syncDBJob());
 }
 
 export { init };
