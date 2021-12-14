@@ -23,7 +23,7 @@ async function doCard(msg) {
     const baseInfo = await baseDetail(dbInfo, msg.uid, msg.bot);
     uid = baseInfo[0];
     const detailInfo = await indexDetail(...baseInfo, msg.uid, msg.bot);
-    await characterDetail(...baseInfo, detailInfo, true, msg.bot);
+    await characterDetail(...baseInfo, detailInfo, false, msg.bot);
   } catch (e) {
     const ret = handleDetailError(e);
 

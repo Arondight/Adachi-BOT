@@ -14,7 +14,7 @@ function getNotFoundText(character, isMyChar, guess = []) {
   const cmd = [global.command.functions.name.card, global.command.functions.name.package];
   const cmdStr = `【${cmd.join("】、【")}】`;
   const text = global.config.characterTryGetDetail
-    ? `看上去${isMyChar ? "您" : "他"}尚未拥有或公开此角色`
+    ? `看上去${isMyChar ? "您" : "他"}尚未拥有或公开此角色，当前米游社只能查询八个角色`
     : `如果${isMyChar ? "您" : "他"}拥有该角色并已经公开，使用${cmdStr}更新游戏角色后再次查询`;
   let notFoundText = `查询失败，${text}。`;
 
@@ -65,9 +65,8 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
         msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
         return;
       } else {
-        // XXX 此处逻辑需要优化，米游社 API 设置最大查询个数后，此处应该仅更新查询的单个角色数据
         const detailInfo = await indexDetail(...baseInfo, msg.uid, msg.bot);
-        await characterDetail(...baseInfo, detailInfo, true, msg.bot);
+        await characterDetail(...baseInfo, detailInfo, false, msg.bot);
         data = getCharacter(uid, character);
       }
     }

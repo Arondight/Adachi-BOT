@@ -227,8 +227,11 @@ async function indexDetail(uid, server, userID, bot) {
   return characterID;
 }
 
-// 如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色，
-// 适应米游社 API 改版 https://github.com/Arondight/Adachi-BOT/issues/436
+// 适应米游社 API 改版，如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色。
+// https://github.com/Arondight/Adachi-BOT/issues/436
+// -----------------------------------------------------------------------------
+// API 再次改版， guess 应当总为 false，相关代码仅做留存。
+// https://github.com/Arondight/Adachi-BOT/issues/486
 async function characterDetail(uid, server, character_ids, guess = false, bot) {
   userInitialize(uid, "", -1);
 
