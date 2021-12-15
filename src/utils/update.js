@@ -63,19 +63,14 @@ async function gachaUpdate() {
       }
     }
 
-    const indefinite = data[200];
-    const character = data[301];
-    const character2 = data[400];
-    const weapon = data[302];
+    const indefinite = data[200] || {};
+    const character = data[301] || {};
+    const character2 = data[400] || {};
+    const weapon = data[302] || {};
     const record = [indefinite, character2, character, weapon];
 
-    for (const c of record) {
-      if (undefined === c) {
-        return false;
-      }
-    }
-
     db.set("gacha", "data", record);
+    // XXX 说一下刷新了那些卡池
     global.bots.logger.debug("卡池：内容已刷新。");
     return true;
   }

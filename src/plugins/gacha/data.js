@@ -130,6 +130,10 @@ function gachaOnce(userID, choice, table) {
     return gachaOnceEggs();
   }
 
+  if (Object.keys(table).length < 1) {
+    return undefined;
+  }
+
   updateCounter(userID, star, up);
 
   if (5 === star && 302 === choice) {
@@ -193,6 +197,10 @@ function gachaTimes(userID, nickname, times = 10) {
   let gachaResults = [];
   let data = {};
 
+  if (Object.keys(gachaTable).length < 1) {
+    return "当前此卡池未开放，请选择其他卡池。";
+  }
+
   if (!uchoice) {
     db.update("gacha", "user", { userID }, { choice });
   }
@@ -200,7 +208,8 @@ function gachaTimes(userID, nickname, times = 10) {
   ({ name, five, four, isUp } = getChoiceData(userID, choice));
 
   for (let i = 0; i < times; ++i) {
-    gachaResults.push(gachaOnce(userID, choice, gachaTable));
+    const result = gachaOnce(userID, choice, gachaTable);
+    undefined !== result && gachaResults.push(result);
   }
 
   let result = {
