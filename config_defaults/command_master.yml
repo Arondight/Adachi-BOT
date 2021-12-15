@@ -135,7 +135,7 @@ master:
   weights: 9999
   regex:
     - ^设置(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s*\d+\s*\S+\s*$
-    - ^响应消息\s*\d+\s*\S+\s*$
+    - ^设置消息响应\s*\d+\s*\S+\s*$
     - ^刷新卡池\s*$
   functions:
     feedback_auth:
