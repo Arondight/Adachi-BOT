@@ -21,11 +21,6 @@
     "node": ">16.6.0"
   },
   "scripts": {
-    "test": "exit 0",
-    "db": "npx node ./tools/db.js",
-    "view": "npx node ./tools/view.js",
-    "format": "npx prettier --config ./.prettierrc.json -uw ./.*.json ./*.json ./app.js ./src/ ./tools/ ./resources_custom/",
-    "check": "npx eslint ./app.js ./src/ ./tools/ ./config_defaults/",
     "init": "npx node --max-http-header-size=2097152 ./app.js",
     "start": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 start ./.pm2.json; cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 save",
     "restart": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 restart ./.pm2.json",
@@ -34,7 +29,11 @@
     "unstartup": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 unstartup",
     "list": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 list bot",
     "info": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 info bot",
-    "log": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 log --lines 100 bot"
+    "log": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 log --lines 100 bot",
+    "code-check": "npx eslint ./app.js ./src/ ./tools/ ./config_defaults/",
+    "code-format": "npx prettier --config ./.prettierrc.json -uw ./.*.json ./*.json ./app.js ./src/ ./tools/ ./resources_custom/",
+    "tool-db": "npx node ./tools/db.js",
+    "tool-view": "npx node ./tools/view.js"
   },
   "dependencies": {
     "cross-env": "7.0.3",

@@ -13,7 +13,7 @@ jobs:
       - name: Check code
         id: check-code
         run: |
-          check_output=$(npm run --silent check || :)
+          check_output=$(npm run --silent code-check || :)
           check_failed=$([[ -z "$check_output" ]] && echo 'false' || echo 'true')
           check_output=$(echo -e "\`\`\`${check_output}\n\`\`\`")
           check_output="${check_output//'%'/'%25'}"

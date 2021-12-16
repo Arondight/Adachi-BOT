@@ -11,7 +11,7 @@ jobs:
       - name: Install node modules
         run: npm install
       - name: Format code
-        run: npm run format
+        run: npm run code-format
       - name: Config git
         run: |
           git config user.name 'github-actions'
