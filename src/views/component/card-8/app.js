@@ -1,9 +1,4 @@
 const template = `<div class="user-base-page">
-  <img
-    class="background"
-    src="http://localhost:9934/resources/Version2/module/user-base.png"
-    alt="ERROR"
-  />
   <div class="left">
     <div class="top">
       <p class="uid">UID {{ data.uid }}</p>
@@ -57,6 +52,10 @@ const template = `<div class="user-base-page">
       <HomeBox :data="homes.island" />
       <HomeBox :data="homes.hall" />
     </div>
+<!--  <div class="homeworld-level" v-if="Object.keys(homes)[0]">-->
+<!--      <p>Lv.{{data.level}}</p>-->
+<!--      <p>{{homes[Object.keys(homes)[0]].comfort_num}}洞天仙力</p>-->
+<!--  </div>-->
   </div>
   <div class="right">
     <div class="world">
@@ -67,9 +66,11 @@ const template = `<div class="user-base-page">
     </div>
     <div class="character">
       <SectionTitle title="角色展柜" />
+      <div class="container-vertical">
       <div class="box">
         <CharacterBox v-for="a in data.avatars" :data="a" />
       </div>
+    </div>
     </div>
     <p class="author">Created by Adachi-BOT</p>
   </div>
@@ -159,7 +160,7 @@ export default defineComponent({
     };
 
     const homeboxTitle = `尘歌壶${
-      Object.keys(homes)[0] ? "（ " + homes[Object.keys(homes)[0]].comfort_num + " 仙力）" : ""
+      Object.keys(homes)[0] ? "（" + homes[Object.keys(homes)[0]].comfort_num + " 仙力）" : ""
     }`;
 
     return {
