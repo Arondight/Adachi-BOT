@@ -5,7 +5,10 @@
   【圣遗物】【强化】
 
 ./genshin-card.html
-  【米游社】
+  弃用
+
+./genshin-card-8.html
+  【米游社】【uid】
 
 ./genshin-character.html
   【我的】【<游戏内UID、@群友>的】
@@ -17,4 +20,4 @@
   【信息】
 
 ./genshin-package.html
-  【uid】
+  弃用
