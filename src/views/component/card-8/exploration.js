@@ -31,12 +31,8 @@ export default defineComponent({
     data: Object,
   },
   setup(props) {
-    const areaLogo = computed(() => {
-      return `http://localhost:9934/resources/Version2/area/${props.data.name}.png`;
-    });
+    const areaLogo = computed(() => `http://localhost:9934/resources/Version2/area/${props.data.name}.png`);
 
-    return {
-      areaLogo,
-    };
+    return { areaLogo };
   },
 });

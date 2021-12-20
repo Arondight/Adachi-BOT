@@ -21,9 +21,7 @@ export default defineComponent({
     day: String,
   },
   setup(props) {
-    const title = computed(() => {
-      return `${props.day}${props.type === "weapon" ? "武器" : "角色"}素材`;
-    });
+    const title = computed(() => `${props.day}${props.type === "weapon" ? "武器" : "角色"}素材`);
     return { title };
   },
 });

@@ -24,16 +24,9 @@ export default defineComponent({
     data: Object,
   },
   setup(props) {
-    const backgroundImage = computed(() => {
-      return `http://localhost:9934/resources/item/${props.data.name}.png`;
-    });
-    const lockIcon = computed(() => {
-      return "http://localhost:9934/resources/item/lock.png";
-    });
+    const backgroundImage = computed(() => `http://localhost:9934/resources/item/${props.data.name}.png`);
+    const lockIcon = computed(() => "http://localhost:9934/resources/item/lock.png");
 
-    return {
-      backgroundImage,
-      lockIcon,
-    };
+    return { backgroundImage, lockIcon };
   },
 });

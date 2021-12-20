@@ -34,11 +34,6 @@ export default defineComponent({
     const character = params.character.data;
     const weapon = params.weapon.data;
 
-    return {
-      day,
-      weapon,
-      character,
-      starBASE64,
-    };
+    return { day, weapon, character, starBASE64 };
   },
 });
