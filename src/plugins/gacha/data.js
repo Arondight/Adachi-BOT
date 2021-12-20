@@ -197,7 +197,7 @@ function gachaTimes(userID, nickname, times = 10) {
   let gachaResults = [];
   let data = {};
 
-  if (Object.keys(gachaTable).length < 1) {
+  if (999 !== choice && Object.keys(gachaTable).length < 1) {
     return "当前此卡池未开放，请选择其他卡池。";
   }
 
