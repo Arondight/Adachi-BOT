@@ -4,38 +4,27 @@ import puppeteer from "puppeteer";
 import { mkdir } from "./file.js";
 
 const settings = {
+  selector: {
+    "genshin-card-8": "#app",
+    "genshin-material": "#app",
+  },
   hello: {
     "genshin-aby": true,
-    "genshin-artifact": false,
     "genshin-card": true,
-    "genshin-character": false,
-    "genshin-gacha": false,
-    "genshin-info": true,
-    "genshin-material": false,
-    "genshin-overview": false,
+    "genshin-card-8": true,
+    "genshin-package": true,
   },
   scale: {
-    "genshin-aby": 1.5,
     "genshin-artifact": 1.2,
-    "genshin-card": 1.5,
-    "genshin-character": 1.5,
-    "genshin-gacha": 1.5,
-    "genshin-info": 1.5,
     "genshin-material": 2,
     "genshin-overview": 2,
   },
   delete: {
-    "genshin-aby": false,
     "genshin-artifact": true,
-    "genshin-card": false,
-    "genshin-character": false,
     "genshin-gacha": true,
-    "genshin-info": false,
-    "genshin-material": false,
-    "genshin-overview": false,
   },
 };
-const settingsDefault = { hello: false, scale: 1.5, delete: false };
+const settingsDefault = { selector: "body", hello: false, scale: 1.5, delete: false };
 let browser;
 
 async function launch() {
@@ -85,7 +74,7 @@ async function render(msg, data, name) {
     const param = { data: new Buffer.from(dataStr, "utf8").toString("base64") };
     await page.goto(`http://localhost:9934/src/views/${name}.html?${new URLSearchParams(param)}`);
 
-    const html = await page.$("body", { waitUntil: "networkidle0" });
+    const html = await page.$(settings.selector[name] || settingsDefault.selector, { waitUntil: "networkidle0" });
     binary = await html.screenshot({
       encoding: "binary",
       type: "jpeg",

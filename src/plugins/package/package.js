@@ -57,7 +57,7 @@ async function doPackage(msg) {
     data.qqid = qqid;
   }
 
-  render(msg, data, "genshin-package");
+  render(msg, data, "genshin-card-8");
 }
 
 export { doPackage };

@@ -46,7 +46,7 @@ async function doCard(msg) {
     data.qqid = qqid;
   }
 
-  render(msg, data, "genshin-card");
+  render(msg, data, "genshin-card-8");
 }
 
 export { doCard };

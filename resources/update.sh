@@ -28,6 +28,12 @@ HOMES=(
   '罗浮洞'   '翠黛峰'   '清琼岛'   '绘绮庭'
 )
 # ==============================================================================
+# 所有的地图。
+AREAS=(
+  'mondstadt'           'liyue'                'inazuma'
+  'dragonspine'
+)
+# ==============================================================================
 # 所有的游戏角色。
 CHARS=(
   # 风
@@ -180,6 +186,7 @@ MATERIALS=(
 # ==============================================================================
 # 所有的 API 列表和部分文件。
 # ==============================================================================
+API2_AREA='Version2/area'
 API2_ARTIFACT='Version2/artifact'
 API2_ARTIFACT_OTHER='Version2/artifact/other'
 API2_CHARACTER='Version2/character'
@@ -187,6 +194,7 @@ API2_INFO_DOCS='Version2/info/docs'
 API2_INFO_IMAGE='Version2/info/image'
 API2_INFO_OTHER='Version2/info/other'
 API2_MODULE='Version2/module'
+API2_NAMECARD='Version2/namecard'
 API2_WEAPON='Version2/weapon'
 API2_WISH_CHARACTER='Version2/wish/character'
 API2_WISH_CONFIG='Version2/wish/config'
@@ -205,25 +213,26 @@ API2_ARTIFACT_FILES=(
   'artifact.yml'
 )
 API2_MODULE_FILES=(
-  'mys-upper-v2-2.png'
-  'uid-upper-v2-2.png'
   'artifact.png'
   'card-bottom.png'
   'card-middle.png'
   'card-package.png'
   'element.png'
+  'mys-upper-v2-2.png'
+  'uid-upper-v2-2.png'
+  'user-base.png'
 )
 API2_WISH_CONFIG_FILES=(
-  'weapon.json'
   'character.json'
+  'weapon.json'
 )
 API_GACHA_ITEMS_FILES=(
-  'ThreeStar.png'
-  'FourStar.png'
-  'FiveStar.png'
-  'ThreeBackground.png'
-  'FourBackground.png'
   'FiveBackground.png'
+  'FiveStar.png'
+  'FourBackground.png'
+  'FourStar.png'
+  'ThreeBackground.png'
+  'ThreeStar.png'
   'background.png'
 )
 API_ITEM_FILES=(
@@ -377,6 +386,11 @@ function getOtherFiles()
   fetch '' 0 '' "${OTHER_FILES[@]}"
 }
 
+function getArea()
+{
+  fetch "$API2_AREA" 1 '.png' "${AREAS[@]}"
+}
+
 function getGacha()
 {
   fetch "$API_GACHA_ITEMS" 0 '' "${API_GACHA_ITEMS_FILES[@]}"
@@ -386,6 +400,11 @@ function getMoudle()
 {
   fetch "$API_MODULE" 0 '' "${API_MODULE_FILES[@]}"
   fetch "$API2_MODULE" 0 '' "${API2_MODULE_FILES[@]}"
+}
+
+function getNameCard()
+{
+  fetch "$API2_NAMECARD" 1 '.png' "${CHARIDS[@]}"
 }
 
 function getWeapon()
@@ -504,8 +523,10 @@ function listXML()
   check || exit 1
 
   getOtherFiles
+  getArea
   getGacha
   getMoudle
+  getNameCard
   getWeapon
   getItem
   getInfo

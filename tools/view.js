@@ -15,10 +15,10 @@ global.config = { viewDebug: 1 };
 const paramsDir = path.resolve(global.rootdir, "data", "record", "last_params");
 const names = Object.fromEntries(
   ls(paramsDir)
-    .filter((c) => c.match(/\bgenshin-\w+?[.]json$/))
+    .filter((c) => c.match(/\bgenshin-[\w-]+?[.]json$/))
     .map((c) => {
       const p = path.parse(c);
-      return [p.name.split("-").slice(-1)[0], p.name];
+      return [p.name.split("-").slice(1).join("-"), p.name];
     })
 );
 
