@@ -42,8 +42,8 @@ async function render(msg, data, name) {
   const recordDir = path.resolve(global.rootdir, "data", "record");
   let binary;
 
-  if ((settings.hello[name] || settingsDefault.hello) && global.config.warnTimeCosts) {
-    msg.bot && msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
+  if ((settings.hello[name] || settingsDefault.hello) && global.config.warnTimeCosts && undefined !== msg.bot) {
+    msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
   }
 
   try {
@@ -102,7 +102,10 @@ async function render(msg, data, name) {
 
     if (undefined !== msg.bot) {
       msg.bot.say(msg.sid, imageCQ, msg.type, msg.uid, toDelete, "\n");
-      1 === global.config.saveImage && fs.writeFile(record, binary, () => {});
+
+      if (1 === global.config.saveImage) {
+        fs.writeFile(record, binary, () => {});
+      }
     }
   }
 }

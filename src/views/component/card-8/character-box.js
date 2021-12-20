@@ -26,14 +26,12 @@ export default defineComponent({
     data: Object,
   },
   setup(props) {
-    const starBackground = computed(() => {
-      const star = props.data.rarity;
-      return `http://localhost:9934/resources/Version2/thumb/stars/${star}-Star.png`;
-    });
-    const element = computed(() => {
-      const el = props.data.element.toLowerCase();
-      return `http://localhost:9934/resources/gacha/element/${el}.png`;
-    });
+    const starBackground = computed(
+      () => `http://localhost:9934/resources/Version2/thumb/stars/${props.data.rarity}-Star.png`
+    );
+    const element = computed(
+      () => `http://localhost:9934/resources/gacha/element/${props.data.element.toLowerCase()}.png`
+    );
 
     return { starBackground, element };
   },

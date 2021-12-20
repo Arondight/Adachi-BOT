@@ -96,19 +96,14 @@ export default defineComponent({
 
     params.avatars = params.avatars.slice(0, 8);
 
-    const charsWithoutYe = params.avatars.filter((el) => "旅行者" !== el.name);
-    const target = charsWithoutYe[Math.floor(Math.random() * charsWithoutYe.length)];
-    const nameCard = computed(() => {
-      return `http://localhost:9934/resources/Version2/namecard/${target.id}.png`;
-    });
-    const character = computed(() => {
-      return `http://localhost:9934/resources/Version2/thumb/character/${target.name}.png`;
-    });
-
     function findArea(id) {
       return params.explorations.find((el) => el.id === id);
     }
 
+    const charsWithoutYe = params.avatars.filter((el) => "旅行者" !== el.name);
+    const target = charsWithoutYe[Math.floor(Math.random() * charsWithoutYe.length)];
+    const nameCard = computed(() => `http://localhost:9934/resources/Version2/namecard/${target.id}.png`);
+    const character = computed(() => `http://localhost:9934/resources/Version2/thumb/character/${target.name}.png`);
     const level = (l) => "Lv." + l;
     const percentage = (p) => p / 10 + "%";
     const explorations = [
