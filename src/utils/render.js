@@ -4,10 +4,7 @@ import puppeteer from "puppeteer";
 import { mkdir } from "./file.js";
 
 const settings = {
-  selector: {
-    "genshin-card-8": "#app",
-    "genshin-material": "#app",
-  },
+  selector: {},
   hello: {
     "genshin-aby": true,
     "genshin-card": true,
