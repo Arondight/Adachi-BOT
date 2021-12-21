@@ -13,9 +13,10 @@ html {
 
 body {
   width: 960px;
-  height: 582px;
+  min-height: 582px;
   font-family: GenshinUsedFont, monospace;
   background: no-repeat url("http://localhost:9934/resources/Version2/module/user-base.png");
+  background-size: 100% 100%;
 }
 
 @font-face {
@@ -24,13 +25,13 @@ body {
 }
 
 #app {
-  height: 100%;
+  min-height: 582px;
 }
 
 .user-base-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100%;
+  min-height: 582px;
 }
 
 .left,
@@ -45,6 +46,7 @@ body {
 }
 
 .right {
+  height: 100%;
   justify-content: space-between;
 }
 
