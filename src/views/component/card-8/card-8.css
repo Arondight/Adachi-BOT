@@ -13,6 +13,7 @@ html {
 
 body {
   width: 960px;
+  height: 582px;
   font-family: GenshinUsedFont, monospace;
   background: no-repeat url("http://localhost:9934/resources/Version2/module/user-base.png");
 }
@@ -21,113 +22,94 @@ body {
   font-family: GenshinUsedFont;
   src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
+
+#app {
+  height: 100%;
+}
+
 .user-base-page {
-  position: absolute;
-  left: 0;
-  top: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.left {
+  margin-top: 8px;
+}
+
+.right {
+  justify-content: space-between;
 }
 
 .user-base-page .top {
-  position: relative;
-  height: 208px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.user-base-page > .background {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -10000;
-}
-
-.user-base-page .left {
-  position: absolute;
-  left: 28px;
-  top: 8px;
-  width: 424px;
-  height: 568px;
-  z-index: 1;
-}
-
-.left .uid {
+.uid {
   position: absolute;
   color: #ffffff;
   font-size: 16px;
   top: 18px;
-  z-index: 100;
-  width: 100%;
-  text-align: center;
+  text-shadow: 0 0 4px #333333ab;
 }
 
-.left .name-card {
-  position: absolute;
+.name-card {
   width: 424px;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
   border-radius: 10px 4px 0 0;
 }
 
-.left .profile {
-  position: absolute;
-  margin: 66px 141px 0;
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 142px;
   height: 142px;
-  background-color: #f0ebe1;
+  background: #efeae3;
   border-radius: 50%;
   border: 2px solid #d5bf94;
-  box-sizing: border-box;
-  padding: 6px;
   box-shadow: 0 2px 12px #00000014;
+  margin-top: -110px;
 }
 
-.left .profile .character {
+.character {
   position: relative;
   background-color: hsl(25deg 49% 65%);
   width: 126px;
   border-radius: 50%;
 }
 
-.left .middle {
-  position: relative;
-  padding: 6px 0;
+.container-middle {
   width: 384px;
-  margin: 3.6% 1.09375rem 0;
-  border: 0.15625rem solid #e0d7c9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  border: 2px solid #e0d7c9;
+  box-sizing: border-box;
   border-radius: 6px;
-}
-
-.middle ._left,
-.middle ._right {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  width: 43%;
-  height: 100%;
-  font-size: 16px;
-  line-height: 21px;
-  margin-left: 7%;
   color: #4a5263;
+  padding: 8px 0;
 }
 
-.middle .data-name {
-  display: inline-block;
-  width: 45%;
-  margin-right: 8%;
-}
-
-.middle .data-value {
-  display: inline-block;
-  width: 47%;
+.middle {
+  display: grid;
+  grid-template-columns: auto 100px auto max-content;
+  row-gap: 1px;
+  width: 80%;
 }
 
 .bottom-split {
   margin-top: 4.2%;
-}
-
-.bottom-split .split-line {
-  width: 88% !important;
-  margin: 0 6% !important;
 }
 
 .bottom-split .title .icon {
@@ -138,15 +120,6 @@ body {
   position: relative;
   width: 384px;
   margin: 0 20px;
-}
-
-.user-base-page .right {
-  position: absolute;
-  top: 12px;
-  left: 500px;
-  height: 562px;
-  width: 444px;
-  z-index: 1;
 }
 
 .right .world {
@@ -163,13 +136,16 @@ body {
 }
 
 .author {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 4px;
-  margin-right: 3px;
+  width: 100%;
+  text-align: end;
+  margin-right: 25px;
+  margin-bottom: 12px;
   font-size: 13px;
   color: #4a5263d6;
+}
+
+.container-character {
+  width: 100%;
 }
 
 .container-vertical {
@@ -409,9 +385,11 @@ body {
 }
 
 .section-title {
-  position: relative;
   width: 100%;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .section-title .title {
@@ -437,8 +415,9 @@ body {
   vertical-align: middle;
 }
 
-.section-title .split-line {
+.split-line {
   position: relative;
-  width: 94%;
+  width: 80%;
+  max-height: 12px;
   margin: 0 3%;
 }
