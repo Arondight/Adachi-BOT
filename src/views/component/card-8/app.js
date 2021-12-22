@@ -93,10 +93,22 @@ export default defineComponent({
       return params.explorations.find((el) => el.id === id);
     }
 
-    const charsWithoutYe = params.avatars.filter((el) => "旅行者" !== el.name);
-    const target = charsWithoutYe[Math.floor(Math.random() * charsWithoutYe.length)];
+    function disambiguate(characterID, characterName) {
+      switch (parseInt(characterID)) {
+        case 10000005:
+          return "旅行者男";
+        case 10000007:
+          return "旅行者女";
+        default:
+          return characterName;
+      }
+    }
+
+    const target = params.avatars[Math.floor(Math.random() * params.avatars.length)];
     const nameCard = computed(() => `http://localhost:9934/resources/Version2/namecard/${target.id}.png`);
-    const character = computed(() => `http://localhost:9934/resources/Version2/thumb/character/${target.name}.png`);
+    const character = computed(
+      () => "http://localhost:9934/resources/Version2/thumb/character/" + disambiguate(target.id, target.name) + ".png"
+    );
     const level = (l) => "Lv." + l;
     const percentage = (p) => p / 10 + "%";
     const explorations = [

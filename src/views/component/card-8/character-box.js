@@ -1,6 +1,6 @@
 const template = `<div class="character-box">
   <div class="char-container" :style="{ 'background': 'no-repeat 100%/100% url(' + starBackground + ')' }">
-    <img class="element" :src="element" alt="ERROR" />
+    <img v-if="data.element !== 'None'" class="element" :src="element" alt="ERROR" />
     <div class="constellation" :class="data.constellationNum === 6 ? 'max-constellation' : ''">{{ data.constellationNum }}</div>
     <img class="main" :src="data.icon" alt="ERROR" />
   </div>
