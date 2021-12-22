@@ -8,7 +8,7 @@ export default defineComponent({
   name: "detailedExplorationData",
   template,
   props: {
-    data: Object,
-    index: Object,
+    data: String,
+    index: String,
   },
 });

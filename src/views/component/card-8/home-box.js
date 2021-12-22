@@ -7,9 +7,9 @@ const template = `<div class="home-box">
     </div>
   </div>
   <div class="locked" v-else>
-  <div class="locked-content-block">
-    <img class="lock-icon" :src="lockIcon" alt="ERROR" />
-  </div>
+    <div class="locked-content-block">
+      <img class="lock-icon" :src="lockIcon" alt="ERROR" />
+    </div>
   </div>
 </div>`;
 

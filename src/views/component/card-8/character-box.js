@@ -1,15 +1,15 @@
 const template = `<div class="character-box">
   <div class="char-container" :style="{ 'background': 'no-repeat 100%/100% url(' + starBackground + ')' }">
     <img class="element" :src="element" alt="ERROR" />
-    <div class="constellation">{{ data.constellationNum }}</div>
+    <div class="constellation" :class="data.constellationNum === 6 ? 'max-constellation' : ''">{{ data.constellationNum }}</div>
     <img class="main" :src="data.icon" alt="ERROR" />
   </div>
   <div class="char-info">
-    <div>
+    <div class="container-char-info">
       <span class="level">Lv.{{ data.level }}</span>
       <span class="fetter">❤{{ data.fetter }}</span>
     </div>
-    <div>
+    <div class="container-char-info">
       <span class="weapon-name">{{ data.weapon.name }}</span>
       <span class="weapon-affix">★{{ data.weapon.affix_level }}</span>
     </div>

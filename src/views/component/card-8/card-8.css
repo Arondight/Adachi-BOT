@@ -211,6 +211,11 @@ body {
   backdrop-filter: blur(4px);
 }
 
+.max-constellation {
+  color: hsl(45deg 100% 64%);
+  text-shadow: 0 0 4px hsl(45deg 100% 20%);
+}
+
 .char-info .level {
   color: rgb(0, 176, 80);
   margin-right: 4px;
@@ -262,14 +267,16 @@ body {
   width: 90%;
   align-items: center;
   margin-top: -3px;
+  margin-left: 6px;
 }
 
 .container-detailedExploration {
   display: grid;
   grid-template-columns: auto max-content;
   font-size: 14px;
-  width: 90%;
+  width: 77%;
   grid-row-gap: 2px;
+  margin-left: 10px;
 }
 
 .home-box {
@@ -309,7 +316,8 @@ body {
   justify-items: center;
   width: 100%;
   padding: 10px 0;
-  backdrop-filter: brightness(0.7) blur(2px);
+  backdrop-filter: brightness(0.6) blur(2px);
+  text-shadow: 0 0 4px #33333378;
 }
 
 .home-box .name {

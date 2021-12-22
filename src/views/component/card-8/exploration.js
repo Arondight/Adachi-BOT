@@ -3,11 +3,8 @@ const template = `<div class="exploration">
     <img class="logo" :src="areaLogo" alt="ERROR" />
     <div class="container-detailedExploration">
       <detailedExplorationData v-for="(key, index) in data.prop" :data="key, index"></detailedExplorationData>
-      </div>
     </div>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>`;
 
 // eslint-disable-next-line no-undef
