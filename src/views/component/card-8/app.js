@@ -47,8 +47,10 @@ const template = `<div class="user-base-page">
   <div class="right">
     <div class="world">
       <SectionTitle title="世界探索" />
+      <div class="container-exploration">
       <div class="explorations">
         <ExplorationBox v-for="e in explorations" :data="e" />
+      </div>
       </div>
     </div>
     <div class="container-character">
