@@ -1,6 +1,5 @@
 const template = `<p>{{ index }}</p>
-<p>{{ data }}</p>
-`;
+<p>{{ data }}</p>`;
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;

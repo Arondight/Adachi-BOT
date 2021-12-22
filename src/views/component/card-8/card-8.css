@@ -15,7 +15,8 @@ html {
 body {
   width: 960px;
   font-family: GenshinUsedFont, monospace;
-  background: no-repeat 100%/100% url("http://localhost:9934/resources/Version2/module/user-base.png");
+  background: no-repeat url("http://localhost:9934/resources/Version2/module/user-base.png");
+  background-size: 100% 100%;
 }
 
 #app,
@@ -193,6 +194,21 @@ body {
   justify-content: space-evenly;
   height: 100%;
   font-size: 10px;
+}
+
+.constellation {
+  position: absolute;
+  background: #33333391;
+  color: #f0ebe3;
+  right: 0;
+  font-size: 13px;
+  width: 15px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 6px;
+  backdrop-filter: blur(4px);
 }
 
 .char-info .level {
