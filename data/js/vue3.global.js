@@ -110,7 +110,7 @@ var Vue = (function (exports) {
   const isSpecialBooleanAttr = /*#__PURE__*/ makeMap(specialBooleanAttrs);
   /**
    * Boolean attributes should be included if the value is truthy or ''.
-   * e.g. <select multiple> compiles to { multiple: '' }
+   * e.g. `<select multiple>` compiles to `{ multiple: '' }`
    */
   function includeBooleanAttr(value) {
       return !!value || value === '';
@@ -344,7 +344,7 @@ var Vue = (function (exports) {
       '' + parseInt(key, 10) === key;
   const isReservedProp = /*#__PURE__*/ makeMap(
   // the leading comma is intentional so empty string "" is also included
-  ',key,ref,' +
+  ',key,ref,ref_for,ref_key,' +
       'onVnodeBeforeMount,onVnodeMounted,' +
       'onVnodeBeforeUpdate,onVnodeUpdated,' +
       'onVnodeBeforeUnmount,onVnodeUnmounted');
@@ -1439,21 +1439,25 @@ var Vue = (function (exports) {
       return ret;
   }
   class ObjectRefImpl {
-      constructor(_object, _key) {
+      constructor(_object, _key, _defaultValue) {
           this._object = _object;
           this._key = _key;
+          this._defaultValue = _defaultValue;
           this.__v_isRef = true;
       }
       get value() {
-          return this._object[this._key];
+          const val = this._object[this._key];
+          return val === undefined ? this._defaultValue : val;
       }
       set value(newVal) {
           this._object[this._key] = newVal;
       }
   }
-  function toRef(object, key) {
+  function toRef(object, key, defaultValue) {
       const val = object[key];
-      return isRef(val) ? val : new ObjectRefImpl(object, key);
+      return isRef(val)
+          ? val
+          : new ObjectRefImpl(object, key, defaultValue);
   }
 
   class ComputedRefImpl {
@@ -4712,6 +4716,102 @@ var Vue = (function (exports) {
       };
   }
 
+  /**
+   * Function for handling a template ref
+   */
+  function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
+      if (isArray(rawRef)) {
+          rawRef.forEach((r, i) => setRef(r, oldRawRef && (isArray(oldRawRef) ? oldRawRef[i] : oldRawRef), parentSuspense, vnode, isUnmount));
+          return;
+      }
+      if (isAsyncWrapper(vnode) && !isUnmount) {
+          // when mounting async components, nothing needs to be done,
+          // because the template ref is forwarded to inner component
+          return;
+      }
+      const refValue = vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */
+          ? getExposeProxy(vnode.component) || vnode.component.proxy
+          : vnode.el;
+      const value = isUnmount ? null : refValue;
+      const { i: owner, r: ref } = rawRef;
+      if (!owner) {
+          warn$1(`Missing ref owner context. ref cannot be used on hoisted vnodes. ` +
+              `A vnode with ref must be created inside the render function.`);
+          return;
+      }
+      const oldRef = oldRawRef && oldRawRef.r;
+      const refs = owner.refs === EMPTY_OBJ ? (owner.refs = {}) : owner.refs;
+      const setupState = owner.setupState;
+      // dynamic ref changed. unset old ref
+      if (oldRef != null && oldRef !== ref) {
+          if (isString(oldRef)) {
+              refs[oldRef] = null;
+              if (hasOwn(setupState, oldRef)) {
+                  setupState[oldRef] = null;
+              }
+          }
+          else if (isRef(oldRef)) {
+              oldRef.value = null;
+          }
+      }
+      if (isFunction(ref)) {
+          callWithErrorHandling(ref, owner, 12 /* FUNCTION_REF */, [value, refs]);
+      }
+      else {
+          const _isString = isString(ref);
+          const _isRef = isRef(ref);
+          if (_isString || _isRef) {
+              const doSet = () => {
+                  if (rawRef.f) {
+                      const existing = _isString ? refs[ref] : ref.value;
+                      if (isUnmount) {
+                          isArray(existing) && remove(existing, refValue);
+                      }
+                      else {
+                          if (!isArray(existing)) {
+                              if (_isString) {
+                                  refs[ref] = [refValue];
+                              }
+                              else {
+                                  ref.value = [refValue];
+                                  if (rawRef.k)
+                                      refs[rawRef.k] = ref.value;
+                              }
+                          }
+                          else if (!existing.includes(refValue)) {
+                              existing.push(refValue);
+                          }
+                      }
+                  }
+                  else if (_isString) {
+                      refs[ref] = value;
+                      if (hasOwn(setupState, ref)) {
+                          setupState[ref] = value;
+                      }
+                  }
+                  else if (isRef(ref)) {
+                      ref.value = value;
+                      if (rawRef.k)
+                          refs[rawRef.k] = value;
+                  }
+                  else {
+                      warn$1('Invalid template ref type:', ref, `(${typeof ref})`);
+                  }
+              };
+              if (value) {
+                  doSet.id = -1;
+                  queuePostRenderEffect(doSet, parentSuspense);
+              }
+              else {
+                  doSet();
+              }
+          }
+          else {
+              warn$1('Invalid template ref type:', ref, `(${typeof ref})`);
+          }
+      }
+  }
+
   let hasMismatch = false;
   const isSVGContainer = (container) => /svg/.test(container.namespaceURI) && container.tagName !== 'foreignObject';
   const isComment = (node) => node.nodeType === 8 /* COMMENT */;
@@ -5344,12 +5444,15 @@ var Vue = (function (exports) {
           const oldProps = n1.props || EMPTY_OBJ;
           const newProps = n2.props || EMPTY_OBJ;
           let vnodeHook;
+          // disable recurse in beforeUpdate hooks
+          parentComponent && toggleRecurse(parentComponent, false);
           if ((vnodeHook = newProps.onVnodeBeforeUpdate)) {
               invokeVNodeHook(vnodeHook, parentComponent, n2, n1);
           }
           if (dirs) {
               invokeDirectiveHook(n2, n1, parentComponent, 'beforeUpdate');
           }
+          parentComponent && toggleRecurse(parentComponent, true);
           if (isHmrUpdating) {
               // HMR updated, force full diff
               patchFlag = 0;
@@ -5629,7 +5732,7 @@ var Vue = (function (exports) {
                   const { el, props } = initialVNode;
                   const { bm, m, parent } = instance;
                   const isAsyncWrapperVNode = isAsyncWrapper(initialVNode);
-                  effect.allowRecurse = false;
+                  toggleRecurse(instance, false);
                   // beforeMount hook
                   if (bm) {
                       invokeArrayFns(bm);
@@ -5639,7 +5742,7 @@ var Vue = (function (exports) {
                       (vnodeHook = props && props.onVnodeBeforeMount)) {
                       invokeVNodeHook(vnodeHook, parent, initialVNode);
                   }
-                  effect.allowRecurse = true;
+                  toggleRecurse(instance, true);
                   if (el && hydrateNode) {
                       // vnode has adopted host node - perform hydration instead of mount.
                       const hydrateSubTree = () => {
@@ -5721,7 +5824,7 @@ var Vue = (function (exports) {
                       pushWarningContext(next || instance.vnode);
                   }
                   // Disallow component effect recursion during pre-lifecycle hooks.
-                  effect.allowRecurse = false;
+                  toggleRecurse(instance, false);
                   if (next) {
                       next.el = vnode.el;
                       updateComponentPreRender(instance, next, optimized);
@@ -5737,7 +5840,7 @@ var Vue = (function (exports) {
                   if ((vnodeHook = next.props && next.props.onVnodeBeforeUpdate)) {
                       invokeVNodeHook(vnodeHook, parent, next, vnode);
                   }
-                  effect.allowRecurse = true;
+                  toggleRecurse(instance, true);
                   // render
                   {
                       startMeasure(instance, `render`);
@@ -5783,13 +5886,13 @@ var Vue = (function (exports) {
               }
           };
           // create reactive effect for rendering
-          const effect = new ReactiveEffect(componentUpdateFn, () => queueJob(instance.update), instance.scope // track it in component's effect scope
-          );
+          const effect = (instance.effect = new ReactiveEffect(componentUpdateFn, () => queueJob(instance.update), instance.scope // track it in component's effect scope
+          ));
           const update = (instance.update = effect.run.bind(effect));
           update.id = instance.uid;
           // allowRecurse
           // #1801, #2043 component render effects should allow recursive updates
-          effect.allowRecurse = update.allowRecurse = true;
+          toggleRecurse(instance, true);
           {
               effect.onTrack = instance.rtc
                   ? e => invokeArrayFns(instance.rtc, e)
@@ -6313,85 +6416,8 @@ var Vue = (function (exports) {
           createApp: createAppAPI(render, hydrate)
       };
   }
-  function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
-      if (isArray(rawRef)) {
-          rawRef.forEach((r, i) => setRef(r, oldRawRef && (isArray(oldRawRef) ? oldRawRef[i] : oldRawRef), parentSuspense, vnode, isUnmount));
-          return;
-      }
-      if (isAsyncWrapper(vnode) && !isUnmount) {
-          // when mounting async components, nothing needs to be done,
-          // because the template ref is forwarded to inner component
-          return;
-      }
-      const refValue = vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */
-          ? getExposeProxy(vnode.component) || vnode.component.proxy
-          : vnode.el;
-      const value = isUnmount ? null : refValue;
-      const { i: owner, r: ref } = rawRef;
-      if (!owner) {
-          warn$1(`Missing ref owner context. ref cannot be used on hoisted vnodes. ` +
-              `A vnode with ref must be created inside the render function.`);
-          return;
-      }
-      const oldRef = oldRawRef && oldRawRef.r;
-      const refs = owner.refs === EMPTY_OBJ ? (owner.refs = {}) : owner.refs;
-      const setupState = owner.setupState;
-      // dynamic ref changed. unset old ref
-      if (oldRef != null && oldRef !== ref) {
-          if (isString(oldRef)) {
-              refs[oldRef] = null;
-              if (hasOwn(setupState, oldRef)) {
-                  setupState[oldRef] = null;
-              }
-          }
-          else if (isRef(oldRef)) {
-              oldRef.value = null;
-          }
-      }
-      if (isString(ref)) {
-          const doSet = () => {
-              {
-                  refs[ref] = value;
-              }
-              if (hasOwn(setupState, ref)) {
-                  setupState[ref] = value;
-              }
-          };
-          // #1789: for non-null values, set them after render
-          // null values means this is unmount and it should not overwrite another
-          // ref with the same key
-          if (value) {
-              doSet.id = -1;
-              queuePostRenderEffect(doSet, parentSuspense);
-          }
-          else {
-              doSet();
-          }
-      }
-      else if (isRef(ref)) {
-          const doSet = () => {
-              ref.value = value;
-          };
-          if (value) {
-              doSet.id = -1;
-              queuePostRenderEffect(doSet, parentSuspense);
-          }
-          else {
-              doSet();
-          }
-      }
-      else if (isFunction(ref)) {
-          callWithErrorHandling(ref, owner, 12 /* FUNCTION_REF */, [value, refs]);
-      }
-      else {
-          warn$1('Invalid template ref type:', value, `(${typeof value})`);
-      }
-  }
-  function invokeVNodeHook(hook, instance, vnode, prevVNode = null) {
-      callWithAsyncErrorHandling(hook, instance, 7 /* VNODE_HOOK */, [
-          vnode,
-          prevVNode
-      ]);
+  function toggleRecurse({ effect, update }, allowed) {
+      effect.allowRecurse = update.allowRecurse = allowed;
   }
   /**
    * #1156
@@ -6850,10 +6876,10 @@ var Vue = (function (exports) {
   };
   const InternalObjectKey = `__vInternal`;
   const normalizeKey = ({ key }) => key != null ? key : null;
-  const normalizeRef = ({ ref }) => {
+  const normalizeRef = ({ ref, ref_key, ref_for }) => {
       return (ref != null
           ? isString(ref) || isRef(ref) || isFunction(ref)
-              ? { i: currentRenderingInstance, r: ref }
+              ? { i: currentRenderingInstance, r: ref, k: ref_key, f: !!ref_for }
               : ref
           : null);
   };
@@ -7195,6 +7221,12 @@ var Vue = (function (exports) {
           }
       }
       return ret;
+  }
+  function invokeVNodeHook(hook, instance, vnode, prevVNode = null) {
+      callWithAsyncErrorHandling(hook, instance, 7 /* VNODE_HOOK */, [
+          vnode,
+          prevVNode
+      ]);
   }
 
   /**
@@ -7606,6 +7638,7 @@ var Vue = (function (exports) {
           root: null,
           next: null,
           subTree: null,
+          effect: null,
           update: null,
           scope: new EffectScope(true /* detached */),
           render: null,
@@ -9042,7 +9075,7 @@ var Vue = (function (exports) {
   }
 
   // Core API ------------------------------------------------------------------
-  const version = "3.2.24";
+  const version = "3.2.26";
   /**
    * SSR utils for \@vue/server-renderer. Only exposed in cjs builds.
    * @internal
@@ -11138,12 +11171,12 @@ var Vue = (function (exports) {
           }
           else if (p.name === 'bind' &&
               (p.exp || allowEmpty) &&
-              isBindKey(p.arg, name)) {
+              isStaticArgOf(p.arg, name)) {
               return p;
           }
       }
   }
-  function isBindKey(arg, name) {
+  function isStaticArgOf(arg, name) {
       return !!(arg && isStaticExp(arg) && arg.content === name);
   }
   function hasDynamicKeyVBind(node) {
@@ -11332,11 +11365,6 @@ var Vue = (function (exports) {
               `with <template> tags or use a computed property that filters v-for ` +
               `data source.`,
           link: `https://v3.vuejs.org/guide/migration/v-if-v-for.html`
-      },
-      ["COMPILER_V_FOR_REF" /* COMPILER_V_FOR_REF */]: {
-          message: `Ref usage on v-for no longer creates array ref values in Vue 3. ` +
-              `Consider using function refs or refactor to avoid ref usage altogether.`,
-          link: `https://v3.vuejs.org/guide/migration/array-refs.html`
       },
       ["COMPILER_NATIVE_TEMPLATE" /* COMPILER_NATIVE_TEMPLATE */]: {
           message: `<template> with no special directives will render as a native template ` +
@@ -11810,7 +11838,7 @@ var Vue = (function (exports) {
               else if (
               // :is on plain element - only treat as component in compat mode
               p.name === 'bind' &&
-                  isBindKey(p.arg, 'is') &&
+                  isStaticArgOf(p.arg, 'is') &&
                   false &&
                   checkCompatEnabled("COMPILER_IS_ON_ELEMENT" /* COMPILER_IS_ON_ELEMENT */, context, p.loc)) {
                   return true;
@@ -12257,6 +12285,11 @@ var Vue = (function (exports) {
               if (codegenNode.type !== 13 /* VNODE_CALL */) {
                   return 0 /* NOT_CONSTANT */;
               }
+              if (codegenNode.isBlock &&
+                  node.tag !== 'svg' &&
+                  node.tag !== 'foreignObject') {
+                  return 0 /* NOT_CONSTANT */;
+              }
               const flag = getPatchFlag(codegenNode);
               if (!flag) {
                   let returnType = 3 /* CAN_STRINGIFY */;
@@ -12393,7 +12426,7 @@ var Vue = (function (exports) {
               else if (value.type === 14 /* JS_CALL_EXPRESSION */) {
                   // some helper calls can be hoisted,
                   // such as the `normalizeProps` generated by the compiler for pre-normalize class,
-                  // in this case we need to respect the ConstantType of the helper's argments
+                  // in this case we need to respect the ConstantType of the helper's arguments
                   valueType = getConstantTypeOfHelperCall(value, context);
               }
               else {
@@ -14041,10 +14074,7 @@ var Vue = (function (exports) {
                   // updates inside get proper isSVG flag at runtime. (#639, #643)
                   // This is technically web-specific, but splitting the logic out of core
                   // leads to too much unnecessary complexity.
-                  (tag === 'svg' ||
-                      tag === 'foreignObject' ||
-                      // #938: elements with dynamic keys should be forced into blocks
-                      findProp(node, 'key', true)));
+                  (tag === 'svg' || tag === 'foreignObject'));
           // props
           if (props.length > 0) {
               const propsBuildResult = buildProps(node, context);
@@ -14056,6 +14086,9 @@ var Vue = (function (exports) {
                   directives && directives.length
                       ? createArrayExpression(directives.map(dir => buildDirectiveArgs(dir, context)))
                       : undefined;
+              if (propsBuildResult.shouldUseBlock) {
+                  shouldUseBlock = true;
+              }
           }
           // children
           if (node.children.length > 0) {
@@ -14184,11 +14217,13 @@ var Vue = (function (exports) {
       return toValidAssetId(tag, `component`);
   }
   function buildProps(node, context, props = node.props, ssr = false) {
-      const { tag, loc: elementLoc } = node;
+      const { tag, loc: elementLoc, children } = node;
       const isComponent = node.tagType === 1 /* COMPONENT */;
       let properties = [];
       const mergeArgs = [];
       const runtimeDirectives = [];
+      const hasChildren = children.length > 0;
+      let shouldUseBlock = false;
       // patchFlag analysis
       let patchFlag = 0;
       let hasRef = false;
@@ -14251,9 +14286,12 @@ var Vue = (function (exports) {
           const prop = props[i];
           if (prop.type === 6 /* ATTRIBUTE */) {
               const { loc, name, value } = prop;
-              let valueNode = createSimpleExpression(value ? value.content : '', true, value ? value.loc : loc);
+              let isStatic = true;
               if (name === 'ref') {
                   hasRef = true;
+                  if (context.scopes.vFor > 0) {
+                      properties.push(createObjectProperty(createSimpleExpression('ref_for', true), createSimpleExpression('true')));
+                  }
               }
               // skip is on <component>, or is="vue:xxx"
               if (name === 'is' &&
@@ -14262,7 +14300,7 @@ var Vue = (function (exports) {
                       (false ))) {
                   continue;
               }
-              properties.push(createObjectProperty(createSimpleExpression(name, true, getInnerRange(loc, 0, name.length)), valueNode));
+              properties.push(createObjectProperty(createSimpleExpression(name, true, getInnerRange(loc, 0, name.length)), createSimpleExpression(value ? value.content : '', isStatic, value ? value.loc : loc)));
           }
           else {
               // directives
@@ -14283,7 +14321,7 @@ var Vue = (function (exports) {
               // skip v-is and :is on <component>
               if (name === 'is' ||
                   (isVBind &&
-                      isBindKey(arg, 'is') &&
+                      isStaticArgOf(arg, 'is') &&
                       (isComponentTag(tag) ||
                           (false )))) {
                   continue;
@@ -14291,6 +14329,17 @@ var Vue = (function (exports) {
               // skip v-on in SSR compilation
               if (isVOn && ssr) {
                   continue;
+              }
+              if (
+              // #938: elements with dynamic keys should be forced into blocks
+              (isVBind && isStaticArgOf(arg, 'key')) ||
+                  // inline before-update hooks need to force block so that it is invoked
+                  // before children
+                  (isVOn && hasChildren && isStaticArgOf(arg, 'vue:before-update'))) {
+                  shouldUseBlock = true;
+              }
+              if (isVBind && isStaticArgOf(arg, 'ref') && context.scopes.vFor > 0) {
+                  properties.push(createObjectProperty(createSimpleExpression('ref_for', true), createSimpleExpression('true')));
               }
               // special case for v-bind and v-on with no argument
               if (!arg && (isVBind || isVOn)) {
@@ -14336,6 +14385,11 @@ var Vue = (function (exports) {
               else {
                   // no built-in transform, this is a user custom directive.
                   runtimeDirectives.push(prop);
+                  // custom dirs may use beforeUpdate so they need to force blocks
+                  // to ensure before-update gets called before children update
+                  if (hasChildren) {
+                      shouldUseBlock = true;
+                  }
               }
           }
       }
@@ -14374,7 +14428,8 @@ var Vue = (function (exports) {
               patchFlag |= 32 /* HYDRATE_EVENTS */;
           }
       }
-      if ((patchFlag === 0 || patchFlag === 32 /* HYDRATE_EVENTS */) &&
+      if (!shouldUseBlock &&
+          (patchFlag === 0 || patchFlag === 32 /* HYDRATE_EVENTS */) &&
           (hasRef || hasVnodeHook || runtimeDirectives.length > 0)) {
           patchFlag |= 512 /* NEED_PATCH */;
       }
@@ -14441,7 +14496,8 @@ var Vue = (function (exports) {
           props: propsExpression,
           directives: runtimeDirectives,
           patchFlag,
-          dynamicPropNames
+          dynamicPropNames,
+          shouldUseBlock
       };
   }
   // Dedupe props in an object literal.
@@ -14577,7 +14633,7 @@ var Vue = (function (exports) {
               }
           }
           else {
-              if (p.name === 'bind' && isBindKey(p.arg, 'name')) {
+              if (p.name === 'bind' && isStaticArgOf(p.arg, 'name')) {
                   if (p.exp)
                       slotName = p.exp;
               }
@@ -14611,7 +14667,11 @@ var Vue = (function (exports) {
       let eventName;
       if (arg.type === 4 /* SIMPLE_EXPRESSION */) {
           if (arg.isStatic) {
-              const rawName = arg.content;
+              let rawName = arg.content;
+              // TODO deprecate @vnodeXXX usage
+              if (rawName.startsWith('vue:')) {
+                  rawName = `vnode-${rawName.slice(4)}`;
+              }
               // for all event listeners, auto convert it to camelCase. See issue #2249
               eventName = createSimpleExpression(toHandlerKey(camelize(rawName)), true, arg.loc);
           }
