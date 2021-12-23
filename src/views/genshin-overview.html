@@ -41,13 +41,13 @@
                 <td class="image-weapon-ascension">
                   <div class="item-list">
                     <div class="list-weapon">
-                      <img class="item" v-for="el in ascension[0]" :src="icon(el)" alt="ERROR" />
+                      <img class="item" v-for="el in ascension[0]" :src="icon(el)" :alt="el" />
                     </div>
                   </div>
                   <div class="item-list">
                     <p class="title"></p>
                     <div class="list-weapon">
-                      <img class="item" v-for="el in ascension[1]" :src="icon(el)" alt="ERROR" />
+                      <img class="item" v-for="el in ascension[1]" :src="icon(el)" :alt="el" />
                     </div>
                   </div>
                 </td>
@@ -96,7 +96,7 @@
               <td>
                 <div class="item-list">
                   <div class="list">
-                    <img class="item" v-for="el in levelUp" :src="icon(el)" alt="ERROR" />
+                    <img class="item" v-for="el in levelUp" :src="icon(el)" :alt="el" />
                   </div>
                 </div>
               </td>
@@ -109,7 +109,7 @@
               <td>
                 <div class="item-list">
                   <div class="list">
-                    <img class="item" v-for="el in talent" :src="icon(el)" alt="ERROR" />
+                    <img class="item" v-for="el in talent" :src="icon(el)" :alt="el" />
                   </div>
                 </div>
               </td>
@@ -122,7 +122,7 @@
               <td>
                 <div class="item-list">
                   <div class="list">
-                    <img class="item" v-for="el in ascension" :src="icon(el)" alt="ERROR" />
+                    <img class="item" v-for="el in ascension" :src="icon(el)" :alt="el" />
                   </div>
                 </div>
               </td>
