@@ -53,37 +53,58 @@ body {
   justify-content: flex-start;
 }
 
-.uid {
-  position: absolute;
-  color: #ffffff;
-  font-size: 16px;
-  top: 18px;
+.container-player-info {
+  color: #fff;
+  font-size: 12px;
   text-shadow: 0 0 4px #333333ab;
+  background: #33333354;
+  border: solid 2px #f0ebe39c;
+  padding: 4px 15px 2px 15px;
+  border-radius: 50px;
+  margin-top: 4px;
+  margin-bottom: 10px;
 }
 
-.name-card {
+.player-info {
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-row-gap: 1px;
+  justify-items: stretch;
+}
+
+.uid {
+  grid-column: 1 / -1;
+}
+
+.top {
   width: 424px;
   border-radius: 10px 4px 0 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .profile {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 142px;
-  height: 142px;
-  background: #efeae3ed;
+  margin-top: 8px;
   border-radius: 50%;
-  border: 2px solid #d5bf94;
-  box-shadow: 0 2px 12px #00000014;
-  margin-top: -110px;
-  backdrop-filter: blur(4px);
+  padding: 14px;
+  background: radial-gradient(
+    circle,
+    rgba(239, 234, 227, 0.93) 60%,
+    rgba(239, 234, 227, 0.1) 60.01%,
+    rgba(239, 234, 227, 0.1) 65.5%,
+    rgba(239, 234, 227, 0) 65.51%,
+    rgba(239, 234, 227, 0) 68%,
+    rgba(239, 234, 227, 0.05) 68.01%,
+    rgba(239, 234, 227, 0.05) 68.5%
+  );
 }
 
 .character {
   position: relative;
   background-color: hsl(25deg 49% 65%);
-  width: 126px;
+  width: 100px;
   border-radius: 50%;
 }
 
@@ -316,8 +337,8 @@ body {
   justify-items: center;
   width: 100%;
   padding: 10px 0;
-  backdrop-filter: brightness(0.6) blur(2px);
   text-shadow: 0 0 4px #33333378;
+  background: #3333338c;
 }
 
 .home-box .name {

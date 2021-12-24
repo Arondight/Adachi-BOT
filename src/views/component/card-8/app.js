@@ -1,10 +1,15 @@
 const template = `<div class="user-base-page">
   <div class="left">
-    <div class="top">
-      <p class="uid">UID {{ data.uid }}</p>
-      <img class="name-card" :src="nameCard" alt="ERROR" />
+    <div class="top" :style="{ 'background-image': 'url(' + nameCard + ')'}">
       <div class="profile">
         <img class="character" :src="character" alt="ERROR" />
+      </div>
+      <div class="container-player-info">
+      <div class="player-info">
+        <p class="uid">UID {{ data.uid }}</p>
+        <p v-if="hasLevelInfo" class="adventure-rank">冒险等阶</p>
+        <p v-if="hasLevelInfo" class="adventure-rank">{{ data.level }}</p>
+      </div>
       </div>
     </div>
     <div class="container-middle">
@@ -93,6 +98,7 @@ export default defineComponent({
       return params.explorations.find((el) => el.id === id);
     }
 
+    const hasLevelInfo = params.level !== -1;
     const target = params.avatars[Math.floor(Math.random() * params.avatars.length)];
     const ye = { 10000005: "旅行者男", 10000007: "旅行者女" };
     const name = ye[target.id] || target.name;
@@ -155,6 +161,7 @@ export default defineComponent({
       stats: params.stats,
       homes,
       homeboxTitle,
+      hasLevelInfo,
     };
   },
 });
