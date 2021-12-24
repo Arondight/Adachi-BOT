@@ -123,7 +123,6 @@ const weaponBox = {
   computed: {
     rarity() {
       const star = "★";
-      console.log(this.len);
       return star.repeat(this.weapon.rarity);
     },
   },
