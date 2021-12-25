@@ -8,6 +8,16 @@
   src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
+@font-face {
+  font-family: YunXiJinShu;
+  src: url("../../../../data/font/YunXiJinShu.ttf");
+}
+
+@font-face {
+  font-family: azuki;
+  src: url("../../../../data/font/azuki.ttf");
+}
+
 html {
   background-color: #efeae3;
 }
@@ -379,4 +389,31 @@ body {
 
 .bottom-split .split-line {
   width: 80%;
+}
+
+.container-traveler-signature {
+  display: grid;
+  grid-template-columns: auto max-content;
+  justify-items: end;
+  align-items: end;
+  align-self: self-end;
+  margin-right: 14px;
+  margin-top: 8px;
+}
+
+.signature-header {
+  color: #656b79;
+  font-size: 14px;
+}
+
+.signature-body {
+  transform: rotate(356deg);
+  margin-bottom: 2px;
+  font-family: "YunXiJinShu", "azuki", "GenshinUsedFont", monospace;
+  text-align: center;
+}
+
+.signature-underline {
+  border-bottom: solid 1px #656b79;
+  min-width: 132px;
 }

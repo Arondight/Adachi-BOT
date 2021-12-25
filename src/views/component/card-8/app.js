@@ -66,6 +66,12 @@ const template = `<div class="user-base-page">
       </div>
     </div>
     </div>
+    <div v-if="hasPlayerNameInfo" class="container-traveler-signature">
+        <p class="signature-header">签名</p>
+        <div class="signature-underline">
+            <p class="signature-body">{{data.nickname}}</p>
+        </div>
+    </div>
     <p class="author">Created by Adachi-BOT</p>
   </div>
 </div>`;
@@ -99,6 +105,7 @@ export default defineComponent({
     }
 
     const hasLevelInfo = params.level !== -1;
+    const hasPlayerNameInfo = params.nickname !== "";
     const target = params.avatars[Math.floor(Math.random() * params.avatars.length)];
     const ye = { 10000005: "旅行者男", 10000007: "旅行者女" };
     const name = ye[target.id] || target.name;
@@ -162,6 +169,7 @@ export default defineComponent({
       homes,
       homeboxTitle,
       hasLevelInfo,
+      hasPlayerNameInfo,
     };
   },
 });
