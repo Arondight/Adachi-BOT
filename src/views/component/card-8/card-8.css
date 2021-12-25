@@ -410,8 +410,10 @@ body {
   transform: rotate(356deg);
   margin-bottom: 2px;
   font-family: 'YunXiJinShu', 'azuki', 'GenshinUsedFont', monospace;
+  text-align: center;
 }
 
 .signature-underline {
   border-bottom: solid 1px #656b79;
+  min-width: 132px;
 }
