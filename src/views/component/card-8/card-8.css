@@ -409,7 +409,7 @@ body {
 .signature-body {
   transform: rotate(356deg);
   margin-bottom: 2px;
-  font-family: 'YunXiJinShu', 'azuki', 'GenshinUsedFont', monospace;
+  font-family: "YunXiJinShu", "azuki", "GenshinUsedFont", monospace;
   text-align: center;
 }
 
