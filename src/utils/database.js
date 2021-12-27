@@ -184,12 +184,12 @@ function cleanCookies() {
 // 清理不在配置文件的数据
 function cleanCookiesInvalid() {
   const dbName = "cookies_invalid";
-  const cookies = get(dbName, "cookie") || [];
+  const records = get(dbName, "cookie") || [];
   let nums = 0;
 
-  for (const i in cookies) {
-    if (!cookies[i].cookie || !(global.cookies || []).includes(cookies[i].cookie)) {
-      cookies.splice(i, 1);
+  for (const i in records) {
+    if (!records[i].cookie || !global.cookies.includes(records[i].cookie)) {
+      records.splice(i, 1);
       nums++;
     }
   }
