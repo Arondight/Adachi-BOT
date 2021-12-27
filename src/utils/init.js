@@ -39,6 +39,11 @@ function syncDBJob() {
   });
 }
 
+function doPost() {
+  syncDBJob();
+  process.exit(0);
+}
+
 function serve(port = 9934) {
   const server = express();
   server.use(express.static(global.rootdir));
@@ -51,9 +56,9 @@ async function init() {
   updateGachaJob();
   cleanDBJob();
 
-  process.on("SIGINT", syncDBJob);
-  process.on("SIGTERM", syncDBJob);
-  process.on("SIGHUP", syncDBJob);
+  process.on("SIGHUP", doPost);
+  process.on("SIGINT", doPost);
+  process.on("SIGTERM", doPost);
 
   schedule.scheduleJob("1 */1 * * *", async () => updateGachaJob());
   schedule.scheduleJob("1 */1 * * *", async () => cleanDBJob());
