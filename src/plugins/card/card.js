@@ -25,16 +25,7 @@ async function doCard(msg) {
     const detailInfo = await indexDetail(...baseInfo, msg.uid, msg.bot);
     await characterDetail(...baseInfo, detailInfo, false, msg.bot);
   } catch (e) {
-    const ret = handleDetailError(e);
-
-    if (!ret) {
-      msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
-      return;
-    }
-
-    if (Array.isArray(ret)) {
-      ret[0] && msg.bot.say(msg.sid, ret[0], msg.type, msg.uid, true);
-      ret[1] && msg.bot.sayMaster(msg.sid, ret[1], msg.type, msg.uid);
+    if (true === handleDetailError(msg, e)) {
       return;
     }
   }

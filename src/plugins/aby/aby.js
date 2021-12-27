@@ -34,16 +34,7 @@ async function doAby(msg, schedule_type = 1) {
 
     await abyDetail(...dbInfo, msg.uid, schedule_type.toString(), msg.bot);
   } catch (e) {
-    const ret = handleDetailError(e);
-
-    if (!ret) {
-      msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
-      return;
-    }
-
-    if (Array.isArray(ret)) {
-      ret[0] && msg.bot.say(msg.sid, ret[0], msg.type, msg.uid, true);
-      ret[1] && msg.bot.sayMaster(msg.sid, ret[1], msg.type, msg.uid);
+    if (true === handleDetailError(msg, e)) {
       return;
     }
   }
@@ -52,7 +43,7 @@ async function doAby(msg, schedule_type = 1) {
 
   if (lodash.hasIn(data, "data")) {
     if (undefined === data.data.max_floor || "0-0" === data.data.max_floor) {
-      msg.bot.say(msg.sid, "您似乎从未挑战过深境螺旋。", msg.type, msg.uid, true);
+      msg.bot.say(msg.sid, "您似乎未挑战深境螺旋。", msg.type, msg.uid, true);
       return;
     }
 

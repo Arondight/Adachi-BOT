@@ -16,7 +16,7 @@ function getDetailErrorForPossibleInvalidCookie(retcode, message, cookie) {
 }
 
 // return true if we use cache
-function handleDetailError(e) {
+function parseDetailError(e) {
   let messages = [];
 
   if (true === e.detail) {
@@ -31,6 +31,33 @@ function handleDetailError(e) {
       }
 
       return messages;
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
+function handleDetailError(msg, e) {
+  const parsed = parseDetailError(e);
+
+  if (!parsed) {
+    msg.bot.sayMaster(msg.sid, e, msg.type, msg.uid);
+    return true;
+  }
+
+  if (Array.isArray(parsed)) {
+    if ("string" === typeof parsed[0]) {
+      msg.bot.say(msg.sid, parsed[0], msg.type, msg.uid, true);
+    }
+
+    if ("string" === typeof parsed[1]) {
+      msg.bot.sayMaster(msg.sid, parsed[1], msg.type, msg.uid);
+    }
+
+    if (0 === parsed.length) {
+      msg.bot.say(msg.sid, "无法连接米游社，有可能是服务商 IP 已被屏蔽。", msg.type, msg.uid, true);
     }
 
     return true;
