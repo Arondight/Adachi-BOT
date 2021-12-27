@@ -281,7 +281,7 @@ body {
   width: 198px;
   height: 66px;
   background: no-repeat center/100%
-    url("https://adachi-bot.oss-cn-beijing.aliyuncs.com/Version2/module/user-nase-exp-bg.png");
+    url("http://localhost:9934/resources/Version2/module/user-nase-exp-bg.png");
   display: flex;
   flex-direction: column;
   align-items: flex-start;

@@ -220,6 +220,9 @@ API2_MODULE_FILES=(
   'element.png'
   'mys-upper-v2-2.png'
   'uid-upper-v2-2.png'
+  'user-base-split-line.png'
+  'user-base-title-icon.png'
+  'user-nase-exp-bg.png'
   'user-base.png'
 )
 API2_WISH_CONFIG_FILES=(
