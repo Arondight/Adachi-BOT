@@ -180,6 +180,10 @@ function processedGroup(msg, bot) {
 }
 
 function processedOnline(bot) {
+  // 通知管理者
+  bot.sayMaster(undefined, "我上线了。");
+
+  // 尝试通知群
   if (global.config.groupHello) {
     bot.gl.forEach((group) => {
       const greeting =

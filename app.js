@@ -48,11 +48,13 @@ function login() {
         }
       }
     };
-    bot.sayMaster = async (id, msg, type, user) => {
+    bot.sayMaster = async (id, msg, type = undefined, user = undefined) => {
       if (Array.isArray(global.config.masters) && global.config.masters.length) {
         global.config.masters.forEach((master) => master && bot.sendPrivateMsg(master, msg));
       } else {
-        bot.say(id, "未设置我的主人。", type, user);
+        if (undefined !== id && "string" === typeof type && undefined !== user) {
+          bot.say(id, "未设置我的主人。", type, user);
+        }
       }
     };
     // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件

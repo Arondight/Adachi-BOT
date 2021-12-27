@@ -23,6 +23,12 @@ function cleanDB(name) {
   return nums;
 }
 
+async function lastWords() {
+  for (const bot of global.bots) {
+    await bot.sayMaster(undefined, "我下线了。");
+  }
+}
+
 function cleanDBJob() {
   let nums = 0;
   nums += cleanDB("aby");
@@ -39,9 +45,9 @@ function syncDBJob() {
   });
 }
 
-function doPost() {
+async function doPost() {
   syncDBJob();
-  process.exit(0);
+  await lastWords();
 }
 
 function serve(port = 9934) {
@@ -56,9 +62,9 @@ async function init() {
   updateGachaJob();
   cleanDBJob();
 
-  process.on("SIGHUP", doPost);
-  process.on("SIGINT", doPost);
-  process.on("SIGTERM", doPost);
+  for (const signal of ["SIGHUP", "SIGINT", "SIGTERM"]) {
+    process.on(signal, () => doPost().then((n) => process.exit(n)));
+  }
 
   schedule.scheduleJob("1 */1 * * *", async () => updateGachaJob());
   schedule.scheduleJob("1 */1 * * *", async () => cleanDBJob());
