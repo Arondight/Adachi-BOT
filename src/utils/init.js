@@ -1,6 +1,7 @@
 import schedule from "node-schedule";
 import express from "express";
 import db from "./database.js";
+import { renderClose } from "./render.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
 
 let postRunning = false;
@@ -50,6 +51,7 @@ function syncDBJob() {
 async function doPost() {
   if (false === postRunning) {
     postRunning = true;
+    await renderClose();
     await lastWords();
     syncDBJob();
     await new Promise((resolve) => setTimeout(resolve, 1000));
