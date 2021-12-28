@@ -395,7 +395,7 @@ body {
   grid-template-columns: auto max-content;
   justify-items: end;
   align-items: end;
-  align-self: self-end;
+  align-self: flex-end;
   margin-right: 14px;
   margin-top: 8px;
 }
