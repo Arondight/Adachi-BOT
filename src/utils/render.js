@@ -24,14 +24,23 @@ const settings = {
 };
 const settingsDefault = { selector: "body", hello: false, scale: 1.5, delete: false };
 let browser;
+let loading = false;
 
 async function launch() {
   if (undefined === browser) {
-    browser = await puppeteer.launch({
-      defaultViewport: null,
-      headless: 0 === global.config.viewDebug,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    if (false === loading) {
+      loading = true;
+      browser = await puppeteer.launch({
+        defaultViewport: null,
+        headless: 0 === global.config.viewDebug,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+      loading = false;
+    } else {
+      while (true === loading) {
+        await new Promise((resolve) => setTimeout(() => resolve(), 100));
+      }
+    }
   }
 }
 

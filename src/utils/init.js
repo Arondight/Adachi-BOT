@@ -53,6 +53,11 @@ async function doPost() {
     await lastWords();
     syncDBJob();
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    postRunning = false;
+  } else {
+    while (true === postRunning) {
+      await new Promise((resolve) => setTimeout(() => resolve(), 100));
+    }
   }
 }
 
