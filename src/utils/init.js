@@ -3,6 +3,8 @@ import express from "express";
 import db from "./database.js";
 import { gachaUpdate as updateGachaJob } from "./update.js";
 
+let postRunning = false;
+
 function initDB() {
   db.init("aby");
   db.init("artifact");
@@ -46,8 +48,12 @@ function syncDBJob() {
 }
 
 async function doPost() {
-  syncDBJob();
-  await lastWords();
+  if (false === postRunning) {
+    postRunning = true;
+    await lastWords();
+    syncDBJob();
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
 }
 
 function serve(port = 9934) {
