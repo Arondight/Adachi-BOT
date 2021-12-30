@@ -1,0 +1,18 @@
+{
+  "type": "武器",
+  "title": "单手剑",
+  "name": "银剑",
+  "introduce": "能退魔的银剑。大家都知道，其实用料是银合金而不是纯银。",
+  "access": "商人出售",
+  "rarity": 2,
+  "mainStat": "",
+  "mainValue": "",
+  "baseATK": 243,
+  "ascensionMaterials": [
+    ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片"],
+    ["沉重号角", "黑铜号角", "牢固的箭簇", "锐利的箭簇"]
+  ],
+  "time": "【周一/四/日】",
+  "skillName": "",
+  "skillContent": ""
+}

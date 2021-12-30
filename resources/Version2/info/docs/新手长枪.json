@@ -1,0 +1,18 @@
+{
+  "type": "武器",
+  "title": "长柄武器",
+  "name": "新手长枪",
+  "introduce": "笔直得像旗杆一般的长枪，挥舞起来颇具气势。足以应付大多数情况。",
+  "access": "商人出售",
+  "rarity": 1,
+  "mainStat": "",
+  "mainValue": "",
+  "baseATK": 185,
+  "ascensionMaterials": [
+    ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐"],
+    ["混沌装置", "混沌回路", "导能绘卷", "封魔绘卷"]
+  ],
+  "time": "【周三/六/日】",
+  "skillName": "",
+  "skillContent": ""
+}

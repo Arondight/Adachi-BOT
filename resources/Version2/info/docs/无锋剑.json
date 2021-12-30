@@ -1,0 +1,18 @@
+{
+  "type": "武器",
+  "title": "单手剑",
+  "name": "无锋剑",
+  "introduce": "少年人的梦想、踏上旅途的兴奋——如果这两种珍贵的品质还不够锋利，那就用勇气补足吧。",
+  "access": "商人出售",
+  "rarity": 1,
+  "mainStat": "",
+  "mainValue": "",
+  "baseATK": 185,
+  "ascensionMaterials": [
+    ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片"],
+    ["沉重号角", "黑铜号角", "牢固的箭簇", "锐利的箭簇"]
+  ],
+  "time": "【周一/四/日】",
+  "skillName": "",
+  "skillContent": ""
+}
