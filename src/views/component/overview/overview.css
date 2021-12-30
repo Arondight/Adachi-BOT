@@ -3,6 +3,11 @@
   src: url("../../../../data/font/LXGWWenKaiMono-Bold.ttf");
 }
 
+@font-face {
+  font-family: GenshinUsedFont;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
 body {
   width: 1026px;
   height: 527px;
@@ -356,4 +361,13 @@ material-character-ascension {
   height: 31px;
   margin-right: 3px;
   border-radius: 5px;
+}
+
+.credit {
+  position: absolute;
+  z-index: 999;
+  font-family: GenshinUsedFont, monospace;
+  color: #5e6980;
+  top: 496px;
+  left: 795px;
 }
