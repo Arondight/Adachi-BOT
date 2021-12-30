@@ -1,0 +1,18 @@
+{
+  "type": "武器",
+  "title": "双手剑",
+  "name": "训练大剑",
+  "introduce": "仅仅是削出了剑形的厚重铁片。在意志强韧的人手里，也有劈开磐石的力量。",
+  "access": "商人出售",
+  "rarity": 1,
+  "mainStat": "",
+  "mainValue": "",
+  "baseATK": 185,
+  "ascensionMaterials": [
+    ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙"],
+    ["地脉的旧枝", "地脉的枯叶", "史莱姆凝液", "史莱姆清"]
+  ],
+  "time": "【周二/五/日】",
+  "skillName": "",
+  "skillContent": ""
+}
