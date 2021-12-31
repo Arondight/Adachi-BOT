@@ -51,6 +51,10 @@
   mkdir                   创建文件目录
   readlink                获取文件路径
 
+./oicq.js
+  fromCqcode              将 oicq 2.x 的 message 转换为 oicq 1.x 中的 raw_message
+  toCqcode                将 oicq 1.x 的 raw_message 转换为 oicq 2.x 中的 message
+
 ./id.js
   getID                   获取聊天信息中的 UID 或者米游社 ID
   getUID                  获取聊天信息中的 UID
