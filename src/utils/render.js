@@ -111,7 +111,7 @@ async function render(msg, data, name) {
 
   if (binary) {
     const base64 = new Buffer.from(binary, "utf8").toString("base64");
-    const imageCQ = `[CQ:image,file=base64://${base64}]`;
+    const imageCQ = `[CQ:image,type=image,file=base64://${base64}]`;
     const toDelete = undefined === settings.delete[name] ? settingsDefault.delete : settings.delete[name];
     const record = path.resolve(mkdir(path.resolve(recordDir, name)), `${msg.sid}.jpeg`);
 

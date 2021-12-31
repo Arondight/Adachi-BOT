@@ -33,7 +33,7 @@ aby:
   regex:
     - ^(上期)?深渊\s*$
     - ^(上期)?深渊\s*\d+\s*$
-    - ^(上期)?深渊\s*\[CQ:at,qq=.*$
+    - ^(上期)?深渊\s*\[CQ:at,type=.*?,qq=.*$
   functions:
     aby:
       type: command
@@ -102,7 +102,7 @@ card:
     - ^米游社\s*$
     # XXX 如果 ../src/utils/id.js 中的 getID 变更，这里需要同步改动
     - ^米游社\s*\d{6,10}\s*$
-    - ^米游社\s*\[CQ:at,qq=.*$
+    - ^米游社\s*\[CQ:at,type=.*?,qq=.*$
   functions:
     card:
       type: command
@@ -121,7 +121,7 @@ character:
   regex:
     - ^我的\s*\S+\s*$
     # XXX 如果 ../src/utils/id.js 中的 getUID 变更，这里需要同步改动
-    - ^((\[CQ:at,qq=.*?\])|([125]\d{8}))\s*的\s*\S+\s*$
+    - ^((\[CQ:at,type=.*?,qq=.*?\])|([125]\d{8}))\s*的\s*\S+\s*$
   functions:
     character:
       type: command
@@ -142,7 +142,7 @@ character:
       revert: true
       description: 查询别人的角色
       entrance:
-        - ^((\[CQ:at,qq=.*?\])|(\d+))
+        - ^((\[CQ:at,type=.*?,qq=.*?\])|(\d+))
       options:
         uid: 游戏内UID
         at: "@群友"
@@ -385,7 +385,7 @@ package:
   regex:
     - ^uid\s*$
     - ^uid\s*\d+\s*$
-    - ^uid\s*\[CQ:at,qq=.*$
+    - ^uid\s*\[CQ:at,type=.*?,qq=.*$
   functions:
     package:
       type: command
@@ -402,7 +402,7 @@ rating:
   enable: true
   weights: 9199
   regex:
-    - ^评分\s*\[CQ:image,file=.*$
+    - ^评分\s*\[CQ:image,type=.*?,file=.*$
   functions:
     rating:
       type: command

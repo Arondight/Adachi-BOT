@@ -5,7 +5,7 @@ import { imageOrc } from "./data.js";
 // { "total_score": 700.4420866489831, "total_percent": "77.83", "main_score": 0,
 //   "main_percent": "0.00", "sub_score": 700.4420866489831, "sub_percent": "77.83" }
 async function doRating(msg) {
-  const source = msg.text.match(/\[CQ:image,file=.+?\]/);
+  const source = msg.text.match(/\[CQ:image,type=.*?,file=.+?\]/);
   const [url] = /(?<=url=).+(?=])/.exec(source) || [];
   const headers = {
     "Content-Type": "application/json",

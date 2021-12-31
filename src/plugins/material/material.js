@@ -12,7 +12,7 @@ async function doMaterial(msg, url) {
 
   if (url === urls.weekly) {
     const data = await getCache(url, cacheDir, "base64");
-    const text = `[CQ:image,file=base64://${data}]`;
+    const text = `[CQ:image,type=image,file=base64://${data}]`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
     return;
   }

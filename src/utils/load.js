@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import lodash from "lodash";
 import { checkAuth } from "./auth.js";
+import { toCqcode } from "./oicq.js";
 import { getRandomInt } from "./tools.js";
 
 // 无需加锁
@@ -37,19 +38,21 @@ async function loadPlugins() {
   return plugins;
 }
 
-function isGroupBan(msg, bot) {
-  const info = bot.getGroupInfo(msg.group_id).data;
+function isGroupBan(msg, type, bot) {
+  if ("group" === type) {
+    const { shutup_time_me: time } = bot.pickGroup(msg.group_id).info || {};
 
-  // getGroupInfo 未获取到有效数据则认为没有被禁言
-  if (info && 0 !== info.shutup_time_me) {
-    let time = new Date(0);
-    time.setUTCSeconds(info.shutup_time_me);
-    bot.logger.debug(
-      `禁言：因已被组群 ${
-        msg.group_name + "（ " + msg.group_id + " ）"
-      }禁言拒绝发送消息，${time.toLocaleString()} 禁言结束。`
-    );
-    return true;
+    if (undefined !== time && time > 0) {
+      const date = new Date(0);
+      date.setUTCSeconds(time);
+      bot.logger.debug(
+        `禁言：因已被组群 ${
+          msg.group_name + "（ " + msg.group_id + " ）"
+        }禁言拒绝发送消息，${date.toLocaleString()} 禁言结束。`
+      );
+
+      return true;
+    }
   }
   return false;
 }
@@ -61,8 +64,8 @@ function processedFriendIncrease(msg, bot) {
   }
 }
 
-function processedGroupIncrease(msg, bot) {
-  if (!isGroupBan(msg, bot)) {
+function processedGroupIncrease(msg, type, bot) {
+  if (!isGroupBan(msg, type, bot)) {
     if (bot.uin === msg.user_id) {
       // 如果加入了新群，尝试向全群问好
       // 群通知不需要 @
@@ -78,14 +81,9 @@ function processedGroupIncrease(msg, bot) {
 
 function processedPossibleCommand(msg, plugins, type, bot) {
   // 处理 @ 机器人
-  const atMeReg = new RegExp(`^\\s*\\[CQ:at,qq=${bot.uin},text=.+?\\]\\s*`);
-  const atMe = lodash
-    .chain(msg.message)
-    .filter({ type: "at" })
-    .find({ data: { qq: bot.uin } })
-    .value()
-    ? true
-    : false;
+  // [CQ:at,type=at,qq=123456789,text=@昵称]
+  const atMeReg = new RegExp(`^\\s*\\[CQ:at,type=.*?,qq=${bot.uin},text=.+?\\]\\s*`);
+  const atMe = lodash.chain(msg.message).filter({ type: "at" }).find({ qq: bot.uin }).value() ? true : false;
 
   if (atMe) {
     switch (global.config.atMe) {
@@ -99,7 +97,6 @@ function processedPossibleCommand(msg, plugins, type, bot) {
         }
     }
 
-    // [CQ:at,qq=123456789,text=@nickname]
     msg.raw_message = msg.raw_message.replace(atMeReg, "");
   }
 
@@ -140,14 +137,14 @@ function processedPossibleCommand(msg, plugins, type, bot) {
         return true;
       }
 
-      if ("group" === type && isGroupBan(msg, bot)) {
+      if ("group" === type && isGroupBan(msg, type, bot)) {
         return true;
       }
 
       // 同步 oicq 数据结构
-      if (lodash.hasIn(msg.message, [0, "data", "text"])) {
+      if (lodash.hasIn(msg.message, [0, "text"])) {
         msg.message = lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
-        msg.message[0].data.text = msg.raw_message;
+        msg.message[0].text = msg.raw_message;
       }
 
       // 添加自定义属性
@@ -172,8 +169,12 @@ function processedPossibleCommand(msg, plugins, type, bot) {
   }
 }
 
-function processedGroup(msg, bot) {
-  if (global.config.repeatProb > 0 && getRandomInt(100 * 100) < global.config.repeatProb + 1 && !isGroupBan(msg, bot)) {
+function processedGroup(msg, type, bot) {
+  if (
+    global.config.repeatProb > 0 &&
+    getRandomInt(100 * 100) < global.config.repeatProb + 1 &&
+    !isGroupBan(msg, type, bot)
+  ) {
     // 复读群消息不需要 @
     bot.say(msg.group_id, msg.raw_message, "group");
   }
@@ -191,7 +192,7 @@ function processedOnline(bot) {
           ? global.greeting.online
           : global.greeting.die;
 
-      if (!isGroupBan(group, bot) && "string" === typeof greeting) {
+      if (!isGroupBan(group, "group", bot) && "string" === typeof greeting) {
         // 群通知不需要 @
         bot.say(group.group_id, greeting, "group");
       }
@@ -200,6 +201,10 @@ function processedOnline(bot) {
 }
 
 function processed(msg, plugins, type, bot) {
+  if (undefined !== msg.raw_message && Array.isArray(msg.message)) {
+    msg.raw_message = toCqcode(msg.message);
+  }
+
   // 如果好友增加了，尝试向新朋友问好
   if (type === "friend.increase") {
     processedFriendIncrease(msg, bot);
@@ -208,7 +213,7 @@ function processed(msg, plugins, type, bot) {
 
   // 如果有新成员加入了组群，尝试向新成员或者全群问好
   if (type === "group.increase") {
-    processedGroupIncrease(msg, bot);
+    processedGroupIncrease(msg, type, bot);
     return;
   }
 
@@ -221,7 +226,7 @@ function processed(msg, plugins, type, bot) {
 
   // 如果不是命令，且为群消息，随机复读群消息
   if ("group" === type) {
-    processedGroup(msg, bot);
+    processedGroup(msg, type, bot);
     return;
   }
 

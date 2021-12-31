@@ -48,15 +48,7 @@ async function musicQQ(keyword) {
   }
 
   if (lodash.hasIn(jbody, ["data", "song", "itemlist", 0, "id"])) {
-    return [
-      {
-        type: "music",
-        data: {
-          type: "qq",
-          id: jbody.data.song.itemlist[0].id,
-        },
-      },
-    ];
+    return { type: "qq", id: jbody.data.song.itemlist[0].id };
   }
 
   return ERRCODE.ERR_404;
@@ -100,15 +92,7 @@ async function music163(keyword) {
   }
 
   if (lodash.hasIn(jbody, ["result", "songs", 0, "id"])) {
-    return [
-      {
-        type: "music",
-        data: {
-          type: "163",
-          id: jbody.result.songs[0].id,
-        },
-      },
-    ];
+    return { type: "163", id: jbody.result.songs[0].id };
   }
 
   return ERRCODE.ERR_404;

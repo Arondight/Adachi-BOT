@@ -74,13 +74,21 @@ git clone https://hub.fastgit.org/Arondight/Adachi-BOT.git
 
 ##### 其一，（推荐）使用系统自带的 Chromium
 
-这种做法的好处有三个。
+<details>
+  <summary>这样做的好处有三个。</summary>
 
-1. 包管理器会为你提供 Chromium 安装和运行所需要的依赖。
-2. 包管理器会为你提供 Chromium 安全和功能更新。
-3. 你不需要在一个系统里装多份 Chromium 浏览器。
+1. 包管理器会提供 Chromium 安装和运行所需要的依赖。
+2. 包管理器会提供 Chromium 安全和功能更新。
+3. 不需要在系统里装多份 Chromium 浏览器。
 
-你要做的是用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径，配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。这样 Puppeteer 就可以使用系统自带的 Chromium 。这里以 CentOS 为例，执行以下命令。
+</details>
+
+你要做的是。
+
+1. 用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径。
+2. 配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。
+
+这样 Puppeteer 就可以使用系统自带的 Chromium 了。这里以 CentOS 为例，上面两个步骤可以用转化为以下命令。
 
 ```sh
 sudo yum -y install epel-release
@@ -97,8 +105,8 @@ source "$SHRC"
 npm install
 ```
 
-> 1. `BROWER` 需要设置为 Chromium 的二进制 ELF 路径，而**非启动脚本或其链接**的路径。
-> 2. `SHRC` 是 Shell 配置文件的路径，这里的 Shell 是 `bash` 。
+> 1. `BROWER` 需要设置为 Chromium 的二进制 ELF 路径，而**非启动脚本或其链接**的路径，具体请参照 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中的 《Linux 下如何找到 Chromium 的二进制 ELF 文件路径》。
+> 2. `SHRC` 是 Shell 配置文件的路径，这里的 Shell 是 `bash` ，你也可以写到其他位置（例如 `/etc/profile.d/` ）让系统启动时加载刚才设置的环境变量。
 
 ##### 其二，让 npm 为你安装一个 Chromium
 

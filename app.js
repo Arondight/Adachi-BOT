@@ -1,9 +1,10 @@
 import figlet from "figlet";
 import lodash from "lodash";
 import { createClient } from "oicq";
-import { init } from "./src/utils/init.js";
 import { readConfig } from "./src/utils/config.js";
+import { init } from "./src/utils/init.js";
 import { loadPlugins, processed } from "./src/utils/load.js";
+import { fromCqcode } from "./src/utils/oicq.js";
 
 global.bots = [];
 
@@ -23,34 +24,39 @@ function login() {
       delimiter = " ",
       atSender = true
     ) => {
-      if (msg && "" !== msg) {
-        switch (type) {
-          case "group": {
-            if (global.config.atUser && sender && atSender) {
-              msg = `[CQ:at,qq=${sender}]${delimiter}${msg}`;
-            }
+      try {
+        if (msg && "" !== msg) {
+          switch (type) {
+            case "group": {
+              if (global.config.atUser && sender && atSender) {
+                msg = `[CQ:at,type=at,qq=${sender}]${delimiter}${msg}`;
+              }
 
-            // XXX 非管理员允许撤回两分钟以内的消息
-            const permissionOK =
-              global.config.deleteGroupMsgTime < 120
-                ? true
-                : "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).data.role;
-            const { message_id: mid } = (await bot.sendGroupMsg(id, msg)).data || {};
+              // XXX 非管理员允许撤回两分钟以内的消息
+              const permissionOK =
+                global.config.deleteGroupMsgTime < 120
+                  ? true
+                  : "admin" === (await bot.getGroupMemberInfo(id, bot.uin)).role;
+              const { message_id: mid } = await bot.sendGroupMsg(id, fromCqcode(msg));
 
-            if (true === tryDelete && undefined !== mid && global.config.deleteGroupMsgTime > 0 && permissionOK) {
-              setTimeout(bot.deleteMsg.bind(bot), global.config.deleteGroupMsgTime * 1000, mid);
+              if (true === tryDelete && undefined !== mid && global.config.deleteGroupMsgTime > 0 && permissionOK) {
+                setTimeout(bot.deleteMsg.bind(bot), global.config.deleteGroupMsgTime * 1000, mid);
+              }
+              break;
             }
-            break;
+            case "private":
+              bot.sendPrivateMsg(id, fromCqcode(msg));
+              break;
           }
-          case "private":
-            bot.sendPrivateMsg(id, msg);
-            break;
         }
+      } catch (e) {
+        const info = "string" === typeof e.message ? e.message : e;
+        bot.logger.error(`错误：消息发送失败，因为“${info}”。`);
       }
     };
     bot.sayMaster = async (id, msg, type = undefined, user = undefined) => {
       if (Array.isArray(global.config.masters) && global.config.masters.length) {
-        global.config.masters.forEach((master) => master && bot.sendPrivateMsg(master, msg));
+        global.config.masters.forEach((master) => master && bot.say(master, msg, "private"));
       } else {
         if (undefined !== id && "string" === typeof type && undefined !== user) {
           bot.say(id, "未设置我的主人。", type, user);

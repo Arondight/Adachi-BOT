@@ -11,7 +11,16 @@ async function doMusic(msg) {
     return;
   }
 
-  msg.bot.say(msg.sid, ret, msg.type); // 点歌不需要 @
+  if (undefined !== ret.id) {
+    switch (msg.type) {
+      case "group":
+        msg.group.shareMusic(ret.type, ret.id);
+        break;
+      case "private":
+        msg.friend.shareMusic(ret.type, ret.id);
+        break;
+    }
+  }
 }
 
 async function doMusicSource(msg) {
