@@ -44,9 +44,47 @@ function login() {
               }
               break;
             }
-            case "private":
-              bot.sendPrivateMsg(id, fromCqcode(msg));
+            case "private": {
+              let isFriend = false;
+
+              for (const [, f] of bot.fl) {
+                if (id === f.user_id) {
+                  isFriend = true;
+                  break;
+                }
+              }
+
+              if (true === isFriend) {
+                bot.sendPrivateMsg(id, fromCqcode(msg));
+                return;
+              }
+
+              let gid;
+
+              for (const [, g] of bot.gl) {
+                const members = await bot.getGroupMemberList(g.group_id);
+                let find = false;
+
+                for (const [, m] of members) {
+                  if (id === m.user_id) {
+                    gid = g.group_id;
+                    find = true;
+                    break;
+                  }
+                }
+
+                if (true === find) {
+                  break;
+                }
+              }
+
+              if (undefined === gid) {
+                throw `未找到陌生人 ${id} 所在的群组`;
+              }
+
+              bot.sendTempMsg(gid, id, fromCqcode(msg));
               break;
+            }
           }
         }
       } catch (e) {
