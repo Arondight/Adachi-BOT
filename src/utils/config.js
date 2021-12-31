@@ -478,7 +478,6 @@ function getCommand(obj, key) {
   global[key].weights = reduce(obj, "weights", [true, false], 0);
   global[key].regex = deepReduce(obj, "regex", [true, false], undefined, true);
   global[key].function = deepReduce(obj, "functions", [true, true]);
-
   global[key].functions = {};
 
   for (const name in obj) {
