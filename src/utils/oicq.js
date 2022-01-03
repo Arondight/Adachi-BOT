@@ -67,7 +67,7 @@ function fromCqcode(text = "") {
   for (const c of iter) {
     const s = text.slice(index, c.index).replace(new RegExp(Object.keys(CQ).join("|"), "g"), (s) => CQ[s] || "");
 
-    if ("string" === typeof s) {
+    if ("string" === typeof s && "" !== s) {
       elems.push({ type: "text", text: s });
     }
 
