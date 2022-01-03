@@ -18,37 +18,39 @@ const errMsg = {
 };
 
 async function musicQQ(keyword) {
-  const url = "https://api.qq.jsososo.com/search/quick";
-  const form = { key: keyword };
-  const body = querystring.stringify(form);
+  const url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp";
+  const query = { w: keyword };
   const headers = {
-    "Content-Length": body.length,
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/x-javascript;charset=utf-8",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
   };
   let response;
   let jbody;
 
   try {
-    response = await fetch(url, {
-      method: "POST",
-      headers,
-      body,
-    });
+    response = await fetch(`${url}?${new URLSearchParams(query)}`, { method: "GET", headers });
   } catch (e) {
     return ERRCODE.ERR_API;
   }
 
   if (200 === response.status) {
-    jbody = await response.json();
+    jbody = await response.text();
   }
 
   if (!jbody) {
     return ERRCODE.ERR_API;
   }
 
-  if (lodash.hasIn(jbody, ["data", "song", "itemlist", 0, "id"])) {
-    return { type: "qq", id: jbody.data.song.itemlist[0].id };
+  try {
+    // callback({"code":0,"data":{})
+    const starti = "callback(".length;
+    jbody = JSON.parse(jbody.substring(starti, jbody.length - 1));
+  } catch (e) {
+    return ERRCODE.ERR_API;
+  }
+
+  if (lodash.hasIn(jbody, ["data", "song", "list", 0, "songid"])) {
+    return { type: "qq", id: jbody.data.song.list[0].songid };
   }
 
   return ERRCODE.ERR_404;
@@ -74,11 +76,7 @@ async function music163(keyword) {
   let jbody;
 
   try {
-    response = await fetch(url, {
-      method: "POST",
-      headers,
-      body,
-    });
+    response = await fetch(url, { method: "POST", headers, body });
   } catch (e) {
     return ERRCODE.ERR_API;
   }

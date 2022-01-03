@@ -12,13 +12,17 @@ async function doMusic(msg) {
   }
 
   if (undefined !== ret.id) {
-    switch (msg.type) {
-      case "group":
-        msg.group.shareMusic(ret.type, ret.id);
-        break;
-      case "private":
-        msg.friend.shareMusic(ret.type, ret.id);
-        break;
+    try {
+      switch (msg.type) {
+        case "group":
+          msg.group.shareMusic(ret.type, ret.id);
+          break;
+        case "private":
+          msg.friend.shareMusic(ret.type, ret.id);
+          break;
+      }
+    } catch (e) {
+      global.bots.logger.error(`错误：歌曲查询出错，原因是“${e}”。`);
     }
   }
 }
