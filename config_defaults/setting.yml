@@ -17,8 +17,9 @@ accounts:
   -
     # QQ 号码
     qq: 123456789
-    # QQ 明文密码
-    password: 123456789
+    # QQ 明文密码，留空则使用扫码登录
+    #password:
+    password: zhimakaimen
     # 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
     platform: 5
 # 此选项已弃用，但仍生效，建议使用 accounts

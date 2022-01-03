@@ -98,7 +98,7 @@
  * global.config
  * --------------------------------------------------------------------------
  * {
- *   accounts: [ { qq: 123456789, password: 123456789, platform: 5 } ],
+ *   accounts: [ { qq: 123456789, password: 'zhimakaimen', platform: 5 } ],
  *   masters: [ 987654321 ],
  *   prefixes: [ null ],
  *   atMe: 1,
@@ -122,7 +122,7 @@
  * accounts:
  *   -
  *     qq: 123456789
- *     password: 123456789
+ *     password: zhimakaimen
  *     platform: 5
  * masters:
  *   - 987654321
@@ -699,6 +699,11 @@ function readSetting() {
 
   // 设置每个 QQ 账户的登录选项默认值
   for (const option of global.config.accounts) {
+    // 密码转换为 string
+    if (null !== option.password) {
+      option.password = option.password.toString();
+    }
+
     // 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
     if (![1, 2, 3, 4, 5].includes(option.platform)) {
       option.platform = defaultConfig.platform;

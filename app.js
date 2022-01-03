@@ -109,24 +109,29 @@ function login() {
 
     global.bots.push(bot);
 
-    // 处理登录滑动验证码
-    bot.on("system.login.slider", () => {
-      process.stdin.once("data", (input) => bot.sliderLogin(input.toString()));
-    });
+    if ("string" === typeof account.password) {
+      // 处理登录滑动验证码
+      bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
 
-    // 处理登录图片验证码
-    bot.on("system.login.captcha", () => {
-      process.stdin.once("data", (input) => bot.captchaLogin(input.toString()));
-    });
+      // 处理登录图片验证码
+      bot.on("system.login.captcha", () => process.stdin.once("data", (input) => bot.captchaLogin(input.toString())));
 
-    // 处理设备锁事件
-    bot.on("system.login.device", () => {
-      bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
-      process.stdin.once("data", () => bot.login());
-    });
+      // 处理设备锁事件
+      bot.on("system.login.device", () => {
+        bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
+        process.stdin.once("data", () => bot.login());
+      });
 
-    // 登录
-    bot.login(account.password);
+      bot.login(account.password);
+    } else {
+      // 处理登录二维码
+      bot.on("system.login.qrcode", () => {
+        bot.logger.mark("手机扫码完成后按下回车键继续。");
+        process.stdin.once("data", () => bot.login());
+      });
+
+      bot.login();
+    }
   }
 
   global.bots.logger = global.bots[0] && global.bots[0].logger;
