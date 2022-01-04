@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genshin-card</title>
-    <script src="../../data/js/vue2.js"></script>
+    <script src="../../data/js/vue2.min.js"></script>
     <script src="./component/card/card.js"></script>
     <link rel="stylesheet" href="./component/card/card.css" />
   </head>
@@ -164,7 +164,8 @@
       </div>
     </template>
 
-    <script>
+    <script type="module">
+      import { decodeUriData } from "../utils/frontend.js";
       new Vue({
         el: "#app",
         data: {
@@ -199,9 +200,7 @@
           },
         },
         mounted() {
-          const params = JSON.parse(
-            decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
-          );
+          const params = JSON.parse(decodeUriData(new URL(window.location.href).searchParams.get("data")) || "{}");
           const avatarsList = params.avatars || [];
 
           this.qqid = params.qqid;
