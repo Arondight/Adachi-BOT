@@ -1,6 +1,7 @@
-function decodeURIComponentHelper(base64) {
+function decodeURIComponentHelper(encoded) {
   return decodeURIComponent(
-    atob(base64)
+    window
+      .atob(encoded)
       .split("")
       .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
       .join("")
