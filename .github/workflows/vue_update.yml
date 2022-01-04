@@ -1,21 +1,21 @@
-name: Update resources in dev branch
+name: Update Vue.js in dev branch
 
 on:
   workflow_dispatch:
   schedule:
     # UTC
-    - cron: "0 20 * * *"
+    - cron: "0 21 * * *"
 
 jobs:
-  resources_update:
+  vue_update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: dev
-      - name: Update resources
-        run: ./resources/update.sh
+      - name: Update Vue.js
+        run: ./data/js/update.sh
       - name: Config git
         run: |
           git config user.name 'github-actions'
@@ -25,7 +25,7 @@ jobs:
           if [[ -n $(git status --porcelain) ]]
           then
             git add .
-            git commit -m 'Update resources'
+            git commit -m 'Update Vue.js'
             git push
           else
             echo "Nothing to commit."

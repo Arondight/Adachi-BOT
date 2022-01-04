@@ -13,7 +13,7 @@ API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 # {
 CUSTOM_RES=$(readlink -f "${RDIR}/../resources_custom/")
 # }
-CURL=('curl' '-s')
+CURL=('curl' '-sL')
 
 # ==============================================================================
 # 所有的游戏资源
