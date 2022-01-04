@@ -140,6 +140,7 @@ function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", mill
     // 没有基准字段则删除该记录（因为很可能是错误数据）
     if (!uid || !has(dbName, dbKey[0], i, dbKey[1])) {
       records.splice(i, 1);
+      --i;
       --len;
       ++nums;
       continue;
@@ -152,6 +153,7 @@ function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", mill
 
     if (!time || now - time > milliseconds) {
       records.splice(i, 1);
+      --i;
       --len;
       ++nums;
     }
@@ -179,6 +181,7 @@ function cleanCookies() {
       // 2. 不是今天的记录一律删除
       if (!records[i].date || today !== records[i].date) {
         records.splice(i, 1);
+        --i;
         --len;
         ++nums;
       }
@@ -201,6 +204,7 @@ function cleanCookiesInvalid() {
   for (let i = 0, len = records.length; i < len; ++i) {
     if (!records[i].cookie || !global.cookies.includes(records[i].cookie)) {
       records.splice(i, 1);
+      --i;
       --len;
       ++nums;
     }
