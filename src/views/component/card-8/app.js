@@ -83,7 +83,7 @@ import HomeBox from "./home-box.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent, computed } = Vue;
-import { decodeUriData } from "../../../utils/frontend.js";
+import { decodeUriData } from "../common/utils.js";
 
 export default defineComponent({
   name: "Card8Box",

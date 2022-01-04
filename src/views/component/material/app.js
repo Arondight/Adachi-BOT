@@ -17,7 +17,7 @@ import MaterialColumn from "./column.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
-import { decodeUriData } from "../../../utils/frontend.js";
+import { decodeUriData } from "../common/utils.js";
 
 export default defineComponent({
   name: "MaterialApp",
