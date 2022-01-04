@@ -8,7 +8,7 @@ function reply(msg) {
     const curType = item.group_id ? "group" : "private";
     const itemID = "group" === curType ? item.group_id : item.user_id;
 
-    if (itemID == target) {
+    if (itemID === target) {
       // 送话无法 @
       msg.bot.say(itemID, `主人让我送个话：\n${text}`, curType);
       // 私聊无法 @

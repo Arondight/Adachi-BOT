@@ -45,7 +45,7 @@ function getEffectiveCookie(uid, s, use_cookie) {
     return s >= cookies.length ? cookie : getEffectiveCookie(uid, s + 1, use_cookie);
   }
 
-  if (date && date != today) {
+  if (date && date !== today) {
     times = 0;
   }
 
@@ -112,12 +112,13 @@ function writeInvalidCookie(cookie) {
       if (!db.includes(dbName, "cookie", "cookie", cookie)) {
         const initData = { cookie, cookie_token, account_id };
         db.push(dbName, "cookie", initData);
-        markCookieUnusable(cookie);
+      }
 
-        // 删除该 Cookie 所有的使用记录
-        if (db.includes(dbCookieName, "uid", "cookie", cookie)) {
-          db.remove(dbCookieName, "uid", { cookie });
-        }
+      markCookieUnusable(cookie);
+
+      // 删除该 Cookie 所有的使用记录
+      if (db.includes(dbCookieName, "uid", "cookie", cookie)) {
+        db.remove(dbCookieName, "uid", { cookie });
       }
     }
   }

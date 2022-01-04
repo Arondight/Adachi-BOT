@@ -11,7 +11,7 @@ async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "overview", "info"):
       if (guess.length > 0 && false !== checkAuth(msg, "info")) {
-        doInfo(msg, 1 == guess.length ? guess[0] : name, guess);
+        doInfo(msg, 1 === guess.length ? guess[0] : name, guess);
       }
       break;
   }

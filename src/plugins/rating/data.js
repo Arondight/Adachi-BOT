@@ -127,7 +127,7 @@ async function imageOrc(msg, url) {
     msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);
   }
 
-  if (200 != response.status) {
+  if (200 !== response.status) {
     msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);
     return undefined;
   }

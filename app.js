@@ -113,9 +113,6 @@ function login() {
       // 处理登录滑动验证码
       bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
 
-      // 处理登录图片验证码
-      bot.on("system.login.captcha", () => process.stdin.once("data", (input) => bot.captchaLogin(input.toString())));
-
       // 处理设备锁事件
       bot.on("system.login.device", () => {
         bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
