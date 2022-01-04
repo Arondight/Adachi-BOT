@@ -202,7 +202,7 @@ function processedOnline(bot) {
 
 function processed(msg, plugins, type, bot) {
   if (undefined !== msg.raw_message && Array.isArray(msg.message)) {
-    msg.raw_message = toCqcode(msg.message);
+    msg.raw_message = toCqcode(msg);
   }
 
   // 如果好友增加了，尝试向新朋友问好

@@ -3,12 +3,11 @@
  * https://github.com/takayama-lily/oicq
  * ==========================================================================
  * 因为 oicq 维护的这几个 API 有兼容性问题，所以在此重新实现。
- * 在 oicq 修复后，因为切换官方 API 会涉及到特殊节点代码升级后不正常的问题，
- * 所以尽量不切换到官方 API 。
  * ========================================================================== */
 
 import lodash from "lodash";
 import querystring from "querystring";
+import { genDmMessageId } from "oicq/lib/message/message.js";
 
 const CQ = {
   "&#91;": "[",
@@ -50,10 +49,20 @@ function qs(text, sep = ",", equal = "=") {
   return ret;
 }
 
-function toCqcode(message = []) {
+// BREAKING 参数已改变
+function toCqcode(msg = {}) {
+  const isQuote = lodash.hasIn(msg, ["source", "message"]);
   let cqcode = "";
+  let firstAtParsed = false;
 
-  (Array.isArray(message) ? message : [message]).forEach((c) => {
+  if (true === isQuote) {
+    const quote = { ...msg.source, flag: 1 };
+    const mid = genDmMessageId(quote.user_id, quote.seq, quote.rand, quote.time, quote.flag);
+
+    cqcode += `[CQ:reply,id=${mid}]`;
+  }
+
+  (msg.message || []).forEach((c) => {
     if ("text" === c.type) {
       cqcode += c.text;
       return;
@@ -62,7 +71,14 @@ function toCqcode(message = []) {
     const s = querystring.stringify(c, ",", "=", {
       encodeURIComponent: (s) => s.replace(new RegExp(Object.keys(CQInside).join("|"), "g"), (s) => CQInside[s] || ""),
     });
-    cqcode += `[CQ:${c.type}${s ? "," : ""}${s}]`;
+    const cq = `[CQ:${c.type}${s ? "," : ""}${s}]`;
+
+    cqcode += cq;
+
+    if ("at" === c.type && false === firstAtParsed && true === isQuote) {
+      cqcode += cq;
+      firstAtParsed = true;
+    }
   });
 
   return cqcode;
