@@ -17,7 +17,7 @@ function setReplyAuth(msg) {
     const curType = item.group_id ? "group" : "private";
     const itemID = item.group_id ? item.group_id : item.user_id;
 
-    if (itemID == id) {
+    if (itemID === id) {
       // 群通知不需要 @
       msg.bot.say(id, `主人已${isOn ? "允许" : "禁止"}我响应消息。`, curType);
     }

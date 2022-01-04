@@ -39,7 +39,7 @@ function checkAuth(msg, func, report = true) {
   const uauth = hasAuth(msg.uid, func);
   const gauth = hasAuth(msg.sid, func);
 
-  if (undefined == uauth && undefined === gauth) {
+  if (undefined === uauth && undefined === gauth) {
     return undefined;
   }
 

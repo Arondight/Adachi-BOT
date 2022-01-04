@@ -45,7 +45,7 @@ function getEffectiveCookie(uid, s, use_cookie) {
     return s >= cookies.length ? cookie : getEffectiveCookie(uid, s + 1, use_cookie);
   }
 
-  if (date && date != today) {
+  if (date && date !== today) {
     times = 0;
   }
 

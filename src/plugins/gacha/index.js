@@ -12,7 +12,7 @@ async function Plugin(msg) {
       const name = getPool(msg);
       const guess = guessPossibleNames(name, Object.values(global.command.functions.options.pool));
       if ((undefined === name || guess.length > 0) && false !== checkAuth(msg, "pool")) {
-        doPool(msg, 1 == guess.length ? guess[0] : name);
+        doPool(msg, 1 === guess.length ? guess[0] : name);
       }
       break;
     }
@@ -35,7 +35,7 @@ async function Plugin(msg) {
       const name = getName(msg);
       const guess = guessPossibleNames(name, global.names.weapon);
       if (guess.length > 0 && false !== checkAuth(msg, "select")) {
-        doSelect(msg, 1 == guess.length ? guess[0] : name);
+        doSelect(msg, 1 === guess.length ? guess[0] : name);
       }
       break;
     }

@@ -177,7 +177,7 @@ function cleanCookies() {
     for (let i = 0, len = records.length; i < len; ++i) {
       // 1. 没有基准字段则删除该记录
       // 2. 不是今天的记录一律删除
-      if (!records[i].date || today != records[i].date) {
+      if (!records[i].date || today !== records[i].date) {
         records.splice(i, 1);
         --len;
         ++nums;
