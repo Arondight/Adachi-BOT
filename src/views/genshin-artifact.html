@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genshin-artifact</title>
-    <script src="../../data/js/vue2.js"></script>
+    <script src="../../data/js/vue2.min.js"></script>
     <link rel="stylesheet" href="./component/artifact/artifact.css" />
   </head>
   <body>
@@ -29,7 +29,8 @@
       </div>
     </div>
 
-    <script>
+    <script type="module">
+      import { decodeUriData } from "./component/common/utils.js";
       new Vue({
         el: "#app",
         data: {
@@ -97,9 +98,7 @@
           },
         },
         mounted() {
-          const params = JSON.parse(
-            decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
-          );
+          const params = JSON.parse(decodeUriData(new URL(window.location.href).searchParams.get("data")) || "{}");
 
           this.base = params.base;
           this.data = params.data;

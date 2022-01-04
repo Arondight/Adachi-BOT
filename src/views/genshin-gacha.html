@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genshin-gacha</title>
-    <script src="../../data/js/vue2.js"></script>
+    <script src="../../data/js/vue2.min.js"></script>
     <link rel="stylesheet" href="./component/gacha/gacha.css" />
   </head>
   <body>
@@ -50,7 +50,8 @@
       </div>
     </template>
 
-    <script>
+    <script type="module">
+      import { decodeUriData } from "./component/common/utils.js";
       const background = {
         template: "#background",
         props: ["user", "type"],
@@ -148,9 +149,7 @@
           },
         },
         mounted() {
-          const params = JSON.parse(
-            decodeURIComponent(escape(window.atob(new URL(window.location.href).searchParams.get("data")) || "{}"))
-          );
+          const params = JSON.parse(decodeUriData(new URL(window.location.href).searchParams.get("data")) || "{}");
 
           this.gachaList = params.data;
           this.type = params.type;
