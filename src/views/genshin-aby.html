@@ -207,7 +207,8 @@
     </div>
   </body>
   <script type="module">
-    import { decodeUriData } from "./component/common/utils.js";
+    import { getParams } from "./component/common/param.js";
+
     new Vue({
       el: "#app",
       data: {
@@ -254,7 +255,7 @@
         },
       },
       mounted() {
-        const params = JSON.parse(decodeUriData(new URL(window.location.href).searchParams.get("data")) || "{}");
+        const params = getParams(window.location.href);
 
         this.uid = params.uid;
         this.start_time = this.formatDate(new Date(params.data.start_time * 1000), "yyyy/MM/dd");

@@ -19,7 +19,11 @@
 1. 代码提交前运行 `npm run code-check` 进行检查确保无报错，并运行 `npm run code-format` 进行格式化。
 2. 代码自测完毕后发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 合入 `dev` 分支。
 3. 新功能添加或者功能修改请先发起 [Issue](https://github.com/Arondight/Adachi-BOT/issues) 询问我的意愿，根据沟通结果选择合入本项目或者提交到你账户下的一个 Fork 。漏洞修复无需事先沟通，直接发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 并描述清楚问题即可。
-4. 请不要在你的 Fork 中开启 `Update resources in dev branch` 这个 workflow ！它对你没有任何帮助。
+
+> 请不要在你的 Fork 中开启下面的 workflow ！它们对你没有任何帮助。
+>
+> 1. `Update resources in dev branch`
+> 2. `Update Vue.js in dev branch`
 
 ## 使用
 

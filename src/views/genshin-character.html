@@ -96,7 +96,8 @@
     </template>
 
     <script type="module">
-      import { decodeUriData } from "./component/common/utils.js";
+      import { getParams } from "./component/common/param.js";
+
       new Vue({
         el: "#app",
         data: {
@@ -131,7 +132,7 @@
           },
         },
         mounted() {
-          const params = JSON.parse(decodeUriData(new URL(window.location.href).searchParams.get("data")) || "{}");
+          const params = getParams(window.location.href);
           const character = params.data || {};
 
           this.uid = params.uid;
