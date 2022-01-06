@@ -23,9 +23,6 @@ export default defineComponent({
   props: {
     data: Object,
   },
-  components: {
-    detailedExplorationData,
-  },
   setup(props) {
     const logo_mapping = {
       mengde: "mondstadt",
