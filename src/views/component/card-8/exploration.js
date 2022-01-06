@@ -17,16 +17,11 @@ const template = `<div class="exploration">
 // eslint-disable-next-line no-undef
 const {defineComponent} = Vue;
 
-import detailedExplorationData from "./detailedExplorationData.js";
-
 export default defineComponent({
     name: "ExplorationBox",
     template,
     props: {
         data: Object,
-    },
-    components: {
-        detailedExplorationData,
     },
     setup(props) {
         const logo_mapping = {
