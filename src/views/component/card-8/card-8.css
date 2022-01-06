@@ -278,7 +278,7 @@ body {
 }
 
 .exploration {
-  width: 198px;
+  width: 208px;
   height: 66px;
   background: no-repeat center/100% url("http://localhost:9934/resources/Version2/module/user-nase-exp-bg.png");
   display: flex;
@@ -287,26 +287,39 @@ body {
 }
 
 .logo {
-  width: 72px;
+  width: 64px;
   filter: brightness(0.9) contrast(1.1);
 }
 
-.exploration .exp-area {
+.logo.self-managed {
+  height: 64px;
+  background: linear-gradient(rgba(238, 239, 169, 1) 0%, hsl(42deg 58% 76%) 45%, rgba(177, 152, 112, 1) 80%);
+}
+
+.exp-area {
   display: grid;
   grid-template-columns: max-content auto;
+  height: 100%;
   width: 90%;
   align-items: center;
-  margin-top: -3px;
   margin-left: 6px;
 }
 
 .container-detailedExploration {
   display: grid;
-  grid-template-columns: auto max-content;
+  grid-template-columns: minmax(56px, max-content) max-content;
   font-size: 14px;
   width: 77%;
   grid-row-gap: 2px;
-  margin-left: 10px;
+  grid-column-gap: 7px;
+  margin-left: 9px;
+}
+
+p.align-right {
+  width: 100%;
+  text-align-last: justify;
+  /*以下声明暂时未被Chrome支持，但不会有影响*/
+  text-justify: distribute !important;
 }
 
 .home-box {
@@ -406,7 +419,7 @@ body {
 }
 
 .signature-body {
-  transform: rotate(356deg);
+  transform: rotate(359deg);
   margin-bottom: 2px;
   font-family: "YunXiJinShu", "azuki", "GenshinUsedFont", monospace;
   text-align: center;
