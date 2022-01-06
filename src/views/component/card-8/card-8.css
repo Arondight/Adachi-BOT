@@ -280,10 +280,11 @@ body {
 .exploration {
   width: 208px;
   height: 66px;
-  background: no-repeat center/100% url("http://localhost:9934/resources/Version2/module/user-nase-exp-bg.png");
+  background: no-repeat url("http://localhost:9934/resources/Version2/module/user-nase-exp-bg.png");
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background-size: 100% 100%;
 }
 
 .logo {
