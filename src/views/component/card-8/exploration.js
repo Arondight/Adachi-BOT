@@ -15,41 +15,44 @@ const template = `<div class="exploration">
 </div>`;
 
 // eslint-disable-next-line no-undef
-const {defineComponent} = Vue;
+const { defineComponent } = Vue;
 
 export default defineComponent({
-    name: "ExplorationBox",
-    template,
-    props: {
-        data: Object,
-    },
-    setup(props) {
-        const logo_mapping = {
-            mengde: "mondstadt",
-            liyue: "liyue",
-            dragonspine: "dragonspine",
-            daoqi: "inazuma",
-            // "enkanomiya": "enkanomiya"
-        };
+  name: "ExplorationBox",
+  template,
+  props: {
+    data: Object,
+  },
+  components: {
+    detailedExplorationData,
+  },
+  setup(props) {
+    const logo_mapping = {
+      mengde: "mondstadt",
+      liyue: "liyue",
+      dragonspine: "dragonspine",
+      daoqi: "inazuma",
+      // "enkanomiya": "enkanomiya"
+    };
 
-        const silveryLogos = ["mengde", "liyue", "dragonspine", "daoqi"];
+    const silveryLogos = ["mengde", "liyue", "dragonspine", "daoqi"];
 
-        function getIconUri(rawUri) {
-            const icon_filename = rawUri.split("_").slice(-1)[0].split(".").slice(0)[0];
-            let iconUri, isSilveryLogos;
-            if (logo_mapping[icon_filename.toLowerCase()]) {
-                iconUri = `http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`;
-                isSilveryLogos = silveryLogos.includes(icon_filename.toLowerCase());
-            } else {
-                iconUri = rawUri;
-                isSilveryLogos = false;
-            }
-            return [iconUri, isSilveryLogos];
-        }
-        const [areaLogo, isSilveryIcon] = getIconUri(props.data.icon);
+    function getIconUri(rawUri) {
+      const icon_filename = rawUri.split("_").slice(-1)[0].split(".").slice(0)[0];
+      let iconUri, isSilveryLogos;
+      if (logo_mapping[icon_filename.toLowerCase()]) {
+        iconUri = `http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`;
+        isSilveryLogos = silveryLogos.includes(icon_filename.toLowerCase());
+      } else {
+        iconUri = rawUri;
+        isSilveryLogos = false;
+      }
+      return [iconUri, isSilveryLogos];
+    }
+    const [areaLogo, isSilveryIcon] = getIconUri(props.data.icon);
 
-        const explorationPercentage = parseInt(props.data.exploration_percentage) / 10;
+    const explorationPercentage = parseInt(props.data.exploration_percentage) / 10;
 
-        return { areaLogo, isSilveryIcon, explorationPercentage };
-    },
+    return { areaLogo, isSilveryIcon, explorationPercentage };
+  },
 });
