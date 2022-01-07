@@ -30,13 +30,33 @@
             </div>
             <!--结构化模版结束-->
           </div>
-          <div class="card summary">
-            <div class="banner-middle first-banner">战斗次数</div>
-            <div class="banner-summary">{{total_battle_times}}</div>
-            <div class="banner-middle">最深抵达</div>
-            <div class="banner-summary">{{max_floor}}</div>
-            <div class="banner-middle">获得渊星</div>
-            <div class="banner-summary">{{total_star}}<span class="abyss-star large">*</span></div>
+          <div class="container-horizontal no-margin-left no-margin-bottom no-margin-right">
+            <div class="card strongest-hit">
+              <div class="no-background banner-strongest-hit">最强一击</div>
+              <!--结构化模版开始-->
+              <div class="container-strongest-hit">
+                <div
+                  class="challenge-times-per-char-base"
+                  v-for="(damage,index) in damage_rank"
+                  v-if="index = 1"
+                  :key="index"
+                >
+                  <div class="background-general" :class="'star-' + damage.rarity">
+                    <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
+                  </div>
+                  <div class="description-general strongest-hit">{{damage.value}}</div>
+                </div>
+              </div>
+              <!--结构化模版结束-->
+            </div>
+            <div class="card summary">
+              <div class="banner-middle first-banner">战斗次数</div>
+              <div class="banner-summary">{{total_battle_times}}</div>
+              <div class="banner-middle">最深抵达</div>
+              <div class="banner-summary">{{max_floor}}</div>
+              <div class="banner-middle">获得渊星</div>
+              <div class="banner-summary">{{total_star}}<span class="abyss-star large">*</span></div>
+            </div>
           </div>
           <div class="container-horizontal no-margin-left no-margin-right no-margin-bottom allow-wrap">
             <!--米游社新API适配模版开始-->
@@ -121,29 +141,9 @@
             <!--米游社新API适配模版结束-->
           </div>
         </div>
-        <div class="container-horizontal no-margin-left no-margin-right no-margin-top">
-          <div class="card strongest-hit">
-            <div class="banner-middle no-background">最强一击</div>
-            <!--结构化模版开始-->
-            <div class="container-strongest-hit">
-              <div
-                class="challenge-times-per-char-base"
-                v-for="(damage,index) in damage_rank"
-                v-if="index = 1"
-                :key="index"
-              >
-                <div class="background-general" :class="'star-' + damage.rarity">
-                  <img class="strongest-hit" :src="imageUrlReplacement(damage.avatar_icon)" alt="ERROR" />
-                </div>
-                <div class="description-general strongest-hit">{{damage.value}}</div>
-              </div>
-            </div>
-            <!--结构化模版结束-->
-          </div>
-          <div class="card credit">
-            <div class="credit no-margin">CREATED BY</div>
-            <div class="credit no-margin">Adachi-BOT</div>
-          </div>
+        <div class="card credit">
+          <div class="credit no-margin">CREATED BY</div>
+          <div class="credit no-margin">Adachi-BOT</div>
         </div>
       </div>
       <!--深渊模块开始-->

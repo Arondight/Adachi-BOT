@@ -110,7 +110,7 @@ body {
 
 .summary {
   height: 100%;
-  margin-top: 10px;
+  width: 165px;
 }
 
 .detailed {
@@ -120,9 +120,13 @@ body {
 
 .banner-middle {
   display: flex;
+  width: 100%;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-evenly;
+  align-items: center;
+  background-color: #ffffff2e;
+  font-size: 17px !important;
 }
 
 .first-banner {
@@ -142,6 +146,7 @@ body {
 
 .card-avatar-details {
   margin-bottom: 10px;
+  width: 80px;
 }
 
 .allow-wrap {
@@ -326,12 +331,26 @@ body {
 
 img.strongest-hit {
   border-radius: 10px 10px 7% 0;
-  zoom: 64%;
+  width: 165px;
+}
+
+.banner-strongest-hit {
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card.strongest-hit {
+  height: 241px;
+  justify-content: space-between;
 }
 
 img.avatar-details {
   border-radius: 10px 10px 7% 0;
-  zoom: 64%;
+  width: 80px;
 }
 
 .description-general.strongest-hit {
@@ -340,8 +359,6 @@ img.avatar-details {
 }
 
 .container-strongest-hit {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -356,8 +373,8 @@ img.avatar-details {
   align-content: center;
   flex-direction: column;
   flex-wrap: nowrap;
-  margin-left: 10px;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 div.credit {
