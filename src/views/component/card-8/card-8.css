@@ -5,16 +5,19 @@
 
 @font-face {
   font-family: GenshinUsedFont;
+  font-display: block;
   src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
 @font-face {
   font-family: YunXiJinShu;
+  font-display: block;
   src: url("../../../../data/font/YunXiJinShu.ttf");
 }
 
 @font-face {
   font-family: azuki;
+  font-display: fallback;
   src: url("../../../../data/font/azuki.ttf");
 }
 
@@ -61,6 +64,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  min-height: 175px;
 }
 
 .container-player-info {
@@ -73,6 +77,8 @@ body {
   border-radius: 50px;
   margin-top: 4px;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  min-height: 25px;
 }
 
 .player-info {
@@ -129,21 +135,23 @@ body {
   border-radius: 6px;
   color: #4a5263;
   padding: 8px 0;
+  min-height: 145px;
 }
 
 .middle {
   display: grid;
   grid-template-columns: auto 100px auto max-content;
   row-gap: 1px;
-  width: 80%;
+  min-width: 300px;
+  min-height: 125px;
 }
 
 .bottom-split {
-  margin-top: 4.2%;
+  margin-top: 20px;
 }
 
 .bottom-split .title .icon {
-  margin-left: 6.5%;
+  margin-left: 28px;
 }
 
 .left .bottom {
@@ -171,6 +179,8 @@ body {
 
 .container-character {
   width: 100%;
+  margin-bottom: 8px;
+  margin-top: 10px;
 }
 
 .container-vertical {
@@ -178,6 +188,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 5px;
+  min-height: 250px;
 }
 
 .box {
@@ -185,6 +196,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+  min-width: 250px;
 }
 
 .character-box {
@@ -278,7 +290,7 @@ body {
 }
 
 .exploration {
-  width: 208px;
+  width: 202px;
   height: 66px;
   background: no-repeat url("http://localhost:9934/resources/Version2/module/user-nase-exp-bg.png");
   display: flex;
@@ -313,7 +325,7 @@ body {
   width: 77%;
   grid-row-gap: 2px;
   grid-column-gap: 7px;
-  margin-left: 9px;
+  margin-left: 6px;
 }
 
 p.align-right {
@@ -375,7 +387,7 @@ p.align-right {
 }
 
 .section-title {
-  width: 100%;
+  width: 480px;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -396,12 +408,13 @@ p.align-right {
 }
 
 .split-line {
-  max-height: 12px;
+  height: 12px;
   margin: 0 3%;
 }
 
 .bottom-split .split-line {
-  width: 80%;
+  width: 384px;
+  height: 12px;
 }
 
 .container-traveler-signature {
@@ -411,7 +424,6 @@ p.align-right {
   align-items: end;
   align-self: flex-end;
   margin-right: 14px;
-  margin-top: 8px;
 }
 
 .signature-header {
