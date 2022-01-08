@@ -111,6 +111,7 @@
           constellate: 0,
           artifacts: [],
           weapon: {},
+          costumes: {},
         },
         components: {
           background,
@@ -144,6 +145,7 @@
           this.constellate = character.constellationNum;
           this.weapon = character.weapon;
           this.contextLen = 320 - this.getLength(this.weapon.name) * 31 - 18;
+          this.costumes = character.costumes;
 
           switch (this.elementName) {
             case "Anemo":
