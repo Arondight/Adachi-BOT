@@ -281,12 +281,12 @@ npm run restart
 </details>
 
 <details>
-  <summary>游戏数据查询</summary>
-  <div align="center">
+<summary>游戏数据查询</summary>
+<div align="center">
+    
 ![角色](images/角色.jpg)
 ![武器](images/武器.png)
-
-  </div>
+</div>
 </details>
 
 ## 致谢
