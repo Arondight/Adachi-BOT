@@ -99,12 +99,19 @@ export default defineComponent({
 
     const hasLevelInfo = params.level !== -1;
     const hasPlayerNameInfo = params.nickname !== "";
-    const target = params.avatars[Math.floor(Math.random() * params.avatars.length)];
+    const randomAvatarOrder = Math.floor(Math.random() * params.avatars.length);
+    const target = params.avatars[randomAvatarOrder];
+    const targetHasCostume = params.avatars[randomAvatarOrder]["costumes"].length !== 0;
+    const costumeName = targetHasCostume ? params.avatars[randomAvatarOrder]["costumes"][0]["name"] : "";
+
     const ye = { 10000005: "旅行者男", 10000007: "旅行者女" };
     const name = ye[target.id] || target.name;
     const id = 10000007 === target.id ? 10000005 : target.id; // 妹妹名片重定向至哥哥名片
     const nameCard = computed(() => `http://localhost:9934/resources/Version2/namecard/${id}.png`);
-    const character = computed(() => `http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
+    const character = targetHasCostume
+      ? computed(() => `http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`)
+      : computed(() => `http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
+
     const explorations = params.explorations.reverse();
 
     function homeData(name) {

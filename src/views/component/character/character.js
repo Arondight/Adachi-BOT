@@ -8,11 +8,7 @@ const background = {
     character: {
       type: Number,
     },
-  },
-  computed: {
-    image() {
-      return "http://localhost:9934/resources/Version2/character/" + this.character + ".png";
-    },
+    path: String,
   },
 };
 
