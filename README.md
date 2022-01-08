@@ -246,7 +246,7 @@ npm run restart
   <summary>查询我的角色</summary>
   <div align="center">
 
-![我的](images/我的.png)
+![我的](images/我的.jpg)
 
   </div>
 </details>
