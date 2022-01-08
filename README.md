@@ -237,7 +237,7 @@ npm run restart
   <summary>展示玩家信息</summary>
   <div align="center">
 
-![米游社](images/米游社.png)
+![米游社](images/米游社.jpg)
 
   </div>
 </details>
@@ -283,8 +283,7 @@ npm run restart
 <details>
   <summary>游戏数据查询</summary>
   <div align="center">
-
-![角色](images/角色.png)
+![角色](images/角色.jpg)
 ![武器](images/武器.png)
 
   </div>
