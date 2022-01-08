@@ -29,7 +29,7 @@ export default defineComponent({
       liyue: "liyue",
       dragonspine: "dragonspine",
       daoqi: "inazuma",
-      // "enkanomiya": "enkanomiya"
+      enkanomiya: "enkanomiya",
     };
 
     const silveryLogos = ["mengde", "liyue", "dragonspine", "daoqi"];
