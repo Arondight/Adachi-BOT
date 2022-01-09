@@ -1,3 +1,13 @@
+@font-face {
+  font-family: GenshinUsedFont;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
+@font-face {
+  font-family: HuaWen;
+  src: url("../../../../data/font/HWZhongSong.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -240,12 +250,7 @@ body {
   width: 283px;
 }
 
-@font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
-}
-
-@font-face {
-  font-family: HuaWen;
-  src: url("../../../../data/font/HWZhongSong.ttf");
+.container-horizontal {
+  display: flex;
+  align-items: flex-end;
 }

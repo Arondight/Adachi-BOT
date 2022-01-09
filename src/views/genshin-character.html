@@ -6,6 +6,7 @@
     <script src="../../data/js/vue2.min.js"></script>
     <script src="./component/character/character.js"></script>
     <link rel="stylesheet" href="./component/character/character.css" />
+    <link rel="icon" href="data:," />
   </head>
   <body>
     <div id="app">
@@ -18,7 +19,7 @@
         :constellation="constellate"
       ></base-info>
       <reliquaries :artifacts="artifacts"></reliquaries>
-      <weapon-box :weapon="weapon" :len="contextLen"></weapon-box>
+      <weapon-box :weapon="weapon"></weapon-box>
     </div>
 
     <template id="background">
@@ -58,7 +59,7 @@
             <empty-box :pos="i"></empty-box>
           </div>
           <div v-else>
-            <artifact :detail="artifacts[i]"> </artifact>
+            <artifact :detail="artifacts[i]"></artifact>
           </div>
         </div>
       </div>
@@ -86,8 +87,10 @@
       <div class="weapon">
         <img class="weapon-image" :src="weapon.icon" alt="ERROR" />
         <div class="weapon-context">
-          <p class="weapon-name">{{weapon.name}}</p>
-          <p v-if="len !== 0" class="weapon-refine" :style="{ width: len + 'px' }">精炼{{weapon.affix_level}}阶</p>
+          <div class="container-horizontal">
+            <p class="weapon-name">{{weapon.name}}</p>
+            <p class="weapon-refine">精炼{{weapon.affix_level}}阶</p>
+          </div>
           <p class="weapon-rarity">{{rarity}}</p>
           <p class="weapon-level">Lv.{{weapon.level}}</p>
           <p class="weapon-desc">{{weapon.desc}}</p>
