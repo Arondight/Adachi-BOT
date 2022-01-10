@@ -1,10 +1,11 @@
 import fs from "fs";
 import path from "path";
+import puppeteer from "puppeteer";
 import url from "url";
 import yargs from "yargs";
+import { execSync } from "child_process";
 import { hideBin } from "yargs/helpers";
 import { ls } from "../src/utils/file.js";
-import { render } from "../src/utils/render.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,14 +34,14 @@ async function main() {
       name: {
         alias: "n",
         type: "string",
-        description: "视图名称",
+        description: "名称",
         requiresArg: true,
         required: false,
       },
       list: {
         alias: "l",
         type: "boolean",
-        description: "显示可选视图名称",
+        description: "显示可选名称",
         requiresArg: false,
         required: false,
       },
@@ -64,8 +65,17 @@ async function main() {
       const data = JSON.parse(fs.readFileSync(dataFile, "utf-8"));
 
       if (data) {
-        render({}, data, view);
-        await new Promise(() => {}); // active but do nothing, never return
+        const dataStr = JSON.stringify(data);
+        const param = { data: new Buffer.from(dataStr, "utf8").toString("base64") };
+        const url = `http://localhost:9934/src/views/${["genshin", argv.name].join("-")}.html`;
+
+        try {
+          execSync([puppeteer.executablePath(), `${url}?${new URLSearchParams(param)}`].join(" "));
+        } catch (e) {
+          return e.status;
+        }
+
+        return 0;
       }
     }
 
