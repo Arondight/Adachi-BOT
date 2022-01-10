@@ -1,6 +1,7 @@
-import fs from "fs";
-import path from "path";
 import fetch from "node-fetch";
+import fs from "fs";
+import lodash from "lodash";
+import path from "path";
 import { getDS } from "./ds.js";
 
 const __API = {
@@ -8,8 +9,9 @@ const __API = {
   FETCH_ROLE_INDEX: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/index",
   FETCH_ROLE_CHARACTERS: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/character",
   FETCH_GACHA_LIST: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json",
-  FETCH_GACHA_DETAIL: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/$/zh-cn.json",
+  FETCH_GACHA_DETAIL: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/{}/zh-cn.json",
   FETCH_ABY_DETAIL: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
+  FETCH_MYS_NEWS: "https://bbs-api.mihoyo.com/post/wapi/getNewsList",
 };
 const HEADERS = {
   "User-Agent":
@@ -81,13 +83,25 @@ function getCharacters(role_id, server, character_ids, cookie) {
 function getGachaList() {
   return fetch(__API.FETCH_GACHA_LIST, {
     method: "GET",
+    headers: lodash.pick(HEADERS, ["DS", "Cookie"]),
   }).then((res) => res.json());
 }
 
 function getGachaDetail(gachaID) {
-  return fetch(__API.FETCH_GACHA_DETAIL.replace("$", gachaID), {
+  return fetch(__API.FETCH_GACHA_DETAIL.replace("{}", gachaID), {
     method: "GET",
+    headers: lodash.pick(HEADERS, ["DS", "Cookie"]),
   }).then((res) => res.json());
 }
 
-export { getAbyDetail, getBase, getCharacters, getGachaDetail, getGachaList, getIndex, getInfo };
+function getMysNews(type = 1) {
+  const query = { gids: 2, page_size: 10, type };
+
+  return fetch(`${__API.FETCH_MYS_NEWS}?${new URLSearchParams(query)}`, {
+    method: "GET",
+    qs: query,
+    headers: lodash.pick(HEADERS, ["DS", "Cookie"]),
+  }).then((res) => res.json());
+}
+
+export { getAbyDetail, getBase, getCharacters, getGachaDetail, getGachaList, getIndex, getInfo, getMysNews };

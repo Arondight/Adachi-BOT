@@ -1,0 +1,64 @@
+import path from "path";
+import lodash from "lodash";
+import db from "./database.js";
+import { getCache } from "./cache.js";
+
+function initDB() {
+  for (const t of ["announcement", "event", "information"]) {
+    if (!db.includes("news", "timestamp", "type", t)) {
+      db.push("news", "timestamp", { type: t, time: 0 });
+    }
+  }
+}
+
+async function mysNewsNotice() {
+  if (1 !== global.config.noticeMysNews) {
+    return;
+  }
+
+  initDB();
+
+  const cacheDir = path.resolve(global.rootdir, "data", "image", "news");
+  const data = db.get("news", "data");
+  const timestamp = db.get("news", "timestamp");
+
+  for (const t of Object.keys(data)) {
+    if (!lodash.hasIn(data[t], ["data", "list"]) || !Array.isArray(data[t].data.list)) {
+      continue;
+    }
+
+    const lastTimeStamp = (timestamp.find((c) => t === c.type) || {}).time || 0;
+    const silent = 0 === lastTimeStamp;
+    const news = data[t].data.list;
+    let recentStamp = 0;
+
+    for (const n of news) {
+      if (!lodash.hasIn(n, "post")) {
+        continue;
+      }
+
+      const post = n.post || {};
+      const { subject, content } = post;
+      const image = "string" === typeof post.images[0] ? await getCache(post.images[0], cacheDir, "base64") : undefined;
+      const imageCQ = undefined !== image ? `[CQ:image,type=image,file=base64://${image}]` : "";
+      const url = "string" === typeof post.post_id ? `https://bbs.mihoyo.com/ys/article/${post.post_id}` : "";
+      const items = [subject, imageCQ, content, url];
+      const stamp = post.created_at || 0;
+
+      recentStamp = Math.max(stamp, recentStamp);
+
+      if (false === silent && stamp > lastTimeStamp && lodash.some(items, (c) => "string" === typeof c && "" !== c)) {
+        const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
+
+        for (const bot of global.bots) {
+          let count = 0;
+          bot.gl.forEach((c) => setTimeout(() => bot.say(c.group_id, message, "group"), 50 * count++));
+        }
+      }
+    }
+
+    db.update("news", "timestamp", { type: t }, { time: recentStamp });
+  }
+}
+
+export { mysNewsNotice };

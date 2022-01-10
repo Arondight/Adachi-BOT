@@ -614,6 +614,8 @@ function readSetting() {
     groupGreetingNew: 0,
     // 不向新好友问好
     friendGreetingNew: 0,
+    // 推送米游社新闻
+    noticeMysNews: 1,
     // 角色查询不尝试拉取数据
     characterTryGetDetail: 0,
     // 耗时操作前不发送提示
@@ -649,6 +651,7 @@ function readSetting() {
   const groupHello = parseInt(Setting.groupHello);
   const groupGreetingNew = parseInt(Setting.groupGreetingNew);
   const friendGreetingNew = parseInt(Setting.friendGreetingNew);
+  const noticeMysNews = parseInt(Setting.noticeMysNews);
   const characterTryGetDetail = parseInt(Setting.characterTryGetDetail);
   const warnTimeCosts = parseInt(Setting.warnTimeCosts);
   const requestInterval = parseInt(Setting.requestInterval);
@@ -685,6 +688,7 @@ function readSetting() {
     { groupHello },
     { groupGreetingNew },
     { friendGreetingNew },
+    { noticeMysNews },
     { characterTryGetDetail },
     { warnTimeCosts },
     { requestInterval },

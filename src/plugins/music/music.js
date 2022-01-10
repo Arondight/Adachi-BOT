@@ -22,7 +22,7 @@ async function doMusic(msg) {
           break;
       }
     } catch (e) {
-      global.bots.logger.error(`错误：歌曲查询出错，原因是“${e}”。`);
+      global.bots.logger.error(`错误：歌曲查询出错，因为“${e}”。`);
     }
   }
 }

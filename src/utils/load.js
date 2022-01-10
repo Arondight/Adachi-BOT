@@ -25,7 +25,7 @@ async function loadPlugins() {
           plugins[plugin] = await import(`../plugins/${dir}/index.js`);
           global.bots.logger.debug(`插件：加载 ${plugin} 成功。`);
         } catch (e) {
-          global.bots.logger.error(`插件：加载 ${plugin} 失败（${e}）！`);
+          global.bots.logger.error(`错误：加载 ${plugin} 插件失败，因为“${e}”。`);
         }
       } else {
         global.bots.logger.warn(`插件：拒绝加载被禁用的插件 ${plugin} ！`);

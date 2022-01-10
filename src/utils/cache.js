@@ -36,14 +36,19 @@ async function doCache(url, dir) {
   const filepath = getCachedPath(url, dir);
 
   if (!(await isCached(url, dir))) {
-    const stream = fs.createWriteStream(filepath);
-    const writeFilePromise = util.promisify(fs.writeFile);
+    try {
+      const stream = fs.createWriteStream(filepath);
+      const writeFilePromise = util.promisify(fs.writeFile);
 
-    await fetch(url)
-      .then((r) => r.arrayBuffer())
-      .then((r) => writeFilePromise(filepath, Buffer.from(r)))
-      .then(() => stream.end());
-    await once(stream, "finish");
+      await fetch(url)
+        .then((r) => r.arrayBuffer())
+        .then((r) => writeFilePromise(filepath, Buffer.from(r)))
+        .then(() => stream.end());
+      await once(stream, "finish");
+    } catch (e) {
+      global.bots.logger.error(`错误：拉取 ${url} 失败，因为“${e}”。`);
+      return undefined;
+    }
   }
 
   return fs.existsSync(filepath) ? filepath : undefined;

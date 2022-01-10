@@ -157,23 +157,26 @@ function report() {
       : `命令前缀设置为 ${global.config.prefixes.join(" 、 ")} 。`
   );
   log(`${2 === global.config.atMe ? "只" : 0 === global.config.atMe ? "不" : ""}允许用户 @ 机器人。`);
-  log(`群回复将${global.config.atUser ? "" : "不"}会 @ 用户。`);
+  log(`群回复将${1 === global.config.atUser ? "" : "不"}会 @ 用户。`);
   log(`群消息复读的概率为 ${(global.config.repeatProb / 100).toFixed(2)}% 。`);
-  log(`上线${global.config.groupHello ? "" : "不"}发送群通知。`);
-  log(`${global.config.groupGreetingNew ? "" : "不"}向新群友问好。`);
-  log(`${global.config.friendGreetingNew ? "" : "不"}向新好友问好。`);
-  log(`角色查询${global.config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
-  log(`耗时操作前${global.config.warnTimeCosts ? "" : "不"}发送提示。`);
+  log(`上线${1 === global.config.groupHello ? "" : "不"}发送群通知。`);
+  log(`${1 === global.config.groupGreetingNew ? "" : "不"}向新群友问好。`);
+  log(`${1 === global.config.friendGreetingNew ? "" : "不"}向新好友问好。`);
+  log(`${1 === global.config.noticeMysNews ? "" : "不"}推送米游社新闻。`);
+  log(`角色查询${1 === global.config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
+  log(`耗时操作前${1 === global.config.warnTimeCosts ? "" : "不"}发送提示。`);
   log(`用户每隔 ${global.config.requestInterval} 秒可以使用一次机器人。`);
   log(
-    `${global.config.deleteGroupMsgTime ? global.config.deleteGroupMsgTime + " 秒后" : "不"}尝试撤回机器人发送的群消息`
+    `${
+      global.config.deleteGroupMsgTime > 0 ? global.config.deleteGroupMsgTime + " 秒后" : "不"
+    }尝试撤回机器人发送的群消息`
   );
   log(`深渊记录将缓存 ${global.config.cacheAbyEffectTime} 小时。`);
   log(`玩家信息将缓存 ${global.config.cacheInfoEffectTime} 小时。`);
   log(`清理数据库 aby 中超过 ${global.config.dbAbyEffectTime} 小时的记录。`);
   log(`清理数据库 info 中超过 ${global.config.dbInfoEffectTime} 小时的记录。`);
-  log(`${global.config.viewDebug ? "" : "不"}使用前端调试模式。`);
-  log(`${global.config.saveImage ? "" : "不"}保存图片。`);
+  log(`${1 === global.config.viewDebug ? "" : "不"}使用前端调试模式。`);
+  log(`${1 === global.config.saveImage ? "" : "不"}保存图片。`);
 }
 
 async function run() {

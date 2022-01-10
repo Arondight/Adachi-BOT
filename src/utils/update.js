@@ -1,18 +1,18 @@
 import lodash from "lodash";
 import db from "./database.js";
-import { getGachaDetail, getGachaList } from "./api.js";
+import { getGachaDetail, getGachaList, getMysNews } from "./api.js";
 
-async function parseData(gachaID) {
-  let data;
+async function parseGachaData(gachaID) {
+  let res;
 
   try {
-    data = await getGachaDetail(gachaID);
+    res = await getGachaDetail(gachaID);
   } catch (e) {
     return undefined;
   }
 
-  let detail = {
-    gacha_type: parseInt(data.gacha_type),
+  let data = {
+    gacha_type: parseInt(res.gacha_type),
     upFourStar: [],
     upFiveStar: [],
     nonUpFourStar: [],
@@ -20,30 +20,30 @@ async function parseData(gachaID) {
     threeStar: [],
   };
 
-  data.r4_prob_list.forEach((el) => {
+  res.r4_prob_list.forEach((el) => {
     const parsed = lodash.pick(el, ["item_type", "item_name"]);
 
     if (el.is_up === 0) {
-      detail.nonUpFourStar.push(parsed);
+      data.nonUpFourStar.push(parsed);
     } else {
-      detail.upFourStar.push(parsed);
+      data.upFourStar.push(parsed);
     }
   });
-  data.r5_prob_list.forEach((el) => {
+  res.r5_prob_list.forEach((el) => {
     const parsed = lodash.pick(el, ["item_type", "item_name"]);
 
     if (el.is_up === 0) {
-      detail.nonUpFiveStar.push(parsed);
+      data.nonUpFiveStar.push(parsed);
     } else {
-      detail.upFiveStar.push(parsed);
+      data.upFiveStar.push(parsed);
     }
   });
-  data.r3_prob_list.forEach((el) => {
+  res.r3_prob_list.forEach((el) => {
     const parsed = lodash.pick(el, ["item_type", "item_name"]);
-    detail.threeStar.push(parsed);
+    data.threeStar.push(parsed);
   });
 
-  return detail;
+  return data;
 }
 
 async function gachaUpdate() {
@@ -58,7 +58,7 @@ async function gachaUpdate() {
 
   if (lodash.hasIn(info, ["data", "list"]) && Array.isArray(info.data.list)) {
     for (const c of info.data.list) {
-      if (undefined === (data[c.gacha_type] = await parseData(c.gacha_id))) {
+      if (undefined === (data[c.gacha_type] = await parseGachaData(c.gacha_id))) {
         return false;
       }
     }
@@ -70,12 +70,26 @@ async function gachaUpdate() {
     const record = [indefinite, character2, character, weapon];
 
     db.set("gacha", "data", record);
-    // XXX 说一下刷新了那些卡池
-    global.bots.logger.debug("卡池：内容已刷新。");
     return true;
   }
 
   return false;
 }
 
-export { gachaUpdate };
+async function mysNewsUpdate() {
+  const ids = { announcement: 1, event: 2, information: 3 };
+  const record = {};
+
+  for (const t of Object.keys(ids)) {
+    try {
+      record[t] = await getMysNews(ids[t]);
+    } catch (e) {
+      continue;
+    }
+  }
+
+  db.set("news", "data", record);
+  return true;
+}
+
+export { gachaUpdate, mysNewsUpdate };

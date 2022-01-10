@@ -2,7 +2,8 @@ import schedule from "node-schedule";
 import express from "express";
 import db from "./database.js";
 import { renderClose } from "./render.js";
-import { gachaUpdate as updateGachaJob } from "./update.js";
+import { mysNewsNotice } from "./notice.js";
+import { gachaUpdate, mysNewsUpdate } from "./update.js";
 
 let postRunning = false;
 
@@ -17,10 +18,11 @@ function initDB() {
   db.init("info");
   db.init("map");
   db.init("music", { source: [] });
+  db.init("news", { data: {}, timestamp: [] });
   db.init("time");
 }
 
-function cleanDB(name) {
+function doDBClean(name) {
   let nums = db.clean(name);
   global.bots.logger.debug(`清理：删除数据库 ${name} 中 ${nums} 条无用记录。`);
   return nums;
@@ -34,10 +36,10 @@ async function lastWords() {
 
 function cleanDBJob() {
   let nums = 0;
-  nums += cleanDB("aby");
-  nums += cleanDB("cookies");
-  nums += cleanDB("cookies_invalid");
-  nums += cleanDB("info");
+  nums += doDBClean("aby");
+  nums += doDBClean("cookies");
+  nums += doDBClean("cookies_invalid");
+  nums += doDBClean("info");
   return nums;
 }
 
@@ -46,6 +48,20 @@ function syncDBJob() {
     db.sync(n);
     global.bots.logger.debug(`同步：将数据库 ${n} 缓存写入到磁盘。`);
   });
+}
+
+async function mysNewsJob() {
+  if (true === (await mysNewsUpdate())) {
+    mysNewsNotice();
+  }
+}
+
+async function updateGachaJob() {
+  if (true === (await gachaUpdate())) {
+    global.bots.logger.debug("卡池：内容已刷新。");
+  } else {
+    global.bots.logger.debug("卡池：刷新内容失败。");
+  }
 }
 
 async function doPost() {
@@ -70,18 +86,20 @@ function serve(port = 9934) {
 }
 
 async function init() {
-  serve(9934);
-  initDB();
-  updateGachaJob();
-  cleanDBJob();
-
   for (const signal of ["SIGHUP", "SIGINT", "SIGTERM"]) {
     process.on(signal, () => doPost().then((n) => process.exit(n)));
   }
 
-  schedule.scheduleJob("1 */1 * * *", async () => updateGachaJob());
-  schedule.scheduleJob("1 */1 * * *", async () => cleanDBJob());
-  schedule.scheduleJob("*/5 * * * *", async () => syncDBJob());
+  serve(9934);
+  initDB();
+  await updateGachaJob();
+  cleanDBJob();
+  syncDBJob();
+
+  schedule.scheduleJob("*/5 * * * *", () => syncDBJob());
+  schedule.scheduleJob("*/5 * * * *", () => mysNewsJob());
+  schedule.scheduleJob("1 */1 * * *", () => cleanDBJob());
+  schedule.scheduleJob("0 */1 * * *", () => updateGachaJob());
 }
 
 export { init };

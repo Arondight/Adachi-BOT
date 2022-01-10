@@ -103,7 +103,7 @@ async function render(msg, data, name) {
     }
   } catch (e) {
     if (undefined !== msg.bot) {
-      msg.bot.logger.error(`render： ${name} 功能绘图失败：${e}`, msg.uid);
+      msg.bot.logger.error(`错误： ${name} 功能绘图失败，因为“${e}”。`, msg.uid);
       msg.bot.say(msg.sid, "绘图失败。", msg.type, msg.uid, true);
     }
     return;
