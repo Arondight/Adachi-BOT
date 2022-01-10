@@ -40,7 +40,7 @@
   baseDetail              获取账号基本数据
   characterDetail         获取账号角色数据
   indexDetail             获取账号数据
-  handleDetailError       处理上面几个 *Promise 可能抛出的异常
+  handleDetailError       处理上面几个 *Detail 可能抛出的异常
 
 ./ds.js
   getDS                   获得用于请求官方 API 的 DS 字段的值

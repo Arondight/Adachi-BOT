@@ -147,6 +147,18 @@ async function abyDetail(uid, server, userID, schedule_type, bot) {
     return getDetailErrorForPossibleInvalidCookie(retcode, message, cookie);
   }
 
+  if (!data || 0 === Object.keys(data).length) {
+    throw detailError("没有查询到深渊信息。");
+  }
+
+  if (undefined === data.max_floor || "0-0" === data.max_floor) {
+    throw detailError("您似乎未挑战深境螺旋。");
+  }
+
+  if (Array.isArray(data.floors) && 0 === data.floors.length) {
+    throw detailError("无渊月螺旋记录。");
+  }
+
   if (!db.includes("aby", "user", "uid", uid)) {
     db.push("aby", "user", { uid, data: {} });
   }
@@ -235,6 +247,10 @@ async function indexDetail(uid, server, userID, bot) {
     return getDetailErrorForPossibleInvalidCookie(retcode, message, cookie);
   }
 
+  if (!Array.isArray(data.avatars) || 0 === data.avatars.length) {
+    throw detailError(`请求 API 数据错误，请重试。`);
+  }
+
   db.update(
     "info",
     "user",
@@ -276,6 +292,10 @@ async function characterDetail(uid, server, character_ids, guess = false, bot) {
 
   if (retcode !== 0) {
     return getDetailErrorForPossibleInvalidCookie(retcode, message, cookie);
+  }
+
+  if (!Array.isArray(data.avatars) || 0 === data.avatars.length) {
+    throw detailError(`请求 API 数据错误，请重试。`);
   }
 
   if (true === guess) {
