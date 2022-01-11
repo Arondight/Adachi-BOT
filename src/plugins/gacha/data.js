@@ -134,6 +134,11 @@ function gachaOnce(userID, choice, table) {
     return undefined;
   }
 
+  if (undefined === path) {
+    path = { course: null, fate: 0 };
+    db.update("gacha", "user", { userID }, { path });
+  }
+
   updateCounter(userID, star, up);
 
   if (5 === star && 302 === choice) {
