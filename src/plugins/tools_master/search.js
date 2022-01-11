@@ -16,10 +16,10 @@ function search(msg) {
     const list = isGroup ? msg.bot.gl : msg.bot.fl;
 
     if (hasEntrance(msg.text, "tools_master", entrance)) {
-      list.forEach((item) => {
-        report += `${isGroup ? item.group_name : item.nickname}（${isGroup ? item.group_id : item.user_id}）\n`;
-      });
-
+      list.forEach(
+        (item) =>
+          (report += `${isGroup ? item.group_name : item.nickname}（${isGroup ? item.group_id : item.user_id}）\n`)
+      );
       report += report ? "" : `没有发现任何${typestr}。`;
       msg.bot.say(msg.sid, report, msg.type, msg.uid, false);
       return;
@@ -37,8 +37,8 @@ function search(msg) {
         report += `${typeStr}：${itemName}（${itemID}）\n`;
       }
     });
-    report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
 
+    report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
     msg.bot.say(msg.sid, report, msg.type, msg.uid, false, "\n");
     return;
   }

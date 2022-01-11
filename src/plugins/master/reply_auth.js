@@ -10,7 +10,7 @@ function setReplyAuth(msg) {
     return;
   }
 
-  setAuth(msg, "响应消息", ...parse(msg.text, "reply_auth"));
+  setAuth(msg, global.innerAuthName.reply, ...parse(msg.text, "reply_auth"));
 
   // 如果是群或者好友，发一条消息给对方，群友就不发了
   list.forEach((item) => {

@@ -12,6 +12,9 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
     funcs = [funcs];
   }
 
+  // TODO
+  // 1. 检查是否为好友或者群
+  // 2. 也给对方一个通知
   funcs.forEach((f) => {
     const name = global.command.functions.name[f] ? `【${global.command.functions.name[f]}】` : f;
     const data = db.get("authority", "user", { userID: id });

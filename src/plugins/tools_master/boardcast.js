@@ -17,7 +17,7 @@ function boardcast(msg) {
     const list = isGroup ? msg.bot.gl : msg.bot.fl;
 
     if (hasEntrance(msg.text, "tools_master", entrance)) {
-      const delay = 50;
+      const delay = 100;
       let report = "";
 
       list.forEach(

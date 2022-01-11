@@ -7,7 +7,6 @@ import { getRandomInt } from "./tools.js";
 
 // 无需加锁
 const timestamp = {};
-const replyAuthName = "响应消息";
 
 async function loadPlugins() {
   let plugins = {};
@@ -72,7 +71,10 @@ function processedGroupIncrease(msg, type, bot) {
       bot.say(msg.group_id, global.greeting.hello, "group");
     } else {
       // 如果有新群友，尝试向新群友问好
-      if (global.config.groupGreetingNew && false !== checkAuth({ uid: msg.group_id }, replyAuthName, false)) {
+      if (
+        global.config.groupGreetingNew &&
+        false !== checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)
+      ) {
         bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
       }
     }
@@ -157,7 +159,7 @@ function processedPossibleCommand(msg, plugins, type, bot) {
       msg.atMe = atMe;
       msg.bot = bot;
 
-      if (false !== checkAuth(msg, replyAuthName, false)) {
+      if (false !== checkAuth(msg, global.innerAuthName.reply, false)) {
         if (global.config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
           timestamp[msg.user_id] = msg.time;
           // 参数 bot 为了兼容可能存在的旧插件
@@ -188,7 +190,7 @@ function processedOnline(bot) {
   if (global.config.groupHello) {
     bot.gl.forEach((group) => {
       const greeting =
-        false !== checkAuth({ uid: group.group_id }, replyAuthName, false)
+        false !== checkAuth({ sid: group.group_id }, global.innerAuthName.reply, false)
           ? global.greeting.online
           : global.greeting.die;
 

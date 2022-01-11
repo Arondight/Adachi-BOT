@@ -368,14 +368,16 @@ import { ls } from "./file.js";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+global.rootdir = path.resolve(__dirname, "..", "..");
+
 global.all = {};
 global.artifacts = {};
 global.command = {};
 global.config = {};
 global.eggs = {};
+global.innerAuthName = { reply: "响应消息", mysNews: "米游社新闻推送" };
 global.master = {};
 global.names = {};
-global.rootdir = path.resolve(__dirname, "..", "..");
 global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
 
 const Artifacts = loadYML("artifacts");
@@ -614,8 +616,8 @@ function readSetting() {
     groupGreetingNew: 0,
     // 不向新好友问好
     friendGreetingNew: 0,
-    // 推送米游社新闻
-    noticeMysNews: 1,
+    // 不推送米游社新闻
+    noticeMysNews: 0,
     // 角色查询不尝试拉取数据
     characterTryGetDetail: 0,
     // 耗时操作前不发送提示

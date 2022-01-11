@@ -37,6 +37,9 @@ async function Plugin(msg) {
     case hasEntrance(msg.text, "master", "reply_auth"):
       setReplyAuth(msg);
       break;
+    case hasEntrance(msg.text, "master", "mys_news_auth"):
+      setAuth(msg, global.innerAuthName.mysNews, ...parse(msg.text, "mys_news_auth"));
+      break;
     case hasEntrance(msg.text, "master", "refresh_wish_detail"):
       msg.bot.say(msg.sid, `卡池内容${gachaUpdate() ? "已刷新" : "刷新失败"}。`, msg.type, msg.uid, true);
       break;

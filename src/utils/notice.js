@@ -1,6 +1,7 @@
 import path from "path";
 import lodash from "lodash";
 import db from "./database.js";
+import { checkAuth } from "./auth.js";
 import { getCache } from "./cache.js";
 
 function initDB() {
@@ -51,8 +52,13 @@ async function mysNewsNotice() {
         const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
 
         for (const bot of global.bots) {
+          const delay = 100;
           let count = 0;
-          bot.gl.forEach((c) => setTimeout(() => bot.say(c.group_id, message, "group"), 50 * count++));
+          bot.gl.forEach((c) => {
+            if (false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)) {
+              setTimeout(() => bot.say(c.group_id, message, "group"), delay * count++);
+            }
+          });
         }
       }
     }

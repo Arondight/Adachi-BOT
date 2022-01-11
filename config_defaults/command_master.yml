@@ -135,7 +135,7 @@ master:
   weights: 9999
   regex:
     - ^设置(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s*\d+\s*\S+\s*$
-    - ^设置消息响应\s*\d+\s*\S+\s*$
+    - ^设置(消息响应|米游社新闻推送)\s*\d+\s*\S+\s*$
     - ^刷新卡池\s*$
   functions:
     feedback_auth:
@@ -252,6 +252,19 @@ master:
       description:
       entrance:
         - ^设置消息响应
+      options:
+        on: on
+        off: off
+    mys_news_auth:
+      type: switch
+      show: true
+      weights: 999
+      name: 设置米游社新闻推送
+      usage: <QQ号、群号>
+      revert: false
+      description:
+      entrance:
+        - ^设置米游社新闻推送
       options:
         on: on
         off: off
