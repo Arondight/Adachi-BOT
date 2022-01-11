@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import lodash from "lodash";
 import { checkAuth } from "./auth.js";
-import { toCqcode } from "./oicq.js";
+import { isGroupBan, toCqcode } from "./oicq.js";
 import { getRandomInt } from "./tools.js";
 
 // 无需加锁
@@ -37,25 +37,6 @@ async function loadPlugins() {
   return plugins;
 }
 
-function isGroupBan(msg, type, bot) {
-  if ("group" === type) {
-    const { shutup_time_me: time } = bot.pickGroup(msg.group_id).info || {};
-
-    if (undefined !== time && time > 0) {
-      const date = new Date(0);
-      date.setUTCSeconds(time);
-      bot.logger.debug(
-        `禁言：因已被组群 ${
-          msg.group_name + "（ " + msg.group_id + " ）"
-        }禁言拒绝发送消息，${date.toLocaleString()} 禁言结束。`
-      );
-
-      return true;
-    }
-  }
-  return false;
-}
-
 function processedFriendIncrease(msg, bot) {
   if (global.config.friendGreetingNew) {
     // 私聊不需要 @
@@ -64,19 +45,17 @@ function processedFriendIncrease(msg, bot) {
 }
 
 function processedGroupIncrease(msg, type, bot) {
-  if (!isGroupBan(msg, type, bot)) {
-    if (bot.uin === msg.user_id) {
-      // 如果加入了新群，尝试向全群问好
-      // 群通知不需要 @
-      bot.say(msg.group_id, global.greeting.hello, "group");
-    } else {
-      // 如果有新群友，尝试向新群友问好
-      if (
-        global.config.groupGreetingNew &&
-        false !== checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)
-      ) {
-        bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
-      }
+  if (bot.uin === msg.user_id) {
+    // 如果加入了新群，尝试向全群问好
+    // 群通知不需要 @
+    bot.say(msg.group_id, global.greeting.hello, "group");
+  } else {
+    // 如果有新群友，尝试向新群友问好
+    if (
+      global.config.groupGreetingNew &&
+      false !== checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)
+    ) {
+      bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
     }
   }
 }
@@ -139,7 +118,7 @@ function processedPossibleCommand(msg, plugins, type, bot) {
         return true;
       }
 
-      if ("group" === type && isGroupBan(msg, type, bot)) {
+      if ("group" === type && true === isGroupBan(msg, type, bot)) {
         return true;
       }
 
@@ -172,11 +151,7 @@ function processedPossibleCommand(msg, plugins, type, bot) {
 }
 
 function processedGroup(msg, type, bot) {
-  if (
-    global.config.repeatProb > 0 &&
-    getRandomInt(100 * 100) < global.config.repeatProb + 1 &&
-    !isGroupBan(msg, type, bot)
-  ) {
+  if (global.config.repeatProb > 0 && getRandomInt(100 * 100) < global.config.repeatProb + 1) {
     // 复读群消息不需要 @
     bot.say(msg.group_id, msg.raw_message, "group");
   }
@@ -194,7 +169,7 @@ function processedOnline(bot) {
           ? global.greeting.online
           : global.greeting.die;
 
-      if (!isGroupBan(group, "group", bot) && "string" === typeof greeting) {
+      if ("string" === typeof greeting) {
         // 群通知不需要 @
         bot.say(group.group_id, greeting, "group");
       }
