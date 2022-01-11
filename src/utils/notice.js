@@ -40,7 +40,16 @@ async function mysNewsNotice() {
 
       const post = n.post || {};
       const { subject, content } = post;
-      const image = "string" === typeof post.images[0] ? await getCache(post.images[0], cacheDir, "base64") : undefined;
+      let image;
+
+      if ("string" === typeof post.images[0]) {
+        try {
+          image = await getCache(post.images[0], cacheDir, "base64");
+        } catch (e) {
+          // do nothing
+        }
+      }
+
       const imageCQ = undefined !== image ? `[CQ:image,type=image,file=base64://${image}]` : "";
       const url = "string" === typeof post.post_id ? `https://bbs.mihoyo.com/ys/article/${post.post_id}` : "";
       const items = [subject, imageCQ, content, url];
