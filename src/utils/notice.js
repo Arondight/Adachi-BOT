@@ -52,7 +52,12 @@ async function mysNewsNotice() {
 
       const imageCQ = undefined !== image ? `[CQ:image,type=image,file=base64://${image}]` : "";
       const url = "string" === typeof post.post_id ? `https://bbs.mihoyo.com/ys/article/${post.post_id}` : "";
-      const items = [subject, imageCQ, content, url];
+      const items = [
+        "string" === typeof subject ? subject : "",
+        imageCQ,
+        "string" === typeof content && content.length > 0 ? `${content} …………` : "",
+        url,
+      ];
       const stamp = post.created_at || 0;
 
       recentStamp = Math.max(stamp, recentStamp);
