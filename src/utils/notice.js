@@ -55,7 +55,7 @@ async function mysNewsNotice() {
       const items = [
         "string" === typeof subject ? subject : "",
         imageCQ,
-        "string" === typeof content && content.length > 0 ? `${content} …………` : "",
+        "string" === typeof content && content.length > 90 ? `${content}……` : "",
         url,
       ];
       const stamp = post.created_at || 0;
