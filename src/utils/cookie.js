@@ -132,7 +132,7 @@ function textOfInvalidCookies() {
 
   for (const cookie of data) {
     if (cookie.cookie_token && cookie.account_id) {
-      text += `\n${cookie.account_id}; ${cookie.cookie_token}`;
+      text += `\n${cookie.account_id}`;
     }
   }
 
