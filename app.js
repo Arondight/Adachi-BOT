@@ -8,10 +8,11 @@ import { say, sayMaster } from "./src/utils/oicq.js";
 
 global.bots = [];
 
-function login() {
+function create() {
   for (const account of global.config.accounts) {
     const bot = createClient(account.qq, { platform: account.platform, log_level: "debug" });
 
+    bot.account = account;
     bot.say = say.bind(null, bot);
     bot.sayMaster = sayMaster.bind(null, bot);
     // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件
@@ -20,26 +21,6 @@ function login() {
     bot.sendMaster = bot.sayMaster;
 
     global.bots.push(bot);
-
-    if ("string" === typeof account.password) {
-      // 监听登录滑动验证码事件
-      bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
-      // 监听设备锁事件
-      bot.on("system.login.device", () => {
-        bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
-        process.stdin.once("data", () => bot.login());
-      });
-
-      bot.login(account.password);
-    } else {
-      // 监听登录二维码事件
-      bot.on("system.login.qrcode", () => {
-        bot.logger.mark("手机扫码完成后按下回车键继续。");
-        process.stdin.once("data", () => bot.login());
-      });
-
-      bot.login();
-    }
   }
 
   global.bots.logger = lodash.hasIn(global.bots, [0, "logger"]) ? global.bots[0].logger : () => {};
@@ -90,6 +71,30 @@ function report() {
   log(`${1 === global.config.saveImage ? "" : "不"}保存图片。`);
 }
 
+async function login() {
+  for (const bot of global.bots) {
+    if ("string" === typeof bot.account.password) {
+      // 监听登录滑动验证码事件
+      bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
+      // 监听设备锁事件
+      bot.on("system.login.device", () => {
+        bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
+        process.stdin.once("data", () => bot.login());
+      });
+
+      await bot.login(bot.account.password);
+    } else {
+      // 监听登录二维码事件
+      bot.on("system.login.qrcode", () => {
+        bot.logger.mark("手机扫码完成后按下回车键继续。");
+        process.stdin.once("data", () => bot.login());
+      });
+
+      await bot.login();
+    }
+  }
+}
+
 async function run() {
   const plugins = await loadPlugins();
 
@@ -109,9 +114,10 @@ async function run() {
 
 (async function main() {
   readConfig();
-  login();
+  create();
   hello();
   report();
   await init();
+  await login();
   run();
 })();
