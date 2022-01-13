@@ -57,8 +57,8 @@ async function mysNewsNotice() {
         imageCQ,
         "string" === typeof content
           ? "。！？~".split("").includes(content[content.length - 1])
-            ? `${content} ……`
-            : content
+            ? content
+            : `${content} ……`
           : "",
         url,
       ];
