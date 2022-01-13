@@ -74,7 +74,10 @@ async function mysNewsNotice() {
           let count = 0;
           bot.gl.forEach((c) => {
             if (false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)) {
-              setTimeout(() => bot.say(c.group_id, message, "group"), Math.floor(Math.random() * max_delay + 1000) * count++);
+              setTimeout(
+                () => bot.say(c.group_id, message, "group"),
+                Math.floor(Math.random() * max_delay + 1000) * count++
+              );
             }
           });
         }
