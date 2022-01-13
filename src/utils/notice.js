@@ -70,11 +70,11 @@ async function mysNewsNotice() {
         const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
 
         for (const bot of global.bots) {
-          const delay = 100;
+          const max_delay = 2000;
           let count = 0;
           bot.gl.forEach((c) => {
             if (false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)) {
-              setTimeout(() => bot.say(c.group_id, message, "group"), delay * count++);
+              setTimeout(() => bot.say(c.group_id, message, "group"), Math.floor(Math.random() * max_delay + 1000) * count++);
             }
           });
         }
