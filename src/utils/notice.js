@@ -3,6 +3,7 @@ import lodash from "lodash";
 import db from "./database.js";
 import { checkAuth } from "./auth.js";
 import { getCache } from "./cache.js";
+import { boardcast } from "./oicq.js";
 
 function initDB() {
   for (const t of ["announcement", "event", "information"]) {
@@ -70,13 +71,13 @@ async function mysNewsNotice() {
         const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
 
         for (const bot of global.bots) {
-          const delay = 100;
-          let count = 0;
-          bot.gl.forEach((c) => {
-            if (false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)) {
-              setTimeout(() => bot.say(c.group_id, message, "group"), delay * count++);
-            }
-          });
+          const ms = boardcast(
+            bot,
+            message,
+            "group",
+            (c) => false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)
+          );
+          await new Promise((resolve) => setTimeout(resolve, ms));
         }
       }
     }

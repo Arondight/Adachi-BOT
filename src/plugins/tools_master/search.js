@@ -6,11 +6,10 @@ function search(msg) {
   const listAll = new Map([...msg.bot.fl, ...msg.bot.gl]);
   let report = "";
 
-  for (const t of [
+  for (const [type, entrance] of [
     ["group", "group_search"],
     ["private", "private_search"],
   ]) {
-    const [type, entrance] = t;
     const isGroup = "group" === type;
     const typestr = isGroup ? "群" : "好友";
     const list = isGroup ? msg.bot.gl : msg.bot.fl;

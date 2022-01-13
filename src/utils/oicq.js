@@ -217,14 +217,41 @@ async function say(
   }
 }
 
-async function sayMaster(bot, id, msg, type = undefined, user = undefined) {
+async function sayMaster(bot, id, msg, type = "private", sender) {
   if (Array.isArray(global.config.masters) && global.config.masters.length) {
     global.config.masters.forEach((master) => master && say(bot, master, msg, "private"));
   } else {
-    if (undefined !== id && "string" === typeof type && undefined !== user) {
-      say(bot, id, "未设置我的主人。", type, user);
+    if (undefined !== id && "string" === typeof type && undefined !== sender) {
+      say(bot, id, "未设置我的主人。", type, sender);
     }
   }
 }
 
-export { fromCqcode, isGroupBan, say, sayMaster, toCqcode };
+function boardcast(bot, msg, type = "group", check = () => true) {
+  const isGroup = "group" === type;
+  const typestr = isGroup ? "群" : "好友";
+  const list = isGroup ? bot.gl : bot.fl;
+  const delay = 100;
+  let report = "";
+  let count = 0;
+
+  list.forEach((c) => {
+    if (true === check(c)) {
+      // 广播无法 @
+      setTimeout(() => say(bot, isGroup ? c.group_id : c.user_id, msg, type), delay * count++);
+      report += `${isGroup ? c.group_name : c.nickname}（${isGroup ? c.group_id : c.user_id}）\n`;
+    }
+  });
+
+  if ("" === report) {
+    sayMaster(bot, undefined, `没有发现需要发送此广播的${typestr}。`);
+    return;
+  }
+
+  report += `以上${typestr}正在发送广播，速度为 ${1000 / delay} 个${typestr}每秒。`;
+  sayMaster(bot, undefined, report);
+
+  return delay * count;
+}
+
+export { boardcast, fromCqcode, isGroupBan, say, sayMaster, toCqcode };
