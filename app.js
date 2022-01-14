@@ -63,6 +63,7 @@ function report() {
       global.config.deleteGroupMsgTime > 0 ? global.config.deleteGroupMsgTime + " 秒后" : "不"
     }尝试撤回机器人发送的群消息`
   );
+  log(`广播中消息间时延 ${(global.config.boardcastDelay / 1000).toFixed(2)} 秒。`);
   log(`深渊记录将缓存 ${global.config.cacheAbyEffectTime} 小时。`);
   log(`玩家信息将缓存 ${global.config.cacheInfoEffectTime} 小时。`);
   log(`清理数据库 aby 中超过 ${global.config.dbAbyEffectTime} 小时的记录。`);

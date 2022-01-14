@@ -107,9 +107,11 @@
  *   groupHello: 1,
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
+ *   noticeMysNews: 1,
  *   characterTryGetDetail: 1,
  *   requestInterval: 0,
  *   deleteGroupMsgTime: 0,
+ *   boardcastDelay : 0.2,
  *   cacheAbyEffectTime: 1,
  *   cacheInfoEffectTime: 1,
  *   dbAbyEffectTime: 1,
@@ -132,9 +134,11 @@
  * groupHello: 1
  * groupGreetingNew: 1
  * friendGreetingNew: 1
+ * noticeMysNews: 1
  * characterTryGetDetail: 1
  * requestInterval: 0
  * deleteGroupMsgTime: 0
+ * boardcastDelay: 0.2
  * prefixes:
  *   -
  * cacheAbyEffectTime: 1
@@ -593,7 +597,7 @@ function makeUsage(obj) {
     }
   }
 
-  text += text ? "-------------------\n<> 表示必填，[] 表示可选" : "我什么都不会哦。";
+  text += text ? `${"-".repeat(20)}\n<> 表示必填，[] 表示可选` : "我什么都不会哦。";
 
   obj.usage = text;
 }
@@ -626,6 +630,8 @@ function readSetting() {
     requestInterval: 0,
     // 不尝试撤回发送的群消息
     deleteGroupMsgTime: 0,
+    // 广播中消息间时延 0.1 秒
+    boardcastDelay: 0.1,
     // 深渊记录缓存一小时
     cacheAbyEffectTime: 1,
     // 玩家数据缓存一小时
@@ -658,6 +664,7 @@ function readSetting() {
   const warnTimeCosts = parseInt(Setting.warnTimeCosts);
   const requestInterval = parseInt(Setting.requestInterval);
   const deleteGroupMsgTime = parseInt(Setting.deleteGroupMsgTime);
+  const boardcastDelay = parseInt(parseFloat(Setting.boardcastDelay) * 1000);
   const cacheAbyEffectTime = parseInt(Setting.cacheAbyEffectTime);
   const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
   const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
@@ -666,16 +673,11 @@ function readSetting() {
   const saveImage = parseInt(Setting.saveImage);
 
   const getConfig = (...pairs) => {
-    pairs &&
-      pairs.forEach((p) => {
-        const prop = Object.keys(p)[0];
-        const val = p[prop];
-
-        if (undefined === defaultConfig[prop]) {
-          global.config[prop] = val;
-        }
-        global.config[prop] = val || defaultConfig[prop];
-      });
+    pairs.forEach((p) => {
+      const prop = Object.keys(p)[0];
+      const val = p[prop];
+      global.config[prop] = val || defaultConfig[prop];
+    });
   };
 
   getConfig(
@@ -695,6 +697,7 @@ function readSetting() {
     { warnTimeCosts },
     { requestInterval },
     { deleteGroupMsgTime },
+    { boardcastDelay },
     { cacheAbyEffectTime },
     { cacheInfoEffectTime },
     { dbAbyEffectTime },
@@ -702,6 +705,16 @@ function readSetting() {
     { viewDebug },
     { saveImage }
   );
+
+  // 以下选项不为负数
+  global.config.repeatProb = Math.max(global.config.repeatProb, 0);
+  global.config.requestInterval = Math.max(global.config.requestInterval, 0);
+  global.config.deleteGroupMsgTime = Math.max(global.config.deleteGroupMsgTime, 0);
+  global.config.boardcastDelay = Math.max(global.config.boardcastDelay, 0);
+  global.config.cacheAbyEffectTime = Math.max(global.config.cacheAbyEffectTime, 0);
+  global.config.cacheInfoEffectTime = Math.max(global.config.cacheInfoEffectTime, 0);
+  global.config.dbAbyEffectTime = Math.max(global.config.dbAbyEffectTime, 0);
+  global.config.dbInfoEffectTime = Math.max(global.config.dbInfoEffectTime, 0);
 
   // 设置每个 QQ 账户的登录选项默认值
   for (const option of global.config.accounts) {

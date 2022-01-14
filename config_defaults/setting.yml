@@ -60,7 +60,7 @@ groupGreetingNew: 1
 friendGreetingNew: 1
 # 是否推送米游社新闻
 # 1:推送、 0:不推送
-noticeMysNews: 0
+noticeMysNews: 1
 # 角色查询是否尝试更新玩家信息。打开此选项会更快地消耗 Cookie 池。
 # 1:尝试更新、 0:不更新
 characterTryGetDetail: 1
@@ -74,6 +74,9 @@ requestInterval: 0
 # 设置为 0 则不尝试撤回。当大于或等于 120 时需要机器人在群里有管理员权限才能成功撤回。
 # 注意从机器人发出消息开始计时，使用此功能推荐至少设置为 30 。
 deleteGroupMsgTime: 115
+# 广播中消息间时延，单位为秒，浮点数，支持小数点后最多三位。
+# 设置为 0 则无时延
+boardcastDelay: 0.2
 
 
 # ==============================================================================

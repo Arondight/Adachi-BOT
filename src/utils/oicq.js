@@ -1,8 +1,5 @@
 /* ========================================================================== *
- * 文件的原始版本来源于 oicq 。
- * https://github.com/takayama-lily/oicq
- * ==========================================================================
- * 因为 oicq 维护的这几个 API 有兼容性问题，所以在此重新实现。另外添加了一些自己的封装。
+ * 因为 oicq 维护的兼容 API 有问题，所以在此重新实现。另外添加了一些自己的封装。
  * ========================================================================== */
 
 import lodash from "lodash";
@@ -135,7 +132,7 @@ function isGroupBan(msg = {}, type, bot) {
 async function say(
   bot,
   id,
-  msg,
+  msg = "",
   type = "private",
   sender = undefined,
   tryDelete = false,
@@ -217,7 +214,7 @@ async function say(
   }
 }
 
-async function sayMaster(bot, id, msg, type = "private", sender) {
+async function sayMaster(bot, id, msg = "", type = "private", sender) {
   if (Array.isArray(global.config.masters) && global.config.masters.length) {
     global.config.masters.forEach((master) => master && say(bot, master, msg, "private"));
   } else {
@@ -227,18 +224,25 @@ async function sayMaster(bot, id, msg, type = "private", sender) {
   }
 }
 
-function boardcast(bot, msg, type = "group", check = () => true) {
+function boardcast(bot, msg = "", type = "group", check = () => true) {
   const isGroup = "group" === type;
   const typestr = isGroup ? "群" : "好友";
   const list = isGroup ? bot.gl : bot.fl;
-  const delay = 100;
+  const delay = global.config.boardcastDelay || 100;
   let report = "";
   let count = 0;
 
   list.forEach((c) => {
     if (true === check(c)) {
       // 广播无法 @
-      setTimeout(() => say(bot, isGroup ? c.group_id : c.user_id, msg, type), delay * count++);
+      const send = () => say(bot, isGroup ? c.group_id : c.user_id, msg, type);
+
+      if (delay > 0) {
+        setTimeout(send, delay * count++);
+      } else {
+        send();
+      }
+
       report += `${isGroup ? c.group_name : c.nickname}（${isGroup ? c.group_id : c.user_id}）\n`;
     }
   });
@@ -248,10 +252,13 @@ function boardcast(bot, msg, type = "group", check = () => true) {
     return;
   }
 
-  report += `以上${typestr}正在发送广播，速度为 ${1000 / delay} 个${typestr}每秒。`;
+  report += `${"-".repeat(20)}\n`;
+  report += `以上${typestr}正在发送以下广播，速度为 ${1000 / delay} 个${typestr}每秒。\n`;
+  report += `${"-".repeat(20)}\n`;
+  report += msg;
   sayMaster(bot, undefined, report);
 
   return delay * count;
 }
 
-export { boardcast, fromCqcode, isGroupBan, say, sayMaster, toCqcode };
+export { boardcast, isGroupBan, say, sayMaster, toCqcode };
