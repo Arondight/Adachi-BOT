@@ -42,7 +42,7 @@ aby:
       name: 深渊
       usage: "[游戏内UID、@群友]"
       revert: false
-      description:
+      description: null
       entrance:
         - ^深渊
     lastaby:
@@ -52,7 +52,7 @@ aby:
       name: 上期深渊
       usage: "[游戏内UID、@群友]"
       revert: false
-      description:
+      description: null
       entrance:
         - ^上期深渊
 
@@ -79,7 +79,7 @@ artifacts:
       show: true
       weights: 9899
       name: 强化
-      usage:
+      usage: null
       revert: false
       description: 强化掉落的上一个圣遗物
       entrance:
@@ -89,7 +89,7 @@ artifacts:
       show: true
       weights: 9799
       name: 副本
-      usage:
+      usage: null
       revert: false
       description: 查看所有副本编号
       entrance:
@@ -161,9 +161,9 @@ gacha:
       show: true
       weights: 9999
       name: 十连
-      usage:
+      usage: null
       revert: false
-      description:
+      description: null
       entrance:
         - ^十连
     pool:
@@ -171,7 +171,7 @@ gacha:
       show: true
       weights: 9899
       name: 卡池
-      usage:
+      usage: null
       revert: false
       description: 切换【十连】的卡池
       entrance:
@@ -189,7 +189,7 @@ gacha:
       name: 定轨
       usage: <武器名>
       revert: false
-      description:
+      description: null
       entrance:
         - ^定轨
     select-what:
@@ -197,9 +197,9 @@ gacha:
       show: true
       weights: 9699
       name: 查看定轨
-      usage:
+      usage: null
       revert: false
-      description:
+      description: null
       entrance:
         - ^查看定轨
     select-nothing:
@@ -207,9 +207,9 @@ gacha:
       show: true
       weights: 9599
       name: 取消定轨
-      usage:
+      usage: null
       revert: false
-      description:
+      description: null
       entrance:
         - ^取消定轨
 
@@ -227,9 +227,9 @@ tools:
       show: true
       weights: 9999
       name: 今天吃什么
-      usage:
+      usage: null
       revert: false
-      description:
+      description: null
       entrance:
         - ^(今天)?吃什么
         - ^菜单
@@ -238,9 +238,9 @@ tools:
       show: true
       weights: 9899
       name: 求签
-      usage:
+      usage: null
       revert: false
-      description:
+      description: null
       entrance:
         - ^(求签|占卜)
     roll:
@@ -258,9 +258,9 @@ tools:
       show: false
       weights: 9699
       name: 伟大的升华
-      usage:
+      usage: null
       revert: false
-      description:
+      description: null
       entrance:
         - ^伟大的升华
     feedback:
@@ -278,7 +278,7 @@ tools:
       show: true
       weights: 199
       name: 管理命令
-      usage:
+      usage: null
       revert: false
       description: 查看主人功能
       entrance:
@@ -288,7 +288,7 @@ tools:
       show: true
       weights: 99
       name: help
-      usage:
+      usage: null
       revert: false
       description: 查看本帮助
       entrance:
@@ -306,9 +306,9 @@ material:
       show: true
       weights: 9989
       name: 素材
-      usage:
+      usage: null
       revert: true
-      description:
+      description: null
       entrance:
         - ^(今日|周(一|二|三|四|五|六|日))(素材)
       options:
@@ -325,7 +325,7 @@ material:
       show: true
       weights: 9979
       name: 周本
-      usage:
+      usage: null
       revert: false
       description: 周本材料表
       entrance:
@@ -345,7 +345,7 @@ music:
       name: 点歌
       usage: <单行文本>
       revert: false
-      description:
+      description: null
       entrance:
         - ^点歌
     music_source:
@@ -353,7 +353,7 @@ music:
       show: true
       weights: 9899
       name: 音乐源
-      usage:
+      usage: null
       revert: false
       description: 切换【点歌】的音乐源
       entrance:
@@ -411,7 +411,7 @@ rating:
       name: 评分
       usage: <背包中的圣遗物截图>
       revert: false
-      description:
+      description: null
       entrance:
         - ^评分
 
@@ -429,7 +429,7 @@ save:
       name: 绑定
       usage: <米游社通行证ID>
       revert: false
-      description:
+      description: null
       entrance:
         - ^绑定
     change:
@@ -439,6 +439,6 @@ save:
       name: 改绑
       usage: <米游社通行证ID>
       revert: false
-      description:
+      description: null
       entrance:
         - ^改绑

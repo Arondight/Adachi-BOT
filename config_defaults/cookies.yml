@@ -10,3 +10,4 @@
 #
 cookies:
   #- UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
+  - null

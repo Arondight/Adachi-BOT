@@ -378,11 +378,16 @@ global.all = {};
 global.artifacts = {};
 global.command = {};
 global.config = {};
+global.cookies = [];
 global.eggs = {};
+global.greeting = {};
+global.info = {};
 global.innerAuthName = { reply: "响应消息", mysNews: "米游社新闻推送" };
 global.master = {};
+global.menu = {};
 global.names = {};
 global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
+global.prophecy = {};
 
 const Artifacts = loadYML("artifacts");
 const Command = loadYML("command");
@@ -743,7 +748,16 @@ function readSetting() {
 }
 
 function readCookies() {
-  global.cookies = Cookies ? (Array.isArray(Cookies.cookies) ? Cookies.cookies : []) : [];
+  if (lodash.hasIn(Cookies, "cookies")) {
+    switch (true) {
+      case Array.isArray(Cookies.cookies):
+        global.cookies = Cookies.cookies;
+        break;
+      case "string" === typeof Cookies.cookies:
+        global.cookies = [Cookies.cookies];
+        break;
+    }
+  }
 }
 
 function readGreeting() {
