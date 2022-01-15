@@ -40,13 +40,16 @@ const template = `<div class="user-base-page">
               <p>{{ stats.magic_chest_number }}</p>
             </div>
     </div>
-    <SectionTitle class="bottom-split" :title="homeboxTitle" />
-    <div class="bottom">
-      <HomeBox :data="homes.hole" />
-      <HomeBox :data="homes.mountain" />
-      <HomeBox :data="homes.island" />
-      <HomeBox :data="homes.hall" />
+    <div class="container-home-box">
+      <SectionTitle class="bottom-split" :title="homeboxTitle" />
+      <div class="bottom">
+        <HomeBox :data="homes.hole" />
+        <HomeBox :data="homes.mountain" />
+        <HomeBox :data="homes.island" />
+        <HomeBox :data="homes.hall" />
+      </div>
     </div>
+    <quoteBox></quoteBox>
   </div>
   
   <div class="right">
@@ -80,6 +83,7 @@ import SectionTitle from "./section-title.js";
 import ExplorationBox from "./exploration.js";
 import CharacterBox from "./character-box.js";
 import HomeBox from "./home-box.js";
+import quoteBox from "./quote.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent, computed } = Vue;
@@ -93,9 +97,12 @@ export default defineComponent({
     ExplorationBox,
     CharacterBox,
     HomeBox,
+    quoteBox,
   },
   setup() {
     const params = getParams(window.location.href);
+    // 下面这行是方便前端调试时在「仅展示 8 个角色」和「展示所有角色」之间切换的
+    // params.avatars = params.avatars.slice(0, 8);
 
     const hasLevelInfo = params.level !== -1;
     const hasPlayerNameInfo = params.nickname !== "";
