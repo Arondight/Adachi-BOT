@@ -27,8 +27,8 @@
   "overrides": [
     {
       "files": ["*.yaml", "*.yml"],
-      "plugins": ["yaml"],
-      "extends": ["plugin:yaml/recommended"]
+      "plugins": ["yml"],
+      "extends": ["plugin:yml/recommended"]
     },
     {
       "files": ["*.html"],
