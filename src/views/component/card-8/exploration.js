@@ -9,7 +9,6 @@ const template = `<div class="exploration">
       <p class="align-right" v-if="data.type === 'Reputation'">Lv. {{data.level}}</p>
       <p v-if="data.offerings.length !== 0">{{data.offerings[0]["name"]}}</p>
       <p class="align-right" v-if="data.offerings.length !== 0">Lv. {{data.offerings[0]["level"]}}</p>
-      
     </div>
    </div>
 </div>`;

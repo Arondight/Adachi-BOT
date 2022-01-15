@@ -1,4 +1,5 @@
 import db from "../../utils/database.js";
+import { getEmoticons } from "../../utils/api.js";
 import { render } from "../../utils/render.js";
 import { baseDetail, characterDetail, handleDetailError, indexDetail } from "../../utils/detail.js";
 import { getID } from "../../utils/id.js";
@@ -8,6 +9,7 @@ async function doCard(msg) {
   const dbInfo = getID(msg.text, msg.uid); // 米游社 ID
   const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.card);
   let uid;
+  let emoticons;
 
   if ("string" === typeof dbInfo) {
     msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid, true);
@@ -17,6 +19,12 @@ async function doCard(msg) {
   if (!dbInfo) {
     msg.bot.say(msg.sid, "请正确输入米游社通行证 ID。", msg.type, msg.uid, true);
     return;
+  }
+
+  try {
+    emoticons = await getEmoticons();
+  } catch (e) {
+    emoticons = [];
   }
 
   try {
@@ -36,6 +44,8 @@ async function doCard(msg) {
   if (undefined !== qqid) {
     data.qqid = qqid;
   }
+
+  data.emoticons = emoticons;
 
   render(msg, data, "genshin-card-8");
 }
