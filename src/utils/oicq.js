@@ -5,6 +5,7 @@
 import lodash from "lodash";
 import querystring from "querystring";
 import { genDmMessageId } from "oicq/lib/message/message.js";
+import { matchBracket } from "./tools.js";
 
 const CQ = {
   "&#91;": "[",
@@ -83,28 +84,48 @@ function toCqcode(msg = {}) {
 
 function fromCqcode(text = "") {
   const elems = [];
-  const iter = text.matchAll(/\[CQ:[^\]]+\]/g);
-  let index = 0;
+  const items = [];
+  let itemsSize = 0;
 
-  for (const c of iter) {
-    const s = text.slice(index, c.index).replace(new RegExp(Object.keys(CQ).join("|"), "g"), (s) => CQ[s] || "");
+  for (let i = 0; i < text.length; ++i) {
+    const pos = matchBracket(text, i);
 
-    if ("string" === typeof s && "" !== s) {
-      elems.push({ type: "text", text: s });
+    switch (pos) {
+      case -1:
+      case -2:
+        items.push(text);
+        i = text.length;
+        break;
+      case -3:
+        if (undefined === items[itemsSize]) {
+          items[itemsSize] = "";
+        }
+
+        items[itemsSize] += text[i];
+        continue;
+      case -4:
+        throw `不能转换错误的信息：${text}`;
+      default:
+        if (pos > 0) {
+          items.push(text.substring(i, pos + 1));
+          i = pos;
+          itemsSize = items.length;
+          continue;
+        }
     }
-
-    let cq = c[0].replace("[CQ:", "type=");
-    cq = cq.substr(0, cq.length - 1);
-    elems.push(qs(cq));
-    index = c.index + c[0].length;
   }
 
-  if (index < text.length) {
-    const s = text.slice(index).replace(new RegExp(Object.keys(CQ).join("|"), "g"), (s) => CQ[s] || "");
+  for (const c of items) {
+    const s = c.replace(new RegExp(Object.keys(CQ).join("|"), "g"), (s) => CQ[s] || "");
+    let cq = c.replace("[CQ:", "type=");
 
-    if ("string" === typeof s) {
+    if ("string" === typeof s && "" !== s && false === s.includes("[CQ:")) {
       elems.push({ type: "text", text: s });
+      continue;
     }
+
+    cq = cq.substr(0, cq.length - 1);
+    elems.push(qs(cq));
   }
 
   return elems;

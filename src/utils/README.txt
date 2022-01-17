@@ -83,6 +83,7 @@
   guessPossibleNames      猜测字符串数组中哪些元素等价于某个名字
   hamming                 计算两个 simhash 的汉明距离
   isPossibleName          猜测字符串数组是否有元素等价于某个名字
+  matchBracket            获得匹配的闭括号
   randomString            返回随机字符串
   segment                 简单的词语拆分
   simhash                 计算 simhash
