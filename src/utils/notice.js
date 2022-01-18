@@ -4,6 +4,8 @@ import db from "./database.js";
 import { checkAuth } from "./auth.js";
 import { getCache } from "./cache.js";
 
+const running = { mysNewsNotice: false };
+
 function initDB() {
   for (const t of ["announcement", "event", "information"]) {
     if (!db.includes("news", "timestamp", "type", t)) {
@@ -16,6 +18,13 @@ async function mysNewsNotice() {
   if (1 !== global.config.noticeMysNews) {
     return;
   }
+
+  if (true === running.mysNewsNotice) {
+    return;
+  }
+
+  // XXX currently no return before set this false
+  running.mysNewsNotice = true;
 
   initDB();
 
@@ -82,6 +91,8 @@ async function mysNewsNotice() {
       }
     }
   }
+
+  running.mysNewsNotice = false;
 }
 
 export { mysNewsNotice };
