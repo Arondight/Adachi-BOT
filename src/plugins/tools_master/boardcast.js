@@ -1,5 +1,4 @@
 import { hasEntrance } from "../../utils/config.js";
-import { boardcast as doBoardcast } from "../../utils/oicq.js";
 import { filterWordsByRegex } from "../../utils/tools.js";
 
 function boardcast(msg) {
@@ -15,7 +14,7 @@ function boardcast(msg) {
     if (hasEntrance(msg.text, "tools_master", entrance)) {
       const isGroup = "group" === type;
       const typestr = isGroup ? "群" : "好友";
-      doBoardcast(msg.bot, `主人发送了一条${typestr}广播：\n${text}`, type);
+      msg.bot.boardcast(`主人发送了一条${typestr}广播：\n${text}`, type);
     }
   }
 }

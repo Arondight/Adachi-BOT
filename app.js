@@ -4,7 +4,7 @@ import { createClient } from "oicq";
 import { readConfig } from "./src/utils/config.js";
 import { init } from "./src/utils/init.js";
 import { loadPlugins, processed } from "./src/utils/load.js";
-import { say, sayMaster } from "./src/utils/oicq.js";
+import { boardcast, say, sayMaster } from "./src/utils/oicq.js";
 
 global.bots = [];
 
@@ -13,6 +13,7 @@ function create() {
     const bot = createClient(account.qq, { platform: account.platform, log_level: "debug" });
 
     bot.account = account;
+    bot.boardcast = boardcast.bind(null, bot);
     bot.say = say.bind(null, bot);
     bot.sayMaster = sayMaster.bind(null, bot);
     // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件
