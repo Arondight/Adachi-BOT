@@ -21,15 +21,12 @@ async function mysNewsNotice() {
 
   const cacheDir = path.resolve(global.rootdir, "data", "image", "news");
   const data = db.get("news", "data");
-  const timestamp = db.get("news", "timestamp");
 
   for (const t of Object.keys(data)) {
     if (!lodash.hasIn(data[t], ["data", "list"]) || !Array.isArray(data[t].data.list)) {
       continue;
     }
 
-    const lastTimeStamp = (timestamp.find((c) => t === c.type) || {}).time || 0;
-    const silent = 0 === lastTimeStamp;
     const news = data[t].data.list;
     let recentStamp = 0;
 
@@ -38,6 +35,9 @@ async function mysNewsNotice() {
         continue;
       }
 
+      const timestamp = db.get("news", "timestamp");
+      const lastTimeStamp = (timestamp.find((c) => t === c.type) || {}).time || 0;
+      const silent = 0 === lastTimeStamp;
       const post = n.post || {};
       const { subject, content } = post;
       let image;
@@ -65,6 +65,8 @@ async function mysNewsNotice() {
       const stamp = post.created_at || 0;
 
       recentStamp = Math.max(stamp, recentStamp);
+      // 立即写入，忽略所有的发送失败
+      db.update("news", "timestamp", { type: t }, { time: recentStamp });
 
       if (false === silent && stamp > lastTimeStamp && lodash.some(items, (c) => "string" === typeof c && "" !== c)) {
         const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
@@ -79,8 +81,6 @@ async function mysNewsNotice() {
         }
       }
     }
-
-    db.update("news", "timestamp", { type: t }, { time: recentStamp });
   }
 }
 
