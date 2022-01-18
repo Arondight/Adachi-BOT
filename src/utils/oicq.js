@@ -88,7 +88,8 @@ function fromCqcode(text = "") {
   let itemsSize = 0;
 
   for (let i = 0; i < text.length; ++i) {
-    const pos = matchBracket(text, i);
+    const brackets = ["[", "]"];
+    const pos = matchBracket(text, i, brackets);
 
     switch (pos) {
       case -1:
@@ -99,14 +100,15 @@ function fromCqcode(text = "") {
         items[itemsSize] += text[i];
         continue;
       case -2:
-        throw `不能转换错误的信息：${text}`;
+        throw `消息 CQ 码不匹配：${text}`;
       case -3:
       case -4:
         items.push(text);
         i = text.length;
         break;
       case -5:
-        throw `错误的括号匹配`;
+        // This is impossible
+        throw `错误的括号匹配：${brackets.join("")}`;
       default:
         if (pos > 0) {
           items.push(text.substring(i, pos + 1));
