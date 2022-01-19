@@ -406,8 +406,7 @@ p.align-right {
 }
 
 .quoteText {
-  color: hsl(222deg 9% 44% / 88%);
-  font-size: 14px;
+  color: hsl(222deg 9% 44% / 70%);
   margin-left: 6px;
 }
 
