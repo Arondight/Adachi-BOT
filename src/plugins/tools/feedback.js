@@ -6,7 +6,7 @@ function feedback(msg) {
 https://github.com/Arondight/Adachi-BOT/issues`;
   const textMaster =
     (msg.sid === msg.uid ? "" : `${msg.group_name}（${msg.sid}）中的`) +
-    `${msg.name}（${msg.uid}）给主人带个话：\n${info}`;
+    `${msg.name || ""}（${msg.uid}）给主人带个话：\n${info}`;
 
   // 私聊无法 @
   msg.bot.sayMaster(msg.sid, textMaster, msg.type, msg.uid);

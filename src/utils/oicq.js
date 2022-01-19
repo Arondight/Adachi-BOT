@@ -154,6 +154,18 @@ function isGroupBan(msg = {}, type, bot) {
   return false;
 }
 
+async function isStranger(bot, group, id) {
+  const members = await bot.getGroupMemberList(group);
+
+  for (const [, m] of members) {
+    if (id === m.user_id) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 async function say(
   bot,
   id,
@@ -208,18 +220,8 @@ async function say(
           let gid;
 
           for (const [, g] of bot.gl) {
-            const members = await bot.getGroupMemberList(g.group_id);
-            let find = false;
-
-            for (const [, m] of members) {
-              if (id === m.user_id) {
-                gid = g.group_id;
-                find = true;
-                break;
-              }
-            }
-
-            if (true === find) {
+            if (true === (await isStranger(bot, g.group_id, id))) {
+              gid = g.group_id;
               break;
             }
           }
@@ -289,4 +291,4 @@ function boardcast(bot, msg = "", type = "group", check = () => true) {
   return delay * count;
 }
 
-export { boardcast, isGroupBan, say, sayMaster, toCqcode };
+export { boardcast, isGroupBan, isStranger, say, sayMaster, toCqcode };

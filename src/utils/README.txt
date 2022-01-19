@@ -55,6 +55,7 @@
   boardcast               发送一条广播
   fromCqcode              将 oicq 2.x 的 message 转换为 oicq 1.x 中的 raw_message
   isGroupBan              是否被群禁言
+  isStranger              是否为陌生人
   say                     发送一条消息
   sayMaster               给全体管理员发送一条消息
   toCqcode                将 oicq 1.x 的 raw_message 转换为 oicq 2.x 中的 message
