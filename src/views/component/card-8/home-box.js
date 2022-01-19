@@ -2,8 +2,8 @@ const template = `<div class="home-box">
   <img class="home-background" :src="backgroundImage" alt="ERROR" />
   <div class="unlock" v-if="data.level !== -1">
     <div class="box-block unlock-content-block">
-      <p class="box-content name">{{ data.name }}</p>
-      <p class="box-content comfort">{{ data.comfort_level_name }}</p>
+      <p class="box-content comfort-levelname">{{ data.name }}</p>
+      <p class="box-content comfort-level">{{ data.comfort_level_name }}</p>
     </div>
   </div>
   <div class="locked" v-else>

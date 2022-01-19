@@ -43,15 +43,12 @@ const template = `<div class="user-base-page">
     <div class="container-home-box">
       <SectionTitle class="bottom-split" :title="homeboxTitle" />
       <div class="bottom">
-        <HomeBox :data="homes.hole" />
-        <HomeBox :data="homes.mountain" />
-        <HomeBox :data="homes.island" />
-        <HomeBox :data="homes.hall" />
+        <HomeBox v-for="home in homes" :data="home" />
       </div>
     </div>
     <div class="quoteBox">
         <img class="quoteImage" :src="emoticon.link" :alt="emoticon.filename" />
-        <p class="quoteText" :style="{'fontSize': quoteFontSize}">{{emoticon.quote}}</p>
+        <p class="quoteText" :style="{'fontSize': emoticon.quoteFontSize}">{{emoticon.quote}}</p>
     </div>
   </div>
 
@@ -128,12 +125,9 @@ export default defineComponent({
       return d || { name, level: -1 };
     }
 
-    const homes = {
-      hole: homeData("罗浮洞"),
-      mountain: homeData("翠黛峰"),
-      island: homeData("清琼岛"),
-      hall: homeData("绘绮庭"),
-    };
+    const homeList = ["罗浮洞", "翠黛峰", "清琼岛", "绘绮庭"];
+    const homes = homeList.map((home) => homeData(home));
+
     const comfort = Math.max(...Object.keys(homes).map((k) => homes[k].comfort_num || -Infinity));
     const homeboxTitle = `尘歌壶${comfort > 0 ? "（" + comfort + " 仙力）" : ""}`;
 
@@ -165,7 +159,7 @@ export default defineComponent({
       return 14 - level;
     }
 
-    const quoteFontSize = parseInt(getFontSize(emoticon.quote.length)).toString() + "px";
+    emoticon.quoteFontSize = parseInt(getFontSize(emoticon.quote.length)).toString() + "px";
 
     return {
       data: params,
@@ -178,7 +172,6 @@ export default defineComponent({
       hasLevelInfo,
       hasPlayerNameInfo,
       emoticon,
-      quoteFontSize,
     };
   },
 });

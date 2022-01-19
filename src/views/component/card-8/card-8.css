@@ -383,12 +383,13 @@ p.align-right {
   background: #3333338c;
 }
 
-.home-box .name {
+.comfort-levelname {
   color: rgb(242, 210, 134);
   font-size: 13px;
 }
 
-.home-box .comfort {
+.comfort-level,
+.comfort-num {
   font-size: 11px;
   font-weight: 300;
 }
