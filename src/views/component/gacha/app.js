@@ -3,6 +3,10 @@ const containerTemplate = `
 <div class="container-gacha-box">
   <gachaBox v-for="pull in gachaDataToShow" :data="pull" :fives="fives" :isStat="isStatisticalData" />
 </div>
+<div class="info-footer">
+  <div v-if="showEpitomizedPath" class="epitome">当前定轨 xx<br>命定值 x/2</div>
+  <div class="credit">Created by Adachi-BOT</div>
+</div>
 `;
 
 // eslint-disable-next-line no-undef
@@ -38,21 +42,21 @@ export default defineComponent({
     function get_wish_type(type) {
       switch (type) {
         case "indefinite":
-          return "常驻祈愿";
+          return ["常驻祈愿", false];
         case "character":
-          return "角色祈愿";
+          return ["角色祈愿", false];
         case "character2":
-          return "角色祈愿2";
+          return ["角色祈愿2", false];
         case "weapon":
-          return "武器祈愿";
+          return ["武器祈愿", true];
         case "eggs":
-          return "彩蛋";
+          return ["彩蛋", false];
       }
     }
 
     const userName = params.user;
     const userDrawTime = get_time();
-    const wishType = get_wish_type(params.type);
+    const [wishType, showEpitomizedPath] = get_wish_type(params.type);
     const drawCount = params.data.length;
 
     function quickSortByRarity(m, n) {
@@ -77,6 +81,7 @@ export default defineComponent({
       fives: params.five,
       gachaDataToShow,
       isStatisticalData,
+      showEpitomizedPath,
     };
   },
 });
