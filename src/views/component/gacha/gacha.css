@@ -68,13 +68,14 @@ body {
   height: 484px;
   display: grid;
   grid-template-rows: 271px 26px 46px 65px 8px 21px 75px;
-  grid-template-areas: '.'
-    'label'
-    '.'
-    'type-image'
-    '.'
-    'rarity'
-    '.';
+  grid-template-areas:
+    "."
+    "label"
+    "."
+    "type-image"
+    "."
+    "rarity"
+    ".";
   justify-items: center;
 }
 
