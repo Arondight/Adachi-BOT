@@ -1,139 +1,102 @@
+@font-face {
+  font-family: GenshinUsedFont;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
-html {
-  font-family: GenshinUsedFont, monospace;
-}
-
+html,
 body {
-  position: absolute;
   width: 1286px;
-  height: 723px;
+  min-height: 723px;
+  font-family: GenshinUsedFont, monospace;
+  color: #fff;
 }
 
-.background {
-  position: absolute;
+#particles-js {
+  position: fixed;
+  z-index: -999;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(45deg, #272b38, #2b2b35);
 }
 
-.bg-info {
-  position: absolute;
-  top: 20px;
-  left: 83px;
-  width: 1120px;
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gacha-title {
   overflow-wrap: anywhere;
   font-size: 35px;
-  color: rgb(255, 255, 255);
   text-shadow: 0 0 6px #333333;
-  z-index: 9999;
+  margin-top: 20px;
+  margin-left: 40px;
+  width: 1120px;
+  z-index: 999;
+  align-self: flex-start;
 }
 
-.patch-close-button,
-.patch-share-button {
-  position: absolute;
-  border-radius: 50px;
-  z-index: 1;
-}
-
-.patch-close-button {
-  left: 1128px;
-  top: 9px;
-  width: 62px;
-  height: 63px;
-  background-image: linear-gradient(0deg, #272936, #262b36);
-  box-shadow: 0 0 5px #282a39;
-}
-
-.patch-share-button {
-  top: 636px;
-  left: 1011px;
-  width: 182px;
-  height: 56px;
-  background-image: linear-gradient(0deg, #2a2c36, #2b2a38);
+.container-gacha-box {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-column-gap: 10px;
+  align-items: center;
+  grid-auto-rows: 580px;
+  margin-top: 20px;
 }
 
 .gacha-box {
-  position: relative;
-  display: inline-flex;
-  top: 24px;
-  z-index: 1;
-}
-
-.gacha-box:first-child {
-  margin-left: 83px;
-}
-
-.element .star-background {
-  position: relative;
+  height: 675px;
   width: 112px;
-}
-
-.element .star-image {
   display: flex;
-  position: relative;
-  z-index: 1;
-  width: 82px;
-  left: 15px;
-  top: -202px;
+  align-items: center;
+  background-size: 100%;
 }
 
-.element .weapon-image {
+.item-image {
+  width: 112px;
+}
+
+.container-item-props {
   position: absolute;
   width: 112px;
-  top: 150px;
-  z-index: 101;
+  height: 484px;
+  display: grid;
+  grid-template-rows: 271px 26px 46px 65px 8px 21px 75px;
+  grid-template-areas:
+    "."
+    "label"
+    "."
+    "type-image"
+    "."
+    "rarity"
+    ".";
+  justify-items: center;
 }
 
-.element .weapon-image-shadow {
-  position: relative;
-  width: 112px;
-  top: -553px;
-  left: 3px;
-  filter: brightness(0%);
-  opacity: 0.72;
-  z-index: 100;
-}
-
-.type-image {
-  position: absolute;
-  width: 65px;
-  left: 23px;
-  top: 412px;
-  z-index: 102;
-}
-
-.element .weapon-name {
-  position: absolute;
-  color: rgb(242, 242, 242);
-  width: 112px;
-  top: 434px;
-  text-align: center;
-  font-size: 15px;
-}
-
-.element .character-image {
-  position: absolute;
-  display: inline-block;
-  /* margin: 0 3px; */
-  width: 107px;
-  height: 473px;
-  bottom: 129px;
-}
-
-.times {
-  position: absolute;
-  z-index: 9999;
-  width: 100px;
-  text-align: center;
+.item-label {
+  grid-area: label;
   font-size: 20px;
-  left: 5px;
-  top: 380px;
-  color: rgb(255, 255, 255);
-  background-color: rgba(5, 5, 5, 0.3);
+  width: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #5a5a5acc;
 }
 
-@font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
+.item-type-image {
+  grid-area: type-image;
+  width: 65px;
+  height: 65px;
+}
+
+.item-rarity-image {
+  grid-area: rarity;
+  height: 21px;
 }
