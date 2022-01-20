@@ -110,6 +110,7 @@ body {
   align-items: end;
   font-size: 20px;
   margin-bottom: 20px;
+  text-shadow: 0 0 6px #333333;
 }
 
 .epitome {
