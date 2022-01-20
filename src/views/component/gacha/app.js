@@ -88,7 +88,7 @@ export default defineComponent({
       gachaDataToShow,
       isStatisticalData,
       showEpitomizedPath,
-      epitomizedPath
+      epitomizedPath,
     };
   },
 });
