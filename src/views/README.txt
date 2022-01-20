@@ -14,7 +14,7 @@
   【我的】【<游戏内UID、@群友>的】
 
 ./genshin-gacha.html
-  【十连】
+  【抽卡】
 
 ./genshin-overview.html
   【信息】

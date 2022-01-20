@@ -151,15 +151,26 @@ gacha:
   enable: true
   weights: 9399
   regex:
-    - ^卡池\s*$
-    - ^(十连|定轨)\s*$
+    - ^(卡池|定轨)\s*$
+    - ^(抽卡|十连|定轨)\s*$
     - ^(卡池|定轨)\s*\S+\s*$
     - ^(查看|取消)定轨\s*$
+    - ^抽卡\s*\d+\s*$
   functions:
     gacha:
       type: command
       show: true
       weights: 9999
+      name: 抽卡
+      usage: "[10-100]"
+      revert: false
+      description: 默认十连
+      entrance:
+        - ^抽卡
+    gacha10:
+      type: command
+      show: false
+      weights: 9998
       name: 十连
       usage: null
       revert: false
@@ -173,7 +184,7 @@ gacha:
       name: 卡池
       usage: null
       revert: false
-      description: 切换【十连】的卡池
+      description: 切换卡池
       entrance:
         - ^卡池
       options:

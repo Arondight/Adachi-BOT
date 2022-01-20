@@ -1,11 +1,11 @@
 import fs from "fs";
-import path from "path";
+import _path from "path";
 import lodash from "lodash";
 import db from "../../utils/database.js";
 
-const configdir = path.resolve(global.rootdir, "resources", "Version2", "wish", "config");
-const element = JSON.parse(fs.readFileSync(path.resolve(configdir, "character.json")));
-const types = JSON.parse(fs.readFileSync(path.resolve(configdir, "weapon.json")));
+const configdir = _path.resolve(global.rootdir, "resources", "Version2", "wish", "config");
+const element = JSON.parse(fs.readFileSync(_path.resolve(configdir, "character.json")));
+const types = JSON.parse(fs.readFileSync(_path.resolve(configdir, "weapon.json")));
 
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max) + 1;
@@ -150,6 +150,7 @@ function gachaOnce(userID, choice, table) {
       db.update("gacha", "user", { userID }, { path });
     } else {
       // 无定轨，或未触发定轨
+      // XXX 无定轨时不应加命定值
       if (up) {
         const index = getRandomInt(table.upFiveStar.length) - 1;
         result = table.upFiveStar[index];
@@ -239,6 +240,9 @@ function gachaTimes(userID, nickname, times = 10) {
     four: lodash.filter(result.data, { star: 4 }),
     three: lodash.filter(result.data, { star: 3 }),
   };
+  const { path } = db.get("gacha", "user", { userID }) || { course: null, fate: 0 };
+  const weaponTable = db.get("gacha", "data", { gacha_type: 302 }) || {};
+  const fateCourse = null !== path.course ? weaponTable.upFiveStar[path.course] || {} : {};
 
   result.names.five = lodash.keys(lodash.keyBy(byStar.five, "item_name"));
   result.names.four = lodash.keys(lodash.keyBy(byStar.four, "item_name"));
@@ -259,6 +263,8 @@ function gachaTimes(userID, nickname, times = 10) {
       result.count.push(lodash.omit({ ...a[0], ...{ count: a.length } }, "times"));
     })
     .value();
+  // 无定轨，fate 不可信，course 为 {}
+  result.path = { fate: path.fate || 0, course: { type: fateCourse.item_type, name: fateCourse.item_name } };
 
   // 彩蛋卡池不写入数据库
   if (999 !== choice) {

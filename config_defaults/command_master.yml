@@ -134,7 +134,7 @@ master:
   enable: true
   weights: 9999
   regex:
-    - ^设置(带话|点歌|十连|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s*\d+\s*\S+\s*$
+    - ^设置(带话|点歌|抽卡|圣遗物|评分|(游戏|官方)数据|娱乐功能)权限\s*\d+\s*\S+\s*$
     - ^设置(消息响应|米游社新闻推送)\s*\d+\s*\S+\s*$
     - ^刷新卡池\s*$
   functions:
@@ -168,12 +168,12 @@ master:
       type: switch
       show: true
       weights: 9799
-      name: 设置十连权限
+      name: 设置抽卡权限
       usage: <QQ号、群号>
       revert: false
       description: null
       entrance:
-        - ^设置十连权限
+        - ^设置抽卡权限
       options:
         on: on
         off: off

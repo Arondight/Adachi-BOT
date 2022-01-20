@@ -18,6 +18,12 @@ async function Plugin(msg) {
     }
     case hasEntrance(msg.text, "gacha", "gacha"):
       if (false !== checkAuth(msg, "gacha")) {
+        const times = (msg.text.match(/[0-9]+/g) || [10])[0];
+        doGacha(msg, times > 10 && times <= 100 ? times : 10);
+      }
+      break;
+    case hasEntrance(msg.text, "gacha", "gacha10"):
+      if (false !== checkAuth(msg, "gacha")) {
         doGacha(msg, 10);
       }
       break;
@@ -33,9 +39,9 @@ async function Plugin(msg) {
       break;
     case hasEntrance(msg.text, "gacha", "select"): {
       const name = getName(msg);
-      const guess = guessPossibleNames(name, global.names.weapon);
+      const guess = name ? guessPossibleNames(name, global.names.weapon) : "null";
       if (guess.length > 0 && false !== checkAuth(msg, "select")) {
-        doSelect(msg, 1 === guess.length ? guess[0] : name);
+        doSelect(msg, name && (1 === guess.length ? guess[0] : name));
       }
       break;
     }

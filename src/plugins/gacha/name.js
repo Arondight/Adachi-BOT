@@ -6,7 +6,12 @@ function getText(msg, names) {
 
 function getName(msg) {
   const name = getText(msg, global.command.functions.entrance.select);
-  return global.names.weaponAlias["string" === typeof name ? name.toLowerCase() : name] || name;
+
+  if ("string" === typeof name && name.length > 0) {
+    return global.names.weaponAlias["string" === typeof name ? name.toLowerCase() : name] || name;
+  }
+
+  return undefined;
 }
 
 function getPool(msg) {

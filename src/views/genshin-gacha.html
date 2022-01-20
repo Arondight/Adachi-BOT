@@ -2,173 +2,19 @@
 <html lang="zh-cn">
   <head>
     <meta charset="UTF-8" />
-    <title>genshin-gacha</title>
-    <script src="../../data/js/vue2.min.js"></script>
-    <link rel="stylesheet" href="./component/gacha/gacha.css" />
-    <link rel="icon" href="data:," />
+    <title>genshin-gacha-infinity</title>
+    <script src="../../data/js/vue3.global.prod.js"></script>
+    <link rel="stylesheet" href="component/gacha/gacha.css" />
   </head>
   <body>
-    <div id="app">
-      <div class="patch-close-button"></div>
-      <div class="patch-share-button"></div>
-      <background :user="user" :type="type"></background>
-      <gacha-box :data="gachaList"></gacha-box>
-    </div>
-
-    <template id="background">
-      <div class="background">
-        <p class="bg-info">@{{user}} 在 {{time}} 抽取了 {{wish}} 卡池</p>
-        <img
-          src="http://localhost:9934/resources/gacha/items/background.png"
-          alt="ERROR"
-          style="position: absolute; z-index: -1"
-        />
-      </div>
-    </template>
-
-    <template id="gacha-result">
-      <div class="element">
-        <img class="star-background" :src="starBackground" alt="ERROR" />
-        <img class="star-image" :src="starImage" alt="ERROR" />
-        <div v-if="'武器' === data.item_type">
-          <img class="weapon-image" :src="weaponImage" alt="ERROR" />
-          <img class="weapon-image-shadow" :src="weaponImage" alt="ERROR" />
-          <!--<p class="weapon-name">{{data.item_name}}</p>-->
-        </div>
-        <div v-else>
-          <img class="character-image" :src="characterImage" alt="ERROR" />
-        </div>
-        <img class="type-image" :src="typeImage" alt="ERROR" />
-        <div class="times" v-if="data.times !== undefined">「{{data.times}} 抽」</div>
-      </div>
-    </template>
-
-    <template id="gacha-box">
-      <div class="gacha">
-        <div class="gacha-box" v-for="data in data">
-          <gacha-result :data="data"></gacha-result>
-        </div>
-      </div>
-    </template>
+    <div id="particles-js"></div>
+    <div id="app"></div>
 
     <script type="module">
-      import { getParams } from "./component/common/param.js";
-
-      const background = {
-        template: "#background",
-        props: ["user", "type"],
-        computed: {
-          time() {
-            const date = new Date();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            let hour = date.getHours();
-            let minute = date.getMinutes();
-            let second = date.getSeconds();
-
-            if (hour < 10) hour = "0" + hour;
-            if (minute < 10) minute = "0" + minute;
-            if (second < 10) second = "0" + second;
-
-            return `${month}月${day}日${hour}:${minute}:${second}`;
-          },
-          wish() {
-            switch (this.type) {
-              case "indefinite":
-                return "常驻祈愿";
-              case "character":
-                return "角色祈愿";
-              case "character2":
-                return "角色祈愿2";
-              case "weapon":
-                return "武器祈愿";
-              case "eggs":
-                return "彩蛋";
-            }
-          },
-        },
-      };
-
-      const gachaResult = {
-        template: "#gacha-result",
-        props: ["data"],
-        data() {
-          return {
-            starType: ["ThreeStar", "FourStar", "FiveStar"],
-            bgType: ["ThreeBackground", "FourBackground", "FiveBackground"],
-          };
-        },
-        computed: {
-          starBackground() {
-            return "http://localhost:9934/resources/gacha/items/" + this.bgType[this.data.star - 3] + ".png";
-          },
-          starImage() {
-            return "http://localhost:9934/resources/gacha/items/" + this.starType[this.data.star - 3] + ".png";
-          },
-          characterImage() {
-            return "http://localhost:9934/resources/Version2/wish/character/" + this.data.item_name + ".png";
-          },
-          weaponImage() {
-            return "http://localhost:9934/resources/Version2/wish/weapon/" + this.data.item_name + ".png";
-          },
-          typeImage() {
-            const type = this.data.item_type === "武器" ? "type" : "element";
-            const name = this.data.type;
-            return `http://localhost:9934/resources/gacha/${type}/` + name + ".png";
-          },
-        },
-      };
-
-      const gachaBox = {
-        template: "#gacha-box",
-        props: ["data"],
-        components: {
-          gachaResult,
-        },
-      };
-
-      new Vue({
-        el: "#app",
-        data: {
-          gachaList: [
-            {
-              star: 0,
-              item_type: "",
-              item_name: "",
-              type: "",
-            },
-          ],
-          type: "",
-          user: "",
-        },
-        components: {
-          background,
-          gachaBox,
-        },
-        methods: {
-          sortValue(type) {
-            return "角色" === type ? 1 : 0;
-          },
-        },
-        mounted() {
-          const params = getParams(window.location.href);
-
-          this.gachaList = params.data;
-          this.type = params.type;
-          this.user = params.user;
-
-          this.gachaList.sort((x, y) => {
-            const xv = this.sortValue(x.item_type);
-            const yv = this.sortValue(y.item_type);
-
-            if (x.star === y.star) {
-              return yv - xv;
-            } else {
-              return y.star - x.star;
-            }
-          });
-        },
-      });
+      import App from "./component/gacha/app.js";
+      Vue.createApp(App).mount("#app");
     </script>
+    <!--particles.min.js-->
+    <script src="../../data/js/particles.min.js"></script>
   </body>
 </html>
