@@ -170,7 +170,7 @@ gacha:
     gacha10:
       type: command
       show: false
-      weights: 9999
+      weights: 9998
       name: 十连
       usage: null
       revert: false
