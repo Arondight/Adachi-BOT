@@ -65,7 +65,7 @@ async function mysNewsNotice() {
         "string" === typeof subject ? subject : "",
         imageCQ,
         "string" === typeof content
-          ? "。！？~".split("").includes(content[content.length - 1])
+          ? "。！？～".split("").includes(content[content.length - 1])
             ? content
             : `${content} ……`
           : "",
