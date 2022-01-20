@@ -107,6 +107,9 @@ body {
   grid-template-areas: "epitome credit";
   width: 1220px;
   justify-items: end;
+  align-items: end;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .epitome {

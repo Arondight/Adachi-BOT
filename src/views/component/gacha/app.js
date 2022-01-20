@@ -4,7 +4,10 @@ const containerTemplate = `
   <gachaBox v-for="pull in gachaDataToShow" :data="pull" :fives="fives" :isStat="isStatisticalData" />
 </div>
 <div class="info-footer">
-  <div v-if="showEpitomizedPath" class="epitome">当前定轨 xx<br>命定值 x/2</div>
+  <div v-if="showEpitomizedPath" class="epitome">
+    当前<span v-if="!epitomizedPath.hasPath">没有</span>定轨 <span v-if="epitomizedPath.hasPath">{{epitomizedPath.course.name}}</span>
+    <br>
+    命定值 <span v-if="epitomizedPath.hasPath">{{epitomizedPath.fate}}</span><span v-else>0</span>/2</div>
   <div class="credit">Created by Adachi-BOT</div>
 </div>
 `;
@@ -73,6 +76,9 @@ export default defineComponent({
         ? params.count.sort((x, y) => quickSortByRarity(x, y))
         : params.data.sort((x, y) => quickSortByRarity(x, y));
 
+    let epitomizedPath = params.path;
+    epitomizedPath.hasPath = Object.keys(epitomizedPath.course).length !== 0;
+
     return {
       userName,
       userDrawTime,
@@ -82,6 +88,7 @@ export default defineComponent({
       gachaDataToShow,
       isStatisticalData,
       showEpitomizedPath,
+      epitomizedPath
     };
   },
 });
