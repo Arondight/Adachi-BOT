@@ -74,11 +74,20 @@ function report() {
   log(`${1 === global.config.saveImage ? "" : "不"}保存图片。`);
 }
 
-async function login() {
+async function run() {
+  const plugins = await loadPlugins();
+
   for (const bot of global.bots) {
+    bot.on("system.online", (msg) => processed(msg, plugins, "online", bot));
+    bot.on("message.group", (msg) => processed(msg, plugins, "group", bot));
+    bot.on("message.private", (msg) => processed(msg, plugins, "private", bot));
+    bot.on("notice.friend.increase", (msg) => processed(msg, plugins, "friend.increase", bot));
+    bot.on("notice.group.increase", (msg) => processed(msg, plugins, "group.increase", bot));
+
     await new Promise((resolve) => {
       bot.on("system.online", () => resolve());
       bot.on("system.login.error", () => resolve());
+
       if ("string" === typeof bot.account.password) {
         // 监听登录滑动验证码事件
         bot.on("system.login.slider", () =>
@@ -95,8 +104,6 @@ async function login() {
             resolve();
           });
         });
-
-        bot.login(bot.account.password);
       } else {
         // 监听登录二维码事件
         bot.on("system.login.qrcode", () => {
@@ -106,27 +113,10 @@ async function login() {
             resolve();
           });
         });
-
-        bot.login();
       }
+
+      bot.login(bot.account.password);
     });
-  }
-}
-
-async function run() {
-  const plugins = await loadPlugins();
-
-  for (const bot of global.bots) {
-    // 监听上线事件
-    bot.on("system.online", (msg) => processed(msg, plugins, "online", bot));
-    // 监听群消息事件
-    bot.on("message.group", (msg) => processed(msg, plugins, "group", bot));
-    // 监听好友消息事件
-    bot.on("message.private", (msg) => processed(msg, plugins, "private", bot));
-    // 监听加好友事件
-    bot.on("notice.friend.increase", (msg) => processed(msg, plugins, "friend.increase", bot));
-    // 监听入群事件
-    bot.on("notice.group.increase", (msg) => processed(msg, plugins, "group.increase", bot));
   }
 }
 
@@ -136,6 +126,5 @@ async function run() {
   hello();
   report();
   await init();
-  await login();
   run();
 })();
