@@ -10,7 +10,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["sort-exports"],
+  "plugins": ["sort-exports", "import", "node", "promise"],
   "rules": {
     "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
     "sort-imports": [
