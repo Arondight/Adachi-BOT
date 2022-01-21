@@ -73,7 +73,7 @@ export default defineComponent({
 
     const gachaDataToShow =
       params.data.length > 10
-        ? params.count.sort((x, y) => quickSortByRarity(x, y))
+        ? params.five.concat(params.count.sort((x, y) => quickSortByRarity(x, y)).filter((item) => item.star < 5))
         : params.data.sort((x, y) => quickSortByRarity(x, y));
 
     let epitomizedPath = params.path;
