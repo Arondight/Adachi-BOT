@@ -56,10 +56,12 @@ body {
   display: flex;
   align-items: center;
   background-size: 100%;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .item-image {
-  width: 112px;
+  width: 108px;
 }
 
 .container-item-props {
@@ -119,4 +121,10 @@ body {
 
 .credit {
   grid-area: credit;
+}
+
+.deco-username, .deco-time, .deco-type, .deco-count {
+  margin: 0 8px;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
 }
