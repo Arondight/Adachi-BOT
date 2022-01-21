@@ -38,11 +38,7 @@ export default defineComponent({
     const itemTypeImage = props.data.type;
     const itemRarity = rarityMapping[props.data.star] || "Four";
     const itemLabel =
-      props.data.star === 5
-        ? "「" + props.fives.find((el) => el.item_name === imageName)["times"] + "抽」"
-        : props.isStat
-        ? "「" + props.data.count + "次」"
-        : "";
+      props.data.star === 5 ? "「" + props.data.times + "抽」" : props.isStat ? "「" + props.data.count + "次」" : "";
     const iconType = props.data.item_type === "角色" ? "element" : "type";
 
     item_props.image_url = `http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.png`;
