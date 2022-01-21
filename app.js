@@ -77,6 +77,8 @@ function report() {
 async function login() {
   for (const bot of global.bots) {
     await new Promise((resolve) => {
+      bot.on('system.online', () => resolve())
+      bot.on('system.login.error', () => resolve())
       if ("string" === typeof bot.account.password) {
         // 监听登录滑动验证码事件
         bot.on("system.login.slider", () => process.stdin.once("data", (input) => {
