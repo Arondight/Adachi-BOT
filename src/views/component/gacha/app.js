@@ -76,10 +76,25 @@ export default defineComponent({
 
     const isStatisticalData = params.data.length > 10;
 
-    const gachaDataToShow =
+    let gachaDataToShow =
       params.data.length > 10
         ? params.five.concat(params.count.sort((x, y) => quickSortByRarity(x, y)).filter((item) => item.star < 5))
         : params.data.sort((x, y) => quickSortByRarity(x, y));
+
+    const compactGachaData = gachaDataToShow.filter((item) => item.star > 3);
+
+    if (compactGachaData.length >= 9) {
+      const threeStarItems = [
+        {
+          count: params.item_nums.three || 0,
+          item_name: "已折叠的三星武器",
+          item_type: "武器",
+          star: 3,
+          type: "sword",
+        },
+      ];
+      gachaDataToShow = compactGachaData.concat(threeStarItems);
+    }
 
     let epitomizedPath = params.path;
     epitomizedPath.hasPath = Object.keys(epitomizedPath.course).length !== 0;
