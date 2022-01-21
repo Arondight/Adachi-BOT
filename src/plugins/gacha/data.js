@@ -247,7 +247,7 @@ function gachaTimes(userID, nickname, times = 10) {
   };
   const { path } = db.get("gacha", "user", { userID }) || { course: null, fate: 0 };
   const weaponTable = db.get("gacha", "data", { gacha_type: 302 }) || {};
-  const fateCourse = null !== path.course ? weaponTable.upFiveStar[path.course] || {} : {};
+  const fateCourse = undefined !== path && null !== path.course ? weaponTable.upFiveStar[path.course] || {} : {};
 
   result.names.five = lodash.keys(lodash.keyBy(byStar.five, "item_name"));
   result.names.four = lodash.keys(lodash.keyBy(byStar.four, "item_name"));
