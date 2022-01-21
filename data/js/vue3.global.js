@@ -209,8 +209,20 @@ var Vue = (function (exports) {
       'polygon,polyline,radialGradient,rect,set,solidcolor,stop,switch,symbol,' +
       'text,textPath,title,tspan,unknown,use,view';
   const VOID_TAGS = 'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
+  /**
+   * Compiler only.
+   * Do NOT use in runtime code paths unless behind `true` flag.
+   */
   const isHTMLTag = /*#__PURE__*/ makeMap(HTML_TAGS);
+  /**
+   * Compiler only.
+   * Do NOT use in runtime code paths unless behind `true` flag.
+   */
   const isSVGTag = /*#__PURE__*/ makeMap(SVG_TAGS);
+  /**
+   * Compiler only.
+   * Do NOT use in runtime code paths unless behind `true` flag.
+   */
   const isVoidTag = /*#__PURE__*/ makeMap(VOID_TAGS);
 
   function looseCompareArrays(a, b) {
@@ -554,7 +566,7 @@ var Vue = (function (exports) {
           if (!this.active) {
               return this.fn();
           }
-          if (!effectStack.includes(this)) {
+          if (!effectStack.length || !effectStack.includes(this)) {
               try {
                   effectStack.push((activeEffect = this));
                   enableTracking();
@@ -810,6 +822,9 @@ var Vue = (function (exports) {
           else if (key === "__v_isReadonly" /* IS_READONLY */) {
               return isReadonly;
           }
+          else if (key === "__v_isShallow" /* IS_SHALLOW */) {
+              return shallow;
+          }
           else if (key === "__v_raw" /* RAW */ &&
               receiver ===
                   (isReadonly
@@ -854,9 +869,14 @@ var Vue = (function (exports) {
   function createSetter(shallow = false) {
       return function set(target, key, value, receiver) {
           let oldValue = target[key];
+          if (isReadonly(oldValue) && isRef(oldValue)) {
+              return false;
+          }
           if (!shallow && !isReadonly(value)) {
-              value = toRaw(value);
-              oldValue = toRaw(oldValue);
+              if (!isShallow(value)) {
+                  value = toRaw(value);
+                  oldValue = toRaw(oldValue);
+              }
               if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
                   oldValue.value = value;
                   return true;
@@ -1243,7 +1263,7 @@ var Vue = (function (exports) {
   }
   function reactive(target) {
       // if trying to observe a readonly proxy, return the readonly version.
-      if (target && target["__v_isReadonly" /* IS_READONLY */]) {
+      if (isReadonly(target)) {
           return target;
       }
       return createReactiveObject(target, false, mutableHandlers, mutableCollectionHandlers, reactiveMap);
@@ -1308,6 +1328,9 @@ var Vue = (function (exports) {
   function isReadonly(value) {
       return !!(value && value["__v_isReadonly" /* IS_READONLY */]);
   }
+  function isShallow(value) {
+      return !!(value && value["__v_isShallow" /* IS_SHALLOW */]);
+  }
   function isProxy(value) {
       return isReactive(value) || isReadonly(value);
   }
@@ -1366,22 +1389,22 @@ var Vue = (function (exports) {
       return new RefImpl(rawValue, shallow);
   }
   class RefImpl {
-      constructor(value, _shallow) {
-          this._shallow = _shallow;
+      constructor(value, __v_isShallow) {
+          this.__v_isShallow = __v_isShallow;
           this.dep = undefined;
           this.__v_isRef = true;
-          this._rawValue = _shallow ? value : toRaw(value);
-          this._value = _shallow ? value : toReactive(value);
+          this._rawValue = __v_isShallow ? value : toRaw(value);
+          this._value = __v_isShallow ? value : toReactive(value);
       }
       get value() {
           trackRefValue(this);
           return this._value;
       }
       set value(newVal) {
-          newVal = this._shallow ? newVal : toRaw(newVal);
+          newVal = this.__v_isShallow ? newVal : toRaw(newVal);
           if (hasChanged(newVal, this._rawValue)) {
               this._rawValue = newVal;
-              this._value = this._shallow ? newVal : toReactive(newVal);
+              this._value = this.__v_isShallow ? newVal : toReactive(newVal);
               triggerRefValue(this, newVal);
           }
       }
@@ -1464,22 +1487,23 @@ var Vue = (function (exports) {
       constructor(getter, _setter, isReadonly, isSSR) {
           this._setter = _setter;
           this.dep = undefined;
-          this._dirty = true;
           this.__v_isRef = true;
+          this._dirty = true;
           this.effect = new ReactiveEffect(getter, () => {
               if (!this._dirty) {
                   this._dirty = true;
                   triggerRefValue(this);
               }
           });
-          this.effect.active = !isSSR;
+          this.effect.computed = this;
+          this.effect.active = this._cacheable = !isSSR;
           this["__v_isReadonly" /* IS_READONLY */] = isReadonly;
       }
       get value() {
           // the computed ref may get wrapped by other proxies e.g. readonly() #3376
           const self = toRaw(this);
           trackRefValue(self);
-          if (self._dirty) {
+          if (self._dirty || !self._cacheable) {
               self._dirty = false;
               self._value = self.effect.run();
           }
@@ -1656,7 +1680,7 @@ var Vue = (function (exports) {
       [12 /* FUNCTION_REF */]: 'ref function',
       [13 /* ASYNC_COMPONENT_LOADER */]: 'async component loader',
       [14 /* SCHEDULER */]: 'scheduler flush. This is likely a Vue internals bug. ' +
-          'Please open an issue at https://new-issue.vuejs.org/?repo=vuejs/vue-next'
+          'Please open an issue at https://new-issue.vuejs.org/?repo=vuejs/core'
   };
   function callWithErrorHandling(fn, instance, type, args) {
       let res;
@@ -3117,7 +3141,7 @@ var Vue = (function (exports) {
       if (instance) {
           // #2400
           // to support `app.use` plugins,
-          // fallback to appContext's `provides` if the intance is at root
+          // fallback to appContext's `provides` if the instance is at root
           const provides = instance.parent == null
               ? instance.vnode.appContext && instance.vnode.appContext.provides
               : instance.parent.provides;
@@ -3183,7 +3207,7 @@ var Vue = (function (exports) {
       let isMultiSource = false;
       if (isRef(source)) {
           getter = () => source.value;
-          forceTrigger = !!source._shallow;
+          forceTrigger = isShallow(source);
       }
       else if (isReactive(source)) {
           getter = () => source;
@@ -4058,7 +4082,7 @@ var Vue = (function (exports) {
           return pattern.some((p) => matches(p, name));
       }
       else if (isString(pattern)) {
-          return pattern.split(',').indexOf(name) > -1;
+          return pattern.split(',').includes(name);
       }
       else if (pattern.test) {
           return pattern.test(name);
@@ -4311,7 +4335,7 @@ var Vue = (function (exports) {
                           warn$1(`Write operation failed: computed property "${key}" is readonly.`);
                       }
                       ;
-              const c = computed({
+              const c = computed$1({
                   get,
                   set
               });
@@ -4710,7 +4734,9 @@ var Vue = (function (exports) {
           // attrs point to the same object so it should already have been updated.
           if (attrs !== rawCurrentProps) {
               for (const key in attrs) {
-                  if (!rawProps || !hasOwn(rawProps, key)) {
+                  if (!rawProps ||
+                      (!hasOwn(rawProps, key) &&
+                          (!false ))) {
                       delete attrs[key];
                       hasAttrsChanged = true;
                   }
@@ -5806,6 +5832,7 @@ var Vue = (function (exports) {
       return [hydrate, hydrateNode];
   }
 
+  /* eslint-disable no-restricted-globals */
   let supported;
   let perf;
   function startMeasure(instance, type) {
@@ -5833,7 +5860,6 @@ var Vue = (function (exports) {
       if (supported !== undefined) {
           return supported;
       }
-      /* eslint-disable no-restricted-globals */
       if (typeof window !== 'undefined' && window.performance) {
           supported = true;
           perf = window.performance;
@@ -5841,7 +5867,6 @@ var Vue = (function (exports) {
       else {
           supported = false;
       }
-      /* eslint-enable no-restricted-globals */
       return supported;
   }
 
@@ -7718,7 +7743,7 @@ var Vue = (function (exports) {
           shapeFlag: vnode.shapeFlag,
           // if the vnode is cloned with extra props, we can no longer assume its
           // existing patch flag to be reliable and need to add the FULL_PROPS flag.
-          // note: perserve flag for fragments since they use the flag for children
+          // note: preserve flag for fragments since they use the flag for children
           // fast paths only.
           patchFlag: extraProps && vnode.type !== Fragment
               ? patchFlag === -1 // hoisted node
@@ -7880,7 +7905,8 @@ var Vue = (function (exports) {
               else if (isOn(key)) {
                   const existing = ret[key];
                   const incoming = toMerge[key];
-                  if (existing !== incoming &&
+                  if (incoming &&
+                      existing !== incoming &&
                       !(isArray(existing) && existing.includes(incoming))) {
                       ret[key] = existing
                           ? [].concat(existing, incoming)
@@ -8700,7 +8726,7 @@ var Vue = (function (exports) {
    * instance properties when it is accessed by a parent component via template
    * refs.
    *
-   * `<script setup>` components are closed by default - i.e. varaibles inside
+   * `<script setup>` components are closed by default - i.e. variables inside
    * the `<script setup>` scope is not exposed to parent unless explicitly exposed
    * via `defineExpose`.
    *
@@ -8898,7 +8924,7 @@ var Vue = (function (exports) {
                   return [
                       'div',
                       {},
-                      ['span', vueStyle, 'Reactive'],
+                      ['span', vueStyle, isShallow(obj) ? 'ShallowReactive' : 'Reactive'],
                       '<',
                       formatValue(obj),
                       `>${isReadonly(obj) ? ` (readonly)` : ``}`
@@ -8908,7 +8934,7 @@ var Vue = (function (exports) {
                   return [
                       'div',
                       {},
-                      ['span', vueStyle, 'Readonly'],
+                      ['span', vueStyle, isShallow(obj) ? 'ShallowReadonly' : 'Readonly'],
                       '<',
                       formatValue(obj),
                       '>'
@@ -9037,7 +9063,7 @@ var Vue = (function (exports) {
           }
       }
       function genRefFlag(v) {
-          if (v._shallow) {
+          if (isShallow(v)) {
               return `ShallowRef`;
           }
           if (v.effect) {
@@ -9081,7 +9107,7 @@ var Vue = (function (exports) {
   }
 
   // Core API ------------------------------------------------------------------
-  const version = "3.2.27";
+  const version = "3.2.28";
   /**
    * SSR utils for \@vue/server-renderer. Only exposed in cjs builds.
    * @internal
@@ -9468,7 +9494,7 @@ var Vue = (function (exports) {
               originalStop.call(e);
               e._stopped = true;
           };
-          return value.map(fn => (e) => !e._stopped && fn(e));
+          return value.map(fn => (e) => !e._stopped && fn && fn(e));
       }
       else {
           return value;
@@ -11875,7 +11901,7 @@ var Vue = (function (exports) {
           }
           const attr = parseAttribute(context, attributeNames);
           // Trim whitespace between class
-          // https://github.com/vuejs/vue-next/issues/4251
+          // https://github.com/vuejs/core/issues/4251
           if (attr.type === 6 /* ATTRIBUTE */ &&
               attr.value &&
               attr.name === 'class') {
@@ -12100,7 +12126,7 @@ var Vue = (function (exports) {
       advanceBy(context, length);
       if (mode === 2 /* RAWTEXT */ ||
           mode === 3 /* CDATA */ ||
-          rawText.indexOf('&') === -1) {
+          !rawText.includes('&')) {
           return rawText;
       }
       else {
@@ -13605,6 +13631,7 @@ var Vue = (function (exports) {
           const renderExp = createCallExpression(helper(RENDER_LIST), [
               forNode.source
           ]);
+          const isTemplate = isTemplateNode(node);
           const memo = findDir(node, 'memo');
           const keyProp = findProp(node, `key`);
           const keyExp = keyProp &&
@@ -13624,7 +13651,6 @@ var Vue = (function (exports) {
           return () => {
               // finish the codegen now that all children have been traversed
               let childBlock;
-              const isTemplate = isTemplateNode(node);
               const { children } = forNode;
               // check <template v-for> key placement
               if (isTemplate) {
@@ -15625,6 +15651,7 @@ var Vue = (function (exports) {
   exports.isReadonly = isReadonly;
   exports.isRef = isRef;
   exports.isRuntimeOnly = isRuntimeOnly;
+  exports.isShallow = isShallow;
   exports.isVNode = isVNode;
   exports.markRaw = markRaw;
   exports.mergeDefaults = mergeDefaults;
