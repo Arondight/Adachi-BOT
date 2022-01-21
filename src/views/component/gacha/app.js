@@ -83,7 +83,7 @@ export default defineComponent({
 
     const compactGachaData = gachaDataToShow.filter((item) => item.star > 3);
 
-    if (compactGachaData.length >= 9 && Object.hasOwnProperty()) {
+    if (compactGachaData.length >= 9 && params.type !== "eggs") {
       const threeStarItems = [
         {
           count: params.item_nums.three || 0,
