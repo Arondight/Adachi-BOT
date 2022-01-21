@@ -61,6 +61,11 @@ async function render(msg, data, name) {
     msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
   }
 
+  // 抽卡信息太多时减少缩放比
+  if ("genshin-gacha" === name && Array.isArray(data.data) && data.data.length > 10) {
+    settings.scale["genshin-gacha"] = 1;
+  }
+
   try {
     const dataStr = JSON.stringify(data);
 
@@ -76,14 +81,19 @@ async function render(msg, data, name) {
 
     await launch();
     const page = await browser.newPage();
+    const scale = settings.scale[name] || settingsDefault.scale;
 
     // 只在机器人发送图片时设置 viewport
     if (undefined !== msg.bot) {
       await page.setViewport({
         width: await page.evaluate(() => document.body.clientWidth),
         height: await page.evaluate(() => document.body.clientHeight),
-        deviceScaleFactor: settings.scale[name] || settingsDefault.scale,
+        deviceScaleFactor: scale,
       });
+    }
+
+    if (undefined !== msg.bot) {
+      msg.bot.logger.debug(`render：已设置 ${name} 功能的缩放比为 ${scale} 。`);
     }
 
     // 数据使用 URL 参数传入

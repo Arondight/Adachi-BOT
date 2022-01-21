@@ -211,6 +211,11 @@ function gachaTimes(userID, nickname, times = 10) {
     db.update("gacha", "user", { userID }, { choice });
   }
 
+  // 彩蛋卡池永远十连
+  if (999 === choice) {
+    times = 10;
+  }
+
   ({ name, five, four, isUp } = getChoiceData(userID, choice));
 
   for (let i = 0; i < times; ++i) {
