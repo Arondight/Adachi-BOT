@@ -123,7 +123,10 @@ body {
   grid-area: credit;
 }
 
-.deco-username, .deco-time, .deco-type, .deco-count {
+.deco-username,
+.deco-time,
+.deco-type,
+.deco-count {
   margin: 0 8px;
   text-decoration: underline dotted;
   text-underline-offset: 3px;
