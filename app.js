@@ -76,25 +76,27 @@ function report() {
 
 async function login() {
   for (const bot of global.bots) {
-    if ("string" === typeof bot.account.password) {
-      // 监听登录滑动验证码事件
-      bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
-      // 监听设备锁事件
-      bot.on("system.login.device", () => {
-        bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
-        process.stdin.once("data", () => bot.login());
-      });
+    await new Promise(() => {
+      if ("string" === typeof bot.account.password) {
+        // 监听登录滑动验证码事件
+        bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
+        // 监听设备锁事件
+        bot.on("system.login.device", () => {
+          bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
+          process.stdin.once("data", () => bot.login());
+        });
 
-      await bot.login(bot.account.password);
-    } else {
-      // 监听登录二维码事件
-      bot.on("system.login.qrcode", () => {
-        bot.logger.mark("手机扫码完成后按下回车键继续。");
-        process.stdin.once("data", () => bot.login());
-      });
+        bot.login(bot.account.password);
+      } else {
+        // 监听登录二维码事件
+        bot.on("system.login.qrcode", () => {
+          bot.logger.mark("手机扫码完成后按下回车键继续。");
+          process.stdin.once("data", () => bot.login());
+        });
 
-      await bot.login();
-    }
+        bot.login();
+      }
+    });
   }
 }
 
