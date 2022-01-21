@@ -81,11 +81,17 @@ async function login() {
       bot.on("system.login.error", () => resolve());
       if ("string" === typeof bot.account.password) {
         // 监听登录滑动验证码事件
-        bot.on("system.login.slider", () => process.stdin.once("data", (input) => bot.sliderLogin(input.toString())));
+        bot.on("system.login.slider", () => process.stdin.once("data", (input) => {
+          bot.sliderLogin(input.toString())
+          resolve()
+        }));
         // 监听设备锁事件
         bot.on("system.login.device", () => {
           bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
-          process.stdin.once("data", () => bot.login());
+          process.stdin.once("data", () => {
+            bot.login()
+            resolve()
+          });
         });
 
         bot.login(bot.account.password);
@@ -93,7 +99,10 @@ async function login() {
         // 监听登录二维码事件
         bot.on("system.login.qrcode", () => {
           bot.logger.mark("手机扫码完成后按下回车键继续。");
-          process.stdin.once("data", () => bot.login());
+          process.stdin.once("data", () => {
+            bot.login()
+            resolve()
+          });
         });
 
         bot.login();
