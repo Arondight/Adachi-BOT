@@ -138,7 +138,8 @@ body,
   box-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
-.char-infos, .weapon-infos {
+.char-infos,
+.weapon-infos {
   display: grid;
   width: 580px;
   grid-template-columns: minmax(max-content, 100px) auto minmax(max-content, 100px) auto;
@@ -150,7 +151,8 @@ body,
 }
 
 .char-infos {
-  grid-template-areas: "title-birthday birthday title-vision vision"
+  grid-template-areas:
+    "title-birthday birthday title-vision vision"
     "title-chnCV chnCV title-japCV japCV"
     "title-constellation constellation title-rarity rarity"
     "title-baseATK baseATK baseATK baseATK"
@@ -158,10 +160,11 @@ body,
 }
 
 .weapon-infos {
-  grid-template-areas: "title-access-method access-method title-rarity rarity"
-  "title-baseATK baseATK baseATK baseATK"
-  "title-ascension-prop ascension-prop ascension-prop ascension-prop"
-  "title-ascension-value ascension-value ascension-value ascension-value"
+  grid-template-areas:
+    "title-access-method access-method title-rarity rarity"
+    "title-baseATK baseATK baseATK baseATK"
+    "title-ascension-prop ascension-prop ascension-prop ascension-prop"
+    "title-ascension-value ascension-value ascension-value ascension-value";
 }
 
 .baseATK {
@@ -175,17 +178,18 @@ body,
   grid-area: ascension-value;
 }
 
-.info-title, .info-content {
+.info-title,
+.info-content {
   padding: 0 10px;
   box-sizing: border-box;
   text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
 }
 
 .info-title {
-  background: #EDE8E1;
+  background: #ede8e1;
   display: flex;
   justify-content: space-between;
-  color: #7D796D;
+  color: #7d796d;
   font-family: "Source Han Serif SC Heavy", serif;
   font-size: 24px;
   align-items: center;
@@ -193,22 +197,22 @@ body,
 
 .info-content {
   background: rgba(237, 232, 225, 0.11);
-  color: #EDE8E1;
+  color: #ede8e1;
 }
 
 .container-introduction {
   font-family: "Source Han Serif SC Heavy", serif;
-  border-top: 1px solid #EDE8E1;
-  border-bottom: 1px solid #EDE8E1;
-  color: #EDE8E1;
+  border-top: 1px solid #ede8e1;
+  border-bottom: 1px solid #ede8e1;
+  color: #ede8e1;
   font-size: 24px;
   min-height: 4em;
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .container-introduction:before {
-  content: '“';
-  color: #EDE8E1;
+  content: "“";
+  color: #ede8e1;
   font-size: 24px;
   position: absolute;
   transform: translateX(-1em);
@@ -220,7 +224,7 @@ body,
 
 .credit {
   font-family: "Source Han Serif SC Heavy", serif;
-  color: #EDE8E1;
+  color: #ede8e1;
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
   letter-spacing: 0.05em;
   align-self: end;
@@ -282,7 +286,7 @@ img.materials {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(50px, max-content);
-  color: #EDE8E1;
+  color: #ede8e1;
   grid-column-gap: 10px;
   padding-left: 20px;
   background: rgba(237, 232, 225, 0.11);

@@ -70,8 +70,8 @@ export default defineComponent({
   },
   methods: {
     getMaterialUrl(material) {
-      return `http://localhost:9934/resources/Version2/info/image/${material}.png`
-    }
+      return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
+    },
   },
   setup(props) {
     const params = props.data;

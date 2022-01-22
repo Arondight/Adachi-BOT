@@ -54,8 +54,8 @@ export default defineComponent({
   },
   methods: {
     getMaterialUrl(material) {
-      return `http://localhost:9934/resources/Version2/info/image/${material}.png`
-    }
+      return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
+    },
   },
   setup(props) {
     const params = props.data;
@@ -76,7 +76,6 @@ export default defineComponent({
     weaponInfo.weekdays = params.time || "【】";
     weaponInfo.skillName = params.skillName || "武器特殊效果";
     weaponInfo.skillEffect = params.skillContent || "暂无信息";
-
 
     return {
       decoStripContent,
