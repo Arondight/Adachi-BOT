@@ -26,5 +26,5 @@
     ],
     "time": "【周一/四/日】",
     "skillName": "不屈",
-    "skillContent": "生命值低于 <span style='color: rgb(91, 165, 234);'>70%/75%/80%/85%/90%</span> 时，重击不会轻易被打断，并提高 <span style='color: rgb(91, 165, 234);'>30%/35%/40%/45%/50%</span> 重击伤害。"
+    "skillContent": "生命值低于 <span style='color: rgb(113, 82, 87);'>70%/75%/80%/85%/90%</span> 时，重击不会轻易被打断，并提高 <span style='color: rgb(113, 82, 87);'>30%/35%/40%/45%/50%</span> 重击伤害。"
 }
