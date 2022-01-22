@@ -1,373 +1,326 @@
 @font-face {
-  font-family: "LXGW WenKai Screen";
-  src: url("../../../../data/font/LXGWWenKaiMono-Bold.ttf");
+  font-family: "Source Han Serif SC Heavy";
+  font-display: block;
+  src: url("../../../../data/font/SourceHanSerifSC-Heavy.otf");
 }
 
 @font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
+  font-family: "Source Han Sans SC";
+  font-display: block;
+  src: url("../../../../data/font/SourceHanSans-Regular.otf");
 }
 
-body {
-  width: 1026px;
-  height: 527px;
+@font-face {
+  font-family: "Source Han Serif SC Regular Subset";
+  font-display: block;
+  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
-  color: rgb(93, 105, 131);
-  -webkit-text-stroke: 0.02em;
 }
 
-img {
-  display: block;
+html,
+body,
+#app {
+  width: 800px;
 }
 
-html {
+.background {
+  width: 800px;
   height: 100%;
-  font-family: GenshinUsedFont, monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -1;
 }
 
-.info-base .background {
+.svg-container {
   position: absolute;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.info-base .character {
+.svg {
+  width: 800px;
+  height: 1100px;
+  -webkit-mask-size: 800px;
+  -webkit-mask-repeat: no-repeat;
+  transform: scale(1.45) translateY(50px);
+  filter: brightness(0.97);
+}
+
+.character-anemo {
+  background: linear-gradient(#a5d6c7, #629988);
+}
+
+.character-cryo {
+  background: linear-gradient(#a3d2e6, #5c8e9c);
+}
+
+.character-dendro {
+  background: linear-gradient(#b5cfa3, #7a855b);
+}
+
+.character-electro {
+  background: linear-gradient(#cfb0d6, #5b6282);
+}
+
+.character-geo {
+  background: linear-gradient(#e8d29b, #93666d);
+}
+
+.character-hydro {
+  background: linear-gradient(#7eb6de, #5f6999);
+}
+
+.character-pyro {
+  background: linear-gradient(#f2d09d, #a3615a);
+}
+
+.weapon-five-stars {
+  background: linear-gradient(#d0d6a5, #998462);
+}
+
+.weapon-four-stars {
+  background: linear-gradient(#cfb0d6, #5b6282);
+}
+
+.weapon-three-stars,
+.weapon-two-stars,
+.weapon-one-stars {
+  background: linear-gradient(#b0d6c0, #6a8f79);
+}
+
+.container-overview-infos {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  z-index: 2;
+  margin-top: 28px;
+  justify-items: center;
+  grid-row-gap: 30px;
+}
+
+.container-deco-strip {
   position: absolute;
+  top: 50px;
+  font-family: "Source Han Serif SC Regular Subset", serif;
+  color: hsl(42deg 27% 18%);
+  opacity: 0.11;
+  white-space: nowrap;
+  width: 800px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: -0.02em;
+}
+
+.info-name {
+  font-family: "Source Han Serif SC Heavy", serif;
+  color: #715257;
+  font-size: 44px;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+}
+
+.profile-image {
+  width: 300px;
+  height: 300px;
+  background: #d19e7a;
   border-radius: 50%;
-  width: 367px;
-  top: 79px;
-  left: 113px;
+  border: 8px solid #efeae3;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
-.info-base .weapon {
+.char-infos, .weapon-infos {
+  display: grid;
+  width: 580px;
+  grid-template-columns: minmax(max-content, 100px) auto minmax(max-content, 100px) auto;
+  font-family: "Source Han Serif SC Heavy", serif;
+  font-size: 24px;
+  grid-row-gap: 7px;
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
+  backdrop-filter: blur(4px);
+}
+
+.char-infos {
+  grid-template-areas: "title-birthday birthday title-vision vision"
+    "title-chnCV chnCV title-japCV japCV"
+    "title-constellation constellation title-rarity rarity"
+    "title-baseATK baseATK baseATK baseATK"
+    "title-ascension-prop ascension-prop title-ascension-value ascension-value";
+}
+
+.weapon-infos {
+  grid-template-areas: "title-access-method access-method title-rarity rarity"
+  "title-baseATK baseATK baseATK baseATK"
+  "title-ascension-prop ascension-prop ascension-prop ascension-prop"
+  "title-ascension-value ascension-value ascension-value ascension-value"
+}
+
+.baseATK {
+  grid-area: baseATK;
+}
+
+.info-content.weapon-ascension-prop {
+  grid-area: ascension-prop;
+}
+.info-content.weapon-ascension-value {
+  grid-area: ascension-value;
+}
+
+.info-title, .info-content {
+  padding: 0 10px;
+  box-sizing: border-box;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+}
+
+.info-title {
+  background: #EDE8E1;
+  display: flex;
+  justify-content: space-between;
+  color: #7D796D;
+  font-family: "Source Han Serif SC Heavy", serif;
+  font-size: 24px;
+  align-items: center;
+}
+
+.info-content {
+  background: rgba(237, 232, 225, 0.11);
+  color: #EDE8E1;
+}
+
+.container-introduction {
+  font-family: "Source Han Serif SC Heavy", serif;
+  border-top: 1px solid #EDE8E1;
+  border-bottom: 1px solid #EDE8E1;
+  color: #EDE8E1;
+  font-size: 24px;
+  min-height: 4em;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+}
+
+.container-introduction:before {
+  content: '“';
+  color: #EDE8E1;
+  font-size: 24px;
   position: absolute;
-  width: 412px;
-  top: 58px;
-  left: 89px;
-}
-
-.info-base .content {
-  position: absolute;
-  left: 527px;
-  top: 25px;
-}
-
-.title-and-name {
-  position: relative;
-  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
-  color: #333 !important;
-  font-size: 18pt;
-  width: 600px;
+  transform: translateX(-1em);
 }
 
 .introduction {
-  position: absolute;
-  top: 53px;
-  height: 51px;
-  left: 543px;
-  width: 450px;
-  text-align: justify;
-}
-
-.introduce {
-  position: relative;
-  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
-  color: rgb(99, 112, 139);
-  font-size: 11.23pt;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.info-base .dotted {
-  position: absolute;
-  width: 450px;
-  left: 543px;
-  border-bottom: 2px dashed;
-  top: 104px;
-  color: var(--dottedColor);
-}
-
-.character {
-  position: absolute;
-  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
-  left: 543px;
-  top: 14px;
-}
-
-.character .base-info {
-  position: relative;
-  height: 50px;
-  width: 474px;
-  top: 96px;
-}
-
-.base-info .birthday {
-  position: absolute;
-  width: 237px;
-  margin-bottom: 5px;
-}
-
-.base-info .element {
-  position: absolute;
-  width: 237px;
-  left: 237px;
-  margin-bottom: 5px;
-}
-
-.base-info .cv {
-  position: absolute;
-  top: 23px;
-  width: 237px;
-  margin-bottom: 5px;
-}
-
-.base-info .constellation-name {
-  position: absolute;
-  width: 237px;
-  top: 23px;
-  left: 237px;
-  margin-bottom: 5px;
-}
-
-.base-info .title,
-.base-info .content {
-  position: relative;
-  display: inline-block;
-  font-size: 10.38pt;
-}
-
-.base-info .title {
-  margin-right: 9px;
-  color: rgb(81, 92, 113);
-}
-
-.base-info .content {
-  color: rgb(116, 129, 156);
-}
-
-.data-block {
-  position: relative;
-  width: 450px;
-  top: 95px;
-  height: 22px;
-  /*调试用代码，记得之后改回来*/
-  /*background-color: rgb(211, 200, 187);*/
-  background-color: var(--backgroundColor);
-}
-
-.data-block .star-icon {
-  position: absolute;
-  height: 22px;
-  display: inline-block;
-  margin-right: 50px;
-}
-
-.data-block .title,
-.data-block .value {
-  position: relative;
-  display: inline-block;
-  float: right;
-}
-
-.data-block .title {
-  font-size: 14px;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.data-block .value {
-  font-size: 19px;
-  margin: 0 12px 0 12px;
-  color: rgb(255, 255, 255);
-}
-
-.value.atk,
-.title.atk,
-.value.main,
-.title.main {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.title.atk,
-.title.main {
-  font-size: 17px;
-}
-
-.materials {
-  position: relative;
-  top: 106px;
-}
-
-.time {
-  position: absolute;
-  font-size: 11.15pt;
-  top: 216px;
-  left: 310px;
-  color: rgb(93, 105, 131);
-}
-
-.character .constellation {
-  position: relative;
-  color: rgb(93, 105, 131);
-  top: 107px;
-}
-
-.character .constellation .box {
-  display: table;
-}
-
-.character .constellation .level {
-  position: relative;
-  display: table-cell;
-  font-size: 23pt;
-  width: 38px;
-  vertical-align: middle;
-  font-family: "LXGW WenKai Screen", monospace;
-}
-
-.character .constellation .content {
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  height: 45px;
-  padding-left: 5px;
-  font-size: 10.46pt;
-  width: 408px;
-  text-align: justify;
-}
-
-.weapon {
-  position: absolute;
-  left: 543px;
-  width: 450px;
-  top: 112px;
-}
-
-.weapon .access {
-  position: relative;
-  width: 100%;
-}
-
-.weapon .access .title,
-.weapon .access .content {
-  position: relative;
-  display: inline-block;
-  font-size: 10.38pt;
-}
-
-.weapon .access .title {
-  margin-right: 9px;
-  color: rgb(81, 92, 113);
-}
-
-.weapon .access .content {
-  color: rgb(116, 129, 156);
-}
-
-.weapon .data-block {
-  position: relative;
-  top: 6px;
-}
-
-.weapon .materials {
-  position: relative;
-  top: 18px;
-}
-
-.weapon .time {
-  top: 74px;
-}
-
-.weapon .skill {
-  position: relative;
-  top: 26px;
-}
-
-.weapon .skill .name {
-  position: relative;
-  font-size: 18.46pt;
-  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
-  color: rgb(85, 97, 120);
-}
-
-.weapon .skill .content {
-  position: relative;
-  width: 451px;
-  word-break: break-all;
-  word-wrap: break-word;
-  text-align: justify;
-  color: rgb(118, 130, 157);
-  top: 7px;
-  font-family: "LXGW WenKai Screen", GenshinUsedFont, monospace;
-  /* left: 13px; */
-}
-
-.item-list {
-  position: relative;
-  height: 32px;
-  padding-bottom: 3px;
-}
-
-.item-list .title {
-  position: absolute;
-  display: inline-block;
-  font-size: 11.15pt;
-  color: rgb(93, 105, 131);
-}
-
-.title-weapon-ascension,
-.time-weapon-ascension {
-  color: rgb(93, 105, 131);
-}
-
-table.weapon-table,
-table.character-table {
-  border-spacing: 0 !important;
-  width: 460px;
-  margin: 0;
-  padding: 0;
-}
-
-td.title-weapon-ascension {
-  width: fit-content;
-}
-
-td.time-weapon-ascension,
-material-character-ascension {
-  text-align: right;
-}
-
-.list-weapon {
-  position: relative;
-  display: inline-block;
-  height: 32px;
-  left: 15px;
-}
-
-.item-list .list {
-  position: relative;
-  display: inline-block;
-  height: 32px;
-  left: 15px;
-}
-
-.item-list .item {
-  display: inline-block;
-  height: 31px;
-  margin-right: 3px;
-  border-radius: 5px;
+  width: 580px;
 }
 
 .credit {
-  position: absolute;
-  z-index: 999;
-  font-family: GenshinUsedFont, monospace;
-  color: #5e6980;
-  top: 496px;
-  left: 795px;
+  font-family: "Source Han Serif SC Heavy", serif;
+  color: #EDE8E1;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  letter-spacing: 0.05em;
+  align-self: end;
+  margin: 20px 10px 10px 0;
+}
+
+.container-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.split-title {
+  color: #715257;
+  font-family: "Source Han Serif SC Heavy", serif;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.char-progression-table {
+  display: grid;
+  grid-template-columns: max-content auto;
+  font-family: "Source Han Serif SC Heavy", serif;
+  width: 580px;
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
+  grid-row-gap: 10px;
+}
+
+img.materials {
+  border-radius: 8px;
+  width: 50px;
+}
+
+.info-title.materials {
+  font-size: 24px;
+}
+
+.all-day-materials {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 50px;
+  grid-column-gap: 10px;
+  padding-left: 20px;
+  background: rgba(237, 232, 225, 0.11);
+}
+
+.table-materials {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.material-title {
+  font-size: 24px;
+}
+
+.limited-time-materials {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(50px, max-content);
+  color: #EDE8E1;
+  grid-column-gap: 10px;
+  padding-left: 20px;
+  background: rgba(237, 232, 225, 0.11);
+}
+
+.info-weekdays {
+  min-width: 200px;
+  text-align: end;
+  font-size: 24px;
+}
+
+.constellation-table {
+  display: grid;
+  width: 580px;
+  grid-template-columns: 50px auto;
+  grid-template-rows: repeat(4, 1fr);
+  grid-row-gap: 10px;
+  grid-auto-flow: column;
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
+}
+
+.info-content.constellations {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-family: "Source Han Sans SC", sans-serif;
+  font-size: 18px;
+}
+
+.constellation-order {
+  justify-content: center;
+}
+
+.info-content.weapon-skill-content {
+  width: 580px;
+  padding: 6px 10px;
+  font-family: "Source Han Sans SC", sans-serif;
+  font-size: 18px;
+  word-break: break-all;
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
 }
