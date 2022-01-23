@@ -47,7 +47,7 @@ export default defineComponent({
     };
     const itemType = typeMap[params.type] || "weapon";
 
-    const charElementType = elementMap[params.element.slice()[0]] || "anemo";
+    const charElementType = itemType === "character" ? elementMap[params.element.slice()[0]] || "anemo" : "";
     const itemRarity = rarityMap[params.rarity] || "4";
 
     const backgroundStyle =
