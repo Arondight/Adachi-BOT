@@ -37,17 +37,17 @@ export default defineComponent({
     };
     // noinspection NonAsciiCharacters
     const elementMap = {
-      风元素: "anemo",
-      冰元素: "cryo",
-      草元素: "dendro",
-      雷元素: "electro",
-      岩元素: "geo",
-      水元素: "hydro",
-      火元素: "pyro",
+      风: "anemo",
+      冰: "cryo",
+      草: "dendro",
+      雷: "electro",
+      岩: "geo",
+      水: "hydro",
+      火: "pyro",
     };
     const itemType = typeMap[params.type] || "weapon";
 
-    const charElementType = elementMap[params.element] || "anemo";
+    const charElementType = elementMap[params.element.slice()[0]] || "anemo";
     const itemRarity = rarityMap[params.rarity] || "4";
 
     const backgroundStyle =
