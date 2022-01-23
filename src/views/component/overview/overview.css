@@ -25,6 +25,7 @@ html,
 body,
 #app {
   width: 800px;
+  overflow-x: hidden;
 }
 
 .background {
@@ -36,23 +37,16 @@ body,
   z-index: -1;
 }
 
-.svg-container {
+.svg {
   position: absolute;
   width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.svg {
-  width: 800px;
-  height: 1100px;
-  -webkit-mask-size: 800px;
+  height: 1200px;
+  -webkit-mask-size: 1200px;
+  -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
-  transform: scale(1.45) translateY(50px);
-  filter: brightness(0.97);
+  transform: translateY(-250px);
+  z-index: 1;
+  opacity: 0.33;
 }
 
 .character-anemo {
@@ -120,6 +114,7 @@ body,
   flex-direction: column;
   align-items: center;
   letter-spacing: -0.02em;
+  z-index: -1;
 }
 
 .info-name {
