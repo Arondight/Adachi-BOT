@@ -77,7 +77,7 @@ export default defineComponent({
     const params = props.data;
     const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
     let charInfo = {};
-    const charTitle = params.title + "・" || "";
+    const charTitle = params.title.trim() === "" ? "" : params.title + "・" || "";
     charInfo.charFullName = charTitle + params.name;
     const charImageFilename = params.id + ".png";
     const charImageUrl = `http://localhost:9934/resources/Version2/character/${charImageFilename}`;
