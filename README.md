@@ -231,14 +231,14 @@ npm run restart
 
 ### 图片示例
 
-> 1. 有些样式可能已经变更。
+> 1. 有些样式可能已经变更。可以前往 [我们的 wiki 页面](https://github.com/Arondight/Adachi-BOT/wiki/1.-%E5%9B%BE%E7%89%87%E7%A4%BA%E4%BE%8B) 查看最新的图片和详细说明。
 > 2. 仅展示了部分功能。
 
 <details>
   <summary>展示玩家信息：【米游社】【uid】</summary>
   <div align="center">
 
-![米游社](images/米游社.jpg)
+![米游社](https://user-images.githubusercontent.com/9006264/150514268-45febac6-b1f5-4dc8-adf3-63c7004ddffa.png)
 
   </div>
 </details>
@@ -282,17 +282,17 @@ npm run restart
   <summary>抽卡：【抽卡】</summary>
   <div align="center">
 
-![十连](images/十连.png)
+![十连](https://user-images.githubusercontent.com/9006264/150513341-27c9b76a-f3b4-4fdc-995c-cd3a2f8cb501.png)
 
   </div>
 </details>
 
 <details>
-  <summary>游戏数据查询：【信息刻晴】【信息幽夜】</summary>
+  <summary>游戏数据查询：【信息心海】【信息雾切】</summary>
   <div align="center">
-    
-![角色](images/角色.jpg)
-![武器](images/武器.png)
+
+![角色](https://user-images.githubusercontent.com/9006264/150663652-d051a9a8-659c-450e-a34c-609649af2234.png)
+![武器](https://user-images.githubusercontent.com/9006264/150663646-1607ab83-7d80-4139-8d62-fd815cfd7566.png)
   </div>
 </details>
 
