@@ -11,7 +11,7 @@ const template = `
     <p class="info-title"><span>稀</span><span>有</span><span>度</span></p>
     <p class="info-content">{{weaponInfo.rarity}}</p>
     <p class="info-title"><span>基</span><span>础</span><span>攻</span><span>击</span></p>
-    <p class="info-content baseATK">{{weaponInfo.accessMethod}}</p>
+    <p class="info-content baseATK">{{weaponInfo.baseATK}}</p>
     <p class="info-title"><span>突</span><span>破</span><span>属</span><span>性</span></p>
     <p class="info-content weapon-ascension-prop">{{weaponInfo.ascensionProp}}</p>
     <p class="info-title"><span>突</span><span>破</span><span>加</span><span>成</span></p>
@@ -68,6 +68,7 @@ export default defineComponent({
     weaponInfo.accessMethod = params["access"] || "暂无信息";
     const rarity = parseInt(params.rarity) || 4;
     weaponInfo.rarity = "★".repeat(rarity);
+    weaponInfo.baseATK = params.baseATK;
     weaponInfo.ascensionProp = params.mainStat || "暂无信息";
     weaponInfo.ascensionValue = params.mainValue || "暂无信息";
     weaponInfo.introduction = params.introduce || "暂无信息";
