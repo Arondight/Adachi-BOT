@@ -1,4 +1,8 @@
-const template = `<div class="unit">
+import { html } from "../common/html.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent } = Vue;
+const template = html`<div class="unit">
   <div class="top-box">
     <div class="ascension-name">{{ ascensionName }}</div>
     <div class="materials-list">
@@ -9,9 +13,6 @@ const template = `<div class="unit">
     <img class="item" v-for="d in data.list" :src="mainImage(d.name)" :style="styles(d.rarity)" alt="ERROR" />
   </div>
 </div>`;
-
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
 
 export default defineComponent({
   name: "MaterialUnit",

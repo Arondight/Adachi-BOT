@@ -1,7 +1,13 @@
-const template = `<div class="character-box">
+import { html } from "../common/html.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent, computed } = Vue;
+const template = html`<div class="character-box">
   <div class="char-container" :style="{ 'background': 'no-repeat 100%/100% url(' + starBackground + ')' }">
     <img v-if="data.element !== 'None'" class="element" :src="element" alt="ERROR" />
-    <div class="constellation" :class="data.constellationNum === 6 ? 'max-constellation' : ''">{{ data.constellationNum }}</div>
+    <div class="constellation" :class="data.constellationNum === 6 ? 'max-constellation' : ''">
+      {{ data.constellationNum }}
+    </div>
     <img v-if="hasCostume" class="main" :src="costumePath" alt="ERROR" />
     <img v-else class="main" :src="data.icon" alt="ERROR" />
   </div>
@@ -16,9 +22,6 @@ const template = `<div class="character-box">
     </div>
   </div>
 </div>`;
-
-// eslint-disable-next-line no-undef
-const { defineComponent, computed } = Vue;
 
 export default defineComponent({
   name: "CharacterBox",

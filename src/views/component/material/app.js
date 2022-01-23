@@ -1,4 +1,10 @@
-const template = `<div class="material">
+import MaterialColumn from "./column.js";
+import { html } from "../common/html.js";
+import { getParams } from "../common/param.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent } = Vue;
+const template = html`<div class="material">
   <div class="outer">
     <img v-for="i in 4" :src="starBASE64" class="corner-star" :class="'star' + i" alt="ERROR" />
     <div v-for="i in 4" class="outer-circle" :class="'outer-circle' + i"></div>
@@ -12,12 +18,6 @@ const template = `<div class="material">
   </div>
   <p class="author">Created by Adachi-BOT</p>
 </div>`;
-
-import MaterialColumn from "./column.js";
-
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-import { getParams } from "../common/param.js";
 
 export default defineComponent({
   name: "MaterialApp",

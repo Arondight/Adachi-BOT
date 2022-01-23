@@ -1,13 +1,13 @@
-const template = `<div class="material-column">
+import MaterialUnit from "./unit.js";
+import { html } from "../common/html.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent, computed } = Vue;
+const template = html`<div class="material-column">
   <div class="title">{{ title }}</div>
   <MaterialUnit v-if="data.length !== 0" v-for="d in data" :data="d" :type="type" />
   <div v-else class="empty-box">今日没有可刷取材料的{{ type === "character" ? "角色" : "武器" }}</div>
 </div>`;
-
-import MaterialUnit from "./unit.js";
-
-// eslint-disable-next-line no-undef
-const { defineComponent, computed } = Vue;
 
 export default defineComponent({
   name: "MaterialColumn",

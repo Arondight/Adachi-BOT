@@ -1,4 +1,11 @@
-const template = `<div class="gacha-box" :style="{ backgroundImage: 'url(' + item_props.item_rarity_background + ')' }">
+import { html } from "../common/html.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent } = Vue;
+const template = html`<div
+  class="gacha-box"
+  :style="{ backgroundImage: 'url(' + item_props.item_rarity_background + ')' }"
+>
   <img class="item-image" :src="item_props.image_url" />
   <div class="container-item-props">
     <div v-if="item_props.item_label !== ''" class="item-label">{{ item_props.item_label }}</div>
@@ -6,9 +13,6 @@ const template = `<div class="gacha-box" :style="{ backgroundImage: 'url(' + ite
     <img class="item-rarity-image" :src="item_props.item_rarity_image" />
   </div>
 </div>`;
-
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
 
 export default defineComponent({
   name: "gacha-box",

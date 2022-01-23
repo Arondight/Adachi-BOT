@@ -1,4 +1,13 @@
-const template = `<div class="user-base-page">
+import SectionTitle from "./section-title.js";
+import ExplorationBox from "./exploration.js";
+import CharacterBox from "./character-box.js";
+import HomeBox from "./home-box.js";
+import { html } from "../common/html.js";
+import { getParams } from "../common/param.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent, computed } = Vue;
+const template = html`<div class="user-base-page">
   <div class="left">
     <div class="top" :style="{ 'background-image': 'url(' + nameCard + ')'}">
       <div class="profile">
@@ -47,8 +56,8 @@ const template = `<div class="user-base-page">
       </div>
     </div>
     <div class="quoteBox">
-        <img class="quoteImage" :src="emoticon.link" :alt="emoticon.filename" />
-        <p class="quoteText" :style="{'fontSize': emoticon.quoteFontSize}">{{ emoticon.quote }}</p>
+      <img class="quoteImage" :src="emoticon.link" :alt="emoticon.filename" />
+      <p class="quoteText" :style="{'fontSize': emoticon.quoteFontSize}">{{ emoticon.quote }}</p>
     </div>
   </div>
 
@@ -78,15 +87,6 @@ const template = `<div class="user-base-page">
     <p class="author">Created by Adachi-BOT</p>
   </div>
 </div>`;
-
-import SectionTitle from "./section-title.js";
-import ExplorationBox from "./exploration.js";
-import CharacterBox from "./character-box.js";
-import HomeBox from "./home-box.js";
-
-// eslint-disable-next-line no-undef
-const { defineComponent, computed } = Vue;
-import { getParams } from "../common/param.js";
 
 export default defineComponent({
   name: "Card8Box",

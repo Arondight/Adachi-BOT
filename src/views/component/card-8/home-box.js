@@ -1,4 +1,8 @@
-const template = `<div class="home-box">
+import { html } from "../common/html.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent, computed } = Vue;
+const template = html`<div class="home-box">
   <img class="home-background" :src="backgroundImage" alt="ERROR" />
   <div class="unlock" v-if="data.level !== -1">
     <div class="box-block unlock-content-block">
@@ -12,9 +16,6 @@ const template = `<div class="home-box">
     </div>
   </div>
 </div>`;
-
-// eslint-disable-next-line no-undef
-const { defineComponent, computed } = Vue;
 
 export default defineComponent({
   name: "HomeBox",

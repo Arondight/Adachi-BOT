@@ -1,4 +1,8 @@
-const template = `<div class="container-overview-infos">
+import { html } from "../common/html.js";
+
+// eslint-disable-next-line no-undef
+const { defineComponent } = Vue;
+const template = html`<div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>
   </div>
@@ -54,9 +58,6 @@ const template = `<div class="container-overview-infos">
     </div>
   </div>
 </div>`;
-
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
 
 export default defineComponent({
   name: "weaponInfoBox",

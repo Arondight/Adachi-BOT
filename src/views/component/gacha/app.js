@@ -1,27 +1,27 @@
-const containerTemplate = `<div class="gacha-title">
-  <span class="deco-username">@{{ userName }}</span>在<span class="deco-time">{{ userDrawTime }}</span>抽取了<span
-    class="deco-type"
-    >{{ wishType }}</span
-  >卡池<span class="deco-count">{{ drawCount }}</span>次
-</div>
-<div class="container-gacha-box">
-  <gachaBox v-for="pull in gachaDataToShow" :data="pull" :fives="fives" :isStat="isStatisticalData" />
-</div>
-<div class="info-footer">
-  <div v-if="showEpitomizedPath" class="epitome">
-    当前<span v-if="!epitomizedPath.hasPath">没有</span>定轨
-    <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.course.name }}</span>
-    <br />
-    命定值 <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.fate }}</span><span v-else>0</span>/2
-  </div>
-  <div class="credit">Created by Adachi-BOT</div>
-</div>`;
+import gachaBox from "./gacha-box.js";
+import { html } from "../common/html.js";
+import { getParams } from "../common/param.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
-
-import gachaBox from "./gacha-box.js";
-import { getParams } from "../common/param.js";
+const containerTemplate = html`<div class="gacha-title">
+    <span class="deco-username">@{{ userName }}</span>在<span class="deco-time">{{ userDrawTime }}</span>抽取了<span
+      class="deco-type"
+      >{{ wishType }}</span
+    >卡池<span class="deco-count">{{ drawCount }}</span>次
+  </div>
+  <div class="container-gacha-box">
+    <gachaBox v-for="pull in gachaDataToShow" :data="pull" :fives="fives" :isStat="isStatisticalData" />
+  </div>
+  <div class="info-footer">
+    <div v-if="showEpitomizedPath" class="epitome">
+      当前<span v-if="!epitomizedPath.hasPath">没有</span>定轨
+      <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.course.name }}</span>
+      <br />
+      命定值 <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.fate }}</span><span v-else>0</span>/2
+    </div>
+    <div class="credit">Created by Adachi-BOT</div>
+  </div>`;
 
 export default defineComponent({
   name: "GenshinGachaInfinity",
