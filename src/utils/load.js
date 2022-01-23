@@ -37,30 +37,11 @@ async function loadPlugins() {
   return plugins;
 }
 
-function processedFriendIncrease(msg, bot) {
-  if (global.config.friendGreetingNew) {
-    // 私聊不需要 @
-    bot.say(msg.user_id, global.greeting.new, "private");
+function doPossibleCommand(msg, plugins, type, bot) {
+  if (undefined === type) {
+    return false;
   }
-}
 
-function processedGroupIncrease(msg, type, bot) {
-  if (bot.uin === msg.user_id) {
-    // 如果加入了新群，尝试向全群问好
-    // 群通知不需要 @
-    bot.say(msg.group_id, global.greeting.hello, "group");
-  } else {
-    // 如果有新群友，尝试向新群友问好
-    if (
-      global.config.groupGreetingNew &&
-      false !== checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)
-    ) {
-      bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
-    }
-  }
-}
-
-function processedPossibleCommand(msg, plugins, type, bot) {
   // 处理 @ 机器人
   // [CQ:at,type=at,qq=123456789,text=@昵称]
   const atMeReg = new RegExp(`^\\s*\\[CQ:at,type=.*?,qq=${bot.uin},text=.+?\\]\\s*`);
@@ -150,14 +131,37 @@ function processedPossibleCommand(msg, plugins, type, bot) {
   }
 }
 
-function processedGroup(msg, type, bot) {
+function doNoticeFriendIncrease(msg, bot) {
+  if (global.config.friendGreetingNew) {
+    // 私聊不需要 @
+    bot.say(msg.user_id, global.greeting.new, "private");
+  }
+}
+
+function doNoticeGroupIncrease(msg, bot) {
+  if (bot.uin === msg.user_id) {
+    // 如果加入了新群，尝试向全群问好
+    // 群通知不需要 @
+    bot.say(msg.group_id, global.greeting.hello, "group");
+  } else {
+    // 如果有新群友，尝试向新群友问好
+    if (
+      global.config.groupGreetingNew &&
+      false !== checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)
+    ) {
+      bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
+    }
+  }
+}
+
+function doMessageGroup(msg, bot) {
   if (global.config.repeatProb > 0 && getRandomInt(100 * 100) < global.config.repeatProb + 1) {
     // 复读群消息不需要 @
     bot.say(msg.group_id, msg.raw_message, "group");
   }
 }
 
-function processedOnline(bot) {
+function doSystemOnline(bot) {
   // 通知管理者
   bot.sayMaster(undefined, "我上线了。");
 
@@ -177,40 +181,38 @@ function processedOnline(bot) {
   }
 }
 
-function processed(msg, plugins, type, bot) {
+function processed(msg, plugins, event, bot) {
+  const types = { "message.private": "private", "message.group": "group" };
+
   if (undefined !== msg.raw_message && Array.isArray(msg.message)) {
     msg.raw_message = toCqcode(msg);
   }
 
-  // 如果好友增加了，尝试向新朋友问好
-  if (type === "friend.increase") {
-    processedFriendIncrease(msg, bot);
-    return;
-  }
-
-  // 如果有新成员加入了组群，尝试向新成员或者全群问好
-  if (type === "group.increase") {
-    processedGroupIncrease(msg, type, bot);
-    return;
-  }
-
-  // 如果收到的信息是命令，尝试指派插件处理命令
-  if (lodash.find(msg.message, { type: "text" })) {
-    if (processedPossibleCommand(msg, plugins, type, bot)) {
+  // 如果信息是命令，尝试指派插件处理命令
+  if (Object.keys(types).includes(event) && lodash.find(msg.message, { type: "text" })) {
+    if (doPossibleCommand(msg, plugins, types[event], bot)) {
       return;
     }
   }
 
-  // 如果不是命令，且为群消息，随机复读群消息
-  if ("group" === type) {
-    processedGroup(msg, type, bot);
-    return;
-  }
-
-  // 如果机器人上线，尝试所有群发送一遍上线通知
-  if ("online" === type) {
-    processedOnline(bot);
-    return;
+  // 如果信息不是命令
+  switch (event) {
+    // 好友增加，尝试向新朋友问好
+    case "notice.friend.increase":
+      doNoticeFriendIncrease(msg, bot);
+      break;
+    // 新成员入群，尝试向新成员或者全群问好
+    case "notice.group.increase":
+      doNoticeGroupIncrease(msg, bot);
+      break;
+    // 随机复读群消息
+    case "message.group":
+      doMessageGroup(msg, bot);
+      break;
+    // 发送上线通知
+    case "system.online":
+      doSystemOnline(bot);
+      break;
   }
 }
 

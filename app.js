@@ -78,25 +78,30 @@ async function run() {
   const plugins = await loadPlugins();
 
   for (const bot of global.bots) {
-    bot.on("system.online", (msg) => processed(msg, plugins, "online", bot));
-    bot.on("message.group", (msg) => processed(msg, plugins, "group", bot));
-    bot.on("message.private", (msg) => processed(msg, plugins, "private", bot));
-    bot.on("notice.friend.increase", (msg) => processed(msg, plugins, "friend.increase", bot));
-    bot.on("notice.group.increase", (msg) => processed(msg, plugins, "group.increase", bot));
+    const events = [
+      "system.online",
+      "message.group",
+      "message.private",
+      "notice.friend.increase",
+      "notice.group.increase",
+    ];
+
+    for (const e of events) {
+      bot.on(e, (msg) => processed(msg, plugins, e, bot));
+    }
 
     await new Promise((resolve) => {
-      bot.on("system.online", () => resolve());
-      bot.on("system.login.error", () => resolve());
+      for (const e of ["system.online", "system.login.error"]) {
+        bot.on(e, () => resolve());
+      }
 
       if ("string" === typeof bot.account.password) {
-        // 监听登录滑动验证码事件
         bot.on("system.login.slider", () =>
           process.stdin.once("data", (input) => {
             bot.sliderLogin(input.toString());
             resolve();
           })
         );
-        // 监听设备锁事件
         bot.on("system.login.device", () => {
           bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
           process.stdin.once("data", () => {
@@ -105,7 +110,6 @@ async function run() {
           });
         });
       } else {
-        // 监听登录二维码事件
         bot.on("system.login.qrcode", () => {
           bot.logger.mark("手机扫码完成后按下回车键继续。");
           process.stdin.once("data", () => {
