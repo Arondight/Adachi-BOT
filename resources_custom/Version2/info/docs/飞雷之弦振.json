@@ -1,0 +1,18 @@
+{
+  "type": "武器",
+  "title": "弓",
+  "name": "飞雷之弦振",
+  "introduce": "曾由将军御赐的长弓，闪烁着永不熄灭的雷光。",
+  "access": "限定祈愿",
+  "rarity": 5,
+  "mainStat": "暴击伤害",
+  "mainValue": "66.2%",
+  "baseATK": 608,
+  "ascensionMaterials": [
+    ["鸣神御灵的明慧", "鸣神御灵的欢喜", "鸣神御灵的亲爱", "鸣神御灵的勇武"],
+    ["黯淡棱镜", "水晶棱镜", "偏光棱镜", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
+  ],
+  "time": "【周二/五/日】",
+  "skillName": "飞雷御执",
+  "skillContent": "攻击力提高 <span style='color: rgb(113, 82, 87);'>20%/25%/30%/35%/40%</span> ，并能获得「飞雷之巴印」的威势。<br/>飞雷之巴印：持有1/2/3层飞雷之巴印时，普通攻击造成的伤害提高 <span style='color: rgb(113, 82, 87);'>(12%/24%/40%)</span>/<span style='color: rgb(113, 82, 87);'>(15%/30%/50%)</span>/<span style='color: rgb(113, 82, 87);'>(18%/36%/60%)</span>/<span style='color: rgb(113, 82, 87);'>(21%/42%/70%)</span>/<span style='color: rgb(113, 82, 87);'>(24%/48%/80%)</span> 。在下列情况下，角色将各获得1层飞雷之巴印：<br/><span style='margin-left: 18px;'></span>- 普通攻击造成伤害时，持续5秒 <br/><span style='margin-left: 18px;'></span>- 施放元素战技时，持续10秒 <br/><span style='margin-left: 18px;'></span>- 元素能量未满时，将获得一层，此层将在元素能量充满时消失<br/>每层飞雷之巴印的持续时间独立计算。"
+}
