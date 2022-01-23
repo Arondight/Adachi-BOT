@@ -175,6 +175,9 @@ body,
 
 .info-title,
 .info-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
   box-sizing: border-box;
   text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
@@ -182,17 +185,15 @@ body,
 
 .info-title {
   background: #ede8e1;
-  display: flex;
-  justify-content: space-between;
   color: #7d796d;
   font-family: "Source Han Serif SC Heavy", serif;
   font-size: 24px;
-  align-items: center;
 }
 
 .info-content {
   background: rgba(237, 232, 225, 0.11);
   color: #ede8e1;
+  word-break: break-all;
 }
 
 .container-introduction {
@@ -297,7 +298,7 @@ img.materials {
   display: grid;
   width: 580px;
   grid-template-columns: 50px auto;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(4, max-content);
   grid-row-gap: 10px;
   grid-auto-flow: column;
   filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
