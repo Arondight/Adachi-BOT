@@ -4,11 +4,11 @@ const template = `<div class="exploration">
     <div v-else class="logo self-managed" :style="{maskImage : 'url(' + areaLogo + ')', maskSize: '64px'}"></div>
     <div class="container-detailedExploration">
       <p>探索进度</p>
-      <p class="align-right">{{explorationPercentage}}%</p>
+      <p class="align-right">{{ explorationPercentage }}%</p>
       <p v-if="data.type === 'Reputation'">声望等级</p>
-      <p class="align-right" v-if="data.type === 'Reputation'">Lv. {{data.level}}</p>
-      <p v-if="data.offerings.length !== 0">{{data.offerings[0]["name"]}}</p>
-      <p class="align-right" v-if="data.offerings.length !== 0">Lv. {{data.offerings[0]["level"]}}</p>
+      <p class="align-right" v-if="data.type === 'Reputation'">Lv. {{ data.level }}</p>
+      <p v-if="data.offerings.length !== 0">{{ data.offerings[0]["name"] }}</p>
+      <p class="align-right" v-if="data.offerings.length !== 0">Lv. {{ data.offerings[0]["level"] }}</p>
     </div>
    </div>
 </div>`;

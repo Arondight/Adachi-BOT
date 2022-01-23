@@ -48,7 +48,7 @@ const template = `<div class="user-base-page">
     </div>
     <div class="quoteBox">
         <img class="quoteImage" :src="emoticon.link" :alt="emoticon.filename" />
-        <p class="quoteText" :style="{'fontSize': emoticon.quoteFontSize}">{{emoticon.quote}}</p>
+        <p class="quoteText" :style="{'fontSize': emoticon.quoteFontSize}">{{ emoticon.quote }}</p>
     </div>
   </div>
 
@@ -72,7 +72,7 @@ const template = `<div class="user-base-page">
     <div v-if="hasPlayerNameInfo" class="container-traveler-signature">
       <p class="signature-header">签名</p>
       <div class="signature-underline">
-        <p class="signature-body">{{data.nickname}}</p>
+        <p class="signature-body">{{ data.nickname }}</p>
       </div>
     </div>
     <p class="author">Created by Adachi-BOT</p>

@@ -1,8 +1,8 @@
 const containerTemplate = `<div class="gacha-title">
-  <span class="deco-username">@{{userName}}</span>在<span class="deco-time">{{userDrawTime}}</span>抽取了<span
+  <span class="deco-username">@{{ userName }}</span>在<span class="deco-time">{{ userDrawTime }}</span>抽取了<span
     class="deco-type"
-    >{{wishType}}</span
-  >卡池<span class="deco-count">{{drawCount}}</span>次
+    >{{ wishType }}</span
+  >卡池<span class="deco-count">{{ drawCount }}</span>次
 </div>
 <div class="container-gacha-box">
   <gachaBox v-for="pull in gachaDataToShow" :data="pull" :fives="fives" :isStat="isStatisticalData" />
@@ -10,9 +10,9 @@ const containerTemplate = `<div class="gacha-title">
 <div class="info-footer">
   <div v-if="showEpitomizedPath" class="epitome">
     当前<span v-if="!epitomizedPath.hasPath">没有</span>定轨
-    <span v-if="epitomizedPath.hasPath">{{epitomizedPath.course.name}}</span>
+    <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.course.name }}</span>
     <br />
-    命定值 <span v-if="epitomizedPath.hasPath">{{epitomizedPath.fate}}</span><span v-else>0</span>/2
+    命定值 <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.fate }}</span><span v-else>0</span>/2
   </div>
   <div class="credit">Created by Adachi-BOT</div>
 </div>`;

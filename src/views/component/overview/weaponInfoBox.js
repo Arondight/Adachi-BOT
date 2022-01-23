@@ -1,43 +1,56 @@
-const template = `
-<div class="container-overview-infos">
+const template = `<div class="container-overview-infos">
   <div class="container-deco-strip">
-    <div class="deco-strip">{{decoStripContent}}</div>
+    <div class="deco-strip">{{ decoStripContent }}</div>
   </div>
-  <div class="info-name">{{weaponInfo.weaponFullName}}</div>
+  <div class="info-name">{{ weaponInfo.weaponFullName }}</div>
   <img class="profile-image" :src="weaponImageUrl" :alt="weaponImageFilename" />
   <div class="weapon-infos">
     <p class="info-title"><span>获</span><span>取</span><span>方</span><span>式</span></p>
-    <p class="info-content">{{weaponInfo.accessMethod}}</p>
+    <p class="info-content">{{ weaponInfo.accessMethod }}</p>
     <p class="info-title"><span>稀</span><span>有</span><span>度</span></p>
-    <p class="info-content">{{weaponInfo.rarity}}</p>
+    <p class="info-content">{{ weaponInfo.rarity }}</p>
     <p class="info-title"><span>基</span><span>础</span><span>攻</span><span>击</span></p>
-    <p class="info-content baseATK">{{weaponInfo.baseATK}}</p>
+    <p class="info-content baseATK">{{ weaponInfo.baseATK }}</p>
     <p class="info-title"><span>突</span><span>破</span><span>属</span><span>性</span></p>
-    <p class="info-content weapon-ascension-prop">{{weaponInfo.ascensionProp}}</p>
+    <p class="info-content weapon-ascension-prop">{{ weaponInfo.ascensionProp }}</p>
     <p class="info-title"><span>突</span><span>破</span><span>加</span><span>成</span></p>
-    <p class="info-content weapon-ascension-value">{{weaponInfo.ascensionValue}}</p>
+    <p class="info-content weapon-ascension-value">{{ weaponInfo.ascensionValue }}</p>
   </div>
   <div class="container-introduction">
-    <p class="introduction">{{weaponInfo.introduction}}”</p>
+    <p class="introduction">{{ weaponInfo.introduction }}”</p>
   </div>
   <div class="container-vertical">
     <div class="split-title">- 养成材料 -</div>
     <div class="char-progression-table">
-      <p class="info-title table-materials material-title"><span>突</span><span>破</span><span>材</span><span>料</span></p>
+      <p class="info-title table-materials material-title">
+        <span>突</span><span>破</span><span>材</span><span>料</span>
+      </p>
       <div class="table-materials limited-time-materials">
-        <img class="materials" v-for="item in weaponInfo.limitedTimeAscensionMaterials" :src="getMaterialUrl(item)" :alt="item" />
-        <p class="info-weekdays">{{weaponInfo.weekdays}}</p>
+        <img
+          class="materials"
+          v-for="item in weaponInfo.limitedTimeAscensionMaterials"
+          :src="getMaterialUrl(item)"
+          :alt="item"
+        />
+        <p class="info-weekdays">{{ weaponInfo.weekdays }}</p>
       </div>
-      <p class="info-title table-materials material-title"><span>突</span><span>破</span><span>材</span><span>料</span></p>
+      <p class="info-title table-materials material-title">
+        <span>突</span><span>破</span><span>材</span><span>料</span>
+      </p>
       <div class="table-materials all-day-materials">
-        <img class="materials" v-for="item in weaponInfo.allDayAscensionMaterials" :src="getMaterialUrl(item)" :alt="item" />
+        <img
+          class="materials"
+          v-for="item in weaponInfo.allDayAscensionMaterials"
+          :src="getMaterialUrl(item)"
+          :alt="item"
+        />
       </div>
     </div>
   </div>
   <div class="container-vertical">
-    <div class="split-title">- {{weaponInfo.skillName}} -</div>
+    <div class="split-title">- {{ weaponInfo.skillName }} -</div>
     <div class="weapon-skill-info">
-    <div class="info-content weapon-skill-content" v-html="weaponInfo.skillEffect"></div>
+      <div class="info-content weapon-skill-content" v-html="weaponInfo.skillEffect"></div>
     </div>
   </div>
 </div>`;

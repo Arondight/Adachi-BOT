@@ -1,6 +1,10 @@
-const template = `
-<div class="background" :class="backgroundStyle">
-  <div class="svg" :class="backgroundStyle" v-if="itemType === 'character'" :style="{maskImage: 'url(' + elementSvgSrc + ')'}"></div>
+const template = `<div class="background" :class="backgroundStyle">
+  <div
+    class="svg"
+    :class="backgroundStyle"
+    v-if="itemType === 'character'"
+    :style="{maskImage: 'url(' + elementSvgSrc + ')'}"
+  ></div>
   <characterInfoBox v-if="itemType === 'character'" :data="params" />
   <weaponInfoBox v-if="itemType === 'weapon'" :data="params" />
   <div class="credit">Created by Adachi-BOT</div>
