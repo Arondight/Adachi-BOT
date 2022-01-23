@@ -47,15 +47,14 @@ export default defineComponent({
     };
     const itemType = typeMap[params.type] || "weapon";
 
+    const charElementType = elementMap[params.element] || "anemo";
+    const itemRarity = rarityMap[params.rarity] || "4";
+
     const backgroundStyle =
-      itemType === "character"
-        ? "character-" + elementMap[params.element]
-        : "weapon-" + rarityMap[params.rarity] + "-stars";
+      itemType === "character" ? "character-" + charElementType : "weapon-" + itemRarity + "-stars";
 
     const elementSvgSrc =
-      itemType === "character"
-        ? `http://localhost:9934/resources/Version2/elements/${elementMap[params.element]}.svg`
-        : "";
+      itemType === "character" ? `http://localhost:9934/resources/Version2/elements/${charElementType}.svg` : "";
 
     return {
       params,
