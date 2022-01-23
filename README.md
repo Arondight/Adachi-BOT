@@ -29,7 +29,7 @@
 
 ### 部署
 
-本项目原则上只做 Linux 系统的支持，所有代码合入主线之前也只在 Linux 上进行测试，推荐使用一个主流的[发行版](https://zh.wikipedia.org/wiki/Linux%E5%8F%91%E8%A1%8C%E7%89%88)（例如 [CentOS](https://www.centos.org/) ）进行部署。如果你执意要在 Windows 系统上进行部署，请参照我在 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中写的《如何在 Windows 系统上进行部署》，注意虽然这份说明是出自我之手，但是不表示我推荐在 Windows 系统上部署本项目。
+本项目原则上只做 Linux 系统的支持，所有代码合入主线之前也只在 Linux 上进行测试，推荐使用一个主流的[发行版](https://zh.wikipedia.org/wiki/Linux%E5%8F%91%E8%A1%8C%E7%89%88)（例如 [CentOS](https://www.centos.org/) ）进行部署。如果你执意要在 Windows 系统上进行部署，请参照我在 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中写的[《如何在 Windows 系统上进行部署》](https://github.com/Arondight/Adachi-BOT/issues/140)，注意虽然这份说明是出自我之手，但是不表示我推荐在 Windows 系统上部署本项目。
 
 #### 准备环境
 
@@ -229,72 +229,9 @@ npm run restart
 | 自我介绍 | 自有功能 | ✔️ | ❌ | ❌ |
 | 上线通知 | 自有功能 | ✔️ | ❌ | ❌ |
 
-### 图片示例
+### 功能示例
 
-> 1. 有些样式可能已经变更。可以前往 [我们的 wiki 页面](https://github.com/Arondight/Adachi-BOT/wiki/1.-%E5%9B%BE%E7%89%87%E7%A4%BA%E4%BE%8B) 查看最新的图片和详细说明。
-> 2. 仅展示了部分功能。
-
-<details>
-  <summary>展示玩家信息：【米游社】【uid】</summary>
-  <div align="center">
-
-![米游社](https://user-images.githubusercontent.com/9006264/150514268-45febac6-b1f5-4dc8-adf3-63c7004ddffa.png)
-
-  </div>
-</details>
-
-<details>
-  <summary>查询我的角色：【我的刻晴】</summary>
-  <div align="center">
-
-![我的](images/我的.jpg)
-
-  </div>
-</details>
-
-<details>
-<summary>素材查询：【今日素材】</summary>
-
-![素材查询](https://user-images.githubusercontent.com/9006264/148671284-8e38a9a6-fd57-4458-b3d7-6ce7b8cf95fc.png)
-</details>
-
-<details>
-  <summary>查询深渊战绩：【深渊 游戏内UID】></summary>
-  <div align="center">
-
-![深渊](images/深渊.png)
-
-  </div>
-</details>
-
-
-<details>
-  <summary>圣遗物掉落和强化：【圣遗物】【强化】</summary>
-  <div align="center">
-
-![圣遗物](images/圣遗物.png)
-![强化](images/强化.png)
-
-  </div>
-</details>
-
-<details>
-  <summary>抽卡：【抽卡】</summary>
-  <div align="center">
-
-![十连](https://user-images.githubusercontent.com/9006264/150513341-27c9b76a-f3b4-4fdc-995c-cd3a2f8cb501.png)
-
-  </div>
-</details>
-
-<details>
-  <summary>游戏数据查询：【信息心海】【信息雾切】</summary>
-  <div align="center">
-
-![角色](https://user-images.githubusercontent.com/9006264/150663652-d051a9a8-659c-450e-a34c-609649af2234.png)
-![武器](https://user-images.githubusercontent.com/9006264/150663646-1607ab83-7d80-4139-8d62-fd815cfd7566.png)
-  </div>
-</details>
+请见 Wiki 中的[《功能示例》](https://github.com/Arondight/Adachi-BOT/wiki/%E5%8A%9F%E8%83%BD%E7%A4%BA%E4%BE%8B)。
 
 ## 致谢
 
