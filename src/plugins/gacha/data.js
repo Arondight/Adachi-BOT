@@ -2,14 +2,11 @@ import fs from "fs";
 import _path from "path";
 import lodash from "lodash";
 import db from "../../utils/database.js";
+import { getRandomInt } from "../../utils/tools.js";
 
 const configdir = _path.resolve(global.rootdir, "resources", "Version2", "wish", "config");
 const element = JSON.parse(fs.readFileSync(_path.resolve(configdir, "character.json")));
 const types = JSON.parse(fs.readFileSync(_path.resolve(configdir, "weapon.json")));
-
-function getRandomInt(max = 10000) {
-  return Math.floor(Math.random() * max) + 1;
-}
 
 function getChoiceData(userID, choice = 301) {
   const { indefinite, character, weapon } = db.get("gacha", "user", { userID }) || {};
@@ -83,23 +80,23 @@ function updateCounter(userID, star, up) {
 function getIsUp(userID, star) {
   switch (isUp) {
     case null:
-      return getRandomInt() <= 7500;
+      return getRandomInt(10000) < 7500;
     case undefined:
       return false;
     default:
-      return getRandomInt() <= 5000 || (5 === star && isUp < 0);
+      return getRandomInt(10000) < 5000 || (5 === star && isUp < 0);
   }
 }
 
 function getStar(userID, choice) {
-  const value = getRandomInt();
+  const value = getRandomInt(10000);
   const fiveProb = getFiveProb(five, choice);
   const fourProb = getFourProb(four, choice) + fiveProb;
 
   switch (true) {
-    case value <= fiveProb:
+    case value < fiveProb:
       return 5;
-    case value <= fourProb:
+    case value < fourProb:
       return 4;
     default:
       return 3;
@@ -108,7 +105,7 @@ function getStar(userID, choice) {
 
 function gachaOnceEggs() {
   const keys = Object.keys(global.eggs.type);
-  const index = getRandomInt(keys.length) - 1;
+  const index = getRandomInt(keys.length);
   const name = keys[index];
 
   return {
@@ -152,27 +149,28 @@ function gachaOnce(userID, choice, table) {
       // 无定轨，或未触发定轨
       // XXX 无定轨时不应加命定值
       if (up) {
-        const index = getRandomInt(table.upFiveStar.length) - 1;
+        const index = getRandomInt(table.upFiveStar.length);
         result = table.upFiveStar[index];
         path.fate = index === path.course ? 0 : path.fate + 1;
-        db.update("gacha", "user", { userID }, { path });
       } else {
-        const index = getRandomInt(table.nonUpFiveStar.length) - 1;
+        const index = getRandomInt(table.nonUpFiveStar.length);
         result = table.nonUpFiveStar[index];
-        path.fate++;
+        ++path.fate;
       }
+
+      db.update("gacha", "user", { userID }, { path });
     }
 
     return { ...result, star: 5, times };
   }
 
-  if (5 === star) {
+  if (5 === star && 302 !== choice) {
     // 限定池和普池出货
     if (up) {
-      const index = getRandomInt(table.upFiveStar.length) - 1;
+      const index = getRandomInt(table.upFiveStar.length);
       result = table.upFiveStar[index];
     } else {
-      const index = getRandomInt(table.nonUpFiveStar.length) - 1;
+      const index = getRandomInt(table.nonUpFiveStar.length);
       result = table.nonUpFiveStar[index];
     }
 
@@ -180,17 +178,17 @@ function gachaOnce(userID, choice, table) {
   } else if (4 === star) {
     // 没出货：四星
     if (up) {
-      const index = getRandomInt(table.upFourStar.length) - 1;
+      const index = getRandomInt(table.upFourStar.length);
       result = table.upFourStar[index];
     } else {
-      const index = getRandomInt(table.nonUpFourStar.length) - 1;
+      const index = getRandomInt(table.nonUpFourStar.length);
       result = table.nonUpFourStar[index];
     }
 
     return { ...result, star: 4 };
   } else {
     // 没出货：三星
-    const index = getRandomInt(table.threeStar.length) - 1;
+    const index = getRandomInt(table.threeStar.length);
     result = table.threeStar[index];
     return { ...result, star: 3 };
   }

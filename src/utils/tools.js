@@ -66,8 +66,8 @@ function randomString(length) {
   return result;
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max) + 1;
+function getRandomInt(boundary) {
+  return Math.floor(Math.random() * boundary);
 }
 
 // return [match, new, origin]
