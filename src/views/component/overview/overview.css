@@ -337,6 +337,7 @@ img.materials {
   color: #674a4f !important;
 }
 
-.weapon-skill-content, .constellations {
+.weapon-skill-content,
+.constellations {
   word-break: normal !important;
 }
