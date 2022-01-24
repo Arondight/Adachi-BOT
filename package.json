@@ -31,7 +31,7 @@
     "info": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 info bot",
     "log": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 log --lines 100 bot",
     "code-check": "npx eslint ./app.js ./src/ ./tools/ ./config_defaults/",
-    "code-format": "npx prettier --config ./.prettierrc.json -uw ./.*.json ./*.json ./app.js ./src/ ./tools/ ./resources_custom/",
+    "code-format": "npx prettier --config ./.prettierrc.json -uw ./app.js ./*.md ./.*.json ./*.json ./src/ ./tools/ ./docs/ ./resources_custom/",
     "tool-db": "npx node ./tools/db.js",
     "tool-view": "npx node ./tools/view.js"
   },

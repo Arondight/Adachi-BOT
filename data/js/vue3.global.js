@@ -869,7 +869,7 @@ var Vue = (function (exports) {
   function createSetter(shallow = false) {
       return function set(target, key, value, receiver) {
           let oldValue = target[key];
-          if (isReadonly(oldValue) && isRef(oldValue)) {
+          if (isReadonly(oldValue) && isRef(oldValue) && !isRef(value)) {
               return false;
           }
           if (!shallow && !isReadonly(value)) {
@@ -9107,7 +9107,7 @@ var Vue = (function (exports) {
   }
 
   // Core API ------------------------------------------------------------------
-  const version = "3.2.28";
+  const version = "3.2.29";
   /**
    * SSR utils for \@vue/server-renderer. Only exposed in cjs builds.
    * @internal
@@ -9181,7 +9181,10 @@ var Vue = (function (exports) {
       insertStaticContent(content, parent, anchor, isSVG, start, end) {
           // <parent> before | first ... last | anchor </parent>
           const before = anchor ? anchor.previousSibling : parent.lastChild;
-          if (start && end) {
+          // #5308 can only take cached path if:
+          // - has a single root node
+          // - nextSibling info is still available
+          if (start && (start === end || start.nextSibling)) {
               // cached
               while (true) {
                   parent.insertBefore(start.cloneNode(true), anchor);
