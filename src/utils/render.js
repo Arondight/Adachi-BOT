@@ -15,7 +15,6 @@ const settings = {
     "genshin-artifact": 1.2,
     "genshin-card-8": 2,
     "genshin-material": 2,
-    "genshin-overview": 2,
   },
   delete: {
     "genshin-artifact": true,
