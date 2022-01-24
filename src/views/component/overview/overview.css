@@ -19,6 +19,8 @@
 * {
   margin: 0;
   padding: 0;
+  -webkit-text-stroke: 0.018em;
+  letter-spacing: 0.01em;
 }
 
 html,
@@ -82,7 +84,9 @@ body,
 }
 
 .weapon-four-stars {
-  background: linear-gradient(#cfb0d6, #5b6282);
+  background: linear-gradient(#cfb0d6, hsl(229deg 18% 52%));
+  /* 备选 */
+  /* background: linear-gradient(#cfb0d6, #5b6282); */
 }
 
 .weapon-three-stars,
@@ -327,4 +331,8 @@ img.materials {
 
 .weapon-skill-content {
   display: block;
+}
+
+.weapon-skill-content > span {
+  color: #674a4f !important;
 }
