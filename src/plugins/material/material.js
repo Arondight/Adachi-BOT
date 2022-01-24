@@ -5,7 +5,7 @@ import { render } from "../../utils/render.js";
 import { getWordByRegex } from "../../utils/tools.js";
 
 const getUrl = (p) => `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
-const urls = { weekly: getUrl("/2021/12/14/75833613/ab70ee895cffe2ead179e7fac4f2de8a_5056584486594876170.png") };
+const urls = { weekly: getUrl("/2022/01/05/75833613/93626b52c4c06b537783346dfb6a7126_4957845255838694552.png") };
 
 async function doMaterial(msg, url) {
   const cacheDir = path.resolve(global.rootdir, "data", "image", "material");
