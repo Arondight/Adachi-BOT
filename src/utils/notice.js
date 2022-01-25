@@ -44,7 +44,7 @@ async function mysNewsNotice() {
       }
 
       const timestamp = db.get("news", "timestamp");
-      const lastTimeStamp = (timestamp.find((c) => t === c.type) || {}).time || 0;
+      let lastTimeStamp = (timestamp.find((c) => t === c.type) || {}).time || 0;
       const silent = 0 === lastTimeStamp;
       const post = n.post || {};
       const { subject, content } = post;
@@ -73,7 +73,8 @@ async function mysNewsNotice() {
       const stamp = post.created_at || 0;
 
       // 立即写入，忽略所有的发送失败
-      db.update("news", "timestamp", { type: t }, { time: Math.max(stamp, lastTimeStamp) });
+      lastTimeStamp = Math.max(stamp, lastTimeStamp);
+      db.update("news", "timestamp", { type: t }, { time: lastTimeStamp });
 
       if (false === silent && stamp > lastTimeStamp && lodash.some(items, (c) => "string" === typeof c && "" !== c)) {
         const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
