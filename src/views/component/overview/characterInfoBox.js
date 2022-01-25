@@ -106,6 +106,10 @@ export default defineComponent({
     charInfo.constellationCount = ["一", "二", "三", "四", "五", "六"];
     charInfo.constellationEffects = params.constellations;
 
+    if (4 === charInfo.constellationEffects.length) {
+      [2, 5].forEach((i) => charInfo.constellationEffects.splice(i, 0, ""));
+    }
+
     return {
       decoStripContent,
       charTitle,
