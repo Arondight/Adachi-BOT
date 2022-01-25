@@ -924,7 +924,7 @@ function readInfo() {
     .reverse()
     .forEach((c) => {
       if (Array.isArray(c.constellations) && 4 === c.constellations.length) {
-        [2, 5].forEach((i) => c.constellations.splice(i, 0, ""));
+        [2, 4].forEach((i) => c.constellations.splice(i, 0, ""));
       }
     })
     .value();
