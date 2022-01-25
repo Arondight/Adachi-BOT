@@ -37,7 +37,6 @@ async function mysNewsNotice() {
     }
 
     const news = data[t].data.list;
-    let recentStamp = 0;
 
     for (const n of lodash.reverse(news)) {
       if (!lodash.hasIn(n, "post")) {
@@ -73,9 +72,8 @@ async function mysNewsNotice() {
       ];
       const stamp = post.created_at || 0;
 
-      recentStamp = Math.max(stamp, recentStamp);
       // 立即写入，忽略所有的发送失败
-      db.update("news", "timestamp", { type: t }, { time: recentStamp });
+      db.update("news", "timestamp", { type: t }, { time: Math.max(stamp, lastTimeStamp) });
 
       if (false === silent && stamp > lastTimeStamp && lodash.some(items, (c) => "string" === typeof c && "" !== c)) {
         const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
