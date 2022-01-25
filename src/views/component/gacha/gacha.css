@@ -6,6 +6,7 @@
 * {
   margin: 0;
   padding: 0;
+  -webkit-text-stroke: 0.018em;
 }
 
 html,
