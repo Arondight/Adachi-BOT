@@ -184,7 +184,7 @@ body,
   align-items: center;
   padding: 0 10px;
   box-sizing: border-box;
-  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+  text-shadow: 0 1px 4px rgb(0 0 0 / 30%);
 }
 
 .info-title {
@@ -302,7 +302,7 @@ img.materials {
   display: grid;
   width: 580px;
   grid-template-columns: 50px auto;
-  grid-template-rows: repeat(4, max-content);
+  grid-template-rows: repeat(6, minmax(70px, max-content));
   grid-row-gap: 10px;
   grid-auto-flow: column;
   filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
@@ -313,7 +313,8 @@ img.materials {
   align-items: center;
   padding: 6px 10px;
   font-family: "Source Han Sans SC", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
+  -webkit-text-stroke: 0.036em;
 }
 
 .constellation-order {
@@ -324,12 +325,10 @@ img.materials {
   width: 580px;
   padding: 6px 10px;
   font-family: "Source Han Sans SC", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   word-break: break-all;
   filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
-}
-
-.weapon-skill-content {
+  -webkit-text-stroke: 0.036em;
   display: block;
 }
 

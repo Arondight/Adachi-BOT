@@ -2,7 +2,7 @@ import { html } from "../common/html.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
-const template = html`<div class="container-overview-infos">
+const template = html` <div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>
   </div>
@@ -58,8 +58,8 @@ const template = html`<div class="container-overview-infos">
   <div class="container-vertical">
     <div class="split-title">- 命座信息 -</div>
     <div class="constellation-table">
-      <div class="info-title constellation-order" v-for="i in 4">{{ charInfo.constellationCount[i-1] }}</div>
-      <div class="info-content constellations" v-for="i in 4">{{ charInfo.constellationEffects[i-1] }}</div>
+      <div class="info-title constellation-order" v-for="i in charInfo.constellationCount" v-text="i"></div>
+      <div class="info-content constellations" v-for="i in charInfo.constellationEffects" v-text="i"></div>
     </div>
   </div>
 </div>`;
@@ -103,7 +103,7 @@ export default defineComponent({
     charInfo.talentMaterials = params.talentMaterials || [];
     charInfo.weekdays = params.time || "【】";
     charInfo.ascensionMaterials = params.ascensionMaterials || [];
-    charInfo.constellationCount = ["一", "二", "四", "六"];
+    charInfo.constellationCount = ["一", "二", "三", "四", "五", "六"];
     charInfo.constellationEffects = params.constellations;
 
     return {
