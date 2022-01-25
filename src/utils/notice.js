@@ -39,7 +39,7 @@ async function mysNewsNotice() {
     const news = data[t].data.list;
     let recentStamp = 0;
 
-    for (const n of news) {
+    for (const n of lodash.reverse(news)) {
       if (!lodash.hasIn(n, "post")) {
         continue;
       }
