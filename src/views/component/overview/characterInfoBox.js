@@ -2,7 +2,20 @@ import { html } from "../common/html.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
-const template = html`<div class="container-overview-infos">
+const constellTemplate = html`
+  <div v-show="constellContent !== ''" class="info-title constellation-order">{{constellCounts}}</div>
+  <div v-show="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>
+`;
+const constellBox = defineComponent({
+  name: "constellBox",
+  props: {
+    constellCounts: String,
+    constellContent: String,
+  },
+  template: constellTemplate,
+});
+
+const template = html` <div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>
   </div>
@@ -58,8 +71,11 @@ const template = html`<div class="container-overview-infos">
   <div class="container-vertical">
     <div class="split-title">- 命座信息 -</div>
     <div class="constellation-table">
-      <div class="info-title constellation-order" v-for="i in 4">{{ charInfo.constellationCount[i-1] }}</div>
-      <div class="info-content constellations" v-for="i in 4">{{ charInfo.constellationEffects[i-1] }}</div>
+      <constellBox
+        v-for="(value, index) in charInfo.constellationEffects"
+        :constellCounts="charInfo.constellationCount[index]"
+        :constellContent="value"
+      />
     </div>
   </div>
 </div>`;
@@ -67,7 +83,9 @@ const template = html`<div class="container-overview-infos">
 export default defineComponent({
   name: "characterInfoBox",
   template: template,
-  components: {},
+  components: {
+    constellBox,
+  },
   props: {
     data: Object,
   },
@@ -103,8 +121,12 @@ export default defineComponent({
     charInfo.talentMaterials = params.talentMaterials || [];
     charInfo.weekdays = params.time || "【】";
     charInfo.ascensionMaterials = params.ascensionMaterials || [];
-    charInfo.constellationCount = ["一", "二", "四", "六"];
+    charInfo.constellationCount = ["一", "二", "三", "四", "五", "六"];
     charInfo.constellationEffects = params.constellations;
+
+    if (4 === charInfo.constellationEffects.length) {
+      [2, 4].forEach((i) => charInfo.constellationEffects.splice(i, 0, ""));
+    }
 
     return {
       decoStripContent,

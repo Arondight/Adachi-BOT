@@ -918,17 +918,22 @@ function readInfo() {
 
   global.info = {};
   global.info.character = lodash
-    .sortBy(
-      info.filter((c) => "角色" === c.type),
-      "rarity"
-    )
-    .reverse();
+    .chain(info)
+    .filter((c) => "角色" === c.type)
+    .sortBy("rarity")
+    .reverse()
+    .forEach((c) => {
+      if (Array.isArray(c.constellations) && 4 === c.constellations.length) {
+        [2, 4].forEach((i) => c.constellations.splice(i, 0, ""));
+      }
+    })
+    .value();
   global.info.weapon = lodash
-    .sortBy(
-      info.filter((c) => "武器" === c.type),
-      "rarity"
-    )
-    .reverse();
+    .chain(info)
+    .filter((c) => "武器" === c.type)
+    .sortBy("rarity")
+    .reverse()
+    .value();
 }
 
 // global.material.MonThu   -> array of name (string, lowercase)
