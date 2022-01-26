@@ -198,6 +198,7 @@ body,
   background: rgba(237, 232, 225, 0.11);
   color: #ede8e1;
   word-break: break-all;
+  text-align: justify;
 }
 
 .container-introduction {
