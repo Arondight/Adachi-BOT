@@ -56,13 +56,25 @@ body {
   width: 112px;
   display: flex;
   align-items: center;
-  background-size: 100%;
+  background-size: 112px 659px;
+  background-position: center;
   flex-direction: column;
   justify-content: center;
 }
 
 .item-image {
-  width: 108px;
+  -webkit-mask-image: url("http://localhost:9934/resources/Version2/masks/gacha-card.svg");
+  -webkit-mask-position: center;
+  -webkit-mask-size: 108px 470px;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.item-image.weapon {
+  height: 320px;
+}
+
+.item-image.character {
+  height: 484px;
 }
 
 .container-item-props {
