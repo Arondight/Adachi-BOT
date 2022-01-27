@@ -65,7 +65,7 @@ cd ./Adachi-BOT/
 
 如果国内网络环境下访问 `GitHub` 的速度很慢，那么你可以使用本项目在 Gitee 的[镜像](https://gitee.com/Xm798/Adachi-BOT)。
 
-> 注意：Gitee 镜像每隔 15 分钟自动同步一次，所以你从镜像拉取的代码可能不是最新的，至多存在 15 分钟延迟。
+> 注意：Gitee 镜像每隔 15 分钟自动同步一次，所以你从镜像拉取的提交记录可能与 GitHub 上的记录存在 15 分钟(或)以上的延迟。
 
 ```
 git clone https://gitee.com/Xm798/Adachi-BOT.git
