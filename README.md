@@ -61,20 +61,12 @@ cd ./Adachi-BOT/
 ```
 
 <details>
-    <summary>通过 Gitee 镜像或代理克隆本项目</summary>
+    <summary>以镜像克隆本项目</summary>
 
-如果国内网络环境下访问 `GitHub` 的速度很慢，那么你可以使用本项目在 Gitee 的[镜像](https://gitee.com/Xm798/Adachi-BOT)。
-
-> 注意：Gitee 镜像每隔 15 分钟自动同步一次，所以你从镜像拉取的提交记录可能与 GitHub 上的记录存在 15 分钟(或)以上的延迟。
+如果你访问 GitHub 的速度很慢，那么请使用下面的命令克隆本项目的镜像。
 
 ```
 git clone https://gitee.com/Xm798/Adachi-BOT.git
-```
-
-或者使用下面的代理克隆本项目。
-
-```
-git clone https://hub.fastgit.org/Arondight/Adachi-BOT.git
 ```
 
 </details>
