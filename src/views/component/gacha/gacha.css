@@ -12,7 +12,6 @@
 html,
 body {
   width: 1286px;
-  min-height: 723px;
   font-family: GenshinUsedFont, monospace;
   color: #fff;
 }
@@ -47,12 +46,12 @@ body {
   grid-template-columns: repeat(10, 1fr);
   grid-column-gap: 10px;
   align-items: center;
-  grid-auto-rows: 580px;
+  grid-auto-rows: 500px;
   margin-top: 20px;
 }
 
 .gacha-box {
-  height: 675px;
+  height: 500px;
   width: 112px;
   display: flex;
   align-items: center;
@@ -60,6 +59,7 @@ body {
   background-position: center;
   flex-direction: column;
   justify-content: center;
+  background-image: url("http://localhost:9934/resources/gacha/items/gacha-background.png");
 }
 
 .item-image {
@@ -67,6 +67,49 @@ body {
   -webkit-mask-position: center;
   -webkit-mask-size: 108px 470px;
   -webkit-mask-repeat: no-repeat;
+}
+
+svg {
+  position: absolute;
+  z-index: 999;
+  width: 134px;
+  height: 520px;
+}
+
+.frame,
+.halo {
+  fill: none;
+  width: 108px;
+  height: 484px;
+  transform-origin: 50% 50%;
+  transform: translate(-9px, -38px) scale(0.89);
+}
+
+.frame {
+  stroke: #feffff;
+  stroke-width: 3px;
+}
+
+.halo {
+  stroke-width: 10px;
+  filter: blur(8px);
+}
+
+.halo.Five {
+  stroke: #fdf497;
+}
+
+.halo.Four {
+  stroke: #c49ff9;
+}
+
+.frame.Three {
+  stroke: #dae9fd;
+}
+
+.halo.Three {
+  stroke: #b9d7fc;
+  opacity: 0.5;
 }
 
 .item-image.weapon {
@@ -124,7 +167,7 @@ body {
   justify-items: end;
   align-items: end;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   text-shadow: 0 0 6px #333333;
 }
 
