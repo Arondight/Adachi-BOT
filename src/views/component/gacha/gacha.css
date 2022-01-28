@@ -46,12 +46,12 @@ body {
   grid-template-columns: repeat(10, 1fr);
   grid-column-gap: 10px;
   align-items: center;
-  grid-auto-rows: 500px;
+  grid-auto-rows: 570px;
   margin-top: 20px;
 }
 
 .gacha-box {
-  height: 500px;
+  height: 100%;
   width: 112px;
   display: flex;
   align-items: center;
@@ -73,7 +73,23 @@ svg {
   position: absolute;
   z-index: 999;
   width: 134px;
-  height: 520px;
+  height: 600px;
+}
+
+.flame {
+  filter: blur(6px);
+}
+
+.flame.Five {
+  fill: url(#Five);
+}
+
+.flame.Four {
+  fill: url(#Four);
+}
+
+.flame.Three {
+  fill: url(#Three);
 }
 
 .frame,
@@ -82,7 +98,7 @@ svg {
   width: 108px;
   height: 484px;
   transform-origin: 50% 50%;
-  transform: translate(-9px, -38px) scale(0.89);
+  transform: translate(-8px, -35px) scale(0.82);
 }
 
 .frame {
