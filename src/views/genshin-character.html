@@ -154,8 +154,10 @@
           const characterHasCostume = character.costumes.length !== 0;
           this.characterHasCostume = characterHasCostume;
           this.characterImagePath = characterHasCostume
-            ? `http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`
-            : "http://localhost:9934/resources/Version2/character/" + character.id + ".png";
+            ? encodeURI(
+                `http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`
+              )
+            : encodeURI("http://localhost:9934/resources/Version2/character/" + character.id + ".png");
 
           switch (this.elementName) {
             case "Anemo":

@@ -83,10 +83,10 @@ export default defineComponent({
       props.data.star === 5 ? "「" + props.data.times + "抽」" : props.isStat ? "「" + props.data.count + "次」" : "";
     const iconType = props.data.item_type === "角色" ? "element" : "type";
     item_props.item_type = imageType;
-    item_props.image_url = `http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.png`;
+    item_props.image_url = encodeURI(`http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.png`);
     item_props.item_rarity = itemRarity;
-    item_props.item_type_image = `http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage}.png`;
-    item_props.item_rarity_image = `http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`;
+    item_props.item_type_image = encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage}.png`);
+    item_props.item_rarity_image = encodeURI(`http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`);
     item_props.item_label = itemLabel;
 
     return {

@@ -112,10 +112,10 @@ export default defineComponent({
     const ye = { 10000005: "空", 10000007: "荧" };
     const name = ye[target.id] || target.name;
     const id = 10000007 === target.id ? 10000005 : target.id; // 妹妹名片重定向至哥哥名片
-    const nameCard = computed(() => `http://localhost:9934/resources/Version2/namecard/${id}.png`);
+    const nameCard = computed(() => encodeURI(`http://localhost:9934/resources/Version2/namecard/${id}.png`));
     const character = targetHasCostume
-      ? computed(() => `http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`)
-      : computed(() => `http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
+      ? computed(() => encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`))
+      : computed(() => encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`));
 
     const explorations = params.explorations.reverse();
     const emoticons = params.emoticons || [];
@@ -145,7 +145,7 @@ export default defineComponent({
     } else {
       emoticon = { filename: "派蒙-吃惊.png", link: "派蒙-吃惊.png", quote: defaultQuote };
     }
-    emoticon.link = `http://localhost:9934/resources/Version2/emoticons/${emoticon.link}`;
+    emoticon.link = encodeURI(`http://localhost:9934/resources/Version2/emoticons/${emoticon.link}`);
 
     // 返回引言的字号大小, 范围是 [10, 14]
     function getFontSize(contextLen) {

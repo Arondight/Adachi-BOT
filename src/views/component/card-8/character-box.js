@@ -30,15 +30,15 @@ export default defineComponent({
     data: Object,
   },
   setup(props) {
-    const starBackground = computed(
-      () => `http://localhost:9934/resources/Version2/thumb/stars/${props.data.rarity}-Star.png`
+    const starBackground = computed(() =>
+      encodeURI(`http://localhost:9934/resources/Version2/thumb/stars/${props.data.rarity}-Star.png`)
     );
-    const element = computed(
-      () => `http://localhost:9934/resources/gacha/element/${props.data.element.toLowerCase()}.png`
+    const element = computed(() =>
+      encodeURI(`http://localhost:9934/resources/gacha/element/${props.data.element.toLowerCase()}.png`)
     );
 
     function getCostume(costumeName) {
-      return `http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`;
+      return encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`);
     }
 
     const hasCostume = props.data.costumes.length !== 0;
