@@ -41,14 +41,10 @@ body,
 
 .svg {
   position: absolute;
-  width: 800px;
-  height: 1200px;
-  -webkit-mask-size: 1200px;
-  -webkit-mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  transform: translateY(-250px);
-  z-index: 1;
+  width: 1100px;
+  transform: translate(0, -250px);
   opacity: 0.33;
+  filter: brightness(0.95);
 }
 
 .character-anemo {
