@@ -96,14 +96,14 @@ body,
   display: grid;
   align-items: center;
   z-index: 2;
-  margin-top: 28px;
+  margin-top: 68px;
   justify-items: center;
   grid-row-gap: 30px;
 }
 
 .container-deco-strip {
   position: absolute;
-  top: 50px;
+  top: 30px;
   font-family: "Source Han Serif SC Regular Subset", serif;
   color: hsl(42deg 27% 18%);
   opacity: 0.11;
