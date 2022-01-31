@@ -6,11 +6,7 @@ import { getParams } from "../common/param.js";
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
 const template = html`<div class="background" :class="backgroundStyle">
-  <img
-    class="svg"
-    :src="elementSvgSrc"
-    v-if="itemType === 'character'"
-  />
+  <img class="svg" :src="elementSvgSrc" v-if="itemType === 'character'" />
   <characterInfoBox v-if="itemType === 'character'" :data="params" />
   <weaponInfoBox v-if="itemType === 'weapon'" :data="params" />
   <div class="credit">Created by Adachi-BOT</div>
