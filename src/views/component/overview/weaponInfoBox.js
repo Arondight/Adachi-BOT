@@ -54,7 +54,9 @@ const template = html`<div class="container-overview-infos">
   <div class="container-vertical">
     <div class="split-title">- {{ weaponInfo.skillName }} -</div>
     <div class="weapon-skill-info">
-      <div class="info-content weapon-skill-content" v-html="weaponInfo.skillEffect"></div>
+      <div class="info-content">
+        <p class="weapon-skill-content" v-html="weaponInfo.skillEffect"></p>
+      </div>
     </div>
   </div>
 </div>`;
