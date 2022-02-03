@@ -1,0 +1,447 @@
+/*字体：思源黑体，Genshin Abyss*/
+
+@font-face {
+  /* 用来显示渊星的自创字体，符号是星号"*" */
+  font-family: "Genshin Abyss";
+  src: url("../../../../data/font/Genshin-Abyss.ttf");
+}
+
+/*其实思源黑体不需要全部字符，要不要删掉大部分字符减负？*/
+/* 感觉不值得，思源黑体后面还能复用 */
+@font-face {
+  font-family: "Source Han Sans CN";
+  src: url("../../../../data/font/SourceHanSans-Regular.otf");
+}
+
+html,
+body {
+  width: 360px;
+  background: hsl(34, 37%, 96%);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* normalize */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Source Han Sans CN", monospace;
+  font-weight: bold;
+  color: hsl(41, 49%, 74%);
+  letter-spacing: 0.05em; /* 只测试了思源黑体，不过好在这个网页也没有其他字体 */
+}
+
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.no-margin-left {
+  margin-left: 0 !important;
+}
+
+.no-margin-right {
+  margin-right: 0 !important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.no-background {
+  background-color: transparent !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+#app {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-content: space-around;
+  align-items: stretch;
+}
+
+.container-horizontal {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.char-rounded {
+  margin-right: 10px;
+  min-width: 58px;
+}
+
+.container-vertical {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.container-vertical-center {
+  /*margin: 1%;*/
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.abyss-briefing {
+  width: 100%;
+}
+
+.abyss-personal-info {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.summary {
+  height: 100%;
+  width: 165px;
+}
+
+.detailed {
+  margin-top: 10px;
+  align-items: flex-start !important;
+}
+
+.banner-middle {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #ffffff2e;
+  font-size: 17px !important;
+}
+
+.first-banner {
+  margin-top: 10px;
+}
+
+.card {
+  position: relative;
+  background: linear-gradient(135deg, hsl(222, 36%, 12%), hsl(222, 10%, 25%));
+  border-radius: 10px; /* 决定圆角半径，可以写死，无所谓 */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.card-avatar-details {
+  margin-bottom: 10px;
+  width: 80px;
+}
+
+.allow-wrap {
+  flex-wrap: wrap !important;
+}
+
+.overview {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.userID {
+  align-items: center;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.uid,
+.banner-middle {
+  font-size: 20px;
+}
+
+.uid {
+  font-size: 36px;
+}
+
+.title .overall-challenge-date {
+  position: relative;
+  letter-spacing: 0.05em;
+}
+
+.abyss-star {
+  position: relative;
+  top: 2px; /* 字体基线不幸没和思源黑体对齐，自食其果了属于是 */
+  font-family: "Genshin Abyss", monospace;
+  font-weight: 100;
+  color: hsl(41, 37%, 89%);
+  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
+}
+
+.less-glow {
+  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.15);
+}
+
+.abyss-star.large {
+  font-size: 32px;
+  top: 3px; /* 字体基线不幸没和思源黑体对齐，自食其果了属于是 */
+}
+
+.overall-challenge-times-by-char {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.challenge-times-per-char-base {
+  border-radius: 10px;
+  background: hsl(43, 23%, 88%);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.abyss-level-per-char-base {
+  border-radius: 10px;
+  background: hsl(43, 23%, 88%);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.avatar-general,
+.avatar-overall-battle-times {
+  zoom: 30%;
+  border-radius: 10px 13% 13% 0;
+}
+
+.avatar-overall-battle-times {
+  zoom: 28%;
+}
+
+.background-general {
+  height: 100%;
+  border-radius: 10px 10px 10px 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.background-general.star-4,
+.background-rounded.star-4 {
+  background: linear-gradient(135deg, hsl(249, 32%, 57%), hsl(265, 41%, 61%));
+}
+
+.background-general.star-5,
+.background-rounded.star-5 {
+  background: linear-gradient(135deg, hsl(29, 37%, 42%), hsl(28, 66%, 58%));
+}
+
+.background-rounded {
+  display: flex;
+  border-radius: 64px;
+  width: 48px;
+  height: 48px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-rounded {
+  zoom: 21%;
+  position: relative;
+  transform: translateY(12px);
+  object-fit: cover;
+  clip-path: circle(115px at 128px 104px);
+}
+
+.description-general {
+  color: #000;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+.banner-middle {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #ffffff2e;
+}
+
+.banner-summary {
+  width: -webkit-fill-available;
+  width: -moz-available;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  font-size: 36px;
+  align-items: center;
+}
+
+.banner-left {
+  width: -webkit-fill-available;
+  width: -moz-available;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  padding-left: 10px;
+  background: #ffffff2e;
+}
+
+.banner-abyss {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-abyss-stars {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+img.strongest-hit {
+  border-radius: 10px 10px 7% 0;
+  width: 165px;
+}
+
+.banner-strongest-hit {
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card.strongest-hit {
+  height: 241px;
+  justify-content: space-between;
+}
+
+img.avatar-details {
+  border-radius: 10px 10px 7% 0;
+  width: 80px;
+}
+
+.description-general.strongest-hit {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.container-strongest-hit {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card.credit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+div.credit {
+  font-size: 24px;
+}
+
+.abyss-time {
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 9px;
+}
+
+.abyss-level-per-char-base {
+  zoom: 90%;
+  margin-left: 12px;
+  margin-right: 3px;
+}
+
+.card.abyss {
+  width: 100%;
+  max-width: 338px;
+  min-height: 160px;
+  align-items: stretch;
+  padding-bottom: 10px;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.abyss-char-windows {
+  justify-content: flex-start;
+}
+
+.container-abyss-window {
+  margin-top: 10px;
+}
+
+.abyss-details {
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.banner-placeholder {
+  position: absolute;
+  top: 0;
+  height: 30px;
+}
+
+.text-placeholder {
+  text-align: center;
+  font-weight: 100;
+}
+
+.abyss-empty-record-placeholder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 40px;
+}
+
+.kerning {
+  margin-left: -0.22em;
+  margin-right: -0.22em;
+  /*处理冒号不垂直居中的问题*/
+  position: relative;
+  top: -0.1em;
+}
