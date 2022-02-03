@@ -10,10 +10,8 @@ import { ls } from "../src/utils/file.js";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-global.rootdir = path.resolve(__dirname, "..");
-global.config = { viewDebug: 1 };
-
-const paramsDir = path.resolve(global.rootdir, "data", "record", "last_params");
+const rootdir = path.resolve(__dirname, "..");
+const paramsDir = path.resolve(rootdir, "data", "record", "last_params");
 const names = Object.fromEntries(
   ls(paramsDir)
     .filter((c) => c.match(/\bgenshin-[\w-]+?[.]json$/))
