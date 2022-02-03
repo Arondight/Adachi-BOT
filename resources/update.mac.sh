@@ -2,7 +2,7 @@
 # ==============================================================================
 # 此脚本是为了将项目和原作者解绑，将资源文件本地化。
 # ==============================================================================
-RDIR=$(dirname $(readlink -f "$0"))
+RDIR=$(dirname $(greadlink -f "$0"))
 # 此为原作者维护的 OSS，这里作为数据源更新本地数据。
 # 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
 # 脚本假定数据源不可信，所有的请求都不会依赖于某次请求的结果。
@@ -11,7 +11,7 @@ API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 # }
 # 此本项目的资源文件，将会覆盖同名的原作者资源文件
 # {
-CUSTOM_RES=$(readlink -f "${RDIR}/../resources_custom/")
+CUSTOM_RES=$(greadlink -f "${RDIR}/../resources_custom/")
 # }
 CURL=('curl' '-sL')
 
