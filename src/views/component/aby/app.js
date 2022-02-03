@@ -181,21 +181,36 @@ export default defineComponent({
       { title: "元素战技释放数", className: "skill-rank", value: normal_skill_rank },
     ];
 
-    let randomAvatars = [];
-    for (let i = 0; i < abyssBriefings.revealRank.length; ++i) {
-      if (Object.prototype.hasOwnProperty.call(abyssBriefings.revealRank[i], "avatar_icon")) {
-        randomAvatars.push(abyssBriefings.revealRank[i]["avatar_icon"]);
+    let shown_avatars = [];
+
+    function sideImageToFront(imageURL) {
+      // 出于某些奇怪的原因有时候传进来的值是 undefined
+      // In JavaScript you can have variable type of string or type of object which is class of String
+      // (same thing - both are strings - but defined differently) that's why is double checked.
+      // https://stackoverflow.com/a/9436948
+      if (typeof imageURL === "string" || imageURL instanceof String) {
+        return imageURL.replace(/_side/gi, "");
+      } else {
+        return "http://localhost:9934/resources/paimon/paimon_logo.jpg";
       }
     }
 
-    const userAvatar =
-      randomAvatars[Math.floor(Math.random() * randomAvatars.length)] ||
-      "http://localhost:9934/resources/paimon/paimon_logo.jpg";
+    for (const [key, value] of Object.entries(params.data)) {
+      if (key.endsWith("_rank")) {
+        value.forEach((v) =>
+          Object.prototype.hasOwnProperty.call(v, "avatar_icon") &&
+          !shown_avatars.includes(sideImageToFront(v.avatar_icon))
+            ? shown_avatars.push(sideImageToFront(v.avatar_icon))
+            : 0
+        );
+      }
+    }
+    const randomAvatar = Math.floor(Math.random() * shown_avatars.length);
+    const userAvatar = shown_avatars[randomAvatar];
 
     return {
       params,
       playerUid,
-      randomAvatars,
       userAvatar,
       abyssBriefings,
       characterRankings,
