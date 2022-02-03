@@ -2,7 +2,9 @@
 # ==============================================================================
 # 此脚本是为了将项目和原作者解绑，将资源文件本地化。
 # ==============================================================================
-RDIR=$(dirname $(readlink -f "$0"))
+ABSPATH='readlink'
+[[ 'Darwin' == $(uname -s) ]] && ABSPATH='greadlink'
+RDIR=$(dirname $(command "$ABSPATH" -f "$0"))
 # 此为原作者维护的 OSS，这里作为数据源更新本地数据。
 # 所有的资源都来自于原作者 https://github.com/SilveryStar 的辛苦创作。
 # 脚本假定数据源不可信，所有的请求都不会依赖于某次请求的结果。
@@ -11,7 +13,7 @@ API='https://adachi-bot.oss-cn-beijing.aliyuncs.com'
 # }
 # 此本项目的资源文件，将会覆盖同名的原作者资源文件
 # {
-CUSTOM_RES=$(readlink -f "${RDIR}/../resources_custom/")
+CUSTOM_RES=$(command "$ABSPATH" -f "${RDIR}/../resources_custom/")
 # }
 CURL=('curl' '-sL')
 
@@ -113,9 +115,8 @@ WEAPONS=(
   '讨龙英杰谭'   '异世界行记'   '翡玉法球'     '甲级宝珏'     '魔导绪论'
   '试作金珀'     '祭礼残章'     '黑岩绯玉'     '昭心'         '万国诸海图谱'
   '白辰之环'     '嘟嘟可故事集' '暗巷的酒与诗' '宗室秘法录'   '流浪乐章'
-  '匣里日月'     '西风秘典'     '忍冬之果'
-  '四风原典'     '天空之卷'     '尘世之锁'     '不灭月华'   '神乐之真意'
-  '证誓之明瞳'
+  '匣里日月'     '西风秘典'     '忍冬之果'     '证誓之明瞳'
+  '四风原典'     '天空之卷'     '尘世之锁'     '不灭月华'     '神乐之真意'
   # 长柄武器
   '新手长枪'     '铁尖枪'
   '黑缨枪'       '钺矛'         '白缨枪'
@@ -240,13 +241,13 @@ API2_WISH_CONFIG_FILES=(
   'weapon.json'
 )
 API_GACHA_ITEMS_FILES=(
-  # 'FiveBackground.png'
-  # 'FiveStar.png'
-  # 'FourBackground.png'
-  # 'FourStar.png'
-  # 'ThreeBackground.png'
-  # 'ThreeStar.png'
-  # 'background.png'
+  'FiveBackground.png'
+  'FiveStar.png'
+  'FourBackground.png'
+  'FourStar.png'
+  'ThreeBackground.png'
+  'ThreeStar.png'
+  'background.png'
 )
 API_ITEM_FILES=(
   'lock.png'
@@ -406,7 +407,7 @@ function getArea()
 
 function getGacha()
 {
-  fetch "$API_GACHA_ITEMS" 0 '' "${API_GACHA_ITEMS_FILES[@]}"
+  fetch "$API_GACHA_ITEMS" 1 '' "${API_GACHA_ITEMS_FILES[@]}"
 }
 
 function getMoudle()
@@ -537,7 +538,7 @@ function listXML()
 
   getOtherFiles
   getArea
-  getGacha
+  #getGacha
   getMoudle
   getNameCard
   getWeapon
