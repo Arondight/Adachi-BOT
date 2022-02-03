@@ -33,6 +33,7 @@
     "code-check": "npx eslint ./app.js ./src/ ./tools/ ./config_defaults/",
     "code-format": "npx prettier --config ./.prettierrc.json -uw ./app.js ./*.md ./.*.json ./*.json ./src/ ./tools/ ./docs/ ./resources_custom/",
     "tool-db": "npx node ./tools/db.js",
+    "tool-info": "npx node ./tools/info.js",
     "tool-view": "npx node ./tools/view.js"
   },
   "dependencies": {
