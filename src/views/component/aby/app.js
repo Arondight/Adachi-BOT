@@ -189,7 +189,7 @@ export default defineComponent({
     }
 
     const userAvatar =
-      randomAvatars[Math.floor(Math.random() * randomAvatars.length - 1)] ||
+      randomAvatars[Math.floor(Math.random() * randomAvatars.length)] ||
       "http://localhost:9934/resources/paimon/paimon_logo.jpg";
 
     return {
