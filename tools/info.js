@@ -256,7 +256,7 @@ async function getCharData(page) {
   let mainStatIsElem = false;
 
   for (const s of stats) {
-    if (s.match(/元素(伤害加成|充能效率|精通)/)) {
+    if (s.match(/元素(伤害加成|充能效率|精通)|治疗加成|攻击力|生命值/)) {
       mainStatIsElem = true;
     }
   }
