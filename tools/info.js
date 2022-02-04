@@ -386,11 +386,29 @@ async function getWeaponData(page) {
   const rarity = ((await handle.$x("./tbody/tr[2]/td[2]/div[contains(@class, 'sea_char_stars_wrap')]")) || []).length;
   const mainStat = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[4]/td[2]"))[0]);
   const skillName = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);
-  let skillContent = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[7]/td[2]"))[0]);
+  let skillContent = "";
 
   if (rarity > 2) {
     handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[3];
-    skillContent = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);
+    const contents = await page.evaluate(
+      (...h) => h.map((e) => e.textContent),
+      ...(await handle.$x("./tbody/tr/td[2]")).slice(0, 6)
+    );
+    const numReg = /\b\d+?\b/g;
+    const numsList = contents.map((c) => c.match(numReg));
+    const texts = contents[0].split(numReg);
+
+    for (let i = 0; i < texts.length - 1; ++i) {
+      skillContent += texts[i];
+
+      for (const nums of numsList) {
+        skillContent += `${nums[i]}/`;
+      }
+
+      skillContent = skillContent.slice(0, -1);
+    }
+
+    skillContent += texts[texts.length - 1];
   }
 
   handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[2];
@@ -525,17 +543,24 @@ async function main() {
 
         if ("string" === typeof link) {
           const data = await getData(link, type);
-          writeData(argv.name, data, argv.output || undefined);
+
+          if (undefined !== data) {
+            writeData(argv.name, data, argv.output || undefined);
+            return;
+          }
+
+          console.log("数据获取错误，无法继续。");
           return;
         }
       }
-
-      console.log(`没有找到名为“${argv.name}”的角色或武器。`);
     } catch (e) {
-      console.log(e);
+      // do nothing
     } finally {
       await close();
     }
+
+    console.log(`没有找到名为“${argv.name}”的角色或武器。`);
+    return;
   }
 }
 
