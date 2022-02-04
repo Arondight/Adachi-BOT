@@ -213,7 +213,7 @@ async function getCharData(page) {
 
   const cvCN = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[9]/td[2]"))[0]);
   const cvJP = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[10]/td[2]"))[0]);
-  const cv = `${cvCN}、${cvJP}`;
+  const cv = `${cvCN} | ${cvJP}`;
   const constellationName = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[8]/td[2]"))[0]);
   const rarity = ((await handle.$x("./tbody/tr[4]/td[2]/div[contains(@class, 'sea_char_stars_wrap')]")) || []).length;
 
@@ -256,12 +256,12 @@ async function getCharData(page) {
   let mainStatIsElem = false;
 
   for (const s of stats) {
-    if (s.match(/元素(伤害加成|充能效率|精通)/)) {
+    if (s.match(/治疗加成|元素(伤害加成|充能效率|精通)/)) {
       mainStatIsElem = true;
     }
   }
 
-  for (const i of [3, 5, 7, 13]) {
+  for (const i of [3, 5, 9, 13]) {
     ascensionMaterials.push(
       await getMaterialName(
         await page.evaluate(
