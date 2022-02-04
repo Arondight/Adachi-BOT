@@ -444,24 +444,24 @@ async function getData(link, type = "weapon") {
   const page = await browser.newPage();
   let data;
 
-  //try {
-  await page.goto(encodeURI(url), { waitUntil: "domcontentloaded" });
+  try {
+    await page.goto(encodeURI(url), { waitUntil: "domcontentloaded" });
 
-  switch (type) {
-    case "char":
-      data = await getCharData(page);
-      break;
-    case "weapon":
-      data = await getWeaponData(page);
-      break;
+    switch (type) {
+      case "char":
+        data = await getCharData(page);
+        break;
+      case "weapon":
+        data = await getWeaponData(page);
+        break;
+    }
+  } catch (e) {
+    data = undefined;
+  } finally {
+    if (page) {
+      await page.close();
+    }
   }
-  //} catch (e) {
-  //  data = undefined;
-  //} finally {
-  if (page) {
-    await page.close();
-  }
-  //}
 
   console.log(undefined === data ? "\t失败" : "\t成功");
   return data;
