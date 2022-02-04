@@ -260,7 +260,6 @@ async function getCharData(page) {
   const levelUpMaterials = [];
   const extraElemCol = stats.length > 8;
 
-  console.log(extraElemCol);
   for (const i of [3, 5, 9, 13]) {
     ascensionMaterials.push(
       await getMaterialName(
