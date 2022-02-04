@@ -34,7 +34,7 @@ async function launch() {
   if (undefined === browser) {
     browser = await puppeteer.launch({
       defaultViewport: null,
-      headless: false,
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox", "--no-first-run", "--no-zygote"],
       handleSIGINT: false,
       handleSIGTERM: false,
