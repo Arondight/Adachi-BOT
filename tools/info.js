@@ -154,7 +154,12 @@ async function getMaterialTime(name) {
     await page.goto(encodeURI(url), { waitUntil: "domcontentloaded" });
     const handle = (await page.$x("//table[contains(@class, 'wikitable')]"))[0];
     const text = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[5]/td"))[0]);
-    time = "【" + text.match(/(?<=时间：).+/)[0] + "】";
+    const zhou = text
+      .match(/(?<=时间：).+/)[0]
+      .split("/")
+      .map((c) => c[1])
+      .join("/");
+    time = "【周" + zhou + "】";
   } catch (e) {
     // do noting
   } finally {
@@ -253,21 +258,16 @@ async function getCharData(page) {
 
   const ascensionMaterials = [];
   const levelUpMaterials = [];
-  let mainStatIsElem = false;
+  const extraElemCol = stats.length > 8;
 
-  for (const s of stats) {
-    if (s.match(/元素(伤害加成|充能效率|精通)|治疗加成|攻击力|生命值/)) {
-      mainStatIsElem = true;
-    }
-  }
-
+  console.log(extraElemCol);
   for (const i of [3, 5, 9, 13]) {
     ascensionMaterials.push(
       await getMaterialName(
         await page.evaluate(
           (e) => e.getAttribute("href"),
           (
-            await handle.$x(`./tbody/tr[${i}]/td[${mainStatIsElem ? 8 : 7}]/div[1]/a`)
+            await handle.$x(`./tbody/tr[${i}]/td[${extraElemCol ? 8 : 7}]/div[1]/a`)
           )[0]
         )
       )
@@ -279,7 +279,7 @@ async function getCharData(page) {
       await page.evaluate(
         (e) => e.getAttribute("href"),
         (
-          await handle.$x(`./tbody/tr[5]/td[${mainStatIsElem ? 8 : 7}]/div[2]/a`)
+          await handle.$x(`./tbody/tr[5]/td[${extraElemCol ? 8 : 7}]/div[2]/a`)
         )[0]
       )
     )
@@ -289,7 +289,7 @@ async function getCharData(page) {
       await page.evaluate(
         (e) => e.getAttribute("href"),
         (
-          await handle.$x(`./tbody/tr[3]/td[${mainStatIsElem ? 8 : 7}]/div[2]/a`)
+          await handle.$x(`./tbody/tr[3]/td[${extraElemCol ? 8 : 7}]/div[2]/a`)
         )[0]
       )
     )
@@ -301,7 +301,7 @@ async function getCharData(page) {
         await page.evaluate(
           (e) => e.getAttribute("href"),
           (
-            await handle.$x(`./tbody/tr[${i}]/td[${mainStatIsElem ? 8 : 7}]/div[4]/a`)
+            await handle.$x(`./tbody/tr[${i}]/td[${extraElemCol ? 8 : 7}]/div[4]/a`)
           )[0]
         )
       )
@@ -387,7 +387,12 @@ async function getWeaponData(page) {
   const rarity = ((await handle.$x("./tbody/tr[2]/td[2]/div[contains(@class, 'sea_char_stars_wrap')]")) || []).length;
   const mainStat = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[4]/td[2]"))[0]);
   const skillName = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);
-  const skillContent = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[7]/td[2]"))[0]);
+  let skillContent = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[7]/td[2]"))[0]);
+
+  if (rarity > 2) {
+    handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[3];
+    skillContent = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);
+  }
 
   handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[2];
   const maxLvTr = parseInt(rarity) > 2 ? 26 : 20;
