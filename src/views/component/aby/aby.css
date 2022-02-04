@@ -14,9 +14,9 @@
 }
 
 @font-face {
-  font-family: "Source Han Serif SC Regular Subset";
+  font-family: "Khaenriah";
   font-display: block;
-  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
+  src: url("../../../../data/font/Khaenriah.otf");
 }
 
 * {
@@ -184,9 +184,9 @@ body {
 }
 
 .banner-title:before {
-  content: "The world opens itself before those with noble hearts - The world opens itself before those with noble hearts - The world opens itself before those with noble hearts - The world opens itself before those with noble hearts";
+  content: "THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS";
   position: absolute;
-  font-family: "Source Han Serif SC Regular Subset", serif;
+  font-family: "Khaenriah", serif;
   font-size: 6px;
   font-weight: 100;
   opacity: 0.3;
