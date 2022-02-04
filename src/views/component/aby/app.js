@@ -100,26 +100,30 @@ const template = html` <div class="container-abyss">
     <p class="time">{{abyssBriefings.startTime}} - {{abyssBriefings.endTime}}</p>
   </div>
   <div class="card container-briefing">
-    <div class="briefing">
-      <p class="briefing-title battle-times">战斗次数</p>
-      <p class="briefing-data battle-times">{{abyssBriefings.totalBattleTimes}}</p>
-      <p class="briefing-title max-floor">最深抵达</p>
-      <p class="briefing-data max-floor">{{abyssBriefings.maxFloor}}</p>
-      <p class="briefing-title total-star">获得渊星</p>
-      <p class="briefing-data total-star"><span class="abyss-star">*</span>{{abyssBriefings.totalStar}}</p>
+    <div class="container-vertical briefings">
+      <div class="banner-title"><p>挑战回顾</p></div>
+      <div class="briefing">
+        <p class="briefing-title battle-times">战斗次数</p>
+        <p class="briefing-data battle-times">{{abyssBriefings.totalBattleTimes}}</p>
+        <p class="briefing-title max-floor">最深抵达</p>
+        <p class="briefing-data max-floor">{{abyssBriefings.maxFloor}}</p>
+        <p class="briefing-title total-star">获得渊星</p>
+        <p class="briefing-data total-star"><span class="abyss-star">*</span>{{abyssBriefings.totalStar}}</p>
+      </div>
     </div>
-    <div class="container-vertical">
-      <div class="banner-title">出战次数</div>
+    <div class="container-vertical reveal-rank">
+      <div class="banner-title"><p>出战次数</p></div>
       <div class="container-reveal-rank">
         <characterShowbox v-for="character in abyssBriefings.revealRank" :data="character" :suffix="'次'" />
       </div>
     </div>
-    <div class="container-vertical">
-      <div class="banner-title">战斗数据榜</div>
+    <div class="container-vertical battle-rank">
+      <div class="banner-title"><p>战斗数据榜</p></div>
       <div class="container-overview">
         <avatarBox v-for="data in characterRankings" :data="data" />
       </div>
     </div>
+    <p class="credit">Created by Adachi-BOT</p>
   </div>
 </div>`;
 

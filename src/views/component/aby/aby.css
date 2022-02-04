@@ -13,6 +13,12 @@
   src: url("../../../../data/font/SourceHanSans-Regular.otf");
 }
 
+@font-face {
+  font-family: "Source Han Serif SC Regular Subset";
+  font-display: block;
+  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -31,9 +37,9 @@ body {
 .container-vertical {
   display: grid;
   width: 100%;
+  height: 100%;
   align-items: center;
   align-content: center;
-  grid-row-gap: 10px;
 }
 
 .container-abyss {
@@ -113,9 +119,12 @@ body {
   font-size: 12px;
 }
 
+.container-vertical.briefings {
+  grid-template-rows: max-content 90px;
+}
+
 .container-briefing {
-  padding: 10px 0;
-  grid-gap: 10px;
+  padding-top: 10px;
 }
 
 .deco-strip {
@@ -127,8 +136,8 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    "data-battletimes data-maxfloor data-totalstar"
-    "title-battletimes title-maxfloor title-totalstar";
+    "title-battletimes title-maxfloor title-totalstar"
+    "data-battletimes data-maxfloor data-totalstar";
   justify-items: center;
 }
 
@@ -161,6 +170,10 @@ body {
   text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
 }
 
+.container-vertical.reveal-rank {
+  grid-template-rows: max-content 140px;
+}
+
 .banner-title {
   display: flex;
   flex-direction: column;
@@ -168,6 +181,28 @@ body {
   align-items: center;
   font-size: 24px;
   background: #ffffff2b;
+}
+
+.banner-title:before {
+  content: "The world opens itself before those with noble hearts - The world opens itself before those with noble hearts - The world opens itself before those with noble hearts - The world opens itself before those with noble hearts";
+  position: absolute;
+  font-family: "Source Han Serif SC Regular Subset", serif;
+  font-size: 6px;
+  font-weight: 100;
+  opacity: 0.3;
+  z-index: -1;
+  width: 408px;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+  -webkit-text-stroke: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner-title > p {
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .container-reveal-rank {
@@ -210,7 +245,8 @@ body {
   color: #000;
 }
 
-.container-character-rounded {
+.container-vertical.battle-rank {
+  grid-template-rows: max-content 280px;
 }
 
 .container-overview {
@@ -238,6 +274,7 @@ body {
 
 .sub-title {
   font-size: 12px;
+  padding: 4px 0;
 }
 
 .defeat-rank {
@@ -261,8 +298,8 @@ body {
 }
 
 .credit {
-  color: #000;
   text-align: end;
-  padding-right: 10px;
+  padding: 0 10px 5px 0;
   font-size: 12px;
+  font-family: "Source Han Serif SC Regular Subset", serif;
 }
