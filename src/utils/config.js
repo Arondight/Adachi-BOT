@@ -901,7 +901,7 @@ function readArtifacts() {
 // global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
 //                                        rarity, mainStat, mainValue, baseATK, ascensionMaterials, levelUpMaterials,
 //                                        talentMaterials, time, constellations }, sorted by rarity
-// global.info.weapon       -> array of { title, name, introduce, access, rarity, mainStat, mainValue, baseATK,
+// global.info.weapon       -> array of { type, title, name, introduce, access, rarity, mainStat, mainValue, baseATK,
 //                                        ascensionMaterials, time, skillName, skillContent }, sorted by rarity
 function readInfo() {
   const names = Object.values(global.names.allAlias);
