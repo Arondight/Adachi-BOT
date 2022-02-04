@@ -384,9 +384,13 @@ async function getWeaponData(page) {
   const introduce = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[8]/td[2]"))[0]);
   const access = placeholder;
   const rarity = ((await handle.$x("./tbody/tr[2]/td[2]/div[contains(@class, 'sea_char_stars_wrap')]")) || []).length;
-  const mainStat = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[4]/td[2]"))[0]);
+  let mainStat = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[4]/td[2]"))[0]);
   const skillName = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);
   let skillContent = "";
+
+  if ("none" === mainStat) {
+    mainStat = "";
+  }
 
   if (rarity > 2) {
     handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[3];
@@ -413,9 +417,13 @@ async function getWeaponData(page) {
 
   handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[2];
   const maxLvTr = parseInt(rarity) > 2 ? 26 : 20;
-  const mainValue = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[3]`))[0]);
+  let mainValue = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[3]`))[0]);
   const baseATK = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[2]`))[0]);
   const ascensionMaterials = [[], []];
+
+  if ("0" === mainValue) {
+    mainValue = "";
+  }
 
   for (const i of [7, 12, 18].concat(rarity > 2 ? [24] : [])) {
     ascensionMaterials[0].push(
