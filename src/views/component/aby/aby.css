@@ -14,6 +14,12 @@
 }
 
 @font-face {
+  font-family: "Source Han Serif SC Regular Subset";
+  font-display: block;
+  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
+}
+
+@font-face {
   font-family: "Khaenriah";
   font-display: block;
   src: url("../../../../data/font/Khaenriah.otf");
@@ -43,7 +49,7 @@ body {
 }
 
 .container-abyss {
-  padding: 10px 10px 0 10px;
+  padding: 10px;
   display: grid;
   grid-auto-flow: row;
   justify-items: center;
@@ -187,14 +193,13 @@ body {
   content: "THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS";
   position: absolute;
   font-family: "Khaenriah", serif;
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 100;
   opacity: 0.3;
   z-index: -1;
   width: 408px;
   overflow: hidden;
   white-space: nowrap;
-  letter-spacing: -0.02em;
   -webkit-text-stroke: 0px;
   display: flex;
   flex-direction: column;
