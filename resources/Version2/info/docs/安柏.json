@@ -12,25 +12,9 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": "223",
-  "ascensionMaterials": [
-    "燃愿玛瑙碎屑",
-    "燃愿玛瑙断片",
-    "燃愿玛瑙块",
-    "燃愿玛瑙",
-    "常燃火种"
-  ],
-  "levelUpMaterials": [
-    "小灯草",
-    "牢固的箭簇",
-    "锐利的箭簇",
-    "历战的箭簇"
-  ],
-  "talentMaterials": [
-    "「自由」的教导",
-    "Guide to Freedom",
-    "「自由」的哲学",
-    "东风的吐息"
-  ],
+  "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
+  "levelUpMaterials": ["小灯草", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
+  "talentMaterials": ["「自由」的教导", "Guide to Freedom", "「自由」的哲学", "东风的吐息"],
   "time": "【周一/周四/周日】",
   "constellations": [
     "瞄准射击时，会连续射出2支箭。第二支箭能造成原本20%的伤害。",
