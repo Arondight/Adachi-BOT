@@ -35,6 +35,7 @@ const barTemplate = html`
   </div>
 `;
 
+// noinspection JSUnusedGlobalSymbols
 const barInfos = defineComponent({
   name: "barInfos",
   template: barTemplate,

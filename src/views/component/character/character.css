@@ -92,6 +92,7 @@ body,
   grid-row-gap: 30px;
 }
 
+/* noinspection DuplicatedCode */
 .container-deco-strip {
   position: absolute;
   top: 30px;
