@@ -15,11 +15,7 @@ const barTemplate = html`
         v-for="i in 7"
         :class="(i > constellationNum + 1 && i != 7 && i != 1) ? 'dot-show' : 'dot-hide'"
       ></div>
-      <div
-        class="bar-progress"
-        :class="constellationNum == 6 ? 'max' : 'normal'"
-        :style="{width: getWidth(constellationNum, 6, 300)}"
-      ></div>
+      <div class="bar-progress" :style="{width: getWidth(constellationNum, 6, 300)}"></div>
     </div>
     <p class="bar-details">{{constellationNum}}<span>/</span>6</p>
     <p class="bar-title">好感度</p>
@@ -29,7 +25,7 @@ const barTemplate = html`
         v-for="i in 11"
         :class="(i > fetter + 1 && i != 11 && i != 1) ? 'dot-show' : 'dot-hide'"
       ></div>
-      <div class="bar-progress normal" :style="{width: getWidth(fetter, 10, 300)}"></div>
+      <div class="bar-progress" :style="{width: getWidth(fetter, 10, 300)}"></div>
     </div>
     <p class="bar-details">{{fetter}}<span>/</span>10</p>
   </div>
@@ -142,9 +138,7 @@ const template = html` <div class="background" :class="charElementType">
           />
           <div class="weapon-details">
             <div class="weapon-name">{{weaponInfo.name}}</div>
-            <div class="weapon-affix" :class="weaponInfo.affixLevel === 5 ? 'max' : ''">
-              精炼<span class="affix-value">{{weaponInfo.affixLevel}}</span>
-            </div>
+            <div class="weapon-affix">精炼<span class="affix-value">{{weaponInfo.affixLevel}}</span></div>
             <div class="weapon-rarity">{{weaponInfo.rarity}}</div>
             <div class="weapon-desc">{{weaponInfo.desc}}</div>
           </div>

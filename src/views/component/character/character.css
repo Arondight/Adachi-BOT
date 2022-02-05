@@ -180,17 +180,8 @@ body,
 .bar-progress {
   position: absolute;
   height: 10px;
-  border-radius: 5px;
-}
-
-.bar-progress.normal {
   background-color: #ede8e1;
-}
-
-.bar-progress.max {
-  /* background: hsl(25deg 69% 75%); */
-  /* 备用 */
-  background: hsl(41deg 98% 49%);
+  border-radius: 5px;
 }
 
 .bar-details {
@@ -354,14 +345,8 @@ body,
   grid-area: affix;
 }
 
-.weapon-affix.max {
-  background: #141a2a;
-  color: hsl(25deg 69% 75%);
-  text-shadow: 0 0 6px hsl(25deg 59% 35%);
-}
-
 .affix-value {
-  margin-left: 2px;
+  margin: 0 4px;
 }
 
 .weapon-desc {
