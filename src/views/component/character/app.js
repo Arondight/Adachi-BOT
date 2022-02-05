@@ -166,7 +166,7 @@ export default defineComponent({
   setup() {
     const params = getParams(window.location.href);
     const charElementType = params.data.element.toLowerCase() || "anemo";
-    const elementSvgSrc = `http://localhost:9934/resources/Version2/elements/${charElementType}.svg`;
+    const elementSvgSrc = encodeURI(`http://localhost:9934/resources/Version2/elements/${charElementType}.svg`);
     const uid = params.uid;
     const character = params.data || {};
     let characterInfo = {};
@@ -223,7 +223,7 @@ export default defineComponent({
 
     weaponInfo.name = weaponName;
     weaponInfo.type = weaponTypeToString[weaponType.split("_").slice(-2)[0].toLowerCase()];
-    weaponInfo.imageUrl = `http://localhost:9934/resources/Version2/thumb/weapon/${weaponName}.png`;
+    weaponInfo.imageUrl = encodeURI(`http://localhost:9934/resources/Version2/thumb/weapon/${weaponName}.png`);
     weaponInfo.imageName = `${weaponName}.png`;
     weaponInfo.rarityClass = rarityString[weaponRarity] || "rarity-four";
     weaponInfo.rarity = "★".repeat(weaponRarity) || "★★★★";

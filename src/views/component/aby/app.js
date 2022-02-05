@@ -58,7 +58,7 @@ const avatarBox = defineComponent({
   },
   methods: {
     sideImageToFront(imageURL) {
-      return imageURL.replace(/_side/gi, "");
+      return encodeURI(imageURL.replace(/_side/gi, ""));
     },
     getRarityClass(rarity) {
       const rarityClassMap = {
@@ -206,9 +206,9 @@ export default defineComponent({
       // (same thing - both are strings - but defined differently) that's why is double checked.
       // https://stackoverflow.com/a/9436948
       if (typeof imageURL === "string" || imageURL instanceof String) {
-        return imageURL.replace(/_side/gi, "");
+        return encodeURI(imageURL.replace(/_side/gi, ""));
       } else {
-        return "http://localhost:9934/resources/paimon/paimon_logo.jpg";
+        return encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
       }
     }
 
@@ -225,8 +225,8 @@ export default defineComponent({
     const randomAvatar = Math.floor(Math.random() * shown_avatars.length);
     const userAvatar =
       shown_avatars.length !== 0
-        ? shown_avatars[randomAvatar]
-        : "http://localhost:9934/resources/paimon/paimon_logo.jpg";
+        ? encodeURI(shown_avatars[randomAvatar])
+        : encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
 
     return {
       playerUid,
