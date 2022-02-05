@@ -286,6 +286,8 @@ body,
 .box-title {
   background: #ede8e1;
   color: #7d796d;
+  min-width: 79px;
+  justify-content: center;
 }
 
 .info-content {
