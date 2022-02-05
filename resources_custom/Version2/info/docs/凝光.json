@@ -11,7 +11,7 @@
   "rarity": 4,
   "mainStat": "岩元素伤害加成",
   "mainValue": "24%",
-  "baseATK": "212",
+  "baseATK": 212,
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "玄岩之塔"],
   "levelUpMaterials": ["琉璃百合", "新兵的徽记", "士官的徽记", "尉官的徽记"],
   "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "北风的魂匣"],

@@ -11,7 +11,7 @@
   "rarity": 4,
   "mainStat": "物理伤害加成",
   "mainValue": "30%",
-  "baseATK": "234",
+  "baseATK": 234,
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
   "levelUpMaterials": ["钩钩果", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之爪"],
