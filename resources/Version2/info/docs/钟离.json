@@ -11,7 +11,7 @@
   "rarity": 5,
   "mainStat": "岩元素伤害加成",
   "mainValue": "28.8%",
-  "baseATK": "251",
+  "baseATK": 251,
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "玄岩之塔"],
   "levelUpMaterials": ["石珀", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
   "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "吞天之鲸·只角"],

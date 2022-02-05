@@ -11,7 +11,7 @@
   "rarity": 5,
   "mainStat": "水元素伤害加成",
   "mainValue": "28.8%",
-  "baseATK": "234",
+  "baseATK": 234,
   "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "排异之露"],
   "levelUpMaterials": ["珊瑚真珠", "浮游干核", "浮游幽核", "浮游晶化核"],
   "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "狱火之蝶"],

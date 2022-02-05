@@ -7,7 +7,7 @@
   "rarity": 1,
   "mainStat": "",
   "mainValue": "",
-  "baseATK": "185",
+  "baseATK": 185,
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐"],
     ["混沌装置", "混沌回路", "导能绘卷", "封魔绘卷"]

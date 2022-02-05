@@ -11,7 +11,7 @@
   "rarity": 5,
   "mainStat": "元素充能效率",
   "mainValue": "32%",
-  "baseATK": "337",
+  "baseATK": 337,
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷霆数珠"],
   "levelUpMaterials": ["天云草实", "破旧的刀镡", "影打刀镡", "名刀镡"],
   "talentMaterials": ["「天光」的教导", "「天光」的指引", "「天光」的哲学", "熔毁之刻"],

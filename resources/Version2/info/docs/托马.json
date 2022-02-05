@@ -11,7 +11,7 @@
   "rarity": 4,
   "mainStat": "攻击力",
   "mainValue": "24%",
-  "baseATK": "202",
+  "baseATK": 202,
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "阴燃之珠"],
   "levelUpMaterials": ["幽灯蕈", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "狱火之蝶"],

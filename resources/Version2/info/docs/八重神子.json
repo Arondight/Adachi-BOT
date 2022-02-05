@@ -11,7 +11,7 @@
   "rarity": 5,
   "mainStat": "暴击率",
   "mainValue": "19.2%",
-  "baseATK": "340",
+  "baseATK": 340,
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "龙嗣伪鳍"],
   "levelUpMaterials": ["海灵芝", "破旧的刀镡", "影打刀镡", "名刀镡"],
   "talentMaterials": ["「天光」的教导", "「天光」的指引", "「天光」的哲学", "？？？"],

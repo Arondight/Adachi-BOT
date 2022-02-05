@@ -7,11 +7,11 @@
   "rarity": 5,
   "mainStat": "暴击伤害",
   "mainValue": "66.2%",
-  "baseATK": "608",
+  "baseATK": 608,
   "ascensionMaterials": [
     ["今昔剧画之恶尉", "今昔剧画之虎啮", "今昔剧画之一角", "今昔剧画之鬼人"],
     ["隐兽指爪", "隐兽利爪", "隐兽鬼爪", "浮游干核", "浮游幽核", "浮游晶化核"]
   ],
-  "skillName": "神樱神游神乐舞",
+  "skillName": "",
   "skillContent": ""
 }
