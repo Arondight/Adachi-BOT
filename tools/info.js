@@ -245,7 +245,7 @@ async function getCharData(page) {
       await handle.$x(`./tbody/tr[15]/td[${mainStatTdIndex}]`)
     )[0]
   );
-  const baseATK = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[15]/td[3]"))[0]);
+  const baseATK = parseInt(await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[15]/td[3]"))[0]));
 
   switch (mainStat) {
     case "暴击率":
@@ -380,7 +380,9 @@ async function getWeaponData(page) {
   let handle = (await page.$x("//div[contains(@class, 'custom_title')]"))[0];
   const name = await page.evaluate((e) => e.textContent, handle);
 
-  handle = (await page.$x("//table[contains(@class, 'item_main_table')]"))[1];
+  handle = (
+    await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'item_main_table')]")
+  )[0];
   const title =
     types.weapon[
       (await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[1]/td[3]/a"))[0])).toLowerCase()
@@ -405,7 +407,7 @@ async function getWeaponData(page) {
       ...(await handle.$x("./tbody/tr/td[2]")).slice(0, 6)
     );
     const numReg = /\b[\d.]+\b/g;
-    const numsList = contents.map((c) => c.match(numReg));
+    const numsList = contents.map((c) => c.match(numReg) || []);
     const texts = contents[0].split(numReg);
 
     for (let i = 0; i < texts.length - 1; ++i) {
@@ -419,15 +421,19 @@ async function getWeaponData(page) {
         }
       }
 
+      skillContent += "<span>";
+
       if (true === sameVal) {
         skillContent += numsList[0][i];
       } else {
-        for (const nums of numsList) {
+        for (const nums of numsList.filter((c) => Array.isArray(c) && c.length > 0)) {
           skillContent += `${nums[i]}/`;
         }
 
         skillContent = skillContent.slice(0, -1);
       }
+
+      skillContent += "</span>";
     }
 
     skillContent += texts[texts.length - 1];
@@ -436,7 +442,9 @@ async function getWeaponData(page) {
   handle = (await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]"))[0];
   const maxLvTr = parseInt(rarity) > 2 ? 26 : 20;
   let mainValue = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[3]`))[0]);
-  const baseATK = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[2]`))[0]);
+  const baseATK = parseInt(
+    await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[2]`))[0])
+  );
   const ascensionMaterials = [[], []];
 
   if ("0" === mainValue) {
