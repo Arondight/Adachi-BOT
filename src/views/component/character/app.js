@@ -195,7 +195,7 @@ export default defineComponent({
     const weaponTypeToString = {
       sword: "单手剑",
       claymore: "双手剑",
-      polearm: "长柄武器",
+      pole: "长柄武器",
       bow: "弓",
       catalyst: "法器",
     };
