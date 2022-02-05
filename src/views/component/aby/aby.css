@@ -302,6 +302,11 @@ body {
   grid-area: skill-rank;
 }
 
+.missing-data-placeholder {
+  font-size: 20px;
+  text-align: center;
+}
+
 .credit {
   text-align: end;
   padding: 0 10px 5px 0;

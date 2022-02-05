@@ -113,14 +113,20 @@ const template = html` <div class="container-abyss">
     </div>
     <div class="container-vertical reveal-rank">
       <div class="banner-title"><p>出战次数</p></div>
-      <div class="container-reveal-rank">
+      <div v-if="abyssBriefings.revealRank.length !== 0" class="container-reveal-rank">
         <characterShowbox v-for="character in abyssBriefings.revealRank" :data="character" :suffix="'次'" />
+      </div>
+      <div v-else class="container-vertical">
+        <div class="missing-data-placeholder">暂无数据</div>
       </div>
     </div>
     <div class="container-vertical battle-rank">
       <div class="banner-title"><p>战斗数据榜</p></div>
-      <div class="container-overview">
+      <div v-if="hasRankingData" class="container-overview">
         <avatarBox v-for="data in characterRankings" :data="data" />
+      </div>
+      <div v-else class="container-vertical">
+        <div class="missing-data-placeholder">暂无数据</div>
       </div>
     </div>
     <p class="credit">Created by Adachi-BOT</p>
@@ -177,6 +183,13 @@ export default defineComponent({
     const energy_skill_rank = params.data.energy_skill_rank || [];
     const normal_skill_rank = params.data.normal_skill_rank || [];
 
+    const hasRankingData =
+      defeat_rank.length !== 0 ||
+      damage_rank.length !== 0 ||
+      take_damage_rank.length !== 0 ||
+      energy_skill_rank.length !== 0 ||
+      normal_skill_rank.length !== 0;
+
     const characterRankings = [
       { title: "最多击破", className: "defeat-rank", value: defeat_rank },
       { title: "最强一击", className: "damage-rank", value: damage_rank },
@@ -210,14 +223,17 @@ export default defineComponent({
       }
     }
     const randomAvatar = Math.floor(Math.random() * shown_avatars.length);
-    const userAvatar = shown_avatars[randomAvatar];
+    const userAvatar =
+      shown_avatars.length !== 0
+        ? shown_avatars[randomAvatar]
+        : "http://localhost:9934/resources/paimon/paimon_logo.jpg";
 
     return {
-      params,
       playerUid,
       userAvatar,
       abyssBriefings,
       characterRankings,
+      hasRankingData,
     };
   },
 });
