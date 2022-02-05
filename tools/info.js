@@ -256,7 +256,7 @@ async function getCharData(page) {
       break;
   }
 
-  if ("元素精通" !== mainStat && "%" !== mainValue[mainValue.length - 1]) {
+  if ("元素精通" !== mainStat && "" !== mainValue && "%" !== mainValue[mainValue.length - 1]) {
     mainValue += "%";
   }
 
@@ -397,7 +397,9 @@ async function getWeaponData(page) {
   }
 
   if (rarity > 2) {
-    handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[3];
+    handle = (
+      await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]")
+    )[1];
     const contents = await page.evaluate(
       (...h) => h.map((e) => e.textContent),
       ...(await handle.$x("./tbody/tr/td[2]")).slice(0, 6)
@@ -407,19 +409,31 @@ async function getWeaponData(page) {
     const texts = contents[0].split(numReg);
 
     for (let i = 0; i < texts.length - 1; ++i) {
+      let sameVal = true;
       skillContent += texts[i];
 
-      for (const nums of numsList) {
-        skillContent += `${nums[i]}/`;
+      for (let i1 = 1; i1 < numsList.length; ++i1) {
+        if (numsList[0][i] !== numsList[i1][i]) {
+          sameVal = false;
+          break;
+        }
       }
 
-      skillContent = skillContent.slice(0, -1);
+      if (true === sameVal) {
+        skillContent += numsList[0][i];
+      } else {
+        for (const nums of numsList) {
+          skillContent += `${nums[i]}/`;
+        }
+
+        skillContent = skillContent.slice(0, -1);
+      }
     }
 
     skillContent += texts[texts.length - 1];
   }
 
-  handle = (await page.$x("//table[contains(@class, 'add_stat_table')]"))[2];
+  handle = (await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]"))[0];
   const maxLvTr = parseInt(rarity) > 2 ? 26 : 20;
   let mainValue = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[3]`))[0]);
   const baseATK = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[2]`))[0]);
@@ -429,7 +443,7 @@ async function getWeaponData(page) {
     mainValue = "";
   }
 
-  if ("元素精通" !== mainStat && "%" !== mainValue[mainValue.length - 1]) {
+  if ("元素精通" !== mainStat && "" !== mainValue && "%" !== mainValue[mainValue.length - 1]) {
     mainValue += "%";
   }
 
