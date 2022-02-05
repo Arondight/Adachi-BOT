@@ -256,7 +256,7 @@ async function getCharData(page) {
       break;
   }
 
-  if ("元素精通" !== mainStat) {
+  if ("元素精通" !== mainStat && "%" !== mainValue[mainValue.length - 1]) {
     mainValue += "%";
   }
 
@@ -429,7 +429,7 @@ async function getWeaponData(page) {
     mainValue = "";
   }
 
-  if ("元素精通" !== mainStat) {
+  if ("元素精通" !== mainStat && "%" !== mainValue[mainValue.length - 1]) {
     mainValue += "%";
   }
 
