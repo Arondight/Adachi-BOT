@@ -249,11 +249,15 @@ async function getCharData(page) {
 
   switch (mainStat) {
     case "暴击率":
-      mainValue = `${(parseFloat(mainValue) - 5).toFixed(1)}%`;
+      mainValue = `${(parseFloat(mainValue) - 5).toFixed(1)}`;
       break;
     case "暴击伤害":
-      mainValue = `${(parseFloat(mainValue) - 50).toFixed(1)}%`;
+      mainValue = `${(parseFloat(mainValue) - 50).toFixed(1)}`;
       break;
+  }
+
+  if ("元素精通" !== mainStat) {
+    mainValue += "%";
   }
 
   const ascensionMaterials = [];
@@ -398,7 +402,7 @@ async function getWeaponData(page) {
       (...h) => h.map((e) => e.textContent),
       ...(await handle.$x("./tbody/tr/td[2]")).slice(0, 6)
     );
-    const numReg = /\b\d+?\b/g;
+    const numReg = /\b[\d.]+\b/g;
     const numsList = contents.map((c) => c.match(numReg));
     const texts = contents[0].split(numReg);
 
@@ -423,6 +427,10 @@ async function getWeaponData(page) {
 
   if ("0" === mainValue) {
     mainValue = "";
+  }
+
+  if ("元素精通" !== mainStat) {
+    mainValue += "%";
   }
 
   for (const i of [7, 12, 18].concat(rarity > 2 ? [24] : [])) {
