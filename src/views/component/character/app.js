@@ -11,9 +11,9 @@ const barTemplate = html`
     <p class="bar-title">命之座</p>
     <div class="bar-full constellation">
       <div
-          class="bar-dot"
-          v-for="i in 7"
-          :class="(i > constellationNum + 1 && i != 7 && i != 1) ? 'dot-show' : 'dot-hide'"
+        class="bar-dot"
+        v-for="i in 7"
+        :class="(i > constellationNum + 1 && i != 7 && i != 1) ? 'dot-show' : 'dot-hide'"
       ></div>
       <div class="bar-progress" :style="{width: getWidth(constellationNum, 6, 300)}"></div>
     </div>
@@ -21,9 +21,9 @@ const barTemplate = html`
     <p class="bar-title">好感度</p>
     <div class="bar-full fetter">
       <div
-          class="bar-dot"
-          v-for="i in 11"
-          :class="(i > fetter + 1 && i != 11 && i != 1) ? 'dot-show' : 'dot-hide'"
+        class="bar-dot"
+        v-for="i in 11"
+        :class="(i > fetter + 1 && i != 11 && i != 1) ? 'dot-show' : 'dot-hide'"
       ></div>
       <div class="bar-progress" :style="{width: getWidth(fetter, 10, 300)}"></div>
     </div>
@@ -59,7 +59,7 @@ const barInfos = defineComponent({
 const artifactBoxTemplate = html`
   <div class="box-title artifact-position">{{position}}</div>
   <div v-if="!isEmpty" class="info-content artifact-content">
-    <img class="artifact-icon" :class="rarityClass" :src="iconUrl" :alt="name"/>
+    <img class="artifact-icon" :class="rarityClass" :src="iconUrl" :alt="name" />
     <div class="artifact-details">
       <div class="artifact-name">{{name}}</div>
       <div class="artifact-level">{{enhancementLevel}}</div>
@@ -112,38 +112,42 @@ const artifactBox = defineComponent({
   },
 });
 
-const template = html`
-  <div class="background" :class="charElementType">
-    <img class="svg" :src="elementSvgSrc"/>
-    <div class="container-deco-strip">{{ decoStripContent }}</div>
-    <div class="container-character-infos">
-      <div class="page-title"><span>{{ uid }}</span>的{{characterInfo.charName}}</div>
-      <img class="profile-image" :src="characterInfo.imagePath" :alt="characterInfo.imageFilename"/>
-      <barInfos :fetter="characterInfo.fetter" :constellationNum="characterInfo.constellationNum"/>
-      <div class="container-vertical">
-        <div class="split-title">- 圣遗物 -</div>
-        <div class="artifact-table">
-          <artifactBox v-for="i in characterInfo.artifacts" :data="i"/>
-        </div>
+const template = html` <div class="background" :class="charElementType">
+  <img class="svg" :src="elementSvgSrc" />
+  <div class="container-deco-strip">{{ decoStripContent }}</div>
+  <div class="container-character-infos">
+    <div class="page-title"><span>{{ uid }}</span>的{{characterInfo.charName}}</div>
+    <img class="profile-image" :src="characterInfo.imagePath" :alt="characterInfo.imageFilename" />
+    <barInfos :fetter="characterInfo.fetter" :constellationNum="characterInfo.constellationNum" />
+    <div class="container-vertical">
+      <div class="split-title">- 圣遗物 -</div>
+      <div class="artifact-table">
+        <artifactBox v-for="i in characterInfo.artifacts" :data="i" />
       </div>
-      <div class="container-vertical">
-        <div class="split-title">- 武器 -</div>
-        <div class="weapon-table">
-          <div class="box-title"><p>{{weaponInfo.type}}</p></div>
-          <div class="info-content container-weapon-info">
-            <img class="weapon-icon" :class="weaponInfo.rarityClass" :src="weaponInfo.imageUrl" :alt="weaponInfo.imageName"/>
-            <div class="weapon-details">
-              <div class="weapon-name">{{weaponInfo.name}}</div>
-              <div class="weapon-affix">精炼<span class="affix-value">{{weaponInfo.affixLevel}}</span></div>
-              <div class="weapon-rarity">{{weaponInfo.rarity}}</div>
-              <div class="weapon-desc">{{weaponInfo.desc}}</div>
-            </div>
+    </div>
+    <div class="container-vertical">
+      <div class="split-title">- 武器 -</div>
+      <div class="weapon-table">
+        <div class="box-title"><p>{{weaponInfo.type}}</p></div>
+        <div class="info-content container-weapon-info">
+          <img
+            class="weapon-icon"
+            :class="weaponInfo.rarityClass"
+            :src="weaponInfo.imageUrl"
+            :alt="weaponInfo.imageName"
+          />
+          <div class="weapon-details">
+            <div class="weapon-name">{{weaponInfo.name}}</div>
+            <div class="weapon-affix">精炼<span class="affix-value">{{weaponInfo.affixLevel}}</span></div>
+            <div class="weapon-rarity">{{weaponInfo.rarity}}</div>
+            <div class="weapon-desc">{{weaponInfo.desc}}</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="credit">Created by Adachi-BOT</div>
-  </div>`;
+  </div>
+  <div class="credit">Created by Adachi-BOT</div>
+</div>`;
 
 export default defineComponent({
   name: "genshinCharacter",
@@ -187,7 +191,6 @@ export default defineComponent({
 
     characterInfo.artifacts = artifacts;
 
-
     let weaponInfo = {};
     const weaponTypeToString = {
       sword: "单手剑",
@@ -195,7 +198,7 @@ export default defineComponent({
       polearm: "长柄武器",
       bow: "弓",
       catalyst: "法器",
-    }
+    };
 
     const weaponType = character.weapon.icon || "sword_sword";
     const weaponName = character.weapon.name || "";

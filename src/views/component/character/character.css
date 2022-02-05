@@ -107,7 +107,8 @@ body,
   letter-spacing: -0.02em;
 }
 
-.info-title, .page-title {
+.info-title,
+.page-title {
   letter-spacing: 0.05em;
   color: #715257;
   font-size: 44px;
@@ -195,7 +196,8 @@ body,
   margin-bottom: 20px;
 }
 
-.artifact-table, .weapon-table {
+.artifact-table,
+.weapon-table {
   display: grid;
   grid-template-columns: max-content auto;
   width: 580px;
@@ -226,14 +228,17 @@ body,
   background-size: cover;
 }
 
-.rarity-three, .rarity-two, .rarity-one {
+.rarity-three,
+.rarity-two,
+.rarity-one {
   background: url("../../../../resources/Version2/thumb/stars/3-Star.png") no-repeat center;
   background-size: cover;
 }
 
 .artifact-details {
   display: grid;
-  grid-template-areas: "name level"
+  grid-template-areas:
+    "name level"
     "rarity rarity";
   font-size: 20px;
   grid-column-gap: 6px;
@@ -244,7 +249,8 @@ body,
   grid-area: name;
 }
 
-.artifact-level, .weapon-affix {
+.artifact-level,
+.weapon-affix {
   position: relative;
   font-size: 14px;
   color: #7d796d;
@@ -267,7 +273,8 @@ body,
   grid-area: rarity;
 }
 
-.box-title, .info-content {
+.box-title,
+.info-content {
   display: flex;
   align-items: center;
   font-size: 24px;
@@ -309,7 +316,8 @@ body,
 
 .weapon-details {
   display: grid;
-  grid-template-areas: "name affix"
+  grid-template-areas:
+    "name affix"
     "rarity rarity"
     "description description";
   font-size: 20px;
@@ -321,7 +329,8 @@ body,
   white-space: nowrap;
 }
 
-.weapon-rarity, .weapon-desc {
+.weapon-rarity,
+.weapon-desc {
   font-size: 16px;
 }
 
