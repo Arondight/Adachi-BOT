@@ -7,7 +7,7 @@
   "rarity": 2,
   "mainStat": "",
   "mainValue": "",
-  "baseATK": 243,
+  "baseATK": "243",
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙"],
     ["地脉的旧枝", "地脉的枯叶", "寻宝鸦印", "藏银鸦印"]

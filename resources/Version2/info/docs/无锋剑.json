@@ -7,7 +7,7 @@
   "rarity": 1,
   "mainStat": "",
   "mainValue": "",
-  "baseATK": 185,
+  "baseATK": "185",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片"],
     ["沉重号角", "黑铜号角", "牢固的箭簇", "锐利的箭簇"]
