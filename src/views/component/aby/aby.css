@@ -168,7 +168,8 @@ body {
   grid-area: title-totalstar;
 }
 
-.abyss-star, .chamber-stars {
+.abyss-star,
+.chamber-stars {
   font-family: "Genshin Abyss", sans-serif;
   color: #ede7d9;
   text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
@@ -376,7 +377,8 @@ body {
 .chamber-details.valid {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
-  grid-template-areas: "firsthalf"
+  grid-template-areas:
+    "firsthalf"
     "secondhalf";
   grid-row-gap: 15px;
   align-items: center;
@@ -385,7 +387,8 @@ body {
   justify-items: start;
 }
 
-.first-half, .second-half {
+.first-half,
+.second-half {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;

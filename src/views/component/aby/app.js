@@ -83,7 +83,14 @@ const template = html` <div class="container-abyss">
     <div class="container-vertical reveal-rank">
       <div class="banner-title"><p>出战次数</p></div>
       <div v-if="abyssBriefings.revealRank.length !== 0" class="container-reveal-rank">
-        <characterShowbox v-for="character in abyssBriefings.revealRank" :htmlClass="'reveal-rank'" :data="character" :prefix="''" :suffix="'次'" :showType="'revealRank'" />
+        <characterShowbox
+          v-for="character in abyssBriefings.revealRank"
+          :htmlClass="'reveal-rank'"
+          :data="character"
+          :prefix="''"
+          :suffix="'次'"
+          :showType="'revealRank'"
+        />
       </div>
       <div v-else class="container-vertical">
         <div class="missing-data-placeholder">暂无数据</div>

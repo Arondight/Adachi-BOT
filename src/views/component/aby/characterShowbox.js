@@ -31,9 +31,14 @@ export default defineComponent({
     const prefix = props.prefix || "";
     const suffix = props.suffix || "";
     const htmlClass = props.htmlClass || "";
-    const label = showType === "revealRank"
-      ? (Object.prototype.hasOwnProperty.call(props.data, "value") ? prefix + props.data.value.toString() + suffix : "")
-      : (Object.prototype.hasOwnProperty.call(props.data, "level") ? prefix + props.data.level.toString() + suffix : "");
+    const label =
+      showType === "revealRank"
+        ? Object.prototype.hasOwnProperty.call(props.data, "value")
+          ? prefix + props.data.value.toString() + suffix
+          : ""
+        : Object.prototype.hasOwnProperty.call(props.data, "level")
+        ? prefix + props.data.level.toString() + suffix
+        : "";
     const additionalClass = htmlClass;
 
     return {
