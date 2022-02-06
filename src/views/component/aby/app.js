@@ -1,40 +1,9 @@
 import { html } from "../common/html.js";
 import { getParams } from "../common/param.js";
+import characterShowbox from "./characterShowbox.js";
 
 // eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
-const showboxTemplate = html`
-  <div class="container-character">
-    <img class="avatar-face" :class="rarity" :src="avatarIcon" alt="加载图片失败" />
-    <p class="showbox-label">{{label}}</p>
-  </div>
-`;
-
-const characterShowbox = defineComponent({
-  name: "characterShowbox",
-  template: showboxTemplate,
-  props: {
-    data: Object,
-    suffix: String,
-  },
-  setup(props) {
-    const rarityClassMap = {
-      5: "star-five",
-      4: "star-four",
-    };
-    const avatarIcon = props.data.avatar_icon;
-    const rarity = rarityClassMap[props.data.rarity] || "star-four";
-    const suffix = props.suffix || "";
-    const label = Object.prototype.hasOwnProperty.call(props.data, "value") ? props.data.value.toString() + suffix : "";
-
-    return {
-      avatarIcon,
-      rarity,
-      label,
-    };
-  },
-});
+const { defineComponent, defineAsyncComponent } = Vue;
 
 const avatarTemplate = html`
   <div v-if="isValidData" class="container-character-rounded" :class="className">
@@ -114,7 +83,7 @@ const template = html` <div class="container-abyss">
     <div class="container-vertical reveal-rank">
       <div class="banner-title"><p>出战次数</p></div>
       <div v-if="abyssBriefings.revealRank.length !== 0" class="container-reveal-rank">
-        <characterShowbox v-for="character in abyssBriefings.revealRank" :data="character" :suffix="'次'" />
+        <characterShowbox v-for="character in abyssBriefings.revealRank" :htmlClass="'reveal-rank'" :data="character" :prefix="''" :suffix="'次'" :showType="'revealRank'" />
       </div>
       <div v-else class="container-vertical">
         <div class="missing-data-placeholder">暂无数据</div>
@@ -129,9 +98,15 @@ const template = html` <div class="container-abyss">
         <div class="missing-data-placeholder">暂无数据</div>
       </div>
     </div>
-    <p class="credit">Created by Adachi-BOT</p>
+    <p v-if="!isFullDataset" class="credit partial">Created by Adachi-BOT</p>
   </div>
+  <div v-if="isFullDataset" class="container-vertical container-abyss-floors">
+    <abyssFloor v-for="floor in abyssFloors" :data="floor" />
+  </div>
+  <p v-if="isFullDataset" class="credit full-dataset">Created by Adachi-BOT</p>
 </div>`;
+
+const abyssFloor = defineAsyncComponent(() => import("./abyssFloor.js"));
 
 export default defineComponent({
   name: "genshinAbyss",
@@ -139,6 +114,7 @@ export default defineComponent({
   components: {
     characterShowbox,
     avatarBox,
+    abyssFloor,
   },
   setup() {
     function padLeftZero(str) {
@@ -228,12 +204,25 @@ export default defineComponent({
         ? encodeURI(shown_avatars[randomAvatar])
         : encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
 
+    const abyssFloors = params.data.floors.slice(-4);
+    let isFullDataset = false;
+
+    if (abyssFloors.length > 0) {
+      if (Object.prototype.hasOwnProperty.call(abyssFloors[0], "levels")) {
+        if (abyssFloors[0]["levels"].length > 0) {
+          isFullDataset = true;
+        }
+      }
+    }
+
     return {
       playerUid,
       userAvatar,
       abyssBriefings,
       characterRankings,
       hasRankingData,
+      isFullDataset,
+      abyssFloors,
     };
   },
 });

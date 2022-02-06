@@ -40,12 +40,16 @@ body {
   background: #faf2e7;
 }
 
-.container-vertical {
+.container-vertical,
+.card {
   display: grid;
   width: 100%;
-  height: 100%;
   align-items: center;
-  align-content: center;
+  justify-items: center;
+}
+
+.container-vertical {
+  height: 100%;
 }
 
 .container-abyss {
@@ -61,11 +65,8 @@ body {
 
 .card {
   background: linear-gradient(135deg, #141a2a, #393d46);
-  display: grid;
-  align-items: center;
   border-radius: 10px;
   z-index: 1;
-  width: 100%;
 }
 
 .container-namecard {
@@ -167,13 +168,16 @@ body {
   grid-area: title-totalstar;
 }
 
-.abyss-star {
+.abyss-star, .chamber-stars {
   font-family: "Genshin Abyss", sans-serif;
+  color: #ede7d9;
+  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
+}
+
+.abyss-star {
   position: relative;
   bottom: 4px;
   font-size: 34px;
-  color: #ede7d9;
-  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
 }
 
 .container-vertical.reveal-rank {
@@ -187,6 +191,7 @@ body {
   align-items: center;
   font-size: 24px;
   background: #ffffff2b;
+  width: 100%;
 }
 
 .banner-title:before {
@@ -226,14 +231,18 @@ body {
 }
 
 .container-character {
-  width: 80px;
   border-radius: 10px;
   background: hsl(43, 23%, 88%);
+}
+
+.container-character.reveal-rank {
+  width: 80px;
 }
 
 .avatar-face {
   width: 100%;
   border-radius: 10px 10px 10px 0;
+  align-self: start;
 }
 
 .star-five {
@@ -258,7 +267,6 @@ body {
   display: grid;
   grid-template-areas:
     "defeat-rank defeat-rank damage-rank damage-rank take-damage-rank take-damage-rank"
-    /* "burst-rank burst-rank . . skill-rank skill-rank" */
     ". burst-rank burst-rank skill-rank skill-rank .";
   grid-template-columns: repeat(6, 1fr);
   width: 100%;
@@ -307,9 +315,103 @@ body {
   text-align: center;
 }
 
+.container-floor-info {
+  padding: 15px 0 7px 0;
+  box-sizing: border-box;
+}
+
+.container-abyss-floors {
+  grid-row-gap: 10px;
+}
+
+.container-chamber-info {
+  grid-template-rows: max-content minmax(180px, max-content);
+}
+
+.abyss-chamber-title {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.abyss-chamber-title:before {
+  opacity: 0.1;
+}
+
+.chamber-indicator {
+  justify-self: start;
+  font-size: 20px;
+}
+
+.chamber-stars {
+  position: relative;
+  text-shadow: 0 0 6px hsla(41, 37%, 89%, 0.15);
+  font-size: 20px;
+}
+
+.chamber-time {
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-self: end;
+}
+
+.kerning {
+  margin-left: 0.06em;
+  margin-right: 0.06em;
+  /*处理冒号不垂直居中的问题*/
+  position: relative;
+  top: -0.1em;
+}
+
+.chamber-details {
+  width: 100%;
+  height: 100%;
+}
+
+.chamber-details.valid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: "firsthalf"
+    "secondhalf";
+  grid-row-gap: 15px;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  justify-items: start;
+}
+
+.first-half, .second-half {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  padding: 0 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chamber-details.invalid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-character.chamber-character {
+  width: 80px;
+}
+
 .credit {
-  text-align: end;
-  padding: 0 10px 5px 0;
   font-size: 12px;
   font-family: "Source Han Serif SC Regular Subset", serif;
+}
+
+.credit.partial {
+  text-align: end;
+  width: 100%;
+  padding: 0 10px 5px 0;
 }

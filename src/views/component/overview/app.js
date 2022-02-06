@@ -1,16 +1,17 @@
-import characterInfoBox from "./characterInfoBox.js";
-import weaponInfoBox from "./weaponInfoBox.js";
 import { html } from "../common/html.js";
 import { getParams } from "../common/param.js";
 
 // eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-const template = html`<div class="background" :class="backgroundStyle">
+const { defineComponent, defineAsyncComponent } = Vue;
+const template = html` <div class="background" :class="backgroundStyle">
   <img class="svg" :src="elementSvgSrc" v-if="itemType === 'character'" />
   <characterInfoBox v-if="itemType === 'character'" :data="params" />
   <weaponInfoBox v-if="itemType === 'weapon'" :data="params" />
   <div class="credit">Created by Adachi-BOT</div>
 </div>`;
+
+const characterInfoBox = defineAsyncComponent(() => import("./characterInfoBox.js"));
+const weaponInfoBox = defineAsyncComponent(() => import("./weaponInfoBox.js"));
 
 export default defineComponent({
   name: "GenshinOverviewVue3",
