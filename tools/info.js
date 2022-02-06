@@ -173,11 +173,14 @@ async function getMaterialTime(name) {
 
 // { type, title, id , name, introduce, birthday, element, cv, constellationName, rarity, mainStat, mainValue, baseATK,
 //   ascensionMaterials, levelUpMaterials, talentMaterials, time, constellations }
-async function getCharData(page) {
+async function getCharData(name, page) {
   const type = "角色";
+  let handle;
 
-  let handle = (await page.$x("//div[contains(@class, 'custom_title')]"))[0];
-  const name = await page.evaluate((e) => e.textContent, handle);
+  if ("string" !== typeof name || "" === name) {
+    handle = (await page.$x("//div[contains(@class, 'custom_title')]"))[0];
+    name = await page.evaluate((e) => e.textContent, handle);
+  }
 
   handle = (await page.$x("//table[contains(@class, 'item_main_table')]"))[0];
   const title = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[2]/td[2]"))[0]);
@@ -374,15 +377,18 @@ async function getCharData(page) {
 
 // { type, title, name, introduce, access, rarity, mainStat, mainValue, baseATK, ascensionMaterials, time, skillName,
 //   skillContent }
-async function getWeaponData(page) {
+async function getWeaponData(name, page) {
   const type = "武器";
+  let handle;
 
-  let handle = (await page.$x("//div[contains(@class, 'custom_title')]"))[0];
-  const name = await page.evaluate((e) => e.textContent, handle);
+  if ("string" !== typeof name || "" === name) {
+    handle = (await page.$x("//div[contains(@class, 'custom_title')]"))[0];
+    name = await page.evaluate((e) => e.textContent, handle);
+  }
 
   handle = (
     await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'item_main_table')]")
-  )[0];
+  )[1];
   const title =
     types.weapon[
       (await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[1]/td[3]/a"))[0])).toLowerCase()
@@ -400,7 +406,9 @@ async function getWeaponData(page) {
 
   if (rarity > 2) {
     handle = (
-      await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]")
+      await page.$x(
+        "//div[contains(@class, 'data_cont_wrapper') and not(contains(@id, 'live_data'))]/table[contains(@class, 'add_stat_table')]"
+      )
     )[1];
     const contents = await page.evaluate(
       (...h) => h.map((e) => e.textContent),
@@ -492,7 +500,7 @@ async function getWeaponData(page) {
   };
 }
 
-async function getData(link, type = "weapon") {
+async function getData(name, link, type = "weapon") {
   process.stdout.write(`正在拉取数据 ……`);
 
   const url = `${honeyUrl}/${link}`;
@@ -504,10 +512,10 @@ async function getData(link, type = "weapon") {
 
     switch (type) {
       case "char":
-        data = await getCharData(page);
+        data = await getCharData(name, page);
         break;
       case "weapon":
-        data = await getWeaponData(page);
+        data = await getWeaponData(name, page);
         break;
     }
   } catch (e) {
@@ -580,7 +588,7 @@ async function main() {
         const link = await getLink(argv.name, type);
 
         if ("string" === typeof link) {
-          const data = await getData(link, type);
+          const data = await getData(argv.name, link, type);
 
           if (undefined !== data) {
             writeData(argv.name, data, argv.output || undefined);
