@@ -1,5 +1,6 @@
 @font-face {
   font-family: GenshinUsedFont;
+  font-display: block;
   src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
@@ -189,6 +190,54 @@ svg {
 
 .epitome {
   grid-area: epitome;
+  display: grid;
+  grid-template-areas:
+    "status status status"
+    "label progress data";
+  grid-template-columns: auto 70px auto;
+  align-items: center;
+  grid-column-gap: 4px;
+  text-shadow: 0 0 6px #333333;
+}
+
+.path-name {
+  margin-left: 4px;
+}
+
+.epitome-status {
+  grid-area: status;
+}
+
+.epitome-label {
+  grid-area: label;
+}
+
+.bar-full,
+.bar-progress {
+  grid-area: progress;
+}
+
+.container-epitome-data {
+  grid-area: data;
+  justify-self: end;
+}
+
+.bar-full {
+  width: 70px;
+  height: 10px;
+  border: 1px solid #ede8e1;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 0 6px #333333;
+  background-color: #282b3738;
+}
+
+.bar-progress {
+  height: 6px;
+  margin-left: 2px;
+  box-sizing: border-box;
+  background-color: #ede8e1;
+  border-radius: 5px;
 }
 
 .credit {

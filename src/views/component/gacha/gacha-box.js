@@ -46,7 +46,7 @@ const template = html` <div class="gacha-box">
       />
     </g>
   </svg>
-  <img class="item-image" :class="item_props.item_type" :class="item_props.item_rarity" :src="item_props.image_url" />
+  <img class="item-image" :class="item_props.item_type + ' ' + item_props.item_rarity" :src="item_props.image_url" />
   <div class="container-item-props">
     <div v-if="item_props.item_label !== ''" class="item-label">{{ item_props.item_label }}</div>
     <img class="item-type-image" :src="item_props.item_type_image" />
