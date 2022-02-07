@@ -80,18 +80,31 @@ export default defineComponent({
         : params.data.sort((x, y) => quickSortByRarity(x, y));
 
     const compactGachaData = gachaDataToShow.filter((item) => item.star > 3);
+    const reducer = (prev, current) => ({
+      count: prev.count + current.count || 0,
+      item_name: "已折叠的三星武器",
+      item_type: "武器",
+      star: 3,
+      type: "sword",
+    });
 
-    if (compactGachaData.length >= 9 && params.type !== "eggs") {
-      const threeStarItems = [
-        {
-          count: params.item_nums.three || 0,
-          item_name: "已折叠的三星武器",
-          item_type: "武器",
-          star: 3,
-          type: "sword",
-        },
-      ];
-      gachaDataToShow = compactGachaData.concat(threeStarItems);
+    if (params.type !== "eggs" && gachaDataToShow.length > 10) {
+      if (compactGachaData.length >= 9) {
+        const threeStarItems = [
+          {
+            count: params.item_nums.three || 0,
+            item_name: "已折叠的三星武器",
+            item_type: "武器",
+            star: 3,
+            type: "sword",
+          },
+        ];
+        gachaDataToShow = compactGachaData.concat(threeStarItems);
+      } else {
+        const gachaStem = gachaDataToShow.slice(0, 9);
+        const gachaResidue = gachaDataToShow.slice(9).reduce(reducer);
+        gachaDataToShow = gachaStem.concat(gachaResidue);
+      }
     }
 
     let epitomizedPath = params.path;
