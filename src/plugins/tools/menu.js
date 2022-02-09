@@ -37,7 +37,7 @@ function menu(msg) {
         ? `，加${topping[getRandomInt(topping.length)]}`
         : "，不加料"
       : "";
-    const drinkSweetness = isValidSweetness ? "，" +  sweetness[getRandomInt(sweetness.length)] : "，三分糖";
+    const drinkSweetness = isValidSweetness ? "，" + sweetness[getRandomInt(sweetness.length)] : "，三分糖";
     return `今日的推荐饮品是：${drinkBase}${drinkTopping}${drinkSweetness}`;
   }
 
