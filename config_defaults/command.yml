@@ -237,7 +237,7 @@ tools:
       type: command
       show: true
       weights: 9999
-      name: 今天吃什么
+      name: 吃什么、喝什么
       usage: null
       revert: false
       description: null

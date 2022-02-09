@@ -180,16 +180,34 @@
  * ==========================================================================
  * global.menu
  * --------------------------------------------------------------------------
- * { breakfast: [ '萝卜时蔬汤' ], lunch: [ '蜜酱胡萝卜煎肉' ], dinner: [ '蟹黄火腿焗时蔬' ] }
+ * {
+ *   eat: {
+ *     breakfast: [ '庄园烤松饼' ],
+ *     lunch: [ '蜜酱胡萝卜煎肉' ],
+ *     dinner: [ '甜甜花酿鸡' ],
+ *     snack: [ '蓝莓山药' ]
+ *   },
+ *   drink: { base: [ '燕麦奶茶' ], topping: [ '芋泥' ], sweetness: [ '无糖' ] }
+ * }
  * --------------------------------------------------------------------------
  * ../../config/menu.yml
  * --------------------------------------------------------------------------
- * breakfast:
- *   - 萝卜时蔬汤
- * lunch:
- *   - 蜜酱胡萝卜煎肉
- * dinner:
- *   - 蟹黄火腿焗时蔬
+ * eat:
+ *   breakfast:
+ *     - 庄园烤松饼
+ *   lunch:
+ *     - 蜜酱胡萝卜煎肉
+ *   dinner:
+ *     - 甜甜花酿鸡
+ *   snack:
+ *     - 蓝莓山药
+ * drink:
+ *   base:
+ *     - 燕麦奶茶
+ *   topping:
+ *     - 芋泥
+ *   sweetness:
+ *     - 无糖
  * ==========================================================================
  *
  *
@@ -765,12 +783,14 @@ function readGreeting() {
 }
 
 function readMenu() {
-  global.menu = Menu;
+  const parse = (o) => Object.keys(o).forEach((k) => (o[k] = Array.isArray(o[k]) ? o[k] : o[k] ? [o[k]] : []));
 
-  // menu 中每个值均为数组
-  Object.keys(global.menu).forEach(
-    (k) => (global.menu[k] = Array.isArray(global.menu[k]) ? global.menu[k] : global.menu[k] ? [global.menu[k]] : [])
-  );
+  global.menu = {};
+  global.menu.eat = Menu.eat || {};
+  global.menu.drink = Menu.drink || {};
+
+  parse(global.menu.eat);
+  parse(global.menu.drink);
 }
 
 function readProphecy() {
