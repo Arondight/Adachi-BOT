@@ -340,6 +340,10 @@ async function getCharData(name, page) {
     )
   );
 
+  handle = (await page.$x("//table[contains(@class, 'item_main_table')]"))[true === hasFourSkill ? 5 : 4];
+  const passiveTitle = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[5]/td[2]"))[0]);
+  const passiveDesc = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td"))[0]);
+
   handle = (await page.$x("//table[contains(@class, 'item_main_table')]"))[true === hasFourSkill ? 6 : 5];
   const constellations = await page.evaluate(
     (E, Q, ...h) => h.map((e) => e.textContent.trim().replace(/\s/g, "").replace(E, "元素战技").replace(Q, "元素爆发")),
@@ -367,6 +371,8 @@ async function getCharData(name, page) {
     mainStat,
     mainValue,
     baseATK,
+    passiveTitle,
+    passiveDesc,
     ascensionMaterials,
     levelUpMaterials,
     talentMaterials,
