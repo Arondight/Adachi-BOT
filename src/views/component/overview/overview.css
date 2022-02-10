@@ -232,6 +232,10 @@ body,
   margin-bottom: 2px;
 }
 
+.passive-talent.content {
+  width: 100%;
+}
+
 .credit {
   font-family: "Source Han Serif SC Heavy", serif;
   color: #ede8e1;

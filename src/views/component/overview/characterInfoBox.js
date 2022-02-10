@@ -45,7 +45,10 @@ const template = html` <div class="container-overview-infos">
     <div class="container-intro-info">
       <p class="introduction">{{ charInfo.introduction }}”</p>
     </div>
-    <div class="container-passive-talent" v-if="charInfo.passiveTalent !== '' && charInfo.passiveDesc !== ''">
+    <div
+      class="container-passive-talent"
+      v-if="showPassive && charInfo.passiveTalent !== '' && charInfo.passiveDesc !== ''"
+    >
       <p class="passive-talent title">{{charInfo.passiveTitle}}</p>
       <p class="passive-talent content">{{charInfo.passiveDesc}}</p>
     </div>
@@ -101,6 +104,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const showPassive = false;
+
     const params = props.data;
     const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
     let charInfo = {};
@@ -142,6 +147,7 @@ export default defineComponent({
       charImageFilename,
       charImageUrl,
       charInfo,
+      showPassive,
     };
   },
 });
