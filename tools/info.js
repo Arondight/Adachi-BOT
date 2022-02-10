@@ -341,8 +341,8 @@ async function getCharData(name, page) {
   );
 
   handle = (await page.$x("//table[contains(@class, 'item_main_table')]"))[true === hasFourSkill ? 5 : 4];
-  const passiveTitle = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[5]/td[2]"))[0]);
-  const passiveDesc = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td"))[0]);
+  const passiveTitle = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[1]/td[2]"))[0]);
+  const passiveDesc = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[2]/td"))[0]);
 
   handle = (await page.$x("//table[contains(@class, 'item_main_table')]"))[true === hasFourSkill ? 6 : 5];
   const constellations = await page.evaluate(
