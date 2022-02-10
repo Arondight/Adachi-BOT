@@ -198,13 +198,15 @@ body,
 }
 
 .container-introduction {
+  width: 580px;
   font-family: "Source Han Serif SC Heavy", serif;
   border-top: 1px solid #ede8e1;
   border-bottom: 1px solid #ede8e1;
   color: #ede8e1;
-  font-size: 24px;
+  font-size: 23px;
   min-height: 4em;
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  text-align: justify;
 }
 
 .container-introduction:before {
@@ -215,8 +217,19 @@ body,
   transform: translateX(-1em);
 }
 
-.introduction {
-  width: 580px;
+.container-passive-talent {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.passive-talent.title {
+  /* text-decoration: dotted 的阴影有点问题 */
+  border-bottom: 2px dotted #ede8e1;
+  width: fit-content;
+  height: 1.5em;
+  margin-bottom: 2px;
 }
 
 .credit {
