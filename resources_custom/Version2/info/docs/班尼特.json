@@ -12,6 +12,8 @@
   "mainStat": "元素充能效率",
   "mainValue": "26.7%",
   "baseATK": 191,
+  "passiveTitle": "应该安全",
+  "passiveDesc": "在蒙德执行探索派遣任务时，消耗的时间缩短25%。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
   "levelUpMaterials": ["风车菊", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之翎"],

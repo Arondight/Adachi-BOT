@@ -12,6 +12,8 @@
   "mainStat": "火元素伤害加成",
   "mainValue": "24%",
   "baseATK": 240,
+  "passiveTitle": "博闻强记",
+  "passiveDesc": "在小地图上显示周围的璃月区域特产的位置。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "未熟之玉"],
   "levelUpMaterials": ["夜泊石", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "血玉之枝"],

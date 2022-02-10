@@ -12,6 +12,8 @@
   "mainStat": "火元素伤害加成",
   "mainValue": "28.8%",
   "baseATK": 311,
+  "passiveTitle": "全是宝藏",
+  "passiveDesc": "在小地图上显示周围的蒙德区域特产的位置。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
   "levelUpMaterials": ["慕风蘑菇", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
   "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "北风之环"],

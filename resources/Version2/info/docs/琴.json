@@ -12,6 +12,8 @@
   "mainStat": "治疗加成",
   "mainValue": "22.2%",
   "baseATK": 239,
+  "passiveTitle": "引领之风",
+  "passiveDesc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "飓风之种"],
   "levelUpMaterials": ["蒲公英籽", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之翎"],

@@ -12,6 +12,8 @@
   "mainStat": "岩元素伤害加成",
   "mainValue": "24%",
   "baseATK": 183,
+  "passiveTitle": "亮晶晶发现术",
+  "passiveDesc": "在小地图上显示周围的稻妻区域特产的位置。",
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "恒常机关之心"],
   "levelUpMaterials": ["珊瑚真珠", "浮游干核", "浮游幽核", "浮游晶化核"],
   "talentMaterials": ["「天光」的教导", "「天光」的指引", "「天光」的哲学", "熔毁之刻"],

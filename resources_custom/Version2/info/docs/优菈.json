@@ -12,6 +12,8 @@
   "mainStat": "暴击伤害",
   "mainValue": "38.4%",
   "baseATK": 342,
+  "passiveTitle": "贵族的自省",
+  "passiveDesc": "合成角色天赋素材时，有10%概率获得2倍产出。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "晶凝之华"],
   "levelUpMaterials": ["蒲公英籽", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "龙王之冕"],

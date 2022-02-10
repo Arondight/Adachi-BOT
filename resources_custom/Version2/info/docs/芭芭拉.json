@@ -12,6 +12,8 @@
   "mainStat": "生命值",
   "mainValue": "24%",
   "baseATK": 159,
+  "passiveTitle": "心意♪注入",
+  "passiveDesc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
   "levelUpMaterials": ["慕风蘑菇", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
   "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "北风之环"],

@@ -12,6 +12,8 @@
   "mainStat": "水元素伤害加成",
   "mainValue": "28.8%",
   "baseATK": 301,
+  "passiveTitle": "诸武精通",
+  "passiveDesc": "队伍中自己的角色普通攻击等级提高1级。",
   "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
   "levelUpMaterials": ["星螺", "新兵的徽记", "士官的徽记", "尉官的徽记"],
   "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "魔王之刃·残片"],

@@ -12,6 +12,8 @@
   "mainStat": "元素精通",
   "mainValue": "96",
   "baseATK": 225,
+  "passiveTitle": "万民堂大厨",
+  "passiveDesc": "完美烹饪攻击类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
   "levelUpMaterials": ["绝云椒椒", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
   "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "东风之爪"],

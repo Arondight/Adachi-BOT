@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": 223,
+  "passiveTitle": "飞行冠军",
+  "passiveDesc": "队伍中自己的角色滑翔消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
   "levelUpMaterials": ["小灯草", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
   "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "东风的吐息"],

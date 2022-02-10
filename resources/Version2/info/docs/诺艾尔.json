@@ -12,6 +12,8 @@
   "mainStat": "防御力",
   "mainValue": "30%",
   "baseATK": 191,
+  "passiveTitle": "女仆的态度",
+  "passiveDesc": "完美烹饪防御类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "玄岩之塔"],
   "levelUpMaterials": ["落落莓", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之爪"],

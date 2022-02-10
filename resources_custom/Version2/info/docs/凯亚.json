@@ -12,6 +12,8 @@
   "mainStat": "元素充能效率",
   "mainValue": "26.7%",
   "baseATK": 223,
+  "passiveTitle": "隐藏的实力",
+  "passiveDesc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
   "levelUpMaterials": ["嘟嘟莲", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "北风的魂匣"],

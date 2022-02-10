@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": 202,
+  "passiveTitle": "灵光乍现",
+  "passiveDesc": "合成角色天赋素材时，有25%概率返还部分合成材料。",
   "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
   "levelUpMaterials": ["霓裳花", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "北风之尾"],

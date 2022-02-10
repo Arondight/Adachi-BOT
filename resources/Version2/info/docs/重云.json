@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": 223,
+  "passiveTitle": "云游山海",
+  "passiveDesc": "在璃月执行探索派遣任务时，消耗的时间缩短25%。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
   "levelUpMaterials": ["石珀", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "东风的吐息"],

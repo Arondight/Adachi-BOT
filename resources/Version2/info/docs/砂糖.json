@@ -12,6 +12,8 @@
   "mainStat": "风元素伤害加成",
   "mainValue": "24%",
   "baseATK": 170,
+  "passiveTitle": "不稳定发现",
+  "passiveDesc": "合成角色与武器培养素材时，有10%概率获得2倍产出。",
   "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "飓风之种"],
   "levelUpMaterials": ["风车菊", "骗骗花蜜", "微光花蜜", "原素花蜜"],
   "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "北风的魂匣"],

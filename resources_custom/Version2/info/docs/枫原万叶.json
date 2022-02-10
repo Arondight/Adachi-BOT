@@ -12,6 +12,8 @@
   "mainStat": "元素精通",
   "mainValue": "115.2",
   "baseATK": 297,
+  "passiveTitle": "松风霞立",
+  "passiveDesc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
   "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "魔偶机心"],
   "levelUpMaterials": ["海灵芝", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "鎏金之鳞"],

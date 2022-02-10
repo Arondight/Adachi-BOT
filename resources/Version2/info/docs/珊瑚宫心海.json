@@ -12,6 +12,8 @@
   "mainStat": "水元素伤害加成",
   "mainValue": "28.8%",
   "baseATK": 234,
+  "passiveTitle": "匣中玉栉",
+  "passiveDesc": "施放海人化羽时，若场上有珊瑚宫心海自己的化海月，则重置化海月的存在时间。",
   "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "排异之露"],
   "levelUpMaterials": ["珊瑚真珠", "浮游干核", "浮游幽核", "浮游晶化核"],
   "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "狱火之蝶"],

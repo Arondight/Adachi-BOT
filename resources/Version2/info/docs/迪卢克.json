@@ -12,6 +12,8 @@
   "mainStat": "暴击率",
   "mainValue": "19.2%",
   "baseATK": 335,
+  "passiveTitle": "晨曦的传统",
+  "passiveDesc": "锻造双手剑类武器时，返还15%消耗的矿石。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
   "levelUpMaterials": ["小灯草", "新兵的徽记", "士官的徽记", "尉官的徽记"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之翎"],

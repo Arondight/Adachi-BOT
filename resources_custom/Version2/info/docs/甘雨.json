@@ -12,6 +12,8 @@
   "mainStat": "暴击伤害",
   "mainValue": "38.4%",
   "baseATK": 335,
+  "passiveTitle": "藏弓待用",
+  "passiveDesc": "锻造弓类武器时，返还15%消耗的矿石。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
   "levelUpMaterials": ["清心", "骗骗花蜜", "微光花蜜", "原素花蜜"],
   "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "武炼之魂·孤影"],

@@ -12,6 +12,8 @@
   "mainStat": "雷元素伤害加成",
   "mainValue": "24%",
   "baseATK": 225,
+  "passiveTitle": "拥涛踏潮",
+  "passiveDesc": "队伍中自己的角色游泳消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
   "levelUpMaterials": ["夜泊石", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "东风的吐息"],

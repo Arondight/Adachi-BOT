@@ -12,6 +12,8 @@
   "mainStat": "暴击率",
   "mainValue": "19.2%",
   "baseATK": 323,
+  "passiveTitle": "炎色配比法",
+  "passiveDesc": "制作装潢、摆件、景观类摆设时，有100%概率返还部分材料。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "阴燃之珠"],
   "levelUpMaterials": ["鸣草", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
   "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "龙王之冕"],

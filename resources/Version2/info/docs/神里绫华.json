@@ -12,6 +12,8 @@
   "mainStat": "暴击伤害",
   "mainValue": "38.4%",
   "baseATK": 342,
+  "passiveTitle": "鉴查心得",
+  "passiveDesc": "合成武器突破素材时，有10%概率获得2倍产出。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "恒常机关之心"],
   "levelUpMaterials": ["绯樱绣球", "破旧的刀镡", "影打刀镡", "名刀镡"],
   "talentMaterials": ["「风雅」的教导", "「风雅」的指引", "「风雅」的哲学", "血玉之枝"],

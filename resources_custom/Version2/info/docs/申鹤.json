@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "28.8%",
   "baseATK": 304,
+  "passiveTitle": "来复知时",
+  "passiveDesc": "在璃月执行时长为20小时的探索派遣任务时，获得的奖励增加25%。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "龙嗣伪鳍"],
   "levelUpMaterials": ["清心", "骗骗花蜜", "微光花蜜", "原素花蜜"],
   "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "狱火之蝶"],

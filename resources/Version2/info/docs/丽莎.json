@@ -12,6 +12,8 @@
   "mainStat": "元素精通",
   "mainValue": "96",
   "baseATK": 232,
+  "passiveTitle": "药剂通识",
+  "passiveDesc": "合成药剂时，有20%概率返还部分合成材料。",
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
   "levelUpMaterials": ["落落莓", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
   "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "东风之爪"],

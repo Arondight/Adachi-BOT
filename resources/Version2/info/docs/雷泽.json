@@ -12,6 +12,8 @@
   "mainStat": "物理伤害加成",
   "mainValue": "30%",
   "baseATK": 234,
+  "passiveTitle": "奔狼",
+  "passiveDesc": "队伍中自己的角色冲刺消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
   "levelUpMaterials": ["钩钩果", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "东风之爪"],

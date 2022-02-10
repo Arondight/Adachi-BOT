@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": 195,
+  "passiveTitle": "检地",
+  "passiveDesc": "在稻妻执行探索派遣任务时，消耗的时间缩短25%。",
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷霆数珠"],
   "levelUpMaterials": ["血斛", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「风雅」的教导", "「风雅」的指引", "「风雅」的哲学", "灰烬之心"],

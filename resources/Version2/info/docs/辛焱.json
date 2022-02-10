@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": 249,
+  "passiveTitle": "摇滚的食谱",
+  "passiveDesc": "完美烹饪防御类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
   "levelUpMaterials": ["琉璃袋", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
   "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "吞天之鲸·只角"],

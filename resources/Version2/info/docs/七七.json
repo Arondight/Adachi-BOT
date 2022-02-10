@@ -12,6 +12,8 @@
   "mainStat": "治疗加成",
   "mainValue": "22.2%",
   "baseATK": 287,
+  "passiveTitle": "前尘旧忆",
+  "passiveDesc": "在小地图上显示周围的璃月区域特产的位置。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
   "levelUpMaterials": ["琉璃袋", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
   "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "北风之尾"],

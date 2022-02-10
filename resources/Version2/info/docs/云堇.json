@@ -12,6 +12,8 @@
   "mainStat": "元素充能效率",
   "mainValue": "26.7%",
   "baseATK": 191,
+  "passiveTitle": "清食养性",
+  "passiveDesc": "完美烹饪冒险类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "兽境王器"],
   "levelUpMaterials": ["琉璃百合", "破损的面具", "污秽的面具", "不祥的面具"],
   "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "灰烬之心"],

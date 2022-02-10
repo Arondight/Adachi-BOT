@@ -12,6 +12,8 @@
   "mainStat": "暴击率",
   "mainValue": "19.2%",
   "baseATK": 227,
+  "passiveTitle": "干裂枝碎",
+  "passiveDesc": "队伍中自己的角色通过攻击树木获取木材时，有25%的几率获得额外的木材。",
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "兽境王器"],
   "levelUpMaterials": ["鬼兜虫", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
   "talentMaterials": ["「风雅」的教导", "「风雅」的指引", "「风雅」的哲学", "灰烬之心"],

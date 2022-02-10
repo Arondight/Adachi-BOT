@@ -12,6 +12,8 @@
   "mainStat": "元素充能效率",
   "mainValue": "32%",
   "baseATK": 263,
+  "passiveTitle": "恒风随行",
+  "passiveDesc": "队伍中自己的角色滑翔消耗的体力降低20%。 无法与效果完全相同的固有天赋叠加。",
   "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "飓风之种"],
   "levelUpMaterials": ["塞西莉亚花", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
   "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "北风之尾"],

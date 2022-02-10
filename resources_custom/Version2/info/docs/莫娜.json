@@ -12,6 +12,8 @@
   "mainStat": "元素充能效率",
   "mainValue": "32%",
   "baseATK": 287,
+  "passiveTitle": "运行原理",
+  "passiveDesc": "合成武器突破素材时，有25%概率返还部分合成材料。",
   "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
   "levelUpMaterials": ["慕风蘑菇", "骗骗花蜜", "微光花蜜", "原素花蜜"],
   "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "北风之环"],

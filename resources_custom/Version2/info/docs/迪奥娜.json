@@ -12,6 +12,8 @@
   "mainStat": "冰元素伤害加成",
   "mainValue": "24%",
   "baseATK": 212,
+  "passiveTitle": "附赠的下酒菜",
+  "passiveDesc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。",
   "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
   "levelUpMaterials": ["嘟嘟莲", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
   "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "魔王之刃·残片"],

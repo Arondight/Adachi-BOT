@@ -12,6 +12,8 @@
   "mainStat": "攻击力",
   "mainValue": "24%",
   "baseATK": 244,
+  "passiveTitle": "吾之后花园",
+  "passiveDesc": "在蒙德执行探索派遣任务时，消耗的时间缩短25%。",
   "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
   "levelUpMaterials": ["小灯草", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
   "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "北风的魂匣"],

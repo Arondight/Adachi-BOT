@@ -12,6 +12,8 @@
   "mainStat": "暴击伤害",
   "mainValue": "38.4%",
   "baseATK": 106,
+  "passiveTitle": "多多益善",
+  "passiveDesc": "完美烹饪食物时，有18%概率额外获得一个「奇怪的」品质的同种料理。",
   "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "未熟之玉"],
   "levelUpMaterials": ["霓裳花", "骗骗花蜜", "微光花蜜", "原素花蜜"],
   "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "魔王之刃·残片"],

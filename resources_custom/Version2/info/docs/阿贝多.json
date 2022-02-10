@@ -12,6 +12,8 @@
   "mainStat": "岩元素伤害加成",
   "mainValue": "28.8%",
   "baseATK": 251,
+  "passiveTitle": "天才的发现",
+  "passiveDesc": "合成武器突破素材时，有10%概率获得2倍产出。",
   "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "玄岩之塔"],
   "levelUpMaterials": ["塞西莉亚花", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
   "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "吞天之鲸·只角"],
