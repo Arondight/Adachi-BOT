@@ -13,7 +13,7 @@ function menu(msg) {
   const toppingText =
     Math.random() < 0.5 && baseText.endsWith("茶") ? "加" + (topping[getRandomInt(topping.length)] || "量") : "";
   const sweetnessText = sweetness[getRandomInt(sweetness.length)] || "";
-  const drinkText = `来一杯${sweetnessText}${toppingText}${baseText}！`;
+  const drinkText = `来一杯${sweetnessText}${toppingText}的${baseText}！`;
 
   msg.bot.say(msg.sid, msg.text.includes("喝") ? drinkText : eatText, msg.type, msg.uid, true);
 }
