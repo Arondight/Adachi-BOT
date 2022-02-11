@@ -14,7 +14,7 @@ function initDB() {
   }
 }
 
-async function mysNewsNotice() {
+async function mysNewsNotice(withImg = true) {
   if (1 !== global.config.noticeMysNews) {
     return;
   }
@@ -50,7 +50,7 @@ async function mysNewsNotice() {
       const { subject, content } = post;
       let image;
 
-      if ("string" === typeof post.images[0]) {
+      if (true === withImg && "string" === typeof post.images[0]) {
         try {
           image = await getCache(post.images[0], cacheDir, "base64");
         } catch (e) {
