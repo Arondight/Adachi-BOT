@@ -345,8 +345,12 @@ img.materials {
   overflow-wrap: anywhere;
 }
 
-.weapon-skill-content > span {
-  color: #674a4f !important;
+span.desc-number {
+  margin: 0 0.2em;
+}
+
+span.desc-number.recolor {
+  color: #674a4f;
 }
 
 .weapon-skill-content,
