@@ -3,8 +3,8 @@ import { html } from "../common/html.js";
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
 const constellTemplate = html`
-  <div v-show="constellContent !== ''" class="info-title constellation-order">{{constellCounts}}</div>
-  <div v-show="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>
+  <div v-if="constellContent !== ''" class="info-title constellation-order">{{constellCounts}}</div>
+  <div v-if="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>
 `;
 const constellBox = defineComponent({
   name: "constellBox",
