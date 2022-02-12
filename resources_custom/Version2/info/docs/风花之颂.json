@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "风花之愿",
-  "skillContent": "施放元素战技时，获得风之花的悠古愿望加持，攻击力提升<span>16/20/24/28/32</span>%，持续<span>6</span>秒。"
+  "skillContent": "施放元素战技时，获得风之花的悠古愿望加持，攻击力提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，持续<span class=\"desc-number\">6</span>秒。"
 }

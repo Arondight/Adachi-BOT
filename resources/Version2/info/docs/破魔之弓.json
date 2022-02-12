@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "浅濑之弭",
-  "skillContent": "普通攻击造成的伤害提升<span>16/20/24/28/32</span>%，重击造成的伤害提升<span>12/15/18/21/24</span>%。当装备该武器的角色元素能量等于<span>100</span>%时，这个效果提升<span>100</span>%。"
+  "skillContent": "普通攻击造成的伤害提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，重击造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。当装备该武器的角色元素能量等于<span class=\"desc-number\">100%</span>时，这个效果提升<span class=\"desc-number\">100%</span>。"
 }

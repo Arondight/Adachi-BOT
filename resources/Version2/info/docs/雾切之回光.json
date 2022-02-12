@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "雾切御腰物",
-  "skillContent": "获得<span>12/15/18/21/24</span>%所有元素伤害加成，并能获得「雾切之巴印」的威势。雾切之巴印：持有<span>1</span>/<span>2</span>/<span>3</span>层雾切之巴印时，获得<span>8/10/12/14/16</span>/<span>16/20/24/28/32</span>/<span>28/35/42/49/56</span>%自己的元素类型的元素伤害加成。在下列情况下，角色将各获得<span>1</span>层雾切之巴印：普通攻击造成元素伤害时，持续<span>5</span>秒；施放元素爆发时，持续<span>10</span>秒；此外，角色元素能量低于<span>100</span>%时，将获得<span>1</span>层雾切之巴印，此雾切之巴印会在角色的元素能量充满时消失。每层雾切之巴印的持续时间独立计算。"
+  "skillContent": "获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成，并能获得「雾切之巴印」的威势。雾切之巴印：持有<span class=\"desc-number\">1</span>/<span class=\"desc-number\">2</span>/<span class=\"desc-number\">3</span>层雾切之巴印时，获得<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>/<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>/<span class=\"desc-number recolor\">28%/35%/42%/49%/56%</span>自己的元素类型的元素伤害加成。在下列情况下，角色将各获得<span class=\"desc-number\">1</span>层雾切之巴印：普通攻击造成元素伤害时，持续<span class=\"desc-number\">5</span>秒；施放元素爆发时，持续<span class=\"desc-number\">10</span>秒；此外，角色元素能量低于<span class=\"desc-number\">100%</span>时，将获得<span class=\"desc-number\">1</span>层雾切之巴印，此雾切之巴印会在角色的元素能量充满时消失。每层雾切之巴印的持续时间独立计算。"
 }

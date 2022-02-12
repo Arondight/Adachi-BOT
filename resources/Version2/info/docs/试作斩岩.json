@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "碎石",
-  "skillContent": "普通攻击或重击命中时，攻击力和防御力提高<span>4/5/6/7/8</span>%，持续<span>6</span>秒，最多叠加<span>4</span>层。该效果每<span>0.3</span>秒只能触发一次。"
+  "skillContent": "普通攻击或重击命中时，攻击力和防御力提高<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>，持续<span class=\"desc-number\">6</span>秒，最多叠加<span class=\"desc-number\">4</span>层。该效果每<span class=\"desc-number\">0.3</span>秒只能触发一次。"
 }

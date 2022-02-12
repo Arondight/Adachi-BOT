@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "奔袭战术",
-  "skillContent": "击败敌人后的<span>15</span>秒内，移动速度和攻击力提升<span>12/14/16/18/20</span>%。"
+  "skillContent": "击败敌人后的<span class=\"desc-number\">15</span>秒内，移动速度和攻击力提升<span class=\"desc-number recolor\">12%/14%/16%/18%/20%</span>。"
 }

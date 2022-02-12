@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "穿刺高天的利齿",
-  "skillContent": "暴击率提升<span>4/5/6/7/8</span>%；施放元素爆发时，获得破空之势：移动速度提升<span>10</span>%，攻击速度提升<span>10</span>%，普通攻击与重击命中时，额外造成<span>20/25/30/35/40</span>%攻击力的伤害，持续<span>12</span>秒。"
+  "skillContent": "暴击率提升<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>；施放元素爆发时，获得破空之势：移动速度提升<span class=\"desc-number\">10%</span>，攻击速度提升<span class=\"desc-number\">10%</span>，普通攻击与重击命中时，额外造成<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>攻击力的伤害，持续<span class=\"desc-number\">12</span>秒。"
 }

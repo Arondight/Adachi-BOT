@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "无边际的眷顾",
-  "skillContent": "移动速度提高<span>10</span>%；在场上每<span>4</span>秒获得<span>8/10/12/14/16</span>%元素伤害加成。该效果最多叠加<span>4</span>层，持续直到角色倒下或离场。"
+  "skillContent": "移动速度提高<span class=\"desc-number\">10%</span>；在场上每<span class=\"desc-number\">4</span>秒获得<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>元素伤害加成。该效果最多叠加<span class=\"desc-number\">4</span>层，持续直到角色倒下或离场。"
 }

@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "街巷伏击",
-  "skillContent": "装备该武器的角色处于队伍后台时，每<span>1</span>秒角色造成的伤害提升<span>2/2.5/3/3.5/4</span>%，最多通过这种方式获得<span>20/25/30/35/40</span>%的伤害提升；在场上超过<span>4</span>秒后，上述伤害提升效果每<span>1</span>秒会流失<span>4/5/6/7/8</span>%，直到降低至<span>0</span>%。"
+  "skillContent": "装备该武器的角色处于队伍后台时，每<span class=\"desc-number\">1</span>秒角色造成的伤害提升<span class=\"desc-number recolor\">2%/2.5%/3%/3.5%/4%</span>，最多通过这种方式获得<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>的伤害提升；在场上超过<span class=\"desc-number\">4</span>秒后，上述伤害提升效果每<span class=\"desc-number\">1</span>秒会流失<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>，直到降低至<span class=\"desc-number\">0%</span>。"
 }

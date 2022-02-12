@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "沉重",
-  "skillContent": "对普通攻击命中的敌人造成<span>160/200/240/280/320</span>%攻击力的额外伤害。该效果每<span>10</span>秒只能触发一次。"
+  "skillContent": "对普通攻击命中的敌人造成<span class=\"desc-number recolor\">160%/200%/240%/280%/320%</span>攻击力的额外伤害。该效果每<span class=\"desc-number\">10</span>秒只能触发一次。"
 }

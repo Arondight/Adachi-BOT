@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "街巷游侠",
-  "skillContent": "角色造成的伤害提升<span>12/15/18/21/24</span>%。受到伤害后，该伤害提升效果会失效<span>5</span>秒。"
+  "skillContent": "角色造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。受到伤害后，该伤害提升效果会失效<span class=\"desc-number\">5</span>秒。"
 }

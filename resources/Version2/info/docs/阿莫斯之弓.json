@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "矢志不忘",
-  "skillContent": "普通攻击与重击造成的伤害提升<span>12/15/18/21/24</span>%；普通攻击与重击的箭矢发射后每经过<span>0.1</span>秒，伤害还会提升<span>8/10/12/14/16</span>%，至多提升<span>5</span>次。"
+  "skillContent": "普通攻击与重击造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>；普通攻击与重击的箭矢发射后每经过<span class=\"desc-number\">0.1</span>秒，伤害还会提升<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>，至多提升<span class=\"desc-number\">5</span>次。"
 }

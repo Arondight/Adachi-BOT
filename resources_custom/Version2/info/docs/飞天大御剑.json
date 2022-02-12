@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "勇气",
-  "skillContent": "普通攻击和重击命中时，攻击力提高<span>6/7/8/9/10</span>%，持续<span>6</span>秒，最多叠加<span>4</span>层。该效果每<span>0.5</span>秒只能触发一次。"
+  "skillContent": "普通攻击和重击命中时，攻击力提高<span class=\"desc-number recolor\">6%/7%/8%/9%/10%</span>，持续<span class=\"desc-number\">6</span>秒，最多叠加<span class=\"desc-number\">4</span>层。该效果每<span class=\"desc-number\">0.5</span>秒只能触发一次。"
 }

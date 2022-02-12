@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "如狼般狩猎者",
-  "skillContent": "攻击力提高<span>20/25/30/35/40</span>%；攻击命中生命值低于<span>30</span>%的敌人时，队伍中所有成员的攻击力提高<span>40/50/60/70/80</span>%，持续<span>12</span>秒。该效果<span>30</span>秒只能触发一次。"
+  "skillContent": "攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；攻击命中生命值低于<span class=\"desc-number\">30%</span>的敌人时，队伍中所有成员的攻击力提高<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>，持续<span class=\"desc-number\">12</span>秒。该效果<span class=\"desc-number\">30</span>秒只能触发一次。"
 }

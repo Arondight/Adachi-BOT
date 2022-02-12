@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "昭理的鸢之枪",
-  "skillContent": "命中敌人时自身攻击力提高<span>3.2/3.9/4.6/5.3/6</span>%，持续<span>6</span>秒，最高可以叠加<span>7</span>层。该效果每<span>0.3</span>秒最多触发一次。满层状态时伤害提升<span>12/15/18/21/24</span>%。"
+  "skillContent": "命中敌人时自身攻击力提高<span class=\"desc-number recolor\">3.2%/3.9%/4.6%/5.3%/6%</span>，持续<span class=\"desc-number\">6</span>秒，最高可以叠加<span class=\"desc-number\">7</span>层。该效果每<span class=\"desc-number\">0.3</span>秒最多触发一次。满层状态时伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。"
 }

@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "神樱神游神乐舞",
-  "skillContent": "施放元素战技时，将获得「神乐舞」的效果，使装备该武器的角色的元素战技造成的伤害提高<span>12/15/18/21/24</span>%，该效果持续<span>16</span>秒，至多叠加<span>3</span>层。持有<span>3</span>层时，该角色获得<span>12/15/18/21/24</span>%所有元素伤害加成。"
+  "skillContent": "施放元素战技时，将获得「神乐舞」的效果，使装备该武器的角色的元素战技造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，该效果持续<span class=\"desc-number\">16</span>秒，至多叠加<span class=\"desc-number\">3</span>层。持有<span class=\"desc-number\">3</span>层时，该角色获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成。"
 }

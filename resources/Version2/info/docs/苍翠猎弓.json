@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "苍翠之风",
-  "skillContent": "普通攻击与重击命中时，有<span>50</span>%几率生成一个风之眼，持续吸引周围敌人，并对其中的敌人每<span>0.5</span>秒造成<span>40/50/60/70/80</span>%攻击的伤害。该效果持续<span>4</span>秒，每<span>14/13/12/11/10</span>秒至多触发一次。"
+  "skillContent": "普通攻击与重击命中时，有<span class=\"desc-number\">50%</span>几率生成一个风之眼，持续吸引周围敌人，并对其中的敌人每<span class=\"desc-number\">0.5</span>秒造成<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>攻击的伤害。该效果持续<span class=\"desc-number\">4</span>秒，每<span class=\"desc-number recolor\">14/13/12/11/10</span>秒至多触发一次。"
 }

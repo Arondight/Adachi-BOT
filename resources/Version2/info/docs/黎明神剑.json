@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "激励",
-  "skillContent": "生命值高于<span>90</span>%时，暴击率提升<span>14/17.5/21/24.5/28</span>%。"
+  "skillContent": "生命值高于<span class=\"desc-number\">90%</span>时，暴击率提升<span class=\"desc-number recolor\">14%/17.5%/21%/24.5%/28%</span>。"
 }

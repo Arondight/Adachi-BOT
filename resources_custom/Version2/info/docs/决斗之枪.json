@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "角斗士",
-  "skillContent": "身边至少有<span>2</span>个敌人时，获得<span>16/20/24/28/32</span>%攻击力提升与<span>16/20/24/28/32</span>%防御力提升；身边的敌人少于<span>2</span>个时，获得<span>24/30/36/42/48</span>%攻击力提升。"
+  "skillContent": "身边至少有<span class=\"desc-number\">2</span>个敌人时，获得<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>攻击力提升与<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>防御力提升；身边的敌人少于<span class=\"desc-number\">2</span>个时，获得<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>攻击力提升。"
 }

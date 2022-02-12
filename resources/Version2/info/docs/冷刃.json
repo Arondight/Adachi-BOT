@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "止水融冰",
-  "skillContent": "对处于水元素或冰元素影响下的敌人，造成的伤害提高<span>12/15/18/21/24</span>%。"
+  "skillContent": "对处于水元素或冰元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。"
 }

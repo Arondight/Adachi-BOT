@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "飞矢传书",
-  "skillContent": "重击若命中要害，则额外造成<span>100/125/150/175/200</span>%攻击力的伤害，该伤害必定暴击。此效果每<span>10</span>秒只能触发一次。"
+  "skillContent": "重击若命中要害，则额外造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的伤害，该伤害必定暴击。此效果每<span class=\"desc-number\">10</span>秒只能触发一次。"
 }

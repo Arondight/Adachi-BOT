@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "护国的无垢之心",
-  "skillContent": "生命值提升<span>20/25/30/35/40</span>%。此外，基于装备该武器的角色生命值上限的<span>1.2/1.5/1.8/2.1/2.4</span>%，获得攻击力加成。"
+  "skillContent": "生命值提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。此外，基于装备该武器的角色生命值上限的<span class=\"desc-number recolor\">1.2%/1.5%/1.8%/2.1%/2.4%</span>，获得攻击力加成。"
 }

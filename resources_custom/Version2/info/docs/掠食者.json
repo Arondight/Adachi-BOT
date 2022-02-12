@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "强力攻击",
-  "skillContent": "仅在以下平台生效：\\n\"PlayStation Network\"\\n对敌人造成冰元素伤害后，普通攻击与重击造成的伤害提高<span>10</span>%，该效果持续<span>6</span>秒，至多叠加<span>2</span>次；此外，埃洛伊装备掠食者时，攻击力提升<span>66</span>点。"
+  "skillContent": "仅在以下平台生效：<br>\"PlayStation Network\"<br>对敌人造成冰元素伤害后，普通攻击与重击造成的伤害提高<span class=\"desc-number recolor\">10%</span>，该效果持续<span class=\"desc-number recolor\">6</span>秒，至多叠加<span class=\"desc-number recolor\">2</span>次；此外，埃洛伊装备掠食者时，攻击力提升<span class=\"desc-number recolor\">66</span>点。"
 }

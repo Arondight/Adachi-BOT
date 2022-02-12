@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "嗜魔",
-  "skillContent": "施放元素战技后，普通攻击和重击造成的伤害提高<span>8/10/12/14/16</span>%。该效果持续<span>12</span>秒，最多叠加<span>2</span>层。"
+  "skillContent": "施放元素战技后，普通攻击和重击造成的伤害提高<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>。该效果持续<span class=\"desc-number\">12</span>秒，最多叠加<span class=\"desc-number\">2</span>层。"
 }

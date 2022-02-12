@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "决",
-  "skillContent": "攻击命中时，有<span>50</span>%的概率对单个敌人造成<span>240/280/320/360/400</span>%攻击力的伤害。该效果每<span>15/14/13/12/11</span>秒只能触发一次。"
+  "skillContent": "攻击命中时，有<span class=\"desc-number\">50%</span>的概率对单个敌人造成<span class=\"desc-number recolor\">240%/280%/320%/360%/400%</span>攻击力的伤害。该效果每<span class=\"desc-number recolor\">15/14/13/12/11</span>秒只能触发一次。"
 }

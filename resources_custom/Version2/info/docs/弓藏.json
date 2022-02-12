@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "速射弓斗",
-  "skillContent": "普通攻击造成的伤害提升<span>40/50/60/70/80</span>%，重击造成的伤害下降<span>10</span>%。"
+  "skillContent": "普通攻击造成的伤害提升<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>，重击造成的伤害下降<span class=\"desc-number\">10%</span>。"
 }

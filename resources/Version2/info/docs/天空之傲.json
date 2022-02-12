@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "斩裂晴空的龙脊",
-  "skillContent": "造成的伤害提高<span>8/10/12/14/16</span>%；施放元素爆发后：普通攻击和重击命中时会发出真空刃，对路径上的敌人造成<span>80/100/120/140/160</span>%攻击力的伤害，持续<span>20</span>秒或直至发出<span>8</span>次真空刃。"
+  "skillContent": "造成的伤害提高<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>；施放元素爆发后：普通攻击和重击命中时会发出真空刃，对路径上的敌人造成<span class=\"desc-number recolor\">80%/100%/120%/140%/160%</span>攻击力的伤害，持续<span class=\"desc-number\">20</span>秒或直至发出<span class=\"desc-number\">8</span>次真空刃。"
 }

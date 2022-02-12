@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "「正义」",
-  "skillContent": "普通攻击与重击的造成的伤害提升<span>20/25/30/35/40</span>%；此外，普通攻击与重击暴击时，回复等同于攻击力<span>60/70/80/90/100</span>%的生命值。该效果每<span>5</span>秒至多发动一次。"
+  "skillContent": "普通攻击与重击的造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；此外，普通攻击与重击暴击时，回复等同于攻击力<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>的生命值。该效果每<span class=\"desc-number\">5</span>秒至多发动一次。"
 }

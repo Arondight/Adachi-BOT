@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "专注",
-  "skillContent": "攻击造成伤害时，暴击率提升<span>8/10/12/14/16</span>%，最多堆叠<span>5</span>次。攻击造成暴击后，移除已有的专注效果。"
+  "skillContent": "攻击造成伤害时，暴击率提升<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>，最多堆叠<span class=\"desc-number\">5</span>次。攻击造成暴击后，移除已有的专注效果。"
 }

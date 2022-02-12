@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "飞雷御执",
-  "skillContent": "攻击力提高<span>20/25/30/35/40</span>%，并能获得「飞雷之巴印」的威势。飞雷之巴印：持有<span>1</span>/<span>2</span>/<span>3</span>层飞雷之巴印时，普通攻击造成的伤害提高<span>12/15/18/21/24</span>/<span>24/30/36/42/48</span>/<span>40/50/60/70/80</span>%。在下列情况下，角色将各获得<span>1</span>层飞雷之巴印：普通攻击造成伤害时，持续<span>5</span>秒；施放元素战技时，持续<span>10</span>秒；此外，角色元素能量低于<span>100</span>%时，将获得<span>1</span>层飞雷之巴印，此飞雷之巴印会在角色的元素能量充满时消失。每层飞雷之巴印的持续时间独立计算。"
+  "skillContent": "攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>，并能获得「飞雷之巴印」的威势。飞雷之巴印：持有<span class=\"desc-number\">1</span>/<span class=\"desc-number\">2</span>/<span class=\"desc-number\">3</span>层飞雷之巴印时，普通攻击造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>/<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>/<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>。在下列情况下，角色将各获得<span class=\"desc-number\">1</span>层飞雷之巴印：普通攻击造成伤害时，持续<span class=\"desc-number\">5</span>秒；施放元素战技时，持续<span class=\"desc-number\">10</span>秒；此外，角色元素能量低于<span class=\"desc-number\">100%</span>时，将获得<span class=\"desc-number\">1</span>层飞雷之巴印，此飞雷之巴印会在角色的元素能量充满时消失。每层飞雷之巴印的持续时间独立计算。"
 }

@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "离簇不归",
-  "skillContent": "重击若命中要害，则提升<span>10</span>%移动速度与<span>36/45/54/63/72</span>%攻击力，持续<span>10</span>秒。"
+  "skillContent": "重击若命中要害，则提升<span class=\"desc-number\">10%</span>移动速度与<span class=\"desc-number recolor\">36%/45%/54%/63%/72%</span>攻击力，持续<span class=\"desc-number\">10</span>秒。"
 }

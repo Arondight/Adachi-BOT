@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "叛逆的守护者",
-  "skillContent": "受到伤害时，生成一个伤害吸收量等同于生命值上限<span>20/23/26/29/32</span>%的护盾，持续<span>10</span>秒或直到护盾失效,每<span>45</span>秒只能触发一次。角色处于护盾庇护下时，造成的伤害提升<span>12/15/18/21/24</span>%。"
+  "skillContent": "受到伤害时，生成一个伤害吸收量等同于生命值上限<span class=\"desc-number recolor\">20%/23%/26%/29%/32%</span>的护盾，持续<span class=\"desc-number\">10</span>秒或直到护盾失效,每<span class=\"desc-number\">45</span>秒只能触发一次。角色处于护盾庇护下时，造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。"
 }

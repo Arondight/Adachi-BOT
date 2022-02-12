@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "踏火息雷",
-  "skillContent": "对处于火元素或雷元素影响下的敌人，造成的伤害提高<span>20/24/28/32/36</span>%。"
+  "skillContent": "对处于火元素或雷元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">20%/24%/28%/32%/36%</span>。"
 }

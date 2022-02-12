@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "炊金",
-  "skillContent": "施放元素爆发后<span>6</span>秒内，每<span>2</span>秒恢复<span>4/4.5/5/5.5/6</span>点元素能量，队伍中的所有角色每<span>2</span>秒恢复<span>4/4.5/5/5.5/6</span>%生命值。"
+  "skillContent": "施放元素爆发后<span class=\"desc-number\">6</span>秒内，每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">4/4.5/5/5.5/6</span>点元素能量，队伍中的所有角色每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">4%/4.5%/5%/5.5%/6%</span>生命值。"
 }

@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "弹弓",
-  "skillContent": "普通攻击与重击的箭矢若在发射后的<span>0.3</span>秒内击中敌人，则造成的伤害增加<span>36/42/48/54/60</span>%；否则，造成的伤害下降<span>10</span>%。"
+  "skillContent": "普通攻击与重击的箭矢若在发射后的<span class=\"desc-number\">0.3</span>秒内击中敌人，则造成的伤害增加<span class=\"desc-number recolor\">36%/42%/48%/54%/60%</span>；否则，造成的伤害下降<span class=\"desc-number\">10%</span>。"
 }

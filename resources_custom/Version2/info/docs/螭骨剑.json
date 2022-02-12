@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "破浪",
-  "skillContent": "角色在场上时，每<span>4</span>秒提升<span>6/7/8/9/10</span>%造成的伤害，<span>3/2.7/2.4/2.2/2</span>%受到的伤害。该效果最多叠加<span>5</span>层，不随角色退场重置，受到伤害后会减少<span>1</span>层效果。"
+  "skillContent": "角色在场上时，每<span class=\"desc-number\">4</span>秒提升<span class=\"desc-number recolor\">6%/7%/8%/9%/10%</span>造成的伤害，<span class=\"desc-number recolor\">3%/2.7%/2.4%/2.2%/2%</span>受到的伤害。该效果最多叠加<span class=\"desc-number\">5</span>层，不随角色退场重置，受到伤害后会减少<span class=\"desc-number\">1</span>层效果。"
 }

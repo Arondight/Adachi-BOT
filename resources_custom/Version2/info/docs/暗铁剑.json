@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "过载",
-  "skillContent": "触发超载、超导、感电或雷元素扩散反应后的<span>12</span>秒内，攻击力提高<span>20/25/30/35/40</span>%。"
+  "skillContent": "触发超载、超导、感电或雷元素扩散反应后的<span class=\"desc-number\">12</span>秒内，攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。"
 }

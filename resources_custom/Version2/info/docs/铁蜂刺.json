@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "注能之刺",
-  "skillContent": "造成元素伤害后的<span>6</span>秒内，角色造成的伤害提高<span>6/7.5/9/10.5/12</span>%，该效果最多叠加<span>2</span>层。该效果每<span>1</span>秒可以触发一次。"
+  "skillContent": "造成元素伤害后的<span class=\"desc-number\">6</span>秒内，角色造成的伤害提高<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>，该效果最多叠加<span class=\"desc-number\">2</span>层。该效果每<span class=\"desc-number\">1</span>秒可以触发一次。"
 }

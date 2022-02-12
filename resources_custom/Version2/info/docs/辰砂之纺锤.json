@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "无垢之心",
-  "skillContent": "元素战技造成的伤害值提高，提高数值相当于防御力的<span>40/50/60/70/80</span>%。该效果每<span>1.5</span>秒最多触发一次，并将在元素战技造成伤害后的<span>0.1</span>秒后清除效果。"
+  "skillContent": "元素战技造成的伤害值提高，提高数值相当于防御力的<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>。该效果每<span class=\"desc-number\">1.5</span>秒最多触发一次，并将在元素战技造成伤害后的<span class=\"desc-number\">0.1</span>秒后清除效果。"
 }

@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "回响",
-  "skillContent": "普通攻击与重击命中时，有<span>50</span>%几率发射一枚昭心法球，造成<span>240/270/300/330/360</span>%攻击力伤害，至多在敌人之间弹射<span>4</span>次。该效果每<span>12/11/10/9/8</span>秒至多触发一次。"
+  "skillContent": "普通攻击与重击命中时，有<span class=\"desc-number\">50%</span>几率发射一枚昭心法球，造成<span class=\"desc-number recolor\">240%/270%/300%/330%/360%</span>攻击力伤害，至多在敌人之间弹射<span class=\"desc-number\">4</span>次。该效果每<span class=\"desc-number recolor\">12/11/10/9/8</span>秒至多触发一次。"
 }

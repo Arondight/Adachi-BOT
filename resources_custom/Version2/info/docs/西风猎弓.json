@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "顺风而行",
-  "skillContent": "攻击造成暴击时，有<span>60/70/80/90/100</span>%的几率产生少量元素微粒，能为角色恢复<span>6</span>点元素能量。该效果每<span>12/10.5/9/7.5/6</span>秒只能触发一次。"
+  "skillContent": "攻击造成暴击时，有<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>的几率产生少量元素微粒，能为角色恢复<span class=\"desc-number\">6</span>点元素能量。该效果每<span class=\"desc-number recolor\">12/10.5/9/7.5/6</span>秒只能触发一次。"
 }

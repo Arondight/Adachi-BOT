@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "名士振舞",
-  "skillContent": "元素战技造成的伤害提升<span>6/7.5/9/10.5/12</span>%。元素战技命中后，角色流失<span>3</span>点元素能量，并在此后的<span>6</span>秒内，每<span>2</span>秒恢复<span>3/3.5/4/4.5/5</span>点元素能量。该效果每<span>10</span>秒至多触发一次，角色处于队伍后台也能触发。"
+  "skillContent": "元素战技造成的伤害提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。元素战技命中后，角色流失<span class=\"desc-number\">3</span>点元素能量，并在此后的<span class=\"desc-number\">6</span>秒内，每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">3/3.5/4/4.5/5</span>点元素能量。该效果每<span class=\"desc-number\">10</span>秒至多触发一次，角色处于队伍后台也能触发。"
 }

@@ -14,5 +14,5 @@
   ],
   "time": "【周一/四/日】",
   "skillName": "注能之针",
-  "skillContent": "获得元素微粒或元素晶球后的<span>5</span>秒内，普通攻击和重击额外造成<span>20/25/30/35/40</span>%攻击力伤害。"
+  "skillContent": "获得元素微粒或元素晶球后的<span class=\"desc-number\">5</span>秒内，普通攻击和重击额外造成<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>攻击力伤害。"
 }

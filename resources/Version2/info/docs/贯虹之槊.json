@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "金璋皇极",
-  "skillContent": "护盾强效提升<span>20/25/30/35/40</span>%。攻击命中后的<span>8</span>秒内，攻击力提升<span>4/5/6/7/8</span>%。该效果至多可叠加<span>5</span>层，每<span>0.3</span>秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高<span>100</span>%。"
+  "skillContent": "护盾强效提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。攻击命中后的<span class=\"desc-number\">8</span>秒内，攻击力提升<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>。该效果至多可叠加<span class=\"desc-number\">5</span>层，每<span class=\"desc-number\">0.3</span>秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高<span class=\"desc-number\">100%</span>。"
 }

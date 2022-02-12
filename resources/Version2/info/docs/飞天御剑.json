@@ -14,5 +14,5 @@
   ],
   "time": "【周三/六/日】",
   "skillName": "决心",
-  "skillContent": "施放元素爆发后，提高<span>12/15/18/21/24</span>%攻击力和移动速度，持续<span>15</span>秒。"
+  "skillContent": "施放元素爆发后，提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>攻击力和移动速度，持续<span class=\"desc-number\">15</span>秒。"
 }

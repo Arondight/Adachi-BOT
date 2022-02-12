@@ -14,5 +14,5 @@
   ],
   "time": "【周二/五/日】",
   "skillName": "和弦",
-  "skillContent": "普通攻击或重击命中时，会获得一个和音。积攒了<span>5</span>个和音后，释放音律的力量，对周围的敌人造成<span>100/125/150/175/200</span>%攻击力的伤害。和音最多存在<span>30</span>秒，每<span>0.5</span>秒至多获得<span>1</span>个和音。"
+  "skillContent": "普通攻击或重击命中时，会获得一个和音。积攒了<span class=\"desc-number\">5</span>个和音后，释放音律的力量，对周围的敌人造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的伤害。和音最多存在<span class=\"desc-number\">30</span>秒，每<span class=\"desc-number\">0.5</span>秒至多获得<span class=\"desc-number\">1</span>个和音。"
 }
