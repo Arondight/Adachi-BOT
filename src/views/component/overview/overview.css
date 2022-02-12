@@ -1,18 +1,18 @@
 @font-face {
   font-family: "Source Han Serif SC Heavy";
-  font-display: block;
+  font-display: swap;
   src: url("../../../../data/font/SourceHanSerifSC-Heavy.otf");
 }
 
 @font-face {
   font-family: "Source Han Sans SC";
-  font-display: block;
+  font-display: swap;
   src: url("../../../../data/font/SourceHanSans-Regular.otf");
 }
 
 @font-face {
   font-family: "Source Han Serif SC Regular Subset";
-  font-display: block;
+  font-display: swap;
   src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
 }
 

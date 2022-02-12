@@ -5,13 +5,13 @@
 
 @font-face {
   font-family: GenshinUsedFont;
-  font-display: block;
+  font-display: swap;
   src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
 @font-face {
   font-family: YunXiJinShu;
-  font-display: block;
+  font-display: swap;
   src: url("../../../../data/font/YunXiJinShu.ttf");
 }
 

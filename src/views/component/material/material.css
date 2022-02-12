@@ -1,3 +1,9 @@
+@font-face {
+  font-family: GenshinUsedFont;
+  font-display: swap;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -15,10 +21,6 @@ html {
   font-family: GenshinUsedFont, monospace;
 }
 
-@font-face {
-  font-family: GenshinUsedFont;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
-}
 .material {
   position: relative;
   height: 100%;
