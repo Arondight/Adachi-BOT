@@ -39,7 +39,6 @@ function hello() {
 }
 
 function report() {
-  // 只打印一次日志
   const log = (text) => global.bots.logger.debug(`配置：${text}`);
 
   log(`加载了 ${global.cookies.length} 条 Cookie 。`);
