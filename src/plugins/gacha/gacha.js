@@ -1,4 +1,4 @@
-import { render } from "../../utils/render.js";
+import { render } from "#utils/render";
 import { gachaTimes } from "./data.js";
 import { init } from "./init.js";
 

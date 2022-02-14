@@ -1,4 +1,4 @@
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
 function getText(msg, names) {
   return getWordByRegex(filterWordsByRegex(msg.text, ...names), /\S+/)[0];

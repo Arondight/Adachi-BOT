@@ -5,7 +5,7 @@
 import lodash from "lodash";
 import querystring from "querystring";
 import { genDmMessageId } from "oicq/lib/message/message.js";
-import { matchBracket } from "./tools.js";
+import { matchBracket } from "#utils/tools";
 
 const CQ = {
   "&#91;": "[",

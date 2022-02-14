@@ -1,5 +1,5 @@
 import lodash from "lodash";
-import db from "../../utils/database.js";
+import db from "#utils/database";
 import { init } from "./init.js";
 
 function doSelect(msg, name = undefined) {

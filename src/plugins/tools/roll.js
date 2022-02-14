@@ -1,4 +1,4 @@
-import { getRandomInt } from "../../utils/tools.js";
+import { getRandomInt } from "#utils/tools";
 
 function roll(msg) {
   let cmd = msg.text.match(/[+-]?[0-9]+/g);

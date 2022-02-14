@@ -1,5 +1,5 @@
-import { hasEntrance } from "../../utils/config.js";
-import { filterWordsByRegex } from "../../utils/tools.js";
+import { hasEntrance } from "#utils/config";
+import { filterWordsByRegex } from "#utils/tools";
 
 function boardcast(msg) {
   const text = filterWordsByRegex(

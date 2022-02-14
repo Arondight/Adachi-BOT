@@ -4,7 +4,7 @@ import util from "util";
 import md5 from "md5";
 import fetch from "node-fetch";
 import { once } from "events";
-import { du, mkdir } from "./file.js";
+import { du, mkdir } from "#utils/file";
 
 function getCachedPath(url, dir) {
   const workdir = dir || path.resolve(global.rootdir, "data", "cache");

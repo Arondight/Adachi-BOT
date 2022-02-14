@@ -1,4 +1,4 @@
-import { getRandomInt } from "../../utils/tools.js";
+import { getRandomInt } from "#utils/tools";
 
 async function prophecy(msg) {
   const data = global.prophecy.data[getRandomInt(global.prophecy.data.length)];

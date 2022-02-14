@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
-import { mkdir } from "./file.js";
+import { mkdir } from "#utils/file";
 
 const settings = {
   selector: {},

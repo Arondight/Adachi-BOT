@@ -1,5 +1,5 @@
-import { render } from "../../utils/render.js";
-import { getInfo } from "../../utils/api.js";
+import { render } from "#utils/render";
+import { getInfo } from "#utils/api";
 
 function getNotFoundText(name, guess = []) {
   let notFoundText = `查询失败，未知的名称${name}。`;

@@ -1,4 +1,4 @@
-import { filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex } from "#utils/tools";
 
 function feedback(msg) {
   const info = filterWordsByRegex(msg.text, ...global.command.functions.entrance.feedback);

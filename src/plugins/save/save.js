@@ -1,5 +1,5 @@
-import db from "../../utils/database.js";
-import { getID } from "../../utils/id.js";
+import db from "#utils/database";
+import { getID } from "#utils/id";
 
 function setCacheTimeout(uid, mhyID, bot) {
   if (db.includes("map", "user", "userID", uid)) {

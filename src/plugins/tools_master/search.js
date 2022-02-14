@@ -1,5 +1,5 @@
-import { hasEntrance } from "../../utils/config.js";
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
+import { hasEntrance } from "#utils/config";
+import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
 function search(msg) {
   const [text] = getWordByRegex(filterWordsByRegex(msg.text, ...global.master.functions.entrance.search), /\S+/);

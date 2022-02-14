@@ -20,6 +20,9 @@
   "engines": {
     "node": ">16.6.0"
   },
+  "imports": {
+    "#utils/*": "./src/utils/*.js"
+  },
   "scripts": {
     "init": "npx node --max-http-header-size=2097152 ./app.js",
     "start": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 start ./.pm2.json; cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 save",
@@ -55,7 +58,7 @@
     "oicq": "2.1.9",
     "p-limit": "4.0.0",
     "pm2": "5.1.2",
-    "pretty-bytes": "5.6.0",
+    "pretty-bytes": "6.0.0",
     "puppeteer": "13.3.1",
     "random-float": "3.0.0",
     "systeminformation": "5.11.2",

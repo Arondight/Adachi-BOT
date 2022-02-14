@@ -1,5 +1,5 @@
-import { isStranger } from "../../utils/oicq.js";
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
+import { isStranger } from "#utils/oicq";
+import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
 function doReply(msg, id, text, type) {
   // 送话无法 @

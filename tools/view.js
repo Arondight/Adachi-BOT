@@ -5,7 +5,7 @@ import url from "url";
 import yargs from "yargs";
 import { execSync } from "child_process";
 import { hideBin } from "yargs/helpers";
-import { ls } from "../src/utils/file.js";
+import { ls } from "#utils/file";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

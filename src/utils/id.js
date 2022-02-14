@@ -1,4 +1,4 @@
-import db from "./database.js";
+import db from "#utils/database";
 
 function getUID(msg) {
   let errInfo = "需要一个在天空岛或世界树服务器上的 UID 。";

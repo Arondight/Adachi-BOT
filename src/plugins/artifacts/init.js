@@ -1,4 +1,4 @@
-import db from "../../utils/database.js";
+import db from "#utils/database";
 
 function init(id) {
   if (!db.includes("artifact", "user", "msg", id)) {

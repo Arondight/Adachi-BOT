@@ -1,5 +1,5 @@
-import { checkAuth } from "../../utils/auth.js";
-import { hasEntrance } from "../../utils/config.js";
+import { checkAuth } from "#utils/auth";
+import { hasEntrance } from "#utils/config";
 import { feedback } from "./feedback.js";
 import { menu } from "./menu.js";
 import { prophecy } from "./prophecy.js";

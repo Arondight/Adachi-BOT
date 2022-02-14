@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import lodash from "lodash";
 import { LowSync, MemorySync } from "lowdb";
-import { merge } from "./merge.js";
+import { merge } from "#utils/merge";
 
 const db = {};
 

@@ -1,9 +1,9 @@
-import db from "../../utils/database.js";
-import { getEmoticons } from "../../utils/api.js";
-import { render } from "../../utils/render.js";
-import { baseDetail, characterDetail, handleDetailError, indexDetail } from "../../utils/detail.js";
-import { getID } from "../../utils/id.js";
-import { filterWordsByRegex } from "../../utils/tools.js";
+import db from "#utils/database";
+import { getEmoticons } from "#utils/api";
+import { render } from "#utils/render";
+import { baseDetail, characterDetail, handleDetailError, indexDetail } from "#utils/detail";
+import { getID } from "#utils/id";
+import { filterWordsByRegex } from "#utils/tools";
 
 async function doPackage(msg) {
   const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.package);

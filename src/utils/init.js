@@ -1,9 +1,9 @@
 import schedule from "node-schedule";
 import express from "express";
-import db from "./database.js";
-import { renderClose } from "./render.js";
-import { mysNewsNotice } from "./notice.js";
-import { gachaUpdate, mysNewsUpdate } from "./update.js";
+import db from "#utils/database";
+import { renderClose } from "#utils/render";
+import { mysNewsNotice } from "#utils/notice";
+import { gachaUpdate, mysNewsUpdate } from "#utils/update";
 
 let postRunning = false;
 

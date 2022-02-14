@@ -1,4 +1,4 @@
-import db from "../../utils/database.js";
+import db from "#utils/database";
 
 function init(uid) {
   if (!db.includes("gacha", "user", "userID", uid)) {

@@ -1,4 +1,4 @@
-import { filterWordsByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex } from "#utils/tools";
 
 function getName(text) {
   const name = filterWordsByRegex(text, ...global.command.functions.entrance.info);

@@ -1,6 +1,6 @@
-import { checkAuth } from "../../utils/auth.js";
-import { hasEntrance } from "../../utils/config.js";
-import { guessPossibleNames } from "../../utils/tools.js";
+import { checkAuth } from "#utils/auth";
+import { hasEntrance } from "#utils/config";
+import { guessPossibleNames } from "#utils/tools";
 import { doCharacter } from "./character.js";
 import { getName } from "./name.js";
 

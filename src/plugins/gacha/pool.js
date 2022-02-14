@@ -1,4 +1,4 @@
-import db from "../../utils/database.js";
+import db from "#utils/database";
 import { init } from "./init.js";
 
 function doPool(msg, name) {

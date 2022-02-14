@@ -1,4 +1,4 @@
-import { hasEntrance } from "../../utils/config.js";
+import { hasEntrance } from "#utils/config";
 import { boardcast } from "./boardcast.js";
 import { count } from "./count.js";
 import { reply } from "./reply.js";

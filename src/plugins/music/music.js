@@ -1,4 +1,4 @@
-import db from "../../utils/database.js";
+import db from "#utils/database";
 import { errMsg, musicID, musicSrc } from "./data.js";
 
 async function doMusic(msg) {

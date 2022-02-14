@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import fs from "fs";
 import lodash from "lodash";
 import path from "path";
-import { getDS } from "./ds.js";
+import { getDS } from "#utils/ds";
 
 const __API = {
   FETCH_ROLE_ID: "https://api-takumi.mihoyo.com/game_record/app/card/wapi/getGameRecordCard",

@@ -1,8 +1,8 @@
 import path from "path";
 import lodash from "lodash";
-import db from "./database.js";
-import { checkAuth } from "./auth.js";
-import { getCache } from "./cache.js";
+import db from "#utils/database";
+import { checkAuth } from "#utils/auth";
+import { getCache } from "#utils/cache";
 
 const running = { mysNewsNotice: false };
 

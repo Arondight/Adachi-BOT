@@ -1,4 +1,4 @@
-import { getRandomInt } from "../../utils/tools.js";
+import { getRandomInt } from "#utils/tools";
 
 function menu(msg) {
   const { eat, drink } = global.menu;

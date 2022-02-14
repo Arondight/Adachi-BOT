@@ -1,4 +1,4 @@
-import { filterWordsByRegex, getWordByRegex } from "../../utils/tools.js";
+import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
 function getName(text) {
   let character = filterWordsByRegex(

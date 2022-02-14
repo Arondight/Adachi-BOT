@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
 import lodash from "lodash";
-import { checkAuth } from "./auth.js";
-import { isGroupBan, toCqcode } from "./oicq.js";
-import { getRandomInt } from "./tools.js";
+import { checkAuth } from "#utils/auth";
+import { isGroupBan, toCqcode } from "#utils/oicq";
+import { getRandomInt } from "#utils/tools";
 
 // 无需加锁
 const timestamp = {};

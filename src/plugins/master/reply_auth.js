@@ -1,4 +1,4 @@
-import { setAuth } from "../../utils/auth.js";
+import { setAuth } from "#utils/auth";
 import { parse } from "./parse.js";
 
 function setReplyAuth(msg) {

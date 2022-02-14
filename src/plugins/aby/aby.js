@@ -1,7 +1,7 @@
-import db from "../../utils/database.js";
-import { render } from "../../utils/render.js";
-import { abyDetail, baseDetail, handleDetailError } from "../../utils/detail.js";
-import { getID } from "../../utils/id.js";
+import db from "#utils/database";
+import { render } from "#utils/render";
+import { abyDetail, baseDetail, handleDetailError } from "#utils/detail";
+import { getID } from "#utils/id";
 
 async function doAby(msg, schedule_type = 1) {
   let dbInfo = getID(msg.text, msg.uid, false); // UID

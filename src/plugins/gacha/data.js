@@ -1,8 +1,8 @@
 import fs from "fs";
 import _path from "path";
 import lodash from "lodash";
-import db from "../../utils/database.js";
-import { getRandomInt } from "../../utils/tools.js";
+import db from "#utils/database";
+import { getRandomInt } from "#utils/tools";
 
 const configdir = _path.resolve(global.rootdir, "resources", "Version2", "wish", "config");
 const element = JSON.parse(fs.readFileSync(_path.resolve(configdir, "character.json")));

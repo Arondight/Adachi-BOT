@@ -1,5 +1,5 @@
 import randomFloat from "random-float";
-import db from "../../utils/database.js";
+import db from "#utils/database";
 
 const propertyName = [
   "生命值",

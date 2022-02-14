@@ -1,5 +1,5 @@
-import db from "../../utils/database.js";
-import { render } from "../../utils/render.js";
+import db from "#utils/database";
+import { render } from "#utils/render";
 import { domainMax, getArtifact } from "./data.js";
 import { init } from "./init.js";
 

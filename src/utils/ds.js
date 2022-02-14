@@ -1,5 +1,5 @@
 import md5 from "md5";
-import { randomString } from "./tools.js";
+import { randomString } from "#utils/tools";
 
 function getQueryParam(data) {
   let arr = [];

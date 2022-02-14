@@ -5,7 +5,7 @@ import puppeteer from "puppeteer";
 import _url from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { mkdir } from "../src/utils/file.js";
+import { mkdir } from "#utils/file";
 
 const __filename = _url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -172,7 +172,7 @@ async function getMaterialTime(name) {
 }
 
 // { type, title, id , name, introduce, birthday, element, cv, constellationName, rarity, mainStat, mainValue, baseATK,
-//   ascensionMaterials, levelUpMaterials, talentMaterials, time, constellations }
+//  passiveTitle, passiveDesc, ascensionMaterials, levelUpMaterials, talentMaterials, time, constellations }
 async function getCharData(name, page) {
   const type = "角色";
   let handle;

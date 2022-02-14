@@ -1,5 +1,5 @@
-import { checkAuth } from "../../utils/auth.js";
-import { hasEntrance } from "../../utils/config.js";
+import { checkAuth } from "#utils/auth";
+import { hasEntrance } from "#utils/config";
 import { doAby } from "./aby.js";
 
 async function Plugin(msg) {

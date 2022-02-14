@@ -1,4 +1,4 @@
-import db from "./database.js";
+import db from "#utils/database";
 
 function hasAuth(id, func) {
   const data = db.get("authority", "user", { userID: id }) || {};

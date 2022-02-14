@@ -1,5 +1,5 @@
-import { checkAuth } from "../../utils/auth.js";
-import { hasEntrance } from "../../utils/config.js";
+import { checkAuth } from "#utils/auth";
+import { hasEntrance } from "#utils/config";
 import { doMusic, doMusicSource } from "./music.js";
 
 async function Plugin(msg) {
