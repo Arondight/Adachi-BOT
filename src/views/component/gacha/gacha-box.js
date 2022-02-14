@@ -46,7 +46,9 @@ const template = html` <div class="gacha-box">
       />
     </g>
   </svg>
-  <img class="item-image" :class="item_props.item_type + ' ' + item_props.item_rarity" :src="item_props.image_url" />
+  <div class="container-item-image" :class="item_props.item_type">
+    <img class="item-image" :class="item_props.item_type + ' ' + item_props.item_rarity" :src="item_props.image_url" />
+  </div>
   <div class="container-item-props">
     <div v-if="item_props.item_label !== ''" class="item-label">{{ item_props.item_label }}</div>
     <img class="item-type-image" :src="item_props.item_type_image" />
@@ -82,8 +84,12 @@ export default defineComponent({
     const itemLabel =
       props.data.star === 5 ? "「" + props.data.times + "抽」" : props.isStat ? "「" + props.data.count + "次」" : "";
     const iconType = props.data.item_type === "角色" ? "element" : "type";
+    // 临时用来处理图像格式不同的问题
+    const extName = imageType === "character" ? "webp" : "png";
     item_props.item_type = imageType;
-    item_props.image_url = encodeURI(`http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.png`);
+    item_props.image_url = encodeURI(
+      `http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.${extName}`
+    );
     item_props.item_rarity = itemRarity;
     item_props.item_type_image = encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage}.png`);
     item_props.item_rarity_image = encodeURI(`http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`);
