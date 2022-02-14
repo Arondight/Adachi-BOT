@@ -1,6 +1,6 @@
-import lodash from "lodash";
-import fnv from "fnv-plus";
 import levenshtein from "fastest-levenshtein";
+import fnv from "fnv-plus";
+import lodash from "lodash";
 
 const similarityMaxValue = 0.5;
 

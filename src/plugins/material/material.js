@@ -1,5 +1,5 @@
-import path from "path";
 import lodash from "lodash";
+import path from "path";
 import { getCache } from "#utils/cache";
 import { render } from "#utils/render";
 import { getWordByRegex } from "#utils/tools";

@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
 import db from "#utils/database";
-import { render } from "#utils/render";
-import { getID, getUID } from "#utils/id";
 import { baseDetail, characterDetail, handleDetailError, indexDetail } from "#utils/detail";
+import { getID, getUID } from "#utils/id";
+import { render } from "#utils/render";
 
 function getCharacter(uid, character) {
   const { avatars } = db.get("info", "user", { uid }) || {};

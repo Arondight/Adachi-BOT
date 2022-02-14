@@ -1,6 +1,6 @@
-import gachaBox from "./gacha-box.js";
 import { html } from "../common/html.js";
 import { getParams } from "../common/param.js";
+import gachaBox from "./gacha-box.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent, defineAsyncComponent } = Vue;

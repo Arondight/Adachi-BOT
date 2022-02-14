@@ -1,9 +1,9 @@
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 import { guessPossibleNames } from "#utils/tools";
+import { doGacha } from "./gacha.js";
 import { getName, getPool } from "./name.js";
 import { doPool } from "./pool.js";
-import { doGacha } from "./gacha.js";
 import { doSelect, doSelectNothing, doSelectWhat } from "./select.js";
 
 async function Plugin(msg) {

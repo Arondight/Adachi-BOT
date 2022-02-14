@@ -1,7 +1,7 @@
 import fs from "fs";
-import path from "path";
 import lodash from "lodash";
 import { LowSync, MemorySync } from "lowdb";
+import path from "path";
 import { merge } from "#utils/merge";
 
 const db = {};

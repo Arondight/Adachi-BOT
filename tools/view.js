@@ -1,9 +1,9 @@
+import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
 import url from "url";
 import yargs from "yargs";
-import { execSync } from "child_process";
 import { hideBin } from "yargs/helpers";
 import { ls } from "#utils/file";
 

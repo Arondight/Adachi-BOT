@@ -2,7 +2,6 @@
  * 文件的原始版本来源于 merge-deep 。
  * https://github.com/jonschlinkert/merge-deep/blob/11e5dd5/index.js
  * ========================================================================== */
-
 import kindOf from "kind-of";
 import lodash from "lodash";
 

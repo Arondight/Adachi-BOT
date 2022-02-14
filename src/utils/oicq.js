@@ -1,7 +1,6 @@
 /* ========================================================================== *
  * 因为 oicq 维护的兼容 API 有问题，所以在此重新实现。另外添加了一些自己的封装。
  * ========================================================================== */
-
 import lodash from "lodash";
 import querystring from "querystring";
 import { genDmMessageId } from "oicq/lib/message/message.js";

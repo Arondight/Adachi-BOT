@@ -379,13 +379,12 @@
  * ==========================================================================
  *                            以上为数据结构
  * ========================================================================== */
-
 import fs from "fs";
+import lodash from "lodash";
 import path from "path";
 import url from "url";
-import lodash from "lodash";
-import { loadYML } from "#utils/yaml";
 import { ls } from "#utils/file";
+import { loadYML } from "#utils/yaml";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

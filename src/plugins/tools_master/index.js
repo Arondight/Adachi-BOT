@@ -1,10 +1,10 @@
 import { hasEntrance } from "#utils/config";
 import { boardcast } from "./boardcast.js";
+import { cookiesInvalid } from "./cookies_invalid.js";
 import { count } from "./count.js";
 import { reply } from "./reply.js";
 import { search } from "./search.js";
 import { status } from "./status.js";
-import { cookiesInvalid } from "./cookies_invalid.js";
 
 async function Plugin(msg) {
   switch (true) {

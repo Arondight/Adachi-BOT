@@ -1,5 +1,5 @@
-import MaterialUnit from "./unit.js";
 import { html } from "../common/html.js";
+import MaterialUnit from "./unit.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent, computed } = Vue;

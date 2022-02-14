@@ -6,5 +6,10 @@
   "singleQuote": false,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "useTabs": false
+  "useTabs": false,
+  "importOrder": ["^([a-zA-Z0-9-]+)$", "^[^#](.+)/(.+)$", "^#(.+)/(.+)$", "^[.](.*)"],
+  "importOrderCaseInsensitive": false,
+  "importOrderGroupNamespaceSpecifiers": true,
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
 }

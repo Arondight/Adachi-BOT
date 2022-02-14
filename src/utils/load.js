@@ -1,6 +1,6 @@
 import fs from "fs";
-import path from "path";
 import lodash from "lodash";
+import path from "path";
 import { checkAuth } from "#utils/auth";
 import { isGroupBan, toCqcode } from "#utils/oicq";
 import { getRandomInt } from "#utils/tools";

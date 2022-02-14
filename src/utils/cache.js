@@ -1,9 +1,9 @@
-import path from "path";
+import { once } from "events";
 import fs from "fs";
-import util from "util";
 import md5 from "md5";
 import fetch from "node-fetch";
-import { once } from "events";
+import path from "path";
+import util from "util";
 import { du, mkdir } from "#utils/file";
 
 function getCachedPath(url, dir) {

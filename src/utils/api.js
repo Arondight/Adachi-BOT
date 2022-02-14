@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
 import fs from "fs";
 import lodash from "lodash";
+import fetch from "node-fetch";
 import path from "path";
 import { getDS } from "#utils/ds";
 

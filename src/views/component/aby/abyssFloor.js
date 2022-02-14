@@ -1,5 +1,4 @@
 // noinspection DuplicatedCode
-
 import { html } from "../common/html.js";
 import characterShowbox from "./characterShowbox.js";
 
