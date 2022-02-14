@@ -24,7 +24,7 @@
     "#utils/*": "./src/utils/*.js"
   },
   "scripts": {
-    "init": "npx node --max-http-header-size=2097152 ./app.js",
+    "init": "npx node --pending-deprecation --trace-warnings --max-http-header-size=2097152 ./app.js",
     "start": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 start ./.pm2.json; cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 save",
     "restart": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 restart ./.pm2.json",
     "stop": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 stop ./.pm2.json",
