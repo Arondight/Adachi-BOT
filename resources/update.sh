@@ -480,7 +480,7 @@ function getWish()
   local files=()
 
   fetch "$API2_WISH_CONFIG" 0 '' "${API2_WISH_CONFIG_FILES[@]}"
-  # fetch "$API2_WISH_CHARACTER" 1 '.png' "${CHARS[@]}"
+  #fetch "$API2_WISH_CHARACTER" 1 '.png' "${CHARS[@]}"
   fetch "$API2_WISH_WEAPON" 1 '.png' "${WEAPONS[@]}"
 }
 

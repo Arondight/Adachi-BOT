@@ -74,6 +74,28 @@ function getMainStat(slot) {
   }
 }
 
+function getMainValue(mainStat, level) {
+  if (0 === mainStat) {
+    return 0 === level ? 717 : 4780;
+  } else if (6 === mainStat) {
+    return 0 === level ? 47 : 311;
+  } else if (5 === mainStat) {
+    return 0 === level ? 28 : 187;
+  } else if (4 === mainStat) {
+    return 0 === level ? "8.7%" : "51.8%";
+  } else if (8 === mainStat) {
+    return 0 === level ? "9.4%" : "62.2%";
+  } else if (9 === mainStat) {
+    return 0 === level ? "4.7%" : "31.1%";
+  } else if (17 === mainStat) {
+    return 0 === level ? "5.4%" : "35.9%";
+  } else if (3 === mainStat || 10 === mainStat) {
+    return 0 === level ? "8.7%" : "58.3%";
+  } else {
+    return 0 === level ? "7.0%" : "46.6%";
+  }
+}
+
 function getSubStats(mainStat) {
   let arr = [];
   let sub = [];
@@ -176,7 +198,13 @@ function getFortified(num, subStats, improves) {
 function getArtifact(userID, type) {
   const artifactID = getArtifactID(type);
   const slot = getSlot();
+  const slotName = ["生之花", "死之羽", "时之沙", "空之杯", "理之冠"][slot];
+  const levelInitial = 0;
+  const levelFortified = 20;
   const mainStat = getMainStat(slot);
+  const mainStatText = propertyName[mainStat] || "";
+  const mainValueInitial = getMainValue(mainStat, levelInitial);
+  const mainValueFortified = getMainValue(mainStat, levelInitial);
   const subStats = getSubStats(mainStat);
   const initPropertyNum = getInit();
   const improves = getImproves();
@@ -196,12 +224,16 @@ function getArtifact(userID, type) {
     {
       initial: {
         mainStat,
-        base: { name, artifactID, slot, level: 0 },
+        mainStatText,
+        mainValue: mainValueInitial,
+        base: { name, artifactID, slot, slotName, level: levelInitial },
         data: initialProperty,
       },
       fortified: {
         mainStat,
-        base: { name, artifactID, slot, level: 20 },
+        mainStatText,
+        mainValue: mainValueFortified,
+        base: { name, artifactID, slot, slotName, level: levelFortified },
         data: fortifiedProperty,
       },
     }
