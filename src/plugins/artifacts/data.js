@@ -82,9 +82,9 @@ function getMainValue(mainStat, level) {
   } else if (5 === mainStat) {
     return 0 === level ? 28 : 187;
   } else if (4 === mainStat) {
-    return 0 === level ? "8.7%" : "51.8%";
+    return 0 === level ? "7.8%" : "51.8%";
   } else if (8 === mainStat) {
-    return 0 === level ? "9.4%" : "62.2%";
+    return 0 === level ? "9.3%" : "62.2%";
   } else if (9 === mainStat) {
     return 0 === level ? "4.7%" : "31.1%";
   } else if (17 === mainStat) {
