@@ -245,7 +245,11 @@ function gachaTimes(userID, nickname, times = 10) {
   };
   const { path } = db.get("gacha", "user", { userID }) || { course: null, fate: 0 };
   const weaponTable = db.get("gacha", "data", { gacha_type: 302 }) || {};
-  const fateCourse = undefined !== path && null !== path.course ? weaponTable.upFiveStar[path.course] || {} : {};
+  let fateCourse = {};
+
+  if (Array.isArray(weaponTable.upFiveStar)) {
+    fateCourse = undefined !== path && null !== path.course ? weaponTable.upFiveStar[path.course] || {} : {};
+  }
 
   result.names.five = lodash.keys(lodash.keyBy(byStar.five, "item_name"));
   result.names.four = lodash.keys(lodash.keyBy(byStar.four, "item_name"));
@@ -266,7 +270,7 @@ function gachaTimes(userID, nickname, times = 10) {
       result.count.push(lodash.omit({ ...a[0], ...{ count: a.length } }, "times"));
     })
     .value();
-  // 无定轨，fate 不可信，course 为 {}
+  // 无定轨，fate 不可信
   result.path = { fate: path.fate || 0, course: { type: fateCourse.item_type, name: fateCourse.item_name } };
 
   // 彩蛋卡池不写入数据库
