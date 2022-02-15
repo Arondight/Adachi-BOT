@@ -1,25 +1,25 @@
 import randomFloat from "random-float";
 import db from "#utils/database";
 
-const propertyName = [
-  "生命值",
-  "生命值",
-  "防御力",
-  "防御力",
-  "元素充能效率",
-  "元素精通",
-  "攻击力",
-  "攻击力",
-  "暴击伤害",
-  "暴击率",
-  "物理伤害加成",
-  "风元素伤害加成",
-  "冰元素伤害加成",
-  "雷元素伤害加成",
-  "岩元素伤害加成",
-  "水元素伤害加成",
-  "火元素伤害加成",
-  "治疗加成",
+const props = [
+  { name: "生命值", value: ["717", "4780"] },
+  { name: "生命值", value: ["7.0%", "46.6%"] },
+  { name: "防御力", value: ["7.0%", "46.6%"] },
+  { name: "防御力", value: ["8.7%", "58.3%"] },
+  { name: "元素充能效率", value: ["7.8%", "51.8%"] },
+  { name: "元素精通", value: ["28", "187"] },
+  { name: "攻击力", value: ["47", "311"] },
+  { name: "攻击力", value: ["7.0%", "46.6%"] },
+  { name: "暴击伤害", value: ["9.3%", "62.2%"] },
+  { name: "暴击率", value: ["4.7%", "31.1%"] },
+  { name: "物理伤害加成", value: ["8.7%", "58.3%"] },
+  { name: "风元素伤害加成", value: ["7.0%", "46.6%"] },
+  { name: "冰元素伤害加成", value: ["7.0%", "46.6%"] },
+  { name: "雷元素伤害加成", value: ["7.0%", "46.6%"] },
+  { name: "岩元素伤害加成", value: ["7.0%", "46.6%"] },
+  { name: "水元素伤害加成", value: ["7.0%", "46.6%"] },
+  { name: "火元素伤害加成", value: ["7.0%", "46.6%"] },
+  { name: "治疗加成", value: ["5.4%", "35.9%"] },
 ];
 
 function randomInt(Min, Max) {
@@ -71,28 +71,6 @@ function getMainStat(slot) {
     }
 
     return getRandomProperty(float, -1);
-  }
-}
-
-function getMainValue(mainStat, level) {
-  if (0 === mainStat) {
-    return 0 === level ? 717 : 4780;
-  } else if (6 === mainStat) {
-    return 0 === level ? 47 : 311;
-  } else if (5 === mainStat) {
-    return 0 === level ? 28 : 187;
-  } else if (4 === mainStat) {
-    return 0 === level ? "7.8%" : "51.8%";
-  } else if (8 === mainStat) {
-    return 0 === level ? "9.3%" : "62.2%";
-  } else if (9 === mainStat) {
-    return 0 === level ? "4.7%" : "31.1%";
-  } else if (17 === mainStat) {
-    return 0 === level ? "5.4%" : "35.9%";
-  } else if (3 === mainStat || 10 === mainStat) {
-    return 0 === level ? "8.7%" : "58.3%";
-  } else {
-    return 0 === level ? "7.0%" : "46.6%";
   }
 }
 
@@ -150,7 +128,7 @@ function toArray(property) {
   let num = 0;
 
   for (const i in property) {
-    let temp = { name: propertyName[i] };
+    let temp = { name: props.map((c) => c.name)[i] };
 
     if (property[i] < 1) {
       temp.data = (property[i] * 100).toFixed(1) + "%";
@@ -202,9 +180,10 @@ function getArtifact(userID, type) {
   const levelInitial = 0;
   const levelFortified = 20;
   const mainStat = getMainStat(slot);
-  const mainStatText = propertyName[mainStat] || "";
-  const mainValueInitial = getMainValue(mainStat, levelInitial);
-  const mainValueFortified = getMainValue(mainStat, levelInitial);
+  const mainStatText = props.map((c) => c.name)[mainStat] || "";
+  const mainValueItem = props.filter((c) => mainStatText === c.name)[0] || [];
+  const mainValueInitial = (mainValueItem.value || [])[0];
+  const mainValueFortified = (mainValueItem.value || [])[1];
   const subStats = getSubStats(mainStat);
   const initPropertyNum = getInit();
   const improves = getImproves();
