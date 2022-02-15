@@ -1,5 +1,6 @@
 @font-face {
   font-family: GenshinUsedFont;
+  font-display: swap;
   src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
@@ -8,93 +9,71 @@
   padding: 0;
 }
 
-html {
+html,
+body {
   font-family: GenshinUsedFont, monospace;
+  width: 746px;
+  height: 769px;
+  color: white;
 }
 
 body {
-  width: 746px;
-  height: 769px;
+  background: url("../../../../resources/module/artifact.png") no-repeat center;
 }
 
-.background {
+.absolute-position {
   position: absolute;
+  left: 43px;
 }
 
-.content {
-  position: absolute;
-  width: 100%;
-}
-
-.name {
-  position: relative;
-  color: white;
-  font-size: 45px;
-  left: 42px;
+.title {
   top: 18px;
+  font-size: 45px;
 }
 
-.slot {
-  position: relative;
-  color: white;
+.position {
   font-size: 28px;
-  left: 38px;
-  top: 50px;
+  top: 100px;
 }
 
-.main {
-  position: relative;
-  left: 38px;
-  top: 168px;
+.artifact-image {
+  width: 320px;
+  height: 320px;
+  left: 571px;
+  top: 260px;
+  transform: translate(-50%, -50%);
 }
 
-.property {
-  position: relative;
-  color: rgb(191, 175, 169);
+.container-main-stats {
+  top: 272px;
+}
+
+.main-stat {
+  color: #bfafa9;
   font-size: 28px;
 }
 
-.data {
-  position: relative;
-  color: white;
+.main-value {
   font-size: 55px;
 }
 
 .rarity {
-  position: absolute;
+  top: 366px;
+  left: 34px;
   height: 52px;
-  left: 31px;
-  top: 365px;
-}
-
-.image {
-  position: absolute;
-  left: 571px;
-  top: 260px;
-  height: 320px;
-  width: 320px;
-  transform: translate(-50%, -50%);
 }
 
 .level {
-  position: absolute;
-  color: white;
+  top: 478px;
   font-size: 31px;
-  top: 479px;
-  left: 45px;
-  width: 80px;
+  width: 84px;
   text-align: center;
 }
 
-.sub-properties {
-  position: absolute;
-  left: 76px;
+.container-sub-properties {
   top: 540px;
-}
-
-.list {
-  position: relative;
-  color: rgb(73, 83, 102);
+  left: 64px;
+  color: #495366;
   font-size: 30px;
   line-height: 50px;
 }

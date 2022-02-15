@@ -2,65 +2,22 @@
 <html lang="zh-cn">
   <head>
     <meta charset="UTF-8" />
-    <title>genshin-artifact</title>
-    <script src="../../data/js/vue2.min.js"></script>
-    <link rel="stylesheet" href="./component/artifact/artifact.css" />
+    <title>genshin-artifact-vue3</title>
+    <script src="../../data/js/vue3.global.prod.js"></script>
+    <link rel="preload" href="../../data/font/HYWenHei-85W.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" as="script" href="component/common/param.js" crossorigin />
+    <link rel="preload" as="script" href="component/common/html.js" crossorigin />
+    <link rel="preload" href="component/artifact/app.js" as="script" crossorigin />
+    <link rel="stylesheet" href="component/artifact/artifact.css" />
+    <link rel="preload" as="image" href="../../resources/module/artifact.png" type="image/png" />
     <link rel="icon" href="data:," />
   </head>
   <body>
-    <div id="app">
-      <div>
-        <img class="background" src="http://localhost:9934/resources/module/artifact.png" alt="ERROR" />
-        <div class="content">
-          <p class="name">{{base.name}}</p>
-          <p class="slot">{{base.slotName}}</p>
-          <div class="main">
-            <p class="property">{{mainStatText}}</p>
-            <p class="data">{{mainValue}}</p>
-          </div>
-          <img class="rarity" src="http://localhost:9934/resources/item/rarity.png" alt="ERROR" />
-          <img class="image" :src="artifactImage" alt="ERROR" />
-          <p class="level">+{{base.level}}</p>
-          <div class="sub-properties">
-            <ul class="list" v-for="v in data">
-              <li class="element">{{v.name}}+{{v.data}}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <div id="app"></div>
     <script type="module">
-      import { getParams } from "./component/common/param.js";
+      import App from "./component/artifact/app.js";
 
-      new Vue({
-        el: "#app",
-        data: {
-          base: {},
-          data: [],
-          mainStat: "",
-        },
-        computed: {
-          artifactImage() {
-            return (
-              "http://localhost:9934/resources/Version2/artifact/" +
-              this.base.artifactID +
-              "/" +
-              this.base.slot +
-              ".png"
-            );
-          },
-        },
-        mounted() {
-          const params = getParams(window.location.href);
-
-          this.base = params.base;
-          this.data = params.data;
-          this.mainStat = params.mainStat;
-          this.mainStatText = params.mainStatText;
-          this.mainValue = params.mainValue;
-        },
-      });
+      Vue.createApp(App).mount("#app");
     </script>
   </body>
 </html>
