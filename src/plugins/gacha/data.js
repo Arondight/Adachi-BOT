@@ -248,7 +248,7 @@ function gachaTimes(userID, nickname, times = 10) {
   let fateCourse = {};
 
   if (Array.isArray(weaponTable.upFiveStar) && undefined !== path && null !== path.course) {
-    fateCourse = weaponTable.upFiveStar[path.course];
+    fateCourse = weaponTable.upFiveStar[path.course] || {};
   }
 
   result.names.five = lodash.keys(lodash.keyBy(byStar.five, "item_name"));
