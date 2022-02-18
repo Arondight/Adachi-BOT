@@ -121,7 +121,9 @@ const template = html` <div class="background" :class="charElementType">
   <div class="container-deco-strip">{{ decoStripContent }}</div>
   <div class="container-character-infos">
     <div class="page-title"><span>{{ uid }}</span>的{{characterInfo.charName}}</div>
-    <img class="profile-image" :src="characterInfo.imagePath" :alt="characterInfo.imageFilename" />
+    <div class="character-level-ring" :style="{background: getLevelStyle(characterInfo.level)}">
+      <img class="profile-image" :src="characterInfo.imagePath" :alt="characterInfo.imageFilename" />
+    </div>
     <barInfos :fetter="characterInfo.fetter" :constellationNum="characterInfo.constellationNum" />
     <div class="container-vertical">
       <div class="split-title">- 圣遗物 -</div>
@@ -134,12 +136,14 @@ const template = html` <div class="background" :class="charElementType">
       <div class="weapon-table">
         <div class="box-title"><p>{{weaponInfo.type}}</p></div>
         <div class="info-content container-weapon-info">
-          <img
-            class="weapon-icon"
-            :class="weaponInfo.rarityClass"
-            :src="weaponInfo.imageUrl"
-            :alt="weaponInfo.imageName"
-          />
+          <div class="weapon-level-ring" :style="{background: getLevelStyle(weaponInfo.level)}">
+            <img
+              class="weapon-icon"
+              :class="weaponInfo.rarityClass"
+              :src="weaponInfo.imageUrl"
+              :alt="weaponInfo.imageName"
+            />
+          </div>
           <div class="weapon-details">
             <div class="weapon-name">{{weaponInfo.name}}</div>
             <div class="weapon-affix" :class="weaponInfo.affixLevel === 5 ? 'max' : ''">
@@ -162,6 +166,12 @@ export default defineComponent({
     barInfos,
     artifactBox,
   },
+  methods: {
+    getLevelStyle: (level) => {
+      const percentage = (level / 90) * 100;
+      return `conic-gradient(#efeae3 0, #efeae3 ${percentage}%, rgba(255,255,255,0) ${percentage + 0.01}%)`;
+    },
+  },
   setup() {
     const params = getParams(window.location.href);
     const charElementType = params.data.element.toLowerCase() || "anemo";
@@ -171,6 +181,7 @@ export default defineComponent({
     let characterInfo = {};
 
     characterInfo.id = character.id || "";
+    characterInfo.level = params.data.level || 1;
     const costumes = character.costumes || [];
     const characterHasCostume = costumes.length !== 0;
     characterInfo.hasCostume = characterHasCostume;
@@ -211,6 +222,7 @@ export default defineComponent({
     const weaponRarity = character.weapon.rarity || 4;
     const weaponAffixLevel = character.weapon.affix_level || "1";
     const weaponDesc = character.weapon.desc || "暂无描述";
+    const weaponLevel = character.weapon.level || 1;
 
     const rarityString = {
       5: "rarity-five",
@@ -228,6 +240,7 @@ export default defineComponent({
     weaponInfo.rarity = "★".repeat(weaponRarity) || "★★★★";
     weaponInfo.affixLevel = weaponAffixLevel;
     weaponInfo.desc = weaponDesc;
+    weaponInfo.level = weaponLevel;
 
     return {
       params,

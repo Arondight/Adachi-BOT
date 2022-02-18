@@ -196,8 +196,8 @@ html {
   align-items: center;
   justify-content: center;
   height: 30px;
-  min-width: 72px;
-  border-radius: 8px;
+  min-width: 64px;
+  border-radius: 4px;
   background-color: rgb(73, 96, 131);
   color: rgb(234, 229, 216);
   font-size: 13px;
@@ -210,7 +210,7 @@ html {
 .materials {
   width: 30px;
   height: 30px;
-  border-radius: 6px;
+  border-radius: 4px;
   margin-left: 4px;
 }
 
@@ -220,12 +220,15 @@ html {
     "image"
     "banner";
   justify-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 64px;
+  height: 64px;
 }
 
 .item-image {
   width: 64px;
   height: 64px;
-  border-radius: 6px;
   grid-area: image / image / banner / banner;
 }
 
@@ -237,7 +240,6 @@ html {
   width: 100%;
   text-shadow: 0 0 4px #33333378;
   background: #3333338c;
-  border-radius: 0 0 6px 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
