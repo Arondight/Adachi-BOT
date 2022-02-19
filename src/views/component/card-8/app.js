@@ -1,12 +1,10 @@
 import { html } from "../common/html.js";
 import { getParams } from "../common/param.js";
-import CharacterBox from "./character-box.js";
-import ExplorationBox from "./exploration.js";
-import HomeBox from "./home-box.js";
-import SectionTitle from "./section-title.js";
+import { CharacterBox, ExplorationBox, HomeBox, SectionTitle } from "./cardComponents.js";
 
 // eslint-disable-next-line no-undef
-const { defineComponent, computed } = Vue;
+const { defineComponent } = Vue;
+
 const template = html`<div class="user-base-page">
   <div class="left">
     <div class="top" :style="{ 'background-image': 'url(' + nameCard + ')'}">
@@ -112,10 +110,10 @@ export default defineComponent({
     const ye = { 10000005: "空", 10000007: "荧" };
     const name = ye[target.id] || target.name;
     const id = 10000007 === target.id ? 10000005 : target.id; // 妹妹名片重定向至哥哥名片
-    const nameCard = computed(() => encodeURI(`http://localhost:9934/resources/Version2/namecard/${id}.png`));
+    const nameCard = encodeURI(`http://localhost:9934/resources/Version2/namecard/${id}.png`);
     const character = targetHasCostume
-      ? computed(() => encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`))
-      : computed(() => encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`));
+      ? encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`)
+      : encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
 
     const explorations = params.explorations.reverse();
     const emoticons = params.emoticons || [];

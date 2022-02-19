@@ -123,6 +123,7 @@ body {
   position: relative;
   background-color: hsl(25deg 49% 65%);
   width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 
@@ -234,6 +235,7 @@ body {
 
 .main {
   width: 88px;
+  height: 88px;
   border-radius: 6px 6px 12px 0;
 }
 
@@ -308,11 +310,14 @@ body {
 
 .logo {
   width: 64px;
+  height: 64px;
   filter: brightness(0.9) contrast(1.1);
 }
 
 .logo.self-managed {
+  width: 64px;
   height: 64px;
+  -webkit-mask-size: 64px;
   background: linear-gradient(rgba(238, 239, 169, 1) 0%, hsl(42deg 58% 76%) 45%, rgba(177, 152, 112, 1) 80%);
 }
 
@@ -404,6 +409,7 @@ p.align-right {
 
 .quoteImage {
   height: 50px;
+  width: 50px;
 }
 
 .quoteText {
