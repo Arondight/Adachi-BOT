@@ -169,7 +169,7 @@ export default defineComponent({
   methods: {
     getLevelStyle: (level) => {
       const percentage = (level / 90) * 100;
-      return `conic-gradient(#efeae3 0, #efeae3 ${percentage}%, rgba(255,255,255,0) ${percentage + 0.01}%)`;
+      return `conic-gradient(#efeae3 0, #efeae3 ${percentage - 0.02}%, rgba(255,255,255,0) ${percentage + 0.02}%)`;
     },
   },
   setup() {
@@ -243,7 +243,6 @@ export default defineComponent({
     weaponInfo.level = weaponLevel;
 
     return {
-      params,
       charElementType,
       elementSvgSrc,
       decoStripContent,
