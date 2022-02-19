@@ -126,12 +126,6 @@ const template = html` <div class="background" :class="charElementType">
     </div>
     <barInfos :fetter="characterInfo.fetter" :constellationNum="characterInfo.constellationNum" />
     <div class="container-vertical">
-      <div class="split-title">- 圣遗物 -</div>
-      <div class="artifact-table">
-        <artifactBox v-for="i in characterInfo.artifacts" :data="i" />
-      </div>
-    </div>
-    <div class="container-vertical">
       <div class="split-title">- 武器 -</div>
       <div class="weapon-table">
         <div class="box-title"><p>{{weaponInfo.type}}</p></div>
@@ -153,6 +147,12 @@ const template = html` <div class="background" :class="charElementType">
             <div class="weapon-desc">{{weaponInfo.desc}}</div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="container-vertical">
+      <div class="split-title">- 圣遗物 -</div>
+      <div class="artifact-table">
+        <artifactBox v-for="i in characterInfo.artifacts" :data="i" />
       </div>
     </div>
   </div>
