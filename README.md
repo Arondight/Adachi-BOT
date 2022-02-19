@@ -91,25 +91,23 @@ git clone https://gitee.com/Xm798/Adachi-BOT.git
 1. 用包管理器安装 Chromium ，然后找到它的二进制 ELF 文件路径。
 2. 配置环境变量 `PUPPETEER_EXECUTABLE_PATH` 为这个路径，然后配置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` 为 `true` 。
 
-这样 Puppeteer 就可以使用系统自带的 Chromium 了。这里以 CentOS 为例，上面两个步骤可以用转化为以下命令。
+这样 Puppeteer 就可以使用系统自带的 Chromium 了。这里以 CentOS 为例，上面两个步骤可以用转化为以下 Bash 命令。
 
 ```sh
 sudo yum -y install epel-release
 sudo yum -y install chromium
 
-SHRC="${HOME}/.bashrc"
-BROWER='/usr/lib64/chromium-browser/chromium-browser'
-VAR_PATH='PUPPETEER_EXECUTABLE_PATH'
-VAR_SKIP='PUPPETEER_SKIP_CHROMIUM_DOWNLOAD'
-grep "$VAR_PATH" "$SHRC" || ( echo "export ${VAR_PATH}='${BROWER}'" | tee -a "$SHRC" )
-grep "$VAR_SKIP" "$SHRC" || ( echo "export ${VAR_SKIP}='true'" | tee -a "$SHRC" )
-source "$SHRC"
+cp -v ~/.bashrc{,-backup}
+
+echo "export PUPPETEER_EXECUTABLE_PATH='/usr/lib64/chromium-browser/chromium-browser'" | tee -a ~/.bashrc
+echo "export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'" | tee -a ~/.bashrc
+source ~/.bashrc
 
 npm install
 ```
 
-> 1. `BROWER` 需要设置为 Chromium 的二进制 ELF 路径，而**非启动脚本或其链接**的路径，具体请参照 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中的 《Linux 下如何找到 Chromium 的二进制 ELF 文件路径》。
-> 2. `SHRC` 是 Shell 配置文件的路径，这里的 Shell 是 `bash` ，你也可以写到其他位置（例如 `/etc/profile.d/` ）让系统启动时加载刚才设置的环境变量。
+> 1. 其中 `/usr/lib64/chromium-browser/chromium-browser` 是你的 Chromium 浏览器 ELF 文件路径，而**非启动脚本或其链接**的路径，具体请参照 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中的[《Linux 下如何找到 Chromium 的二进制 ELF 文件路径》](https://github.com/Arondight/Adachi-BOT/issues/465)。
+> 2. 不要遗漏 `tee` 命令的 `-a` 选项，否则你的 `~/.bashrc` 将被破坏。
 
 ##### 其二，让 npm 为你安装一个 Chromium
 
