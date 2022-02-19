@@ -7,7 +7,6 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-text-stroke: 0.018em;
 }
 
 html,
@@ -15,6 +14,7 @@ body {
   width: 1286px;
   font-family: GenshinUsedFont, monospace;
   color: #fff;
+  -webkit-text-stroke: 0.018em;
 }
 
 #particles-js {

@@ -23,6 +23,7 @@
 
 html {
   background-color: #efeae3;
+  -webkit-text-stroke: 0.018em;
 }
 
 body {

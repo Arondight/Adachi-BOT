@@ -19,9 +19,6 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-text-stroke: 0.018em;
-  letter-spacing: 0.01em;
-  font-family: "Source Han Serif SC Heavy", serif;
 }
 
 html,
@@ -29,6 +26,9 @@ body,
 #app {
   width: 720px;
   overflow-x: hidden;
+  -webkit-text-stroke: 0.018em;
+  letter-spacing: 0.01em;
+  font-family: "Source Han Serif SC Heavy", serif;
 }
 
 .background {

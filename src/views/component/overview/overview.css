@@ -19,8 +19,6 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-text-stroke: 0.018em;
-  letter-spacing: 0.01em;
 }
 
 html,
@@ -28,6 +26,8 @@ body,
 #app {
   width: 800px;
   overflow-x: hidden;
+  -webkit-text-stroke: 0.018em;
+  letter-spacing: 0.01em;
 }
 
 .background {
