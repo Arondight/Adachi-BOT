@@ -35,21 +35,23 @@ function getArtifactID(id) {
 
 function getRandomProperty(arr, type) {
   let suffix = [];
-  let sum = 0,
-    len = arr.length;
+  let sum = 0;
+  let len = arr.length;
 
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < len; ++i) {
     sum += arr[i];
     suffix.push(sum);
   }
 
-  let rand = 0 === type ? randomInt(0, sum) : randomFloat(0, sum);
+  const rand = 0 === type ? randomInt(0, sum) : randomFloat(0, sum);
 
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < len; ++i) {
     if (rand <= suffix[i]) {
       return i;
     }
   }
+
+  return 0;
 }
 
 function getSlot() {
@@ -59,19 +61,21 @@ function getSlot() {
 function getMainStat(slot) {
   if (0 === slot) {
     return 0;
-  } else if (1 === slot) {
-    return 6;
-  } else {
-    let float = [];
-    const len = global.artifacts.weights[slot].length;
-
-    for (let i = 0; i < len; i++) {
-      // XXX 在这里可以添加运气权重
-      float.push(global.artifacts.weights[slot][i]);
-    }
-
-    return getRandomProperty(float, -1);
   }
+
+  if (1 === slot) {
+    return 6;
+  }
+
+  const weights = [];
+  const len = global.artifacts.weights[slot].length;
+
+  for (let i = 0; i < len; i++) {
+    // XXX 在这里可以添加运气权重
+    weights.push(global.artifacts.weights[slot][i]);
+  }
+
+  return getRandomProperty(weights, -1);
 }
 
 function getSubStats(mainStat) {
@@ -181,7 +185,7 @@ function getArtifact(userID, type) {
   const levelFortified = 20;
   const mainStat = getMainStat(slot);
   const mainStatText = props.map((c) => c.name)[mainStat] || "";
-  const mainValueItem = props.filter((c) => mainStatText === c.name)[0] || [];
+  const mainValueItem = props[mainStat] || [];
   const mainValueInitial = (mainValueItem.value || [])[0];
   const mainValueFortified = (mainValueItem.value || [])[1];
   const subStats = getSubStats(mainStat);
