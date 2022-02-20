@@ -128,7 +128,7 @@ const template = html` <div class="background" :class="charElementType">
     <div class="container-vertical">
       <div class="split-title">- 武器 -</div>
       <div class="weapon-table">
-        <div class="box-title"><p>{{weaponInfo.type}}</p></div>
+        <div class="box-title" v-html="weaponInfo.type"><p></p></div>
         <div class="info-content container-weapon-info">
           <div class="weapon-level-ring" :style="{background: getLevelStyle(weaponInfo.level)}">
             <img
@@ -212,7 +212,7 @@ export default defineComponent({
     const weaponTypeToString = {
       sword: "单手剑",
       claymore: "双手剑",
-      pole: "长柄武器",
+      pole: "长柄<br>武器",
       bow: "弓",
       catalyst: "法器",
     };
