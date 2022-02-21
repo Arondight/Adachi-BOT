@@ -601,28 +601,31 @@ function makeUsage(obj) {
     for (const func of functionList.keys()) {
       if (true === obj.functions.show[func] && obj.functions.name[func]) {
         const type = obj.functions.type[func] || "command";
+        const optionsText = obj.functions.options[func]
+          ? lodash.flatten(Object.values(obj.functions.options[func])).join("、")
+          : "";
 
-        text +=
-          listMark +
-          " " +
-          (true === obj.functions.revert[func]
-            ? ("option" === type
-                ? null !== obj.functions.options[func] &&
-                  lodash.flatten(Object.values(obj.functions.options[func])).join("、")
-                : "") +
-              obj.functions.name[func] +
-              " " +
-              (null !== obj.functions.usage[func] ? obj.functions.usage[func] + " " : "")
-            : obj.functions.name[func] +
-              " " +
-              (null !== obj.functions.usage[func] ? obj.functions.usage[func] + " " : "") +
-              ("option" === type
-                ? (null !== obj.functions.options[func] &&
-                    "<" + lodash.flatten(Object.values(obj.functions.options[func])).join("、")) + "> "
-                : "")) +
-          (null !== obj.functions.description[func] ? commentMark + " " : "") +
-          (obj.functions.description[func] || "") +
-          "\n";
+        text += `${listMark} `;
+
+        if ("option" === type && true === obj.functions.revert[func]) {
+          text += optionsText;
+        }
+
+        text += `${obj.functions.name[func]} `;
+
+        if (null !== obj.functions.usage[func]) {
+          text += `${obj.functions.usage[func]} `;
+        }
+
+        if ("option" === type && true !== obj.functions.revert[func]) {
+          text += `<${optionsText}> `;
+        }
+
+        if (null !== obj.functions.description[func]) {
+          text += `${commentMark} `;
+        }
+
+        text += `${obj.functions.description[func] || ""}\n`;
       }
     }
   }
