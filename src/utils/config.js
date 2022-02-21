@@ -540,7 +540,6 @@ function getCommand(obj, key) {
     global[key].functions.options,
     (p, v, k) => {
       v.forEach((c) => {
-        c[1] = c[1].toString();
         lodash.assign(p[k] || (p[k] = {}), {
           [c[0]]: "string" === typeof c[1] ? c[1].toLowerCase() : c[1],
         });
@@ -600,7 +599,8 @@ function makeUsage(obj) {
           " " +
           (true === obj.functions.revert[func]
             ? ("option" === type
-                ? null !== obj.functions.options[func] && Object.values(obj.functions.options[func]).join("、")
+                ? null !== obj.functions.options[func] &&
+                  lodash.flatten(Object.values(obj.functions.options[func])).join("、")
                 : "") +
               obj.functions.name[func] +
               " " +
@@ -610,7 +610,7 @@ function makeUsage(obj) {
               (null !== obj.functions.usage[func] ? obj.functions.usage[func] + " " : "") +
               ("option" === type
                 ? (null !== obj.functions.options[func] &&
-                    "<" + Object.values(obj.functions.options[func]).join("、")) + "> "
+                    "<" + lodash.flatten(Object.values(obj.functions.options[func])).join("、")) + "> "
                 : "")) +
           (null !== obj.functions.description[func] ? commentMark + " " : "") +
           (obj.functions.description[func] || "") +
