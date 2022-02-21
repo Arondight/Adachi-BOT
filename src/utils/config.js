@@ -472,7 +472,15 @@ function getCommand(obj, key) {
               if ("string" === typeof o) {
                 return o.toLowerCase();
               } else if (Array.isArray(o)) {
-                return lodash.transform(o, (r, c) => r.push("string" === typeof c ? c.toLowerCase() : c));
+                return lodash.transform(o, (r, c) =>
+                  r.push(
+                    Array.isArray(c)
+                      ? c.map((e) => ("string" === typeof e ? e.toLowerCase() : e))
+                      : "string" === typeof c
+                      ? c.toLowerCase()
+                      : c
+                  )
+                );
               } else {
                 return lodash.transform(o, (r, v, k) => {
                   r[(k = "string" === typeof k ? k.toLowerCase() : k)] = "string" === typeof v ? v.toLowerCase() : v;
