@@ -2,7 +2,7 @@ import express from "express";
 import schedule from "node-schedule";
 import db from "#utils/database";
 import { mysNewsNotice } from "#utils/notice";
-import { renderClose } from "#utils/render";
+import { renderClose, renderOpen, renderPath } from "#utils/render";
 import { gachaUpdate, mysNewsUpdate } from "#utils/update";
 
 let postRunning = false;
@@ -20,6 +20,11 @@ function initDB() {
   db.init("music", { source: [] });
   db.init("news", { data: {}, timestamp: [] });
   db.init("time");
+}
+
+async function initBrowser() {
+  global.bots.logger.debug(`正在从 ${renderPath} 拉起浏览器实例。`);
+  global.browser = await renderOpen();
 }
 
 function doDBClean(name) {
@@ -92,6 +97,7 @@ async function init() {
 
   serve(9934);
   initDB();
+  await initBrowser();
   await updateGachaJob();
   cleanDBJob();
   syncDBJob();
