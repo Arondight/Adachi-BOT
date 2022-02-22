@@ -20,7 +20,8 @@ async function Plugin(msg) {
     case hasEntrance(msg.text, "gacha", "gacha"):
       if (false !== checkAuth(msg, "gacha")) {
         const times = (msg.text.match(/[0-9]+/g) || [10])[0];
-        doGacha(msg, times > 10 && times <= 180 ? times : 10);
+        const getMiddle = (drawTime) => [10, drawTime, 180].sort((a, b) => a - b)[1];
+        doGacha(msg, getMiddle(times));
       }
       break;
     case hasEntrance(msg.text, "gacha", "gacha10"):
