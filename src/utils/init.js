@@ -24,7 +24,7 @@ function initDB() {
 
 async function initBrowser() {
   global.bots.logger.debug(`正在从 ${renderPath} 拉起浏览器实例。`);
-  global.browser = await renderOpen();
+  await renderOpen();
 }
 
 function doDBClean(name) {

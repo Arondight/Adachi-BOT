@@ -19,9 +19,8 @@ async function Plugin(msg) {
     }
     case hasEntrance(msg.text, "gacha", "gacha"):
       if (false !== checkAuth(msg, "gacha")) {
-        const times = (msg.text.match(/[0-9]+/g) || [10])[0];
-        const adjust = (n) => lodash.sortBy([10, 180, parseInt(n)])[1];
-        doGacha(msg, adjust(times));
+        const times = parseInt((msg.text.match(/[0-9]+/g) || [10])[0]);
+        doGacha(msg, lodash.sortBy([10, 180, times])[1]);
       }
       break;
     case hasEntrance(msg.text, "gacha", "gacha10"):

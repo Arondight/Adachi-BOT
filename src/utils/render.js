@@ -26,19 +26,22 @@ const settingsDefault = { selector: "body", hello: false, scale: 1.5, delete: fa
 const renderPath = puppeteer.executablePath();
 
 async function renderOpen() {
-  return await puppeteer.launch({
-    defaultViewport: null,
-    headless: 0 === global.config.viewDebug,
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--no-first-run", "--no-zygote"],
-    handleSIGINT: false,
-    handleSIGTERM: false,
-    handleSIGHUP: false,
-  });
+  if (undefined === global.browser) {
+    global.browser = await puppeteer.launch({
+      defaultViewport: null,
+      headless: 0 === global.config.viewDebug,
+      args: ["--no-sandbox", "--disable-setuid-sandbox", "--no-first-run", "--no-zygote"],
+      handleSIGINT: false,
+      handleSIGTERM: false,
+      handleSIGHUP: false,
+    });
+  }
 }
 
 async function renderClose() {
   if (undefined !== global.browser) {
     await global.browser.close();
+    global.browser = undefined;
   }
 }
 
