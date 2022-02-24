@@ -10,7 +10,7 @@ function names() {
   return Object.keys(db) || [];
 }
 
-function dbFile(dbName) {
+function file(dbName) {
   return path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
 }
 
@@ -18,7 +18,7 @@ function saved(dbName) {
   let data;
 
   try {
-    data = JSON.parse(fs.readFileSync(dbFile(dbName)));
+    data = JSON.parse(fs.readFileSync(file(dbName)));
   } catch (e) {
     // Do nothing
   }
@@ -48,7 +48,7 @@ function has(dbName, ...path) {
 
 function sync(dbName) {
   if (db[dbName]) {
-    fs.writeFileSync(dbFile(dbName), JSON.stringify(db[dbName].data, null, 2));
+    fs.writeFileSync(file(dbName), JSON.stringify(db[dbName].data, null, 2));
   }
 }
 
@@ -61,23 +61,23 @@ function includes(dbName, key, index, value) {
   return result;
 }
 
-function remove(dbName, key, index) {
+function remove(dbName, key, predicate) {
   if (undefined === db[dbName]) {
     return;
   }
 
-  db[dbName].data[key] = db[dbName].chain.get(key).reject(index).value();
+  db[dbName].data[key] = db[dbName].chain.get(key).reject(predicate).value();
 }
 
-function get(dbName, key, index = undefined) {
+function get(dbName, key, predicate = undefined) {
   if (undefined === db[dbName]) {
     return undefined;
   }
 
   const result =
-    undefined === index
+    undefined === predicate
       ? db[dbName].chain.get(key).value()
-      : merge(...db[dbName].chain.get(key).filter(index).reverse().value());
+      : merge(...db[dbName].chain.get(key).filter(predicate).reverse().value());
   return result && (lodash.isEmpty(result) ? undefined : result);
 }
 
@@ -89,15 +89,15 @@ function push(dbName, key, data) {
   db[dbName].data[key].push(data);
 }
 
-function update(dbName, key, index, data) {
+function update(dbName, key, predicate, data) {
   if (undefined === db[dbName]) {
     return;
   }
 
-  const old = get(dbName, key, index);
+  const old = get(dbName, key, predicate);
 
   if (undefined !== old) {
-    remove(dbName, key, index);
+    remove(dbName, key, predicate);
     data = merge(old, data);
   }
 
@@ -228,4 +228,4 @@ function clean(dbName) {
   return 0;
 }
 
-export default { clean, names, get, has, includes, init, push, remove, set, sync, update };
+export default { clean, file, names, get, has, includes, init, push, remove, set, sync, update };
