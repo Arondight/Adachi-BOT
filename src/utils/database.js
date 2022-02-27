@@ -92,8 +92,15 @@ function has(dbName, key, ...data) {
     return false;
   }
 
-  const prev = data.length > 1;
-  const path = true === prev ? mkpath(key, ...data) : mkpath(key, data[0]);
+  let path;
+
+  if (data.length > 0) {
+    const prev = data.length > 1;
+    path = true === prev ? mkpath(key, ...data) : mkpath(key, data[0]);
+  } else {
+    path = key;
+  }
+
   const result = db[dbName].chain.hasIn(path).value();
 
   return result ? true : false;
