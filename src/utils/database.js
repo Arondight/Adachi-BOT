@@ -166,7 +166,7 @@ function remove(dbName, key, ...data) {
 
 function get(dbName, key, ...data) {
   if (undefined === db[dbName]) {
-    return false;
+    return;
   }
 
   const [path, predicate] = parsed(key, ...data);
@@ -240,10 +240,11 @@ function update(dbName, key, ...data) {
     dataNew = merge(dataOld, value);
   }
 
-  remove(dbName, path, index);
-  push(dbName, path, dataNew);
+  if (true === remove(dbName, path, index)) {
+    return push(dbName, path, dataNew);
+  }
 
-  return true;
+  return false;
 }
 
 function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
