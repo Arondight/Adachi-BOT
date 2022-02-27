@@ -104,7 +104,7 @@ function doPossibleCommand(msg, plugins, type, bot) {
       }
 
       // 同步 oicq 数据结构
-      if (lodash.hasIn(msg.message, [0, "text"])) {
+      if (lodash.hasIn(msg.message, "[0].text")) {
         msg.message = lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
         msg.message[0].text = msg.raw_message;
       }

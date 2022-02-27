@@ -32,7 +32,7 @@ async function mysNewsNotice(withImg = true) {
   const data = db.get("news", "data");
 
   for (const t of Object.keys(data)) {
-    if (!lodash.hasIn(data[t], ["data", "list"]) || !Array.isArray(data[t].data.list)) {
+    if (!lodash.hasIn(data[t], "data.list") || !Array.isArray(data[t].data.list)) {
       continue;
     }
 

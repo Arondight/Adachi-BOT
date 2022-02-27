@@ -48,7 +48,7 @@ function qs(text, sep = ",", equal = "=") {
 
 // BREAKING 参数已改变
 function toCqcode(msg = {}) {
-  const isQuote = lodash.hasIn(msg, ["source", "message"]);
+  const isQuote = lodash.hasIn(msg, "source.message");
   let cqcode = "";
   let firstAtParsed = false;
 

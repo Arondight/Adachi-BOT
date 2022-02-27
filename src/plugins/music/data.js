@@ -49,7 +49,7 @@ async function musicQQ(keyword) {
     return ERRCODE.ERR_API;
   }
 
-  if (lodash.hasIn(jbody, ["data", "song", "list", 0, "songid"])) {
+  if (lodash.hasIn(jbody, "data.song.list[0].songid")) {
     return { type: "qq", id: jbody.data.song.list[0].songid };
   }
 
@@ -89,7 +89,7 @@ async function music163(keyword) {
     return ERRCODE.ERR_API;
   }
 
-  if (lodash.hasIn(jbody, ["result", "songs", 0, "id"])) {
+  if (lodash.hasIn(jbody, "result.songs[0].id")) {
     return { type: "163", id: jbody.result.songs[0].id };
   }
 
