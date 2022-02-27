@@ -32,13 +32,13 @@ function mkpath(...path) {
   return result;
 }
 
-// 此函数用以兼容旧的调用
-// 兼容：db.set("testDB", "data", data);
-// 当前：db.set("testDB", "data", "count.items", data);
+// 处理不同的调用形式。
+// 形式一：db.set(name, key, data);
+// 形式二：db.set(name, key, path, data);
 function parsed(key, ...data) {
-  const prev = 1 === data.length;
+  const simple = 1 === data.length;
   const path = "string" === typeof data[0] ? mkpath(key, data[0]) : key;
-  const value = data[true === prev ? 0 : 1];
+  const value = data[true === simple ? 0 : 1];
 
   return [path, value];
 }
@@ -95,8 +95,8 @@ function has(dbName, key, ...data) {
   let path;
 
   if (data.length > 0) {
-    const prev = data.length > 1;
-    path = true === prev ? mkpath(key, ...data) : mkpath(key, data[0]);
+    const more = data.length > 1;
+    path = true === more ? mkpath(key, ...data) : mkpath(key, data[0]);
   } else {
     path = key;
   }
@@ -111,10 +111,10 @@ function includes(dbName, key, ...data) {
     return false;
   }
 
-  const prev = !(null !== data[0] && ("object" === typeof data[0] || "object" === typeof data[1]));
+  const simple = !(null !== data[0] && ("object" === typeof data[0] || "object" === typeof data[1]));
   const obj = db[dbName].chain.get(key).value();
 
-  if (true === prev) {
+  if (true === simple) {
     const [path, predicate] = data;
 
     for (const o of Array.isArray(obj) ? obj : [obj]) {
@@ -255,10 +255,10 @@ function update(dbName, key, ...data) {
     return false;
   }
 
-  const prev = 2 === data.length;
+  const simple = 2 === data.length;
   const path = "string" === typeof data[0] ? mkpath(key, data[0]) : key;
-  const index = data[true === prev ? 0 : 1];
-  const value = data[true === prev ? 1 : 2];
+  const index = data[true === simple ? 0 : 1];
+  const value = data[true === simple ? 1 : 2];
   const dataOld = get(dbName, path, index);
   let dataNew;
 
