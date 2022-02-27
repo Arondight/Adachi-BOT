@@ -14,14 +14,17 @@ function mkpath(...path) {
   let result = path[0];
 
   for (let i = 1; i < path.length; ++i) {
-    if (path[i]) {
-      const item = path[i].toString();
+    if (undefined !== path[i] || null !== path[i]) {
+      const item = path[i];
+      let itemText = item.toString();
 
-      if ("[" !== item[0]) {
+      if ("number" === typeof item) {
+        itemText = `[${itemText}]`;
+      } else if ("[" !== itemText[0]) {
         result += ".";
       }
 
-      result += item;
+      result += itemText;
     }
   }
 
@@ -90,20 +93,37 @@ function has(dbName, key, ...data) {
 
   const prev = data.length > 1;
   const path = true === prev ? mkpath(key, ...data) : mkpath(key, data[0]);
-  const result = db[dbName].chain.hasIn(path).value() ? true : false;
+  const result = db[dbName].chain.hasIn(path).value();
 
-  return result;
+  return result ? true : false;
 }
 
-function includes(dbName, key, path, value) {
+function includes(dbName, key, ...data) {
   if (undefined === db[dbName]) {
     return false;
   }
 
+  const prev = !(null !== data[0] && ("object" === typeof data[0] || "object" === typeof data[1]));
   const obj = db[dbName].chain.get(key).value();
 
-  for (const o of Array.isArray(obj) ? obj : [obj]) {
-    if (value === lodash.chain(o).get(path).value()) {
+  if (true === prev) {
+    const [path, predicate] = data;
+
+    for (const o of Array.isArray(obj) ? obj : [obj]) {
+      if (predicate === lodash.chain(o).get(path).value()) {
+        return true;
+      }
+    }
+  } else {
+    let path = key;
+    let predicate = data[0];
+
+    if (data.length > 1) {
+      path = mkpath(key, data[0]);
+      predicate = data[1];
+    }
+
+    if (true === db[dbName].chain.get(path).some(predicate).value()) {
       return true;
     }
   }
