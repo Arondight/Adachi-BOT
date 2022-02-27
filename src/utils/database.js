@@ -14,8 +14,9 @@ function mkpath(...path) {
   let result = path[0];
 
   for (let i = 1; i < path.length; ++i) {
-    if (undefined !== path[i] || null !== path[i]) {
-      const item = path[i];
+    const item = path[i];
+
+    if (undefined !== item && null !== item) {
       let itemText = item.toString();
 
       if ("number" === typeof item) {
