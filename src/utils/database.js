@@ -14,13 +14,15 @@ function mkpath(...path) {
   let result = path[0];
 
   for (let i = 1; i < path.length; ++i) {
-    const item = path[i].toString();
+    if (path[i]) {
+      const item = path[i].toString();
 
-    if ("[" !== item[0]) {
-      result += ".";
+      if ("[" !== item[0]) {
+        result += ".";
+      }
+
+      result += item;
     }
-
-    result += item;
   }
 
   return result;
