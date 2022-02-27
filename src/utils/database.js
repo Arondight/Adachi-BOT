@@ -6,6 +6,37 @@ import { merge } from "#utils/merge";
 
 const db = {};
 
+function mkpath(...path) {
+  if (path.length < 1) {
+    throw `Empty path`;
+  }
+
+  let result = path[0];
+
+  for (let i = 1; i < path.length; ++i) {
+    const item = path[i].toString();
+
+    if ("[" !== item[0]) {
+      result += ".";
+    }
+
+    result += item;
+  }
+
+  return result;
+}
+
+// 此函数用以兼容旧的调用
+// 兼容：db.set("testDB", "data", data);
+// 当前：db.set("testDB", "data", "count.items", data);
+function parsed(key, ...data) {
+  const prev = 1 === data.length;
+  const path = "string" === typeof data[0] ? mkpath(key, data[0]) : key;
+  const value = data[true === prev ? 0 : 1];
+
+  return [path, value];
+}
+
 function names() {
   return Object.keys(db) || [];
 }
@@ -27,89 +58,190 @@ function saved(dbName) {
 }
 
 // 如果数据库不存在，将自动创建新的空数据库。
-function init(dbName, defaultElement = { user: [] }) {
+function init(dbName, struct = { user: [] }) {
   db[dbName] = new LowSync(new MemorySync());
   db[dbName].read();
   db[dbName].data = saved(dbName) || {};
-  Object.keys(defaultElement).forEach(
-    (c) => undefined === db[dbName].data[c] && Object.assign(db[dbName].data, { [c]: defaultElement[c] })
-  );
+  Object.keys(struct).forEach((c) => {
+    if (undefined === db[dbName].data[c]) {
+      Object.assign(db[dbName].data, { [c]: struct[c] });
+    }
+  });
   db[dbName].chain = lodash.chain(db[dbName].data);
-}
 
-function has(dbName, ...path) {
-  if (undefined === db[dbName]) {
-    return false;
-  }
-
-  const result = db[dbName].chain.hasIn(path).value() ? true : false;
-  return result;
+  return true;
 }
 
 function sync(dbName) {
   if (db[dbName]) {
     fs.writeFileSync(file(dbName), JSON.stringify(db[dbName].data, null, 2));
+    return true;
   }
+
+  return false;
 }
 
-function includes(dbName, key, index, value) {
+function has(dbName, key, ...data) {
   if (undefined === db[dbName]) {
     return false;
   }
 
-  const result = db[dbName].chain.get(key).map(index).includes(value).value() ? true : false;
+  const prev = data.length > 1;
+  const path = true === prev ? mkpath(key, ...data) : mkpath(key, data[0]);
+  const result = db[dbName].chain.hasIn(path).value() ? true : false;
+
   return result;
 }
 
-function remove(dbName, key, predicate) {
+function includes(dbName, key, path, value) {
   if (undefined === db[dbName]) {
-    return;
+    return false;
   }
 
-  db[dbName].data[key] = db[dbName].chain.get(key).reject(predicate).value();
+  const obj = db[dbName].chain.get(key).value();
+
+  for (const o of Array.isArray(obj) ? obj : [obj]) {
+    if (value === lodash.chain(o).get(path).value()) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
-function get(dbName, key, predicate = undefined) {
+function remove(dbName, key, ...data) {
   if (undefined === db[dbName]) {
-    return undefined;
+    return false;
   }
 
-  const result =
-    undefined === predicate
-      ? db[dbName].chain.get(key).value()
-      : merge(...db[dbName].chain.get(key).filter(predicate).reverse().value());
-  return result && (lodash.isEmpty(result) ? undefined : result);
+  const [path, predicate] = parsed(key, ...data);
+  const obj = db[dbName].chain.get(path).value();
+  let value;
+
+  if (!obj) {
+    return false;
+  } else if (Array.isArray(obj)) {
+    value = lodash.reject(obj, predicate);
+  } else {
+    value = obj;
+
+    for (const [k, v] of Object.entries(obj)) {
+      if (predicate[k] === v) {
+        value = {};
+        break;
+      }
+    }
+  }
+
+  if (!Array.isArray(value) && lodash.isEmpty(value)) {
+    const list = path.split(".");
+
+    if (list.length > 1) {
+      const pathNew = list.slice(0, -1);
+      const obj = db[dbName].chain.get(pathNew).value();
+      const last = list[list.length - 1];
+
+      if (last.endsWith("]")) {
+        const number = parseInt(last);
+
+        if (!Array.isArray(obj)) {
+          return false;
+        }
+
+        obj.splice(number, 1);
+      } else {
+        const key = list.slice(-1)[0];
+
+        delete obj[key];
+      }
+    }
+  } else {
+    db[dbName].chain.set(path, value).value();
+  }
+
+  return true;
 }
 
-function push(dbName, key, data) {
+function get(dbName, key, ...data) {
   if (undefined === db[dbName]) {
-    return;
+    return false;
   }
 
-  db[dbName].data[key].push(data);
+  const [path, predicate] = parsed(key, ...data);
+  const whole = 0 === data.length || (1 === data.length && "string" === typeof data[0]);
+  let result;
+
+  if (true === whole) {
+    result = db[dbName].chain.get(path).value();
+  } else {
+    const obj = db[dbName].chain.get(path).value();
+
+    if (!obj) {
+      result = undefined;
+    } else if (!Array.isArray(obj)) {
+      if (obj === Object.assign(obj, predicate)) {
+        result = obj;
+      } else {
+        result = undefined;
+      }
+    } else {
+      result = merge(...lodash.chain(obj).filter(predicate).reverse().value());
+    }
+  }
+
+  return true === lodash.isEmpty(result) ? undefined : result;
 }
 
-function update(dbName, key, predicate, data) {
+function set(dbName, key, ...data) {
   if (undefined === db[dbName]) {
-    return;
+    return false;
   }
 
-  const old = get(dbName, key, predicate);
+  const [path, value] = parsed(key, ...data);
 
-  if (undefined !== old) {
-    remove(dbName, key, predicate);
-    data = merge(old, data);
-  }
+  db[dbName].chain.set(path, value).value();
 
-  push(dbName, key, data);
+  return true;
 }
 
-function set(dbName, key, data) {
+function push(dbName, key, ...data) {
   if (undefined === db[dbName]) {
-    return;
+    return false;
   }
 
-  db[dbName].chain.set(key, data).value();
+  const [path, value] = parsed(key, ...data);
+  const obj = db[dbName].chain.get(path).value();
+
+  if (Array.isArray(obj)) {
+    obj.push(value);
+    return true;
+  }
+
+  return false;
+}
+
+function update(dbName, key, ...data) {
+  if (undefined === db[dbName]) {
+    return false;
+  }
+
+  const prev = 2 === data.length;
+  const path = "string" === typeof data[0] ? mkpath(key, data[0]) : key;
+  const index = data[true === prev ? 0 : 1];
+  const value = data[true === prev ? 1 : 2];
+  const dataOld = get(dbName, path, index);
+  let dataNew;
+
+  if (undefined === dataOld) {
+    dataNew = value;
+  } else {
+    dataNew = merge(dataOld, value);
+  }
+
+  remove(dbName, path, index);
+  push(dbName, path, dataNew);
+
+  return true;
 }
 
 function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
