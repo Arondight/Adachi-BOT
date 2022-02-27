@@ -32,7 +32,7 @@ function doSave(msg, action = "save") {
 
   switch (action) {
     case "save":
-      if (!db.includes("map", "user", "userID", msg.uid)) {
+      if (false === db.includes("map", "user", "userID", msg.uid)) {
         db.push("map", "user", { userID: msg.uid, mhyID });
         msg.bot.say(msg.sid, `米游社通行证绑定成功，${okMsg}`, msg.type, msg.uid, true);
         setCacheTimeout(msg.uid, mhyID, msg.bot);
