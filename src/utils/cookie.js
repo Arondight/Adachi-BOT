@@ -34,7 +34,7 @@ function getEffectiveCookie(uid, s, use_cookie) {
     return undefined;
   }
 
-  if (false === db.includes(dbName, "cookie", "cookie", cookie)) {
+  if (!db.includes(dbName, "cookie", "cookie", cookie)) {
     const initData = { cookie, date: today, times: 0 };
     db.push(dbName, "cookie", initData);
   }
@@ -64,7 +64,7 @@ function getEffectiveCookie(uid, s, use_cookie) {
 function getCookie(uid, use_cookie, bot) {
   const dbName = "cookies";
 
-  if (false === db.includes(dbName, "uid", "uid", uid)) {
+  if (!db.includes(dbName, "uid", "uid", uid)) {
     const initData = { uid, date: "", cookie: "", times: 0 };
     db.push(dbName, "uid", initData);
   }
@@ -109,7 +109,7 @@ function writeInvalidCookie(cookie) {
     const [account_id] = cookie.match(/account_id=\w+?\b/) || [];
 
     if (cookie_token && account_id) {
-      if (false === db.includes(dbName, "cookie", "cookie", cookie)) {
+      if (!db.includes(dbName, "cookie", "cookie", cookie)) {
         const initData = { cookie, cookie_token, account_id };
         db.push(dbName, "cookie", initData);
       }

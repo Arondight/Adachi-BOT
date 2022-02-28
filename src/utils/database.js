@@ -278,7 +278,7 @@ function update(dbName, key, ...data) {
 function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", milliseconds = 60 * 60 * 1000) {
   let nums = 0;
 
-  if (false === has(dbName, dbKey[0])) {
+  if (!has(dbName, dbKey[0])) {
     return nums;
   }
 
@@ -301,7 +301,7 @@ function cleanByTimeDB(dbName, dbKey = ["user", "uid"], timeRecord = "uid", mill
     const uid = records[i][dbKey[1]];
 
     // 没有基准字段则删除该记录（因为很可能是错误数据）
-    if (!uid || false === has(dbName, dbKey[0], i, dbKey[1])) {
+    if (!uid || !has(dbName, dbKey[0], i, dbKey[1])) {
       records.splice(i, 1);
       --i;
       --len;

@@ -67,19 +67,19 @@ function handleDetailError(msg, e) {
 }
 
 function userInitialize(uid, nickname, level) {
-  if (false === db.includes("character", "record", "uid", uid)) {
+  if (!db.includes("character", "record", "uid", uid)) {
     db.push("character", "record", { uid, roles: [] });
   }
 
-  if (false === db.includes("time", "user", "uid", uid)) {
+  if (!db.includes("time", "user", "uid", uid)) {
     db.push("time", "user", { uid, time: 0 });
   }
 
-  if (false === db.includes("time", "user", "aby", uid)) {
+  if (!db.includes("time", "user", "aby", uid)) {
     db.push("time", "user", { aby: uid, time: 0 });
   }
 
-  if (false === db.includes("info", "user", "uid", uid)) {
+  if (!db.includes("info", "user", "uid", uid)) {
     const initData = {
       retcode: 19260817,
       message: "init message",
@@ -159,7 +159,7 @@ async function abyDetail(uid, server, userID, schedule_type, bot) {
     throw detailError("无渊月螺旋记录。");
   }
 
-  if (false === db.includes("aby", "user", "uid", uid)) {
+  if (!db.includes("aby", "user", "uid", uid)) {
     db.push("aby", "user", { uid, data: {} });
   }
 
