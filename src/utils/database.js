@@ -209,7 +209,7 @@ function get(dbName, key, ...data) {
     if (!obj) {
       result = undefined;
     } else if (!Array.isArray(obj)) {
-      if (obj === Object.assign(obj, predicate)) {
+      if (lodash.some(obj, predicate)) {
         result = obj;
       } else {
         result = undefined;
