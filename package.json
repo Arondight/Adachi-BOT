@@ -60,12 +60,12 @@
     "pretty-bytes": "6.0.0",
     "puppeteer": "13.4.0",
     "random-float": "3.0.0",
-    "systeminformation": "5.11.4",
+    "systeminformation": "5.11.5",
     "yargs": "17.3.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
-    "eslint": "8.9.0",
+    "eslint": "8.10.0",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
