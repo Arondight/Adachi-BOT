@@ -25,6 +25,8 @@
 
 ./database.js
   clean                   清理数据库
+  file                    获取数据库文件路径
+  names                   获取所有数据库的名字列表
   get                     获取数据
   has                     键的存在性
   includes                值的存在性
@@ -32,8 +34,8 @@
   push                    插入数据
   remove                  删除数据
   set                     设置数据
+  sync                    同步数据库内存缓存到磁盘
   update                  更新数据
-  write                   写入数据库
 
 ./detail.js
   abyDetail               获取深渊数据
