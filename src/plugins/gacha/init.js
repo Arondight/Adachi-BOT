@@ -1,7 +1,7 @@
 import db from "#utils/database";
 
 function init(uid) {
-  if (!db.includes("gacha", "user", "userID", uid)) {
+  if (!db.includes("gacha", "user", { userID: uid })) {
     db.push("gacha", "user", {
       userID: uid,
       choice: 301,

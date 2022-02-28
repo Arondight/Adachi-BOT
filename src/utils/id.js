@@ -64,7 +64,7 @@ function getID(msg, userID, isMhyID = true) {
   if (cqmsg) {
     // 字符串中包含 CQ 码
     if (isMhyID) {
-      if (db.includes("map", "user", "userID", id)) {
+      if (db.includes("map", "user", { userID: id })) {
         return (db.get("map", "user", { userID: id }) || {}).mhyID;
       }
 
@@ -76,7 +76,7 @@ function getID(msg, userID, isMhyID = true) {
   } else if (id !== undefined && idstr && idstr.length >= 6 && idstr.length < 10) {
     // 字符串中的 ID 大致合法
     return isMhyID ? id : getUID(id);
-  } else if (db.includes("map", "user", "userID", userID)) {
+  } else if (db.includes("map", "user", { userID })) {
     // 字符串中无看似合法的 ID
     if (isMhyID) {
       return (db.get("map", "user", { userID }) || {}).mhyID; // 返回米游社 ID 或者 undefined

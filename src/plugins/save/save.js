@@ -2,7 +2,7 @@ import db from "#utils/database";
 import { getID } from "#utils/id";
 
 function setCacheTimeout(uid, mhyID, bot) {
-  if (db.includes("map", "user", "userID", uid)) {
+  if (db.includes("map", "user", { userID: uid })) {
     const { UID: id } = db.get("map", "user", { userID: uid }) || {};
     const reason = "因米游社 ID 变更而强制超时";
 
@@ -32,7 +32,7 @@ function doSave(msg, action = "save") {
 
   switch (action) {
     case "save":
-      if (!db.includes("map", "user", "userID", msg.uid)) {
+      if (!db.includes("map", "user", { userID: msg.uid })) {
         db.push("map", "user", { userID: msg.uid, mhyID });
         msg.bot.say(msg.sid, `米游社通行证绑定成功，${okMsg}`, msg.type, msg.uid, true);
         setCacheTimeout(msg.uid, mhyID, msg.bot);
@@ -41,7 +41,7 @@ function doSave(msg, action = "save") {
       }
       break;
     case "change":
-      if (db.includes("map", "user", "userID", msg.uid)) {
+      if (db.includes("map", "user", { userID: msg.uid })) {
         db.update("map", "user", { userID: msg.uid }, { mhyID });
         msg.bot.say(msg.sid, `米游社通行证改绑成功，${okMsg}`, msg.type, msg.uid, true);
         setCacheTimeout(msg.uid, mhyID, msg.bot);

@@ -8,7 +8,7 @@ const running = { mysNewsNotice: false };
 
 function initDB() {
   for (const t of ["announcement", "event", "information"]) {
-    if (!db.includes("news", "timestamp", "type", t)) {
+    if (!db.includes("news", "timestamp", { type: t })) {
       db.push("news", "timestamp", { type: t, time: 0 });
     }
   }

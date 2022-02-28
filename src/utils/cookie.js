@@ -34,7 +34,7 @@ function getEffectiveCookie(uid, s, use_cookie) {
     return undefined;
   }
 
-  if (!db.includes(dbName, "cookie", "cookie", cookie)) {
+  if (!db.includes(dbName, "cookie", { cookie })) {
     const initData = { cookie, date: today, times: 0 };
     db.push(dbName, "cookie", initData);
   }
@@ -64,7 +64,7 @@ function getEffectiveCookie(uid, s, use_cookie) {
 function getCookie(uid, use_cookie, bot) {
   const dbName = "cookies";
 
-  if (!db.includes(dbName, "uid", "uid", uid)) {
+  if (!db.includes(dbName, "uid", { uid })) {
     const initData = { uid, date: "", cookie: "", times: 0 };
     db.push(dbName, "uid", initData);
   }
@@ -87,7 +87,7 @@ function getCookie(uid, use_cookie, bot) {
 function markCookieUnusable(cookie) {
   const dbName = "cookies";
 
-  if (cookie && db.includes(dbName, "cookie", "cookie", cookie)) {
+  if (cookie && db.includes(dbName, "cookie", { cookie })) {
     let { times } = db.get(dbName, "cookie", { cookie }) || {};
 
     // Cookie 标记为无效
@@ -109,7 +109,7 @@ function writeInvalidCookie(cookie) {
     const [account_id] = cookie.match(/account_id=\w+?\b/) || [];
 
     if (cookie_token && account_id) {
-      if (!db.includes(dbName, "cookie", "cookie", cookie)) {
+      if (!db.includes(dbName, "cookie", { cookie })) {
         const initData = { cookie, cookie_token, account_id };
         db.push(dbName, "cookie", initData);
       }
@@ -117,7 +117,7 @@ function writeInvalidCookie(cookie) {
       markCookieUnusable(cookie);
 
       // 删除该 Cookie 所有的使用记录
-      if (db.includes(dbCookieName, "uid", "cookie", cookie)) {
+      if (db.includes(dbCookieName, "uid", { cookie })) {
         db.remove(dbCookieName, "uid", { cookie });
       }
     }
