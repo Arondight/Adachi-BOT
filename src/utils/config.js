@@ -544,19 +544,6 @@ function getCommand(obj, key) {
     {}
   );
 
-  global[key].functions.options = lodash.reduce(
-    global[key].functions.options,
-    (p, v, k) => {
-      v.forEach((c) => {
-        lodash.assign(p[k] || (p[k] = {}), {
-          [c[0]]: "string" === typeof c[1] ? c[1].toLowerCase() : c[1],
-        });
-      });
-      return p;
-    },
-    {}
-  );
-
   // 所有 switch 转换为 option
   if (global[key].functions.type) {
     Object.keys(global[key].functions.type).forEach((f) => {
@@ -566,10 +553,25 @@ function getCommand(obj, key) {
           .chain({})
           .assign({ on: "on" }, { off: "off" }, global[key].functions.options[f] || {})
           .pick(["on", "off"])
+          .toPairs()
           .value();
       }
     });
   }
+
+  global[key].functions.options = lodash.reduce(
+    global[key].functions.options,
+    (p, v, k) => {
+      v.forEach((c) => {
+        const value = undefined === c[1].toString ? c[1] : c[1].toString();
+        const opName = c[0];
+        const opValue = "string" === typeof value ? value.toLowerCase() : value;
+        lodash.assign(p[k] || (p[k] = {}), { [opName]: opValue });
+      });
+      return p;
+    },
+    {}
+  );
 }
 
 // obj: global.command or global.master
