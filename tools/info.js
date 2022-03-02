@@ -613,6 +613,7 @@ async function main() {
       }
     } catch (e) {
       console.log(`数据获取错误，无法继续。\n错误的详细信息见下。\n${e.stack}`);
+      return;
     } finally {
       await close();
     }
