@@ -462,7 +462,11 @@ async function getWeaponData(name, page) {
     skillContent += texts[texts.length - 1];
   }
 
-  handle = (await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]"))[0];
+  handle = (
+    await page.$x(
+      "//div[contains(@class, 'wrappercont')]/div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]"
+    )
+  )[2];
   const maxLvTr = parseInt(rarity) > 2 ? 26 : 20;
   let mainValue = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[3]`))[0]);
   const baseATK = parseInt(
