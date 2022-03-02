@@ -51,7 +51,7 @@ async function close() {
 
 async function getLink(name, type = "weapon") {
   if (!["weapon", "char"].includes(type)) {
-    throw `Unknown type "${type}!"`;
+    throw Error(`Unknown type "${type}!"`);
   }
 
   const db = `${honeyUrl}/db/${type}`;
@@ -533,15 +533,17 @@ async function getData(name, link, type = "weapon") {
         data = await getWeaponData(name, page);
         break;
     }
+
+    console.log("\t成功");
   } catch (e) {
-    data = undefined;
+    console.log("\t失败");
+    throw e;
   } finally {
     if (page) {
       await page.close();
     }
   }
 
-  console.log(undefined === data ? "\t失败" : "\t成功");
   return data;
 }
 
@@ -605,17 +607,12 @@ async function main() {
         if ("string" === typeof link) {
           const data = await getData(argv.name, link, type);
 
-          if (undefined !== data) {
-            writeData(argv.name, data, argv.output || undefined);
-            return;
-          }
-
-          console.log("数据获取错误，无法继续。");
+          writeData(argv.name, data, argv.output || undefined);
           return;
         }
       }
     } catch (e) {
-      // do nothing
+      console.log(`数据获取错误，无法继续。\n错误的详细信息见下。\n${e.stack}`);
     } finally {
       await close();
     }
