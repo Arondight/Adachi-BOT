@@ -41,7 +41,7 @@
  *     options: { eat: { apple: '苹果', banana: '香蕉', egg: '蛋' } }
  *   },
  *   enable: { hello_world: true, eat: true },
- *   weights: { hello_world: 9999, eat: 9999 },
+ *   weights: { hello_world: 9999, eat: 9989 },
  *   regex: {
  *     '^hello\\sworld(!)?\\s*$': [ 'hello_world' ],
  *     '^eat\\s*\\S+\\s*$': [ 'eat' ]
@@ -73,7 +73,7 @@
  *         - ^hello
  * Eat:
  *   enable: true
- *   weights: 9999
+ *   weights: 9989
  *   regex:
  *     - ^eat\s*\S+\s*$
  *   functions:
