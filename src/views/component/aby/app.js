@@ -1,4 +1,4 @@
-import { html, getParams } from "../common/frontend-utils.js";
+import { getParams, html } from "../common/frontend-utils.js";
 import characterShowbox from "./characterShowbox.js";
 
 // eslint-disable-next-line no-undef
