@@ -7,6 +7,9 @@ import puppeteer from "puppeteer";
 import si from "systeminformation";
 import { du } from "#utils/file";
 
+const unknown = "未知";
+
+let browserVer;
 let cpu;
 let os;
 let versions;
@@ -15,10 +18,13 @@ si.cpu().then((c) => (cpu = c));
 si.osInfo().then((c) => (os = c));
 si.versions("node, npm").then((c) => (versions = c));
 
-const browserVer = execSync([puppeteer.executablePath(), "--version"].join(" ")).toString().trim();
+try {
+  browserVer = execSync([puppeteer.executablePath(), "--version"].join(" ")).toString().trim();
+} catch (e) {
+  browserVer = unknown;
+}
 
 async function status(msg = {}) {
-  const unknown = "未知";
   // FIXME 多 QQ 抢占时 load.currentLoad 有概率为 undefined
   const load = await si.currentLoad();
   const mem = await si.mem();
