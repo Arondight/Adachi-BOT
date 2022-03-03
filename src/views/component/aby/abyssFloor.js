@@ -1,5 +1,5 @@
 // noinspection DuplicatedCode
-import { html } from "../common/html.js";
+import { html } from "../common/frontend-utils.js";
 import characterShowbox from "./characterShowbox.js";
 
 // eslint-disable-next-line no-undef

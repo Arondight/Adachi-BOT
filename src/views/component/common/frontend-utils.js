@@ -1,3 +1,14 @@
+function html(literals, ...placeholders) {
+  let context = "";
+
+  for (let i = 0; i < placeholders.length; ++i) {
+    context += literals[i];
+    context += placeholders[i].toString();
+  }
+
+  return context + literals[literals.length - 1];
+}
+
 function decodeURIComponentHelper(encoded) {
   return decodeURIComponent(
     window
@@ -12,4 +23,4 @@ function getParams(href) {
   return JSON.parse(decodeURIComponentHelper(new URL(href).searchParams.get("data")) || "{}");
 }
 
-export { getParams };
+export { html, getParams };

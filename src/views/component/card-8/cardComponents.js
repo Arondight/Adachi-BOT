@@ -1,4 +1,4 @@
-import { html } from "../common/html.js";
+import { html } from "../common/frontend-utils.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
@@ -94,7 +94,7 @@ const ExplorationBox = defineComponent({
       const icon_filename = rawUri.split("_").slice(-1)[0].split(".").slice(0)[0];
       let iconUri;
       if (logo_mapping[icon_filename.toLowerCase()]) {
-        iconUri = `http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`;
+        iconUri = encodeURI(`http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`);
       } else {
         iconUri = rawUri;
       }

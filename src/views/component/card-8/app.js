@@ -1,5 +1,4 @@
-import { html } from "../common/html.js";
-import { getParams } from "../common/param.js";
+import { getParams, html } from "../common/frontend-utils.js";
 import { CharacterBox, ExplorationBox, HomeBox, SectionTitle } from "./cardComponents.js";
 
 // eslint-disable-next-line no-undef
@@ -49,7 +48,7 @@ const template = html`<div class="user-base-page">
     </div>
     <div class="container-home-box">
       <SectionTitle class="bottom-split" :title="homeboxTitle" />
-      <div class="bottom">
+      <div class="container-homes">
         <HomeBox v-for="home in homes" :data="home" />
       </div>
     </div>

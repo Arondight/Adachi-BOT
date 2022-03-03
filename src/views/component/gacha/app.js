@@ -1,5 +1,4 @@
-import { html } from "../common/html.js";
-import { getParams } from "../common/param.js";
+import { html, getParams } from "../common/frontend-utils.js";
 import gachaBox from "./gacha-box.js";
 
 // eslint-disable-next-line no-undef
