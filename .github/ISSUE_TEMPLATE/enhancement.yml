@@ -24,7 +24,7 @@ body:
     id: git-log
     attributes:
       label: 当前提交
-      description: 将 `git log -1` 输出粘贴在此处。
+      description: 将命令 `git log -1` 的输出粘贴在此处。
       render: Text
       placeholder: 在粘贴命令输出，将被转化为代码块。
       #value:
