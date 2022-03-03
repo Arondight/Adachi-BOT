@@ -1,4 +1,4 @@
-import { getParams, html } from "../common/frontend-utils.js";
+import { getParams, html } from "../common/utils.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent, defineAsyncComponent } = Vue;

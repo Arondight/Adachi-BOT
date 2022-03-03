@@ -1,4 +1,4 @@
-import { html } from "../common/frontend-utils.js";
+import { html } from "../common/utils.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
