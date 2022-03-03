@@ -24,7 +24,7 @@ async function main() {
       },
     }).argv;
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const ret = await status();
   let text = ret.text;
