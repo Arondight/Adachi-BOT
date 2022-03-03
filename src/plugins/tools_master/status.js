@@ -13,7 +13,7 @@ si.cpu().then((c) => (cpu = c));
 si.osInfo().then((c) => (os = c));
 si.versions("node, npm").then((c) => (versions = c));
 
-(async function status(msg) {
+async function status(msg) {
   const unknown = "未知";
   // FIXME 多 QQ 抢占时 load.currentLoad 有概率为 undefined
   const load = await si.currentLoad();
@@ -43,4 +43,6 @@ npm:      ${versionsNpm}
 浏览器:   ${browserVer}`;
 
   msg.bot.say(msg.sid, text, msg.type, msg.uid, false, "\n");
-})();
+}
+
+export { status };
