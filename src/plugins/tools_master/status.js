@@ -20,7 +20,7 @@ async function status(msg) {
   const mem = await si.mem();
   const time = await si.time();
 
-  const browserVer = lodash.hasIn(global.browser, "version") ? global.browser.version() : unknown;
+  const browserVer = lodash.hasIn(global.browser, "version") ? await global.browser.version() : unknown;
   const cpuBrand = lodash.hasIn(cpu, "brand") ? cpu.brand : unknown;
   const cpuManufacturer = lodash.hasIn(cpu, "manufacturer") ? cpu.manufacturer : unknown;
   const cpuSpeed = lodash.hasIn(cpu, "speed") ? cpu.speed : unknown;
