@@ -63,8 +63,7 @@ const CharacterBox = defineComponent({
 
 const explorationBoxTemplate = html` <div class="exploration">
   <div class="exp-area">
-    <img v-if="isSilveryIcon" class="logo" :src="areaLogo" alt="Error" />
-    <div v-else class="logo self-managed" :style="{maskImage : 'url(' + areaLogo + ')'}"></div>
+    <div class="logo" :style="{maskImage : 'url(' + areaLogo + ')'}"></div>
     <div class="container-detailedExploration">
       <p>探索进度</p>
       <p class="align-right">{{ explorationPercentage }}%</p>
@@ -91,25 +90,21 @@ const ExplorationBox = defineComponent({
       enkanomiya: "enkanomiya",
     };
 
-    const silveryLogos = ["mengde", "liyue", "dragonspine", "daoqi"];
-
     function getIconUri(rawUri) {
       const icon_filename = rawUri.split("_").slice(-1)[0].split(".").slice(0)[0];
-      let iconUri, isSilveryLogos;
+      let iconUri;
       if (logo_mapping[icon_filename.toLowerCase()]) {
         iconUri = `http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`;
-        isSilveryLogos = silveryLogos.includes(icon_filename.toLowerCase());
       } else {
         iconUri = rawUri;
-        isSilveryLogos = false;
       }
-      return [iconUri, isSilveryLogos];
+      return iconUri;
     }
 
-    const [areaLogo, isSilveryIcon] = getIconUri(props.data.icon);
+    const areaLogo = getIconUri(props.data.icon);
     const explorationPercentage = parseInt(props.data.exploration_percentage) / 10;
 
-    return { areaLogo, isSilveryIcon, explorationPercentage };
+    return { areaLogo, explorationPercentage };
   },
 });
 
