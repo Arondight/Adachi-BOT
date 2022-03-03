@@ -164,14 +164,20 @@ function remove(dbName, key, ...data) {
   }
 
   if (!Array.isArray(value) && lodash.isEmpty(value)) {
-    const list = path.split(".");
+    const list = path
+      .replace(/[[\]]/g, ".")
+      .split(".")
+      .filter((c) => "" !== c);
 
     if (list.length > 1) {
       const pathNew = list.slice(0, -1);
       const obj = db[dbName].chain.get(pathNew).value();
       const last = list[list.length - 1];
+      const number = parseInt(last);
 
-      if (last.endsWith("]")) {
+      if (isNaN(number)) {
+        delete obj[list.slice(-1)[0]];
+      } else {
         const number = parseInt(last);
 
         if (!Array.isArray(obj)) {
@@ -179,10 +185,6 @@ function remove(dbName, key, ...data) {
         }
 
         obj.splice(number, 1);
-      } else {
-        const key = list.slice(-1)[0];
-
-        delete obj[key];
       }
     }
   } else {
