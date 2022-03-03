@@ -1,7 +1,7 @@
 name: Update resources in dev branch
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: null
   schedule:
     # UTC
     - cron: "0 20 * * *"

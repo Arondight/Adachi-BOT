@@ -23,6 +23,7 @@
   "imports": {
     "#bot/*": "./src/bot/*.js",
     "#jobs/*": "./src/jobs/*.js",
+    "#plugins/*": "./src/plugins/*.js",
     "#utils/*": "./src/utils/*.js"
   },
   "scripts": {
@@ -35,10 +36,11 @@
     "list": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 list bot",
     "info": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 info bot",
     "log": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 log --lines 200 bot",
-    "code-check": "npx eslint ./app.js ./src/ ./tools/ ./config_defaults/",
+    "code-check": "npx eslint ./.github/ ./app.js ./src/ ./tools/ ./config_defaults/",
     "code-format": "npx prettier --config ./.prettierrc.json -uw ./app.js ./*.md ./.*.json ./*.json ./src/ ./tools/ ./docs/ ./resources_custom/",
     "tool-db": "npx node ./tools/db.js",
     "tool-info": "npx node ./tools/info.js",
+    "tool-status": "npx node ./tools/status.js",
     "tool-view": "npx node ./tools/view.js"
   },
   "dependencies": {

@@ -1,4 +1,5 @@
 import fs from "fs";
+import lodash from "lodash";
 import path from "path";
 import puppeteer from "puppeteer";
 import { mkdir } from "#utils/file";
@@ -29,7 +30,7 @@ async function renderOpen() {
   if (undefined === global.browser) {
     global.browser = await puppeteer.launch({
       defaultViewport: null,
-      headless: 0 === global.config.viewDebug,
+      headless: lodash.hasIn(global.config, "viewDebug") ? 0 === global.config.viewDebug : false,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",

@@ -10,21 +10,23 @@ body:
   - type: markdown
     attributes:
       value: |
-        感谢您的提交，请至少填写下方带红色星花标记的部分。
+        感谢您的提交，至少填写下方带红色星花标记的部分。
   - type: textarea
     id: question
     attributes:
       label: 问题描述
-      description: 请在此详细描述你想新增的功能。
+      description: 在此详细描述你想新增的功能。
       placeholder: 在此输入 Markdown 文本。
       #value:
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: git-log
     attributes:
-      label: 代码状态：当前提交
-      description: 请将命令 `git log -1 --format=oneline` 的输出结果粘贴在此处。
-      #placeholder:
+      label: 当前提交
+      description: 将 `git log -1` 输出粘贴在此处。
+      render: Text
+      placeholder: 在粘贴命令输出，将被转化为代码块。
+      #value:
     validations:
-      required: false
+      required: true

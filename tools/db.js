@@ -9,6 +9,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 global.rootdir = path.resolve(__dirname, "..");
+
 const names = ls(path.resolve(global.rootdir, "data", "db"))
   .filter((c) => c.match(/\b\w+?[.]json$/))
   .map((c) => {
