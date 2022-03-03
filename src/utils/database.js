@@ -131,8 +131,16 @@ function includes(dbName, key, ...data) {
       predicate = data[1];
     }
 
-    if (true === db[dbName].chain.get(path).some(predicate).value()) {
-      return true;
+    const obj = db[dbName].chain.get(path).value();
+
+    if (Array.isArray(obj)) {
+      if (true === lodash.some(obj, predicate)) {
+        return true;
+      }
+    } else {
+      if (lodash.isEqual(obj, Object.assign({}, obj, predicate))) {
+        return true;
+      }
     }
   }
 
@@ -201,24 +209,23 @@ function get(dbName, key, ...data) {
 
   const [path, predicate] = parsed(key, ...data);
   const whole = 0 === data.length || (1 === data.length && "string" === typeof data[0]);
+  const obj = db[dbName].chain.get(path).value();
   let result;
 
   if (true === whole) {
-    result = db[dbName].chain.get(path).value();
-  } else {
-    const obj = db[dbName].chain.get(path).value();
+    return obj;
+  }
 
-    if (!obj) {
-      result = undefined;
-    } else if (!Array.isArray(obj)) {
-      if (lodash.some(obj, predicate)) {
-        result = obj;
-      } else {
-        result = undefined;
-      }
+  if (!obj) {
+    result = undefined;
+  } else if (!Array.isArray(obj)) {
+    if (lodash.isEqual(obj, Object.assign({}, obj, predicate))) {
+      result = obj;
     } else {
-      result = merge(...lodash.chain(obj).filter(predicate).reverse().value());
+      result = undefined;
     }
+  } else {
+    result = merge(...lodash.chain(obj).filter(predicate).reverse().value());
   }
 
   return true === lodash.isEmpty(result) ? undefined : result;
