@@ -30,7 +30,7 @@ async function main() {
   let text = ret.text;
 
   if (true === argv.json) {
-    text = JSON.stringify(ret.data, null, 2);
+    text = JSON.stringify(ret.data || {}, null, 2);
   }
 
   console.log(text);
