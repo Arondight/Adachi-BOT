@@ -278,7 +278,11 @@ function update(dbName, key, ...data) {
   }
 
   if (true === remove(dbName, path, index)) {
-    return push(dbName, path, dataNew);
+    if (Array.isArray(get(dbName, path))) {
+      return push(dbName, path, dataNew);
+    } else {
+      return set(dbName, path, dataNew);
+    }
   }
 
   return false;
