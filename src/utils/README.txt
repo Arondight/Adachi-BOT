@@ -66,13 +66,6 @@
   getID                   获取聊天信息中的 UID 或者米游社 ID
   getUID                  获取聊天信息中的 UID
 
-./init.js
-  init                    机器人初始化
-
-./load.js
-  loadPlugins             加载插件
-  processed               处理聊天消息
-
 ./merge.js
   merge                   合并数据
 
@@ -92,9 +85,6 @@
   simhash                 计算 simhash
   similarity              计算两个字符串的相似度
   similarityMaxValue      字符串相似的最大值
-
-./update.js
-  gachaUpdate             刷新卡池
 
 ./yaml.js
   loadYML                 读取配置文件

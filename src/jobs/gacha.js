@@ -1,5 +1,5 @@
 import lodash from "lodash";
-import { getGachaDetail, getGachaList, getMysNews } from "#utils/api";
+import { getGachaDetail, getGachaList } from "#utils/api";
 import db from "#utils/database";
 
 async function parseGachaData(gachaID) {
@@ -78,20 +78,4 @@ async function gachaUpdate() {
   return false;
 }
 
-async function mysNewsUpdate() {
-  const ids = { announcement: 1, event: 2, information: 3 };
-  const record = {};
-
-  for (const t of Object.keys(ids)) {
-    try {
-      record[t] = await getMysNews(ids[t]);
-    } catch (e) {
-      continue;
-    }
-  }
-
-  db.set("news", "data", record);
-  return true;
-}
-
-export { gachaUpdate, mysNewsUpdate };
+export { gachaUpdate };

@@ -21,6 +21,8 @@
     "node": ">16.6.0"
   },
   "imports": {
+    "#bot/*": "./src/bot/*.js",
+    "#jobs/*": "./src/jobs/*.js",
     "#utils/*": "./src/utils/*.js"
   },
   "scripts": {

@@ -1,5 +1,6 @@
 import lodash from "lodash";
 import path from "path";
+import { getMysNews } from "#utils/api";
 import { checkAuth } from "#utils/auth";
 import { getCache } from "#utils/cache";
 import db from "#utils/database";
@@ -12,6 +13,22 @@ function initDB() {
       db.push("news", "timestamp", { type: t, time: 0 });
     }
   }
+}
+
+async function mysNewsUpdate() {
+  const ids = { announcement: 1, event: 2, information: 3 };
+  const record = {};
+
+  for (const t of Object.keys(ids)) {
+    try {
+      record[t] = await getMysNews(ids[t]);
+    } catch (e) {
+      continue;
+    }
+  }
+
+  db.set("news", "data", record);
+  return true;
 }
 
 async function mysNewsNotice(withImg = true) {
@@ -93,4 +110,4 @@ async function mysNewsNotice(withImg = true) {
   running.mysNewsNotice = false;
 }
 
-export { mysNewsNotice };
+export { mysNewsNotice, mysNewsUpdate };

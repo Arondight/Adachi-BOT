@@ -1,9 +1,10 @@
 import figlet from "figlet";
 import lodash from "lodash";
 import { createClient } from "oicq";
+import { dispatch } from "#bot/dispatch";
+import { loadPlugins } from "#bot/plugin";
 import { readConfig } from "#utils/config";
 import { init } from "#utils/init";
-import { loadPlugins, processed } from "#utils/load";
 import { boardcast, say, sayMaster } from "#utils/oicq";
 
 global.bots = [];
@@ -86,7 +87,7 @@ async function run() {
     ];
 
     for (const e of events) {
-      bot.on(e, (msg) => processed(msg, plugins, e, bot));
+      bot.on(e, (msg) => dispatch(msg, plugins, e, bot));
     }
 
     await new Promise((resolve) => {
