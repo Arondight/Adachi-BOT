@@ -1,6 +1,6 @@
+import { gachaUpdate } from "#jobs/gacha";
 import { setAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
-import { gachaUpdate } from "#utils/update";
 import { parse } from "./parse.js";
 import { setReplyAuth } from "./reply_auth.js";
 

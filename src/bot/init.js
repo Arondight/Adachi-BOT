@@ -1,7 +1,7 @@
 import express from "express";
 import schedule from "node-schedule";
-import { mysNewsNotice, mysNewsUpdate } from "#jobs/notice";
-import { gachaUpdate } from "#jobs/update";
+import { gachaUpdate } from "#jobs/gacha";
+import { mysNewsNotice, mysNewsUpdate } from "#jobs/news";
 import db from "#utils/database";
 import { renderClose, renderOpen, renderPath } from "#utils/render";
 
