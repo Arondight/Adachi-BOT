@@ -216,6 +216,7 @@ body {
 
 .banner-title > p {
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  transform: translateY(-0.06em);
 }
 
 .container-reveal-rank {
@@ -260,6 +261,7 @@ body {
 
 .showbox-label {
   color: #000;
+  transform: translateY(-0.06em);
 }
 
 .container-vertical.battle-rank {
@@ -347,6 +349,12 @@ body {
 .chamber-indicator {
   justify-self: start;
   font-size: 20px;
+  transform: translateY(-0.05em);
+}
+
+.chamber-indicator > span {
+  position: relative;
+  bottom: 0.1em;
 }
 
 .chamber-stars {
