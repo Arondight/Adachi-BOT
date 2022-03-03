@@ -23,4 +23,4 @@ function getParams(href) {
   return JSON.parse(decodeURIComponentHelper(new URL(href).searchParams.get("data")) || "{}");
 }
 
-export { html, getParams };
+export { getParams, html };
