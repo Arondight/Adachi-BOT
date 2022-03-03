@@ -19,10 +19,24 @@ si.osInfo().then((c) => (os = c));
 si.versions("node, npm").then((c) => (versions = c));
 
 try {
-  browserVer = execSync([puppeteer.executablePath(), "--version"].join(" ")).toString().trim();
+  const cmd = `powershell -command "&{(Get-Item '${puppeteer.executablePath()}').VersionInfo.ProductVersion}"`;
+
+  browserVer = execSync(cmd, { stdio: "pipe" });
 } catch (e) {
-  browserVer = unknown;
+  // do nothing
 }
+
+try {
+  const cmd = `'${puppeteer.executablePath()}' --version`;
+
+  if (undefined === browserVer) {
+    browserVer = execSync(cmd, { stdio: "pipe" });
+  }
+} catch (e) {
+  // do nothing
+}
+
+browserVer = (browserVer || unknown).toString().trim();
 
 async function status(msg = {}) {
   // FIXME 多 QQ 抢占时 load.currentLoad 有概率为 undefined
