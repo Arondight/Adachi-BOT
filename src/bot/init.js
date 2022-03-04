@@ -1,7 +1,7 @@
 import express from "express";
 import schedule from "node-schedule";
 import { gachaUpdate } from "#jobs/gacha";
-import { mysNewsNotice, mysNewsUpdate } from "#jobs/news";
+import { mysNewsNotice, mysNewsTryToResetDB, mysNewsUpdate } from "#jobs/news";
 import db from "#utils/database";
 import { renderClose, renderOpen, renderPath } from "#utils/render";
 
@@ -20,6 +20,8 @@ function initDB() {
   db.init("music", { source: [] });
   db.init("news", { data: {}, timestamp: [] });
   db.init("time");
+
+  mysNewsTryToResetDB();
 }
 
 async function initBrowser() {

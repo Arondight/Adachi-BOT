@@ -15,7 +15,21 @@ function initDB() {
   }
 }
 
+function mysNewsTryToResetDB() {
+  if (1 !== global.config.noticeMysNews) {
+    db.set("news", "timestamp", []);
+  }
+
+  initDB();
+}
+
 async function mysNewsUpdate() {
+  if (1 !== global.config.noticeMysNews) {
+    return;
+  }
+
+  initDB();
+
   const ids = { announcement: 1, event: 2, information: 3 };
   const record = {};
 
@@ -40,10 +54,10 @@ async function mysNewsNotice(withImg = true) {
     return;
   }
 
-  // XXX currently no return before set this false
-  running.mysNewsNotice = true;
-
   initDB();
+
+  // XXX no return before set this false {
+  running.mysNewsNotice = true;
 
   const cacheDir = path.resolve(global.rootdir, "data", "image", "news");
   const data = db.get("news", "data");
@@ -55,7 +69,7 @@ async function mysNewsNotice(withImg = true) {
 
     const news = data[t].data.list;
 
-    for (const n of lodash.sortBy(news, (c) => c.post.created_at)) {
+    for (const n of lodash.sortBy(news, (c) => c.post.created_at).reverse()) {
       if (!lodash.hasIn(n, "post")) {
         continue;
       }
@@ -92,22 +106,25 @@ async function mysNewsNotice(withImg = true) {
       // 立即写入，忽略所有的发送失败
       db.update("news", "timestamp", { type: t }, { time: Math.max(stamp, lastTimeStamp) });
 
-      if (false === silent && stamp > lastTimeStamp && lodash.some(items, (c) => "string" === typeof c && "" !== c)) {
-        const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
+      if (false === silent && stamp > lastTimeStamp) {
+        if (lodash.some(items, (c) => "string" === typeof c && "" !== c)) {
+          const message = items.filter((c) => "string" === typeof c && "" !== c).join("\n");
 
-        for (const bot of global.bots) {
-          const ms = bot.boardcast(
-            message,
-            "group",
-            (c) => false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)
-          );
-          await new Promise((resolve) => setTimeout(resolve, ms));
+          for (const bot of global.bots) {
+            const ms = bot.boardcast(
+              message,
+              "group",
+              (c) => false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)
+            );
+            await new Promise((resolve) => setTimeout(resolve, ms));
+          }
         }
       }
     }
   }
 
   running.mysNewsNotice = false;
+  // }
 }
 
-export { mysNewsNotice, mysNewsUpdate };
+export { mysNewsNotice, mysNewsTryToResetDB, mysNewsUpdate };
