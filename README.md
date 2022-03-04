@@ -61,12 +61,12 @@ cd ./Adachi-BOT/
 ```
 
 <details>
-    <summary>以镜像克隆本项目</summary>
+    <summary>使用国内镜像克隆本项目</summary>
 
 如果你访问 GitHub 的速度很慢，那么请使用下面的命令克隆本项目的镜像。
 
 ```
-git clone https://gitee.com/Xm798/Adachi-BOT.git
+git clone https://gitcode.net/iSpeller/Adachi-BOT.git
 ```
 
 </details>
