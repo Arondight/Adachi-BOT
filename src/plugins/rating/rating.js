@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import fetch from "node-fetch";
-import { imageOrc } from "./data.js";
+import { imageOcr } from "./data.js";
 
 // { "total_score": 700.4420866489831, "total_percent": "77.83", "main_score": 0,
 //   "main_percent": "0.00", "sub_score": 700.4420866489831, "sub_percent": "77.83" }
@@ -11,7 +11,7 @@ async function doRating(msg) {
     "Content-Type": "application/json",
   };
   let data, response, ret;
-  const prop = await imageOrc(msg, url);
+  const prop = await imageOcr(msg, url);
 
   if (undefined === prop) {
     return;

@@ -94,7 +94,7 @@ function adjustProp(obj, bot) {
 //                 { "type": "atk", "name": "攻击力", "value": "117%" },
 //                 { "type": "cr", "name": "暴击率", "value": "10.5" },
 //                 { "type": "cd", "name": "暴击伤害", "value": "14.0" }]}
-async function imageOrc(msg, url) {
+async function imageOcr(msg, url) {
   const headers = {
     "Content-Type": "application/json",
   };
@@ -135,4 +135,4 @@ async function imageOrc(msg, url) {
   return adjustProp(await response.json(), msg.bot);
 }
 
-export { imageOrc };
+export { imageOcr };
