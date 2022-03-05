@@ -92,7 +92,7 @@ async function mysNewsNotice(withImg = true) {
   for (const n of lodash.sortBy(news, (n) => n.stamp)) {
     let image64;
 
-    if (true === withImg && "string" === typeof n[1]) {
+    if (true === withImg && "string" === typeof n[1] && "" !== n[1]) {
       try {
         image64 = await getCache(n[1], cacheDir, "base64");
       } catch (e) {
