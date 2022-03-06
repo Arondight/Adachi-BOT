@@ -301,4 +301,4 @@ function boardcast(bot, msg = "", type = "group", check = () => true) {
   return delay * count;
 }
 
-export { boardcast, fromCqcode, getGroupOfStranger, isFriend, isInGroup, say, sayMaster, toCqcode };
+export { boardcast, fromCqcode, getGroupOfStranger, isFriend, isGroupBan, isInGroup, say, sayMaster, toCqcode };
