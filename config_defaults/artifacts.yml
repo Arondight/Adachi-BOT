@@ -167,6 +167,18 @@ artifacts:
     icon: 15021
     suit: 华馆梦醒形骸记
     names: [ 荣花之期, 华馆之羽, 众生之谣, 梦醒之瓢, 形骸之笠 ]
+  -
+    id: 20
+    rarity: 5
+    icon: null
+    suit: 辰砂往生录
+    names: [ 生灵之华, 潜光片羽, 阳辔之遗, 结契之刻, 虺雷之姿 ]
+  -
+    id: 21
+    rarity: 5
+    icon: null
+    suit: 来歆余响
+    names: [ 魂香之花, 垂玉之叶, 祝祀之凭, 涌泉之盏, 浮溯之钰 ]
 
 #
 # 副本掉落设置。别名 alias 忽略大小写。
@@ -222,3 +234,8 @@ domains:
     name: 沉眠之庭
     alias: [ 防御本, 海染本, 蚌埠本 ]
     product: [ 18, 19 ]
+  -
+    id: 10
+    name: 新副本
+    alias: [ ]
+    product: [ 20, 21 ]

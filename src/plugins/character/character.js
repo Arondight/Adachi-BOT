@@ -84,13 +84,14 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
 
   // 转换图片 URL 为本地资源
   for (const i in data.artifact) {
+    // "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_14001_1.png"
     if ("string" === typeof data.artifact[i].icon && data.artifact[i].icon.includes("UI_RelicIcon")) {
       const id = data.artifact[i].icon
         .match(/UI_RelicIcon_(\d+?)_(\d)/)
         .slice(-2)
         .map((c) => parseInt(c));
 
-      if (Array.isArray(id) && 2 === id.length) {
+      if (Array.isArray(id) && 2 === id.length && id[0] in global.artifacts.artifacts.icon) {
         let base = path.parse(data.artifact[i].icon).base.replace(/^UI_RelicIcon_/, "");
         base = base.replace(/^\d+?(?=_)/, global.artifacts.artifacts.icon[id[0]]);
         base = base.replace(/(?<=^\d+?)_\d(?=[.])/, `/${global.artifacts.path.indexOf(id[1])}`);
