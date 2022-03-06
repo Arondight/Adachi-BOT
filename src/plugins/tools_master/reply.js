@@ -1,4 +1,4 @@
-import { isStranger } from "#utils/oicq";
+import { getGroupOfStranger } from "#utils/oicq";
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
 function doReply(msg, id, text, type) {
@@ -17,10 +17,14 @@ async function reply(msg) {
     const curType = item.group_id ? "group" : "private";
     let id = "group" === curType ? item.group_id : item.user_id;
 
-    if (id === tid || ("group" === curType && true === (await isStranger(msg.bot, id, tid)))) {
+    if (id === tid) {
       doReply(msg, tid, text, id === tid ? curType : "private");
       return;
     }
+  }
+
+  if (1 === global.config.replyStranger && undefined !== (await getGroupOfStranger(msg.bot, tid))) {
+    doReply(msg, tid, text, "private");
   }
 }
 

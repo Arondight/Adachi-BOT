@@ -54,13 +54,15 @@
   readlink                获取文件路径
 
 ./oicq.js
-  boardcast               发送一条广播
   fromCqcode              将 oicq 2.x 的 message 转换为 oicq 1.x 中的 raw_message
+  toCqcode                将 oicq 1.x 的 raw_message 转换为 oicq 2.x 中的 message
   isGroupBan              是否被群禁言
-  isStranger              是否为陌生人
+  isFriend                是否为好友
+  isInGroup               是否在某个群中
+  getGroupOfStranger      得到陌生人的群号
   say                     发送一条消息
   sayMaster               给全体管理员发送一条消息
-  toCqcode                将 oicq 1.x 的 raw_message 转换为 oicq 2.x 中的 message
+  boardcast               发送一条广播
 
 ./id.js
   getID                   获取聊天信息中的 UID 或者米游社 ID

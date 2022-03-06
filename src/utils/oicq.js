@@ -153,7 +153,17 @@ function isGroupBan(msg = {}, type, bot) {
   return false;
 }
 
-async function isStranger(bot, group, id) {
+async function isFriend(bot, id) {
+  for (const [, f] of bot.fl) {
+    if (id === f.user_id) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+async function isInGroup(bot, group, id) {
   const members = await bot.getGroupMemberList(group);
 
   for (const [, m] of members) {
@@ -163,6 +173,19 @@ async function isStranger(bot, group, id) {
   }
 
   return false;
+}
+
+// return number or undefined
+async function getGroupOfStranger(bot, id) {
+  if (false === (await isFriend(bot, id))) {
+    for (const [, g] of bot.gl) {
+      if (true === (await isInGroup(bot, g.group_id, id))) {
+        return g.group_id;
+      }
+    }
+  }
+
+  return undefined;
 }
 
 async function say(
@@ -202,28 +225,16 @@ async function say(
           break;
         }
         case "private": {
-          let isFriend = false;
-
-          for (const [, f] of bot.fl) {
-            if (id === f.user_id) {
-              isFriend = true;
-              break;
-            }
-          }
-
-          if (true === isFriend) {
+          if (true === (await isFriend(bot, id))) {
             bot.sendPrivateMsg(id, fromCqcode(msg));
             return;
           }
 
-          let gid;
-
-          for (const [, g] of bot.gl) {
-            if (true === (await isStranger(bot, g.group_id, id))) {
-              gid = g.group_id;
-              break;
-            }
+          if (1 !== global.config.replyStranger) {
+            throw `不回复陌生人 ${id} 的消息`;
           }
+
+          const gid = await getGroupOfStranger(bot, id);
 
           if (undefined === gid) {
             throw `未找到陌生人 ${id} 所在的群组`;
@@ -290,4 +301,4 @@ function boardcast(bot, msg = "", type = "group", check = () => true) {
   return delay * count;
 }
 
-export { boardcast, isGroupBan, isStranger, say, sayMaster, toCqcode };
+export { boardcast, fromCqcode, getGroupOfStranger, isFriend, isInGroup, say, sayMaster, toCqcode };

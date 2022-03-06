@@ -103,7 +103,8 @@
  *   prefixes: [ null ],
  *   atMe: 1,
  *   atUser: 1,
- *   repeatProb: 100,
+ *   replyStranger: 1,
+ *   repeatProb: 1,
  *   groupHello: 1,
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
@@ -130,6 +131,7 @@
  *   - 987654321
  * atMe: 1
  * atUser: 1
+ * replyStranger: 1
  * repeatProb: 1
  * groupHello: 1
  * groupGreetingNew: 1
@@ -647,6 +649,8 @@ function readSetting() {
     atMe: 0,
     // 群聊回复时不 @ 用户
     atUser: 0,
+    // 不回复陌生人消息
+    replyStranger: 0,
     // 不复读群消息
     repeatProb: 0,
     // 不发送群通知
@@ -690,6 +694,7 @@ function readSetting() {
   const prefixes = Setting.prefixes;
   const atMe = parseInt(Setting.atMe);
   const atUser = parseInt(Setting.atUser);
+  const replyStranger = parseInt(Setting.replyStranger);
   const repeatProb = parseInt(parseFloat(Setting.repeatProb) * 100);
   const groupHello = parseInt(Setting.groupHello);
   const groupGreetingNew = parseInt(Setting.groupGreetingNew);
@@ -723,6 +728,7 @@ function readSetting() {
     },
     { atMe },
     { atUser },
+    { replyStranger },
     { repeatProb },
     { groupHello },
     { groupGreetingNew },
