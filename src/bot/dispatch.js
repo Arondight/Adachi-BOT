@@ -14,7 +14,7 @@ async function doPossibleCommand(msg, plugins, type, bot) {
 
   msg.groupOfStranger = await getGroupOfStranger(bot, msg.user_id);
 
-  if (1 !== global.config.replyStranger && undefined !== msg.groupOfStranger) {
+  if ("private" === type && 1 !== global.config.replyStranger && undefined !== msg.groupOfStranger) {
     return false;
   }
 
