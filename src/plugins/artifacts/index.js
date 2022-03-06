@@ -12,10 +12,9 @@ async function Plugin(msg) {
   const guess = guessPossibleNames(
     text,
     lodash
-      .chain(global.artifacts.domains.alias)
+      .chain(Object.assign({}, global.artifacts.domains.alias, global.artifacts.domains.name))
       .toPairs()
       .flatten()
-      .concat(Object.keys(global.artifacts.domains.name))
       .uniq()
       .value()
   );
