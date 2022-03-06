@@ -234,6 +234,8 @@ async function say(
             throw `不回复陌生人 ${id} 的消息`;
           }
 
+          // FIXME 传参缺陷，这里只能再次调用 getGroupOfStranger
+          // XXX   此处如更改需要确保向前兼容
           const gid = await getGroupOfStranger(bot, id);
 
           if (undefined === gid) {
