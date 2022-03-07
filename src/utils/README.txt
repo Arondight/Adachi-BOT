@@ -58,6 +58,7 @@
   toCqcode                将 oicq 1.x 的 raw_message 转换为 oicq 2.x 中的 message
   isGroupBan              是否被群禁言
   isFriend                是否为好友
+  isGroup                 是否为群组
   isInGroup               是否在某个群中
   getGroupOfStranger      得到陌生人的群号
   say                     发送一条消息

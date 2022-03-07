@@ -153,9 +153,19 @@ function isGroupBan(msg = {}, type, bot) {
   return false;
 }
 
-async function isFriend(bot, id) {
+function isFriend(bot, id) {
   for (const [, f] of bot.fl) {
     if (id === f.user_id) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function isGroup(bot, id) {
+  for (const [, g] of bot.gl) {
+    if (id === g.group_id) {
       return true;
     }
   }
@@ -177,7 +187,7 @@ async function isInGroup(bot, group, id) {
 
 // return number or undefined
 async function getGroupOfStranger(bot, id) {
-  if (false === (await isFriend(bot, id))) {
+  if (false === isFriend(bot, id)) {
     for (const [, g] of bot.gl) {
       if (true === (await isInGroup(bot, g.group_id, id))) {
         return g.group_id;
@@ -225,7 +235,7 @@ async function say(
           break;
         }
         case "private": {
-          if (true === (await isFriend(bot, id))) {
+          if (true === isFriend(bot, id)) {
             bot.sendPrivateMsg(id, fromCqcode(msg));
             return;
           }
@@ -303,4 +313,15 @@ function boardcast(bot, msg = "", type = "group", check = () => true) {
   return delay * count;
 }
 
-export { boardcast, fromCqcode, getGroupOfStranger, isFriend, isGroupBan, isInGroup, say, sayMaster, toCqcode };
+export {
+  boardcast,
+  fromCqcode,
+  getGroupOfStranger,
+  isFriend,
+  isGroup,
+  isGroupBan,
+  isInGroup,
+  say,
+  sayMaster,
+  toCqcode,
+};

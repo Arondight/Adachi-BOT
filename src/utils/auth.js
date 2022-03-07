@@ -1,4 +1,5 @@
 import db from "#utils/database";
+import { isGroup } from "#utils/oicq";
 
 function hasAuth(id, func) {
   const data = db.get("authority", "user", { userID: id }) || {};
@@ -12,9 +13,6 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
     funcs = [funcs];
   }
 
-  // TODO
-  // 1. 检查是否为好友或者群
-  // 2. 也给对方一个通知
   funcs.forEach((f) => {
     const name = global.command.functions.name[f] ? `【${global.command.functions.name[f]}】` : f;
     const data = db.get("authority", "user", { userID: id });
@@ -29,8 +27,11 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
   });
 
   if (true === report && undefined !== msg.bot) {
-    const text = `我已经开始${isOn ? "允许" : "禁止"} ${id} 的${names.join("")}功能！`;
-    msg.bot.sayMaster(msg.sid, text, msg.type, msg.uid);
+    const formatter = `我已经开始${isOn ? "允许" : "禁止"} {} 的${names.join("")}功能！`;
+    const targetType = true === isGroup(msg.bot, id) ? "group" : "private";
+
+    msg.bot.sayMaster(msg.sid, formatter.replace("{}", id), msg.type, msg.uid);
+    msg.bot.say(id, formatter.replace("{}", "您"), targetType);
   }
 }
 
