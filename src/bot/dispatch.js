@@ -144,7 +144,7 @@ function doSystemOnline(bot) {
   bot.sayMaster(undefined, "我上线了。");
 
   // 尝试通知群
-  if (global.config.groupHello) {
+  if (1 === global.config.groupHello) {
     bot.gl.forEach((group) => {
       const greeting =
         false !== checkAuth({ sid: group.group_id }, global.innerAuthName.reply, false)
