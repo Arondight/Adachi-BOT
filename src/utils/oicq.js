@@ -122,7 +122,7 @@ function fromCqcode(text = "") {
     const s = c.replace(new RegExp(Object.keys(CQ).join("|"), "g"), (s) => CQ[s] || "");
     let cq = c.replace("[CQ:", "type=");
 
-    if ("string" === typeof s && "" !== s && false === s.includes("[CQ:")) {
+    if ("string" === typeof s && "" !== s && !s.includes("[CQ:")) {
       elems.push({ type: "text", text: s });
       continue;
     }
@@ -187,9 +187,9 @@ async function isInGroup(bot, group, id) {
 
 // return number or undefined
 async function getGroupOfStranger(bot, id) {
-  if (false === isFriend(bot, id)) {
+  if (!isFriend(bot, id)) {
     for (const [, g] of bot.gl) {
-      if (true === (await isInGroup(bot, g.group_id, id))) {
+      if (await isInGroup(bot, g.group_id, id)) {
         return g.group_id;
       }
     }
@@ -214,7 +214,7 @@ async function say(
         case "group": {
           const ginfo = await bot.getGroupInfo(id);
 
-          if (true === isGroupBan({ group_id: ginfo.group_id, group_name: ginfo.group_name }, type, bot)) {
+          if (isGroupBan({ group_id: ginfo.group_id, group_name: ginfo.group_name }, type, bot)) {
             return;
           }
 
@@ -235,7 +235,7 @@ async function say(
           break;
         }
         case "private": {
-          if (true === isFriend(bot, id)) {
+          if (isFriend(bot, id)) {
             bot.sendPrivateMsg(id, fromCqcode(msg));
             return;
           }
@@ -282,7 +282,7 @@ function boardcast(bot, msg = "", type = "group", check = () => true) {
   let count = 0;
 
   list.forEach((c) => {
-    if (true === check(c)) {
+    if (check(c)) {
       // 广播无法 @
       const send = () => say(bot, isGroup ? c.group_id : c.user_id, msg, type);
 

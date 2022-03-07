@@ -75,7 +75,7 @@ async function doPossibleCommand(msg, plugins, type, bot) {
         return true;
       }
 
-      if ("group" === type && true === isGroupBan(msg, type, bot)) {
+      if ("group" === type && isGroupBan(msg, type, bot)) {
         return true;
       }
 
@@ -168,7 +168,7 @@ async function dispatch(msg, plugins, event, bot) {
 
   // 如果信息是命令，尝试指派插件处理命令
   if (Object.keys(types).includes(event) && lodash.find(msg.message, { type: "text" })) {
-    if (true === (await doPossibleCommand(msg, plugins, types[event], bot))) {
+    if (await doPossibleCommand(msg, plugins, types[event], bot)) {
       return;
     }
   }

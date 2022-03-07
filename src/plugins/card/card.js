@@ -33,7 +33,7 @@ async function doCard(msg) {
     const detailInfo = await indexDetail(...baseInfo, msg.uid, msg.bot);
     await characterDetail(...baseInfo, detailInfo, false, msg.bot);
   } catch (e) {
-    if (true === handleDetailError(msg, e)) {
+    if (handleDetailError(msg, e)) {
       return;
     }
   }

@@ -4,6 +4,7 @@ import { LowSync, MemorySync } from "lowdb";
 import path from "path";
 import { merge } from "#utils/merge";
 
+// 无需加锁
 const db = {};
 
 function mkpath(...path) {
@@ -66,7 +67,6 @@ function saved(dbName) {
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, struct = { user: [] }) {
   db[dbName] = new LowSync(new MemorySync());
-  db[dbName].read();
   db[dbName].data = saved(dbName) || {};
   Object.keys(struct).forEach((c) => {
     if (undefined === db[dbName].data[c]) {
@@ -134,7 +134,7 @@ function includes(dbName, key, ...data) {
     const obj = db[dbName].chain.get(path).value();
 
     if (Array.isArray(obj)) {
-      if (true === lodash.some(obj, predicate)) {
+      if (lodash.some(obj, predicate)) {
         return true;
       }
     } else {
@@ -228,7 +228,7 @@ function get(dbName, key, ...data) {
     result = merge(...lodash.chain(obj).filter(predicate).reverse().value());
   }
 
-  return true === lodash.isEmpty(result) ? undefined : result;
+  return lodash.isEmpty(result) ? undefined : result;
 }
 
 function set(dbName, key, ...data) {
@@ -277,7 +277,7 @@ function update(dbName, key, ...data) {
     dataNew = merge(dataOld, value);
   }
 
-  if (true === remove(dbName, path, index)) {
+  if (remove(dbName, path, index)) {
     if (Array.isArray(get(dbName, path))) {
       return push(dbName, path, dataNew);
     } else {

@@ -28,7 +28,7 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
 
   if (true === report && undefined !== msg.bot) {
     const formatter = `我已经开始${isOn ? "允许" : "禁止"} {} 的${names.join("")}功能！`;
-    const targetType = true === isGroup(msg.bot, id) ? "group" : "private";
+    const targetType = isGroup(msg.bot, id) ? "group" : "private";
 
     msg.bot.sayMaster(msg.sid, formatter.replace("{}", id), msg.type, msg.uid);
     msg.bot.say(id, formatter.replace("{}", "您"), targetType);

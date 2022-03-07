@@ -10,9 +10,6 @@ function increaseIndex() {
 }
 
 function isValidCookie(cookie) {
-  // XXX 是否要使用某个 API 真正地去验证 Cookie 合法性？
-  // 优点：真正地能区分 Cookie 是否有效
-  // 缺点：依赖网络并且耗时较多
   if ("string" === typeof cookie && cookie.match(/cookie_token=\w+?\b/) && cookie.match(/account_id=\w+?\b/)) {
     return true;
   }

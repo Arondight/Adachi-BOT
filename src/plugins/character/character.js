@@ -71,7 +71,7 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
       }
     }
   } catch (e) {
-    if (true === handleDetailError(msg, e)) {
+    if (handleDetailError(msg, e)) {
       return;
     }
   }

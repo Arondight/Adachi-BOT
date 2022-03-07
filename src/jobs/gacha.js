@@ -11,7 +11,7 @@ async function parseGachaData(gachaID) {
     return undefined;
   }
 
-  let data = {
+  const data = {
     gacha_type: parseInt(res.gacha_type),
     upFourStar: [],
     upFiveStar: [],

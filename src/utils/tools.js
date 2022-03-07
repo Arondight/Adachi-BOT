@@ -21,7 +21,7 @@ function matchBracket(text, index, brackets = ["[", "]"]) {
     return -4;
   }
 
-  if (false === Array.isArray(brackets) || 2 !== brackets.length) {
+  if (!Array.isArray(brackets) || 2 !== brackets.length) {
     return -5;
   }
 

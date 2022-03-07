@@ -44,7 +44,7 @@ async function doPackage(msg) {
     const detailInfo = await indexDetail(...dbInfo, msg.uid, msg.bot);
     await characterDetail(...dbInfo, detailInfo, false, msg.bot);
   } catch (e) {
-    if (true === handleDetailError(msg, e)) {
+    if (handleDetailError(msg, e)) {
       return;
     }
   }

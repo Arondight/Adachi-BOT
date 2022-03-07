@@ -64,13 +64,13 @@ function syncDBJob() {
 }
 
 async function mysNewsJob() {
-  if (true === (await mysNewsUpdate())) {
+  if (await mysNewsUpdate()) {
     mysNewsNotice();
   }
 }
 
 async function updateGachaJob() {
-  if (true === (await gachaUpdate())) {
+  if (await gachaUpdate()) {
     global.bots.logger.debug("卡池：内容已刷新。");
   } else {
     global.bots.logger.debug("卡池：刷新内容失败。");

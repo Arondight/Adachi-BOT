@@ -33,7 +33,7 @@ async function doAby(msg, schedule_type = 1) {
 
     await abyDetail(...dbInfo, msg.uid, schedule_type.toString(), msg.bot);
   } catch (e) {
-    if (true === handleDetailError(msg, e)) {
+    if (handleDetailError(msg, e)) {
       return;
     }
   }
