@@ -430,6 +430,7 @@ save:
   enable: true
   weights: 9999
   regex:
+    - ^(绑定|改绑)\s*$
     # XXX 如果 ../src/utils/id.js 中的 getID 变更，这里需要同步改动
     - ^(绑定|改绑)\s*\d{6,10}\s*$
   functions:
@@ -440,16 +441,6 @@ save:
       name: 绑定
       usage: <米游社通行证ID>
       revert: false
-      description: null
+      description: 不带ID则解除已有绑定
       entrance:
-        - ^绑定
-    change:
-      type: command
-      show: true
-      weights: 9899
-      name: 改绑
-      usage: <米游社通行证ID>
-      revert: false
-      description: null
-      entrance:
-        - ^改绑
+        - ^(绑定|改绑)
