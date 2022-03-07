@@ -104,10 +104,14 @@ async function init() {
   cleanDBJob();
   syncDBJob();
 
-  schedule.scheduleJob("*/5 * * * *", () => syncDBJob());
-  schedule.scheduleJob("*/5 * * * *", () => mysNewsJob());
-  schedule.scheduleJob("1 */1 * * *", () => cleanDBJob());
-  schedule.scheduleJob("0 */1 * * *", () => updateGachaJob());
+  schedule.scheduleJob("*/5 * * * *", async () => {
+    syncDBJob();
+    await mysNewsJob();
+  });
+  schedule.scheduleJob("0 */1 * * *", async () => {
+    cleanDBJob();
+    await updateGachaJob();
+  });
 }
 
 export { init };
