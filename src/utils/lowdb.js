@@ -27,10 +27,10 @@ class LowJSONCacheSync {
   }
 
   // return boolean
-  write() {
+  write(obj) {
     try {
-      if (this.data) {
-        this._cacheAdapter.write(this.data);
+      if (obj) {
+        this._cacheAdapter.write(obj);
         return true;
       }
     } catch (e) {

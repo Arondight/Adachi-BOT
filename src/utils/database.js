@@ -50,15 +50,17 @@ function names() {
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, struct = { user: [] }) {
   const filename = path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
-
   db[dbName] = new LowJSONCacheSync(filename);
-  db[dbName].data = db[dbName].load() || {};
+  db[dbName].write(db[dbName].load() || {});
+
+  const data = db[dbName].read();
+  db[dbName].chain = lodash.chain(data);
+
   Object.keys(struct).forEach((c) => {
-    if (undefined === db[dbName].data[c]) {
-      Object.assign(db[dbName].data, { [c]: struct[c] });
+    if (undefined === data[c]) {
+      Object.assign(data, { [c]: struct[c] });
     }
   });
-  db[dbName].chain = lodash.chain(db[dbName].data);
 
   return true;
 }
