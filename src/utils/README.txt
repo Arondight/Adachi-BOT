@@ -53,6 +53,9 @@
   mkdir                   创建文件目录
   readlink                获取文件路径
 
+./lowdb.js
+  LowJSONCacheSync        带内存缓存的 JSON 格式数据存储
+
 ./oicq.js
   fromCqcode              将 oicq 2.x 的 message 转换为 oicq 1.x 中的 raw_message
   toCqcode                将 oicq 1.x 的 raw_message 转换为 oicq 2.x 中的 message
