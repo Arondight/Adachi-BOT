@@ -1,7 +1,6 @@
-import fs from "fs";
 import lodash from "lodash";
-import { LowSync, MemorySync } from "lowdb";
 import path from "path";
+import { LowJSONCacheSync } from "#utils/lowdb";
 import { merge } from "#utils/merge";
 
 // 无需加锁
@@ -48,26 +47,12 @@ function names() {
   return Object.keys(db) || [];
 }
 
-function file(dbName) {
-  return path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
-}
-
-function saved(dbName) {
-  let data;
-
-  try {
-    data = JSON.parse(fs.readFileSync(file(dbName)));
-  } catch (e) {
-    // Do nothing
-  }
-
-  return data;
-}
-
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, struct = { user: [] }) {
-  db[dbName] = new LowSync(new MemorySync());
-  db[dbName].data = saved(dbName) || {};
+  const filename = path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
+
+  db[dbName] = new LowJSONCacheSync(filename);
+  db[dbName].data = db[dbName].load() || {};
   Object.keys(struct).forEach((c) => {
     if (undefined === db[dbName].data[c]) {
       Object.assign(db[dbName].data, { [c]: struct[c] });
@@ -79,12 +64,11 @@ function init(dbName, struct = { user: [] }) {
 }
 
 function sync(dbName) {
-  if (db[dbName]) {
-    fs.writeFileSync(file(dbName), JSON.stringify(db[dbName].data, null, 2));
-    return true;
-  }
+  return db[dbName].sync();
+}
 
-  return false;
+function file(dbName) {
+  return db[dbName].file();
 }
 
 function has(dbName, key, ...data) {
