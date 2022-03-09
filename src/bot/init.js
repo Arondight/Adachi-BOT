@@ -40,7 +40,7 @@ async function lastWords() {
 
   for (const bot of global.bots) {
     if (1 === global.config.groupHello) {
-      await bot.boardcast(message, "group");
+      await bot.boardcast(global.greeting.offline || message, "group");
     }
 
     await bot.sayMaster(undefined, message);
