@@ -15,7 +15,7 @@ body {
   width: 746px;
   height: 769px;
   color: white;
-  -webkit-text-stroke: 0.018em inherit;
+  -webkit-text-stroke: 0.018em currentColor;
 }
 
 body {

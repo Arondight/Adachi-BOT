@@ -26,7 +26,7 @@ body,
 #app {
   width: 800px;
   overflow-x: hidden;
-  -webkit-text-stroke: 0.018em inherit;
+  -webkit-text-stroke: 0.018em currentColor;
   letter-spacing: 0.01em;
 }
 
@@ -327,7 +327,7 @@ img.materials {
   padding: 6px 10px;
   font-family: "Source Han Sans SC", sans-serif;
   font-size: 20px;
-  -webkit-text-stroke: 0.036em inherit;
+  -webkit-text-stroke: 0.036em currentColor;
 }
 
 .constellation-order {
@@ -340,7 +340,7 @@ img.materials {
   font-family: "Source Han Sans SC", sans-serif;
   font-size: 20px;
   filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
-  -webkit-text-stroke: 0.036em inherit;
+  -webkit-text-stroke: 0.036em currentColor;
   display: block;
   overflow-wrap: anywhere;
 }
