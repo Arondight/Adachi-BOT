@@ -26,7 +26,7 @@ body,
 #app {
   width: 800px;
   overflow-x: hidden;
-  -webkit-text-stroke: 0.018em;
+  -webkit-text-stroke: 0.018em inherit;
   letter-spacing: 0.01em;
 }
 

@@ -14,7 +14,7 @@ body {
   width: 1286px;
   font-family: GenshinUsedFont, monospace;
   color: #fff;
-  -webkit-text-stroke: 0.018em;
+  -webkit-text-stroke: 0.018em inherit;
 }
 
 #particles-js {
