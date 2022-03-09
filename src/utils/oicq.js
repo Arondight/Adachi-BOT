@@ -113,7 +113,6 @@ function fromCqcode(text = "") {
           items.push(text.substring(i, pos + 1));
           i = pos;
           itemsSize = items.length;
-          continue;
         }
     }
   }

@@ -100,7 +100,7 @@ async function doCharacter(msg, name, isMyChar = false, guess = []) {
           fs.accessSync(path.resolve(global.rootdir, "resources", "Version2", "artifact", base), fs.constants.R_OK);
           data.artifact[i].icon = `http://localhost:9934/resources/Version2/artifact/${base}`;
         } catch (e) {
-          continue;
+          // do nothing
         }
       }
     }

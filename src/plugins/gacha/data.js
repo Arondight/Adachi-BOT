@@ -271,7 +271,7 @@ function gachaTimes(userID, nickname, times = 10) {
     })
     .value();
   // 无定轨，fate 不可信
-  result.path = { fate: path.fate || 0, course: { type: fateCourse.item_type, name: fateCourse.item_name } };
+  result.path = { fate: (path || {}).fate || 0, course: { type: fateCourse.item_type, name: fateCourse.item_name } };
 
   // 彩蛋卡池不写入数据库
   if (999 !== choice) {

@@ -485,7 +485,7 @@ function getCommand(obj, key) {
                 );
               } else {
                 return lodash.transform(o, (r, v, k) => {
-                  r[(k = "string" === typeof k ? k.toLowerCase() : k)] = "string" === typeof v ? v.toLowerCase() : v;
+                  r["string" === typeof k ? k.toLowerCase() : k] = "string" === typeof v ? v.toLowerCase() : v;
                 });
               }
             };

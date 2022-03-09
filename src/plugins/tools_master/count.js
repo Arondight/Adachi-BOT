@@ -15,7 +15,6 @@ function count(msg) {
   report += `\n群友个数：${num}`;
 
   msg.bot.say(msg.sid, report, msg.type, msg.uid, false, "\n");
-  return;
 }
 
 export { count };

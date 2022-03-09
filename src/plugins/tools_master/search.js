@@ -27,7 +27,7 @@ function search(msg) {
 
   if (hasEntrance(msg.text, "tools_master", "search")) {
     listAll.forEach((item) => {
-      const isGroup = item.group_name ? true : false;
+      const isGroup = !!item.group_name;
       const itemName = isGroup ? item.group_name : item.nickname;
       const itemID = isGroup ? item.group_id : item.user_id;
       const typeStr = isGroup ? "群组" : "好友";
@@ -39,7 +39,6 @@ function search(msg) {
 
     report += report ? "" : `没有找到昵称或者 QQ 号中包含 ${text} 的群或好友。`;
     msg.bot.say(msg.sid, report, msg.type, msg.uid, false, "\n");
-    return;
   }
 }
 

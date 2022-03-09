@@ -623,7 +623,6 @@ async function main() {
     }
 
     console.log(`没有找到名为“${argv.name}”的角色或武器。`);
-    return;
   }
 }
 

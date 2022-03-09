@@ -10,11 +10,7 @@ function increaseIndex() {
 }
 
 function isValidCookie(cookie) {
-  if ("string" === typeof cookie && cookie.match(/cookie_token=\w+?\b/) && cookie.match(/account_id=\w+?\b/)) {
-    return true;
-  }
-
-  return false;
+  return !!("string" === typeof cookie && cookie.match(/cookie_token=\w+?\b/) && cookie.match(/account_id=\w+?\b/));
 }
 
 function getEffectiveCookie(uid, s, use_cookie) {
@@ -194,7 +190,7 @@ function tryToWarnInvalidCookie(retcode, cookie) {
         retVal = warnInvalidCookie(cookie);
         break;
       case maxTimeCode.includes(retcode):
-        retVal = markCookieUnusable(cookie);
+        markCookieUnusable(cookie);
         break;
     }
   }

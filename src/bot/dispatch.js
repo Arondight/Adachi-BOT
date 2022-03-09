@@ -20,8 +20,8 @@ async function doPossibleCommand(msg, plugins, type, bot) {
 
   // 处理 @ 机器人
   // [CQ:at,type=at,qq=123456789,text=@昵称]
-  const atMeReg = new RegExp(`^\\s*\\[CQ:at,type=.*?,qq=${bot.uin},text=.+?\\]\\s*`);
-  const atMe = lodash.chain(msg.message).filter({ type: "at" }).find({ qq: bot.uin }).value() ? true : false;
+  const atMeReg = new RegExp(`^\\s*\\[CQ:at,type=.*?,qq=${bot.uin},text=.+?]\\s*`);
+  const atMe = !!lodash.chain(msg.message).filter({ type: "at" }).find({ qq: bot.uin }).value();
 
   if (atMe) {
     switch (global.config.atMe) {

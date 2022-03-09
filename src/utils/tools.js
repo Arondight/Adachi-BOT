@@ -152,10 +152,8 @@ function similarity(s1, s2) {
 
 function isPossibleName(name, names) {
   if ("string" === typeof name) {
-    const s1 = name;
-
-    for (const s2 of names) {
-      if ("string" === typeof s2 && similarity(s1, s2) <= similarityMaxValue) {
+    for (const n of names) {
+      if ("string" === typeof n && similarity(name, n) <= similarityMaxValue) {
         return true;
       }
     }

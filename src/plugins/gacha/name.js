@@ -8,7 +8,7 @@ function getName(msg) {
   const name = getText(msg, global.command.functions.entrance.select);
 
   if ("string" === typeof name && name.length > 0) {
-    return global.names.weaponAlias["string" === typeof name ? name.toLowerCase() : name] || name;
+    return global.names.weaponAlias[name.toLowerCase()] || name;
   }
 
   return undefined;

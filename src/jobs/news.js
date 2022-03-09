@@ -35,7 +35,7 @@ async function mysNewsUpdate() {
     try {
       record[t] = await getMysNews(ids[t]);
     } catch (e) {
-      continue;
+      // do nothing
     }
   }
 

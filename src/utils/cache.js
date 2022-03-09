@@ -22,11 +22,7 @@ async function isCached(url, dir) {
       return false;
     }
 
-    if (200 !== response.status || du(filepath) !== (await response.headers.get("Content-length"))) {
-      return false;
-    }
-
-    return true;
+    return !(200 !== response.status || du(filepath) !== parseInt(response.headers.get("Content-length")));
   }
 
   return false;

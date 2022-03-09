@@ -266,8 +266,7 @@ async function indexDetail(uid, server, userID, bot) {
 
   db.update("time", "user", { uid }, { time: nowTime });
   bot.logger.debug(`缓存：新增 ${uid} 的玩家数据，缓存 ${global.config.cacheInfoEffectTime} 小时。`);
-  const characterID = data.avatars.map((el) => el.id);
-  return characterID;
+  return data.avatars.map((el) => el.id);
 }
 
 // 适应米游社 API 改版，如果 guess 为 true 则猜测所有除了 character_ids 之外可能的角色。
@@ -308,7 +307,7 @@ async function characterDetail(uid, server, character_ids, guess = false, bot) {
     const knownRoleChunks = lodash.chunk(knownRoles, MAX_QUERY_NUM);
     const roleNumber = (stats || {}).avatar_number;
     let queryList = knownRoleChunks;
-    let promises = [];
+    let promises;
 
     if (roleNumber !== (record || []).length) {
       const otherRoles = global.info.character.filter((c) => !character_ids.includes(c.id)).map((c) => c.id);
@@ -358,7 +357,6 @@ async function characterDetail(uid, server, character_ids, guess = false, bot) {
   }
 
   db.update("info", "user", { uid }, { avatars });
-  return;
 }
 
 export { abyDetail, baseDetail, characterDetail, handleDetailError, indexDetail };

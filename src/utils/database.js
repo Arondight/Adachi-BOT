@@ -89,7 +89,7 @@ function has(dbName, key, ...data) {
 
   const result = db[dbName].chain.hasIn(path).value();
 
-  return result ? true : false;
+  return !!result;
 }
 
 function includes(dbName, key, ...data) {
