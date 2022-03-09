@@ -64,7 +64,7 @@ async function gachaUpdate() {
       if (undefined === raw_gacha_data.gacha_type) {
         return false;
       }
-      if (current_time - moment(c.end_time).tz("Asia/Shanghai") < 0) {
+      if (current_time - moment(c.begin_time).tz("Asia/Shanghai") >= 0) {
         data[c.gacha_type] = raw_gacha_data;
       }
     }
