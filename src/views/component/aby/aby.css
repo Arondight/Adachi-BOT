@@ -208,7 +208,7 @@ body {
   width: 408px;
   overflow: hidden;
   white-space: nowrap;
-  -webkit-text-stroke: 0px;
+  -webkit-text-stroke: unset;
   display: flex;
   flex-direction: column;
   align-items: center;

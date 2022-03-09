@@ -23,7 +23,7 @@
 
 html {
   background-color: #efeae3;
-  -webkit-text-stroke: 0.018em;
+  -webkit-text-stroke: 0.018em inherit;
 }
 
 body {
