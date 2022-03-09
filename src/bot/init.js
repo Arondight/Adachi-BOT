@@ -36,7 +36,7 @@ function doDBClean(name) {
 }
 
 async function lastWords() {
-  const message = "我下线了。";
+  const message = "我下线了";
 
   for (const bot of global.bots) {
     if (1 === global.config.groupHello) {
