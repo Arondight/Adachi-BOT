@@ -1,4 +1,5 @@
 import lodash from "lodash";
+import moment from "moment";
 import { getGachaDetail, getGachaList } from "#utils/api";
 import db from "#utils/database";
 
@@ -57,7 +58,13 @@ async function gachaUpdate() {
   }
 
   if (lodash.hasIn(info, "data.list") && Array.isArray(info.data.list)) {
-    for (const c of info.data.list) {
+    const list = lodash
+      .chain(info.data.list)
+      .sortBy((c) => [c.gacha_type, moment(c.begin_time).valueOf()])
+      .reverse()
+      .value();
+
+    for (const c of list) {
       if (!lodash.hasIn(data, c.gacha_type)) {
         if (undefined === (data[c.gacha_type] = await parseGachaData(c.gacha_id))) {
           return false;
