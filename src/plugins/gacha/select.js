@@ -8,8 +8,7 @@ function doSelect(msg, name = undefined) {
   const { choice } = db.get("gacha", "user", { userID: msg.uid }) || {};
 
   if (choice !== 302) {
-    msg.bot.say(msg.sid, "当前非武器卡池无法进行定轨。", msg.type, msg.uid, true);
-    return;
+    db.update("gacha", "user", { userID: msg.uid }, { choice: 302 });
   }
 
   const table = db.get("gacha", "data", { gacha_type: 302 }) || {};
@@ -37,8 +36,7 @@ function doSelectWhat(msg) {
   const { choice } = db.get("gacha", "user", { userID: msg.uid }) || {};
 
   if (choice !== 302) {
-    msg.bot.say(msg.sid, "当前非武器卡池无法查看定轨。", msg.type, msg.uid, true);
-    return;
+    db.update("gacha", "user", { userID: msg.uid }, { choice: 302 });
   }
 
   const table = db.get("gacha", "data", { gacha_type: 302 }) || {};
