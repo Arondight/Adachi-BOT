@@ -22,7 +22,7 @@ async function doCard(msg) {
   }
 
   try {
-    emoticons = await getEmoticons();
+    emoticons = (await getEmoticons()).data || [];
   } catch (e) {
     emoticons = [];
   }

@@ -16,7 +16,7 @@ async function doPackage(msg) {
   }
 
   try {
-    emoticons = await getEmoticons();
+    emoticons = (await getEmoticons()).data || [];
   } catch (e) {
     emoticons = [];
   }
