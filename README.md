@@ -33,25 +33,20 @@
 
 #### 准备环境
 
-> 建议提供一个内存和交换空间容量**总和**达到 `1.5 GiB` 的 Linux 环境进行部署，以运行无头浏览器。
-
-首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较旧版本的 Node.js 。下面演示了两个常用的发行版系列中安装新版 Node.js 的方法，其他发行版请自行解决此问题。
-
-##### CentOS、RHEL
+首先你需要有一份较新的 [Node.js](https://nodejs.org/en/download/) ，本项目不兼容较旧版本的 Node.js 。
 
 ```sh
-sudo yum -y remove nodejs
-curl -fsSL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
-sudo yum -y install nodejs
+echo 'export N_NODE_MIRROR="https://mirrors.ustc.edu.cn/node/"' | tee -a ~/.bashrc
+echo 'export N_NODE_DOWNLOAD_MIRROR="https://mirrors.ustc.edu.cn/node/"' | tee -a ~/.bashrc
+source ~/.bashrc
+
+curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | sudo -E bash -s lts
+sudo --preserve-env=PATH env npm install -g n
+sudo --preserve-env=PATH env n lts
 ```
 
-##### Ubuntu、Debian
-
-```sh
-sudo apt -y remove nodejs
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt -y install nodejs
-```
+> 1. 建议提供一个内存和交换空间容量**总和**达到 `1.5 GiB` 的 Linux 环境进行部署，以运行无头浏览器。
+> 2. 不要遗漏 `tee` 命令的 `-a` 选项，否则你的 `~/.bashrc` 将被破坏。
 
 #### 克隆项目
 
@@ -99,8 +94,8 @@ sudo yum -y install chromium
 
 cp -v ~/.bashrc{,-backup}
 
-echo "export PUPPETEER_EXECUTABLE_PATH='/usr/lib64/chromium-browser/chromium-browser'" | tee -a ~/.bashrc
-echo "export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'" | tee -a ~/.bashrc
+echo 'export PUPPETEER_EXECUTABLE_PATH="/usr/lib64/chromium-browser/chromium-browser"' | tee -a ~/.bashrc
+echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"' | tee -a ~/.bashrc
 source ~/.bashrc
 
 npm install
