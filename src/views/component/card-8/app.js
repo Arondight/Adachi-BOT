@@ -4,8 +4,14 @@ import { CharacterBox, ExplorationBox, HomeBox, SectionTitle } from "./cardCompo
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
 
-const template = html`<div class="user-base-page">
+// noinspection HtmlRequiredAltAttribute
+const template = html` <div class="user-base-page">
   <div class="left">
+    <div class="page-frame">
+      <img class="user-namecard-top" src="http://localhost:9934/resources/Version2/frames/namecard-top.svg" />
+      <div class="left-page-middle-frame" />
+      <img class="user-namecard-bottom" src="http://localhost:9934/resources/Version2/frames/namecard-top.svg" />
+    </div>
     <div class="top" :style="{ 'background-image': 'url(' + nameCard + ')'}">
       <div class="profile">
         <img class="character" :src="character" alt="ERROR" />
@@ -18,8 +24,8 @@ const template = html`<div class="user-base-page">
         </div>
       </div>
     </div>
-    <div class="container-middle">
-      <div class="middle">
+    <div class="container-stats">
+      <div class="stats">
         <p>活跃天数</p>
         <p>{{ stats.active_day_number }}</p>
         <p>获得角色</p>
@@ -47,7 +53,7 @@ const template = html`<div class="user-base-page">
       </div>
     </div>
     <div class="container-home-box">
-      <SectionTitle class="bottom-split" :title="homeboxTitle" />
+      <SectionTitle :title="homeboxTitle" :subtitle="homeboxSubtitle" />
       <div class="container-homes">
         <HomeBox v-for="home in homes" :data="home" />
       </div>
@@ -60,19 +66,18 @@ const template = html`<div class="user-base-page">
 
   <div class="right">
     <div class="world">
-      <SectionTitle title="世界探索" />
+      <SectionTitle title="世界探索" :subtitle="!1" />
       <div class="container-exploration">
-        <div class="explorations">
-          <ExplorationBox v-for="e in explorations" :data="e" />
-        </div>
+        <ExplorationBox v-for="exploration in explorations" :data="exploration" />
       </div>
     </div>
     <div class="container-character">
-      <SectionTitle title="角色展柜" />
-      <div class="container-vertical">
-        <div class="box">
-          <CharacterBox v-for="a in data.avatars" :data="a" />
-        </div>
+      <SectionTitle
+        title="角色展柜"
+        :subtitle="data.avatars.length < stats.avatar_number ? '仅展示米游社人物展柜中的至多8个人物' : !1"
+      />
+      <div class="container-character-box">
+        <CharacterBox v-for="a in data.avatars" :data="a" />
       </div>
     </div>
     <div v-if="hasPlayerNameInfo" class="container-traveler-signature">
@@ -81,7 +86,7 @@ const template = html`<div class="user-base-page">
         <p class="signature-body">{{ data.nickname }}</p>
       </div>
     </div>
-    <p class="author">Created by Adachi-BOT</p>
+    <p class="credit">Created by Adachi-BOT</p>
   </div>
 </div>`;
 
@@ -126,7 +131,8 @@ export default defineComponent({
     const homes = homeList.map((home) => homeData(home));
 
     const comfort = Math.max(...Object.keys(homes).map((k) => homes[k].comfort_num || -Infinity));
-    const homeboxTitle = `尘歌壶${comfort > 0 ? "（" + comfort + " 仙力）" : ""}`;
+    const homeboxTitle = `尘歌壶`;
+    const homeboxSubtitle = `洞天仙力：${comfort > 0 ? comfort : "暂无信息"}`;
 
     const defaultQuotes = ["旅行者今天去了哪里冒险呢？", "旅行者今天经历了哪些有趣的事情呢？"];
     const defaultQuote = defaultQuotes[Math.floor(Math.random() * defaultQuotes.length)];
@@ -166,6 +172,7 @@ export default defineComponent({
       stats: params.stats,
       homes,
       homeboxTitle,
+      homeboxSubtitle,
       hasLevelInfo,
       hasPlayerNameInfo,
       emoticon,

@@ -3,12 +3,13 @@ import { html } from "../common/utils.js";
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
 
-const titleTemplate = html`<div class="section-title">
-  <div class="title">
-    <img class="icon" src="http://localhost:9934/resources/Version2/module/user-base-title-icon.png" alt="ERROR" />
-    <span class="content">{{ title }}</span>
+const titleTemplate = html` <div class="container-title">
+  <div class="title-content">
+    <img class="arrow-left" src="http://localhost:9934/resources/Version2/components/title-arrow.svg" alt="ERROR" />
+    <div class="main-title">{{ title }}</div>
+    <img class="arrow-right" src="http://localhost:9934/resources/Version2/components/title-arrow.svg" alt="ERROR" />
+    <div class="subtitle" v-show="subtitle">{{ subtitle }}</div>
   </div>
-  <img class="split-line" src="http://localhost:9934/resources/Version2/module/user-base-split-line.png" alt="ERROR" />
 </div>`;
 
 const SectionTitle = defineComponent({
@@ -16,6 +17,7 @@ const SectionTitle = defineComponent({
   template: titleTemplate,
   props: {
     title: String,
+    subtitle: [String, Boolean],
   },
 });
 
@@ -29,13 +31,13 @@ const charBoxTemplate = html` <div class="character-box">
     <img v-else class="main" :src="data.icon" alt="ERROR" />
   </div>
   <div class="char-info">
-    <div class="container-char-info">
-      <span class="level">Lv.{{ data.level }}</span>
-      <span class="fetter">❤{{ data.fetter }}</span>
+    <div class="container-char-info character-briefing">
+      <span class="char-level">Lv.{{ data.level }}</span>
+      <span class="char-fetter">❤{{ data.fetter }}</span>
     </div>
-    <div class="container-char-info">
+    <div class="container-char-info weapon-briefing">
       <span class="weapon-name">{{ data.weapon.name }}</span>
-      <span class="weapon-affix">★{{ data.weapon.affix_level }}</span>
+      <span class="weapon-affix"> 精炼{{ data.weapon.affix_level }}</span>
     </div>
   </div>
 </div>`;
