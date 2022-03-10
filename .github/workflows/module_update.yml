@@ -1,0 +1,32 @@
+name: Update Node.js modules in dev branch
+
+on:
+  workflow_dispatch: null
+  schedule:
+    # UTC
+    - cron: "0 22 * * *"
+
+jobs:
+  module_update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: dev
+      - name: Update Node.js modules
+        run: npm run update-modules
+      - name: Config git
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+      - name: Commit and push
+        run: |
+          if [[ -n $(git status --porcelain) ]]
+          then
+            git add .
+            git commit -m 'Update Node.js modules'
+            git push
+          else
+            echo "Nothing to commit."
+          fi

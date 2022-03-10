@@ -39,7 +39,8 @@
     "tool-db": "npx node ./tools/db.js",
     "tool-info": "npx node ./tools/info.js",
     "tool-status": "npx node ./tools/status.js",
-    "tool-view": "npx node ./tools/view.js"
+    "tool-view": "npx node ./tools/view.js",
+    "update-modules": "npx ncu -u; npm update"
   },
   "dependencies": {
     "cross-env": "7.0.3",
@@ -60,7 +61,7 @@
     "p-limit": "4.0.0",
     "pm2": "5.2.0",
     "pretty-bytes": "6.0.0",
-    "puppeteer": "13.5.0",
+    "puppeteer": "13.5.1",
     "random-float": "3.0.0",
     "systeminformation": "5.11.6",
     "yargs": "17.3.1"
