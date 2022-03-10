@@ -31,7 +31,8 @@ function toReadableDate(date, format) {
     m: date.getMinutes(),
     s: date.getSeconds(),
   };
-  const regex = new RegExp(`[^${Object.keys(items).join("")}]`, "g");
+  const pattern = `[^${Object.keys(items).join("")}]`;
+  const regex = new RegExp(pattern, "g");
 
   Object.keys(items).forEach((c) => (items[c] = items[c].toString()));
 
