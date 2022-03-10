@@ -29,7 +29,7 @@ function qs(text, sep = ",", equal = "=") {
     }
 
     ret[c.substring(0, i)] = c
-      .substr(i + 1)
+      .substring(i + 1)
       .replace(new RegExp(Object.values(CQInside).join("|"), "g"), (s) => lodash.invert(CQInside)[s] || "");
   });
 
@@ -126,7 +126,7 @@ function fromCqcode(text = "") {
       continue;
     }
 
-    cq = cq.substr(0, cq.length - 1);
+    cq = cq.substring(0, cq.length - 1);
     elems.push(qs(cq));
   }
 

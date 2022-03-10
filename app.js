@@ -98,7 +98,7 @@ async function run() {
       if ("string" === typeof bot.account.password) {
         bot.on("system.login.slider", () =>
           process.stdin.once("data", (input) => {
-            bot.sliderLogin(input.toString());
+            bot.submitSlider(input.toString());
             resolve();
           })
         );

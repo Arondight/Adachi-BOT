@@ -1,5 +1,5 @@
 // noinspection DuplicatedCode
-import { html } from "../common/utils.js";
+import { html, toReadableDate } from "../common/utils.js";
 import characterShowbox from "./characterShowbox.js";
 
 // eslint-disable-next-line no-undef
@@ -59,27 +59,8 @@ const chamber = defineComponent({
     characterShowbox,
   },
   methods: {
-    padLeftZero(str) {
-      return ("00" + str).substring(str.length);
-    },
-    formatDate(date, fmt) {
-      if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substring(4 - RegExp.$1.length));
-      }
-      const o = {
-        "M+": date.getMonth() + 1,
-        "d+": date.getDate(),
-        "h+": date.getHours(),
-        "m+": date.getMinutes(),
-        "s+": date.getSeconds(),
-      };
-      for (const k in o) {
-        if (new RegExp(`(${k})`).test(fmt)) {
-          const str = o[k] + "";
-          fmt = fmt.replace(RegExp.$1, 1 === RegExp.$1.length ? str : this.padLeftZero(str));
-        }
-      }
-      return fmt;
+    formatDate(date, format) {
+      return toReadableDate(date, format);
     },
   },
   setup(props) {
