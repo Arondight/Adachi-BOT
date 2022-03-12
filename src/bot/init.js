@@ -65,7 +65,7 @@ function syncDBJob() {
 
 async function mysNewsJob() {
   if (await mysNewsUpdate()) {
-    await mysNewsNotice();
+    mysNewsNotice();
   }
 }
 
