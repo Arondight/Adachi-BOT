@@ -4,8 +4,18 @@ import path from "path";
 import puppeteer from "puppeteer";
 import { mkdir } from "#utils/file";
 
+// selector: 截图的页面元素
+// hello:    耗时操作是否给提示
+// scale:    截图时的缩放比例
+// delete:   是否撤回消息
+//
+// selector -> view (string): selector (string)
+// hello    -> view (string): hello (boolean)
+// scale    -> view (string): scale (number)
+// hello    -> view (string): delete (boolean)
+//
+// 如果没有设置则使用 settingsDefault 中的默认值
 const settings = {
-  // selector: { "some_webpage": "#app" }
   selector: {},
   hello: {
     "genshin-aby": true,
@@ -24,7 +34,12 @@ const settings = {
     "genshin-gacha": true,
   },
 };
-const settingsDefault = { selector: "body", hello: false, scale: 1.5, delete: false };
+const settingsDefault = {
+  selector: "body",
+  hello: false,
+  scale: 1.5,
+  delete: false,
+};
 const renderPath = puppeteer.executablePath();
 
 async function renderOpen() {
