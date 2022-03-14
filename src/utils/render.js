@@ -4,9 +4,9 @@ import path from "path";
 import puppeteer from "puppeteer";
 import { mkdir } from "#utils/file";
 
-// selector: 截图的页面元素
+// selector: 截图的页面元素。遵循 CSS 选择器语法。
 // hello:    耗时操作是否给提示
-// scale:    截图时的缩放比例
+// scale:    截图时的缩放比例。在纵横方向上各应使用多少屏幕实际像素来绘制单个CSS像素。效果约等同于 devicePixelRatio 。
 // delete:   是否撤回消息
 //
 // selector -> view (string): selector (string)
