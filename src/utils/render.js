@@ -5,6 +5,7 @@ import puppeteer from "puppeteer";
 import { mkdir } from "#utils/file";
 
 const settings = {
+  // selector: { "some_webpage": "#app" }
   selector: {},
   hello: {
     "genshin-aby": true,
