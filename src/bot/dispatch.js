@@ -38,6 +38,30 @@ async function doPossibleCommand(msg, plugins, type, bot) {
     msg.raw_message = msg.raw_message.replace(atMeReg, "");
   }
 
+  const regexPool = { ...global.command.regex, ...global.master.regex };
+  const enableList = { ...global.command.enable, ...global.master.enable };
+  let match = false;
+  let thisPrefix = null;
+
+  // 匹配命令前缀
+  if (0 === global.config.prefixes.length || global.config.prefixes.includes(null)) {
+    match = true;
+  } else {
+    for (const prefix of global.config.prefixes) {
+      if (msg.raw_message.startsWith(prefix)) {
+        match = true;
+        thisPrefix = prefix;
+        break;
+      }
+    }
+  }
+
+  if (true === match) {
+    msg.raw_message = msg.raw_message.slice(thisPrefix ? thisPrefix.length : 0).trimStart();
+  } else {
+    return false;
+  }
+
   // 同步 oicq 数据结构
   if (lodash.hasIn(msg.message, "[0].text")) {
     msg.message = lodash.chain(msg.message).filter({ type: "text" }).slice(0, 1).value();
@@ -58,30 +82,6 @@ async function doPossibleCommand(msg, plugins, type, bot) {
   if (false === checkAuth(msg, global.innerAuthName.reply, false)) {
     return true;
   }
-
-  const regexPool = { ...global.command.regex, ...global.master.regex };
-  const enableList = { ...global.command.enable, ...global.master.enable };
-  let match = false;
-  let thisPrefix = null;
-
-  // 匹配命令前缀
-  if (0 === global.config.prefixes.length || global.config.prefixes.includes(null)) {
-    match = true;
-  } else {
-    for (const prefix of global.config.prefixes) {
-      if (msg.raw_message.startsWith(prefix)) {
-        match = true;
-        thisPrefix = prefix;
-        break;
-      }
-    }
-  }
-
-  if (!match) {
-    return false;
-  }
-
-  msg.raw_message = msg.raw_message.slice(thisPrefix ? thisPrefix.length : 0).trimStart();
 
   // 匹配插件入口
   for (const regex in regexPool) {
