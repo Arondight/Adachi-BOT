@@ -50,7 +50,6 @@ function qs(text, sep = ",", equal = "=") {
 function toCqcode(msg = {}) {
   const isQuote = lodash.hasIn(msg, "source.message");
   let cqcode = "";
-  let firstAtParsed = false;
 
   if (true === isQuote) {
     const quote = { ...msg.source, flag: 1 };
@@ -71,11 +70,6 @@ function toCqcode(msg = {}) {
     const cq = `[CQ:${c.type}${s ? "," : ""}${s}]`;
 
     cqcode += cq;
-
-    if ("at" === c.type && false === firstAtParsed && true === isQuote) {
-      cqcode += cq;
-      firstAtParsed = true;
-    }
   });
 
   return cqcode;
