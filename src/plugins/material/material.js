@@ -8,7 +8,7 @@ const getUrl = (p) => `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.s
 const urls = { weekly: getUrl("/2022/02/18/75833613/15b472dcd67a67016ece772e8528faf0_2513941823560578118.png") };
 
 async function doMaterial(msg, url) {
-  const cacheDir = path.resolve(global.rootdir, "data", "image", "material");
+  const cacheDir = path.resolve(global.datadir, "image", "material");
 
   if (url === urls.weekly) {
     const data = await getCache(url, cacheDir, "base64");

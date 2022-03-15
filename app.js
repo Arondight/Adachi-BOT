@@ -11,7 +11,7 @@ global.bots = [];
 
 function create() {
   for (const account of global.config.accounts) {
-    const bot = createClient(account.qq, { platform: account.platform, log_level: "debug" });
+    const bot = createClient(account.qq, { platform: account.platform, log_level: "debug", data_dir: global.oicqdir });
 
     bot.account = account;
     bot.boardcast = boardcast.bind(null, bot);

@@ -49,7 +49,7 @@ function names() {
 
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, struct = { user: [] }) {
-  const filename = path.resolve(global.rootdir, "data", "db", `${dbName}.json`);
+  const filename = path.resolve(global.datadir, "db", `${dbName}.json`);
   db[dbName] = new LowJSONCacheSync(filename);
   db[dbName].write(db[dbName].load() || {});
 

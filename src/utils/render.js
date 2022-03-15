@@ -70,7 +70,7 @@ async function renderClose() {
 }
 
 async function render(msg, data, name) {
-  const recordDir = path.resolve(global.rootdir, "data", "record");
+  const recordDir = path.resolve(global.datadir, "record");
   let binary;
 
   if ((settings.hello[name] || settingsDefault.hello) && global.config.warnTimeCosts && undefined !== msg.bot) {

@@ -50,7 +50,7 @@ async function mysNewsNotice(withImg = true) {
 
   initDB();
 
-  const cacheDir = path.resolve(global.rootdir, "data", "image", "news");
+  const cacheDir = path.resolve(global.datadir, "image", "news");
   const data = db.get("news", "data");
   const silent = {};
   const news = [];

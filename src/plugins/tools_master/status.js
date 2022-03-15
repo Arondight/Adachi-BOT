@@ -66,7 +66,7 @@ async function status(msg = {}) {
     处理器: `${load.currentLoad && load.currentLoad.toFixed(2)}%（${cpuManufacturer} ${cpuBrand} @ ${cpuSpeed}Ghz）`,
     启动时间: moment.duration(time.uptime * 1000).humanize(),
     内存使用: `${((mem.active / mem.total) * 100).toFixed(2)}%（${pb(mem.active)} / ${pb(mem.total)}）`,
-    数据占用: pb(du(path.resolve("data", "db"))),
+    数据占用: pb(du(path.resolve(global.datadir, "db"))),
     "Node.js": versionsNodeJS,
     npm: versionsNpm,
     浏览器: browserVer,
