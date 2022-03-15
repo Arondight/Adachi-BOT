@@ -33,19 +33,13 @@ function getChoiceData(userID, choice = 301) {
 
 let name, five, four, isUp;
 
-// 数据参考: https://www.bilibili.com/read/cv10468091
-// 更新时间: 2021年6月16日15:57:34, 不保证概率更新的及时性
+// 数据参考: https://bbs.nga.cn/read.php?tid=26754637
+// 更新时间: 2022年1月16日00:20:00, 不保证概率更新的及时性
 function getFiveProb(counter, choice) {
   if (200 === choice || 400 === choice || 301 === choice) {
     return 60 + 600 * (counter > 73 ? counter - 73 : 0);
   } else {
-    if (counter < 63) {
-      return 70;
-    } else if (counter < 74) {
-      return 70 + 700 * (counter > 62 ? counter - 62 : 0);
-    } else {
-      return 7770 + 350 * (counter - 73);
-    }
+    return 70 + 700 * (counter > 62 ? counter - 62 : 0);
   }
 }
 
@@ -53,13 +47,7 @@ function getFourProb(counter, choice) {
   if (200 === choice || 400 === choice || 301 === choice) {
     return 510 + 5100 * (counter > 8 ? counter - 8 : 0);
   } else {
-    if (counter < 8) {
-      return 600;
-    } else if (8 === counter) {
-      return 6600;
-    } else {
-      return 6600 + 3000 * (counter - 8);
-    }
+    return 600 + 6000 * (counter > 7 ? counter - 7 : 0);
   }
 }
 
