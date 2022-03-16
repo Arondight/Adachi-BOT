@@ -57,7 +57,7 @@
     "moment-timezone": "0.5.34",
     "node-fetch": "3.2.3",
     "node-schedule": "2.1.0",
-    "oicq": "2.2.0",
+    "oicq": "2.2.1",
     "p-limit": "4.0.0",
     "pm2": "5.2.0",
     "pretty-bytes": "6.0.0",
@@ -76,6 +76,6 @@
     "eslint-plugin-vue": "8.5.0",
     "eslint-plugin-yml": "0.14.0",
     "npm-check-updates": "12.5.3",
-    "prettier": "2.5.1"
+    "prettier": "2.6.0"
   }
 }
