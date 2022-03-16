@@ -67,7 +67,7 @@ const chamber = defineComponent({
     const chamber = props.chamber;
     const chamberIndex = props.index;
     const floorIndex = props.floorIndex;
-    const chamberStars = chamber.max_star || 0;
+    const chamberStars = chamber.star || 0;
     const chamberStarCount = "*".repeat(chamberStars);
     const chamberDetails = chamber.battles || [{}, {}];
 
