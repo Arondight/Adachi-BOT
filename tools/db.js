@@ -1,14 +1,9 @@
 import path from "path";
-import url from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import "#utils/config";
 import db from "#utils/database";
 import { ls } from "#utils/file";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-global.rootdir = path.resolve(__dirname, "..");
 
 const names = ls(path.resolve(global.rootdir, "data", "db"))
   .filter((c) => c.match(/\b\w+?[.]json$/))
@@ -19,10 +14,10 @@ const names = ls(path.resolve(global.rootdir, "data", "db"))
 
 async function main() {
   const argv = yargs(hideBin(process.argv))
-    .usage("-d <string> -k <string> [--ik <string> --iv <string> --iv-numeric")
-    .example("-d time -k user")
-    .example("-d time -k user --ik uid --iv 123456789 --iv-numeric")
-    .example("-d cookies -k cookie --ik date --iv '2021/11/16'")
+    .usage("-d <string> -k <string> [-p <string> --pk <string> --pv <string> --numeric")
+    .example("-d gacha -k user")
+    .example("-d gacha -k data --pk gacha_type --pv 200 --numeric")
+    .example("-d gacha -k data -p '[0].nonUpFiveStar' --pk item_name --pv 刻晴")
     .help("help")
     .alias("help", "h")
     .version(false)
@@ -37,32 +32,42 @@ async function main() {
       key: {
         alias: "k",
         type: "string",
-        description: "数据库的键",
+        description: "数据库的字段",
         requiresArg: true,
         required: false,
       },
-      ik: {
+      path: {
+        alias: "p",
         type: "string",
-        description: "索引的键",
+        description: "字段中的路径",
         requiresArg: false,
         required: false,
       },
-      iv: {
+      "predicate-key": {
+        alias: "pk",
         type: "string",
-        description: "索引的值",
+        description: "断言中的键",
         requiresArg: false,
         required: false,
       },
-      "iv-numeric": {
+      "predicate-value": {
+        alias: "pv",
+        type: "string",
+        description: "断言中的值",
+        requiresArg: false,
+        required: false,
+      },
+      "predicate-value-numeric": {
+        alias: "numeric",
         type: "boolean",
-        description: "如果索引的值是数组则指定此项",
+        description: "如果 predicate-value 是数字则指定此项",
         requiresArg: false,
         required: false,
       },
       list: {
         alias: "l",
         type: "boolean",
-        description: "显示可选数据库名称",
+        description: "显示可用数据库名称",
         requiresArg: false,
         required: false,
       },
@@ -75,15 +80,20 @@ async function main() {
     }
 
     db.init(argv.database);
+
     const data = db.get(
-      argv.database,
-      argv.key,
-      "string" === typeof argv.ik && "string" === typeof argv.iv
-        ? { [argv.ik]: true === argv["iv-numeric"] ? parseInt(argv.iv) : argv.iv }
-        : undefined
+      ...[
+        argv.database,
+        argv.key,
+        argv.path,
+        "string" === typeof argv.pk && "string" === typeof argv.pv
+          ? { [argv.pk]: true === argv["predicate-value-numeric"] ? parseInt(argv.pv) : argv.pv }
+          : undefined,
+      ].filter((c) => undefined !== c)
     );
 
     console.log(JSON.stringify(data, null, 2));
+
     return 0;
   }
 
@@ -95,6 +105,8 @@ async function main() {
 
     return -1;
   }
+
+  return 0;
 }
 
 main().then((n) => process.exit(n));

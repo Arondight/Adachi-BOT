@@ -1,14 +1,7 @@
-import path from "path";
-import url from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { status } from "#plugins/tools_master/status";
 import "#utils/config";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-global.rootdir = path.resolve(__dirname, "..");
 
 async function main() {
   const argv = yargs(hideBin(process.argv))
