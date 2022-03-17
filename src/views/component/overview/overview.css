@@ -345,8 +345,9 @@ img.materials {
   overflow-wrap: anywhere;
 }
 
-span.desc-number {
-  margin: 0 0.2em;
+span.desc-number:before,
+span.desc-number:after {
+  content: "\2005";
 }
 
 span.desc-number.recolor {
