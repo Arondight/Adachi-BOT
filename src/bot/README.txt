@@ -1,5 +1,5 @@
 ./dispatch.js
-  dispatch                 处理聊天消息
+  dispatch                处理聊天消息
 
 ./plugin.js
   loadPlugins             加载插件
