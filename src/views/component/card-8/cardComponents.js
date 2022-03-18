@@ -33,11 +33,11 @@ const charBoxTemplate = html` <div class="character-box">
   <div class="char-info">
     <div class="container-char-info character-briefing">
       <span class="char-level">Lv.{{ data.level }}</span>
-      <span class="char-fetter">❤{{ data.fetter }}</span>
+      <span class="char-fetter">好感{{ data.fetter }}</span>
     </div>
     <div class="container-char-info weapon-briefing">
       <span class="weapon-name">{{ data.weapon.name }}</span>
-      <span class="weapon-affix"> 精炼{{ data.weapon.affix_level }}</span>
+      <span class="weapon-affix"> 精{{ data.weapon.affix_level }}</span>
     </div>
   </div>
 </div>`;

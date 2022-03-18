@@ -29,7 +29,7 @@ html {
 
 body {
   width: 960px;
-  font-family: GenshinUsedFont, monospace;
+  font-family: GenshinUsedFont, monospace, sans-serif;
   background: no-repeat url("http://localhost:9934/resources/Version2/module/user-base.png");
   background-size: 100% 100%;
 }
