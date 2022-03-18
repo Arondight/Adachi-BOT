@@ -1,0 +1,18 @@
+{
+  "type": "武器",
+  "title": "单手剑",
+  "name": "波乱月白经津",
+  "introduce": "",
+  "access": "限定祈愿",
+  "rarity": 5,
+  "mainStat": "暴击率",
+  "mainValue": "33.1%",
+  "baseATK": 608,
+  "ascensionMaterials": [
+    ["鸣神御灵的明惠", "鸣神御灵的欢喜", "鸣神御灵的亲爱", "鸣神御灵的勇武"],
+    ["晦暗刻像", "夤夜刻像", "幽邃刻像", "破旧的刀镡", "影打刀镡", "名刀镡"]
+  ],
+  "time": "【周二/五/日】",
+  "skillName": "白刃流转",
+  "skillContent": "获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成；队伍中附近的其他角色在施放元素战技时，会为装备该武器的角色产生<span class=\"desc-number\">1</span>层「波穗」效果，至多叠加<span class=\"desc-number\">2</span>层，每<span class=\"desc-number\">0.3</span>秒最多触发<span class=\"desc-number\">1</span>次。装备该武器的角色施放元素战技时，如果有积累的「波穗」效果，则将消耗已有的「波穗」，获得「波乱」：根据消耗的层数，每层提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>普通攻击伤害，持续<span class=\"desc-number\">8</span>秒。"
+}
