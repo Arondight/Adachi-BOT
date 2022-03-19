@@ -1,10 +1,10 @@
+import { feedback } from "#plugins/tools/feedback";
+import { menu } from "#plugins/tools/menu";
+import { prophecy } from "#plugins/tools/prophecy";
+import { quote } from "#plugins/tools/quote";
+import { roll } from "#plugins/tools/roll";
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
-import { feedback } from "./feedback.js";
-import { menu } from "./menu.js";
-import { prophecy } from "./prophecy.js";
-import { quote } from "./quote.js";
-import { roll } from "./roll.js";
 
 async function Plugin(msg) {
   switch (true) {

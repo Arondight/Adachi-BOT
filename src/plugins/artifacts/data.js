@@ -1,25 +1,30 @@
 import randomFloat from "random-float";
 import db from "#utils/database";
 
+// 数组对应了 global.artifacts.weights 和 global.artifacts.values
+// TODO 这些信息应该都放到配置文件中
 const props = [
-  { name: "生命值", value: ["717", "4780"] },
-  { name: "生命值", value: ["7.0%", "46.6%"] },
-  { name: "防御力", value: ["7.0%", "46.6%"] },
-  { name: "防御力", value: ["8.7%", "58.3%"] },
-  { name: "元素充能效率", value: ["7.8%", "51.8%"] },
-  { name: "元素精通", value: ["28", "187"] },
-  { name: "攻击力", value: ["47", "311"] },
-  { name: "攻击力", value: ["7.0%", "46.6%"] },
-  { name: "暴击伤害", value: ["9.3%", "62.2%"] },
-  { name: "暴击率", value: ["4.7%", "31.1%"] },
-  { name: "物理伤害加成", value: ["8.7%", "58.3%"] },
-  { name: "风元素伤害加成", value: ["7.0%", "46.6%"] },
-  { name: "冰元素伤害加成", value: ["7.0%", "46.6%"] },
-  { name: "雷元素伤害加成", value: ["7.0%", "46.6%"] },
-  { name: "岩元素伤害加成", value: ["7.0%", "46.6%"] },
-  { name: "水元素伤害加成", value: ["7.0%", "46.6%"] },
-  { name: "火元素伤害加成", value: ["7.0%", "46.6%"] },
-  { name: "治疗加成", value: ["5.4%", "35.9%"] },
+  // 小生命
+  { type: "hp", name: "生命值", value: ["717", "4780"] },
+  { type: "hp", name: "生命值", value: ["7.0%", "46.6%"] },
+  // 小防御，不会使用 value
+  { type: "df", name: "防御力", value: ["0", "0"] },
+  { type: "df", name: "防御力", value: ["8.7%", "58.3%"] },
+  { type: "er", name: "元素充能效率", value: ["7.8%", "51.8%"] },
+  { type: "em", name: "元素精通", value: ["28", "187"] },
+  // 小攻击
+  { type: "atk", name: "攻击力", value: ["47", "311"] },
+  { type: "atk", name: "攻击力", value: ["7.0%", "46.6%"] },
+  { type: "cd", name: "暴击伤害", value: ["9.3%", "62.2%"] },
+  { type: "cr", name: "暴击率", value: ["4.7%", "31.1%"] },
+  { type: "phys", name: "物理伤害加成", value: ["8.7%", "58.3%"] },
+  { type: "anemo", name: "风元素伤害加成", value: ["7.0%", "46.6%"] },
+  { type: "cryo", name: "冰元素伤害加成", value: ["7.0%", "46.6%"] },
+  { type: "elec", name: "雷元素伤害加成", value: ["7.0%", "46.6%"] },
+  { type: "geo", name: "岩元素伤害加成", value: ["7.0%", "46.6%"] },
+  { type: "hydro", name: "水元素伤害加成", value: ["7.0%", "46.6%"] },
+  { type: "pyro", name: "火元素伤害加成", value: ["7.0%", "46.6%"] },
+  { type: "heal", name: "治疗加成", value: ["5.4%", "35.9%"] },
 ];
 
 function randomInt(Min, Max) {
@@ -152,6 +157,7 @@ function getInitial(num, subStats) {
   for (let i = 0; i < num; i++) {
     const id = subStats[i].stat;
     const lv = subStats[i].grade;
+
     property[id] = global.artifacts.values[lv][id];
   }
 
@@ -242,4 +248,4 @@ function domainMax() {
   return Math.max(...(Object.values(global.artifacts.domains.id) || [0]));
 }
 
-export { domainInfo, domainMax, getArtifact };
+export { domainInfo, domainMax, getArtifact, props };

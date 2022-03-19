@@ -1,5 +1,5 @@
+import { errMsg, musicID, musicSrc } from "#plugins/music/data";
 import db from "#utils/database";
-import { errMsg, musicID, musicSrc } from "./data.js";
 
 async function doMusic(msg) {
   const data = db.get("music", "source", { ID: msg.uid });

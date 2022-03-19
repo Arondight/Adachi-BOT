@@ -1,10 +1,10 @@
+import { boardcast } from "#plugins/tools_master/boardcast";
+import { cookiesInvalid } from "#plugins/tools_master/cookies_invalid";
+import { count } from "#plugins/tools_master/count";
+import { reply } from "#plugins/tools_master/reply";
+import { search } from "#plugins/tools_master/search";
+import { status } from "#plugins/tools_master/status";
 import { hasEntrance } from "#utils/config";
-import { boardcast } from "./boardcast.js";
-import { cookiesInvalid } from "./cookies_invalid.js";
-import { count } from "./count.js";
-import { reply } from "./reply.js";
-import { search } from "./search.js";
-import { status } from "./status.js";
 
 async function Plugin(msg) {
   switch (true) {

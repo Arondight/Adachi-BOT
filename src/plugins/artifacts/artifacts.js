@@ -1,7 +1,7 @@
+import { domainMax, getArtifact } from "#plugins/artifacts/data";
+import { init } from "#plugins/artifacts/init";
 import db from "#utils/database";
 import { render } from "#utils/render";
-import { domainMax, getArtifact } from "./data.js";
-import { init } from "./init.js";
 
 function doArtifacts(msg, text = undefined) {
   let id;

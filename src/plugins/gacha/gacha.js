@@ -1,6 +1,6 @@
+import { gachaTimes } from "#plugins/gacha/data";
+import { init } from "#plugins/gacha/init";
 import { render } from "#utils/render";
-import { gachaTimes } from "./data.js";
-import { init } from "./init.js";
 
 function doGacha(msg, times = 10) {
   init(msg.uid);

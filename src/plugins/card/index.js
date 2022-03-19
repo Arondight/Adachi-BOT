@@ -1,6 +1,6 @@
+import { doCard } from "#plugins/card/card";
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
-import { doCard } from "./card.js";
 
 async function Plugin(msg) {
   switch (true) {

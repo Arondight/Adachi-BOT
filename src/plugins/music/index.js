@@ -1,6 +1,6 @@
+import { doMusic, doMusicSource } from "#plugins/music/music";
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
-import { doMusic, doMusicSource } from "./music.js";
 
 async function Plugin(msg) {
   switch (true) {

@@ -1,6 +1,6 @@
+import { doMaterial, urls } from "#plugins/material/material";
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
-import { doMaterial, urls } from "./material.js";
 
 async function Plugin(msg) {
   switch (true) {

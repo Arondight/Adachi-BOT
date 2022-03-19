@@ -1,7 +1,7 @@
 import { gachaUpdate } from "#jobs/gacha";
+import { parse } from "#plugins/master/parse";
 import { setAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
-import { parse } from "./parse.js";
 
 async function Plugin(msg) {
   switch (true) {

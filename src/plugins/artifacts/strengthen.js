@@ -1,6 +1,6 @@
+import { init } from "#plugins/artifacts/init";
 import db from "#utils/database";
 import { render } from "#utils/render";
-import { init } from "./init.js";
 
 function doStrengthen(msg) {
   let data;

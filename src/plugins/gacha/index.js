@@ -1,11 +1,11 @@
 import lodash from "lodash";
+import { doGacha } from "#plugins/gacha/gacha";
+import { getName, getPool } from "#plugins/gacha/name";
+import { doPool } from "#plugins/gacha/pool";
+import { doSelect, doSelectNothing, doSelectWhat } from "#plugins/gacha/select";
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 import { guessPossibleNames } from "#utils/tools";
-import { doGacha } from "./gacha.js";
-import { getName, getPool } from "./name.js";
-import { doPool } from "./pool.js";
-import { doSelect, doSelectNothing, doSelectWhat } from "./select.js";
 
 async function Plugin(msg) {
   switch (true) {
