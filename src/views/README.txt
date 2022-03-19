@@ -4,9 +4,6 @@
 ./genshin-artifact.html
   【圣遗物】【强化】
 
-./genshin-card.html
-  弃用
-
 ./genshin-card-8.html
   【米游社】【uid】
 
@@ -18,6 +15,3 @@
 
 ./genshin-overview.html
   【信息】
-
-./genshin-package.html
-  弃用
