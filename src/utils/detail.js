@@ -196,14 +196,18 @@ async function baseDetail(mhyID, userID, bot) {
     throw detailError(errInfo);
   }
 
-  const { game_role_id, nickname, region, level } = baseInfo;
-  const uid = parseInt(game_role_id);
+  const { game_role_id: roleID, nickname, region, level } = baseInfo;
+  const uid = parseInt(roleID);
 
   userInitialize(uid, nickname, level);
   db.update("info", "user", { uid }, { level, nickname });
 
   if (db.includes("map", "user", { userID })) {
-    db.update("map", "user", { userID }, { UID: uid });
+    const record = db.get("map", "user", { userID }) || {};
+
+    if (mhyID === record.mhyID && uid !== record.UID) {
+      db.update("map", "user", { userID }, { UID: uid });
+    }
   }
 
   return [uid, region];
