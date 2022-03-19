@@ -2,78 +2,146 @@ import lodash from "lodash";
 import path from "path";
 import db from "#utils/database";
 
-const cookies = global.cookies || [];
+// 无需加锁
+const cookies = (global.cookies || [])
+  .filter((c) => isValidCookie(c))
+  .map((c) => ({
+    cookie: c,
+    cookie_token: getCookieItem(c, "cookie_token") || "",
+    account_id: getCookieItem(c, "account_id") || "",
+  }));
+// 无需加锁
 let index = 0;
 
 function increaseIndex() {
   index = index === cookies.length - 1 ? 0 : index + 1;
 }
 
-function isValidCookie(cookie) {
-  return !!("string" === typeof cookie && cookie.match(/cookie_token=\w+?\b/) && cookie.match(/account_id=\w+?\b/));
+function getCookieItem(cookie, item = "account_id") {
+  if ("string" === typeof cookie) {
+    const match = cookie.match(new RegExp(`(?<=${item}=)\\w+?\\b`)) || [];
+
+    if (match.length > 0) {
+      return match[0];
+    }
+  }
 }
 
-function getEffectiveCookie(uid, s, use_cookie) {
+function isValidCookie(cookie) {
+  return !!("string" === typeof cookie && getCookieItem(cookie, "cookie_token") && getCookieItem(cookie, "account_id"));
+}
+
+function getCookieByID(uid) {
+  const dbName = "map";
+
+  if (undefined === uid) {
+    return;
+  }
+
+  const { mhyID } = db.get(dbName, "user", { UID: uid }) || {};
+
+  if (undefined === mhyID) {
+    return;
+  }
+
+  const myCookies = cookies.filter((c) => mhyID === parseInt(c.account_id));
+
+  if (myCookies.length > 0) {
+    return myCookies[0];
+  }
+}
+
+function getEffectiveCookie(uid, s, use) {
   const dbName = "cookies";
-  let p = index;
-  increaseIndex();
-
-  p = p === cookies.length - 1 ? 0 : p + 1;
-
-  const cookie = cookies[p];
   const today = new Date().toLocaleDateString();
+  const cookieByID = getCookieByID(uid);
+  let cookie;
+  let token;
+  let id;
 
-  if (!isValidCookie(cookie)) {
-    return undefined;
+  if (undefined === cookieByID) {
+    let cur = index;
+
+    increaseIndex();
+
+    cur = cur === cookies.length - 1 ? 0 : cur + 1;
+    cookie = cookies[cur].cookie;
+    token = cookies[cur].cookie_token;
+    id = cookies[cur].account_id;
+  } else {
+    cookie = cookieByID.cookie;
+    token = cookieByID.cookie_token;
+    id = cookieByID.account_id;
+    use = false;
   }
 
   if (!db.includes(dbName, "cookie", { cookie })) {
-    const initData = { cookie, date: today, times: 0 };
-    db.push(dbName, "cookie", initData);
+    db.push(dbName, "cookie", { cookie, date: today, times: 0, cookie_token: token, account_id: id });
   }
 
   let { date, times } = db.get(dbName, "cookie", { cookie }) || {};
 
-  if (date && date === today && times && times >= 30) {
-    return s >= cookies.length ? cookie : getEffectiveCookie(uid, s + 1, use_cookie);
+  if (date === today && times >= 30) {
+    return s >= cookies.length ? cookie : getEffectiveCookie(uid, s + 1, use);
   }
 
-  if (date && date !== today) {
+  if (date !== today) {
     times = 0;
   }
 
   date = today;
-  times = times ? times + 1 : 1;
+  ++times;
 
-  if (use_cookie) {
+  if (true === use) {
     db.update(dbName, "cookie", { cookie }, { date, times });
-  }
 
-  db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, use_cookie ? { times } : {}));
+    if (undefined !== uid) {
+      if (!db.includes(dbName, "uid", { uid })) {
+        db.push(dbName, "uid", { uid, date: "", cookie: "", times: 0, cookie_token: token, account_id: id });
+      }
+
+      db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, { times }));
+    }
+  }
 
   return cookie;
 }
 
-function getCookie(uid, use_cookie, bot) {
+function getCookie(uid, use, bot) {
   const dbName = "cookies";
+  let cookie;
 
-  if (!db.includes(dbName, "uid", { uid })) {
-    const initData = { uid, date: "", cookie: "", times: 0 };
-    db.push(dbName, "uid", initData);
+  if ("string" === typeof uid) {
+    uid = parseInt(uid);
   }
 
-  let { date, cookie } = db.get(dbName, "uid", { uid }) || {};
-  const today = new Date().toLocaleDateString();
-
-  if (!(date && cookie && date === today)) {
-    cookie = getEffectiveCookie(uid, 1, use_cookie);
+  // XXX THIS IS THE LAW
+  if (undefined === uid) {
+    use = false;
   }
+
+  // 尝试根据给出的 uid 查找使用记录
+  if (!isNaN(uid) && uid > 0) {
+    const today = new Date().toLocaleDateString();
+    const record = db.get(dbName, "uid", { uid }) || {};
+    let date = record.date;
+
+    cookie = record.cookie;
+
+    if (date && date === today && isValidCookie(cookie)) {
+      return cookie;
+    }
+  }
+
+  // 没有给出 uid 或者未找到使用记录则获取一个新 cookie
+  cookie = getEffectiveCookie(uid, 1, use);
 
   if (!cookie) {
     throw "无法获取可用 Cookie ！";
   }
 
-  bot.logger.debug(`Cookie： ${uid} -> ${cookie}`);
+  bot.logger.debug(`Cookie：${undefined === uid ? "" : " " + uid + " -> "}${cookie}`);
+
   return cookie;
 }
 
@@ -98,21 +166,18 @@ function writeInvalidCookie(cookie) {
   const dbCookieName = "cookies";
 
   if ("string" === typeof cookie) {
-    const [cookie_token] = cookie.match(/cookie_token=\w+?\b/) || [];
-    const [account_id] = cookie.match(/account_id=\w+?\b/) || [];
+    const token = getCookieItem(cookie, "cookie_token") || "";
+    const id = getCookieItem(cookie, "account_id") || "";
 
-    if (cookie_token && account_id) {
-      if (!db.includes(dbName, "cookie", { cookie })) {
-        const initData = { cookie, cookie_token, account_id };
-        db.push(dbName, "cookie", initData);
-      }
+    if (!db.includes(dbName, "cookie", { cookie })) {
+      db.push(dbName, "cookie", { cookie, cookie_token: token, account_id: id });
+    }
 
-      markCookieUnusable(cookie);
+    markCookieUnusable(cookie);
 
-      // 删除该 Cookie 所有的使用记录
-      if (db.includes(dbCookieName, "uid", { cookie })) {
-        db.remove(dbCookieName, "uid", { cookie });
-      }
+    // 删除该 Cookie 所有的使用记录
+    if (db.includes(dbCookieName, "uid", { cookie })) {
+      db.remove(dbCookieName, "uid", { cookie });
     }
   }
 }
@@ -125,7 +190,7 @@ function textOfInvalidCookies() {
 
   for (const cookie of data) {
     if (cookie.cookie_token && cookie.account_id) {
-      text += `\n${cookie.account_id}`;
+      text += `\naccount_id=${cookie.account_id}`;
     }
   }
 

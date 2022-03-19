@@ -175,7 +175,7 @@ async function baseDetail(mhyID, userID, bot) {
   let response;
 
   try {
-    cookie = getCookie("MHY" + mhyID, false, bot);
+    cookie = getCookie(undefined, false, bot);
     response = await getBase(mhyID, cookie);
   } catch (e) {
     throw detailError(e);
