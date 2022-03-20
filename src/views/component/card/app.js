@@ -68,6 +68,7 @@ const template = html`
       </div>
       <!-- 数据 container 结束 -->
     </div>
+    <div id="credit">Created by Adachi-BOT</div>
   </div>
 `;
 
@@ -102,7 +103,7 @@ export default defineComponent({
       ? encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`)
       : encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
 
-    const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=3&nk=${qqid}` : character;
+    const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=5&nk=${qqid}` : character;
 
     const explorations = params.explorations.reverse();
 
