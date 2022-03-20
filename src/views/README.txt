@@ -4,7 +4,7 @@
 ./genshin-artifact.html
   【圣遗物】【强化】
 
-./genshin-card-8.html
+./genshin-card.html
   【米游社】【uid】
 
 ./genshin-character.html
