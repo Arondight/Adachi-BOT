@@ -1,0 +1,339 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: GenshinUsedFont;
+  font-display: swap;
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
+}
+
+html {
+  background-color: hsl(0, 0%, 97%);
+  color: #484848;
+  width: 420px;
+  font-family: GenshinUsedFont, monospace, sans-serif;
+
+  -webkit-text-stroke: 0.018em currentColor;
+}
+
+body {
+  padding: 10px;
+}
+
+body:before {
+  position: fixed;
+  left: -10px;
+  width: 430px;
+  height: 100%;
+  content: "";
+  background: url("../../../../resources/Version2/backgrounds/contour-background.svg");
+  background-size: cover;
+  opacity: 0.3;
+}
+
+.main-content {
+  color: #636363;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  filter: drop-shadow(0 0 10px hsla(0, 0%, 0%, 0.26));
+}
+
+img.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: hsl(0deg 0% 83%);
+}
+
+.namecard-container {
+  margin-top: -50px;
+  width: 100%;
+  min-height: 152px;
+  border-radius: 10px 10px 0 0;
+  background-size: contain !important;
+  -webkit-mask: url("../../../../resources/Version2/masks/namecard-mask.svg");
+  -webkit-mask-size: 100%;
+  display: grid;
+  grid-template-areas:
+    "placeholder"
+    "player-info";
+  grid-template-rows: 68px 1fr;
+  place-items: center;
+}
+
+.info-container {
+  display: grid;
+  grid-row-gap: 16px;
+  background-color: #fff;
+  width: 100%;
+  place-items: center;
+  border-radius: 0 0 10px 10px;
+  padding: 10px 0 10px;
+}
+
+.player-info-container {
+  grid-area: player-info;
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-row-gap: 1px;
+  justify-items: stretch;
+  font-size: 18px;
+}
+
+.uid,
+.player-name {
+  grid-column: 1 / -1;
+}
+
+.player-name {
+  width: 100%;
+  text-align: center;
+  text-justify: inter-character;
+}
+
+.section-container {
+  display: grid;
+  grid-row-gap: 12px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: auto 64px auto max-content;
+  grid-row-gap: 3px;
+  grid-column-gap: 20px;
+}
+
+.container-home-box {
+  display: grid;
+}
+
+.container-title {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+
+.title-content {
+  display: grid;
+  width: 300px;
+  grid-template-areas:
+    "arrow-left main-title arrow-right"
+    "arrow-left sub-title arrow-right";
+  grid-template-rows: 30px max-content;
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+  justify-items: center;
+  grid-column-gap: 5px;
+}
+
+.arrow-left,
+.arrow-right {
+}
+
+.arrow-left {
+  grid-area: arrow-left;
+  justify-self: end;
+}
+
+.arrow-right {
+  grid-area: arrow-right;
+  transform: scaleX(-1);
+  justify-self: start;
+}
+
+.main-title {
+  white-space: nowrap;
+  font-size: 20px;
+  transform: translateY(0.03em);
+}
+
+.subtitle {
+  grid-area: sub-title;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.container-homes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 8px;
+}
+
+.home-box {
+  display: grid;
+  grid-template-areas:
+    "home-image"
+    "home-name";
+  place-items: center;
+}
+
+.home-background,
+.container-locked {
+  width: 80px;
+  height: 80px;
+  grid-area: home-image;
+  grid-row-start: 1;
+  grid-row-end: -1;
+  border-radius: 10px;
+  box-shadow: 0 0 10px hsl(0deg 0% 70% / 16%);
+  background-color: hsla(0, 0%, 20%, 0.52);
+}
+
+.container-locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img.lock-icon {
+  width: 30px;
+}
+
+.container-unlocked {
+  width: 100%;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-area: home-name;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 0 0 4px #333333ab;
+  background-color: hsla(0, 0%, 20%, 0.52);
+  border-radius: 0 0 10px 10px;
+}
+
+.container-explorations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 8px;
+}
+
+.exploration {
+  width: 168px;
+  height: 58px;
+  padding: 4px;
+  box-sizing: border-box;
+  background-color: hsl(0, 0%, 95%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 0 10px hsl(0deg 0% 70% / 16%);
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  -webkit-mask-size: 42px;
+  /* background: linear-gradient(hsl(59, 47%, 75%) 0%, hsl(42, 59%, 76%) 45%, hsl(37, 29%, 57%) 80%); */
+  background: #636363;
+}
+
+.exp-area {
+  display: grid;
+  grid-template-columns: max-content auto;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+}
+
+.container-detailed-exploration {
+  display: grid;
+  grid-template-columns: minmax(56px, max-content) max-content;
+  font-size: 13px;
+  grid-row-gap: 2px;
+  grid-column-gap: 7px;
+}
+
+.container-character-box {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  grid-gap: 8px;
+}
+
+.character-box {
+  display: grid;
+  grid-template-areas: "headups"
+    "avatar"
+    "text-area";
+  grid-template-rows: 0 min-content auto;
+  min-height: 110px;
+  width: 80px;
+  background-color: hsl(0, 0%, 95%);
+  border-radius: 6px;
+  box-shadow: 0 0 10px hsl(0deg 0% 70% / 16%);
+}
+
+.container-char-headups {
+  display: grid;
+  width: 100%;
+  grid-template-areas: "element constellation";
+  grid-template-columns: 1fr 1fr;
+  grid-area: headups;
+  justify-items: stretch;
+  z-index: 1;
+}
+
+.element {
+  width: 20px;
+  height: 20px;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+.constellation {
+  justify-self: end;
+  background: #33333391;
+  color: #f0ebe3;
+  font-size: 13px;
+  width: 15px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 6px;
+  backdrop-filter: blur(4px);
+}
+
+.main {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px 6px 12px 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  grid-area: avatar;
+  grid-row-start: headups;
+  grid-row-end: avatar;
+}
+
+.char-info {
+  grid-area: text-area;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  font-size: 10px;
+}
+
+.max-constellation {
+  color: hsl(45deg 100% 64%);
+  text-shadow: 0 0 4px hsl(45deg 100% 20%);
+}
+
+.char-level {
+  margin-right: 4px;
+}
+
+.weapon-affix {
+  color: hsl(36deg 70% 48%);
+}

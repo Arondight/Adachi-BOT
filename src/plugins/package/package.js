@@ -58,7 +58,7 @@ async function doPackage(msg) {
 
   data.emoticons = emoticons;
 
-  render(msg, data, "genshin-card-8");
+  render(msg, data, "genshin-card");
 }
 
 export { doPackage };

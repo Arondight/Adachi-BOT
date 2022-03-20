@@ -5,9 +5,17 @@ const { defineComponent } = Vue;
 
 const titleTemplate = html` <div class="container-title">
   <div class="title-content">
-    <img class="arrow-left" src="http://localhost:9934/resources/Version2/components/title-arrow.svg" alt="ERROR" />
+    <img
+      class="arrow-left"
+      src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
+      alt="ERROR"
+    />
     <div class="main-title">{{ title }}</div>
-    <img class="arrow-right" src="http://localhost:9934/resources/Version2/components/title-arrow.svg" alt="ERROR" />
+    <img
+      class="arrow-right"
+      src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
+      alt="ERROR"
+    />
     <div class="subtitle" v-show="subtitle">{{ subtitle }}</div>
   </div>
 </div>`;
@@ -22,14 +30,27 @@ const SectionTitle = defineComponent({
 });
 
 const charBoxTemplate = html` <div class="character-box">
-  <div class="char-container" :style="{ 'background': 'no-repeat 100%/100% url(' + starBackground + ')' }">
+  <div class="container-char-headups">
     <img v-if="data.element !== 'None'" class="element" :src="element" alt="ERROR" />
     <div class="constellation" :class="data.constellationNum === 6 ? 'max-constellation' : ''">
       {{ data.constellationNum }}
     </div>
-    <img v-if="hasCostume" class="main" :src="costumePath" alt="ERROR" />
-    <img v-else class="main" :src="data.icon" alt="ERROR" />
   </div>
+  <img
+    v-if="hasCostume"
+    class="main"
+    :src="costumePath"
+    :style="{ 'background-image': 'url(' + starBackground + ')' }"
+    alt="ERROR"
+  />
+  <img
+    v-else
+    class="main"
+    :src="data.icon"
+    :style="{ 'background-image': 'url(' + starBackground + ')' }"
+    alt="ERROR"
+  />
+
   <div class="char-info">
     <div class="container-char-info character-briefing">
       <span class="char-level">Lv.{{ data.level }}</span>
@@ -66,7 +87,7 @@ const CharacterBox = defineComponent({
 const explorationBoxTemplate = html` <div class="exploration">
   <div class="exp-area">
     <div class="logo" :style="{maskImage : 'url(' + areaLogo + ')'}"></div>
-    <div class="container-detailedExploration">
+    <div class="container-detailed-exploration">
       <p>探索进度</p>
       <p class="align-right">{{ explorationPercentage }}%</p>
       <p v-if="data.type === 'Reputation'">声望等级</p>
@@ -114,16 +135,11 @@ const ExplorationBox = defineComponent({
 
 const homeBoxTemplate = html` <div class="home-box">
   <img class="home-background" :src="backgroundImage" alt="ERROR" />
-  <div class="unlock" v-if="data.level !== -1">
-    <div class="box-block unlock-content-block">
-      <p class="box-content comfort-levelname">{{ data.name }}</p>
-      <p class="box-content comfort-level">{{ data.comfort_level_name }}</p>
-    </div>
+  <div class="container-unlocked" v-if="data.level !== -1">
+    <p class="box-content comfort-levelname">{{ data.name }}</p>
   </div>
-  <div class="locked" v-else>
-    <div class="locked-content-block">
-      <img class="lock-icon" :src="lockIcon" alt="ERROR" />
-    </div>
+  <div class="container-locked" v-else>
+    <img class="lock-icon" src="http://localhost:9934/resources/item/lock.png" alt="ERROR" />
   </div>
 </div>`;
 
@@ -135,9 +151,8 @@ const HomeBox = defineComponent({
   },
   setup(props) {
     const backgroundImage = `http://localhost:9934/resources/item/${props.data.name}.png`;
-    const lockIcon = "http://localhost:9934/resources/item/lock.png";
 
-    return { backgroundImage, lockIcon };
+    return { backgroundImage };
   },
 });
 
