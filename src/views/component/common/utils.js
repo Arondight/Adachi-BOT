@@ -9,20 +9,27 @@ function html(literals, ...placeholders) {
   return context + literals[literals.length - 1];
 }
 
-function getParams(href) {
-  const decodeURIComponentHelper = (encoded) =>
-    decodeURIComponent(
-      window
-        .atob(encoded)
-        .split("")
-        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-        .join("")
-    );
+function decodeURIComponentHelper(encoded) {
+  return decodeURIComponent(
+    window
+      .atob(encoded)
+      .split("")
+      .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+      .join("")
+  );
+}
 
+function getParams(href) {
   return JSON.parse(decodeURIComponentHelper(new URL(href).searchParams.get("data")) || "{}");
 }
 
 function toReadableDate(date, format) {
+  function adjust(c) {
+    const str = items[c[0]] || "";
+
+    return c.length < str.length ? str.slice(0 - c.length) : "0".repeat(c.length - str.length) + str;
+  }
+
   const items = {
     y: date.getFullYear(),
     M: date.getMonth() + 1,
@@ -31,15 +38,11 @@ function toReadableDate(date, format) {
     m: date.getMinutes(),
     s: date.getSeconds(),
   };
-  const pattern = `[^${Object.keys(items).join("")}]`;
-  const regex = new RegExp(pattern, "g");
 
   Object.keys(items).forEach((c) => (items[c] = items[c].toString()));
 
-  const adjust = (c) => {
-    const str = items[c[0]] || "";
-    return c.length < str.length ? str.slice(0 - c.length) : "0".repeat(c.length - str.length) + str;
-  };
+  const pattern = `[^${Object.keys(items).join("")}]`;
+  const regex = new RegExp(pattern, "g");
   const fields =
     format
       .split(regex)

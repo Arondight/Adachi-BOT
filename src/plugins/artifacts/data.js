@@ -248,4 +248,4 @@ function domainMax() {
   return Math.max(...(Object.values(global.artifacts.domains.id) || [0]));
 }
 
-export { domainInfo, domainMax, getArtifact, props };
+export { props as artifactProps, domainInfo, domainMax, getArtifact };

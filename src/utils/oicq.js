@@ -267,6 +267,11 @@ async function sayMaster(bot, id, msg = "", type = "private", sender) {
 }
 
 function boardcast(bot, msg = "", type = "group", check = () => true) {
+  function send(c) {
+    // 广播无法 @
+    say(bot, isGroup ? c.group_id : c.user_id, msg, type);
+  }
+
   const isGroup = "group" === type;
   const typestr = isGroup ? "群" : "好友";
   const list = isGroup ? bot.gl : bot.fl;
@@ -276,13 +281,10 @@ function boardcast(bot, msg = "", type = "group", check = () => true) {
 
   list.forEach((c) => {
     if (check(c)) {
-      // 广播无法 @
-      const send = () => say(bot, isGroup ? c.group_id : c.user_id, msg, type);
-
       if (delay > 0) {
-        setTimeout(send, delay * count++);
+        setTimeout(() => send(c), delay * count++);
       } else {
-        send();
+        send(c);
       }
 
       report += `${isGroup ? c.group_name : c.nickname}（${isGroup ? c.group_id : c.user_id}）\n`;

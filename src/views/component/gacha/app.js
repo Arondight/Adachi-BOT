@@ -27,8 +27,6 @@ export default defineComponent({
     epitomeIndicator,
   },
   setup() {
-    const params = getParams(window.location.href);
-
     function get_time() {
       const date = new Date();
       const month = date.getMonth() + 1;
@@ -59,11 +57,6 @@ export default defineComponent({
       }
     }
 
-    const userName = params.user;
-    const userDrawTime = get_time();
-    const [wishType, showEpitomizedPath] = get_wish_type(params.type);
-    const drawCount = params.data.length;
-
     function quickSortByRarity(m, n) {
       const mv = "角色" === m.item_type;
       const nv = "角色" === n.item_type;
@@ -71,6 +64,21 @@ export default defineComponent({
       return m.star === n.star ? nv - mv : n.star - m.star;
     }
 
+    function reducer(prev, current) {
+      return {
+        count: prev.count + current.count || 0,
+        item_name: "已折叠的三星武器",
+        item_type: "武器",
+        star: 3,
+        type: "sword",
+      };
+    }
+
+    const params = getParams(window.location.href);
+    const userName = params.user;
+    const userDrawTime = get_time();
+    const [wishType, showEpitomizedPath] = get_wish_type(params.type);
+    const drawCount = params.data.length;
     const isStatisticalData = params.data.length > 10;
 
     let gachaDataToShow =
@@ -79,13 +87,6 @@ export default defineComponent({
         : params.data.sort((x, y) => quickSortByRarity(x, y));
 
     const compactGachaData = gachaDataToShow.filter((item) => item.star > 3);
-    const reducer = (prev, current) => ({
-      count: prev.count + current.count || 0,
-      item_name: "已折叠的三星武器",
-      item_type: "武器",
-      star: 3,
-      type: "sword",
-    });
 
     if (params.type !== "eggs" && gachaDataToShow.length > 10) {
       if (compactGachaData.length >= 9) {

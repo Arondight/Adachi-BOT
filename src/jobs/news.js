@@ -44,6 +44,10 @@ async function mysNewsUpdate() {
 }
 
 async function mysNewsNotice(withImg = true) {
+  function mkContent(text) {
+    return "。！？～~".split("").includes(text[text.length - 1]) ? text : `${text} ……`;
+  }
+
   if (1 !== global.config.noticeMysNews) {
     return;
   }
@@ -67,7 +71,6 @@ async function mysNewsNotice(withImg = true) {
         continue;
       }
 
-      const mkContent = (c) => ("。！？～~".split("").includes(c[c.length - 1]) ? c : `${c} ……`);
       const post = n.post || {};
       const { subject, content } = post;
       const image = post.images[0];

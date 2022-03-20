@@ -33,20 +33,22 @@ const maxValue = {
 };
 
 function adjustProp(obj, bot) {
+  function log(type, item, before, after) {
+    bot.logger.debug(`评分：调整属性 ${type}：${item} （ ${before} -> ${after} ）`);
+  }
+
   const level = 20;
   const star = 5;
-  const say = (type, item, before, after) =>
-    bot.logger.debug(`评分：调整属性 ${type}：${item} （ ${before} -> ${after} ）`);
 
   // 等级设置为 20
   if (level !== obj.level) {
-    say("等级", "level", obj.level, level);
+    log("等级", "level", obj.level, level);
     obj.level = level;
   }
 
   // 星级设置为 5
   if (star !== obj.star) {
-    say("星级", "star", obj.star, star);
+    log("星级", "star", obj.star, star);
     obj.star = star;
   }
 
@@ -57,16 +59,18 @@ function adjustProp(obj, bot) {
     if (obj.main_item.value.includes("%")) {
       if (value > maxValue.main_item[obj.main_item.type]) {
         const before = obj.main_item.value;
+
         obj.main_item.value = `${maxValue.main_item[obj.main_item.type]}%`;
-        say("主属性", obj.main_item.type, before, obj.main_item.value);
+        log("主属性", obj.main_item.type, before, obj.main_item.value);
       }
     } else {
       let type = "atk" === obj.main_item.type ? "atk2" : "hp" === obj.main_item.type ? "hp2" : "em";
 
       if (value !== maxValue.main_item[type]) {
         const before = obj.main_item.value;
+
         obj.main_item.value = `${maxValue.main_item[type]}`;
-        say("主属性", obj.main_item.type, before, obj.main_item.value);
+        log("主属性", obj.main_item.type, before, obj.main_item.value);
       }
     }
   }
@@ -81,8 +85,9 @@ function adjustProp(obj, bot) {
 
     if (value > maxValue.sub_item[item.type]) {
       const before = item.value;
+
       item.value = `${(value / 10).toFixed(1)}%`;
-      say("副属性", item.type, before, item.value);
+      log("副属性", item.type, before, item.value);
     }
   }
 

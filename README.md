@@ -160,7 +160,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 ### 更新
 
-进入本项目所在的目录。
+进入本项目所在的目录 `./Adachi-BOT/` 。
 
 #### 检查更新
 

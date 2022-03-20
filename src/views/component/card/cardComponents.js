@@ -70,13 +70,14 @@ const CharacterBox = defineComponent({
     data: Object,
   },
   setup(props) {
+    function getCostume(costumeName) {
+      return encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`);
+    }
+
     const starBackground = encodeURI(
       `http://localhost:9934/resources/Version2/thumb/stars/${props.data.rarity}-Star.png`
     );
     const element = encodeURI(`http://localhost:9934/resources/gacha/element/${props.data.element.toLowerCase()}.png`);
-    const getCostume = (costumeName) =>
-      encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`);
-
     const hasCostume = props.data.costumes.length !== 0;
     const costumePath = hasCostume ? getCostume(props.data.costumes[0]["name"]) : "";
 

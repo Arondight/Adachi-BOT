@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import fetch from "node-fetch";
-import { props } from "#plugins/artifacts/data";
+import { artifactProps } from "#plugins/artifacts/data";
 import { imageOcr } from "#plugins/rating/data";
 
 async function doImageOcr(msg) {
@@ -60,6 +60,14 @@ async function doRating(msg) {
 
 // 本地计算词条数并发送
 async function doRating2(msg) {
+  function indexOf(type) {
+    for (let i = 0; i < global.artifacts.values[0].length; ++i) {
+      if (type === artifactProps[i].type) {
+        return i;
+      }
+    }
+  }
+
   const prop = await doImageOcr(msg);
   let report;
 
@@ -69,15 +77,8 @@ async function doRating2(msg) {
 
   report = `您的${prop.pos || "圣遗物"}（${prop.main_item.name}）词条数为：`;
 
-  const indexOf = (type) => {
-    for (let i = 0; i < global.artifacts.values[0].length; ++i) {
-      if (type === props[i].type) {
-        return i;
-      }
-    }
-  };
   const effectTypes = lodash
-    .chain(props)
+    .chain(artifactProps)
     .filter((c) => !["hp", "df"].includes(c.type))
     .map((c) => c.type)
     .uniq()
@@ -92,7 +93,7 @@ async function doRating2(msg) {
     const numeric = !c.value.includes("%");
     let index = indexOf(c.type);
 
-    if (props.filter((e) => e.type === c.type).length > 1 && false === numeric) {
+    if (artifactProps.filter((e) => e.type === c.type).length > 1 && false === numeric) {
       ++index;
     }
 

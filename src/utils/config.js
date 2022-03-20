@@ -447,8 +447,8 @@ const Setting = loadYML("setting");
 // global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
 // global[key].functions.options     -> function (lowercase):  { function: { option: text } } (both lowercase)
 function getCommand(obj, key) {
-  const reduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
-    lodash.reduce(
+  function reduce(obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) {
+    return lodash.reduce(
       obj,
       (p, v, k) => {
         if (key) {
@@ -477,14 +477,15 @@ function getCommand(obj, key) {
       },
       {}
     );
+  }
 
-  const deepReduce = (obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) =>
-    lodash.reduce(
+  function deepReduce(obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) {
+    return lodash.reduce(
       obj,
       (p, v, k) => {
         if (key) {
           (v[key] ? (Array.isArray(v[key]) ? v[key] : Object.entries(v[key] || {})) : []).forEach((c) => {
-            const transToLowerCase = (o) => {
+            function transToLowerCase(o) {
               if ("string" === typeof o) {
                 return o.toLowerCase();
               } else if (Array.isArray(o)) {
@@ -502,7 +503,8 @@ function getCommand(obj, key) {
                   r["string" === typeof k ? k.toLowerCase() : k] = "string" === typeof v ? v.toLowerCase() : v;
                 });
               }
-            };
+            }
+
             let p1 = true === lowercase[0] ? transToLowerCase(k) : k;
             let p2 = true === lowercase[1] ? transToLowerCase(c) : c;
 
@@ -521,6 +523,14 @@ function getCommand(obj, key) {
       },
       {}
     );
+  }
+
+  function add(obj, key, name, prop, callback, ...rest) {
+    global[key].functions[prop] = lodash.assign(
+      global[key].functions[prop] || {},
+      callback(obj[name].functions, prop, ...rest)
+    );
+  }
 
   if (!["command", "master"].includes(key)) {
     return;
@@ -533,13 +543,6 @@ function getCommand(obj, key) {
   global[key].functions = {};
 
   for (const name in obj) {
-    const add = (obj, key, name, prop, callback, ...rest) => {
-      global[key].functions[prop] = lodash.assign(
-        global[key].functions[prop] || {},
-        callback(obj[name].functions, prop, ...rest)
-      );
-    };
-
     add(obj, key, name, "type", reduce, [true, false], 0);
     add(obj, key, name, "show", reduce, [true, false], true);
     add(obj, key, name, "weights", reduce, [true, false], 0);
@@ -726,13 +729,14 @@ function readSetting() {
   const viewDebug = parseInt(Setting.viewDebug);
   const saveImage = parseInt(Setting.saveImage);
 
-  const getConfig = (...pairs) => {
+  function getConfig(...pairs) {
     pairs.forEach((p) => {
       const prop = Object.keys(p)[0];
       const val = p[prop];
+
       global.config[prop] = val || defaultConfig[prop];
     });
-  };
+  }
 
   getConfig(
     { accounts: [...(accounts || []), ...(account ? [account] : [])] },
@@ -815,7 +819,9 @@ function readGreeting() {
 }
 
 function readMenu() {
-  const parse = (o) => Object.keys(o).forEach((k) => (o[k] = Array.isArray(o[k]) ? o[k] : o[k] ? [o[k]] : []));
+  function parse(o) {
+    Object.keys(o).forEach((k) => (o[k] = Array.isArray(o[k]) ? o[k] : o[k] ? [o[k]] : []));
+  }
 
   global.menu = {};
   global.menu.eat = Menu.eat || {};
@@ -837,8 +843,8 @@ function readProphecy() {
 // global.names.weaponNames     ->  { name: simhash } (name lowercase)
 // global.names.allNames        ->  { name: simhash } (name lowercase)
 function readNames() {
-  const getSection = (s) =>
-    lodash.reduce(
+  function getSection(s) {
+    return lodash.reduce(
       Names[s] || {},
       (p, v, k) => {
         (v || (v = [])).push(k);
@@ -847,7 +853,11 @@ function readNames() {
       },
       {}
     );
-  const getNames = (o) => lodash.chain(o).toPairs().flatten().uniq().value();
+  }
+
+  function getNames(o) {
+    return lodash.chain(o).toPairs().flatten().uniq().value();
+  }
 
   global.names.characterAlias = getSection("character");
   global.names.weaponAlias = getSection("weapon");
@@ -886,50 +896,56 @@ function readEggs() {
 // global.artifacts.domains.aliasOf  -> id:                alias (array of string, lowercase)
 // global.artifacts.domains.product  -> id:                product (array of number)
 function readArtifacts() {
-  const reduce = (prop, key = [undefined, undefined], lowercase = [false, false]) =>
-    key.includes(undefined) ||
-    lodash.reduce(
-      Artifacts[prop] || [],
-      (p, v) => {
-        let p1 = v[key[0]];
-        let p2 = v[key[1]];
+  function reduce(prop, key = [undefined, undefined], lowercase = [false, false]) {
+    if (!key.includes(undefined)) {
+      return lodash.reduce(
+        Artifacts[prop] || [],
+        (p, v) => {
+          let p1 = v[key[0]];
+          let p2 = v[key[1]];
 
-        if (true === lowercase[0]) {
-          p1 = "string" === typeof p1 ? p1.toLowerCase() : p1;
-        }
-        if (true === lowercase[1]) {
-          p2 = "string" === typeof p2 ? p2.toLowerCase() : Array.isArray(p2) ? p2.map((c) => c.toLowerCase()) : p2;
-        }
+          if (true === lowercase[0]) {
+            p1 = "string" === typeof p1 ? p1.toLowerCase() : p1;
+          }
+          if (true === lowercase[1]) {
+            p2 = "string" === typeof p2 ? p2.toLowerCase() : Array.isArray(p2) ? p2.map((c) => c.toLowerCase()) : p2;
+          }
 
-        p[p1] = p2;
-        return p;
-      },
-      {}
-    );
-  const deepReduce = (prop, key = [undefined, undefined], lowercase = [false, false]) =>
-    key.includes(undefined) ||
-    lodash.reduce(
-      Artifacts[prop] || [],
-      (p, v) => {
-        (v[key[0]] || []).forEach((c) => {
-          (Array.isArray(c) ? c : [c]).forEach((c) => {
-            let p1 = c;
-            let p2 = v[key[1]];
+          p[p1] = p2;
+          return p;
+        },
+        {}
+      );
+    }
+  }
 
-            if (true === lowercase[0]) {
-              p1 = "string" === typeof p1 ? p1.toLowerCase() : p1;
-            }
-            if (true === lowercase[1]) {
-              p2 = "string" === typeof p2 ? p2.toLowerCase() : Array.isArray(p2) ? p2.map((c) => c.toLowerCase()) : p2;
-            }
+  function deepReduce(prop, key = [undefined, undefined], lowercase = [false, false]) {
+    if (!key.includes(undefined)) {
+      return lodash.reduce(
+        Artifacts[prop] || [],
+        (p, v) => {
+          (v[key[0]] || []).forEach((c) => {
+            (Array.isArray(c) ? c : [c]).forEach((c) => {
+              let p1 = c;
+              let p2 = v[key[1]];
 
-            p[p1] = p2;
+              if (true === lowercase[0]) {
+                p1 = "string" === typeof p1 ? p1.toLowerCase() : p1;
+              }
+              if (true === lowercase[1]) {
+                p2 =
+                  "string" === typeof p2 ? p2.toLowerCase() : Array.isArray(p2) ? p2.map((c) => c.toLowerCase()) : p2;
+              }
+
+              p[p1] = p2;
+            });
           });
-        });
-        return p;
-      },
-      {}
-    );
+          return p;
+        },
+        {}
+      );
+    }
+  }
 
   global.artifacts.weights = Artifacts.weights;
   global.artifacts.values = Artifacts.values;
@@ -1033,13 +1049,13 @@ function readCommand() {
 // global.all.function
 // global.all.functions.entrance
 function getAll() {
-  const merge = (o, p, o1, o2) => {
+  function merge(o, p, o1, o2) {
     o[p] = {};
     // 这里可能有重复的 key 需要手动处理一下
     for (const k of [...new Set([...Object.keys(o1 || {}), ...Object.keys(o2 || {})])]) {
       o[p][k] = [...new Set([...((o1 || {})[k] || []), ...((o2 || {})[k] || [])])];
     }
-  };
+  }
 
   global.all.functions = {};
   global.all.functions.options = lodash.assign({}, global.command.functions.options, global.master.functions.options);

@@ -10,6 +10,10 @@ import { boardcast, say, sayMaster } from "#utils/oicq";
 global.bots = [];
 
 function create() {
+  async function sendMessage(bot, id, msg, type = "private", sender = undefined, delimiter = " ", atSender = true) {
+    return await bot.say(id, msg, type, sender, true, delimiter, atSender);
+  }
+
   for (const account of global.config.accounts) {
     const bot = createClient(account.qq, { platform: account.platform, log_level: "debug", data_dir: global.oicqdir });
 
@@ -18,8 +22,7 @@ function create() {
     bot.say = say.bind(null, bot);
     bot.sayMaster = sayMaster.bind(null, bot);
     // 属性 sendMessage 和 sendMessage 为了兼容可能存在的旧插件
-    bot.sendMessage = async (id, msg, type = "private", sender = undefined, delimiter = " ", atSender = true) =>
-      await bot.say(id, msg, type, sender, true, delimiter, atSender);
+    bot.sendMessage = sendMessage.bind(null, bot);
     bot.sendMaster = bot.sayMaster;
 
     global.bots.push(bot);
@@ -40,7 +43,9 @@ function hello() {
 }
 
 function report() {
-  const log = (text) => global.bots.logger.debug(`配置：${text}`);
+  function log(text) {
+    global.bots.logger.debug(`配置：${text}`);
+  }
 
   log(`加载了 ${global.cookies.length} 条 Cookie 。`);
   log(`登录账号 ${lodash.map(global.config.accounts, "qq").join(" 、 ")} 。`);
