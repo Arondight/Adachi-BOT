@@ -25,8 +25,9 @@ body {
 body:before {
   position: fixed;
   left: -10px;
+  top: -10px;
   width: 430px;
-  height: 100%;
+  height: calc(100vh + 10px);
   content: "";
   background: url("../../../../resources/Version2/backgrounds/contour-background.svg");
   background-size: cover;
