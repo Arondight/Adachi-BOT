@@ -261,7 +261,8 @@ img.lock-icon {
 
 .character-box {
   display: grid;
-  grid-template-areas: "headups"
+  grid-template-areas:
+    "headups"
     "avatar"
     "text-area";
   grid-template-rows: 0 min-content auto;
