@@ -215,6 +215,8 @@ API2_THUMB_CHARACTER='Version2/thumb/character'
 API2_THUMB_WEAPON='Version2/thumb/weapon'
 API_CHARACTER_PROFILE='characters/profile'
 API_GACHA_ITEMS='gacha/items'
+API_IMAGES_CHEST='images/chest'
+API_IMAGES_CULUS='images/culus'
 API_ITEM='item'
 API_MODULE='module'
 
@@ -249,6 +251,14 @@ API_GACHA_ITEMS_FILES=(
   'ThreeBackground.png'
   'ThreeStar.png'
   'background.png'
+)
+API_IMAGES_CHEST_FILES=(
+  $(echo $(seq 1 5) | tr ' ' "\n" | xargs -I {} echo "treasure_chest_{}.png")
+)
+API_IMAGES_CULUS_FILES=(
+  'Anemoculus.png'
+  'Geoculus.png'
+  'Electroculus.png'
 )
 API_ITEM_FILES=(
   'lock.png'
@@ -427,6 +437,11 @@ function getWeapon()
   fetch "$API2_WEAPON" 1 '.png' "${WEAPONS[@]}"
 }
 
+function getImage() {
+  fetch "$API_IMAGES_CHEST" 0 '' "${API_IMAGES_CHEST_FILES[@]}"
+  fetch "$API_IMAGES_CULUS" 0 '' "${API_IMAGES_CULUS_FILES[@]}"
+}
+
 function getItem()
 {
   fetch "$API_ITEM" 0 '' "${API_ITEM_FILES[@]}"
@@ -543,6 +558,7 @@ function listXML()
   getMoudle
   getNameCard
   getWeapon
+  #getImage
   getItem
   getInfo
   getArtifacts
