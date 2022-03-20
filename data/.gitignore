@@ -2,6 +2,7 @@
 *
 # Except these files
 !.gitignore
+!README.txt
 !db/
 !font/
 !js/
