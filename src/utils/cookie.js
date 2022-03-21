@@ -1,10 +1,11 @@
-import lodash from "lodash";
 import path from "path";
 import db from "#utils/database";
 
+const MAX_ACCOUNTS_PRE_COOKIE = 30;
+
 // 无需加锁
 const cookies = (global.cookies || [])
-  .filter((c) => isValidCookie(c))
+  .filter((c) => isValidCookieStr(c))
   .map((c) => ({
     cookie: c,
     cookie_token: getCookieItem(c, "cookie_token") || "",
@@ -14,12 +15,16 @@ const cookies = (global.cookies || [])
 let index = 0;
 
 function increaseIndex() {
-  index = index === cookies.length - 1 ? 0 : index + 1;
+  return (index = index + 1 < cookies.length ? index + 1 : 0);
 }
 
-function getCookieItem(cookie, item = "account_id") {
-  if ("string" === typeof cookie) {
-    const match = cookie.match(new RegExp(`(?<=${item}=)\\w+?\\b`)) || [];
+function getToday() {
+  return new Date().toLocaleDateString();
+}
+
+function getCookieItem(cookieStr, item = "account_id") {
+  if ("string" === typeof cookieStr) {
+    const match = cookieStr.match(new RegExp(`(?<=${item}=)\\w+?\\b`)) || [];
 
     if (match.length > 0) {
       return match[0];
@@ -27,8 +32,12 @@ function getCookieItem(cookie, item = "account_id") {
   }
 }
 
-function isValidCookie(cookie) {
-  return !!("string" === typeof cookie && getCookieItem(cookie, "cookie_token") && getCookieItem(cookie, "account_id"));
+function isValidCookieStr(cookieStr) {
+  return !!(
+    "string" === typeof cookieStr &&
+    getCookieItem(cookieStr, "cookie_token") &&
+    getCookieItem(cookieStr, "account_id")
+  );
 }
 
 function getCookieByID(uid) {
@@ -51,98 +60,111 @@ function getCookieByID(uid) {
   }
 }
 
-function getEffectiveCookie(uid, s, use) {
+function writeNewCookieToDB(cookie) {
   const dbName = "cookies";
-  const today = new Date().toLocaleDateString();
-  const cookieByID = getCookieByID(uid);
-  let cookie;
-  let token;
-  let id;
+  const date = getToday();
 
-  if (undefined === cookieByID) {
-    let cur = index;
+  if (!db.includes(dbName, "cookie", { cookie: cookie.cookie })) {
+    db.push(dbName, "cookie", {
+      cookie: cookie.cookie,
+      date,
+      times: 0,
+      cookie_token: cookie.cookie_token,
+      account_id: cookie.account_id,
+    });
+  }
+}
 
-    increaseIndex();
+function updateCookiesDB(uid, cookie, times) {
+  const dbName = "cookies";
+  const date = getToday();
 
-    cur = cur === cookies.length - 1 ? 0 : cur + 1;
-    cookie = cookies[cur].cookie;
-    token = cookies[cur].cookie_token;
-    id = cookies[cur].account_id;
+  db.update(dbName, "cookie", { cookie: cookie.cookie }, { date, times });
+
+  if (undefined !== uid) {
+    if (!db.includes(dbName, "uid", { uid })) {
+      db.push(dbName, "uid", { uid });
+    }
+
+    db.update(
+      dbName,
+      "uid",
+      { uid },
+      { date, cookie: cookie.cookie, times, cookie_token: cookie.cookie_token, account_id: cookie.account_id }
+    );
+  }
+}
+
+function getEffectiveCookie(uid, i, use) {
+  // 因为 Cookie 可能有项目外的损耗（例如被米游社使用），
+  // 所以在策略上尽量平均化 Cookie 池使用次数
+  const cookie = cookies[increaseIndex()];
+
+  writeNewCookieToDB(cookie);
+
+  const today = getToday();
+  const dbName = "cookies";
+  let { date, times } = db.get(dbName, "cookie", { cookie: cookie.cookie }) || {};
+
+  if (date === today) {
+    if (times >= MAX_ACCOUNTS_PRE_COOKIE) {
+      // Cookie 池完整遍历仍未找到可用 Cookie ，此时**必须停止递归**
+      if (i > cookies.length) {
+        // 由调用者抛出异常
+        return;
+      }
+
+      return getEffectiveCookie(uid, i + 1, use);
+    }
   } else {
-    cookie = cookieByID.cookie;
-    token = cookieByID.cookie_token;
-    id = cookieByID.account_id;
-    use = false;
-  }
-
-  if (!db.includes(dbName, "cookie", { cookie })) {
-    db.push(dbName, "cookie", { cookie, date: today, times: 0, cookie_token: token, account_id: id });
-  }
-
-  let { date, times } = db.get(dbName, "cookie", { cookie }) || {};
-
-  if (date === today && times >= 30) {
-    return s >= cookies.length ? cookie : getEffectiveCookie(uid, s + 1, use);
-  }
-
-  if (date !== today) {
+    // 此时 Cookie 可直接使用
     times = 0;
   }
 
-  date = today;
-  ++times;
-
   if (true === use) {
-    db.update(dbName, "cookie", { cookie }, { date, times });
-
-    if (undefined !== uid) {
-      if (!db.includes(dbName, "uid", { uid })) {
-        db.push(dbName, "uid", { uid, date: "", cookie: "", times: 0, cookie_token: token, account_id: id });
-      }
-
-      db.update(dbName, "uid", { uid }, lodash.assign({ date, cookie }, { times }));
-    }
+    updateCookiesDB(uid, cookie, times + 1);
   }
 
   return cookie;
 }
 
 function getCookie(uid, use, bot) {
-  const dbName = "cookies";
-  let cookie;
-
   if ("string" === typeof uid) {
     uid = parseInt(uid);
   }
 
-  // XXX THIS IS THE LAW
+  // THIS IS THE LAW
   if (undefined === uid) {
     use = false;
   }
 
-  // 尝试根据给出的 uid 查找使用记录
-  if (!isNaN(uid) && uid > 0) {
-    const today = new Date().toLocaleDateString();
-    const record = db.get(dbName, "uid", { uid }) || {};
-    let date = record.date;
+  const cookieByID = getCookieByID(uid);
+  let cookieStr;
 
-    cookie = record.cookie;
+  if (undefined === cookieByID) {
+    // 给出 uid 则尝试使用已绑定的 Cookie
+    if (!isNaN(uid)) {
+      const dbName = "cookies";
+      const today = getToday();
+      const record = db.get(dbName, "uid", { uid }) || {};
 
-    if (date && date === today && isValidCookie(cookie)) {
-      return cookie;
+      if (record.date === today && isValidCookieStr(record.cookie)) {
+        return record.cookie;
+      }
     }
+
+    // 获取一个新 Cookie
+    cookieStr = (getEffectiveCookie(uid, 0, use) || {}).cookie;
+  } else {
+    cookieStr = cookieByID.cookie;
   }
 
-  // 没有给出 uid 或者未找到使用记录则获取一个新 cookie
-  cookie = getEffectiveCookie(uid, 1, use);
-
-  if (!cookie) {
-    throw "无法获取可用 Cookie ！";
+  if (isValidCookieStr(cookieStr)) {
+    bot.logger.debug(`Cookie：${undefined === uid ? "" : " " + uid + " -> "}${cookieStr}`);
+    return cookieStr;
   }
 
-  bot.logger.debug(`Cookie：${undefined === uid ? "" : " " + uid + " -> "}${cookie}`);
-
-  return cookie;
+  throw "无法获取可用 Cookie ！";
 }
 
 function markCookieUnusable(cookie) {
