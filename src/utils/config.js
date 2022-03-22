@@ -421,7 +421,7 @@ global.menu = {};
 global.names = {};
 global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
 global.prophecy = {};
-global.fortune={}
+global.fortune = {};
 
 const Artifacts = loadYML("artifacts");
 const Command = loadYML("command");
