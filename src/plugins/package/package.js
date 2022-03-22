@@ -1,4 +1,3 @@
-import { getEmoticons } from "#utils/api";
 import db from "#utils/database";
 import { baseDetail, characterDetail, handleDetailError, indexDetail } from "#utils/detail";
 import { getID } from "#utils/id";
@@ -8,17 +7,10 @@ import { filterWordsByRegex } from "#utils/tools";
 async function doPackage(msg) {
   const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.package);
   let dbInfo = getID(msg.text, msg.uid, false); // UID
-  let emoticons;
 
   if ("string" === typeof dbInfo) {
     msg.bot.say(msg.sid, dbInfo, msg.type, msg.uid, true);
     return;
-  }
-
-  try {
-    emoticons = (await getEmoticons()).data || [];
-  } catch (e) {
-    emoticons = [];
   }
 
   try {
@@ -55,8 +47,6 @@ async function doPackage(msg) {
   if (undefined !== qqid) {
     data.qqid = qqid;
   }
-
-  data.emoticons = emoticons;
 
   render(msg, data, "genshin-card");
 }
