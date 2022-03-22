@@ -843,7 +843,6 @@ function readFortune() {
   global.fortune.luck = Array.isArray(global.fortune.luck) ? global.fortune.luck : [];
   global.fortune.things = Array.isArray(global.fortune.things) ? global.fortune.things : [];
 }
-
 // global.names.character       ->  names (lowercase): character (string, lowercase)
 // global.names.weapon          ->  names (lowercase): weapon (string, lowercase)
 // global.names.all             ->  names (lowercase): name (string, lowercase)
