@@ -729,16 +729,14 @@ function readSetting() {
   const viewDebug = parseInt(mSetting.viewDebug);
   const saveImage = parseInt(mSetting.saveImage);
 
-  function getConfig(...pairs) {
-    pairs.forEach((p) => {
-      const prop = Object.keys(p)[0];
-      const val = p[prop];
+  (function getConfig(...items) {
+    items.forEach((o) => {
+      const prop = Object.keys(o)[0];
+      const val = o[prop];
 
       global.config[prop] = val || defaultConfig[prop];
     });
-  }
-
-  getConfig(
+  })(
     { accounts: [...(accounts || []), ...(account ? [account] : [])] },
     { masters: [...(masters || []), ...(master ? [master] : [])] },
     {
@@ -815,7 +813,16 @@ function readCookies() {
 }
 
 function readGreeting() {
-  global.greeting = mGreeting;
+  global.greeting = Object.assign(
+    {
+      online: "我上线了。",
+      offline: "我下线了。",
+      die: "我无了。",
+      hello: "大家好。",
+      new: "你好。",
+    },
+    mGreeting
+  );
 }
 
 function readMenu() {
