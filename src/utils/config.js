@@ -1097,22 +1097,24 @@ function readConfig() {
 function hasEntrance(message, plugin, ...entrance) {
   const messageu = message.toLowerCase(); // 忽略大小写
 
-  if (global.all.function[plugin]) {
-    for (const e of entrance) {
-      // 验证 entrance 是否在插件中
-      if (!global.all.function[plugin].includes(e)) {
-        continue;
-      }
+  if (undefined === global.all.function[plugin]) {
+    return false;
+  }
 
-      // 验证 message 是否以 entrance 对应的字符串开始
-      if (Array.isArray(global.all.functions.entrance[e])) {
-        for (const t of global.all.functions.entrance[e]) {
-          if (t) {
-            if (new RegExp(t, "i").test(messageu)) {
-              return true;
-            }
-          }
-        }
+  for (const e of entrance) {
+    // 验证 entrance 是否在插件中
+    if (!global.all.function[plugin].includes(e)) {
+      continue;
+    }
+
+    if (!Array.isArray(global.all.functions.entrance[e])) {
+      continue;
+    }
+
+    // 验证 message 是否以 entrance 对应的字符串开始
+    for (const t of global.all.functions.entrance[e]) {
+      if ("string" === typeof t && new RegExp(t, "i").test(messageu)) {
+        return true;
       }
     }
   }

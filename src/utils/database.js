@@ -8,7 +8,7 @@ const mDatabase = {};
 
 function mkpath(...path) {
   if (path.length < 1) {
-    throw `Empty path`;
+    return "";
   }
 
   let result = path[0];
