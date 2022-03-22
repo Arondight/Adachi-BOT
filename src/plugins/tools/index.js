@@ -1,9 +1,9 @@
 import { feedback } from "#plugins/tools/feedback";
+import { fortune } from "#plugins/tools/fortune";
 import { menu } from "#plugins/tools/menu";
 import { prophecy } from "#plugins/tools/prophecy";
 import { quote } from "#plugins/tools/quote";
 import { roll } from "#plugins/tools/roll";
-import { fortune } from "#plugins/tools/fortune"
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 
