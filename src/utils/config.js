@@ -421,6 +421,7 @@ global.menu = {};
 global.names = {};
 global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
 global.prophecy = {};
+global.fortune={}
 
 const mArtifacts = loadYML("artifacts");
 const mCommand = loadYML("command");
@@ -431,6 +432,7 @@ const mMaster = loadYML("command_master");
 const mMenu = loadYML("menu");
 const mNames = loadYML("names");
 const mProphecy = loadYML("prophecy");
+const mFortune = loadYML("fortune");
 const mSetting = loadYML("setting");
 
 // global[type].enable                -> plugin (lowercase):    is_enabled (boolean)
@@ -836,6 +838,12 @@ function readProphecy() {
   global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
 }
 
+function readFortune() {
+  global.fortune = mFortune;
+  global.fortune.luck = Array.isArray(global.fortune.luck) ? global.fortune.luck : [];
+  global.fortune.things = Array.isArray(global.fortune.things) ? global.fortune.things : [];
+}
+
 // global.names.character       ->  names (lowercase): character (string, lowercase)
 // global.names.weapon          ->  names (lowercase): weapon (string, lowercase)
 // global.names.all             ->  names (lowercase): name (string, lowercase)
@@ -1077,6 +1085,7 @@ function readConfig() {
   readGreeting();
   readMenu();
   readProphecy();
+  readFortune();
   readNames();
   readEggs();
   readArtifacts();
