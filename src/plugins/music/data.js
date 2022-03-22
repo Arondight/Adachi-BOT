@@ -4,17 +4,17 @@ import querystring from "querystring";
 import db from "#utils/database";
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
-const ERRCODE = {
+const m_ERR_CODE = {
   ERR_SRC: "1",
   ERR_404: "2",
   ERR_API: "3",
 };
-Object.freeze(ERRCODE);
+Object.freeze(m_ERR_CODE);
 
-const errMsg = {
-  [ERRCODE.ERR_SRC]: "错误的音乐源",
-  [ERRCODE.ERR_404]: "没有查询到对应歌曲",
-  [ERRCODE.ERR_API]: "歌曲查询出错",
+const m_ERR_MSG = {
+  [m_ERR_CODE.ERR_SRC]: "错误的音乐源",
+  [m_ERR_CODE.ERR_404]: "没有查询到对应歌曲",
+  [m_ERR_CODE.ERR_API]: "歌曲查询出错",
 };
 
 async function musicQQ(keyword) {
@@ -30,7 +30,7 @@ async function musicQQ(keyword) {
   try {
     response = await fetch(`${url}?${new URLSearchParams(query)}`, { method: "GET", headers });
   } catch (e) {
-    return ERRCODE.ERR_API;
+    return m_ERR_CODE.ERR_API;
   }
 
   if (200 === response.status) {
@@ -38,7 +38,7 @@ async function musicQQ(keyword) {
   }
 
   if (!jbody) {
-    return ERRCODE.ERR_API;
+    return m_ERR_CODE.ERR_API;
   }
 
   try {
@@ -46,14 +46,14 @@ async function musicQQ(keyword) {
     const starti = "callback(".length;
     jbody = JSON.parse(jbody.substring(starti, jbody.length - 1));
   } catch (e) {
-    return ERRCODE.ERR_API;
+    return m_ERR_CODE.ERR_API;
   }
 
   if (lodash.hasIn(jbody, "data.song.list[0].songid")) {
     return { type: "qq", id: jbody.data.song.list[0].songid };
   }
 
-  return ERRCODE.ERR_404;
+  return m_ERR_CODE.ERR_404;
 }
 
 async function music163(keyword) {
@@ -78,7 +78,7 @@ async function music163(keyword) {
   try {
     response = await fetch(url, { method: "POST", headers, body });
   } catch (e) {
-    return ERRCODE.ERR_API;
+    return m_ERR_CODE.ERR_API;
   }
 
   if (200 === response.status) {
@@ -86,14 +86,14 @@ async function music163(keyword) {
   }
 
   if (!jbody) {
-    return ERRCODE.ERR_API;
+    return m_ERR_CODE.ERR_API;
   }
 
   if (lodash.hasIn(jbody, "result.songs[0].id")) {
     return { type: "163", id: jbody.result.songs[0].id };
   }
 
-  return ERRCODE.ERR_404;
+  return m_ERR_CODE.ERR_404;
 }
 
 async function musicID(text, source) {
@@ -104,7 +104,7 @@ async function musicID(text, source) {
   };
 
   if (!(source in worker)) {
-    return ERRCODE.ERR_SRC;
+    return m_ERR_CODE.ERR_SRC;
   }
 
   return await worker[source](args);
@@ -131,4 +131,4 @@ function musicSrc(text, id) {
   return source;
 }
 
-export { errMsg, musicID, musicSrc };
+export { m_ERR_MSG as errMsg, musicID, musicSrc };

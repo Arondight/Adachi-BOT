@@ -1,4 +1,3 @@
-import lodash from "lodash";
 import { init } from "#plugins/gacha/init";
 import db from "#utils/database";
 
@@ -12,8 +11,8 @@ function doSelect(msg, name = undefined) {
     name = global.names.weaponAlias[name] || name;
   }
 
-  if (name && lodash.find(table.upFiveStar, { item_name: name })) {
-    const path = { course: lodash.findIndex(table.upFiveStar, { item_name: name }), fate: 0 };
+  if (name && table.upFiveStar.find((c) => name === c.item_name)) {
+    const path = { course: table.upFiveStar.findIndex((c) => name === c.item_name), fate: 0 };
     let text = `定轨${name}成功，命定值已清零。`;
 
     if (choice !== 302) {
@@ -24,7 +23,7 @@ function doSelect(msg, name = undefined) {
     db.update("gacha", "user", { userID: msg.uid }, { path });
     msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
   } else {
-    const text = `请从当前 UP 武器${lodash.map(table.upFiveStar, "item_name").join("、")}中选择一个进行定轨。`;
+    const text = `请从当前 UP 武器${table.upFiveStar.map((c) => c.item_name).join("、")}中选择一个进行定轨。`;
 
     msg.bot.say(msg.sid, text, msg.type, msg.uid, true);
   }

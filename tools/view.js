@@ -10,10 +10,10 @@ import { ls } from "#utils/file";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const rootdir = path.resolve(__dirname, "..");
-const paramsDir = path.resolve(rootdir, "data", "record", "last_params");
-const names = Object.fromEntries(
-  ls(paramsDir)
+const mRootdir = path.resolve(__dirname, "..");
+const mParamsDir = path.resolve(mRootdir, "data", "record", "last_params");
+const mNames = Object.fromEntries(
+  ls(mParamsDir)
     .filter((c) => c.match(/\bgenshin-[\w-]+?[.]json$/))
     .map((c) => {
       const p = path.parse(c);
@@ -46,9 +46,9 @@ async function main() {
     }).argv;
 
   if ("string" === typeof argv.name) {
-    if (undefined !== names[argv.name]) {
+    if (undefined !== mNames[argv.name]) {
       const view = `genshin-${argv.name}`;
-      const dataFile = path.resolve(paramsDir, `${view}.json`);
+      const dataFile = path.resolve(mParamsDir, `${view}.json`);
       const viewFile = path.resolve(__dirname, "..", "src", "views", `${view}.html`);
 
       for (const f of [dataFile, viewFile]) {
@@ -82,7 +82,7 @@ async function main() {
   }
 
   if (true === argv.list) {
-    const nameList = Object.keys(names);
+    const nameList = Object.keys(mNames);
 
     if (nameList.length > 0) {
       console.log(nameList.join("\n"));

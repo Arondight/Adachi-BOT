@@ -4,7 +4,7 @@ import { LowJSONCacheSync } from "#utils/lowdb";
 import { merge } from "#utils/merge";
 
 // 无需加锁
-const db = {};
+const mDatabase = {};
 
 function mkpath(...path) {
   if (path.length < 1) {
@@ -44,17 +44,17 @@ function parsed(key, ...data) {
 }
 
 function names() {
-  return Object.keys(db) || [];
+  return Object.keys(mDatabase) || [];
 }
 
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, struct = { user: [] }) {
   const filename = path.resolve(global.datadir, "db", `${dbName}.json`);
-  db[dbName] = new LowJSONCacheSync(filename);
-  db[dbName].write(db[dbName].load() || {});
+  mDatabase[dbName] = new LowJSONCacheSync(filename);
+  mDatabase[dbName].write(mDatabase[dbName].load() || {});
 
-  const data = db[dbName].read();
-  db[dbName].chain = lodash.chain(data);
+  const data = mDatabase[dbName].read();
+  mDatabase[dbName].chain = lodash.chain(data);
 
   Object.keys(struct).forEach((c) => {
     if (undefined === data[c]) {
@@ -66,15 +66,15 @@ function init(dbName, struct = { user: [] }) {
 }
 
 function sync(dbName) {
-  return db[dbName].sync();
+  return mDatabase[dbName].sync();
 }
 
 function file(dbName) {
-  return db[dbName].file();
+  return mDatabase[dbName].file();
 }
 
 function has(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return false;
   }
 
@@ -87,18 +87,18 @@ function has(dbName, key, ...data) {
     path = key;
   }
 
-  const result = db[dbName].chain.hasIn(path).value();
+  const result = mDatabase[dbName].chain.hasIn(path).value();
 
   return !!result;
 }
 
 function includes(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return false;
   }
 
   const simple = !(null !== data[0] && ("object" === typeof data[0] || "object" === typeof data[1]));
-  const obj = db[dbName].chain.get(key).value();
+  const obj = mDatabase[dbName].chain.get(key).value();
 
   if (true === simple) {
     const [path, predicate] = data;
@@ -117,7 +117,7 @@ function includes(dbName, key, ...data) {
       predicate = data[1];
     }
 
-    const obj = db[dbName].chain.get(path).value();
+    const obj = mDatabase[dbName].chain.get(path).value();
 
     if (Array.isArray(obj)) {
       if (lodash.some(obj, predicate)) {
@@ -134,12 +134,12 @@ function includes(dbName, key, ...data) {
 }
 
 function remove(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return false;
   }
 
   const [path, predicate] = parsed(key, ...data);
-  const obj = db[dbName].chain.get(path).value();
+  const obj = mDatabase[dbName].chain.get(path).value();
   let value;
 
   if (!obj) {
@@ -165,7 +165,7 @@ function remove(dbName, key, ...data) {
 
     if (list.length > 1) {
       const pathNew = list.slice(0, -1);
-      const obj = db[dbName].chain.get(pathNew).value();
+      const obj = mDatabase[dbName].chain.get(pathNew).value();
       const last = list[list.length - 1];
       const number = parseInt(last);
 
@@ -182,20 +182,20 @@ function remove(dbName, key, ...data) {
       }
     }
   } else {
-    db[dbName].chain.set(path, value).value();
+    mDatabase[dbName].chain.set(path, value).value();
   }
 
   return true;
 }
 
 function get(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return;
   }
 
   const [path, predicate] = parsed(key, ...data);
   const whole = 0 === data.length || (1 === data.length && "string" === typeof data[0]);
-  const obj = db[dbName].chain.get(path).value();
+  const obj = mDatabase[dbName].chain.get(path).value();
   let result;
 
   if (true === whole) {
@@ -218,24 +218,24 @@ function get(dbName, key, ...data) {
 }
 
 function set(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return false;
   }
 
   const [path, value] = parsed(key, ...data);
 
-  db[dbName].chain.set(path, value).value();
+  mDatabase[dbName].chain.set(path, value).value();
 
   return true;
 }
 
 function push(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return false;
   }
 
   const [path, value] = parsed(key, ...data);
-  const obj = db[dbName].chain.get(path).value();
+  const obj = mDatabase[dbName].chain.get(path).value();
 
   if (Array.isArray(obj)) {
     obj.push(value);
@@ -246,7 +246,7 @@ function push(dbName, key, ...data) {
 }
 
 function update(dbName, key, ...data) {
-  if (undefined === db[dbName]) {
+  if (undefined === mDatabase[dbName]) {
     return false;
   }
 

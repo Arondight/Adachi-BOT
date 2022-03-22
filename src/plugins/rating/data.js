@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-const maxValue = {
+const mMaxValue = {
   main_item: {
     // 主属性直接设置为最大值
     atk: 46.6, // 大攻击
@@ -53,23 +53,23 @@ function adjustProp(obj, bot) {
   }
 
   // 主属性直接设置为最大值
-  if (maxValue.main_item[obj.main_item.type]) {
+  if (mMaxValue.main_item[obj.main_item.type]) {
     const value = parseFloat(obj.main_item.value);
 
     if (obj.main_item.value.includes("%")) {
-      if (value > maxValue.main_item[obj.main_item.type]) {
+      if (value > mMaxValue.main_item[obj.main_item.type]) {
         const before = obj.main_item.value;
 
-        obj.main_item.value = `${maxValue.main_item[obj.main_item.type]}%`;
+        obj.main_item.value = `${mMaxValue.main_item[obj.main_item.type]}%`;
         log("主属性", obj.main_item.type, before, obj.main_item.value);
       }
     } else {
       let type = "atk" === obj.main_item.type ? "atk2" : "hp" === obj.main_item.type ? "hp2" : "em";
 
-      if (value !== maxValue.main_item[type]) {
+      if (value !== mMaxValue.main_item[type]) {
         const before = obj.main_item.value;
 
-        obj.main_item.value = `${maxValue.main_item[type]}`;
+        obj.main_item.value = `${mMaxValue.main_item[type]}`;
         log("主属性", obj.main_item.type, before, obj.main_item.value);
       }
     }
@@ -77,13 +77,13 @@ function adjustProp(obj, bot) {
 
   // 试图调整副词条中丢失小数点的条目
   for (const item of obj.sub_item || []) {
-    if (!maxValue.sub_item[item.type] || !item.value.includes("%")) {
+    if (!mMaxValue.sub_item[item.type] || !item.value.includes("%")) {
       continue;
     }
 
     const value = parseFloat(item.value);
 
-    if (value > maxValue.sub_item[item.type]) {
+    if (value > mMaxValue.sub_item[item.type]) {
       const before = item.value;
 
       item.value = `${(value / 10).toFixed(1)}%`;

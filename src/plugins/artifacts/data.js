@@ -3,7 +3,7 @@ import db from "#utils/database";
 
 // 数组对应了 global.artifacts.weights 和 global.artifacts.values
 // TODO 这些信息应该都放到配置文件中
-const props = [
+const mProps = [
   // 小生命
   { type: "hp", name: "生命值", value: ["717", "4780"] },
   { type: "hp", name: "生命值", value: ["7.0%", "46.6%"] },
@@ -137,7 +137,7 @@ function toArray(property) {
   let num = 0;
 
   for (const i in property) {
-    let temp = { name: props.map((c) => c.name)[i] };
+    let temp = { name: mProps.map((c) => c.name)[i] };
 
     if (property[i] < 1) {
       temp.data = (property[i] * 100).toFixed(1) + "%";
@@ -190,8 +190,8 @@ function getArtifact(userID, type) {
   const levelInitial = 0;
   const levelFortified = 20;
   const mainStat = getMainStat(slot);
-  const mainStatText = props.map((c) => c.name)[mainStat] || "";
-  const mainValueItem = props[mainStat] || [];
+  const mainStatText = mProps.map((c) => c.name)[mainStat] || "";
+  const mainValueItem = mProps[mainStat] || [];
   const mainValueInitial = (mainValueItem.value || [])[0];
   const mainValueFortified = (mainValueItem.value || [])[1];
   const subStats = getSubStats(mainStat);
@@ -248,4 +248,4 @@ function domainMax() {
   return Math.max(...(Object.values(global.artifacts.domains.id) || [0]));
 }
 
-export { props as artifactProps, domainInfo, domainMax, getArtifact };
+export { mProps as artifactProps, domainInfo, domainMax, getArtifact };

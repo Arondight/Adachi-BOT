@@ -422,31 +422,31 @@ global.names = {};
 global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
 global.prophecy = {};
 
-const Artifacts = loadYML("artifacts");
-const Command = loadYML("command");
-const Cookies = loadYML("cookies");
-const Eggs = loadYML("pool_eggs");
-const Greeting = loadYML("greeting");
-const Master = loadYML("command_master");
-const Menu = loadYML("menu");
-const Names = loadYML("names");
-const Prophecy = loadYML("prophecy");
-const Setting = loadYML("setting");
+const mArtifacts = loadYML("artifacts");
+const mCommand = loadYML("command");
+const mCookies = loadYML("cookies");
+const mEggs = loadYML("pool_eggs");
+const mGreeting = loadYML("greeting");
+const mMaster = loadYML("command_master");
+const mMenu = loadYML("menu");
+const mNames = loadYML("names");
+const mProphecy = loadYML("prophecy");
+const mSetting = loadYML("setting");
 
-// global[key].enable                -> plugin (lowercase):    is_enabled (boolean)
-// global[key].weights               -> plugin (lowercase):    weights (number)
-// global[key].regex                 -> regex (lowercase):     plugin (string)
-// global[key].function              -> function (lowercase):  plugin (array of string, lowercase)
-// global[key].functions.type        -> function (lowercase):  type (string)
-// global[key].functions.show        -> function (lowercase):  is_show (boolean)
-// global[key].functions.weights     -> function (lowercase):  weights (number)
-// global[key].functions.name        -> function (lowercase):  name (string)
-// global[key].functions.usage       -> function (lowercase):  usage (string)
-// global[key].functions.revert      -> function (lowercase):  revert (boolean)
-// global[key].functions.description -> function (lowercase):  description (string)
-// global[key].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
-// global[key].functions.options     -> function (lowercase):  { function: { option: text } } (both lowercase)
-function getCommand(obj, key) {
+// global[type].enable                -> plugin (lowercase):    is_enabled (boolean)
+// global[type].weights               -> plugin (lowercase):    weights (number)
+// global[type].regex                 -> regex (lowercase):     plugin (string)
+// global[type].function              -> function (lowercase):  plugin (array of string, lowercase)
+// global[type].functions.type        -> function (lowercase):  type (string)
+// global[type].functions.show        -> function (lowercase):  is_show (boolean)
+// global[type].functions.weights     -> function (lowercase):  weights (number)
+// global[type].functions.name        -> function (lowercase):  name (string)
+// global[type].functions.usage       -> function (lowercase):  usage (string)
+// global[type].functions.revert      -> function (lowercase):  revert (boolean)
+// global[type].functions.description -> function (lowercase):  description (string)
+// global[type].functions.entrance    -> function (lowercase):  entrance (array of string, lowercase)
+// global[type].functions.options     -> function (lowercase):  { function: { option: text } } (both lowercase)
+function getCommand(obj, type) {
   function reduce(obj, key, lowercase = [false, false], defaultValue = undefined, revert = false) {
     return lodash.reduce(
       obj,
@@ -525,37 +525,37 @@ function getCommand(obj, key) {
     );
   }
 
-  function add(obj, key, name, prop, callback, ...rest) {
-    global[key].functions[prop] = lodash.assign(
+  function add(key, name, prop, callback, ...rest) {
+    global[key].functions[prop] = Object.assign(
       global[key].functions[prop] || {},
       callback(obj[name].functions, prop, ...rest)
     );
   }
 
-  if (!["command", "master"].includes(key)) {
+  if (!["command", "master"].includes(type)) {
     return;
   }
 
-  global[key].enable = reduce(obj, "enable", [true, false], false);
-  global[key].weights = reduce(obj, "weights", [true, false], 0);
-  global[key].regex = deepReduce(obj, "regex", [true, false], undefined, true);
-  global[key].function = deepReduce(obj, "functions", [true, true]);
-  global[key].functions = {};
+  global[type].enable = reduce(obj, "enable", [true, false], false);
+  global[type].weights = reduce(obj, "weights", [true, false], 0);
+  global[type].regex = deepReduce(obj, "regex", [true, false], undefined, true);
+  global[type].function = deepReduce(obj, "functions", [true, true]);
+  global[type].functions = {};
 
-  for (const name in obj) {
-    add(obj, key, name, "type", reduce, [true, false], 0);
-    add(obj, key, name, "show", reduce, [true, false], true);
-    add(obj, key, name, "weights", reduce, [true, false], 0);
-    add(obj, key, name, "name", reduce, [true, false]);
-    add(obj, key, name, "usage", reduce, [true, false]);
-    add(obj, key, name, "revert", reduce, [true, false], false);
-    add(obj, key, name, "description", reduce, [true, false]);
-    add(obj, key, name, "entrance", deepReduce, [true, true]);
-    add(obj, key, name, "options", deepReduce, [true, true]);
+  for (const name of Object.keys(obj)) {
+    add(type, name, "type", reduce, [true, false], 0);
+    add(type, name, "show", reduce, [true, false], true);
+    add(type, name, "weights", reduce, [true, false], 0);
+    add(type, name, "name", reduce, [true, false]);
+    add(type, name, "usage", reduce, [true, false]);
+    add(type, name, "revert", reduce, [true, false], false);
+    add(type, name, "description", reduce, [true, false]);
+    add(type, name, "entrance", deepReduce, [true, true]);
+    add(type, name, "options", deepReduce, [true, true]);
   }
 
-  global[key].function = lodash.reduce(
-    global[key].function,
+  global[type].function = lodash.reduce(
+    global[type].function,
     (p, v, k) => {
       v.forEach((c) => (p[k] || (p[k] = [])).push(c[0]));
       return p;
@@ -564,13 +564,13 @@ function getCommand(obj, key) {
   );
 
   // 所有 switch 转换为 option
-  if (global[key].functions.type) {
-    Object.keys(global[key].functions.type).forEach((f) => {
-      if ("switch" === global[key].functions.type[f]) {
-        global[key].functions.type[f] = "option";
-        global[key].functions.options[f] = lodash
+  if (global[type].functions.type) {
+    Object.keys(global[type].functions.type).forEach((f) => {
+      if ("switch" === global[type].functions.type[f]) {
+        global[type].functions.type[f] = "option";
+        global[type].functions.options[f] = lodash
           .chain({})
-          .assign({ on: "on" }, { off: "off" }, global[key].functions.options[f] || {})
+          .assign({ on: "on" }, { off: "off" }, global[type].functions.options[f] || {})
           .pick(["on", "off"])
           .toPairs()
           .value();
@@ -578,14 +578,14 @@ function getCommand(obj, key) {
     });
   }
 
-  global[key].functions.options = lodash.reduce(
-    global[key].functions.options,
+  global[type].functions.options = lodash.reduce(
+    global[type].functions.options,
     (p, v, k) => {
       v.forEach((c) => {
         const value = undefined === c[1].toString ? c[1] : c[1].toString();
         const opName = c[0];
         const opValue = "string" === typeof value ? value.toLowerCase() : value;
-        lodash.assign(p[k] || (p[k] = {}), { [opName]: opValue });
+        Object.assign(p[k] || (p[k] = {}), { [opName]: opValue });
       });
       return p;
     },
@@ -703,31 +703,31 @@ function readSetting() {
   };
 
   // 用于兼容旧配置，已经被 accounts 取代
-  const account = Setting.account;
-  const accounts = Setting.accounts;
+  const account = mSetting.account;
+  const accounts = mSetting.accounts;
   // 用于兼容旧配置，已经被 masters 取代
-  const master = Setting.master;
-  const masters = Setting.masters;
-  const prefixes = Setting.prefixes;
-  const atMe = parseInt(Setting.atMe);
-  const atUser = parseInt(Setting.atUser);
-  const replyStranger = parseInt(Setting.replyStranger);
-  const repeatProb = parseInt(parseFloat(Setting.repeatProb) * 100);
-  const groupHello = parseInt(Setting.groupHello);
-  const groupGreetingNew = parseInt(Setting.groupGreetingNew);
-  const friendGreetingNew = parseInt(Setting.friendGreetingNew);
-  const noticeMysNews = parseInt(Setting.noticeMysNews);
-  const characterTryGetDetail = parseInt(Setting.characterTryGetDetail);
-  const warnTimeCosts = parseInt(Setting.warnTimeCosts);
-  const requestInterval = parseInt(Setting.requestInterval);
-  const deleteGroupMsgTime = parseInt(Setting.deleteGroupMsgTime);
-  const boardcastDelay = parseInt(parseFloat(Setting.boardcastDelay) * 1000);
-  const cacheAbyEffectTime = parseInt(Setting.cacheAbyEffectTime);
-  const cacheInfoEffectTime = parseInt(Setting.cacheInfoEffectTime);
-  const dbAbyEffectTime = parseInt(Setting.dbAbyEffectTime);
-  const dbInfoEffectTime = parseInt(Setting.dbInfoEffectTime);
-  const viewDebug = parseInt(Setting.viewDebug);
-  const saveImage = parseInt(Setting.saveImage);
+  const master = mSetting.master;
+  const masters = mSetting.masters;
+  const prefixes = mSetting.prefixes;
+  const atMe = parseInt(mSetting.atMe);
+  const atUser = parseInt(mSetting.atUser);
+  const replyStranger = parseInt(mSetting.replyStranger);
+  const repeatProb = parseInt(parseFloat(mSetting.repeatProb) * 100);
+  const groupHello = parseInt(mSetting.groupHello);
+  const groupGreetingNew = parseInt(mSetting.groupGreetingNew);
+  const friendGreetingNew = parseInt(mSetting.friendGreetingNew);
+  const noticeMysNews = parseInt(mSetting.noticeMysNews);
+  const characterTryGetDetail = parseInt(mSetting.characterTryGetDetail);
+  const warnTimeCosts = parseInt(mSetting.warnTimeCosts);
+  const requestInterval = parseInt(mSetting.requestInterval);
+  const deleteGroupMsgTime = parseInt(mSetting.deleteGroupMsgTime);
+  const boardcastDelay = parseInt(parseFloat(mSetting.boardcastDelay) * 1000);
+  const cacheAbyEffectTime = parseInt(mSetting.cacheAbyEffectTime);
+  const cacheInfoEffectTime = parseInt(mSetting.cacheInfoEffectTime);
+  const dbAbyEffectTime = parseInt(mSetting.dbAbyEffectTime);
+  const dbInfoEffectTime = parseInt(mSetting.dbInfoEffectTime);
+  const viewDebug = parseInt(mSetting.viewDebug);
+  const saveImage = parseInt(mSetting.saveImage);
 
   function getConfig(...pairs) {
     pairs.forEach((p) => {
@@ -802,20 +802,20 @@ function readSetting() {
 }
 
 function readCookies() {
-  if (lodash.hasIn(Cookies, "cookies")) {
+  if (lodash.hasIn(mCookies, "cookies")) {
     switch (true) {
-      case Array.isArray(Cookies.cookies):
-        global.cookies = Cookies.cookies;
+      case Array.isArray(mCookies.cookies):
+        global.cookies = mCookies.cookies;
         break;
-      case "string" === typeof Cookies.cookies:
-        global.cookies = [Cookies.cookies];
+      case "string" === typeof mCookies.cookies:
+        global.cookies = [mCookies.cookies];
         break;
     }
   }
 }
 
 function readGreeting() {
-  global.greeting = Greeting;
+  global.greeting = mGreeting;
 }
 
 function readMenu() {
@@ -824,15 +824,15 @@ function readMenu() {
   }
 
   global.menu = {};
-  global.menu.eat = Menu.eat || {};
-  global.menu.drink = Menu.drink || {};
+  global.menu.eat = mMenu.eat || {};
+  global.menu.drink = mMenu.drink || {};
 
   parse(global.menu.eat);
   parse(global.menu.drink);
 }
 
 function readProphecy() {
-  global.prophecy = Prophecy;
+  global.prophecy = mProphecy;
   global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
 }
 
@@ -845,7 +845,7 @@ function readProphecy() {
 function readNames() {
   function getSection(s) {
     return lodash.reduce(
-      Names[s] || {},
+      mNames[s] || {},
       (p, v, k) => {
         (v || (v = [])).push(k);
         v.forEach((c) => (p["string" === typeof c ? c.toLowerCase() : c] = k));
@@ -861,7 +861,7 @@ function readNames() {
 
   global.names.characterAlias = getSection("character");
   global.names.weaponAlias = getSection("weapon");
-  global.names.allAlias = lodash.assign({}, global.names.characterAlias, global.names.weaponAlias);
+  global.names.allAlias = Object.assign({}, global.names.characterAlias, global.names.weaponAlias);
   global.names.character = getNames(global.names.characterAlias);
   global.names.weapon = getNames(global.names.weaponAlias);
   global.names.all = getNames(global.names.allAlias);
@@ -873,8 +873,8 @@ function readEggs() {
   global.eggs.type = {};
   global.eggs.star = {};
 
-  Array.isArray(Eggs.items) &&
-    Eggs.items.forEach((c) => {
+  Array.isArray(mEggs.items) &&
+    mEggs.items.forEach((c) => {
       if (Array.isArray(c.names)) {
         const star = parseInt(c.star) || 5;
         c.type && c.names.forEach((n) => (global.eggs.type[n] = c.type));
@@ -899,7 +899,7 @@ function readArtifacts() {
   function reduce(prop, key = [undefined, undefined], lowercase = [false, false]) {
     if (!key.includes(undefined)) {
       return lodash.reduce(
-        Artifacts[prop] || [],
+        mArtifacts[prop] || [],
         (p, v) => {
           let p1 = v[key[0]];
           let p2 = v[key[1]];
@@ -922,7 +922,7 @@ function readArtifacts() {
   function deepReduce(prop, key = [undefined, undefined], lowercase = [false, false]) {
     if (!key.includes(undefined)) {
       return lodash.reduce(
-        Artifacts[prop] || [],
+        mArtifacts[prop] || [],
         (p, v) => {
           (v[key[0]] || []).forEach((c) => {
             (Array.isArray(c) ? c : [c]).forEach((c) => {
@@ -947,9 +947,9 @@ function readArtifacts() {
     }
   }
 
-  global.artifacts.weights = Artifacts.weights;
-  global.artifacts.values = Artifacts.values;
-  global.artifacts.path = Artifacts.path;
+  global.artifacts.weights = mArtifacts.weights;
+  global.artifacts.values = mArtifacts.values;
+  global.artifacts.path = mArtifacts.path;
   global.artifacts.artifacts = {};
   global.artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);
   global.artifacts.artifacts.rarity = reduce("artifacts", ["id", "rarity"], [false, false]);
@@ -1039,8 +1039,8 @@ function readMaterial() {
 // global.command
 // global.master
 function readCommand() {
-  getCommand(Command, "command");
-  getCommand(Master, "master");
+  getCommand(mCommand, "command");
+  getCommand(mMaster, "master");
 }
 
 // global.all.function
@@ -1058,7 +1058,7 @@ function getAll() {
   }
 
   global.all.functions = {};
-  global.all.functions.options = lodash.assign({}, global.command.functions.options, global.master.functions.options);
+  global.all.functions.options = Object.assign({}, global.command.functions.options, global.master.functions.options);
   merge(global.all, "function", global.command.function, global.master.function);
   merge(global.all.functions, "entrance", global.command.functions.entrance, global.master.functions.entrance);
 }

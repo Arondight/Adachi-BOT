@@ -2,7 +2,7 @@ import levenshtein from "fastest-levenshtein";
 import fnv from "fnv-plus";
 import lodash from "lodash";
 
-const similarityMaxValue = 0.5;
+const mSimilarityMaxValue = 0.5;
 
 // -1   not a start bracket
 // -2   not found end bracket
@@ -101,7 +101,7 @@ function filterWordsByRegex(text, ...rest) {
 // 英文数字空格分割，中文按字分割
 function segment(text) {
   const regex = /\b(\w|\d)+?\b/g;
-  return lodash.concat([], text.match(regex), [...(text.replace(regex, "").replace(/\s/g, "") || [])]);
+  return [].concat(text.match(regex)).concat([...(text.replace(regex, "").replace(/\s/g, "") || [])]);
 }
 
 function simhash(text) {
@@ -153,7 +153,7 @@ function similarity(s1, s2) {
 function isPossibleName(name, names) {
   if ("string" === typeof name) {
     for (const n of names) {
-      if ("string" === typeof n && similarity(name, n) <= similarityMaxValue) {
+      if ("string" === typeof n && similarity(name, n) <= mSimilarityMaxValue) {
         return true;
       }
     }
@@ -187,7 +187,7 @@ function guessPossibleNames(name, names) {
           best = n < best ? n : best;
 
           // 使用最佳相似度判断是否相似
-          if (best <= similarityMaxValue) {
+          if (best <= mSimilarityMaxValue) {
             p[v] = best;
             bestMatch = 0 === best;
           }
@@ -198,7 +198,7 @@ function guessPossibleNames(name, names) {
       .sortBy(1)
       .value();
 
-    if (sorted.length > 0 && 1 === lodash.filter(sorted, (c) => c[1] === sorted[0][1]).length) {
+    if (sorted.length > 0 && 1 === sorted.filter((c) => c[1] === sorted[0][1]).length) {
       words = [global.names.allAlias[sorted[0][0]] || sorted[0][0]];
     } else {
       words = lodash
@@ -226,5 +226,5 @@ export {
   segment,
   simhash,
   similarity,
-  similarityMaxValue,
+  mSimilarityMaxValue as similarityMaxValue,
 };

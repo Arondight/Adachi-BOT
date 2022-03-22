@@ -10,14 +10,14 @@ import { mkdir } from "#utils/file";
 const __filename = _url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const rootdir = path.resolve(__dirname, "..");
-const honeyUrl = "https://genshin.honeyhunterworld.com";
-const bwikiUrl = "https://wiki.biligame.com/ys";
-const types = {
+const mRootdir = path.resolve(__dirname, "..");
+const mHoneyUrl = "https://genshin.honeyhunterworld.com";
+const mBwikiUrl = "https://wiki.biligame.com/ys";
+const mTypes = {
   weapon: { sword: "单手剑", claymore: "双手剑", polearm: "长柄武器", bow: "弓", catalyst: "法器" },
   char: { "unreleased-and-upcoming-characters": "测试角色", characters: "角色" },
 };
-const elems = {
+const mElems = {
   anemo: "风元素",
   pyro: "火元素",
   geo: "岩元素",
@@ -27,12 +27,12 @@ const elems = {
   dendro: "草元素",
   none: "无",
 };
-const placeholder = "**占位符**";
-let browser;
+const mPlaceholder = "**占位符**";
+let mBrowser;
 
 async function launch() {
-  if (undefined === browser) {
-    browser = await puppeteer.launch({
+  if (undefined === mBrowser) {
+    mBrowser = await puppeteer.launch({
       defaultViewport: null,
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox", "--no-first-run", "--no-zygote"],
@@ -44,8 +44,8 @@ async function launch() {
 }
 
 async function close() {
-  if (undefined !== browser) {
-    await browser.close();
+  if (undefined !== mBrowser) {
+    await mBrowser.close();
   }
 }
 
@@ -54,18 +54,18 @@ async function getLink(name, type = "weapon") {
     throw Error(`Unknown type "${type}!"`);
   }
 
-  const db = `${honeyUrl}/db/${type}`;
+  const db = `${mHoneyUrl}/db/${type}`;
   const param = "lang=CHS";
   const urls = lodash
-    .chain(Object.keys(types[type]))
-    .map((c) => [types[type][c], `${db}/${c}/?${param}`])
+    .chain(Object.keys(mTypes[type]))
+    .map((c) => [mTypes[type][c], `${db}/${c}/?${param}`])
     .fromPairs()
     .value();
 
   for (const typename of Object.keys(urls)) {
     process.stdout.write(`检测是否为${typename} ……`);
 
-    const page = await browser.newPage();
+    const page = await mBrowser.newPage();
 
     try {
       await page.goto(urls[typename], { waitUntil: "domcontentloaded" });
@@ -127,8 +127,8 @@ async function getLink(name, type = "weapon") {
 }
 
 async function getMaterialName(link) {
-  const url = `${honeyUrl}/${link}`;
-  const page = await browser.newPage();
+  const url = `${mHoneyUrl}/${link}`;
+  const page = await mBrowser.newPage();
   let name;
 
   try {
@@ -146,8 +146,8 @@ async function getMaterialName(link) {
 }
 
 async function getMaterialTime(name) {
-  const url = `${bwikiUrl}/${name}`;
-  const page = await browser.newPage();
+  const url = `${mBwikiUrl}/${name}`;
+  const page = await mBrowser.newPage();
   let time;
 
   try {
@@ -212,9 +212,9 @@ async function getCharData(name, page) {
   );
   let element = "";
 
-  for (const k of Object.keys(elems)) {
+  for (const k of Object.keys(mElems)) {
     if (elementLink.match(new RegExp(k))) {
-      element = elems[k];
+      element = mElems[k];
       break;
     }
   }
@@ -406,11 +406,11 @@ async function getWeaponData(name, page) {
     await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'item_main_table')]")
   )[1];
   const title =
-    types.weapon[
+    mTypes.weapon[
       (await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[1]/td[3]/a"))[0])).toLowerCase()
     ];
   const introduce = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[8]/td[2]"))[0]);
-  const access = placeholder;
+  const access = mPlaceholder;
   const rarity = ((await handle.$x("./tbody/tr[2]/td[2]/div[contains(@class, 'sea_char_stars_wrap')]")) || []).length;
   let mainStat = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[4]/td[2]"))[0]);
   const skillName = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);
@@ -522,8 +522,8 @@ async function getWeaponData(name, page) {
 async function getData(name, link, type = "weapon") {
   process.stdout.write(`正在拉取数据 ……`);
 
-  const url = `${honeyUrl}/${link}`;
-  const page = await browser.newPage();
+  const url = `${mHoneyUrl}/${link}`;
+  const page = await mBrowser.newPage();
   let data;
 
   try {
@@ -552,7 +552,7 @@ async function getData(name, link, type = "weapon") {
 }
 
 function writeData(name, data = {}, file = undefined) {
-  const defaultDir = mkdir(path.resolve(rootdir, "resources_custom", "Version2", "info", "docs"));
+  const defaultDir = mkdir(path.resolve(mRootdir, "resources_custom", "Version2", "info", "docs"));
   let old = {};
 
   if ("string" !== typeof file) {
@@ -570,7 +570,7 @@ function writeData(name, data = {}, file = undefined) {
   }
 
   process.stdout.write(`正在写入文件“${file}” ……`);
-  fs.writeFileSync(file, JSON.stringify(lodash.assign(data, old), null, 2));
+  fs.writeFileSync(file, JSON.stringify(Object.assign(data, old), null, 2));
   console.log("\t成功");
 }
 

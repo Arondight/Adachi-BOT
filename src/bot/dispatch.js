@@ -5,7 +5,7 @@ import { getGroupOfStranger } from "#utils/oicq";
 import { getRandomInt } from "#utils/tools";
 
 // 无需加锁
-const timestamp = {};
+const mTimestamp = {};
 
 async function doPossibleCommand(msg, plugins, type, bot) {
   if (undefined === type) {
@@ -100,8 +100,8 @@ async function doPossibleCommand(msg, plugins, type, bot) {
         return true;
       }
 
-      if (global.config.requestInterval < msg.time - (timestamp[msg.user_id] || (timestamp[msg.user_id] = 0))) {
-        timestamp[msg.user_id] = msg.time;
+      if (global.config.requestInterval < msg.time - (mTimestamp[msg.user_id] || (mTimestamp[msg.user_id] = 0))) {
+        mTimestamp[msg.user_id] = msg.time;
         // 参数 bot 为了兼容可能存在的旧插件
         plugins[plugin].run(msg, bot);
         return true;
@@ -170,7 +170,7 @@ async function dispatch(msg, plugins, event, bot) {
   }
 
   // 如果信息是命令，尝试指派插件处理命令
-  if (Object.keys(types).includes(event) && lodash.find(msg.message, { type: "text" })) {
+  if (Object.keys(types).includes(event) && msg.message.find((c) => "text" === c.type)) {
     if (await doPossibleCommand(msg, plugins, types[event], bot)) {
       return;
     }

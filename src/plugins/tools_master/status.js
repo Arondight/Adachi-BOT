@@ -7,16 +7,16 @@ import puppeteer from "puppeteer";
 import si from "systeminformation";
 import { du } from "#utils/file";
 
-const unknown = "未知";
+const mUnknown = "未知";
 
-let browserVer;
-let cpu;
-let os;
-let versions;
+let mBrowserVer;
+let mCPU;
+let mOS;
+let mVersions;
 
-si.cpu().then((c) => (cpu = c));
-si.osInfo().then((c) => (os = c));
-si.versions("node, npm").then((c) => (versions = c));
+si.cpu().then((c) => (mCPU = c));
+si.osInfo().then((c) => (mOS = c));
+si.versions("node, npm").then((c) => (mVersions = c));
 
 try {
   const items = ["BaseName", "VersionInfo.ProductVersion"];
@@ -24,7 +24,7 @@ try {
   const outputs = [];
 
   items.forEach((c) => outputs.push(execSync(fstr.replace("{}", c), { stdio: "pipe" }).toString().trim()));
-  browserVer = outputs.join(" ");
+  mBrowserVer = outputs.join(" ");
 } catch (e) {
   // do nothing
 }
@@ -32,15 +32,15 @@ try {
 try {
   const cmd = `'${puppeteer.executablePath()}' --version`;
 
-  if (undefined === browserVer) {
-    browserVer = execSync(cmd, { stdio: "pipe" }).toString().trim();
+  if (undefined === mBrowserVer) {
+    mBrowserVer = execSync(cmd, { stdio: "pipe" }).toString().trim();
   }
 } catch (e) {
   // do nothing
 }
 
-if (undefined === browserVer) {
-  browserVer = unknown;
+if (undefined === mBrowserVer) {
+  mBrowserVer = mUnknown;
 }
 
 async function status(msg = {}) {
@@ -49,15 +49,15 @@ async function status(msg = {}) {
   const mem = await si.mem();
   const time = await si.time();
 
-  const cpuBrand = lodash.hasIn(cpu, "brand") ? cpu.brand : unknown;
-  const cpuManufacturer = lodash.hasIn(cpu, "manufacturer") ? cpu.manufacturer : unknown;
-  const cpuSpeed = lodash.hasIn(cpu, "speed") ? cpu.speed : unknown;
-  const osArch = lodash.hasIn(os, "arch") ? os.arch : unknown;
-  const osDistro = lodash.hasIn(os, "distro") ? os.distro : unknown;
-  const osKernel = lodash.hasIn(os, "kernel") ? os.kernel : unknown;
-  const osPlatform = lodash.hasIn(os, "platform") ? os.platform : unknown;
-  const versionsNodeJS = lodash.hasIn(versions, "node") ? versions.node : unknown;
-  const versionsNpm = lodash.hasIn(versions, "npm") ? versions.npm : unknown;
+  const cpuBrand = lodash.hasIn(mCPU, "brand") ? mCPU.brand : mUnknown;
+  const cpuManufacturer = lodash.hasIn(mCPU, "manufacturer") ? mCPU.manufacturer : mUnknown;
+  const cpuSpeed = lodash.hasIn(mCPU, "speed") ? mCPU.speed : mUnknown;
+  const osArch = lodash.hasIn(mOS, "arch") ? mOS.arch : mUnknown;
+  const osDistro = lodash.hasIn(mOS, "distro") ? mOS.distro : mUnknown;
+  const osKernel = lodash.hasIn(mOS, "kernel") ? mOS.kernel : mUnknown;
+  const osPlatform = lodash.hasIn(mOS, "platform") ? mOS.platform : mUnknown;
+  const versionsNodeJS = lodash.hasIn(mVersions, "node") ? mVersions.node : mUnknown;
+  const versionsNpm = lodash.hasIn(mVersions, "npm") ? mVersions.npm : mUnknown;
 
   const data = {
     操作系统: `${osPlatform}（${osDistro}）`,
@@ -69,7 +69,7 @@ async function status(msg = {}) {
     数据占用: pb(du(path.resolve(global.datadir, "db"))),
     "Node.js": versionsNodeJS,
     npm: versionsNpm,
-    浏览器: browserVer,
+    浏览器: mBrowserVer,
   };
   const text = Object.entries(data)
     .map(

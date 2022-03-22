@@ -5,7 +5,7 @@ import "#utils/config";
 import db from "#utils/database";
 import { ls } from "#utils/file";
 
-const names = ls(path.resolve(global.rootdir, "data", "db"))
+const mDatabaseNames = ls(path.resolve(global.rootdir, "data", "db"))
   .filter((c) => c.match(/\b\w+?[.]json$/))
   .map((c) => {
     const p = path.parse(c);
@@ -74,7 +74,7 @@ async function main() {
     }).argv;
 
   if ("string" === typeof argv.key) {
-    if (!names.includes(argv.database)) {
+    if (!mDatabaseNames.includes(argv.database)) {
       console.error(`错误：未知的数据库 ${argv.database} ，使用 -l 查看可用数据库。`);
       return -1;
     }
@@ -98,8 +98,8 @@ async function main() {
   }
 
   if (true === argv.list) {
-    if (names.length > 0) {
-      console.log(names.join("\n"));
+    if (mDatabaseNames.length > 0) {
+      console.log(mDatabaseNames.join("\n"));
       return 0;
     }
 

@@ -48,7 +48,7 @@ function report() {
   }
 
   log(`加载了 ${global.cookies.length} 条 Cookie 。`);
-  log(`登录账号 ${lodash.map(global.config.accounts, "qq").join(" 、 ")} 。`);
+  log(`登录账号 ${global.config.accounts.map((c) => c.qq).join(" 、 ")} 。`);
   log(`管理者已设置为 ${global.config.masters.join(" 、 ")} 。`);
   log(
     0 === global.config.prefixes.length || global.config.prefixes.includes(null)

@@ -6,12 +6,12 @@ import querystring from "querystring";
 import { genDmMessageId } from "oicq/lib/message/message.js";
 import { matchBracket } from "#utils/tools";
 
-const CQ = {
+const mCQ = {
   "&#91;": "[",
   "&#93;": "]",
   "&amp;": "&",
 };
-const CQInside = {
+const mCQInside = {
   "&": "&amp;",
   ",": "&#44;",
   "[": "&#91;",
@@ -30,7 +30,7 @@ function qs(text, sep = ",", equal = "=") {
 
     ret[c.substring(0, i)] = c
       .substring(i + 1)
-      .replace(new RegExp(Object.values(CQInside).join("|"), "g"), (s) => lodash.invert(CQInside)[s] || "");
+      .replace(new RegExp(Object.values(mCQInside).join("|"), "g"), (s) => lodash.invert(mCQInside)[s] || "");
   });
 
   for (const k in ret) {
@@ -65,7 +65,8 @@ function toCqcode(msg = {}) {
     }
 
     const s = querystring.stringify(c, ",", "=", {
-      encodeURIComponent: (s) => s.replace(new RegExp(Object.keys(CQInside).join("|"), "g"), (s) => CQInside[s] || ""),
+      encodeURIComponent: (s) =>
+        s.replace(new RegExp(Object.keys(mCQInside).join("|"), "g"), (s) => mCQInside[s] || ""),
     });
     const cq = `[CQ:${c.type}${s ? "," : ""}${s}]`;
 
@@ -112,7 +113,7 @@ function fromCqcode(text = "") {
   }
 
   for (const c of items) {
-    const s = c.replace(new RegExp(Object.keys(CQ).join("|"), "g"), (s) => CQ[s] || "");
+    const s = c.replace(new RegExp(Object.keys(mCQ).join("|"), "g"), (s) => mCQ[s] || "");
     let cq = c.replace("[CQ:", "type=");
 
     if ("string" === typeof s && "" !== s && !s.includes("[CQ:")) {

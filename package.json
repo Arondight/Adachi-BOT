@@ -22,7 +22,8 @@
     "#bot/*": "./src/bot/*.js",
     "#jobs/*": "./src/jobs/*.js",
     "#plugins/*": "./src/plugins/*.js",
-    "#utils/*": "./src/utils/*.js"
+    "#utils/*": "./src/utils/*.js",
+    "#views/*": "./src/views/*.js"
   },
   "scripts": {
     "init": "npx node --pending-deprecation --trace-warnings --max-http-header-size=2097152 ./app.js",

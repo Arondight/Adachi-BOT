@@ -5,7 +5,7 @@ import { mysNewsNotice, mysNewsTryToResetDB, mysNewsUpdate } from "#jobs/news";
 import db from "#utils/database";
 import { renderClose, renderOpen, renderPath } from "#utils/render";
 
-let postRunning = false;
+let mPostRunning = false;
 
 function initDB() {
   db.init("aby");
@@ -78,15 +78,15 @@ async function updateGachaJob() {
 }
 
 async function doPost() {
-  if (false === postRunning) {
-    postRunning = true;
+  if (false === mPostRunning) {
+    mPostRunning = true;
     await renderClose();
     await lastWords();
     syncDBJob();
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    postRunning = false;
+    mPostRunning = false;
   } else {
-    while (true === postRunning) {
+    while (true === mPostRunning) {
       await new Promise((resolve) => setTimeout(() => resolve(), 100));
     }
   }

@@ -1,10 +1,10 @@
 import path from "path";
 import db from "#utils/database";
 
-const MAX_ACCOUNTS_PRE_COOKIE = 30;
+const m_MAX_ACCOUNTS_PRE_COOKIE = 30;
 
 // 无需加锁
-const cookies = (global.cookies || [])
+const mCookies = (global.cookies || [])
   .filter((c) => isValidCookieStr(c))
   .map((c) => ({
     cookie: c,
@@ -12,10 +12,10 @@ const cookies = (global.cookies || [])
     account_id: getCookieItem(c, "account_id") || "",
   }));
 // 无需加锁
-let index = 0;
+let mIndex = 0;
 
 function increaseIndex() {
-  return (index = index + 1 < cookies.length ? index + 1 : 0);
+  return (mIndex = mIndex + 1 < mCookies.length ? mIndex + 1 : 0);
 }
 
 function getToday() {
@@ -53,7 +53,7 @@ function getCookieByID(uid) {
     return;
   }
 
-  const myCookies = cookies.filter((c) => mhyID === parseInt(c.account_id));
+  const myCookies = mCookies.filter((c) => mhyID === parseInt(c.account_id));
 
   if (myCookies.length > 0) {
     return myCookies[0];
@@ -96,9 +96,13 @@ function updateCookiesDB(uid, cookie, times) {
 }
 
 function getEffectiveCookie(uid, i, use) {
+  if (0 === mCookies.length) {
+    return;
+  }
+
   // 因为 Cookie 可能有项目外的损耗（例如被米游社使用），
   // 所以在策略上尽量平均化 Cookie 池使用次数
-  const cookie = cookies[increaseIndex()];
+  const cookie = mCookies[increaseIndex()];
 
   writeNewCookieToDB(cookie);
 
@@ -107,9 +111,9 @@ function getEffectiveCookie(uid, i, use) {
   let { date, times } = db.get(dbName, "cookie", { cookie: cookie.cookie }) || {};
 
   if (date === today) {
-    if (times >= MAX_ACCOUNTS_PRE_COOKIE) {
+    if (times >= m_MAX_ACCOUNTS_PRE_COOKIE) {
       // Cookie 池完整遍历仍未找到可用 Cookie ，此时**必须停止递归**
-      if (i > cookies.length) {
+      if (i > mCookies.length) {
         // 由调用者抛出异常
         return;
       }

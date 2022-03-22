@@ -1,4 +1,3 @@
-import lodash from "lodash";
 import { init } from "#plugins/gacha/init";
 import db from "#utils/database";
 
@@ -28,7 +27,7 @@ function doPool(msg, name) {
       choice = 999;
       break;
     default: {
-      const message = `所有卡池：${lodash.flatten(Object.values(global.all.functions.options.pool)).join("、")}。`;
+      const message = `所有卡池：${Object.values(global.all.functions.options.pool).flat().join("、")}。`;
       msg.bot.say(msg.sid, message, msg.type, msg.uid, true);
       return;
     }
