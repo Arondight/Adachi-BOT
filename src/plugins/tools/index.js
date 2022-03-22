@@ -3,6 +3,7 @@ import { menu } from "#plugins/tools/menu";
 import { prophecy } from "#plugins/tools/prophecy";
 import { quote } from "#plugins/tools/quote";
 import { roll } from "#plugins/tools/roll";
+import { fortune } from "#plugins/tools/fortune"
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 
@@ -31,6 +32,11 @@ async function Plugin(msg) {
     case hasEntrance(msg.text, "tools", "feedback"):
       if (false !== checkAuth(msg, "feedback")) {
         feedback(msg);
+      }
+      break;
+    case hasEntrance(msg.text, "tools", "fortune"):
+      if (false !== checkAuth(msg, "fortune")) {
+        fortune(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "help"):
