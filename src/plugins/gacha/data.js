@@ -54,7 +54,7 @@ function updateCounter(userID, star, up) {
   if (star !== 5) {
     mFive = mFive + 1;
     mFour = 4 === star ? 1 : mFour + 1; // 重置四星抽数
-  } else if (mIsUp !== undefined && mIsUp !== null) {
+  } else if ("number" === typeof mIsUp) {
     mFive = 1; // 重置五星抽数
     mFour = mFour + 1;
     mIsUp = up ? (mIsUp > 0 ? mIsUp + 1 : 1) : mIsUp > 0 ? -1 : mIsUp - 1;
@@ -66,8 +66,10 @@ function updateCounter(userID, star, up) {
 
 function getIsUp(userID, star) {
   switch (mIsUp) {
+    // weapon default
     case null:
       return getRandomInt(10000) < 7500;
+    // indefinite default or uninitialized
     case undefined:
       return false;
     default:
@@ -205,7 +207,7 @@ function gachaTimes(userID, nickname, times = 10) {
 
   mFive = choiceData.five;
   mFour = choiceData.four;
-  mIsUp = choiceData.isUp;
+  mIsUp = choiceData.isUp; // weapon default null, indefinite default undefined
 
   for (let i = 0; i < times; ++i) {
     const result = gachaOnce(userID, choice, gachaTable);

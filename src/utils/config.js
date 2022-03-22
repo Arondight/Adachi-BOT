@@ -22,6 +22,18 @@
  * ==========================================================================
  *
  * ==========================================================================
+ * configdir
+ * --------------------------------------------------------------------------
+ * '/path/to/Adachi-BOT/config'
+ * ==========================================================================
+ *
+ * ==========================================================================
+ * configdefdir
+ * --------------------------------------------------------------------------
+ * '/path/to/Adachi-BOT/config_defaults'
+ * ==========================================================================
+ *
+ * ==========================================================================
  * package
  * --------------------------------------------------------------------------
  * context of this project's package.json
@@ -406,6 +418,8 @@ const __dirname = path.dirname(__filename);
 global.rootdir = path.resolve(__dirname, "..", "..");
 global.datadir = path.resolve(global.rootdir, "data");
 global.oicqdir = global.datadir;
+global.configdir = path.resolve(global.rootdir, "config");
+global.configdefdir = path.resolve(global.rootdir, "config_defaults");
 
 global.all = {};
 global.artifacts = {};
@@ -817,7 +831,7 @@ function readGreeting() {
     {
       online: "我上线了。",
       offline: "我下线了。",
-      die: "我无了。",
+      die: "我上线了。",
       hello: "大家好。",
       new: "你好。",
     },
@@ -872,22 +886,6 @@ function readNames() {
   global.names.character = getNames(global.names.characterAlias);
   global.names.weapon = getNames(global.names.weaponAlias);
   global.names.all = getNames(global.names.allAlias);
-}
-
-// global.eggs.type: name -> type (string)
-// global.eggs.star: name -> type (string)
-function readEggs() {
-  global.eggs.type = {};
-  global.eggs.star = {};
-
-  Array.isArray(mEggs.items) &&
-    mEggs.items.forEach((c) => {
-      if (Array.isArray(c.names)) {
-        const star = parseInt(c.star) || 5;
-        c.type && c.names.forEach((n) => (global.eggs.type[n] = c.type));
-        c.names.forEach((n) => (global.eggs.star[n] = star));
-      }
-    });
 }
 
 // global.artifacts.weights          -> weights (array of array of number)
@@ -1012,6 +1010,38 @@ function readInfo() {
     .value();
 }
 
+// Call after readInfo()
+//
+// global.eggs.type: name -> type (string)
+// global.eggs.star: name -> type (string)
+function readEggs() {
+  global.eggs.type = {};
+  global.eggs.star = {};
+
+  ((mEggs || {}).items || []).forEach((c) => {
+    if (Array.isArray(c.names) && "string" === typeof c.type) {
+      c.names.forEach((n) => {
+        if ("string" === typeof n) {
+          global.eggs.type[n] = c.type;
+          global.eggs.star[n] = parseInt(c.rarity) || 5;
+        }
+      });
+    }
+  });
+
+  if (0 === Object.keys(global.eggs.type).length || 0 === Object.keys(global.eggs.star).length) {
+    global.eggs.type = {};
+    global.eggs.star = {};
+
+    global.info.character.concat(global.info.weapon).forEach((c) => {
+      if ("string" === typeof c.type) {
+        global.eggs.type[c.name] = c.type;
+        global.eggs.star[c.name] = parseInt(c.star) || 5;
+      }
+    });
+  }
+}
+
 // global.material.MonThu   -> array of name (string, lowercase)
 // global.material.TueFri   -> array of name (string, lowercase)
 // global.material.WedSat   -> array of name (string, lowercase)
@@ -1085,9 +1115,9 @@ function readConfig() {
   readMenu();
   readProphecy();
   readNames();
-  readEggs();
   readArtifacts();
   readInfo();
+  readEggs();
   readMaterial();
   readCommand();
   getAll();

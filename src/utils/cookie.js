@@ -165,6 +165,7 @@ function getCookie(uid, use, bot) {
 
   if (isValidCookieStr(cookieStr)) {
     bot.logger.debug(`Cookie：${undefined === uid ? "" : " " + uid + " -> "}${cookieStr}`);
+
     return cookieStr;
   }
 
@@ -221,14 +222,17 @@ function textOfInvalidCookies() {
   }
 
   text && (text = `发现以下无效 Cookie ，请及时在 ${config} 中删除。${text}`);
+
   return text;
 }
 
 function warnInvalidCookie(cookie) {
   if ("string" === typeof cookie) {
     const dbName = "cookies_invalid";
+
     db.clean(dbName);
     writeInvalidCookie(cookie);
+
     return textOfInvalidCookies();
   }
 }

@@ -50,10 +50,12 @@ function names() {
 // 如果数据库不存在，将自动创建新的空数据库。
 function init(dbName, struct = { user: [] }) {
   const filename = path.resolve(global.datadir, "db", `${dbName}.json`);
+
   mDatabase[dbName] = new LowJSONCacheSync(filename);
   mDatabase[dbName].write(mDatabase[dbName].load() || {});
 
   const data = mDatabase[dbName].read();
+
   mDatabase[dbName].chain = lodash.chain(data);
 
   Object.keys(struct).forEach((c) => {
@@ -82,6 +84,7 @@ function has(dbName, key, ...data) {
 
   if (data.length > 0) {
     const more = data.length > 1;
+
     path = true === more ? mkpath(key, ...data) : mkpath(key, data[0]);
   } else {
     path = key;
