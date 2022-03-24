@@ -577,7 +577,7 @@ function writeData(name, data = {}, file = undefined) {
   console.log("\t成功");
 }
 
-async function main() {
+(async function main() {
   const argv = yargs(hideBin(process.argv))
     .usage("-n <string>")
     .example("-n 刻晴")
@@ -627,6 +627,7 @@ async function main() {
 
     console.log(`没有找到名为“${argv.name}”的角色或武器。`);
   }
-}
-
-main().then((n) => process.exit(n));
+})()
+  .then((n) => process.exit("number" === typeof n ? n : 0))
+  .catch((e) => console.log(e))
+  .finally(() => process.exit(-1));

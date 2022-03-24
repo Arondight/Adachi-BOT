@@ -2,16 +2,12 @@ import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
-import url from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import "#utils/config";
 import { ls } from "#utils/file";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const mRootdir = path.resolve(__dirname, "..");
-const mParamsDir = path.resolve(mRootdir, "data", "record", "last_params");
+const mParamsDir = path.resolve(global.datadir, "record", "last_params");
 const mNames = Object.fromEntries(
   ls(mParamsDir)
     .filter((c) => c.match(/\bgenshin-[\w-]+?[.]json$/))
@@ -21,7 +17,7 @@ const mNames = Object.fromEntries(
     })
 );
 
-async function main() {
+(async function main() {
   const argv = yargs(hideBin(process.argv))
     .usage("-n <string>")
     .example("-n aby")
@@ -49,7 +45,7 @@ async function main() {
     if (undefined !== mNames[argv.name]) {
       const view = `genshin-${argv.name}`;
       const dataFile = path.resolve(mParamsDir, `${view}.json`);
-      const viewFile = path.resolve(__dirname, "..", "src", "views", `${view}.html`);
+      const viewFile = path.resolve(global.rootdir, "src", "views", `${view}.html`);
 
       for (const f of [dataFile, viewFile]) {
         try {
@@ -91,6 +87,7 @@ async function main() {
 
     return -1;
   }
-}
-
-main().then((n) => process.exit(n));
+})()
+  .then((n) => process.exit("number" === typeof n ? n : 0))
+  .catch((e) => console.log(e))
+  .finally(() => process.exit(-1));

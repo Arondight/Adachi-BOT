@@ -3,7 +3,7 @@ import { hideBin } from "yargs/helpers";
 import { status } from "#plugins/tools_master/status";
 import "#utils/config";
 
-async function main() {
+(async function main() {
   const argv = yargs(hideBin(process.argv))
     .help("help")
     .alias("help", "h")
@@ -28,6 +28,7 @@ async function main() {
   }
 
   console.log(text);
-}
-
-main().then((n) => process.exit(n));
+})()
+  .then((n) => process.exit("number" === typeof n ? n : 0))
+  .catch((e) => console.log(e))
+  .finally(() => process.exit(-1));

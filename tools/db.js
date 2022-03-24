@@ -12,7 +12,7 @@ const mDatabaseNames = ls(path.resolve(global.rootdir, "data", "db"))
     return p.name;
   });
 
-async function main() {
+(async function main() {
   const argv = yargs(hideBin(process.argv))
     .usage("-d <string> -k <string> [-p <string> --pk <string> --pv <string> --numeric")
     .example("-d gacha -k user")
@@ -107,6 +107,7 @@ async function main() {
   }
 
   return 0;
-}
-
-main().then((n) => process.exit(n));
+})()
+  .then((n) => process.exit("number" === typeof n ? n : 0))
+  .catch((e) => console.log(e))
+  .finally(() => process.exit(-1));
