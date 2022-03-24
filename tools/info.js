@@ -171,8 +171,9 @@ async function getMaterialTime(name) {
   return time;
 }
 
-// { type, title, id , name, introduce, birthday, element, cv, constellationName, rarity, mainStat, mainValue, baseATK,
-//  passiveTitle, passiveDesc, ascensionMaterials, levelUpMaterials, talentMaterials, time, constellations }
+// { type, ascensionMaterials, baseATK, birthday, constellationName, constellations, cv, cvCN, cvJP, element,
+//   id, introduce, levelUpMaterials, mainStat, mainValue, name, passiveDesc, passiveTitle, rarity, talentMaterials,
+//   time, title }
 async function getCharData(name, page) {
   const type = "角色";
   let handle;
@@ -369,30 +370,32 @@ async function getCharData(name, page) {
 
   return {
     type,
-    title,
-    id,
-    name,
-    introduce,
+    ascensionMaterials,
+    baseATK,
     birthday,
-    element,
-    cv,
     constellationName,
-    rarity,
+    constellations,
+    cv,
+    cvCN,
+    cvJP,
+    element,
+    id,
+    introduce,
+    levelUpMaterials,
     mainStat,
     mainValue,
-    baseATK,
-    passiveTitle,
+    name,
     passiveDesc,
-    ascensionMaterials,
-    levelUpMaterials,
+    passiveTitle,
+    rarity,
     talentMaterials,
     time,
-    constellations,
+    title,
   };
 }
 
-// { type, title, name, introduce, access, rarity, mainStat, mainValue, baseATK, ascensionMaterials, time, skillName,
-//   skillContent }
+// { access, ascensionMaterials, baseATK, introduce, mainStat, mainValue, name, rarity, skillContent, skillName, time,
+//   title, type }
 async function getWeaponData(name, page) {
   const type = "武器";
   let handle;
@@ -503,19 +506,19 @@ async function getWeaponData(name, page) {
   const time = await getMaterialTime(ascensionMaterials[0][0]);
 
   return {
-    type,
-    title,
-    name,
-    introduce,
     access,
-    rarity,
+    ascensionMaterials,
+    baseATK,
+    introduce,
     mainStat,
     mainValue,
-    baseATK,
-    ascensionMaterials,
-    time,
-    skillName,
+    name,
+    rarity,
     skillContent,
+    skillName,
+    time,
+    title,
+    type,
   };
 }
 
@@ -570,7 +573,7 @@ function writeData(name, data = {}, file = undefined) {
   }
 
   process.stdout.write(`正在写入文件“${file}” ……`);
-  fs.writeFileSync(file, JSON.stringify(Object.assign(data, old), null, 2));
+  fs.writeFileSync(file, JSON.stringify(Object.assign(data, old || "祈愿"), null, 2));
   console.log("\t成功");
 }
 

@@ -971,12 +971,12 @@ function readArtifacts() {
 
 // Call after readNames()
 //
-// global.info.character    -> array of { type, title, id , name, introduce, birthday, element, cv, constellationName,
-//                                        rarity, mainStat, mainValue, baseATK, passiveTitle, passiveDesc,
-//                                        ascensionMaterials, levelUpMaterials, talentMaterials, time,
-//                                        constellations }, sorted by rarity
-// global.info.weapon       -> array of { type, title, name, introduce, access, rarity, mainStat, mainValue, baseATK,
-//                                        ascensionMaterials, time, skillName, skillContent }, sorted by rarity
+// global.info.character    -> array of { type, ascensionMaterials, baseATK, birthday, constellationName,
+//                                        constellations, cv, cvCN, cvJP, element, id, introduce, levelUpMaterials,
+//                                        mainStat, mainValue, name, passiveDesc, passiveTitle, rarity,
+//                                        talentMaterials, time, title }, sorted by rarity
+// global.info.weapon       -> array of { access, ascensionMaterials, baseATK, introduce, mainStat, mainValue, name,
+//                                        rarity, skillContent, skillName, time, title, type }, sorted by rarity
 function readInfo() {
   const names = Object.values(global.names.allAlias);
   const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
@@ -1034,6 +1034,7 @@ function readEggs() {
     global.eggs.star = {};
 
     global.info.character.concat(global.info.weapon).forEach((c) => {
+      // 只要五星
       if ("string" === typeof c.type && 5 === parseInt(c.rarity)) {
         global.eggs.type[c.name] = c.type;
         global.eggs.star[c.name] = 5;
