@@ -1034,9 +1034,9 @@ function readEggs() {
     global.eggs.star = {};
 
     global.info.character.concat(global.info.weapon).forEach((c) => {
-      if ("string" === typeof c.type && 5 === c.rarity) {
+      if ("string" === typeof c.type && 5 === parseInt(c.rarity)) {
         global.eggs.type[c.name] = c.type;
-        global.eggs.star[c.name] = parseInt(c.rarity) || 5;
+        global.eggs.star[c.name] = 5;
       }
     });
   }
