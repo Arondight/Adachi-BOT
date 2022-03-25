@@ -104,36 +104,36 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const showPassive = false;
-
     const params = props.data;
+
     const charImageFilename = params.id + ".png";
     const charImageUrl = `http://localhost:9934/resources/Version2/character/${charImageFilename}`;
     const charTitle = params.title.trim() === "" ? "" : params.title + "・" || "";
     const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
     const rarity = parseInt(params.rarity) || 4;
+    const showPassive = false;
 
-    const charInfo = {};
-
-    charInfo.ascensionMaterials = params.ascensionMaterials || [];
-    charInfo.ascensionProp = params.mainStat || "暂无信息";
-    charInfo.ascensionValue = params.mainValue || "暂无信息";
-    charInfo.baseATK = params.baseATK || "暂无信息";
-    charInfo.birthday = params.birthday || "";
-    charInfo.charFullName = charTitle + params.name;
-    charInfo.constellation = params.constellationName || "";
-    charInfo.constellationCount = ["一", "二", "三", "四", "五", "六"];
-    charInfo.constellationEffects = params.constellations;
-    charInfo.cvCN = params.cvCN;
-    charInfo.cvJP = params.cvJP;
-    charInfo.introduction = params.introduce || "暂无信息";
-    charInfo.levelUpMaterials = params.levelUpMaterials || [];
-    charInfo.passiveDesc = params.passiveDesc || "";
-    charInfo.passiveTitle = "固有天赋・" + params.passiveTitle || "";
-    charInfo.rarity = "★".repeat(rarity);
-    charInfo.talentMaterials = params.talentMaterials || [];
-    charInfo.vision = params.element || "";
-    charInfo.weekdays = params.time || "【】";
+    const charInfo = {
+      ascensionMaterials: params.ascensionMaterials || [],
+      ascensionProp: params.mainStat || "暂无信息",
+      ascensionValue: params.mainValue || "暂无信息",
+      baseATK: params.baseATK || "暂无信息",
+      birthday: params.birthday || "",
+      charFullName: charTitle + params.name,
+      constellation: params.constellationName || "",
+      constellationCount: ["一", "二", "三", "四", "五", "六"],
+      constellationEffects: params.constellations,
+      cvCN: params.cvCN,
+      cvJP: params.cvJP,
+      introduction: params.introduce || "暂无信息",
+      levelUpMaterials: params.levelUpMaterials || [],
+      passiveDesc: params.passiveDesc || "",
+      passiveTitle: "固有天赋・" + params.passiveTitle || "",
+      rarity: "★".repeat(rarity),
+      talentMaterials: params.talentMaterials || [],
+      vision: params.element || "",
+      weekdays: params.time || "【】",
+    };
 
     if (4 === charInfo.constellationEffects.length) {
       [2, 4].forEach((i) => charInfo.constellationEffects.splice(i, 0, ""));
