@@ -27,9 +27,9 @@ const template = html` <div class="container-overview-infos">
     <p class="info-title"><span>神</span><span>之</span><span>眼</span></p>
     <p class="info-content">{{ charInfo.vision }}</p>
     <p class="info-title"><span>中</span><span>配</span></p>
-    <p class="info-content">{{ charInfo.chnCV }}</p>
+    <p class="info-content">{{ charInfo.cvCN }}</p>
     <p class="info-title"><span>日</span><span>配</span></p>
-    <p class="info-content">{{ charInfo.japCV }}</p>
+    <p class="info-content">{{ charInfo.cvJP }}</p>
     <p class="info-title"><span>命</span><span>之</span><span>座</span></p>
     <p class="info-content">{{ charInfo.constellation }}</p>
     <p class="info-title"><span>稀</span><span>有</span><span>度</span></p>
@@ -107,35 +107,33 @@ export default defineComponent({
     const showPassive = false;
 
     const params = props.data;
-    const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
-    let charInfo = {};
-    const charTitle = params.title.trim() === "" ? "" : params.title + "・" || "";
-    charInfo.charFullName = charTitle + params.name;
     const charImageFilename = params.id + ".png";
     const charImageUrl = `http://localhost:9934/resources/Version2/character/${charImageFilename}`;
-    charInfo.birthday = params.birthday || "";
-    charInfo.vision = params.element || "";
-    const cvs = params.cv;
-    const chnCV = cvs.split(" | ")[0] || "";
-    const japCV = cvs.split(" | ")[1] || "";
-    charInfo.chnCV = chnCV;
-    charInfo.japCV = japCV;
-    // noinspection JSUnresolvedVariable
-    charInfo.constellation = params.constellationName || "";
+    const charTitle = params.title.trim() === "" ? "" : params.title + "・" || "";
+    const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
     const rarity = parseInt(params.rarity) || 4;
-    charInfo.rarity = "★".repeat(rarity);
-    charInfo.baseATK = params.baseATK || "暂无信息";
+
+    const charInfo = {};
+
+    charInfo.ascensionMaterials = params.ascensionMaterials || [];
     charInfo.ascensionProp = params.mainStat || "暂无信息";
     charInfo.ascensionValue = params.mainValue || "暂无信息";
-    charInfo.introduction = params.introduce || "暂无信息";
-    charInfo.passiveTitle = "固有天赋・" + params.passiveTitle || "";
-    charInfo.passiveDesc = params.passiveDesc || "";
-    charInfo.levelUpMaterials = params.levelUpMaterials || [];
-    charInfo.talentMaterials = params.talentMaterials || [];
-    charInfo.weekdays = params.time || "【】";
-    charInfo.ascensionMaterials = params.ascensionMaterials || [];
+    charInfo.baseATK = params.baseATK || "暂无信息";
+    charInfo.birthday = params.birthday || "";
+    charInfo.charFullName = charTitle + params.name;
+    charInfo.constellation = params.constellationName || "";
     charInfo.constellationCount = ["一", "二", "三", "四", "五", "六"];
     charInfo.constellationEffects = params.constellations;
+    charInfo.cvCN = params.cvCN;
+    charInfo.cvJP = params.cvJP;
+    charInfo.introduction = params.introduce || "暂无信息";
+    charInfo.levelUpMaterials = params.levelUpMaterials || [];
+    charInfo.passiveDesc = params.passiveDesc || "";
+    charInfo.passiveTitle = "固有天赋・" + params.passiveTitle || "";
+    charInfo.rarity = "★".repeat(rarity);
+    charInfo.talentMaterials = params.talentMaterials || [];
+    charInfo.vision = params.element || "";
+    charInfo.weekdays = params.time || "【】";
 
     if (4 === charInfo.constellationEffects.length) {
       [2, 4].forEach((i) => charInfo.constellationEffects.splice(i, 0, ""));
