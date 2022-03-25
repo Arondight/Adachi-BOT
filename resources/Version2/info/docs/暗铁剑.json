@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "暗铁剑",
-  "introduce": "其实就是稍微有些黑的铁剑。",
-  "access": "与璃月港小吃摊摊主快刀陈对话「鱼卖得怎样」",
-  "rarity": 3,
-  "mainStat": "元素精通",
-  "mainValue": "141",
-  "baseATK": 401,
+  "access": "探索",
   "ascensionMaterials": [
     ["孤云寒林的光砂", "孤云寒林的辉岩", "孤云寒林的圣骸", "孤云寒林的神体"],
     ["猎兵祭刀", "特工祭刀", "督察长祭刀", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 401,
+  "introduce": "其实就是稍微有些黑的铁剑。",
+  "mainStat": "元素精通",
+  "mainValue": "141",
+  "name": "暗铁剑",
+  "rarity": 3,
+  "skillContent": "触发超载、超导、感电或雷元素扩散反应后的<span class=\"desc-number\">12</span>秒内，攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。",
   "skillName": "过载",
-  "skillContent": "触发超载、超导、感电或雷元素扩散反应后的<span class=\"desc-number\">12</span>秒内，攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

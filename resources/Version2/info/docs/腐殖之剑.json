@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "腐殖之剑",
-  "introduce": "希冀着生命的诡谲直剑，附有连龙也能侵蚀的腐殖之毒。",
   "access": "活动",
-  "rarity": 4,
-  "mainStat": "元素充能效率",
-  "mainValue": "45.9%",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
     ["沉重号角", "黑铜号角", "黑晶号角", "新兵的徽记", "士官的徽记", "尉官的徽记"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 510,
+  "introduce": "希冀着生命的诡谲直剑，附有连龙也能侵蚀的腐殖之毒。",
+  "mainStat": "元素充能效率",
+  "mainValue": "45.9%",
+  "name": "腐殖之剑",
+  "rarity": 4,
+  "skillContent": "元素战技造成的伤害增加<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，元素战技的暴击率提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。",
   "skillName": "无尽的渴慕",
-  "skillContent": "元素战技造成的伤害增加<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，元素战技的暴击率提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。"
+  "time": "【周三/六/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

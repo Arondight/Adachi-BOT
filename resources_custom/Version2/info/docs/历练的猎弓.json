@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "历练的猎弓",
-  "introduce": "饱经磨炼又精心护养的弓，经历了漫长的岁月。仿佛会主动配合射手的动作一般好使。",
-  "access": "商人出售",
-  "rarity": 2,
-  "mainStat": "",
-  "mainValue": "",
-  "baseATK": 243,
+  "access": "探索",
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙"],
     ["地脉的旧枝", "地脉的枯叶", "寻宝鸦印", "藏银鸦印"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 243,
+  "introduce": "饱经磨炼又精心护养的弓，经历了漫长的岁月。仿佛会主动配合射手的动作一般好使。",
+  "mainStat": "",
+  "mainValue": "",
+  "name": "历练的猎弓",
+  "rarity": 2,
+  "skillContent": "",
   "skillName": "",
-  "skillContent": ""
+  "time": "【周二/五/日】",
+  "title": "弓",
+  "type": "武器"
 }

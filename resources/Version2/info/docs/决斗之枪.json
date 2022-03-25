@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "决斗之枪",
-  "introduce": "血红色的锋利长枪，过去是某位角斗士无比珍视的宝物。枪芒上曾沾染了无数野兽与人的鲜血。",
   "access": "纪行",
-  "rarity": 4,
-  "mainStat": "暴击率",
-  "mainValue": "36.8%",
-  "baseATK": 454,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "骗骗花蜜", "微光花蜜", "原素花蜜"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 454,
+  "introduce": "血红色的锋利长枪，过去是某位角斗士无比珍视的宝物。枪芒上曾沾染了无数野兽与人的鲜血。",
+  "mainStat": "暴击率",
+  "mainValue": "36.8%",
+  "name": "决斗之枪",
+  "rarity": 4,
+  "skillContent": "身边至少有<span class=\"desc-number\">2</span>个敌人时，获得<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>攻击力提升与<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>防御力提升；身边的敌人少于<span class=\"desc-number\">2</span>个时，获得<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>攻击力提升。",
   "skillName": "角斗士",
-  "skillContent": "身边至少有<span class=\"desc-number\">2</span>个敌人时，获得<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>攻击力提升与<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>防御力提升；身边的敌人少于<span class=\"desc-number\">2</span>个时，获得<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>攻击力提升。"
+  "time": "【周二/五/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

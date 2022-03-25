@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "证誓之明瞳",
-  "introduce": "大日御舆收藏的白夜国之宝。蛇神到来后，渊下宫用以公证大誓与大愿的宝物。",
   "access": "活动",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "27.6%",
-  "baseATK": 565,
   "ascensionMaterials": [
     ["远海夷地的瑚枝", "远海夷地的玉枝", "远海夷地的琼枝", "远海夷地的金枝"],
     ["隐兽指爪", "隐兽利爪", "隐兽鬼爪", "浮游干核", "浮游幽核", "浮游晶化核"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 565,
+  "introduce": "大日御舆收藏的白夜国之宝。蛇神到来后，渊下宫用以公证大誓与大愿的宝物。",
+  "mainStat": "攻击力",
+  "mainValue": "27.6%",
+  "name": "证誓之明瞳",
+  "rarity": 4,
+  "skillContent": "施放元素战技后，元素充能效率提升<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>，持续<span class=\"desc-number\">10</span>秒。",
   "skillName": "微光的海渊民",
-  "skillContent": "施放元素战技后，元素充能效率提升<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>，持续<span class=\"desc-number\">10</span>秒。"
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

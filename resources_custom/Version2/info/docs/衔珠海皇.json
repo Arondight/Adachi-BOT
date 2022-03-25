@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "衔珠海皇",
-  "introduce": "海中的大王。经过风干，是称手的兵器以及应急食品。",
   "access": "活动",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "55.1%",
-  "baseATK": 454,
   "ascensionMaterials": [
     ["漆黑陨铁的一粒", "漆黑陨铁的一片", "漆黑陨铁的一角", "漆黑陨铁的一块"],
     ["脆弱的骨片", "结实的骨片", "石化的骨片", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 454,
+  "introduce": "海中的大王。经过风干，是称手的兵器以及应急食品。",
+  "mainStat": "攻击力",
+  "mainValue": "55.1%",
+  "name": "衔珠海皇",
+  "rarity": 4,
+  "skillContent": "元素爆发造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。元素爆发命中敌人时，有<span class=\"desc-number\">100%</span>概率召唤大鲔冲击，造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的范围伤害。该效果每<span class=\"desc-number\">15</span>秒至多触发一次。",
   "skillName": "海洋的胜利",
-  "skillContent": "元素爆发造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。元素爆发命中敌人时，有<span class=\"desc-number\">100%</span>概率召唤大鲔冲击，造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的范围伤害。该效果每<span class=\"desc-number\">15</span>秒至多触发一次。"
+  "time": "【周三/六/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

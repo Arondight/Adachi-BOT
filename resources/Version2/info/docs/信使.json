@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "信使",
-  "introduce": "造型简单的木制弓。传说它曾被人用作远程通讯的道具。",
-  "access": "宝箱",
-  "rarity": 3,
-  "mainStat": "暴击伤害",
-  "mainValue": "31.2%",
-  "baseATK": 448,
+  "access": "探索",
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "寻宝鸦印", "藏银鸦印", "攫金鸦印"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 448,
+  "introduce": "造型简单的木制弓。传说它曾被人用作远程通讯的道具。",
+  "mainStat": "暴击伤害",
+  "mainValue": "31.2%",
+  "name": "信使",
+  "rarity": 3,
+  "skillContent": "重击若命中要害，则额外造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的伤害，该伤害必定暴击。此效果每<span class=\"desc-number\">10</span>秒只能触发一次。",
   "skillName": "飞矢传书",
-  "skillContent": "重击若命中要害，则额外造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的伤害，该伤害必定暴击。此效果每<span class=\"desc-number\">10</span>秒只能触发一次。"
+  "time": "【周二/五/日】",
+  "title": "弓",
+  "type": "武器"
 }

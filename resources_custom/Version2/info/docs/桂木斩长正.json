@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "桂木斩长正",
-  "introduce": "过去在踏鞴砂打造的刀，沉重而坚韧。",
   "access": "锻造",
-  "rarity": 4,
-  "mainStat": "元素充能效率",
-  "mainValue": "45.9%",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["鸣神御灵的明惠", "鸣神御灵的欢喜", "鸣神御灵的亲爱", "鸣神御灵的勇武"],
     ["混沌机关", "混沌枢纽", "混沌真眼", "破旧的刀镡", "影打刀镡", "名刀镡"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 510,
+  "introduce": "过去在踏鞴砂打造的刀，沉重而坚韧。",
+  "mainStat": "元素充能效率",
+  "mainValue": "45.9%",
+  "name": "桂木斩长正",
+  "rarity": 4,
+  "skillContent": "元素战技造成的伤害提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。元素战技命中后，角色流失<span class=\"desc-number\">3</span>点元素能量，并在此后的<span class=\"desc-number\">6</span>秒内，每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">3/3.5/4/4.5/5</span>点元素能量。该效果每<span class=\"desc-number\">10</span>秒至多触发一次，角色处于队伍后台也能触发。",
   "skillName": "名士振舞",
-  "skillContent": "元素战技造成的伤害提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。元素战技命中后，角色流失<span class=\"desc-number\">3</span>点元素能量，并在此后的<span class=\"desc-number\">6</span>秒内，每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">3/3.5/4/4.5/5</span>点元素能量。该效果每<span class=\"desc-number\">10</span>秒至多触发一次，角色处于队伍后台也能触发。"
+  "time": "【周二/五/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

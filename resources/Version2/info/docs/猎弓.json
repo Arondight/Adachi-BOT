@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "猎弓",
-  "introduce": "猎手演奏的音乐由两种音色组成。弓弦颤动的声音，和羽箭破空的低啸。",
-  "access": "商人出售",
-  "rarity": 1,
-  "mainStat": "",
-  "mainValue": "",
-  "baseATK": 185,
+  "access": "探索",
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙"],
     ["地脉的旧枝", "地脉的枯叶", "寻宝鸦印", "藏银鸦印"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 185,
+  "introduce": "猎手演奏的音乐由两种音色组成。弓弦颤动的声音，和羽箭破空的低啸。",
+  "mainStat": "",
+  "mainValue": "",
+  "name": "猎弓",
+  "rarity": 1,
+  "skillContent": "",
   "skillName": "",
-  "skillContent": ""
+  "time": "【周二/五/日】",
+  "title": "弓",
+  "type": "武器"
 }

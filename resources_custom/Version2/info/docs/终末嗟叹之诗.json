@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "终末嗟叹之诗",
-  "introduce": "如同诗人的乐器一般优美的弓，放出的箭矢如同叹息声一般穿透人心。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "元素充能效率",
-  "mainValue": "55.1%",
-  "baseATK": 608,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["沉重号角", "黑铜号角", "黑晶号角", "新兵的徽记", "士官的徽记", "尉官的徽记"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 608,
+  "introduce": "如同诗人的乐器一般优美的弓，放出的箭矢如同叹息声一般穿透人心。",
+  "mainStat": "元素充能效率",
+  "mainValue": "55.1%",
+  "name": "终末嗟叹之诗",
+  "rarity": 5,
+  "skillContent": "飘游风中的「千年的大乐章」的一部分。元素精通提高<span class=\"desc-number recolor\">60/75/90/105/120</span>点；元素战技或元素爆发命中敌人时，角色获得一枚追思之符，每<span class=\"desc-number\">0.2</span>秒内至多触发一次，角色处于队伍后台也能触发。拥有<span class=\"desc-number\">4</span>枚追思之符时，将消耗所有追思之符，使附近的队伍中所有角色获得持续<span class=\"desc-number\">12</span>秒的「千年的大乐章·别离之歌」效果：元素精通提高<span class=\"desc-number recolor\">100/125/150/175/200</span>点，攻击力提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。触发后<span class=\"desc-number\">20</span>秒内，无法再次获得追思之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。",
   "skillName": "别离的思念之歌",
-  "skillContent": "飘游风中的「千年的大乐章」的一部分。元素精通提高<span class=\"desc-number recolor\">60/75/90/105/120</span>点；元素战技或元素爆发命中敌人时，角色获得一枚追思之符，每<span class=\"desc-number\">0.2</span>秒内至多触发一次，角色处于队伍后台也能触发。拥有<span class=\"desc-number\">4</span>枚追思之符时，将消耗所有追思之符，使附近的队伍中所有角色获得持续<span class=\"desc-number\">12</span>秒的「千年的大乐章·别离之歌」效果：元素精通提高<span class=\"desc-number recolor\">100/125/150/175/200</span>点，攻击力提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。触发后<span class=\"desc-number\">20</span>秒内，无法再次获得追思之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。"
+  "time": "【周二/五/日】",
+  "title": "弓",
+  "type": "武器"
 }

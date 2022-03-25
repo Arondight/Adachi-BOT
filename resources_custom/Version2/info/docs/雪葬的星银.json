@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "雪葬的星银",
-  "introduce": "储存在壁画之间的古老大剑。由星银铸成，似乎拥有斩开冰雪的力量。",
-  "access": "锻造、任务",
-  "rarity": 4,
-  "mainStat": "物理伤害加成",
-  "mainValue": "34.5%",
-  "baseATK": 565,
+  "access": "锻造",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 565,
+  "introduce": "储存在壁画之间的古老大剑。由星银铸成，似乎拥有斩开冰雪的力量。",
+  "mainStat": "物理伤害加成",
+  "mainValue": "34.5%",
+  "name": "雪葬的星银",
+  "rarity": 4,
+  "skillContent": "普通攻击与重击命中敌人时，有<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>概率在敌人上方生成恒冰晶核并坠落，造成<span class=\"desc-number recolor\">80%/95%/110%/125%/140%</span>攻击力的范围伤害。若敌人处于冰元素影响下，则造成<span class=\"desc-number recolor\">200%/240%/280%/320%/360%</span>攻击力的伤害。该效果每<span class=\"desc-number\">10</span>秒至多触发一次。",
   "skillName": "霜葬",
-  "skillContent": "普通攻击与重击命中敌人时，有<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>概率在敌人上方生成恒冰晶核并坠落，造成<span class=\"desc-number recolor\">80%/95%/110%/125%/140%</span>攻击力的范围伤害。若敌人处于冰元素影响下，则造成<span class=\"desc-number recolor\">200%/240%/280%/320%/360%</span>攻击力的伤害。该效果每<span class=\"desc-number\">10</span>秒至多触发一次。"
+  "time": "【周一/四/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

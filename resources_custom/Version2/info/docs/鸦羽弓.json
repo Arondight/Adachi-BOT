@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "鸦羽弓",
-  "introduce": "相传渡鸦是死的使者。将鸦羽装饰在弓臂上，射出的每一箭都宣告着猎物的终末。",
   "access": "祈愿",
-  "rarity": 3,
-  "mainStat": "元素精通",
-  "mainValue": "94",
-  "baseATK": 448,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 448,
+  "introduce": "相传渡鸦是死的使者。将鸦羽装饰在弓臂上，射出的每一箭都宣告着猎物的终末。",
+  "mainStat": "元素精通",
+  "mainValue": "94",
+  "name": "鸦羽弓",
+  "rarity": 3,
+  "skillContent": "对处于水元素或火元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。",
   "skillName": "踏火止水",
-  "skillContent": "对处于水元素或火元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。"
+  "time": "【周一/四/日】",
+  "title": "弓",
+  "type": "武器"
 }

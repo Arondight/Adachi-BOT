@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "口袋魔导书",
-  "introduce": "精心编纂，只留下考试重点的魔导参考小册。",
-  "access": "商人出售",
-  "rarity": 2,
-  "mainStat": "",
-  "mainValue": "",
-  "baseATK": 243,
+  "access": "探索",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片"],
     ["沉重号角", "黑铜号角", "破损的面具", "污秽的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 243,
+  "introduce": "精心编纂，只留下考试重点的魔导参考小册。",
+  "mainStat": "",
+  "mainValue": "",
+  "name": "口袋魔导书",
+  "rarity": 2,
+  "skillContent": "",
   "skillName": "",
-  "skillContent": ""
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

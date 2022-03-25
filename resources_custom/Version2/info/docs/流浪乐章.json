@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "流浪乐章",
-  "introduce": "记载着歌谱的厚重记事簿。尽管遭受了虫蛀和风化，残留的手迹仍透露出力量。",
   "access": "祈愿",
-  "rarity": 4,
-  "mainStat": "暴击伤害",
-  "mainValue": "55.1%",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 510,
+  "introduce": "记载着歌谱的厚重记事簿。尽管遭受了虫蛀和风化，残留的手迹仍透露出力量。",
+  "mainStat": "暴击伤害",
+  "mainValue": "55.1%",
+  "name": "流浪乐章",
+  "rarity": 4,
+  "skillContent": "角色登场时，随机获得一个主题曲，持续<span class=\"desc-number\">10</span>秒。每<span class=\"desc-number\">30</span>秒只能触发一次。宣叙调：攻击力提升<span class=\"desc-number recolor\">60%/75%/90%/105%/120%</span>；咏叹调：全元素伤害提升<span class=\"desc-number recolor\">48%/60%/72%/84%/96%</span>;间奏曲：元素精通提升<span class=\"desc-number recolor\">240/300/360/420/480</span>。",
   "skillName": "登场乐",
-  "skillContent": "角色登场时，随机获得一个主题曲，持续<span class=\"desc-number\">10</span>秒。每<span class=\"desc-number\">30</span>秒只能触发一次。宣叙调：攻击力提升<span class=\"desc-number recolor\">60%/75%/90%/105%/120%</span>；咏叹调：全元素伤害提升<span class=\"desc-number recolor\">48%/60%/72%/84%/96%</span>;间奏曲：元素精通提升<span class=\"desc-number recolor\">240/300/360/420/480</span>。"
+  "time": "【周二/五/日】",
+  "title": "法器",
+  "type": "武器"
 }

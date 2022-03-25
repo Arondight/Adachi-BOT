@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "流月针",
-  "introduce": "枪尖狭长，尾部分出半月刀刃的异国兵器，经由商路流落到璃月。稍事练习掌握，便有极其出众的杀伤力。",
   "access": "锻造",
-  "rarity": 4,
-  "mainStat": "物理伤害加成",
-  "mainValue": "34.5%",
-  "baseATK": 565,
   "ascensionMaterials": [
     ["孤云寒林的光砂", "孤云寒林的辉岩", "孤云寒林的圣骸", "孤云寒林的神体"],
     ["猎兵祭刀", "特工祭刀", "督察长祭刀", "寻宝鸦印", "藏银鸦印", "攫金鸦印"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 565,
+  "introduce": "枪尖狭长，尾部分出半月刀刃的异国兵器，经由商路流落到璃月。稍事练习掌握，便有极其出众的杀伤力。",
+  "mainStat": "物理伤害加成",
+  "mainValue": "34.5%",
+  "name": "流月针",
+  "rarity": 4,
+  "skillContent": "获得元素微粒或元素晶球后的<span class=\"desc-number\">5</span>秒内，普通攻击和重击额外造成<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>攻击力伤害。",
   "skillName": "注能之针",
-  "skillContent": "获得元素微粒或元素晶球后的<span class=\"desc-number\">5</span>秒内，普通攻击和重击额外造成<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>攻击力伤害。"
+  "time": "【周一/四/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

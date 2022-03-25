@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "幽夜华尔兹",
-  "introduce": "有着如同罪与幻想之夜一般颜色的弓。",
-  "access": "限定祈愿",
-  "rarity": 4,
-  "mainStat": "物理伤害加成",
-  "mainValue": "51.7%",
-  "baseATK": 510,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "寻宝鸦印", "藏银鸦印", "攫金鸦印"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 510,
+  "introduce": "有着如同罪与幻想之夜一般颜色的弓。",
+  "mainStat": "物理伤害加成",
+  "mainValue": "51.7%",
+  "name": "幽夜华尔兹",
+  "rarity": 4,
+  "skillContent": "普通攻击命中敌人后的<span class=\"desc-number\">5</span>秒内，元素战技造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；元素战技命中敌人后的<span class=\"desc-number\">5</span>秒内，普通攻击造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。",
   "skillName": "极夜二重奏",
-  "skillContent": "普通攻击命中敌人后的<span class=\"desc-number\">5</span>秒内，元素战技造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；元素战技命中敌人后的<span class=\"desc-number\">5</span>秒内，普通攻击造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。"
+  "time": "【周一/四/日】",
+  "title": "弓",
+  "type": "武器"
 }

@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "喜多院十文字",
-  "introduce": "曾经在八酝岛守望「祟神」的枪法名士所用的特殊长枪。",
   "access": "锻造",
-  "rarity": 4,
-  "mainStat": "元素精通",
-  "mainValue": "110",
-  "baseATK": 565,
   "ascensionMaterials": [
     ["今昔剧画之恶尉", "今昔剧画之虎啮", "今昔剧画之一角", "今昔剧画之鬼人"],
     ["混沌机关", "混沌枢纽", "混沌真眼", "寻宝鸦印", "藏银鸦印", "攫金鸦印"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 565,
+  "introduce": "曾经在八酝岛守望「祟神」的枪法名士所用的特殊长枪。",
+  "mainStat": "元素精通",
+  "mainValue": "110",
+  "name": "喜多院十文字",
+  "rarity": 4,
+  "skillContent": "元素战技造成的伤害提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。元素战技命中后，角色流失<span class=\"desc-number\">3</span>点元素能量，并在此后的<span class=\"desc-number\">6</span>秒内，每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">3/3.5/4/4.5/5</span>点元素能量。该效果每<span class=\"desc-number\">10</span>秒至多触发一次，角色处于队伍后台也能触发。",
   "skillName": "名士振舞",
-  "skillContent": "元素战技造成的伤害提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。元素战技命中后，角色流失<span class=\"desc-number\">3</span>点元素能量，并在此后的<span class=\"desc-number\">6</span>秒内，每<span class=\"desc-number\">2</span>秒恢复<span class=\"desc-number recolor\">3/3.5/4/4.5/5</span>点元素能量。该效果每<span class=\"desc-number\">10</span>秒至多触发一次，角色处于队伍后台也能触发。"
+  "time": "【周三/六/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

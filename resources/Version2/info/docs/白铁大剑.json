@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "白铁大剑",
-  "introduce": "白铁锻成的双手剑，兼顾了重量与强度。即使臂力一般的人也能舞得生风，在力量强大者手中更是威力无穷。",
-  "access": "宝箱",
-  "rarity": 3,
-  "mainStat": "防御力",
-  "mainValue": "43.9%",
-  "baseATK": 401,
+  "access": "探索",
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
     ["混沌装置", "混沌回路", "混沌炉心", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 401,
+  "introduce": "白铁锻成的双手剑，兼顾了重量与强度。即使臂力一般的人也能舞得生风，在力量强大者手中更是威力无穷。",
+  "mainStat": "防御力",
+  "mainValue": "43.9%",
+  "name": "白铁大剑",
+  "rarity": 3,
+  "skillContent": "击败敌人时，恢复<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>生命值。",
   "skillName": "收割",
-  "skillContent": "击败敌人时，恢复<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>生命值。"
+  "time": "【周三/六/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

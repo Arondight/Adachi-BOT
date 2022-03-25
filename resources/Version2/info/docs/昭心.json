@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "昭心",
-  "introduce": "幽暗的琉璃宝珠，传说中拥有洞察人心清白的力量。",
   "access": "祈愿",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "55.1%",
-  "baseATK": 454,
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 454,
+  "introduce": "幽暗的琉璃宝珠，传说中拥有洞察人心清白的力量。",
+  "mainStat": "攻击力",
+  "mainValue": "55.1%",
+  "name": "昭心",
+  "rarity": 4,
+  "skillContent": "普通攻击与重击命中时，有<span class=\"desc-number\">50%</span>几率发射一枚昭心法球，造成<span class=\"desc-number recolor\">240%/270%/300%/330%/360%</span>攻击力伤害，至多在敌人之间弹射<span class=\"desc-number\">4</span>次。该效果每<span class=\"desc-number recolor\">12/11/10/9/8</span>秒至多触发一次。",
   "skillName": "回响",
-  "skillContent": "普通攻击与重击命中时，有<span class=\"desc-number\">50%</span>几率发射一枚昭心法球，造成<span class=\"desc-number recolor\">240%/270%/300%/330%/360%</span>攻击力伤害，至多在敌人之间弹射<span class=\"desc-number\">4</span>次。该效果每<span class=\"desc-number recolor\">12/11/10/9/8</span>秒至多触发一次。"
+  "time": "【周二/五/日】",
+  "title": "法器",
+  "type": "武器"
 }

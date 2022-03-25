@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "甲级宝珏",
-  "introduce": "两块玉石拼成的精致玉佩。",
-  "access": "宝箱",
-  "rarity": 3,
-  "mainStat": "暴击率",
-  "mainValue": "15.6%",
-  "baseATK": 448,
+  "access": "探索",
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "新兵的徽记", "士官的徽记", "尉官的徽记"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 448,
+  "introduce": "两块玉石拼成的精致玉佩。",
+  "mainStat": "暴击率",
+  "mainValue": "15.6%",
+  "name": "甲级宝珏",
+  "rarity": 3,
+  "skillContent": "击败敌人后的<span class=\"desc-number\">15</span>秒内，移动速度和攻击力提升<span class=\"desc-number recolor\">12%/14%/16%/18%/20%</span>。",
   "skillName": "奔袭战术",
-  "skillContent": "击败敌人后的<span class=\"desc-number\">15</span>秒内，移动速度和攻击力提升<span class=\"desc-number recolor\">12%/14%/16%/18%/20%</span>。"
+  "time": "【周二/五/日】",
+  "title": "法器",
+  "type": "武器"
 }

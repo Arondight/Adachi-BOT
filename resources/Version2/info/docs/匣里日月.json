@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "匣里日月",
-  "introduce": "材质难解的暗金宝珠，饱含日月天地的光辉，脉动着温暖的力量。",
   "access": "纪行",
-  "rarity": 4,
-  "mainStat": "暴击率",
-  "mainValue": "27.6%",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["孤云寒林的光砂", "孤云寒林的辉岩", "孤云寒林的圣骸", "孤云寒林的神体"],
     ["猎兵祭刀", "特工祭刀", "督察长祭刀", "骗骗花蜜", "微光花蜜", "原素花蜜"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 510,
+  "introduce": "材质难解的暗金宝珠，饱含日月天地的光辉，脉动着温暖的力量。",
+  "mainStat": "暴击率",
+  "mainValue": "27.6%",
+  "name": "匣里日月",
+  "rarity": 4,
+  "skillContent": "普通攻击命中后的<span class=\"desc-number\">6</span>秒内，元素战技与元素爆发的伤害提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；元素战技与元素爆发命中后的<span class=\"desc-number\">6</span>秒内，普通攻击的伤害提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。",
   "skillName": "日月辉",
-  "skillContent": "普通攻击命中后的<span class=\"desc-number\">6</span>秒内，元素战技与元素爆发的伤害提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；元素战技与元素爆发命中后的<span class=\"desc-number\">6</span>秒内，普通攻击的伤害提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。"
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

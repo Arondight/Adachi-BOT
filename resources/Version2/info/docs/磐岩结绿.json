@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "磐岩结绿",
-  "introduce": "由纯净的翠玉精琢细雕而成的仪礼宝剑，挥舞时剑风中似有叹息之声。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "暴击率",
-  "mainValue": "44.1%",
-  "baseATK": 542,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "寻宝鸦印", "藏银鸦印", "攫金鸦印"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 542,
+  "introduce": "由纯净的翠玉精琢细雕而成的仪礼宝剑，挥舞时剑风中似有叹息之声。",
+  "mainStat": "暴击率",
+  "mainValue": "44.1%",
+  "name": "磐岩结绿",
+  "rarity": 5,
+  "skillContent": "生命值提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。此外，基于装备该武器的角色生命值上限的<span class=\"desc-number recolor\">1.2%/1.5%/1.8%/2.1%/2.4%</span>，获得攻击力加成。",
   "skillName": "护国的无垢之心",
-  "skillContent": "生命值提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。此外，基于装备该武器的角色生命值上限的<span class=\"desc-number recolor\">1.2%/1.5%/1.8%/2.1%/2.4%</span>，获得攻击力加成。"
+  "time": "【周二/五/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

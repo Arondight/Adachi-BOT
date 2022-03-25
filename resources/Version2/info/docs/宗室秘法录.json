@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "宗室秘法录",
-  "introduce": "属于曾支配蒙德的贵族麾下的宫廷魔导师，其中记载的史话与法术同样翔实。",
-  "access": "商城兑换",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "27.6%",
-  "baseATK": 565,
+  "access": "商城",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "新兵的徽记", "士官的徽记", "尉官的徽记"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 565,
+  "introduce": "属于曾支配蒙德的贵族麾下的宫廷魔导师，其中记载的史话与法术同样翔实。",
+  "mainStat": "攻击力",
+  "mainValue": "27.6%",
+  "name": "宗室秘法录",
+  "rarity": 4,
+  "skillContent": "攻击造成伤害时，暴击率提升<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>，最多堆叠<span class=\"desc-number\">5</span>次。攻击造成暴击后，移除已有的专注效果。",
   "skillName": "专注",
-  "skillContent": "攻击造成伤害时，暴击率提升<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>，最多堆叠<span class=\"desc-number\">5</span>次。攻击造成暴击后，移除已有的专注效果。"
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

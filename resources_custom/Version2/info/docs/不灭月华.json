@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "不灭月华",
-  "introduce": "出自深海的美玉之环，闪烁着清澈如月的光泽，一如遥远往昔。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "生命值",
-  "mainValue": "49.6%",
-  "baseATK": 608,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["远海夷地的瑚枝", "远海夷地的玉枝", "远海夷地的琼枝", "远海夷地的金枝"],
     ["黯淡棱镜", "水晶棱镜", "偏光棱镜", "浮游干核", "浮游幽核", "浮游晶化核"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 608,
+  "introduce": "出自深海的美玉之环，闪烁着清澈如月的光泽，一如遥远往昔。",
+  "mainStat": "生命值",
+  "mainValue": "49.6%",
+  "name": "不灭月华",
+  "rarity": 5,
+  "skillContent": "治疗加成提升<span class=\"desc-number recolor\">10%/12.5%/15%/17.5%/20%</span>；普通攻击造成的伤害增加，增加值为装备该武器的角色生命值上限的<span class=\"desc-number recolor\">1%/1.5%/2%/2.5%/3%</span>。在施放元素爆发后的<span class=\"desc-number\">12</span>秒内，普通攻击命中敌人时恢复<span class=\"desc-number\">0.6</span>点元素能量，每<span class=\"desc-number\">0.1</span>秒至多通过这种方式恢复一次元素能量。",
   "skillName": "白夜皓月",
-  "skillContent": "治疗加成提升<span class=\"desc-number recolor\">10%/12.5%/15%/17.5%/20%</span>；普通攻击造成的伤害增加，增加值为装备该武器的角色生命值上限的<span class=\"desc-number recolor\">1%/1.5%/2%/2.5%/3%</span>。在施放元素爆发后的<span class=\"desc-number\">12</span>秒内，普通攻击命中敌人时恢复<span class=\"desc-number\">0.6</span>点元素能量，每<span class=\"desc-number\">0.1</span>秒至多通过这种方式恢复一次元素能量。"
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "佣兵重剑",
-  "introduce": "沉重坚实的古旧大剑，饱经战火与岁月的洗练。",
-  "access": "商人出售",
-  "rarity": 2,
-  "mainStat": "",
-  "mainValue": "",
-  "baseATK": 243,
+  "access": "探索",
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙"],
     ["地脉的旧枝", "地脉的枯叶", "史莱姆凝液", "史莱姆清"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 243,
+  "introduce": "沉重坚实的古旧大剑，饱经战火与岁月的洗练。",
+  "mainStat": "",
+  "mainValue": "",
+  "name": "佣兵重剑",
+  "rarity": 2,
+  "skillContent": "",
   "skillName": "",
-  "skillContent": ""
+  "time": "【周二/五/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

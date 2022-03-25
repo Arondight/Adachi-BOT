@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "宗室长剑",
-  "introduce": "曾支配蒙德的旧日贵族的佩剑。做工精良，装饰与雕花彰显着挥舞者的身份。",
-  "access": "商城兑换",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "41.3%",
-  "baseATK": 510,
+  "access": "商城",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 510,
+  "introduce": "曾支配蒙德的旧日贵族的佩剑。做工精良，装饰与雕花彰显着挥舞者的身份。",
+  "mainStat": "攻击力",
+  "mainValue": "41.3%",
+  "name": "宗室长剑",
+  "rarity": 4,
+  "skillContent": "攻击造成伤害时，暴击率提升<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>，最多堆叠<span class=\"desc-number\">5</span>次。攻击造成暴击后，移除已有的专注效果。",
   "skillName": "专注",
-  "skillContent": "攻击造成伤害时，暴击率提升<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>，最多堆叠<span class=\"desc-number\">5</span>次。攻击造成暴击后，移除已有的专注效果。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

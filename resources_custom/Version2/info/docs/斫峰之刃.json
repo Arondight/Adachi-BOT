@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "斫峰之刃",
-  "introduce": "传说中象征着某一则特定契约的利刃，曾经斩落过山岳的尖端。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "攻击力",
-  "mainValue": "49.6%",
-  "baseATK": 608,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["孤云寒林的光砂", "孤云寒林的辉岩", "孤云寒林的圣骸", "孤云寒林的神体"],
     ["猎兵祭刀", "特工祭刀", "督察长祭刀", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 608,
+  "introduce": "传说中象征着某一则特定契约的利刃，曾经斩落过山岳的尖端。",
+  "mainStat": "攻击力",
+  "mainValue": "49.6%",
+  "name": "斫峰之刃",
+  "rarity": 5,
+  "skillContent": "护盾强效提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。攻击命中后的<span class=\"desc-number\">8</span>秒内，攻击力提升<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>。该效果至多可叠加<span class=\"desc-number\">5</span>层，每<span class=\"desc-number\">0.3</span>秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高<span class=\"desc-number\">100%</span>。",
   "skillName": "金璋皇极",
-  "skillContent": "护盾强效提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。攻击命中后的<span class=\"desc-number\">8</span>秒内，攻击力提升<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>。该效果至多可叠加<span class=\"desc-number\">5</span>层，每<span class=\"desc-number\">0.3</span>秒只能触发一次。此外，处于护盾庇护下时，该效果的攻击力提升效果提高<span class=\"desc-number\">100%</span>。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

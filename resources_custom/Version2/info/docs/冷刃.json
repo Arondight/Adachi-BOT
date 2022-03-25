@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "冷刃",
-  "introduce": "多层锻打的精钢铸就的可靠兵器，曾见证旧主诸多冒险奇谭。",
   "access": "祈愿",
-  "rarity": 3,
-  "mainStat": "攻击力",
-  "mainValue": "35.2%",
-  "baseATK": 401,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 401,
+  "introduce": "多层锻打的精钢铸就的可靠兵器，曾见证旧主诸多冒险奇谭。",
+  "mainStat": "攻击力",
+  "mainValue": "35.2%",
+  "name": "冷刃",
+  "rarity": 3,
+  "skillContent": "对处于水元素或冰元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。",
   "skillName": "止水融冰",
-  "skillContent": "对处于水元素或冰元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

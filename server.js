@@ -6,7 +6,7 @@ import "#utils/config";
 const m_DEFAULT_PORT = 9934;
 
 (function main() {
-  const argv = yargs(hideBin(process.argv))
+  const { argv } = yargs(hideBin(process.argv))
     .help("help")
     .alias("help", "h")
     .version(false)
@@ -18,7 +18,7 @@ const m_DEFAULT_PORT = 9934;
         requiresArg: true,
         required: false,
       },
-    }).argv;
+    });
   const port = argv.port || m_DEFAULT_PORT;
   const server = express(port);
 

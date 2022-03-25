@@ -18,7 +18,7 @@ const mNames = Object.fromEntries(
 );
 
 (async function main() {
-  const argv = yargs(hideBin(process.argv))
+  const { argv } = yargs(hideBin(process.argv))
     .usage("-n <string>")
     .example("-n aby")
     .help("help")
@@ -39,7 +39,7 @@ const mNames = Object.fromEntries(
         requiresArg: false,
         required: false,
       },
-    }).argv;
+    });
 
   if ("string" === typeof argv.name) {
     if (undefined !== mNames[argv.name]) {

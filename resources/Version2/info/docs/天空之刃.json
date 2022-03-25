@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "天空之刃",
-  "introduce": "象征风龙的荣誉的骑士剑，如今失而复得。剑脊上吹息着风之神的赐福，蕴含苍空与长风的力量。",
   "access": "祈愿",
-  "rarity": 5,
-  "mainStat": "元素充能效率",
-  "mainValue": "55.1%",
-  "baseATK": 608,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 608,
+  "introduce": "象征风龙的荣誉的骑士剑，如今失而复得。剑脊上吹息着风之神的赐福，蕴含苍空与长风的力量。",
+  "mainStat": "元素充能效率",
+  "mainValue": "55.1%",
+  "name": "天空之刃",
+  "rarity": 5,
+  "skillContent": "暴击率提升<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>；施放元素爆发时，获得破空之势：移动速度提升<span class=\"desc-number\">10%</span>，攻击速度提升<span class=\"desc-number\">10%</span>，普通攻击与重击命中时，额外造成<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>攻击力的伤害，持续<span class=\"desc-number\">12</span>秒。",
   "skillName": "穿刺高天的利齿",
-  "skillContent": "暴击率提升<span class=\"desc-number recolor\">4%/5%/6%/7%/8%</span>；施放元素爆发时，获得破空之势：移动速度提升<span class=\"desc-number\">10%</span>，攻击速度提升<span class=\"desc-number\">10%</span>，普通攻击与重击命中时，额外造成<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>攻击力的伤害，持续<span class=\"desc-number\">12</span>秒。"
+  "time": "【周二/五/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

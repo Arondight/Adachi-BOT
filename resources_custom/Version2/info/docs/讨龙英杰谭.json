@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "讨龙英杰谭",
-  "introduce": "五名英雄踏上屠龙征途的虚构故事。文笔很差，结构散乱。失败的教训是这本书所拥有的伟大力量。",
   "access": "祈愿",
-  "rarity": 3,
-  "mainStat": "生命值",
-  "mainValue": "35.2%",
-  "baseATK": 401,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "导能绘卷", "封魔绘卷", "禁咒绘卷"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 401,
+  "introduce": "五名英雄踏上屠龙征途的虚构故事。文笔很差，结构散乱。失败的教训是这本书所拥有的伟大力量。",
+  "mainStat": "生命值",
+  "mainValue": "35.2%",
+  "name": "讨龙英杰谭",
+  "rarity": 3,
+  "skillContent": "主动切换角色时，新登场的角色攻击力提升<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>，持续<span class=\"desc-number\">10</span>秒。该效果每<span class=\"desc-number\">20</span>秒只能触发一次。",
   "skillName": "传承",
-  "skillContent": "主动切换角色时，新登场的角色攻击力提升<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>，持续<span class=\"desc-number\">10</span>秒。该效果每<span class=\"desc-number\">20</span>秒只能触发一次。"
+  "time": "【周二/五/日】",
+  "title": "法器",
+  "type": "武器"
 }

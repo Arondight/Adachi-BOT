@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "铁影阔剑",
-  "introduce": "这把剑是著名的光之狮艾伦德林的佩剑的仿品。握紧它，感受传说中大英雄的力量吧！注意：幻想请适度。",
   "access": "祈愿",
-  "rarity": 3,
-  "mainStat": "生命值",
-  "mainValue": "35.2%",
-  "baseATK": 401,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "骗骗花蜜", "微光花蜜", "原素花蜜"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 401,
+  "introduce": "这把剑是著名的光之狮艾伦德林的佩剑的仿品。握紧它，感受传说中大英雄的力量吧！注意：幻想请适度。",
+  "mainStat": "生命值",
+  "mainValue": "35.2%",
+  "name": "铁影阔剑",
+  "rarity": 3,
+  "skillContent": "生命值低于<span class=\"desc-number recolor\">70%/75%/80%/85%/90%</span>时，重击不会轻易被打断，并提高<span class=\"desc-number recolor\">30%/35%/40%/45%/50%</span>重击伤害。",
   "skillName": "不屈",
-  "skillContent": "生命值低于<span class=\"desc-number recolor\">70%/75%/80%/85%/90%</span>时，重击不会轻易被打断，并提高<span class=\"desc-number recolor\">30%/35%/40%/45%/50%</span>重击伤害。"
+  "time": "【周一/四/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

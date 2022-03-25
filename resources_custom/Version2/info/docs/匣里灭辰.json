@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "匣里灭辰",
-  "introduce": "金龙缠绕的长枪，轻快锐利无比。大抵真能轻易屠龙。",
   "access": "祈愿",
-  "rarity": 4,
-  "mainStat": "元素精通",
-  "mainValue": "221",
-  "baseATK": 454,
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "导能绘卷", "封魔绘卷", "禁咒绘卷"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 454,
+  "introduce": "金龙缠绕的长枪，轻快锐利无比。大抵真能轻易屠龙。",
+  "mainStat": "元素精通",
+  "mainValue": "221",
+  "name": "匣里灭辰",
+  "rarity": 4,
+  "skillContent": "对处于水元素或火元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">20%/24%/28%/32%/36%</span>。",
   "skillName": "踏火止水",
-  "skillContent": "对处于水元素或火元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">20%/24%/28%/32%/36%</span>。"
+  "time": "【周二/五/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "绝弦",
-  "introduce": "曾经作为乐器大放异彩的弓。如今已经不再能令人起舞。",
   "access": "祈愿",
-  "rarity": 4,
-  "mainStat": "元素精通",
-  "mainValue": "165",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 510,
+  "introduce": "曾经作为乐器大放异彩的弓。如今已经不再能令人起舞。",
+  "mainStat": "元素精通",
+  "mainValue": "165",
+  "name": "绝弦",
+  "rarity": 4,
+  "skillContent": "元素战技与元素爆发的伤害提高<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>。",
   "skillName": "无矢之歌",
-  "skillContent": "元素战技与元素爆发的伤害提高<span class=\"desc-number recolor\">24%/30%/36%/42%/48%</span>。"
+  "time": "【周一/四/日】",
+  "title": "弓",
+  "type": "武器"
 }

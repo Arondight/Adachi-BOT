@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "西风猎弓",
-  "introduce": "西风骑士团的制式反曲弓，只有杰出的弓手能与它的杰出性能相衬。",
-  "access": "祈愿、任务",
-  "rarity": 4,
-  "mainStat": "元素充能效率",
-  "mainValue": "61.3%",
-  "baseATK": 454,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
     ["混沌装置", "混沌回路", "混沌炉心", "骗骗花蜜", "微光花蜜", "原素花蜜"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 454,
+  "introduce": "西风骑士团的制式反曲弓，只有杰出的弓手能与它的杰出性能相衬。",
+  "mainStat": "元素充能效率",
+  "mainValue": "61.3%",
+  "name": "西风猎弓",
+  "rarity": 4,
+  "skillContent": "攻击造成暴击时，有<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>的几率产生少量元素微粒，能为角色恢复<span class=\"desc-number\">6</span>点元素能量。该效果每<span class=\"desc-number recolor\">12/10.5/9/7.5/6</span>秒只能触发一次。",
   "skillName": "顺风而行",
-  "skillContent": "攻击造成暴击时，有<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>的几率产生少量元素微粒，能为角色恢复<span class=\"desc-number\">6</span>点元素能量。该效果每<span class=\"desc-number recolor\">12/10.5/9/7.5/6</span>秒只能触发一次。"
+  "time": "【周三/六/日】",
+  "title": "弓",
+  "type": "武器"
 }

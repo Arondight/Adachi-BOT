@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "魔导绪论",
-  "introduce": "第十二版。结合时代发展加注了新内容，并修订了第十一版的错别字。",
   "access": "祈愿",
-  "rarity": 3,
-  "mainStat": "元素精通",
-  "mainValue": "187",
-  "baseATK": 354,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 354,
+  "introduce": "第十二版。结合时代发展加注了新内容，并修订了第十一版的错别字。",
+  "mainStat": "元素精通",
+  "mainValue": "187",
+  "name": "魔导绪论",
+  "rarity": 3,
+  "skillContent": "对处于水元素或雷元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。",
   "skillName": "止水息雷",
-  "skillContent": "对处于水元素或雷元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。"
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

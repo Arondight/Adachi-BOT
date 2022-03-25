@@ -5,12 +5,9 @@ import puppeteer from "puppeteer";
 import _url from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import "#utils/config";
 import { mkdir } from "#utils/file";
 
-const __filename = _url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const mRootdir = path.resolve(__dirname, "..");
 const mHoneyUrl = "https://genshin.honeyhunterworld.com";
 const mBwikiUrl = "https://wiki.biligame.com/ys";
 const mTypes = {
@@ -406,8 +403,8 @@ async function getWeaponData(name, page) {
   }
 
   handle = (
-    await page.$x("//div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'item_main_table')]")
-  )[1];
+    await page.$x("//div[contains(@class, 'data_cont_wrapper')][2]/table[contains(@class, 'item_main_table')]")
+  )[0];
   const title =
     mTypes.weapon[
       (await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[1]/td[3]/a"))[0])).toLowerCase()
@@ -467,9 +464,9 @@ async function getWeaponData(name, page) {
 
   handle = (
     await page.$x(
-      "//div[contains(@class, 'wrappercont')]/div[contains(@class, 'data_cont_wrapper')]/table[contains(@class, 'add_stat_table')]"
+      "//div[contains(@class, 'wrappercont')]/div[contains(@class, 'data_cont_wrapper')][2]/table[contains(@class, 'add_stat_table')]"
     )
-  )[2];
+  )[0];
   const maxLvTr = parseInt(rarity) > 2 ? 26 : 20;
   let mainValue = await page.evaluate((e) => e.textContent, (await handle.$x(`./tbody/tr[${maxLvTr}]/td[3]`))[0]);
   const baseATK = parseInt(
@@ -555,7 +552,7 @@ async function getData(name, link, type = "weapon") {
 }
 
 function writeData(name, data = {}, file = undefined) {
-  const defaultDir = mkdir(path.resolve(mRootdir, "resources_custom", "Version2", "info", "docs"));
+  const defaultDir = mkdir(path.resolve(global.rootdir, "resources_custom", "Version2", "info", "docs"));
   let old = {};
 
   if ("string" !== typeof file) {
@@ -578,7 +575,7 @@ function writeData(name, data = {}, file = undefined) {
 }
 
 (async function main() {
-  const argv = yargs(hideBin(process.argv))
+  const { argv } = yargs(hideBin(process.argv))
     .usage("-n <string>")
     .example("-n 刻晴")
     .example("-n 天空之刃")
@@ -600,7 +597,7 @@ function writeData(name, data = {}, file = undefined) {
         requiresArg: true,
         required: false,
       },
-    }).argv;
+    });
 
   if ("string" === typeof argv.name && "" !== argv.name) {
     try {

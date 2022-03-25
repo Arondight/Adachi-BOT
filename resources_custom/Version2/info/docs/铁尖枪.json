@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "铁尖枪",
-  "introduce": "一头有尖，可攻可守的护身武器。在旅者当中十分流行。",
-  "access": "商人出售",
-  "rarity": 2,
-  "mainStat": "",
-  "mainValue": "",
-  "baseATK": 243,
+  "access": "探索",
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐"],
     ["混沌装置", "混沌回路", "导能绘卷", "封魔绘卷"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 243,
+  "introduce": "一头有尖，可攻可守的护身武器。在旅者当中十分流行。",
+  "mainStat": "",
+  "mainValue": "",
+  "name": "铁尖枪",
+  "rarity": 2,
+  "skillContent": "",
   "skillName": "",
-  "skillContent": ""
+  "time": "【周三/六/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "天空之卷",
-  "introduce": "象征风龙与其主风之神的云图集。细致记载了北地天空的风与云，蕴含苍空与长风的力量。",
   "access": "祈愿",
-  "rarity": 5,
-  "mainStat": "攻击力",
-  "mainValue": "33.1%",
-  "baseATK": 674,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 674,
+  "introduce": "象征风龙与其主风之神的云图集。细致记载了北地天空的风与云，蕴含苍空与长风的力量。",
+  "mainStat": "攻击力",
+  "mainValue": "33.1%",
+  "name": "天空之卷",
+  "rarity": 5,
+  "skillContent": "元素伤害加成提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>；普通攻击命中时，有<span class=\"desc-number\">50%</span>的概率获得高天流云的青睐，在<span class=\"desc-number\">15</span>秒内主动攻击附近的敌人，造成等同于<span class=\"desc-number recolor\">160%/200%/240%/280%/320%</span>攻击力的伤害。该效果每<span class=\"desc-number\">30</span>秒只能触发一次。",
   "skillName": "浮游四方的灵云",
-  "skillContent": "元素伤害加成提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>；普通攻击命中时，有<span class=\"desc-number\">50%</span>的概率获得高天流云的青睐，在<span class=\"desc-number\">15</span>秒内主动攻击附近的敌人，造成等同于<span class=\"desc-number recolor\">160%/200%/240%/280%/320%</span>攻击力的伤害。该效果每<span class=\"desc-number\">30</span>秒只能触发一次。"
+  "time": "【周二/五/日】",
+  "title": "法器",
+  "type": "武器"
 }

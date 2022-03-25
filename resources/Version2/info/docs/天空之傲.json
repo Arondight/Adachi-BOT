@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "天空之傲",
-  "introduce": "象征风龙的骄傲广布长空的双手剑。挥舞时的低吟是风龙的气势，蕴含苍空与长风的力量。",
   "access": "祈愿",
-  "rarity": 5,
-  "mainStat": "元素充能效率",
-  "mainValue": "36.8%",
-  "baseATK": 674,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 674,
+  "introduce": "象征风龙的骄傲广布长空的双手剑。挥舞时的低吟是风龙的气势，蕴含苍空与长风的力量。",
+  "mainStat": "元素充能效率",
+  "mainValue": "36.8%",
+  "name": "天空之傲",
+  "rarity": 5,
+  "skillContent": "造成的伤害提高<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>；施放元素爆发后：普通攻击和重击命中时会发出真空刃，对路径上的敌人造成<span class=\"desc-number recolor\">80%/100%/120%/140%/160%</span>攻击力的伤害，持续<span class=\"desc-number\">20</span>秒或直至发出<span class=\"desc-number\">8</span>次真空刃。",
   "skillName": "斩裂晴空的龙脊",
-  "skillContent": "造成的伤害提高<span class=\"desc-number recolor\">8%/10%/12%/14%/16%</span>；施放元素爆发后：普通攻击和重击命中时会发出真空刃，对路径上的敌人造成<span class=\"desc-number recolor\">80%/100%/120%/140%/160%</span>攻击力的伤害，持续<span class=\"desc-number\">20</span>秒或直至发出<span class=\"desc-number\">8</span>次真空刃。"
+  "time": "【周二/五/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

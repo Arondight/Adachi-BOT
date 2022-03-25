@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "异世界行记",
-  "introduce": "廉价的幻想小说，不具备参考价值。作为法器的力量当然也来自幻想。",
-  "access": "宝箱",
-  "rarity": 3,
-  "mainStat": "元素充能效率",
-  "mainValue": "39%",
-  "baseATK": 401,
+  "access": "探索",
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
     ["混沌装置", "混沌回路", "混沌炉心", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 401,
+  "introduce": "廉价的幻想小说，不具备参考价值。作为法器的力量当然也来自幻想。",
+  "mainStat": "元素充能效率",
+  "mainValue": "39%",
+  "name": "异世界行记",
+  "rarity": 3,
+  "skillContent": "获得元素微粒或元素晶球时，恢复<span class=\"desc-number recolor\">1%/1.25%/1.5%/1.75%/2%</span>生命值。",
   "skillName": "能量沐浴",
-  "skillContent": "获得元素微粒或元素晶球时，恢复<span class=\"desc-number recolor\">1%/1.25%/1.5%/1.75%/2%</span>生命值。"
+  "time": "【周三/六/日】",
+  "title": "法器",
+  "type": "武器"
 }

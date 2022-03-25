@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "暗巷闪光",
-  "introduce": "有着黑夜颜色的笔直长剑，曾属于穿行于暗巷的盗贼。",
-  "access": "限定祈愿",
-  "rarity": 4,
-  "mainStat": "元素精通",
-  "mainValue": "55",
-  "baseATK": 620,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "导能绘卷", "封魔绘卷", "禁咒绘卷"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 620,
+  "introduce": "有着黑夜颜色的笔直长剑，曾属于穿行于暗巷的盗贼。",
+  "mainStat": "元素精通",
+  "mainValue": "55",
+  "name": "暗巷闪光",
+  "rarity": 4,
+  "skillContent": "角色造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。受到伤害后，该伤害提升效果会失效<span class=\"desc-number\">5</span>秒。",
   "skillName": "街巷游侠",
-  "skillContent": "角色造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。受到伤害后，该伤害提升效果会失效<span class=\"desc-number\">5</span>秒。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

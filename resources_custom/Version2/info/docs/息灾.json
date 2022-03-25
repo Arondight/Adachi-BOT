@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "息灾",
-  "introduce": "由奇异晶石打造成的锋锐利器。幽幽蓝光似乎诉说着无尽往事。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "攻击力",
-  "mainValue": "16.5%",
-  "baseATK": 741,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "骗骗花蜜", "微光花蜜", "原素花蜜"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 741,
+  "introduce": "由奇异晶石打造成的锋锐利器。幽幽蓝光似乎诉说着无尽往事。",
+  "mainStat": "攻击力",
+  "mainValue": "16.5%",
+  "name": "息灾",
+  "rarity": 5,
+  "skillContent": "获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成；施放元素战技后，获得持续<span class=\"desc-number\">20</span>秒的「圆顿」，攻击力每<span class=\"desc-number\">1</span>秒提升<span class=\"desc-number recolor\">3.2%/4%/4.8%/5.6%/6.4%</span>，该攻击力提升效果至多叠加<span class=\"desc-number\">6</span>次。当装备此武器的角色处于队伍后台时，「圆顿」的攻击力提升效果翻倍。",
   "skillName": "灭却之戒法",
-  "skillContent": "获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成；施放元素战技后，获得持续<span class=\"desc-number\">20</span>秒的「圆顿」，攻击力每<span class=\"desc-number\">1</span>秒提升<span class=\"desc-number recolor\">3.2%/4%/4.8%/5.6%/6.4%</span>，该攻击力提升效果至多叠加<span class=\"desc-number\">6</span>次。当装备此武器的角色处于队伍后台时，「圆顿」的攻击力提升效果翻倍。"
+  "time": "【周二/五/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

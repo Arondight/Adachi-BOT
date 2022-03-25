@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "黑岩刺枪",
-  "introduce": "以黑岩与陨铁铸成的兵器，玄锋清凛的光泽中仿佛隐隐可见血色。",
-  "access": "商城兑换",
-  "rarity": 4,
-  "mainStat": "暴击伤害",
-  "mainValue": "55.1%",
-  "baseATK": 510,
+  "access": "商城",
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "新兵的徽记", "士官的徽记", "尉官的徽记"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 510,
+  "introduce": "以黑岩与陨铁铸成的兵器，玄锋清凛的光泽中仿佛隐隐可见血色。",
+  "mainStat": "暴击伤害",
+  "mainValue": "55.1%",
+  "name": "黑岩刺枪",
+  "rarity": 4,
+  "skillContent": "击败敌人后，攻击力提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，持续<span class=\"desc-number\">30</span>秒。该效果至多叠加<span class=\"desc-number\">3</span>层，每层持续时间独立。",
   "skillName": "乘胜追击",
-  "skillContent": "击败敌人后，攻击力提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，持续<span class=\"desc-number\">30</span>秒。该效果至多叠加<span class=\"desc-number\">3</span>层，每层持续时间独立。"
+  "time": "【周二/五/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

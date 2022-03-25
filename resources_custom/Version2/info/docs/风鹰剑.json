@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "风鹰剑",
-  "introduce": "西风骑士团的灵魂。历经千年仍在呼唤你卷起正义之风，祓除奸邪，一如上一位挥舞此剑的女杰。",
   "access": "祈愿",
-  "rarity": 5,
-  "mainStat": "物理伤害加成",
-  "mainValue": "41.3%",
-  "baseATK": 674,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 674,
+  "introduce": "西风骑士团的灵魂。历经千年仍在呼唤你卷起正义之风，祓除奸邪，一如上一位挥舞此剑的女杰。",
+  "mainStat": "物理伤害加成",
+  "mainValue": "41.3%",
+  "name": "风鹰剑",
+  "rarity": 5,
+  "skillContent": "攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；受到伤害时触发：高扬抗争旗号的西风鹰之魂苏醒，恢复等同于攻击力的<span class=\"desc-number recolor\">100%/115%/130%/145%/160%</span>的生命值，并对周围的敌人造成<span class=\"desc-number recolor\">200%/230%/260%/290%/320%</span>攻击力的伤害。该效果每<span class=\"desc-number\">15</span>秒只能触发一次。",
   "skillName": "西风之鹰的抗争",
-  "skillContent": "攻击力提高<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；受到伤害时触发：高扬抗争旗号的西风鹰之魂苏醒，恢复等同于攻击力的<span class=\"desc-number recolor\">100%/115%/130%/145%/160%</span>的生命值，并对周围的敌人造成<span class=\"desc-number recolor\">200%/230%/260%/290%/320%</span>攻击力的伤害。该效果每<span class=\"desc-number\">15</span>秒只能触发一次。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

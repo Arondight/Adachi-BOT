@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "黑剑",
-  "introduce": "渴求着纷争与砍杀的漆黑长剑，据说会让人沉醉在浴血厮杀的亢奋中。",
   "access": "纪行",
-  "rarity": 4,
-  "mainStat": "暴击率",
-  "mainValue": "27.6%",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 510,
+  "introduce": "渴求着纷争与砍杀的漆黑长剑，据说会让人沉醉在浴血厮杀的亢奋中。",
+  "mainStat": "暴击率",
+  "mainValue": "27.6%",
+  "name": "黑剑",
+  "rarity": 4,
+  "skillContent": "普通攻击与重击的造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；此外，普通攻击与重击暴击时，回复等同于攻击力<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>的生命值。该效果每<span class=\"desc-number\">5</span>秒至多发动一次。",
   "skillName": "「正义」",
-  "skillContent": "普通攻击与重击的造成的伤害提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>；此外，普通攻击与重击暴击时，回复等同于攻击力<span class=\"desc-number recolor\">60%/70%/80%/90%/100%</span>的生命值。该效果每<span class=\"desc-number\">5</span>秒至多发动一次。"
+  "time": "【周二/五/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

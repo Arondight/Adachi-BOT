@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "学徒笔记",
-  "introduce": "某个优等生留下的学习笔记，娟秀的字迹非常好看。记录了不少实用的咒语。",
-  "access": "商人出售",
-  "rarity": 1,
-  "mainStat": "",
-  "mainValue": "",
-  "baseATK": 185,
+  "access": "探索",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片"],
     ["沉重号角", "黑铜号角", "破损的面具", "污秽的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 185,
+  "introduce": "某个优等生留下的学习笔记，娟秀的字迹非常好看。记录了不少实用的咒语。",
+  "mainStat": "",
+  "mainValue": "",
+  "name": "学徒笔记",
+  "rarity": 1,
+  "skillContent": "",
   "skillName": "",
-  "skillContent": ""
+  "time": "【周一/四/日】",
+  "title": "法器",
+  "type": "武器"
 }

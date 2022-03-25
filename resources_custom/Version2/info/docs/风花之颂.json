@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "风花之颂",
-  "introduce": "点缀以无名花朵的弓，承载着同样无名之人的殷切希望。",
   "access": "活动",
-  "rarity": 4,
-  "mainStat": "元素精通",
-  "mainValue": "165",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "骗骗花蜜", "微光花蜜", "原素花蜜"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 510,
+  "introduce": "点缀以无名花朵的弓，承载着同样无名之人的殷切希望。",
+  "mainStat": "元素精通",
+  "mainValue": "165",
+  "name": "风花之颂",
+  "rarity": 4,
+  "skillContent": "施放元素战技时，获得风之花的悠古愿望加持，攻击力提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，持续<span class=\"desc-number\">6</span>秒。",
   "skillName": "风花之愿",
-  "skillContent": "施放元素战技时，获得风之花的悠古愿望加持，攻击力提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，持续<span class=\"desc-number\">6</span>秒。"
+  "time": "【周三/六/日】",
+  "title": "弓",
+  "type": "武器"
 }

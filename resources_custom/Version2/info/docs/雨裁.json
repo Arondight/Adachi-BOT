@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "雨裁",
-  "introduce": "散发着黯淡荧光的无锋大剑，纯粹以气势和力量碾碎敌人。",
   "access": "祈愿",
-  "rarity": 4,
-  "mainStat": "元素精通",
-  "mainValue": "165",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "导能绘卷", "封魔绘卷", "禁咒绘卷"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 510,
+  "introduce": "散发着黯淡荧光的无锋大剑，纯粹以气势和力量碾碎敌人。",
+  "mainStat": "元素精通",
+  "mainValue": "165",
+  "name": "雨裁",
+  "rarity": 4,
+  "skillContent": "对处于水元素或雷元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">20%/24%/28%/32%/36%</span>。",
   "skillName": "止水息雷",
-  "skillContent": "对处于水元素或雷元素影响下的敌人，造成的伤害提高<span class=\"desc-number recolor\">20%/24%/28%/32%/36%</span>。"
+  "time": "【周二/五/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

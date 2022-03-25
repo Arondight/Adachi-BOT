@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "松籁响起之时",
-  "introduce": "如同翻弄草木的息吹一般轻盈的大剑，如同吹倒树木的飓风一般摧枯拉朽的武器。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "物理伤害加成",
-  "mainValue": "20.7%",
-  "baseATK": 741,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["沉重号角", "黑铜号角", "黑晶号角", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 741,
+  "introduce": "如同翻弄草木的息吹一般轻盈的大剑，如同吹倒树木的飓风一般摧枯拉朽的武器。",
+  "mainStat": "物理伤害加成",
+  "mainValue": "20.7%",
+  "name": "松籁响起之时",
+  "rarity": 5,
+  "skillContent": "飘游风中的「千年的大乐章」的一部分。攻击力提高<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>；普通攻击或重击命中敌人时，角色获得一枚低语之符，每<span class=\"desc-number\">0.3</span>秒内至多触发一次。拥有<span class=\"desc-number\">4</span>枚低语之符时，将消耗所有低语之符，使附近的队伍中所有角色获得持续<span class=\"desc-number\">12</span>秒的「千年的大乐章·揭旗之歌」效果：普通攻击速度提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，攻击力提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。触发后<span class=\"desc-number\">20</span>秒内，无法再次获得低语之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。",
   "skillName": "揭旗的叛逆之歌",
-  "skillContent": "飘游风中的「千年的大乐章」的一部分。攻击力提高<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>；普通攻击或重击命中敌人时，角色获得一枚低语之符，每<span class=\"desc-number\">0.3</span>秒内至多触发一次。拥有<span class=\"desc-number\">4</span>枚低语之符时，将消耗所有低语之符，使附近的队伍中所有角色获得持续<span class=\"desc-number\">12</span>秒的「千年的大乐章·揭旗之歌」效果：普通攻击速度提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，攻击力提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>。触发后<span class=\"desc-number\">20</span>秒内，无法再次获得低语之符。「千年的大乐章」触发的多种数值效果中，同类数值效果不可叠加。"
+  "time": "【周一/四/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

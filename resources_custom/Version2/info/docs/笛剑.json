@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "笛剑",
-  "introduce": "细剑的锈迹下透露出原本华丽的装饰，挥舞时轻若无物。",
   "access": "祈愿",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "41.3%",
-  "baseATK": 510,
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 510,
+  "introduce": "细剑的锈迹下透露出原本华丽的装饰，挥舞时轻若无物。",
+  "mainStat": "攻击力",
+  "mainValue": "41.3%",
+  "name": "笛剑",
+  "rarity": 4,
+  "skillContent": "普通攻击或重击命中时，会获得一个和音。积攒了<span class=\"desc-number\">5</span>个和音后，释放音律的力量，对周围的敌人造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的伤害。和音最多存在<span class=\"desc-number\">30</span>秒，每<span class=\"desc-number\">0.5</span>秒至多获得<span class=\"desc-number\">1</span>个和音。",
   "skillName": "和弦",
-  "skillContent": "普通攻击或重击命中时，会获得一个和音。积攒了<span class=\"desc-number\">5</span>个和音后，释放音律的力量，对周围的敌人造成<span class=\"desc-number recolor\">100%/125%/150%/175%/200%</span>攻击力的伤害。和音最多存在<span class=\"desc-number\">30</span>秒，每<span class=\"desc-number\">0.5</span>秒至多获得<span class=\"desc-number\">1</span>个和音。"
+  "time": "【周二/五/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

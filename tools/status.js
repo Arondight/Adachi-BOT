@@ -4,7 +4,7 @@ import { status } from "#plugins/tools_master/status";
 import "#utils/config";
 
 (async function main() {
-  const argv = yargs(hideBin(process.argv))
+  const { argv } = yargs(hideBin(process.argv))
     .help("help")
     .alias("help", "h")
     .version(false)
@@ -16,7 +16,7 @@ import "#utils/config";
         requiresArg: false,
         required: false,
       },
-    }).argv;
+    });
 
   await new Promise((resolve) => setTimeout(resolve, 5000));
 

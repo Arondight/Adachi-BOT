@@ -13,7 +13,7 @@ const mDatabaseNames = ls(path.resolve(global.rootdir, "data", "db"))
   });
 
 (async function main() {
-  const argv = yargs(hideBin(process.argv))
+  const { argv } = yargs(hideBin(process.argv))
     .usage("-d <string> -k <string> [-p <string> --pk <string> --pv <string> --numeric")
     .example("-d gacha -k user")
     .example("-d gacha -k data --pk gacha_type --pv 200 --numeric")
@@ -71,7 +71,7 @@ const mDatabaseNames = ls(path.resolve(global.rootdir, "data", "db"))
         requiresArg: false,
         required: false,
       },
-    }).argv;
+    });
 
   if ("string" === typeof argv.key) {
     if (!mDatabaseNames.includes(argv.database)) {

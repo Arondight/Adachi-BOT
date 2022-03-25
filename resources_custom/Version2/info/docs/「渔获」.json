@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "长柄武器",
-  "name": "「渔获」",
-  "introduce": "在久远的过去，曾经闻名稻妻的大盗爱用的枪。",
-  "access": "稻妻钓鱼协会兑换",
-  "rarity": 4,
-  "mainStat": "元素充能效率",
-  "mainValue": "45.9%",
-  "baseATK": 510,
+  "access": "探索",
   "ascensionMaterials": [
     ["今昔剧画之恶尉", "今昔剧画之虎啮", "今昔剧画之一角", "今昔剧画之鬼人"],
     ["混沌机关", "混沌枢纽", "混沌真眼", "浮游干核", "浮游幽核", "浮游晶化核"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 510,
+  "introduce": "在久远的过去，曾经闻名稻妻的大盗爱用的枪。",
+  "mainStat": "元素充能效率",
+  "mainValue": "45.9%",
+  "name": "「渔获」",
+  "rarity": 4,
+  "skillContent": "元素爆发造成的伤害提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，元素爆发的暴击率提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。",
   "skillName": "船歌",
-  "skillContent": "元素爆发造成的伤害提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，元素爆发的暴击率提升<span class=\"desc-number recolor\">6%/7.5%/9%/10.5%/12%</span>。"
+  "time": "【周三/六/日】",
+  "title": "长柄武器",
+  "type": "武器"
 }

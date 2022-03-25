@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "双手剑",
-  "name": "以理服人",
-  "introduce": "精钢打造的趁手大铁棒子。最好的理论依据。",
-  "access": "祈愿、宝箱",
-  "rarity": 3,
-  "mainStat": "攻击力",
-  "mainValue": "35.2%",
-  "baseATK": 401,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["雾海云间的铅丹", "雾海云间的汞丹", "雾海云间的金丹", "雾海云间的转还"],
     ["雾虚花粉", "雾虚草囊", "雾虚灯芯", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 401,
+  "introduce": "精钢打造的趁手大铁棒子。最好的理论依据。",
+  "mainStat": "攻击力",
+  "mainValue": "35.2%",
+  "name": "以理服人",
+  "rarity": 3,
+  "skillContent": "施放元素战技后，普通攻击和重击命中时会在小范围内额外造成<span class=\"desc-number recolor\">60%/75%/90%/105%/120%</span>攻击力的伤害。该效果持续<span class=\"desc-number\">15</span>秒，伤害每<span class=\"desc-number\">3</span>秒只能触发一次。",
   "skillName": "有话直说",
-  "skillContent": "施放元素战技后，普通攻击和重击命中时会在小范围内额外造成<span class=\"desc-number recolor\">60%/75%/90%/105%/120%</span>攻击力的伤害。该效果持续<span class=\"desc-number\">15</span>秒，伤害每<span class=\"desc-number\">3</span>秒只能触发一次。"
+  "time": "【周二/五/日】",
+  "title": "双手剑",
+  "type": "武器"
 }

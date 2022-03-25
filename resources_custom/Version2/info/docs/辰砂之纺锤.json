@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "辰砂之纺锤",
-  "introduce": "由不似这个世界的物质制成的剑，其中的力量就连侵蚀龙的腐殖之毒也能抵御住吧。",
   "access": "活动",
-  "rarity": 4,
-  "mainStat": "防御力",
-  "mainValue": "69%",
-  "baseATK": 454,
   "ascensionMaterials": [
     ["高塔孤王的破瓦", "高塔孤王的残垣", "高塔孤王的断片", "高塔孤王的碎梦"],
     ["混沌装置", "混沌回路", "混沌炉心", "破损的面具", "污秽的面具", "不祥的面具"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 454,
+  "introduce": "由不似这个世界的物质制成的剑，其中的力量就连侵蚀龙的腐殖之毒也能抵御住吧。",
+  "mainStat": "防御力",
+  "mainValue": "69%",
+  "name": "辰砂之纺锤",
+  "rarity": 4,
+  "skillContent": "元素战技造成的伤害值提高，提高数值相当于防御力的<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>。该效果每<span class=\"desc-number\">1.5</span>秒最多触发一次，并将在元素战技造成伤害后的<span class=\"desc-number\">0.1</span>秒后清除效果。",
   "skillName": "无垢之心",
-  "skillContent": "元素战技造成的伤害值提高，提高数值相当于防御力的<span class=\"desc-number recolor\">40%/50%/60%/70%/80%</span>。该效果每<span class=\"desc-number\">1.5</span>秒最多触发一次，并将在元素战技造成伤害后的<span class=\"desc-number\">0.1</span>秒后清除效果。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

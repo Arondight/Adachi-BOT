@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "旅行剑",
-  "introduce": "趁手的钢剑，剑柄里藏着剪子、放大镜、火绒等方便旅行的小物件。",
-  "access": "宝箱",
-  "rarity": 3,
-  "mainStat": "防御力",
-  "mainValue": "29.3%",
-  "baseATK": 448,
+  "access": "探索",
   "ascensionMaterials": [
     ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
     ["混沌装置", "混沌回路", "混沌炉心", "导能绘卷", "封魔绘卷", "禁咒绘卷"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 448,
+  "introduce": "趁手的钢剑，剑柄里藏着剪子、放大镜、火绒等方便旅行的小物件。",
+  "mainStat": "防御力",
+  "mainValue": "29.3%",
+  "name": "旅行剑",
+  "rarity": 3,
+  "skillContent": "获得元素晶球或元素微粒时，恢复<span class=\"desc-number recolor\">1%/1.25%/1.5%/1.75%/2%</span>生命值。",
   "skillName": "旅程",
-  "skillContent": "获得元素晶球或元素微粒时，恢复<span class=\"desc-number recolor\">1%/1.25%/1.5%/1.75%/2%</span>生命值。"
+  "time": "【周三/六/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

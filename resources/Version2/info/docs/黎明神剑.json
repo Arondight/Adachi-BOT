@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "黎明神剑",
-  "introduce": "一把曾经耀若朝阳的宝剑，掌握它的人会获得「自我感觉良好」的力量加持。剑身上的发光材料已经褪去。",
-  "access": "祈愿、任务",
-  "rarity": 3,
-  "mainStat": "暴击伤害",
-  "mainValue": "46.9%",
-  "baseATK": 401,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
     ["地脉的旧枝", "地脉的枯叶", "地脉的新芽", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 401,
+  "introduce": "一把曾经耀若朝阳的宝剑，掌握它的人会获得「自我感觉良好」的力量加持。剑身上的发光材料已经褪去。",
+  "mainStat": "暴击伤害",
+  "mainValue": "46.9%",
+  "name": "黎明神剑",
+  "rarity": 3,
+  "skillContent": "生命值高于<span class=\"desc-number\">90%</span>时，暴击率提升<span class=\"desc-number recolor\">14%/17.5%/21%/24.5%/28%</span>。",
   "skillName": "激励",
-  "skillContent": "生命值高于<span class=\"desc-number\">90%</span>时，暴击率提升<span class=\"desc-number recolor\">14%/17.5%/21%/24.5%/28%</span>。"
+  "time": "【周二/五/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

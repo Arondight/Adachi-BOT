@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "法器",
-  "name": "神乐之真意",
-  "introduce": "表演神乐之舞时所用的神铃，为宫司所赐福。神樱之香萦绕其上。",
-  "access": "限定祈愿",
-  "rarity": 5,
-  "mainStat": "暴击伤害",
-  "mainValue": "66.2%",
-  "baseATK": 608,
+  "access": "祈愿",
   "ascensionMaterials": [
     ["今昔剧画之恶尉", "今昔剧画之虎啮", "今昔剧画之一角", "今昔剧画之鬼人"],
     ["隐兽指爪", "隐兽利爪", "隐兽鬼爪", "浮游干核", "浮游幽核", "浮游晶化核"]
   ],
-  "time": "【周三/六/日】",
+  "baseATK": 608,
+  "introduce": "表演神乐之舞时所用的神铃，为宫司所赐福。神樱之香萦绕其上。",
+  "mainStat": "暴击伤害",
+  "mainValue": "66.2%",
+  "name": "神乐之真意",
+  "rarity": 5,
+  "skillContent": "施放元素战技时，将获得「神乐舞」的效果，使装备该武器的角色的元素战技造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，该效果持续<span class=\"desc-number\">16</span>秒，至多叠加<span class=\"desc-number\">3</span>层。持有<span class=\"desc-number\">3</span>层时，该角色获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成。",
   "skillName": "神樱神游神乐舞",
-  "skillContent": "施放元素战技时，将获得「神乐舞」的效果，使装备该武器的角色的元素战技造成的伤害提高<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，该效果持续<span class=\"desc-number\">16</span>秒，至多叠加<span class=\"desc-number\">3</span>层。持有<span class=\"desc-number\">3</span>层时，该角色获得<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>所有元素伤害加成。"
+  "time": "【周三/六/日】",
+  "title": "法器",
+  "type": "武器"
 }

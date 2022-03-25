@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "单手剑",
-  "name": "黑岩长剑",
-  "introduce": "黑岩锻造而成的长剑。玄色的剑身隐隐流露血光。",
-  "access": "商城兑换",
-  "rarity": 4,
-  "mainStat": "暴击伤害",
-  "mainValue": "36.8%",
-  "baseATK": 565,
+  "access": "商城",
   "ascensionMaterials": [
     ["孤云寒林的光砂", "孤云寒林的辉岩", "孤云寒林的圣骸", "孤云寒林的神体"],
     ["猎兵祭刀", "特工祭刀", "督察长祭刀", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周一/四/日】",
+  "baseATK": 565,
+  "introduce": "黑岩锻造而成的长剑。玄色的剑身隐隐流露血光。",
+  "mainStat": "暴击伤害",
+  "mainValue": "36.8%",
+  "name": "黑岩长剑",
+  "rarity": 4,
+  "skillContent": "击败敌人后，攻击力提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，持续<span class=\"desc-number\">30</span>秒。该效果至多叠加<span class=\"desc-number\">3</span>层，每层持续时间独立。",
   "skillName": "乘胜追击",
-  "skillContent": "击败敌人后，攻击力提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，持续<span class=\"desc-number\">30</span>秒。该效果至多叠加<span class=\"desc-number\">3</span>层，每层持续时间独立。"
+  "time": "【周一/四/日】",
+  "title": "单手剑",
+  "type": "武器"
 }

@@ -1,18 +1,18 @@
 {
-  "type": "武器",
-  "title": "弓",
-  "name": "破魔之弓",
-  "introduce": "曾经属于某个巫女的战弓。以优越的技法打造，精巧而耐用。",
   "access": "锻造",
-  "rarity": 4,
-  "mainStat": "攻击力",
-  "mainValue": "55.1%",
-  "baseATK": 454,
   "ascensionMaterials": [
     ["鸣神御灵的明惠", "鸣神御灵的欢喜", "鸣神御灵的亲爱", "鸣神御灵的勇武"],
     ["黯淡棱镜", "水晶棱镜", "偏光棱镜", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
   ],
-  "time": "【周二/五/日】",
+  "baseATK": 454,
+  "introduce": "曾经属于某个巫女的战弓。以优越的技法打造，精巧而耐用。",
+  "mainStat": "攻击力",
+  "mainValue": "55.1%",
+  "name": "破魔之弓",
+  "rarity": 4,
+  "skillContent": "普通攻击造成的伤害提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，重击造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。当装备该武器的角色元素能量等于<span class=\"desc-number\">100%</span>时，这个效果提升<span class=\"desc-number\">100%</span>。",
   "skillName": "浅濑之弭",
-  "skillContent": "普通攻击造成的伤害提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>，重击造成的伤害提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>。当装备该武器的角色元素能量等于<span class=\"desc-number\">100%</span>时，这个效果提升<span class=\"desc-number\">100%</span>。"
+  "time": "【周二/五/日】",
+  "title": "弓",
+  "type": "武器"
 }
