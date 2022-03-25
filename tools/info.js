@@ -2,7 +2,6 @@ import fs from "fs";
 import lodash from "lodash";
 import path from "path";
 import puppeteer from "puppeteer";
-import _url from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import "#utils/config";

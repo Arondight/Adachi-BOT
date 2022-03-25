@@ -73,7 +73,7 @@ function getID(msg, userID, isMhyID = true) {
     }
 
     return undefined; // 返回 undefined ，无法验证一个 QQ 号码是否为合法 UID
-  } else if (id !== undefined && idstr && idstr.length >= 6 && idstr.length < 10) {
+  } else if (undefined !== id && idstr && idstr.length >= 5 && idstr.length < 10) {
     // 字符串中的 ID 大致合法
     return isMhyID ? id : getUID(id);
   } else if (db.includes("map", "user", { userID })) {
