@@ -56,9 +56,9 @@ const charBoxTemplate = html` <div class="character-box">
       <span class="char-level">Lv.{{ data.level }}</span>
       <span class="char-fetter">好感{{ data.fetter }}</span>
     </div>
-    <div class="container-char-info weapon-briefing">
+    <div class="container-char-info weapon-briefing" :style="additionalStyle">
       <span class="weapon-name">{{ data.weapon.name }}</span>
-      <span class="weapon-affix"> 精{{ data.weapon.affix_level }}</span>
+      <span class="weapon-affix">精{{ data.weapon.affix_level }}</span>
     </div>
   </div>
 </div>`;
@@ -81,7 +81,10 @@ const CharacterBox = defineComponent({
     const hasCostume = props.data.costumes.length !== 0;
     const costumePath = hasCostume ? getCostume(props.data.costumes[0]["name"]) : "";
 
-    return { starBackground, element, hasCostume, costumePath };
+    const weaponNameLength = props.data.weapon.name.length || 5;
+    const additionalStyle = weaponNameLength > 5 ? "font-size: 9px;" : undefined;
+
+    return { starBackground, element, hasCostume, costumePath, additionalStyle };
   },
 });
 

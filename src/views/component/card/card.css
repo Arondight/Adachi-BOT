@@ -57,7 +57,7 @@ img.avatar {
   width: 100%;
   min-height: 152px;
   border-radius: 10px 10px 0 0;
-  background-size: contain !important;
+  background-size: 100% !important;
   -webkit-mask: url("../../../../resources/Version2/masks/namecard-mask.svg");
   -webkit-mask-size: 100%;
   display: grid;
@@ -337,6 +337,10 @@ img.lock-icon {
 
 .weapon-affix {
   color: hsl(36deg 70% 48%);
+}
+
+.weapon-affix:before {
+  content: " ";
 }
 
 #credit {
