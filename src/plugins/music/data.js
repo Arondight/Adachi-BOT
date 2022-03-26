@@ -4,18 +4,17 @@ import querystring from "querystring";
 import db from "#utils/database";
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
-const m_ERR_CODE = {
+const m_ERR_CODE = Object.freeze({
   ERR_SRC: "1",
   ERR_404: "2",
   ERR_API: "3",
-};
-Object.freeze(m_ERR_CODE);
+});
 
-const m_ERR_MSG = {
+const m_ERR_MSG = Object.freeze({
   [m_ERR_CODE.ERR_SRC]: "错误的音乐源",
   [m_ERR_CODE.ERR_404]: "没有查询到对应歌曲",
   [m_ERR_CODE.ERR_API]: "歌曲查询出错",
-};
+});
 
 async function musicQQ(keyword) {
   const url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp";
