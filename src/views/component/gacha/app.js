@@ -1,4 +1,4 @@
-import { getParams, html } from "../common/utils.js";
+import { getParams, html, toReadableDate } from "../common/utils.js";
 import gachaBox from "./gacha-box.js";
 
 // eslint-disable-next-line no-undef
@@ -31,14 +31,8 @@ export default defineComponent({
       const now = new Date();
       const utc = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
       const date = new Date(utc + 8 * 60 * 60 * 1000);
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
 
-      let hour = date.getHours().toString().padStart(2, "0");
-      let minute = date.getMinutes().toString().padStart(2, "0");
-      let second = date.getSeconds().toString().padStart(2, "0");
-
-      return `${month}月${day}日${hour}:${minute}:${second}`;
+      return toReadableDate(date, `MM月dd日hh:mm:ss`);
     }
 
     function get_wish_type(type) {
