@@ -20,7 +20,7 @@ function log(type, ...rest) {
   let logger;
 
   switch (type) {
-    case m_LOG_TYPE.DEBUG:
+    case m_LOG_TYPE.ERROR:
       logger = console.error;
       break;
     default:
