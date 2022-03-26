@@ -29,8 +29,8 @@ export default defineComponent({
   setup() {
     function get_time() {
       const now = new Date();
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      const date = new Date(utc + 3600000 * 8);
+      const utc = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
+      const date = new Date(utc + 8 * 60 * 60 * 1000);
       const month = date.getMonth() + 1;
       const day = date.getDate();
       let hour = date.getHours();
