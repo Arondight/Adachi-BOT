@@ -28,10 +28,9 @@ export default defineComponent({
   },
   setup() {
     function get_time() {
-      const rawDate = new Date().toLocaleString("zh-CN", {
-        timeZone: "Asia/Shanghai",
-      });
-      const date = new Date(rawDate);
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      const date = new Date(utc + 3600000 * 8);
       const month = date.getMonth() + 1;
       const day = date.getDate();
       let hour = date.getHours();
