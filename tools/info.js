@@ -167,10 +167,11 @@ async function getMaterialTime(name) {
   return time;
 }
 
-// { type, ascensionMaterials, baseATK, birthday, constellationName, constellations, cv, cvCN, cvJP, element,
+// { access, ascensionMaterials, baseATK, birthday, constellationName, constellations, cv, cvCN, cvJP, element,
 //   id, introduce, levelUpMaterials, mainStat, mainValue, name, passiveDesc, passiveTitle, rarity, talentMaterials,
-//   time, title }
+//   time, title, type }
 async function getCharData(name, page) {
+  const access = mPlaceholder;
   const type = "角色";
   let handle;
 
@@ -365,7 +366,7 @@ async function getCharData(name, page) {
   const time = await getMaterialTime(talentMaterials[0]);
 
   return {
-    type,
+    access,
     ascensionMaterials,
     baseATK,
     birthday,
@@ -387,12 +388,14 @@ async function getCharData(name, page) {
     talentMaterials,
     time,
     title,
+    type,
   };
 }
 
 // { access, ascensionMaterials, baseATK, introduce, mainStat, mainValue, name, rarity, skillContent, skillName, time,
 //   title, type }
 async function getWeaponData(name, page) {
+  const access = mPlaceholder;
   const type = "武器";
   let handle;
 
@@ -409,7 +412,6 @@ async function getWeaponData(name, page) {
       (await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[1]/td[3]/a"))[0])).toLowerCase()
     ];
   const introduce = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[8]/td[2]"))[0]);
-  const access = mPlaceholder;
   const rarity = ((await handle.$x("./tbody/tr[2]/td[2]/div[contains(@class, 'sea_char_stars_wrap')]")) || []).length;
   let mainStat = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[4]/td[2]"))[0]);
   const skillName = await page.evaluate((e) => e.textContent, (await handle.$x("./tbody/tr[6]/td[2]"))[0]);

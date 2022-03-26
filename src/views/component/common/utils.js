@@ -27,7 +27,7 @@ function toReadableDate(date, format) {
   function adjust(c) {
     const str = items[c[0]] || "";
 
-    return c.length < str.length ? str.slice(0 - c.length) : "0".repeat(c.length - str.length) + str;
+    return c.length < str.length ? str.slice(0 - c.length) : str.padStart(c.length, "0");
   }
 
   const items = {

@@ -971,10 +971,10 @@ function readArtifacts() {
 
 // Call after readNames()
 //
-// global.info.character    -> array of { type, ascensionMaterials, baseATK, birthday, constellationName,
+// global.info.character    -> array of { access, ascensionMaterials, baseATK, birthday, constellationName,
 //                                        constellations, cv, cvCN, cvJP, element, id, introduce, levelUpMaterials,
 //                                        mainStat, mainValue, name, passiveDesc, passiveTitle, rarity,
-//                                        talentMaterials, time, title }, sorted by rarity
+//                                        talentMaterials, time, title, type }, sorted by rarity
 // global.info.weapon       -> array of { access, ascensionMaterials, baseATK, introduce, mainStat, mainValue, name,
 //                                        rarity, skillContent, skillName, time, title, type }, sorted by rarity
 function readInfo() {
@@ -1035,7 +1035,7 @@ function readEggs() {
 
     global.info.character.concat(global.info.weapon).forEach((c) => {
       // 只要五星
-      if ("string" === typeof c.type && 5 === parseInt(c.rarity)) {
+      if ("string" === typeof c.type && 5 === parseInt(c.rarity) && "祈愿" === c.access) {
         global.eggs.type[c.name] = c.type;
         global.eggs.star[c.name] = 5;
       }
