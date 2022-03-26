@@ -32,7 +32,7 @@ export default defineComponent({
       const utc = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
       const date = new Date(utc + 8 * 60 * 60 * 1000);
 
-      return toReadableDate(date, `MM月dd日hh:mm:ss`);
+      return toReadableDate(date, "mm月dd日HH:MM:SS");
     }
 
     function get_wish_type(type) {

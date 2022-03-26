@@ -11,13 +11,13 @@ const chamberTemplate = html`
       <div class="chamber-indicator">{{floorIndex}}<span>-</span>{{chamberIndex}}</div>
       <div class="chamber-stars">{{chamberStarCount}}</div>
       <div class="chamber-time" v-if="chamberTimestamp != 0">
-        <p>{{formatDate(new Date(chamberTimestamp * 1000), "yy/MM/dd")}}</p>
+        <p>{{formatDate(new Date(chamberTimestamp * 1000), "YY/mm/dd")}}</p>
         <p>
-          <span>{{formatDate(new Date(chamberTimestamp * 1000), "hh")}}</span>
+          <span>{{formatDate(new Date(chamberTimestamp * 1000), "HH")}}</span>
           <span class="kerning">:</span>
-          <span>{{formatDate(new Date(chamberTimestamp * 1000), "mm")}}</span>
+          <span>{{formatDate(new Date(chamberTimestamp * 1000), "MM")}}</span>
           <span class="kerning">:</span>
-          <span>{{formatDate(new Date(chamberTimestamp * 1000), "ss")}}</span>
+          <span>{{formatDate(new Date(chamberTimestamp * 1000), "SS")}}</span>
         </p>
       </div>
     </div>

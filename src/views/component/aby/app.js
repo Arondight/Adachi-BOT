@@ -132,8 +132,8 @@ export default defineComponent({
 
     let abyssBriefings = {};
 
-    abyssBriefings.startTime = formatDate(new Date(params.data.start_time * 1000), "yyyy/MM/dd");
-    abyssBriefings.endTime = formatDate(new Date(params.data.end_time * 1000), "yyyy/MM/dd");
+    abyssBriefings.startTime = formatDate(new Date(params.data.start_time * 1000), "YYYY/mm/dd");
+    abyssBriefings.endTime = formatDate(new Date(params.data.end_time * 1000), "YYYY/mm/dd");
     abyssBriefings.totalBattleTimes = params.data.total_battle_times || 0;
     abyssBriefings.maxFloor = params.data.max_floor || "8-3";
     abyssBriefings.totalStar = params.data.total_star || 0;

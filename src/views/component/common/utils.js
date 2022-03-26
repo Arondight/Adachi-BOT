@@ -31,12 +31,12 @@ function toReadableDate(date, format) {
   }
 
   const items = {
-    y: date.getFullYear(),
-    M: date.getMonth() + 1,
+    Y: date.getFullYear(),
+    m: date.getMonth() + 1,
     d: date.getDate(),
-    h: date.getHours(),
-    m: date.getMinutes(),
-    s: date.getSeconds(),
+    H: date.getHours(),
+    M: date.getMinutes(),
+    S: date.getSeconds(),
   };
 
   Object.keys(items).forEach((c) => (items[c] = items[c].toString()));
