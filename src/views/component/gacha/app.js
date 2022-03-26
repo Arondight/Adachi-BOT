@@ -33,13 +33,10 @@ export default defineComponent({
       const date = new Date(utc + 8 * 60 * 60 * 1000);
       const month = date.getMonth() + 1;
       const day = date.getDate();
-      let hour = date.getHours();
-      let minute = date.getMinutes();
-      let second = date.getSeconds();
 
-      if (hour < 10) hour = "0" + hour;
-      if (minute < 10) minute = "0" + minute;
-      if (second < 10) second = "0" + second;
+      let hour = date.getHours().toString().padStart(2, "0");
+      let minute = date.getMinutes().toString().padStart(2, "0");
+      let second = date.getSeconds().toString().padStart(2, "0");
 
       return `${month}月${day}日${hour}:${minute}:${second}`;
     }
