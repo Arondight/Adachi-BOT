@@ -129,7 +129,7 @@ const template = html` <div class="background" :class="charElementType">
       <div class="weapon-table">
         <div class="box-title" v-html="weaponInfo.type"><p></p></div>
         <div class="info-content container-weapon-info">
-          <div class="weapon-level-ring" :style="{background: getLevelStyle(weaponInfo.level)}">
+          <div class="weapon-level-ring" :style="{background: getWeaponLevelStyle(weaponInfo.level)}">
             <img
               class="weapon-icon"
               :class="weaponInfo.rarityClass"
@@ -169,6 +169,10 @@ export default defineComponent({
     getLevelStyle: (level) => {
       const percentage = (level / 90) * 100;
       return `conic-gradient(#efeae3 0, #efeae3 ${percentage - 0.02}%, rgba(255,255,255,0) ${percentage + 0.02}%)`;
+    },
+    getWeaponLevelStyle: (level) => {
+      const percentage = (level / 90) * 100;
+      return `conic-gradient(#efeae3 0, #efeae3 ${percentage - 0.1}%, rgba(255,255,255,0) ${percentage + 0.1}%)`;
     },
   },
   setup() {
