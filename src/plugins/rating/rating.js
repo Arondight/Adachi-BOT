@@ -90,7 +90,7 @@ async function doRating2(msg) {
   let cdcr = 0;
 
   for (const c of prop.sub_item) {
-    const numeric = !(c.value.includes("%") || "em" === c.type);
+    const numeric = !c.value.includes("%");
     let index = indexOf(c.type);
 
     if (artifactProps.filter((e) => e.type === c.type).length > 1 && false === numeric) {
@@ -101,7 +101,7 @@ async function doRating2(msg) {
       continue;
     }
 
-    // 元素精通之外的小词条按照一半计算
+    // 小词条按照一半计算
     const nums = parseFloat(c.value) / (numeric ? 1 : 100) / global.artifacts.values[0][index] / (numeric ? 2 : 1);
 
     all += nums;
