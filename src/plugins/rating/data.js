@@ -44,7 +44,7 @@ function adjustProp(obj, bot) {
     const value = parseFloat(item.value);
 
     // 这里不需要循环调整，因为游戏内至多显示一位小数点
-    if (value > parseFloat(global.artifacts.props[index].subValues[1])) {
+    if (value > parseFloat(global.artifacts.props[index].subValues[1]).toFixed(1)) {
       const before = item.value;
 
       item.value = `${(value / 10).toFixed(1)}%`;
