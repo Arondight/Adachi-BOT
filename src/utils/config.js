@@ -294,21 +294,9 @@
  * global.artifacts
  * --------------------------------------------------------------------------
  * {
- *   weights: [
- *     [ 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0 ],
- *     [ 0, 0, 0, 0 ]
- *   ],
- *   values: [
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
- *     [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   ],
+ *   weights: [ [] ],
+ *   values: [ [] ],
+ *   props: [ {} ],
  *   path: [ 4, 2, 5, 1, 3 ],
  *   artifacts: {
  *     id: { '悠古的磐岩': 0 },
@@ -329,18 +317,11 @@
  * ../../config/artifacts.yml
  * --------------------------------------------------------------------------
  * weights:
- *   - [ 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0 ]
- *   - [ 0, 0, 0, 0 ]
+ *   - [ ]
  * values:
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
- *   - [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+ *   - [ ]
+ * props:
+ *   - { }
  * path: [ 4, 2, 5, 1, 3 ]
  * artifacts:
  *   - id: 0
@@ -890,6 +871,7 @@ function readNames() {
 
 // global.artifacts.weights          -> weights (array of array of number)
 // global.artifacts.values           -> values (array of array of number)
+// global.artifacts.props            -> props (array of object)
 // global.artifacts.artifacts.id     -> suit (lowercase):  id (number)
 // global.artifacts.artifacts.rarity -> id:                rarity (number)
 // global.artifacts.artifacts.icon   -> icon:              id (number)
@@ -954,6 +936,7 @@ function readArtifacts() {
 
   global.artifacts.weights = mArtifacts.weights;
   global.artifacts.values = mArtifacts.values;
+  global.artifacts.props = mArtifacts.props;
   global.artifacts.path = mArtifacts.path;
   global.artifacts.artifacts = {};
   global.artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);

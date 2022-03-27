@@ -1,32 +1,6 @@
 import randomFloat from "random-float";
 import db from "#utils/database";
 
-// 数组对应了 global.artifacts.weights 和 global.artifacts.values
-// TODO 这些信息应该都放到配置文件中
-const mProps = [
-  // 小生命
-  { type: "hp", name: "生命值", value: ["717", "4780"] },
-  { type: "hp", name: "生命值", value: ["7.0%", "46.6%"] },
-  // 小防御，不会使用 value
-  { type: "df", name: "防御力", value: ["0", "0"] },
-  { type: "df", name: "防御力", value: ["8.7%", "58.3%"] },
-  { type: "er", name: "元素充能效率", value: ["7.8%", "51.8%"] },
-  { type: "em", name: "元素精通", value: ["28", "187"] },
-  // 小攻击
-  { type: "atk", name: "攻击力", value: ["47", "311"] },
-  { type: "atk", name: "攻击力", value: ["7.0%", "46.6%"] },
-  { type: "cd", name: "暴击伤害", value: ["9.3%", "62.2%"] },
-  { type: "cr", name: "暴击率", value: ["4.7%", "31.1%"] },
-  { type: "phys", name: "物理伤害加成", value: ["8.7%", "58.3%"] },
-  { type: "anemo", name: "风元素伤害加成", value: ["7.0%", "46.6%"] },
-  { type: "cryo", name: "冰元素伤害加成", value: ["7.0%", "46.6%"] },
-  { type: "elec", name: "雷元素伤害加成", value: ["7.0%", "46.6%"] },
-  { type: "geo", name: "岩元素伤害加成", value: ["7.0%", "46.6%"] },
-  { type: "hydro", name: "水元素伤害加成", value: ["7.0%", "46.6%"] },
-  { type: "pyro", name: "火元素伤害加成", value: ["7.0%", "46.6%"] },
-  { type: "heal", name: "治疗加成", value: ["5.4%", "35.9%"] },
-];
-
 function randomInt(Min, Max) {
   const range = Max - Min + 1;
   return Min + Math.floor(Math.random() * range);
@@ -137,7 +111,7 @@ function toArray(property) {
   let num = 0;
 
   for (const i in property) {
-    let temp = { name: mProps.map((c) => c.name)[i] };
+    let temp = { name: global.artifacts.props.map((c) => c.name)[i] };
 
     if (property[i] < 1) {
       temp.data = (property[i] * 100).toFixed(1) + "%";
@@ -190,10 +164,10 @@ function getArtifact(userID, type) {
   const levelInitial = 0;
   const levelFortified = 20;
   const mainStat = getMainStat(slot);
-  const mainStatText = mProps.map((c) => c.name)[mainStat] || "";
-  const mainValueItem = mProps[mainStat] || [];
-  const mainValueInitial = (mainValueItem.value || [])[0];
-  const mainValueFortified = (mainValueItem.value || [])[1];
+  const mainStatText = global.artifacts.props.map((c) => c.name)[mainStat] || "";
+  const mainValueItem = global.artifacts.props[mainStat] || [];
+  const mainValueInitial = (mainValueItem.mainValues || [])[0];
+  const mainValueFortified = (mainValueItem.mainValues || [])[1];
   const subStats = getSubStats(mainStat);
   const initPropertyNum = getInit();
   const improves = getImproves();
@@ -248,4 +222,4 @@ function domainMax() {
   return Math.max(...(Object.values(global.artifacts.domains.id) || [0]));
 }
 
-export { mProps as artifactProps, domainInfo, domainMax, getArtifact };
+export { domainInfo, domainMax, getArtifact };

@@ -52,7 +52,7 @@ function toReadableDate(date, format) {
   let str = fields[0] || "";
 
   for (let i = 0; i < delimiters.length; ++i) {
-    if (undefined !== fields[i + 1]) {
+    if ("string" === typeof fields[i + 1]) {
       str += delimiters[i] + fields[i + 1];
     }
   }

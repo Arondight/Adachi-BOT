@@ -1,36 +1,5 @@
 import fetch from "node-fetch";
-
-const mMaxValue = {
-  main_item: {
-    // 主属性直接设置为最大值
-    atk: 46.6, // 大攻击
-    hp: 46.6, // 大生命
-    df: 58.3, // 大防御
-    er: 51.8, // 充能
-    cr: 31.1, // 暴击率
-    cd: 62.6, // 暴击伤害
-    phys: 58.3, // 物伤
-    anemo: 46.6, // 风伤
-    geo: 46.6, // 岩伤
-    cryo: 46.6, // 冰伤
-    hydro: 46.6, // 水伤
-    elec: 46.6, // 雷伤
-    pyro: 46.6, // 火伤
-    heal: 35.9, // 治疗
-    em: 187, // 元素精通
-    atk2: 311, // 小攻击
-    hp2: 4780, // 小生命
-  },
-  sub_item: {
-    // 副属性只调整带百分号的，因为不带百分号的不会出现小数点
-    atk: 35.0, // 大攻击
-    hp: 35.0, // 大生命
-    df: 43.7, // 大防御
-    er: 38.9, // 充能
-    cr: 23.3, // 暴击率
-    cd: 46.6, // 暴击伤害
-  },
-};
+import { findIndexOf } from "#plugins/rating/findIndexOf";
 
 function adjustProp(obj, bot) {
   function log(type, item, before, after) {
@@ -53,37 +22,29 @@ function adjustProp(obj, bot) {
   }
 
   // 主属性直接设置为最大值
-  if (mMaxValue.main_item[obj.main_item.type]) {
-    const value = parseFloat(obj.main_item.value);
+  const [index] = findIndexOf(obj.main_item);
 
-    if (obj.main_item.value.includes("%")) {
-      if (value > mMaxValue.main_item[obj.main_item.type]) {
-        const before = obj.main_item.value;
+  if ("number" === typeof index) {
+    if (parseFloat(global.artifacts.props[index].mainValues[1]) !== parseFloat(obj.main_item.value)) {
+      const before = obj.main_item.value;
 
-        obj.main_item.value = `${mMaxValue.main_item[obj.main_item.type]}%`;
-        log("主属性", obj.main_item.type, before, obj.main_item.value);
-      }
-    } else {
-      let type = "atk" === obj.main_item.type ? "atk2" : "hp" === obj.main_item.type ? "hp2" : "em";
-
-      if (value !== mMaxValue.main_item[type]) {
-        const before = obj.main_item.value;
-
-        obj.main_item.value = `${mMaxValue.main_item[type]}`;
-        log("主属性", obj.main_item.type, before, obj.main_item.value);
-      }
+      obj.main_item.value = global.artifacts.props[index].mainValues[1];
+      log("主属性", obj.main_item.type, before, obj.main_item.value);
     }
   }
 
-  // 试图调整副词条中丢失小数点的条目
+  // 试图调整百分比副词条中丢失小数点的条目
   for (const item of obj.sub_item || []) {
-    if (!mMaxValue.sub_item[item.type] || !item.value.includes("%")) {
+    const [index, percentage] = findIndexOf(item);
+
+    if ("number" !== typeof index || !percentage) {
       continue;
     }
 
     const value = parseFloat(item.value);
 
-    if (value > mMaxValue.sub_item[item.type]) {
+    // 这里不需要循环调整，因为游戏内至多显示一位小数点
+    if (value > parseFloat(global.artifacts.props[index].subValues[1])) {
       const before = item.value;
 
       item.value = `${(value / 10).toFixed(1)}%`;
