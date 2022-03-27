@@ -90,7 +90,8 @@ async function doRating2(msg) {
   let cdcr = 0;
 
   for (const c of prop.sub_item) {
-    const numeric = !c.value.includes("%");
+    const percentage = c.value.includes("%");
+    const numeric = !(percentage || "em" === c.type);
     let index = indexOf(c.type);
 
     if (artifactProps.filter((e) => e.type === c.type).length > 1 && false === numeric) {
@@ -102,7 +103,11 @@ async function doRating2(msg) {
     }
 
     // 小词条按照一半计算
-    const nums = parseFloat(c.value) / (numeric ? 1 : 100) / global.artifacts.values[0][index] / (numeric ? 2 : 1);
+    const nums =
+      parseFloat(c.value) /
+      (true === percentage ? 100 : 1) /
+      global.artifacts.values[0][index] /
+      (true === numeric ? 2 : 1);
 
     all += nums;
 
