@@ -53,6 +53,7 @@ function runBot() {
   mBot.process.on("exit", () => {
     if (false === mPostRunning) {
       log(m_LOG_TYPE.ERROR, `${mBot.name}异常退出！`);
+      process.kill(process.pid, "SIGTERM");
     }
   });
 }
