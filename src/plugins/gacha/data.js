@@ -191,7 +191,7 @@ function gachaTimes(userID, nickname, times = 10) {
   let data = {};
 
   if (999 !== choice && Object.keys(gachaTable).length < 1) {
-    return "当前此卡池未开放，请选择其他卡池。";
+    return `当前${global.all.functions.options.pool[choice] || "此"}卡池未开放，请选择其他卡池。`;
   }
 
   if (!uchoice) {
