@@ -6,7 +6,7 @@
 
 本项目提供了一个在 QQ 中运行的原神助手，与之聊天可以方便地查询玩家数据和游戏信息、模拟抽卡、模拟刷圣遗物，以及一些其他的[功能](https://github.com/Arondight/Adachi-BOT#%E5%8A%9F%E8%83%BD)。[原项目](https://github.com/SilveryStar/Adachi-BOT)的[该版本](https://github.com/SilveryStar/Adachi-BOT/tree/ver1.4.6)已经不再维护，此项目当前会持续更新。
 
-请抵制任何形式使用该项目盈利的行为，如有需要请自行（或与朋友共同）搭建一个。如果你很喜欢本项目可以去[打赏原作者](https://afdian.net/@SilveryStar)，我不需要赞助。
+**本项目仅供学习交流技术使用，严禁用于任何商业用途和非法行为！**
 
 ### 文档
 
