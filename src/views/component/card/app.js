@@ -1,5 +1,5 @@
 import { getParams, html } from "../common/utils.js";
-import { CharacterBox, ExplorationBox, HomeBox, SectionTitle } from "./cardComponents.js";
+import { CharacterBox, ExplorationBox, SectionTitle } from "./cardComponents.js";
 
 // eslint-disable-next-line no-undef
 const { defineComponent } = Vue;
@@ -41,13 +41,8 @@ const template = html`
         <p>{{ stats.luxurious_chest_number }}</p>
         <p>奇馈宝箱</p>
         <p>{{ stats.magic_chest_number }}</p>
-      </div>
-
-      <div class="section-container" id="serenity-pot">
-        <SectionTitle title="尘歌壶" :subtitle="homeboxSubtitle" />
-        <div class="container-homes">
-          <HomeBox v-for="home in homes" :data="home" />
-        </div>
+        <p>洞天仙力</p>
+        <p>{{ homeComfort }}</p>
       </div>
 
       <div class="section-container" id="world-exploration">
@@ -78,7 +73,6 @@ export default defineComponent({
   template: template,
   components: {
     SectionTitle,
-    HomeBox,
     ExplorationBox,
     CharacterBox,
   },
@@ -107,16 +101,7 @@ export default defineComponent({
 
     const explorations = params.explorations.reverse();
 
-    function homeData(name) {
-      const d = params.homes.find((el) => el.name === name);
-      return d || { name, level: -1 };
-    }
-
-    const homeList = ["罗浮洞", "翠黛峰", "清琼岛", "绘绮庭"];
-    const homes = homeList.map((home) => homeData(home));
-
-    const comfort = Math.max(...Object.keys(homes).map((k) => homes[k].comfort_num || -Infinity));
-    const homeboxSubtitle = `洞天仙力：${comfort > 0 ? comfort : "暂无信息"}`;
+    const homeComfort = Math.max(...params.homes.map((home) => home.comfort_num || 0));
 
     return {
       data: params,
@@ -124,8 +109,7 @@ export default defineComponent({
       namecardAvatar,
       explorations,
       stats: params.stats,
-      homes,
-      homeboxSubtitle,
+      homeComfort: "number" === typeof homeComfort && !isNaN(homeComfort) ? homeComfort : "暂无数据",
       hasLevelInfo,
       hasPlayerNameInfo,
     };

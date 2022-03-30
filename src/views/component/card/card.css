@@ -109,10 +109,6 @@ img.avatar {
   grid-column-gap: 20px;
 }
 
-.container-home-box {
-  display: grid;
-}
-
 .container-title {
   display: flex;
   flex-direction: column;
@@ -157,57 +153,6 @@ img.avatar {
   grid-area: sub-title;
   font-size: 12px;
   white-space: nowrap;
-}
-
-.container-homes {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 8px;
-}
-
-.home-box {
-  display: grid;
-  grid-template-areas:
-    "home-image"
-    "home-name";
-  place-items: center;
-}
-
-.home-background,
-.container-locked {
-  width: 80px;
-  height: 80px;
-  grid-area: home-image;
-  grid-row-start: 1;
-  grid-row-end: -1;
-  border-radius: 10px;
-  box-shadow: 0 0 10px hsl(0deg 0% 70% / 16%);
-  background-color: hsla(0, 0%, 20%, 0.52);
-}
-
-.container-locked {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-img.lock-icon {
-  width: 30px;
-}
-
-.container-unlocked {
-  width: 100%;
-  height: 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  grid-area: home-name;
-  font-size: 12px;
-  color: #fff;
-  text-shadow: 0 0 4px #333333ab;
-  background-color: hsla(0, 0%, 20%, 0.52);
-  border-radius: 0 0 10px 10px;
 }
 
 .container-explorations {

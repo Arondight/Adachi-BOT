@@ -137,27 +137,4 @@ const ExplorationBox = defineComponent({
   },
 });
 
-const homeBoxTemplate = html` <div class="home-box">
-  <img class="home-background" :src="backgroundImage" alt="ERROR" />
-  <div class="container-unlocked" v-if="data.level !== -1">
-    <p class="box-content comfort-levelname">{{ data.name }}</p>
-  </div>
-  <div class="container-locked" v-else>
-    <img class="lock-icon" src="http://localhost:9934/resources/item/lock.png" alt="ERROR" />
-  </div>
-</div>`;
-
-const HomeBox = defineComponent({
-  name: "HomeBox",
-  template: homeBoxTemplate,
-  props: {
-    data: Object,
-  },
-  setup(props) {
-    const backgroundImage = `http://localhost:9934/resources/item/${props.data.name}.png`;
-
-    return { backgroundImage };
-  },
-});
-
-export { CharacterBox, ExplorationBox, HomeBox, SectionTitle };
+export { CharacterBox, ExplorationBox, SectionTitle };
