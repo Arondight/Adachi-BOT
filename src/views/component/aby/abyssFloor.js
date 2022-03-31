@@ -1,10 +1,7 @@
-// noinspection DuplicatedCode
 import { html, toReadableDate } from "../common/utils.js";
 import characterShowbox from "./characterShowbox.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const chamberTemplate = html`
   <div class="container-vertical container-chamber-info">
     <div class="banner-title abyss-chamber-title">
@@ -46,7 +43,6 @@ const chamberTemplate = html`
     </div>
   </div>
 `;
-
 const chamber = defineComponent({
   name: "abyssChamber",
   template: chamberTemplate,
@@ -106,7 +102,6 @@ const chamber = defineComponent({
     };
   },
 });
-
 const template = html`
   <div class="card container-vertical container-floor-info">
     <chamber v-for="i in 3" :chamber="floorInfo.chambers[i-1] || {}" :floorIndex="floorInfo.floorIndex" :index="i" />

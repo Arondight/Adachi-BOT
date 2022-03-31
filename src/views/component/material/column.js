@@ -1,8 +1,6 @@
 import { html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const materialTemplate = html` <div class="unit">
   <div class="top-box">
     <div class="ascension-name">{{ ascensionName }}</div>
@@ -22,7 +20,6 @@ const materialTemplate = html` <div class="unit">
     </div>
   </div>
 </div>`;
-
 const materialUnit = defineComponent({
   name: "MaterialUnit",
   template: materialTemplate,

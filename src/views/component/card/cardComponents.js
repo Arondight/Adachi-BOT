@@ -1,8 +1,6 @@
 import { html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const titleTemplate = html` <div class="container-title">
   <div class="title-content">
     <img
@@ -19,7 +17,6 @@ const titleTemplate = html` <div class="container-title">
     <div class="subtitle" v-show="subtitle">{{ subtitle }}</div>
   </div>
 </div>`;
-
 const SectionTitle = defineComponent({
   name: "SectionTitle",
   template: titleTemplate,
@@ -28,7 +25,6 @@ const SectionTitle = defineComponent({
     subtitle: [String, Boolean],
   },
 });
-
 const charBoxTemplate = html` <div class="character-box">
   <div class="container-char-headups">
     <img v-if="data.element !== 'None'" class="element" :src="element" alt="ERROR" />
@@ -62,7 +58,6 @@ const charBoxTemplate = html` <div class="character-box">
     </div>
   </div>
 </div>`;
-
 const CharacterBox = defineComponent({
   name: "CharacterBox",
   template: charBoxTemplate,
@@ -87,7 +82,6 @@ const CharacterBox = defineComponent({
     return { starBackground, element, hasCostume, costumePath, additionalStyle };
   },
 });
-
 const explorationBoxTemplate = html` <div class="exploration">
   <div class="exp-area">
     <div class="logo" :style="{maskImage : 'url(' + areaLogo + ')'}"></div>
@@ -101,7 +95,6 @@ const explorationBoxTemplate = html` <div class="exploration">
     </div>
   </div>
 </div>`;
-
 const ExplorationBox = defineComponent({
   name: "ExplorationBox",
   template: explorationBoxTemplate,

@@ -1,7 +1,6 @@
 import { html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
+const { defineComponent } = window.Vue;
 const template = html` <div class="gacha-box">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.38 423.17">
     <defs>

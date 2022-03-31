@@ -1,8 +1,6 @@
 import { getParams, html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const template = html`
   <p class="title absolute-position">{{artifactData.name}}</p>
   <p class="position absolute-position">{{artifactData.position}}</p>

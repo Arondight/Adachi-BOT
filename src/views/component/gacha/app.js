@@ -1,8 +1,7 @@
 import { getParams, html, toReadableDate } from "../common/utils.js";
 import gachaBox from "./gacha-box.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent, defineAsyncComponent } = Vue;
+const { defineComponent, defineAsyncComponent } = window.Vue;
 const containerTemplate = html`<div class="gacha-title">
     <span class="deco-username">@{{ userName }}</span>在<span class="deco-time">{{ userDrawTime }}</span>抽取了<span
       class="deco-type"
@@ -16,7 +15,6 @@ const containerTemplate = html`<div class="gacha-title">
     <epitomeIndicator v-if="showEpitomizedPath" :data="epitomizedPath" />
     <div class="credit">Created by Adachi-BOT</div>
   </div>`;
-
 const epitomeIndicator = defineAsyncComponent(() => import("./epitomeIndicator.js"));
 
 export default defineComponent({

@@ -1,7 +1,6 @@
 import { html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
+const { defineComponent } = window.Vue;
 const constellTemplate = html`
   <div v-if="constellContent !== ''" class="info-title constellation-order">{{constellCounts}}</div>
   <div v-if="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>

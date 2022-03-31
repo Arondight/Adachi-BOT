@@ -1,9 +1,7 @@
 import { getParams, html, toReadableDate } from "../common/utils.js";
 import characterShowbox from "./characterShowbox.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent, defineAsyncComponent } = Vue;
-
+const { defineComponent, defineAsyncComponent } = window.Vue;
 const avatarTemplate = html`
   <div v-if="isValidData" class="container-character-rounded" :class="className">
     <p class="sub-title">{{title}}</p>
@@ -16,8 +14,6 @@ const avatarTemplate = html`
     <p class="avatar-value">{{value[0]['value']}}</p>
   </div>
 `;
-
-// noinspection JSUnusedGlobalSymbols
 const avatarBox = defineComponent({
   name: "avatarBox",
   template: avatarTemplate,
@@ -60,7 +56,6 @@ const avatarBox = defineComponent({
     };
   },
 });
-
 const template = html` <div class="container-abyss">
   <div class="card container-namecard">
     <img v-cloak class="user-avatar" :src="userAvatar" alt="Error" />
@@ -111,7 +106,6 @@ const template = html` <div class="container-abyss">
   </div>
   <p v-if="isFullDataset" class="credit full-dataset">Created by Adachi-BOT</p>
 </div>`;
-
 const abyssFloor = defineAsyncComponent(() => import("./abyssFloor.js"));
 
 export default defineComponent({

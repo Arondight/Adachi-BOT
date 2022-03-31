@@ -1,8 +1,6 @@
 import { html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const template = html`
   <div class="epitome">
     <div class="epitome-status">
@@ -18,6 +16,7 @@ const template = html`
     </div>
   </div>
 `;
+
 export default defineComponent({
   name: "epitomeIndicator",
   props: {

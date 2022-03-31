@@ -1,8 +1,6 @@
 import { html } from "../common/utils.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const showboxTemplate = html`
   <div class="container-character" :class="additionalClass">
     <img class="avatar-face" :class="rarity" :src="avatarIcon" alt="加载图片失败" />

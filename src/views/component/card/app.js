@@ -1,9 +1,7 @@
 import { getParams, html } from "../common/utils.js";
 import { CharacterBox, ExplorationBox, SectionTitle } from "./cardComponents.js";
 
-// eslint-disable-next-line no-undef
-const { defineComponent } = Vue;
-
+const { defineComponent } = window.Vue;
 const template = html`
   <div class="card-container">
     <img class="avatar" :src="namecardAvatar" />
@@ -67,7 +65,6 @@ const template = html`
   </div>
 `;
 
-// noinspection DuplicatedCode
 export default defineComponent({
   name: "genshinCard",
   template: template,
