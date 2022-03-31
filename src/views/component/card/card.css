@@ -192,6 +192,7 @@ img.avatar {
 
 .container-detailed-exploration {
   display: grid;
+  grid-auto-flow: column;
   grid-template-columns: minmax(56px, max-content) max-content;
   font-size: 13px;
   grid-row-gap: 2px;

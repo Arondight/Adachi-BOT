@@ -85,13 +85,9 @@ const CharacterBox = defineComponent({
 const explorationBoxTemplate = html` <div class="exploration">
   <div class="exp-area">
     <div class="logo" :style="{maskImage : 'url(' + areaLogo + ')'}"></div>
-    <div class="container-detailed-exploration">
-      <p>探索进度</p>
-      <p class="align-right">{{ explorationPercentage }}%</p>
-      <p v-if="data.type === 'Reputation'">声望等级</p>
-      <p class="align-right" v-if="data.type === 'Reputation'">Lv. {{ data.level }}</p>
-      <p v-if="data.offerings.length !== 0">{{ data.offerings[0]["name"] }}</p>
-      <p class="align-right" v-if="data.offerings.length !== 0">Lv. {{ data.offerings[0]["level"] }}</p>
+    <div class="container-detailed-exploration" :style="{'grid-template-rows': getGridRowCount(data.displayData)}">
+      <p v-for="key in Object.keys(data.displayData)">{{key}}</p>
+      <p v-for="value in Object.values(data.displayData)">{{value}}</p>
     </div>
   </div>
 </div>`;
@@ -100,6 +96,12 @@ const ExplorationBox = defineComponent({
   template: explorationBoxTemplate,
   props: {
     data: Object,
+  },
+  methods: {
+    getGridRowCount(object) {
+      const count = Object.keys(object).length;
+      return `repeat(${count}, 1fr)`;
+    },
   },
   setup(props) {
     const logo_mapping = {
@@ -123,10 +125,9 @@ const ExplorationBox = defineComponent({
       return iconUri;
     }
 
-    const areaLogo = getIconUri(props.data.icon);
-    const explorationPercentage = parseInt(props.data.exploration_percentage) / 10;
+    const areaLogo = getIconUri(props.data.iconUrl);
 
-    return { areaLogo, explorationPercentage };
+    return { areaLogo };
   },
 });
 
