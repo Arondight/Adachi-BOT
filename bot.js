@@ -51,7 +51,7 @@ function report() {
   log(`${1 === global.config.friendGreetingNew ? "" : "不"}向新好友问好。`);
   log(`${1 === global.config.noticeMysNews ? "" : "不"}推送米游社新闻。`);
   log(
-    `米游社新闻推送类型为${
+    `米游社新闻推送类型为 ${
       Array.isArray(global.config.mysNewsType) && global.config.mysNewsType.length > 1
         ? global.config.mysNewsType.join(" 、 ")
         : "空"
