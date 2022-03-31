@@ -6,7 +6,7 @@ import { getCache } from "#utils/cache";
 import db from "#utils/database";
 
 function initDB() {
-  for (const t of ["announcement", "event", "information"]) {
+  for (const t of global.config.mysNewsTypeAll) {
     if (!db.includes("news", "timestamp", { type: t })) {
       db.push("news", "timestamp", { type: t, time: 0 });
     }
@@ -28,7 +28,7 @@ async function mysNewsUpdate() {
 
   initDB();
 
-  const ids = { announcement: 1, event: 2, information: 3 };
+  const ids = Object.assign({}, ...global.config.mysNewsTypeAll.map((c, i) => ({ [c]: i + 1 })));
   const record = {};
 
   for (const t of Object.keys(ids)) {
@@ -60,7 +60,11 @@ async function mysNewsNotice(withImg = true) {
   const news = [];
 
   for (const t of Object.keys(data)) {
-    if (!lodash.hasIn(data[t], "data.list") || !Array.isArray(data[t].data.list)) {
+    if (
+      !global.config.mysNewsType.includes(t) ||
+      !lodash.hasIn(data[t], "data.list") ||
+      !Array.isArray(data[t].data.list)
+    ) {
       continue;
     }
 

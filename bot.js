@@ -50,6 +50,13 @@ function report() {
   log(`${1 === global.config.groupGreetingNew ? "" : "不"}向新群友问好。`);
   log(`${1 === global.config.friendGreetingNew ? "" : "不"}向新好友问好。`);
   log(`${1 === global.config.noticeMysNews ? "" : "不"}推送米游社新闻。`);
+  log(
+    `米游社新闻推送类型为${
+      Array.isArray(global.config.mysNewsType) && global.config.mysNewsType.length > 1
+        ? global.config.mysNewsType.join(" 、 ")
+        : "空"
+    }。`
+  );
   log(`角色查询${1 === global.config.characterTryGetDetail ? "尝试" : "不"}更新玩家信息。`);
   log(`耗时操作前${1 === global.config.warnTimeCosts ? "" : "不"}发送提示。`);
   log(`用户每隔 ${global.config.requestInterval} 秒可以使用一次机器人。`);

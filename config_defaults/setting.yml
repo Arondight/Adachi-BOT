@@ -65,6 +65,12 @@ friendGreetingNew: 1
 # 是否推送米游社新闻
 # 1:推送、 0:不推送
 noticeMysNews: 1
+# 米游社新闻推送类型。如果 noticeMysNews 为 1 ，将会推送以下类别的新闻。
+# announcement:公告、event:活动、information:资讯
+mysNewsType:
+  - announcement
+  - event
+  - information
 # 角色查询是否尝试更新玩家信息。打开此选项会更快地消耗 Cookie 池。
 # 1:尝试更新、 0:不更新
 characterTryGetDetail: 1

@@ -133,6 +133,7 @@
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
  *   noticeMysNews: 1,
+ *   mysNewsType: [],
  *   characterTryGetDetail: 1,
  *   requestInterval: 0,
  *   deleteGroupMsgTime: 0,
@@ -161,6 +162,7 @@
  * groupGreetingNew: 1
  * friendGreetingNew: 1
  * noticeMysNews: 1
+ * mysNewsType: []
  * characterTryGetDetail: 1
  * requestInterval: 0
  * deleteGroupMsgTime: 0
@@ -405,7 +407,7 @@ global.configdefdir = path.resolve(global.rootdir, "config_defaults");
 global.all = {};
 global.artifacts = {};
 global.command = {};
-global.config = {};
+global.config = { mysNewsTypeAll: ["announcement", "event", "information"] };
 global.cookies = [];
 global.eggs = {};
 global.greeting = {};
@@ -673,6 +675,8 @@ function readSetting() {
     friendGreetingNew: 0,
     // 不推送米游社新闻
     noticeMysNews: 0,
+    // 无米游社新闻推送类型
+    mysNewsType: [],
     // 角色查询不尝试拉取数据
     characterTryGetDetail: 0,
     // 耗时操作前不发送提示
@@ -712,6 +716,7 @@ function readSetting() {
   const groupGreetingNew = parseInt(mSetting.groupGreetingNew);
   const friendGreetingNew = parseInt(mSetting.friendGreetingNew);
   const noticeMysNews = parseInt(mSetting.noticeMysNews);
+  const mysNewsType = Array.isArray(mSetting.mysNewsType) ? mSetting.mysNewsType : [];
   const characterTryGetDetail = parseInt(mSetting.characterTryGetDetail);
   const warnTimeCosts = parseInt(mSetting.warnTimeCosts);
   const requestInterval = parseInt(mSetting.requestInterval);
@@ -745,6 +750,7 @@ function readSetting() {
     { groupGreetingNew },
     { friendGreetingNew },
     { noticeMysNews },
+    { mysNewsType },
     { characterTryGetDetail },
     { warnTimeCosts },
     { requestInterval },
@@ -792,6 +798,11 @@ function readSetting() {
   if (![0, 1, 2].includes(global.config.atMe)) {
     global.config.atMe = defaultConfig.atMe;
   }
+
+  // 过滤合法的米游社新闻推送
+  global.config.mysNewsType = global.config.mysNewsType.filter((c) =>
+    global.config.mysNewsTypeAll.includes(c.toLowerCase())
+  );
 }
 
 function readCookies() {
