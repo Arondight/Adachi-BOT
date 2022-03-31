@@ -101,11 +101,11 @@ export default defineComponent({
     const getExplorationData = (e) => {
       const { name, icon: iconUrl, exploration_percentage, level, id, parent_id, type, offerings } = e;
       // noinspection NonAsciiCharacters
-      let displayData = {};
+      const displayData = {};
       displayData["探索进度"] = `${exploration_percentage / 10}%`;
 
       if ("reputation" === type.toLowerCase() && undefined !== level) {
-        displayData["声望等级"] = `Lv.${level}`;
+        displayData["声望等级"] = `Lv. ${level}`;
       }
 
       for (const offering of offerings) {
