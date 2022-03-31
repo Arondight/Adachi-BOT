@@ -68,6 +68,8 @@ domains:
     product: [ 16, 17 ]
   - name: "沉眠之庭"
     product: [ 18, 19 ]
+  - name: "岩中幽谷"
+    product: [ 20, 21 ]
 
 suitNames:
   - 染血的骑士道
