@@ -122,9 +122,15 @@ export default defineComponent({
       };
     };
 
-    const explorations = lodash
+    // const explorationReducer = (curr, next) => {
+    //   // 不会写，再想想
+    // }
+
+    const explorations = [].concat(lodash
       .orderBy(params.explorations, "id", "asc")
-      .map((exploration) => getExplorationData(exploration));
+      .map((exploration) => getExplorationData(exploration))
+      // .reduce(explorationReducer, {})
+    );
 
     const characters = params.avatars || [];
     const homeComfort = Math.max(...params.homes.map((home) => home.comfort_num || 0));
