@@ -126,9 +126,8 @@ export default defineComponent({
     //   // 不会写，再想想
     // }
 
-    const explorations = [].concat(lodash
-      .orderBy(params.explorations, "id", "asc")
-      .map((exploration) => getExplorationData(exploration))
+    const explorations = [].concat(
+      lodash.orderBy(params.explorations, "id", "asc").map((exploration) => getExplorationData(exploration))
       // .reduce(explorationReducer, {})
     );
 
