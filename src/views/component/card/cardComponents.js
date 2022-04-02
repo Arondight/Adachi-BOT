@@ -110,6 +110,7 @@ const ExplorationBox = defineComponent({
       dragonspine: "dragonspine",
       daoqi: "inazuma",
       enkanomiya: "enkanomiya",
+      chasmsmaw: "chasm",
     };
 
     function getIconUri(rawUri) {
