@@ -4,8 +4,10 @@ import { getCache } from "#utils/cache";
 import { render } from "#utils/render";
 import { getWordByRegex } from "#utils/tools";
 
-const mUrls = { weekly: getUrl("/2022/03/29/75833613/7cef666b6a5fa3f12785e6e4406a060f_4832769786132969938.png"),
-                talent: getUrl("/2022/03/29/75833613/69d523a33403d6ad92e4affd24efac3c_6498559115690701376.png")};
+const mUrls = {
+  weekly: getUrl("/2022/03/29/75833613/7cef666b6a5fa3f12785e6e4406a060f_4832769786132969938.png"),
+  talent: getUrl("/2022/03/29/75833613/69d523a33403d6ad92e4affd24efac3c_6498559115690701376.png"),
+};
 
 function getUrl(p) {
   return `https://uploadstatic.mihoyo.com/ys-obc/${"/" === p[0] ? p.substring(1) : p}`;
@@ -19,8 +21,7 @@ async function doMaterial(msg, url) {
     const text = `[CQ:image,type=image,file=base64://${data}]`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
     return;
-  }
-  else if(url === mUrls.talent){
+  } else if (url === mUrls.talent) {
     const data = await getCache(url, cacheDir, "base64");
     const text = `[CQ:image,type=image,file=base64://${data}]`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
