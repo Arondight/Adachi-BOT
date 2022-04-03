@@ -4,10 +4,10 @@ import { getCache } from "#utils/cache";
 import { render } from "#utils/render";
 import { getWordByRegex } from "#utils/tools";
 
-const mUrls = { weekly: getUrl("/2022/03/30/75379475/f13d80f2e7f83b667b7f3ffcc36647d2_4239005231258368385.png") };
+const mUrls = { weekly: getUrl("/2022/03/29/75833613/7cef666b6a5fa3f12785e6e4406a060f_4832769786132969938.png") };
 
 function getUrl(p) {
-  return `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
+  return `https://uploadstatic.mihoyo.com/ys-obc/${"/" === p[0] ? p.substring(1) : p}`;
 }
 
 async function doMaterial(msg, url) {
