@@ -228,6 +228,10 @@ npm run restart
 
 ## 致谢
 
+此为项目的致谢名单，各项先后顺序均根据 kkj:首字母排列。
+
+### 贡献者
+
 感谢以下人员以及未提及的[贡献者](https://github.com/Arondight/Adachi-BOT/graphs/contributors)们，你们让一切变得更好了。
 
 | 人员                                            | 贡献                                                  |
@@ -239,7 +243,15 @@ npm run restart
 | [buzhibujuelb](https://github.com/buzhibujuelb) | 添加了武器定轨机制，美化了抽卡效果                    |
 | [ixCiel](https://github.com/ixCiel)             | 优化了 Cookie 池使用逻辑                              |
 
-> 名单先后顺序根据账号首字母排列。
+### 第三方网站
+
+本项目的一些功能使用了以下网站提供的 API 。
+
+| 网站                                 | 功能           |
+| ------------------------------------ | -------------- |
+| [QQ 音乐](https://y.qq.com/)         | 歌曲查询       |
+| [可莉特调](https://genshin.pub/)     | 圣遗物图片识别 |
+| [网易云音乐](https://music.163.com/) | 歌曲查询       |
 
 ## 许可
 
