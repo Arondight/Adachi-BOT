@@ -54,21 +54,23 @@ async function doMaterial(msg, url) {
     }
   });
 
-  items.weapon.forEach((c) => {
-    const ascension = lodash.cloneDeep(lodash.take(c.ascensionMaterials[0] || [], 3));
-    let hasIn = false;
+  items.weapon
+    .filter((c) => "number" === typeof c.rarity && c.rarity > 2)
+    .forEach((c) => {
+      const ascension = lodash.cloneDeep(lodash.take(c.ascensionMaterials[0] || [], 4));
+      let hasIn = false;
 
-    for (let i = 0; i < ascensions.weapon.length; ++i) {
-      if (lodash.isEqual(ascensions.weapon[i], ascension)) {
-        hasIn = true;
-        break;
+      for (let i = 0; i < ascensions.weapon.length; ++i) {
+        if (lodash.isEqual(ascensions.weapon[i], ascension)) {
+          hasIn = true;
+          break;
+        }
       }
-    }
 
-    if (false === hasIn) {
-      ascensions.weapon.push(ascension);
-    }
-  });
+      if (false === hasIn) {
+        ascensions.weapon.push(ascension);
+      }
+    });
 
   ascensions.character.forEach((n) => {
     const record = { ascension: n, list: [] };
@@ -88,7 +90,7 @@ async function doMaterial(msg, url) {
     const record = { ascension: n, list: [] };
 
     items.weapon.forEach((c) => {
-      const ascension = lodash.take(c.ascensionMaterials[0] || [], 3);
+      const ascension = lodash.take(c.ascensionMaterials[0] || [], 4);
 
       if (lodash.isEqual(ascension, n)) {
         record.list.push({ name: c.name, rarity: c.rarity });
