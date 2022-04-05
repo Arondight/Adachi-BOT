@@ -94,8 +94,8 @@ async function doRating2(msg) {
     if (true === numeric) {
       switch (c.type) {
         case "hp":
-          // 小生命，模型为钟离
-          nums *= 298.75 / (14695 * 0.0583);
+          // 小生命，模型为珊瑚宫心海
+          nums *= 298.75 / (13471 * 0.0583);
           break;
         case "df":
           // 小防御，模型为诺艾尔
