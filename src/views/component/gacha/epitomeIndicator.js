@@ -10,7 +10,11 @@ const template = html`
     </div>
     <div class="epitome-label">命定值</div>
     <div class="bar-full"></div>
-    <div class="bar-progress" :style="{width: getWidth(epitomizedPath.fate, 2, 70)}"></div>
+    <div
+      class="bar-progress"
+      v-if="epitomizedPath.hasPath"
+      :style="{width: getWidth(epitomizedPath.fate, 2, 70)}"
+    ></div>
     <div class="container-epitome-data">
       <span v-if="epitomizedPath.hasPath">{{ epitomizedPath.fate }}</span><span v-else>0</span>/2
     </div>
