@@ -88,12 +88,25 @@ async function doRating2(msg) {
       continue;
     }
 
-    // 小词条按照一半计算
-    const nums =
-      parseFloat(c.value) /
-      (true === percentage ? 100 : 1) /
-      global.artifacts.values[0][index] /
-      (true === numeric ? 2 : 1);
+    let nums = parseFloat(c.value) / (true === percentage ? 100 : 1) / global.artifacts.values[0][index];
+
+    // 词条折算
+    if (true === numeric) {
+      switch (c.type) {
+        case "hp":
+          // 小生命，模型为钟离
+          nums *= 298.75 / (14695 * 0.0583);
+          break;
+        case "df":
+          // 小防御，模型为诺艾尔
+          nums *= 23.15 / (799 * 0.0729);
+          break;
+        case "atk":
+          // 小攻击，模型为狼末迪卢克
+          nums *= 19.45 / ((335 + 608) * 0.0583);
+          break;
+      }
+    }
 
     all += nums;
 
