@@ -136,18 +136,10 @@ export default defineComponent({
         name: currentName,
         iconUrl: currentIconUrl,
         id: currentId,
-        parent_id: currentParent,
         type: currentType,
         displayData: currentData,
       } = currentArea;
-      const {
-        name: nextName,
-        iconUrl: nextIconUrl,
-        id: nextId,
-        parent_id: nextParent,
-        type: nextType,
-        displayData: nextData,
-      } = next;
+      const { name: nextName, parent_id: nextParent, type: nextType, displayData: nextData } = next;
 
       if (nextParent === currentId && currentType === nextType) {
         const returnArea = {
