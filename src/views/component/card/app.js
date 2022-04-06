@@ -122,14 +122,65 @@ export default defineComponent({
       };
     };
 
-    // const explorationReducer = (curr, next) => {
-    //   // 不会写，再想想
-    // }
+    const getRegionName = (string) =>
+      string
+        .replace(/(蒙德|璃月|稻妻|须弥|纳塔|枫丹|至冬)(地区|区域)?/g, "")
+        .split(/[•・·]/g)
+        .pop();
 
-    const explorations = [].concat(
-      lodash.orderBy(params.explorations, "id", "asc").map((exploration) => getExplorationData(exploration))
-      // .reduce(explorationReducer, {})
-    );
+    const explorationReducer = (curr, next) => {
+      // 当 curr 为 object 时无法 spread，需要转换为 array
+      const currentArray = [].concat(curr);
+      const currentArea = currentArray.pop();
+      const {
+        name: currentName,
+        iconUrl: currentIconUrl,
+        id: currentId,
+        parent_id: currentParent,
+        type: currentType,
+        displayData: currentData,
+      } = currentArea;
+      const {
+        name: nextName,
+        iconUrl: nextIconUrl,
+        id: nextId,
+        parent_id: nextParent,
+        type: nextType,
+        displayData: nextData,
+      } = next;
+
+      if (nextParent === currentId && currentType === nextType) {
+        const returnArea = {
+          name: currentName,
+          iconUrl: currentIconUrl,
+          id: currentId,
+          parent_id: 0,
+          type: currentType,
+        };
+        const displayData = {};
+        const currentAreaName = getRegionName(currentName);
+        const nextAreaName = getRegionName(nextName);
+
+        displayData[currentAreaName] = currentData["探索进度"] || "0%";
+
+        for (const [key, value] of Object.entries(nextData)) {
+          if ("探索进度" === key) {
+            displayData[nextAreaName] = value;
+          } else if (!(key in displayData)) {
+            displayData[key] = value;
+          }
+        }
+
+        returnArea.displayData = displayData;
+        return [...currentArray, returnArea];
+      }
+
+      return [...currentArray, currentArea, next];
+    };
+
+    const explorations = []
+      .concat(lodash.orderBy(params.explorations, "id", "asc").map((exploration) => getExplorationData(exploration)))
+      .reduce(explorationReducer);
 
     const characters = params.avatars || [];
     const homeComfort = Math.max(...params.homes.map((home) => home.comfort_num || 0));

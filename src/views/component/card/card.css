@@ -162,8 +162,8 @@ img.avatar {
 }
 
 .exploration {
-  width: 168px;
-  height: 58px;
+  min-width: 168px;
+  min-height: 58px;
   padding: 4px;
   box-sizing: border-box;
   background-color: hsl(0, 0%, 95%);
