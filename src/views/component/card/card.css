@@ -187,16 +187,18 @@ img.avatar {
   grid-template-columns: max-content auto;
   height: 100%;
   width: 100%;
-  place-items: center;
+  align-items: center;
+  justify-items: start;
+  grid-column-gap: 6px;
 }
 
 .container-detailed-exploration {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: minmax(56px, max-content) max-content;
+  grid-template-columns: minmax(65px, max-content) max-content;
   font-size: 13px;
   grid-row-gap: 2px;
-  grid-column-gap: 7px;
+  grid-column-gap: 6px;
 }
 
 .container-character-box {
