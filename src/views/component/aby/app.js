@@ -1,5 +1,5 @@
 import { getParams, html, toReadableDate } from "../common/utils.js";
-import characterShowbox from "./characterShowbox.js";
+import { challengeTitle, characterShowbox } from "./abyssComponents.js";
 
 const { defineComponent, defineAsyncComponent } = window.Vue;
 const avatarTemplate = html`
@@ -21,9 +21,7 @@ const avatarBox = defineComponent({
     data: Object,
   },
   methods: {
-    sideImageToFront(imageURL) {
-      return encodeURI(imageURL.replace(/_side/gi, ""));
-    },
+    sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),
     getRarityClass(rarity) {
       const rarityClassMap = {
         5: "star-five",
@@ -58,7 +56,7 @@ const avatarBox = defineComponent({
 });
 const template = html` <div class="container-abyss">
   <div class="card container-namecard">
-    <img v-cloak class="user-avatar" :src="userAvatar" alt="Error" />
+    <img v-cloak class="user-avatar" :src="sideImageToFront(userAvatar)" alt="Error" />
     <p class="uid-title"><span class="uid">{{playerUid}}</span>的深渊战绩</p>
     <p class="time">{{abyssBriefings.startTime}} - {{abyssBriefings.endTime}}</p>
   </div>
@@ -101,20 +99,33 @@ const template = html` <div class="container-abyss">
     </div>
     <p v-if="!isFullDataset" class="credit partial">Created by Adachi-BOT</p>
   </div>
+
   <div v-if="isFullDataset" class="container-vertical container-abyss-floors">
-    <abyssFloor v-for="floor in abyssFloors" :data="floor" />
+    <!-- 最后一层的完整数据 -->
+    <challengeTitle :title="'最高楼层'" />
+    <abyssFloor :data="abyssLastFloor" />
+    <!-- 其他层的 briefing -->
+    <!-- <challengeTitle :title="'其他楼层'" />-->
   </div>
+
   <p v-if="isFullDataset" class="credit full-dataset">Created by Adachi-BOT</p>
 </div>`;
+
 const abyssFloor = defineAsyncComponent(() => import("./abyssFloor.js"));
+// const abyssBriefFloor = defineAsyncComponent(() => import("./abyssBriefFloor.js"));
 
 export default defineComponent({
   name: "genshinAbyss",
   template: template,
   components: {
     characterShowbox,
+    challengeTitle,
     avatarBox,
     abyssFloor,
+    // abyssBriefFloor,
+  },
+  methods: {
+    sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),
   },
   setup() {
     function formatDate(date, format) {
@@ -156,24 +167,11 @@ export default defineComponent({
 
     let shown_avatars = [];
 
-    function sideImageToFront(imageURL) {
-      // 出于某些奇怪的原因有时候传进来的值是 undefined
-      // In JavaScript you can have variable type of string or type of object which is class of String
-      // (same thing - both are strings - but defined differently) that's why is double checked.
-      // https://stackoverflow.com/a/9436948
-      if (typeof imageURL === "string" || imageURL instanceof String) {
-        return encodeURI(imageURL.replace(/_side/gi, ""));
-      } else {
-        return encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
-      }
-    }
-
     for (const [key, value] of Object.entries(params.data)) {
       if (key.endsWith("_rank")) {
         value.forEach((v) =>
-          Object.prototype.hasOwnProperty.call(v, "avatar_icon") &&
-          !shown_avatars.includes(sideImageToFront(v.avatar_icon))
-            ? shown_avatars.push(sideImageToFront(v.avatar_icon))
+          Object.prototype.hasOwnProperty.call(v, "avatar_icon") && !shown_avatars.includes(v.avatar_icon)
+            ? shown_avatars.push(v.avatar_icon)
             : 0
         );
       }
@@ -185,8 +183,9 @@ export default defineComponent({
         : encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
 
     const abyssFloors = params.data.floors.slice(-4);
-    let isFullDataset = false;
+    const abyssLastFloor = abyssFloors.pop();
 
+    let isFullDataset = false;
     if (abyssFloors.length > 0) {
       if (Object.prototype.hasOwnProperty.call(abyssFloors[0], "levels")) {
         if (abyssFloors[0]["levels"].length > 0) {
@@ -203,6 +202,7 @@ export default defineComponent({
       hasRankingData,
       isFullDataset,
       abyssFloors,
+      abyssLastFloor,
     };
   },
 });

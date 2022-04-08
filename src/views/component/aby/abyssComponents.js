@@ -1,6 +1,31 @@
 import { html } from "../common/utils.js";
 
 const { defineComponent } = window.Vue;
+
+const titleTemplate = html`
+  <div class="title-content">
+    <img
+      class="arrow-left"
+      src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
+      alt="ERROR"
+    />
+    <div class="abyss-chamber-type-title">{{ title }}</div>
+    <img
+      class="arrow-right"
+      src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
+      alt="ERROR"
+    />
+  </div>
+`;
+
+const challengeTitle = defineComponent({
+  name: "challengeTitle",
+  template: titleTemplate,
+  props: {
+    title: String,
+  },
+});
+
 const showboxTemplate = html`
   <div class="container-character" :class="additionalClass">
     <img class="avatar-face" :class="rarity" :src="avatarIcon" alt="加载图片失败" />
@@ -8,7 +33,7 @@ const showboxTemplate = html`
   </div>
 `;
 
-export default defineComponent({
+const characterShowbox = defineComponent({
   name: "characterShowbox",
   template: showboxTemplate,
   props: {
@@ -47,3 +72,5 @@ export default defineComponent({
     };
   },
 });
+
+export { challengeTitle, characterShowbox };

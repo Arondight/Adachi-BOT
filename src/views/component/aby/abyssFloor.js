@@ -1,7 +1,8 @@
 import { html, toReadableDate } from "../common/utils.js";
-import characterShowbox from "./characterShowbox.js";
+import { characterShowbox } from "./abyssComponents.js";
 
 const { defineComponent } = window.Vue;
+
 const chamberTemplate = html`
   <div class="container-vertical container-chamber-info">
     <div class="banner-title abyss-chamber-title">
@@ -62,7 +63,6 @@ const chamber = defineComponent({
   setup(props) {
     const chamber = props.chamber;
     const chamberIndex = props.index;
-    const floorIndex = props.floorIndex;
     const chamberStars = chamber.star || 0;
     const chamberStarCount = "*".repeat(chamberStars);
     const chamberDetails = chamber.battles || [{}, {}];
@@ -92,8 +92,6 @@ const chamber = defineComponent({
     }
 
     return {
-      // eslint-disable-next-line vue/no-dupe-keys
-      floorIndex,
       chamberIndex,
       chamberStarCount,
       isValidChamberData,
@@ -102,6 +100,7 @@ const chamber = defineComponent({
     };
   },
 });
+
 const template = html`
   <div class="card container-vertical container-floor-info">
     <chamber v-for="i in 3" :chamber="floorInfo.chambers[i-1] || {}" :floorIndex="floorInfo.floorIndex" :index="i" />

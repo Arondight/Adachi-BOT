@@ -321,7 +321,7 @@ body {
 }
 
 .container-floor-info {
-  padding: 15px 0 7px 0;
+  padding: 10px 0 7px 0;
   box-sizing: border-box;
 }
 
@@ -331,6 +331,34 @@ body {
 
 .container-chamber-info {
   grid-template-rows: max-content minmax(180px, max-content);
+}
+
+.title-content {
+  display: grid;
+  width: 365px;
+  grid-template-areas: "arrow-left main-title arrow-right";
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+  justify-items: center;
+  grid-column-gap: 5px;
+}
+
+.arrow-left {
+  grid-area: arrow-left;
+  justify-self: end;
+}
+
+.arrow-right {
+  grid-area: arrow-right;
+  transform: scaleX(-1);
+  justify-self: start;
+}
+
+.abyss-chamber-type-title {
+  font-size: 24px;
+  text-align: center;
+  white-space: nowrap;
+  color: #484848;
 }
 
 .abyss-chamber-title {

@@ -128,10 +128,6 @@ img.avatar {
   grid-column-gap: 5px;
 }
 
-.arrow-left,
-.arrow-right {
-}
-
 .arrow-left {
   grid-area: arrow-left;
   justify-self: end;
