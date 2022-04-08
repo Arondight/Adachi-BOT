@@ -145,10 +145,6 @@ html {
   grid-column-gap: 30px;
 }
 
-.content.has-empty {
-  align-items: center;
-}
-
 .author {
   position: absolute;
   font-size: 15px;
@@ -173,12 +169,6 @@ html {
   text-align: center;
   line-height: 32px;
   font-size: 15px;
-}
-
-.empty-box {
-  height: 100%;
-  width: 100%;
-  text-align: center;
 }
 
 .unit {
@@ -256,9 +246,7 @@ html {
   background-size: 100%;
 }
 
-.item-image.three-star,
-.item-image.two-star,
-.item-image.one-star {
+.item-image.three-star {
   background: url("http://localhost:9934/resources/Version2/thumb/stars/3-Star.png") no-repeat center;
   background-size: 100%;
 }

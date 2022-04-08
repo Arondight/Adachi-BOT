@@ -57,15 +57,14 @@ const materialUnit = defineComponent({
   },
 });
 
-const template = html`<div class="material-column">
+const materialColumnTemplate = html`<div class="material-column">
   <div class="title">{{ title }}</div>
-  <materialUnit v-if="data.length !== 0" v-for="d in data" :data="d" :type="type" />
-  <div v-else class="empty-box">今日没有可刷取材料的{{ type === "character" ? "角色" : "武器" }}</div>
+  <materialUnit v-for="d in data" :data="d" :type="type" />
 </div>`;
 
 export default defineComponent({
   name: "MaterialColumn",
-  template,
+  template: materialColumnTemplate,
   components: {
     materialUnit,
   },
