@@ -7,13 +7,13 @@ const titleTemplate = html`
     <img
       class="arrow-left"
       src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
-      alt="ERROR"
+      alt="components/title-decoration.svg"
     />
     <div class="abyss-chamber-type-title">{{ title }}</div>
     <img
       class="arrow-right"
       src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
-      alt="ERROR"
+      alt="components/title-decoration.svg"
     />
   </div>
 `;

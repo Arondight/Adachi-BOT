@@ -102,17 +102,18 @@ const template = html` <div class="container-abyss">
 
   <div v-if="isFullDataset" class="container-vertical container-abyss-floors">
     <!-- 最后一层的完整数据 -->
-    <challengeTitle :title="'最高楼层'" />
+    <challengeTitle :title="'最近战斗'" />
     <abyssFloor :data="abyssLastFloor" />
     <!-- 其他层的 briefing -->
-    <!-- <challengeTitle :title="'其他楼层'" />-->
+    <challengeTitle :title="'其他战斗'" />
+    <abyssBriefFloor v-for="floor in abyssFloors" :data="floor" />
   </div>
 
   <p v-if="isFullDataset" class="credit full-dataset">Created by Adachi-BOT</p>
 </div>`;
 
 const abyssFloor = defineAsyncComponent(() => import("./abyssFloor.js"));
-// const abyssBriefFloor = defineAsyncComponent(() => import("./abyssBriefFloor.js"));
+const abyssBriefFloor = defineAsyncComponent(() => import("./abyssBriefFloor.js"));
 
 export default defineComponent({
   name: "genshinAbyss",
@@ -122,7 +123,7 @@ export default defineComponent({
     challengeTitle,
     avatarBox,
     abyssFloor,
-    // abyssBriefFloor,
+    abyssBriefFloor,
   },
   methods: {
     sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),

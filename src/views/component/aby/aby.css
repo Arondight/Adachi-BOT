@@ -46,8 +46,7 @@ body {
 .card {
   display: grid;
   width: 100%;
-  align-items: center;
-  justify-items: center;
+  place-items: center;
 }
 
 .container-vertical {
@@ -174,13 +173,26 @@ body {
 .chamber-stars {
   font-family: "Genshin Abyss", sans-serif;
   color: #ede7d9;
-  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
+  transform: translateY(-0.03em);
 }
 
 .abyss-star {
   position: relative;
   bottom: 4px;
+  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
   font-size: 34px;
+}
+
+.chamber-stars {
+  position: relative;
+  text-shadow: 0 0 6px hsla(41, 37%, 89%, 0.15);
+  font-size: 20px;
+}
+
+.chamber-stars.inline {
+  position: relative;
+  transform: translateY(-0.22em);
+  font-size: 17px;
 }
 
 .container-vertical.reveal-rank {
@@ -230,8 +242,7 @@ body {
 .container-character,
 .container-character-rounded {
   display: grid;
-  justify-items: center;
-  align-items: center;
+  place-items: center;
 }
 
 .container-character {
@@ -338,8 +349,7 @@ body {
   width: 365px;
   grid-template-areas: "arrow-left main-title arrow-right";
   grid-template-columns: 1fr min-content 1fr;
-  align-items: center;
-  justify-items: center;
+  place-items: center;
   grid-column-gap: 5px;
 }
 
@@ -364,10 +374,9 @@ body {
 .abyss-chamber-title {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
+  place-items: center;
   padding: 0 10px;
   box-sizing: border-box;
-  align-items: center;
 }
 
 .abyss-chamber-title:before {
@@ -383,12 +392,6 @@ body {
 .chamber-indicator > span {
   position: relative;
   bottom: 0.1em;
-}
-
-.chamber-stars {
-  position: relative;
-  text-shadow: 0 0 6px hsla(41, 37%, 89%, 0.15);
-  font-size: 20px;
 }
 
 .chamber-time {
@@ -444,6 +447,43 @@ body {
 
 .container-character.chamber-character {
   width: 80px;
+}
+
+.container-briefing-floor-title {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  padding: 0 10px;
+  width: 100%;
+  background: #ffffff2b;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+.briefing-floor-duration {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-self: end;
+}
+
+.brief-start-time,
+.brief-end-time {
+  white-space: nowrap;
+  font-size: 10px;
+}
+
+.date:after {
+  content: " ";
+}
+
+.briefing-floor-indicator {
+  justify-self: start;
+}
+
+.briefing-floor-stars {
+  display: flex;
+  align-items: flex-end;
 }
 
 .credit {
