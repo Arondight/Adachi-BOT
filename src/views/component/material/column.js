@@ -58,7 +58,7 @@ const materialUnit = defineComponent({
 });
 
 const materialColumnTemplate = html`<div class="material-column">
-  <div class="title">{{ title }}</div>
+  <div class="title" v-html="title"></div>
   <materialUnit v-for="d in data" :data="d" :type="type" />
 </div>`;
 
@@ -74,7 +74,9 @@ export default defineComponent({
     day: String,
   },
   setup(props) {
-    const title = `${props.day}${props.type === "weapon" ? "武器" : "角色"}素材`;
+    const title = `<div class="title-text">${props.day}${props.type === "weapon" ? "武器" : "角色"}素材${
+      "今日" === props.day ? "<p class='tips'>（每天凌晨四点刷新）</p>" : ""
+    }</div>`;
     return { title };
   },
 });

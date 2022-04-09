@@ -37,7 +37,7 @@ html {
 .inner {
   position: relative;
   border: 1px solid #333;
-  padding: 56px 18px 10px 18px;
+  padding: 10px 18px;
 }
 
 .corner-star {
@@ -159,16 +159,25 @@ html {
 }
 
 .title {
-  position: fixed;
-  top: 26px;
   background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjI2IiBoZWlnaHQ9IjM3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMTYuOTI4IDM2LjI1aC0xNU05LjQyNCAxLjI1aDE1IiBzdHJva2U9IiMyRTNENTQiLz48cGF0aCBkPSJNMjI1LjIxNyA5LjExYy0zLjc3Ny0uMjItNC45MDMtMS41MDctNS4zMjUtNS4zMjYtLjIgMy44NDUtMS4zMjMgNS4wNzYtNS4zMjYgNS4zMjUgMy44NjQuMTQ5IDUuMDcyIDEuNDY5IDUuMzI2IDUuMzI2LjQ1LTMuNjg4IDEuNTk5LTQuOTA1IDUuMzI1LTUuMzI2ek0xMS42NSAyNy4zMjRDNy44NzMgMjcuMTA2IDYuNzQ4IDI1LjgxOCA2LjMyNSAyMmMtLjIgMy44NDUtMS4zMjIgNS4wNzYtNS4zMjUgNS4zMjUgMy44NjMuMTQ5IDUuMDcxIDEuNDY5IDUuMzI1IDUuMzI1LjQ1MS0zLjY4OCAxLjYtNC45MDQgNS4zMjUtNS4zMjV6IiBmaWxsPSIjMkUzRDU0IiBzdHJva2U9IiMyRTNENTQiIHN0cm9rZS13aWR0aD0iLjUiLz48cGF0aCBkPSJNMjIyLjQyNiAyOS43NTJ2LTE1TTIyMi42NzYgMzBoLTUuNmwtLjQuNFYzNk0yMjAuMTc2IDI3VjE3TTEzLjY3NiAzLjVoMTBNMy45MjYgNi43NDh2MTVNMy42NzYgN2g1LjZsLjQtLjRWMSIgc3Ryb2tlPSIjMkUzRDU0Ii8+PHBhdGggZD0iTTEzLjY3NSAzLjVoLTcuNXY4TTYuMTc2IDEwLjV2MTAiIHN0cm9rZT0iIzJFM0Q1NCIvPjxwYXRoIHN0cm9rZT0iIzJFM0Q1NCIgZD0iTTYuMTc2IDMuNWgyMTR2MzBoLTIxNHoiLz48L3N2Zz4=")
     no-repeat center;
   background-size: 100%;
   height: 32px;
   width: 195px;
   text-align: center;
-  line-height: 32px;
   font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.title-text {
+  position: relative;
+  top: 7px;
+}
+
+.tips {
+  white-space: nowrap;
+  font-size: 10px;
+  margin-top: 9px;
 }
 
 .unit {
