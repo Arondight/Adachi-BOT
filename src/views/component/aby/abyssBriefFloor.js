@@ -33,7 +33,7 @@ const unfulfilledChamberShowbox = defineComponent({
     data: Object,
   },
   setup(props) {
-    const avatars = lodash.flatten(lodash.map(props.data.battles, "avatars"));
+    const avatars = lodash.compact(lodash.flatten(lodash.map(props.data.battles, "avatars")));
     const stars = props.data.star || 1;
     const starText = "*".repeat(stars);
 
