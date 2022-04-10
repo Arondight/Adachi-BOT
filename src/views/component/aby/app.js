@@ -9,7 +9,7 @@ const avatarTemplate = html`
       :src="sideImageToFront(value[0]['avatar_icon'])"
       class="avatar-rounded"
       :class="getRarityClass(value[0]['rarity'])"
-      alt="加载图片失败"
+      alt="图片加载失败"
     />
     <p class="avatar-value">{{value[0]['value']}}</p>
   </div>

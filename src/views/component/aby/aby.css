@@ -332,7 +332,7 @@ body {
 }
 
 .container-floor-info {
-  padding: 10px 0 7px 0;
+  padding-top: 10px;
   box-sizing: border-box;
 }
 
@@ -428,6 +428,15 @@ body {
   justify-items: start;
 }
 
+.chamber-details.unfulfilled {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 15px;
+  place-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
 .first-half,
 .second-half {
   display: grid;
@@ -484,6 +493,21 @@ body {
 .briefing-floor-stars {
   display: flex;
   align-items: flex-end;
+}
+
+.container-revealed-briefing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  max-width: 396px;
+}
+
+img.avatar-rounded-briefing {
+  width: 40px;
+  height: 40px;
+  margin: 0 4.75px;
+  border-radius: 50%;
 }
 
 .credit {

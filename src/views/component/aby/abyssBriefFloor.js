@@ -1,7 +1,48 @@
 import { html, toReadableDate } from "../common/utils.js";
+import { characterShowbox } from "./abyssComponents.js";
 
 const { defineComponent } = window.Vue;
 const lodash = window._;
+
+const unfulfilledTemplate = html`
+  <div class="container-vertical container-chamber-info">
+    <div class="banner-title abyss-chamber-title">
+      <p class="chamber-indicator">第{{data.index}}间</p>
+      <div class="chamber-stars">{{starText}}</div>
+    </div>
+
+    <div class="chamber-details unfulfilled">
+      <characterShowbox
+        v-for="avatar in avatars"
+        :htmlClass="'chamber-character'"
+        :prefix="'Lv.'"
+        :suffix="''"
+        :data="avatar"
+      />
+    </div>
+  </div>
+`;
+
+const unfulfilledChamberShowbox = defineComponent({
+  name: "unfulfilledChamberShowbox",
+  template: unfulfilledTemplate,
+  components: {
+    characterShowbox,
+  },
+  props: {
+    data: Object,
+  },
+  setup(props) {
+    const avatars = lodash.flatten(lodash.map(props.data.battles, "avatars"));
+    const stars = props.data.star || 1;
+    const starText = "*".repeat(stars);
+
+    return {
+      avatars,
+      starText,
+    };
+  },
+});
 
 const briefingTemplate = html` <div class="card container-vertical container-floor-info">
   <div class="container-briefing-floor-title">
@@ -30,16 +71,38 @@ const briefingTemplate = html` <div class="card container-vertical container-flo
       </div>
     </div>
   </div>
+
+  <div class="container-revealed-briefing">
+    <img
+      v-for="avatar in avatars"
+      :src="avatar.icon"
+      class="avatar-rounded-briefing"
+      :class="getRarityClass(avatar.rarity)"
+      alt="图片加载失败"
+    />
+  </div>
+
+  <unfulfilledChamberShowbox v-for="chamber in chambers" :data="chamber" />
 </div>`;
 
 export default defineComponent({
   name: "abyssBriefFloor",
   template: briefingTemplate,
+  components: {
+    unfulfilledChamberShowbox,
+  },
   props: {
     data: Object,
   },
   methods: {
     formatDate: (date, format) => toReadableDate(date, format),
+    getRarityClass: (rarity) => {
+      const rarityClassMap = {
+        5: "star-five",
+        4: "star-four",
+      };
+      return rarityClassMap[rarity] || "star-four";
+    },
   },
   setup(props) {
     const floor = props.data || [];
@@ -55,7 +118,9 @@ export default defineComponent({
         timestamps.push(timestamp);
         avatars = avatars.concat(chamberAvatars);
       }
-      chambers.push({ index, star, battles });
+      if (3 !== star) {
+        chambers.push({ index, star, battles });
+      }
     }
 
     return {
