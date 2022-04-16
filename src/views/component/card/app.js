@@ -98,18 +98,22 @@ export default defineComponent({
 
     const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=5&nk=${qqid}` : character;
 
+    const filterOfferingName = (string) => string.replace(/等级$/, "");
+
     const getExplorationData = (e) => {
       const { name, icon: iconUrl, exploration_percentage, level, id, parent_id, type, offerings } = e;
       // noinspection NonAsciiCharacters
-      const displayData = {};
-      displayData["探索进度"] = `${exploration_percentage / 10}%`;
+      const displayData = {
+        探索进度: `${exploration_percentage / 10}%`,
+      };
 
       if ("reputation" === type.toLowerCase() && undefined !== level) {
         displayData["声望等级"] = `Lv. ${level}`;
       }
 
       for (const offering of offerings) {
-        displayData[offering.name] = `Lv. ${offering.level}`;
+        const offeringName = filterOfferingName(offering.name) || "供奉等级";
+        displayData[offeringName] = `Lv. ${offering.level}`;
       }
 
       return {
