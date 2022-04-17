@@ -50,7 +50,7 @@ const charBoxTemplate = html` <div class="character-box">
   <div class="char-info">
     <div class="container-char-info character-briefing">
       <span class="char-level">Lv.{{ data.level }}</span>
-      <span class="char-fetter">好感{{ data.fetter }}</span>
+      <span v-if="'旅行者' !== data.name" class="char-fetter">好感{{ data.fetter }}</span>
     </div>
     <div class="container-char-info weapon-briefing" :style="additionalStyle">
       <span class="weapon-name">{{ data.weapon.name }}</span>

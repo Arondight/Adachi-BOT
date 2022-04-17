@@ -275,8 +275,8 @@ img.avatar {
   text-shadow: 0 0 4px hsl(45deg 100% 20%);
 }
 
-.char-level {
-  margin-right: 4px;
+.char-fetter {
+  margin-left: 4px;
 }
 
 .weapon-affix {
