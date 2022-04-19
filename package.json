@@ -65,7 +65,7 @@
     "pretty-bytes": "6.0.0",
     "puppeteer": "13.5.2",
     "random-float": "3.0.0",
-    "systeminformation": "5.11.10",
+    "systeminformation": "5.11.12",
     "yargs": "17.4.1"
   },
   "devDependencies": {
