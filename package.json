@@ -65,17 +65,17 @@
     "pretty-bytes": "6.0.0",
     "puppeteer": "13.6.0",
     "random-float": "3.0.0",
-    "systeminformation": "5.11.13",
+    "systeminformation": "5.11.14",
     "yargs": "17.4.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
-    "eslint": "8.13.0",
+    "eslint": "8.14.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
     "eslint-plugin-sort-exports": "0.6.0",
-    "eslint-plugin-vue": "8.6.0",
+    "eslint-plugin-vue": "8.7.1",
     "eslint-plugin-yml": "0.14.0",
     "npm-check-updates": "12.5.9",
     "prettier": "2.6.2"
