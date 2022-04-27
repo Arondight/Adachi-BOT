@@ -1,0 +1,18 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": [
+    ["孤云寒林的光砂", "孤云寒林的辉岩", "孤云寒林的圣骸", "孤云寒林的神体"],
+    ["晦暗刻像", "夤夜刻像", "幽邃刻像", "浮游干核", "浮游幽核", "浮游晶化核"]
+  ],
+  "baseATK": 542,
+  "introduce": "",
+  "mainStat": "暴击伤害",
+  "mainValue": "88.2%",
+  "name": "若水",
+  "rarity": 5,
+  "skillContent": "生命值提升<span class=\"desc-number recolor\">16%/20%/24%/28%/32%</span>。周围存在敌人时，装备该武器的角色造成的伤害都会提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>，不论该角色处于场上或是处于队伍后台。",
+  "skillName": "洗濯诸类之形",
+  "time": "【周一/四/日】",
+  "title": "弓",
+  "type": "武器"
+}
