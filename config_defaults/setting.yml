@@ -17,8 +17,8 @@ accounts:
   -
     # QQ 号码
     qq: 123456789
-    # QQ 明文密码，留空则使用扫码登录
-    #password:
+    # QQ 明文密码，为空（ null ）则使用扫码登录，推荐使用扫码登录
+    #password: null
     password: zhimakaimen
     # 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
     platform: 5
@@ -95,7 +95,7 @@ boardcastDelay: 0.2
 
 #
 # 命令前缀，一个或多个，带有这些前缀的消息被视为潜在的命令。
-# 某项为空表示无前缀，所有其他前缀设置均失效，此时所有的消息均被视为潜在的命令。
+# 某项为空（ null ）表示无前缀，所有其他前缀设置均失效，此时所有的消息均被视为潜在的命令。
 #
 prefixes:
   - null
