@@ -50,26 +50,12 @@ function getFourProb(counter, choice) {
   }
 }
 
-function updateCounter(userID, star, up) {
-  if (star !== 5) {
-    mFive = mFive + 1;
-    mFour = 4 === star ? 1 : mFour + 1; // 重置四星抽数
-  } else if ("number" === typeof mIsUp) {
-    mFive = 1; // 重置五星抽数
-    mFour = mFour + 1;
-    mIsUp = up ? (mIsUp > 0 ? mIsUp + 1 : 1) : mIsUp > 0 ? -1 : mIsUp - 1;
-  } else {
-    mFive = 1;
-    mFour = mFour + 1;
-  }
-}
-
 function getIsUp(userID, star) {
   switch (mIsUp) {
     // weapon default
     case null:
       return getRandomInt(10000) < 7500;
-    // indefinite default or uninitialized
+    // indefinite default, this pool has no up
     case undefined:
       return false;
     default:
@@ -125,7 +111,23 @@ function gachaOnce(userID, choice, table) {
     db.update("gacha", "user", { userID }, { path });
   }
 
-  updateCounter(userID, star, up);
+  // update mFive, mFour, mIsUp
+  if (5 === star) {
+    mFive = 1; // 重置五星抽数
+    ++mFour;
+
+    // update mIsUp if pool is not indefinite
+    if (undefined !== mIsUp) {
+      if (true === up) {
+        mIsUp = mIsUp > 0 ? mIsUp + 1 : 1;
+      } else {
+        mIsUp = mIsUp > 0 ? -1 : mIsUp - 1;
+      }
+    }
+  } else {
+    ++mFive;
+    mFour = 4 === star ? 1 : mFour + 1; // 重置四星抽数
+  }
 
   if (5 === star && 302 === choice) {
     // 武器池出货
