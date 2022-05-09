@@ -118,7 +118,7 @@ const template = html` <div class="background" :class="charElementType">
     <div class="container-vertical">
       <div class="split-title">- 武器 -</div>
       <div class="weapon-table">
-        <div class="box-title" v-html="weaponInfo.type"><p></p></div>
+        <div class="box-title" v-html="weaponInfo.type"></div>
         <div class="info-content container-weapon-info">
           <div class="weapon-level-ring" :style="{background: getWeaponLevelStyle(weaponInfo.level)}">
             <img
@@ -134,7 +134,7 @@ const template = html` <div class="background" :class="charElementType">
               精炼<span class="affix-value">{{weaponInfo.affixLevel}}</span>
             </div>
             <div class="weapon-rarity">{{weaponInfo.rarity}}</div>
-            <div class="weapon-desc">{{weaponInfo.desc}}</div>
+            <div class="weapon-desc" v-html="getStructuredContent(weaponInfo.desc)"></div>
           </div>
         </div>
       </div>
@@ -165,6 +165,7 @@ export default defineComponent({
       const percentage = (level / 90) * 100;
       return `conic-gradient(#efeae3 0, #efeae3 ${percentage - 0.1}%, rgba(255,255,255,0) ${percentage + 0.1}%)`;
     },
+    getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}"`,
   },
   setup() {
     const params = getParams(window.location.href);

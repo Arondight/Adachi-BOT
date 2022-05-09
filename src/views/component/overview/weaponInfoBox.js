@@ -20,7 +20,7 @@ const template = html`<div class="container-overview-infos">
     <p class="info-content weapon-ascension-value">{{ weaponInfo.ascensionValue }}</p>
   </div>
   <div class="container-introduction">
-    <p class="introduction">{{ weaponInfo.introduction }}”</p>
+    <p class="introduction" v-html="getStructuredContent(weaponInfo.description)"></p>
   </div>
   <div class="container-vertical">
     <div class="split-title">- 养成材料 -</div>
@@ -71,6 +71,7 @@ export default defineComponent({
     getMaterialUrl(material) {
       return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
     },
+    getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}"`,
   },
   setup(props) {
     const params = props.data;
@@ -86,7 +87,7 @@ export default defineComponent({
     weaponInfo.baseATK = params.baseATK;
     weaponInfo.ascensionProp = params.mainStat || "暂无信息";
     weaponInfo.ascensionValue = params.mainValue || "暂无信息";
-    weaponInfo.introduction = params.introduce || "暂无信息";
+    weaponInfo.description = params.introduce || "暂无信息";
     weaponInfo.limitedTimeAscensionMaterials = params.ascensionMaterials[0] || [];
     weaponInfo.allDayAscensionMaterials = params.ascensionMaterials[1] || [];
     weaponInfo.weekdays = params.time || "【】";
