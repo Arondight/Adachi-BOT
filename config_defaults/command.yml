@@ -310,9 +310,9 @@ material:
   weights: 9099
   regex:
     - ^(今日|周(一|二|三|四|五|六|日))(素材)\s*$
-    - ^周本\s*$
+    - ^(周本|天赋|武器)\s*$
   functions:
-    talent:
+    material:
       type: option
       show: true
       weights: 9989
@@ -341,6 +341,26 @@ material:
       description: 周本材料表
       entrance:
         - ^周本
+    talent:
+      type: command
+      show: true
+      weights: 9979
+      name: 天赋
+      usage: null
+      revert: false
+      description: 天赋材料表
+      entrance:
+        - ^天赋
+    weapon:
+      type: command
+      show: true
+      weights: 9979
+      name: 武器
+      usage: null
+      revert: false
+      description: 武器材料表
+      entrance:
+        - ^武器
 
 music:
   enable: true

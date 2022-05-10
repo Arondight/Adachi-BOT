@@ -28,7 +28,7 @@ async function Plugin(msg) {
       );
       break;
     case hasEntrance(msg.text, "master", "character_overview_auth"):
-      setAuth(msg, ["info", "weapon", "talent", "weekly"], ...parse(msg.text, "character_overview_auth"));
+      setAuth(msg, ["info", "material", "weapon", "talent", "weekly"], ...parse(msg.text, "character_overview_auth"));
       break;
     case hasEntrance(msg.text, "master", "fun_auth"):
       setAuth(msg, ["menu", "prophecy", "roll", "quote"], ...parse(msg.text, "fun_auth"));
