@@ -5,17 +5,18 @@ import { getCache } from "#utils/cache";
 import { render } from "#utils/render";
 import { getWordByRegex } from "#utils/tools";
 
+// 如果注释中的链接失效，尝试在米游社中搜索用户“好多梨”。
 const mUrls = {
-  // https://bbs.mihoyo.com/ys/article/17715553
-  talent: getUrl("/2022/04/01/75833613/75ae11409d213024049312ecf6fa0692_800626047869673548.png"),
-  // https://bbs.mihoyo.com/ys/article/17716365
-  weapon: getUrl("/2022/03/30/75379475/502ec953d9a1301a23ac26eda0b94471_8012868718086871978.png"),
-  // https://bbs.mihoyo.com/ys/article/17715948
-  weekly: getUrl("/2022/03/30/75379475/f13d80f2e7f83b667b7f3ffcc36647d2_4239005231258368385.png"),
+  // https://bbs.mihoyo.com/ys/obc/content/1226/detail
+  talent: getUrl("/2022/03/29/75833613/69d523a33403d6ad92e4affd24efac3c_6498559115690701376.png"),
+  // https://bbs.mihoyo.com/ys/obc/content/1187/detail
+  weapon: getUrl("/2022/03/29/75833613/bbae33c9be2a1c4fa6523986cdb55508_5702485684285015782.png"),
+  // https://bbs.mihoyo.com/ys/obc/content/1226/detail
+  weekly: getUrl("/2022/03/29/75833613/7cef666b6a5fa3f12785e6e4406a060f_4832769786132969938.png"),
 };
 
 function getUrl(p) {
-  return `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
+  return `https://uploadstatic.mihoyo.com/ys-obc/${"/" === p[0] ? p.substring(1) : p}`;
 }
 
 async function doMaterial(msg, url) {
