@@ -63,7 +63,7 @@
     "p-limit": "4.0.0",
     "pm2": "5.2.0",
     "pretty-bytes": "6.0.0",
-    "puppeteer": "14.0.0",
+    "puppeteer": "14.1.0",
     "random-float": "3.0.0",
     "systeminformation": "5.11.15",
     "yargs": "17.5.0"
