@@ -71,7 +71,7 @@ export default defineComponent({
     getMaterialUrl(material) {
       return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
     },
-    getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}"`,
+    getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}`,
   },
   setup(props) {
     const params = props.data;

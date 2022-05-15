@@ -165,7 +165,7 @@ export default defineComponent({
       const percentage = (level / 90) * 100;
       return `conic-gradient(#efeae3 0, #efeae3 ${percentage - 0.1}%, rgba(255,255,255,0) ${percentage + 0.1}%)`;
     },
-    getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}"`,
+    getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}`,
   },
   setup() {
     const params = getParams(window.location.href);
