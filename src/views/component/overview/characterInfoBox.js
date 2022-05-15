@@ -42,7 +42,7 @@ const template = html` <div class="container-overview-infos">
   </div>
   <div class="container-introduction">
     <div class="container-intro-info">
-      <p class="introduction">{{ charInfo.introduction }}”</p>
+      <p class="introduction">{{ charInfo.introduction }}</p>
     </div>
     <div
       class="container-passive-talent"
