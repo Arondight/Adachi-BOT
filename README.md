@@ -11,8 +11,8 @@
 ### 文档
 
 1. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 。
-2. 资源文件提交请查阅[《资源文件制作指引》](docs/资源文件制作指引.md)。
-3. 插件开发请查阅[《插件开发指引》](docs/插件开发指引.md)。
+2. 制作资源文件请查阅[《资源文件制作指引》](docs/资源文件制作指引.md)。
+3. 开发插件请查阅[《插件开发指引》](docs/插件开发指引.md)。
 
 ### 开发
 

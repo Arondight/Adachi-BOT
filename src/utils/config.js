@@ -734,7 +734,12 @@ function readSetting() {
       const prop = Object.keys(o)[0];
       const val = o[prop];
 
-      global.config[prop] = val || defaultConfig[prop];
+      global.config[prop] = val;
+
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+      if ([undefined, null, NaN, ""].includes(val)) {
+        global.config[prop] = defaultConfig[prop];
+      }
     });
   })(
     { accounts: [...(accounts || []), ...(account ? [account] : [])] },
