@@ -102,7 +102,7 @@ const chamber = defineComponent({
 });
 
 const template = html`
-  <div class="card container-vertical container-floor-info">
+  <div class="card container-vertical container-floor-info reversed">
     <chamber v-for="i in 3" :chamber="floorInfo.chambers[i-1] || {}" :floorIndex="floorInfo.floorIndex" :index="i" />
   </div>
 `;
