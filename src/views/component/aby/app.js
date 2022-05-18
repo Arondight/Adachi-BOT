@@ -183,17 +183,10 @@ export default defineComponent({
         ? encodeURI(shown_avatars[randomAvatar])
         : encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
 
-    const abyssFloors = params.data.floors.slice(-4);
-    const abyssLastFloor = abyssFloors.pop();
-
-    let isFullDataset = false;
-    if (abyssFloors.length > 0) {
-      if (Object.prototype.hasOwnProperty.call(abyssFloors[0], "levels")) {
-        if (abyssFloors[0]["levels"].length > 0) {
-          isFullDataset = true;
-        }
-      }
-    }
+    const abyssFloors = params.data.floors.sort((a, b) => b.index - a.index).slice(0, 4);
+    const abyssLastFloor = abyssFloors.shift();
+    const isFullDataset =
+      abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
 
     return {
       playerUid,
