@@ -5,7 +5,7 @@ import path from "path";
 import { getDS } from "#utils/ds";
 
 // XXX 之所以会有两个 API 域名，是因为米哈游在两个 API 域名之间反复横跳 :)
-// https://github.com/Arondight/Adachi-BOT/issues/522
+// https://github.com/Arondight/Adachi-BOT/issues/520
 // https://github.com/Arondight/Adachi-BOT/issues/814
 const m_API_DOMAINS = ["api-takumi", "api-takumi-record"].map((c) => `${c}.mihoyo.com`);
 const m_API_PREFIXES = m_API_DOMAINS.map((c) => `https://${c}`);
