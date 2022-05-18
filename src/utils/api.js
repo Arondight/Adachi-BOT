@@ -4,14 +4,17 @@ import fetch from "node-fetch";
 import path from "path";
 import { getDS } from "#utils/ds";
 
+const m_API_DOMAINS = ["api-takumi", "api-takumi-record"].map((c) => `${c}.mihoyo.com`);
+const m_API_PREFIXES = m_API_DOMAINS.map((c) => `https://${c}`);
+const m_API_CERTAIN_PREFIXE = "https://webstatic.mihoyo.com";
 const m_API = {
-  FETCH_ROLE_ID: "https://api-takumi.mihoyo.com/game_record/app/card/wapi/getGameRecordCard",
-  FETCH_ROLE_INDEX: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/index",
-  FETCH_ROLE_CHARACTERS: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/character",
-  FETCH_GACHA_LIST: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/gacha/list.json",
-  FETCH_GACHA_DETAIL: "https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/{}/zh-cn.json",
-  FETCH_ABY_DETAIL: "https://api-takumi.mihoyo.com/game_record/app/genshin/api/spiralAbyss",
-  FETCH_MYS_NEWS: "https://bbs-api.mihoyo.com/post/wapi/getNewsList",
+  FETCH_ROLE_ID: m_API_PREFIXES.map((c) => `${c}/game_record/app/card/wapi/getGameRecordCard`),
+  FETCH_ROLE_INDEX: m_API_PREFIXES.map((c) => `${c}/game_record/app/genshin/api/index`),
+  FETCH_ROLE_CHARACTERS: m_API_PREFIXES.map((c) => `${c}/game_record/app/genshin/api/character`),
+  FETCH_GACHA_LIST: [`${m_API_CERTAIN_PREFIXE}/hk4e/gacha_info/cn_gf01/gacha/list.json`],
+  FETCH_GACHA_DETAIL: [`${m_API_CERTAIN_PREFIXE}/hk4e/gacha_info/cn_gf01/{}/zh-cn.json`],
+  FETCH_ABY_DETAIL: m_API_PREFIXES.map((c) => `${c}/game_record/app/genshin/api/spiralAbyss`),
+  FETCH_MYS_NEWS: [`${m_API_CERTAIN_PREFIXE}/post/wapi/getNewsList`],
 };
 const m_HEADERS = {
   "User-Agent":
@@ -51,70 +54,93 @@ function getEmoticons() {
 
 function getAbyDetail(role_id, schedule_type, server, cookie) {
   const query = { role_id, schedule_type, server };
+  const promises = m_API.FETCH_ABY_DETAIL.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
+    }).then((res) => res.json())
+  );
 
-  return fetch(`${m_API.FETCH_ABY_DETAIL}?${new URLSearchParams(query)}`, {
-    method: "GET",
-    headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
-  }).then((res) => res.json());
+  return Promise.any(promises);
 }
 
 function getBase(uid, cookie) {
   const query = { uid };
+  const promises = m_API.FETCH_ROLE_ID.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
+    }).then((res) => res.json())
+  );
 
-  return fetch(`${m_API.FETCH_ROLE_ID}?${new URLSearchParams(query)}`, {
-    method: "GET",
-    headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
-  }).then((res) => res.json());
+  return Promise.any(promises);
 }
 
 function getIndex(role_id, server, cookie) {
   const query = { role_id, server };
+  const promises = m_API.FETCH_ROLE_INDEX.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      qs: query,
+      headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
+    }).then((res) => res.json())
+  );
 
-  return fetch(`${m_API.FETCH_ROLE_INDEX}?${new URLSearchParams(query)}`, {
-    method: "GET",
-    qs: query,
-    headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
-  }).then((res) => res.json());
+  return Promise.any(promises);
 }
 
 function getCharacters(role_id, server, character_ids, cookie) {
   const body = { character_ids, role_id, server };
+  const promises = m_API.FETCH_ROLE_CHARACTERS.map((c) =>
+    fetch(c, {
+      method: "POST",
+      json: true,
+      body: JSON.stringify(body),
+      headers: {
+        ...m_HEADERS,
+        DS: getDS(undefined, JSON.stringify(body)),
+        Cookie: cookie,
+        "content-type": "application/json",
+      },
+    }).then((res) => res.json())
+  );
 
-  return fetch(m_API.FETCH_ROLE_CHARACTERS, {
-    method: "POST",
-    json: true,
-    body: JSON.stringify(body),
-    headers: {
-      ...m_HEADERS,
-      DS: getDS(undefined, JSON.stringify(body)),
-      Cookie: cookie,
-      "content-type": "application/json",
-    },
-  }).then((res) => res.json());
+  return Promise.any(promises);
 }
 
 function getGachaList() {
-  return fetch(m_API.FETCH_GACHA_LIST, {
-    method: "GET",
-    headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
-  }).then((res) => res.json());
+  const promises = m_API.FETCH_GACHA_LIST.map((c) =>
+    fetch(c, {
+      method: "GET",
+      headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
+    }).then((res) => res.json())
+  );
+
+  return Promise.any(promises);
 }
 
 function getGachaDetail(gachaID) {
-  return fetch(m_API.FETCH_GACHA_DETAIL.replace("{}", gachaID), {
-    method: "GET",
-    headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
-  }).then((res) => res.json());
+  const promises = m_API.FETCH_GACHA_DETAIL.map((c) =>
+    fetch(c.replace("{}", gachaID), {
+      method: "GET",
+      headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
+    }).then((res) => res.json())
+  );
+
+  return Promise.any(promises);
 }
 
 function getMysNews(type = 1) {
   const query = { gids: 2, page_size: 10, type };
+  const promises = m_API.FETCH_MYS_NEWS.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      qs: query,
+      headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
+    }).then((res) => res.json())
+  );
 
-  return fetch(`${m_API.FETCH_MYS_NEWS}?${new URLSearchParams(query)}`, {
-    method: "GET",
-    qs: query,
-    headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
-  }).then((res) => res.json());
+  return Promise.any(promises);
 }
 
 export {

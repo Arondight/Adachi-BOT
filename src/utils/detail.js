@@ -17,7 +17,7 @@ function getDetailErrorForPossibleInvalidCookie(retcode, message, cookie) {
 
 // return true if we use cache
 function parseDetailError(e) {
-  let messages = [];
+  const messages = [];
 
   if (true === e.detail) {
     // 尝试使用缓存

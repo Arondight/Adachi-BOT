@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 async function loadPlugins() {
-  let plugins = {};
+  const plugins = {};
   const enableList = { ...global.command.enable, ...global.master.enable };
   const pluginLoadPath = path.resolve(global.rootdir, "src", "plugins");
   const pluginDirList =
