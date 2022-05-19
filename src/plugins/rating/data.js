@@ -69,20 +69,23 @@ async function imageOcr(msg, url) {
 
   try {
     response = await fetch(url, { method: "GET" });
+
+    if (200 === response.status) {
+      data = Buffer.from(await response.arrayBuffer()).toString("base64");
+    }
   } catch {
     msg.bot.say(msg.sid, `您看上去没有发送正确的圣遗物属性截图。`, msg.type, msg.uid, true);
     return undefined;
   }
 
-  if (200 === response.status) {
-    data = Buffer.from(await response.arrayBuffer()).toString("base64");
-  } else {
+  if (undefined === data) {
     msg.bot.say(msg.sid, "没有正确接收到截图，请再试一次。", msg.type, msg.uid, true);
     return undefined;
   }
 
   const form = { image: data };
   let body = JSON.stringify(form);
+  let ret;
 
   try {
     response = await fetch("https://api.genshin.pub/api/v1/app/ocr", {
@@ -90,16 +93,17 @@ async function imageOcr(msg, url) {
       headers,
       body,
     });
+
+    if (200 !== response.status) {
+      msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);
+    }
+
+    ret = adjustProp(await response.json(), msg.bot);
   } catch (e) {
-    msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);
+    // do nothing
   }
 
-  if (200 !== response.status) {
-    msg.bot.say(msg.sid, `AI 识别出错。`, msg.type, msg.uid, true);
-    return undefined;
-  }
-
-  return adjustProp(await response.json(), msg.bot);
+  return ret;
 }
 
 export { imageOcr };

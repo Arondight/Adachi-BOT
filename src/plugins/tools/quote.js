@@ -11,13 +11,13 @@ async function quote(msg) {
       method: "POST",
       headers: headers,
     });
+
+    if (200 === response.status) {
+      const { quote, from } = await response.json();
+      return msg.bot.say(msg.sid, `${quote}\n${from}`, msg.type, msg.uid, true, "\n");
+    }
   } catch (e) {
     msg.bot.say(msg.sid, "伟大的升华！", msg.type, msg.uid, true);
-  }
-
-  if (200 === response.status) {
-    const { quote, from } = await response.json();
-    return msg.bot.say(msg.sid, `${quote}\n${from}`, msg.type, msg.uid, true, "\n");
   }
 
   msg.bot.say(msg.sid, "伟大的升华！", msg.type, msg.uid, true);

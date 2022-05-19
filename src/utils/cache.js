@@ -18,11 +18,11 @@ async function isCached(url, dir) {
   if (fs.existsSync(filepath)) {
     try {
       response = await fetch(url, { method: "HEAD" });
+
+      return !(200 !== response.status || du(filepath) !== parseInt(response.headers.get("Content-length")));
     } catch (e) {
       return false;
     }
-
-    return !(200 !== response.status || du(filepath) !== parseInt(response.headers.get("Content-length")));
   }
 
   return false;

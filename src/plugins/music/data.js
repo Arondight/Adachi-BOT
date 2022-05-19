@@ -28,15 +28,15 @@ async function musicQQ(keyword) {
 
   try {
     response = await fetch(`${url}?${new URLSearchParams(query)}`, { method: "GET", headers });
+
+    if (200 === response.status) {
+      jbody = await response.text();
+    }
   } catch (e) {
-    return m_ERR_CODE.ERR_API;
+    // do nothing
   }
 
-  if (200 === response.status) {
-    jbody = await response.text();
-  }
-
-  if (!jbody) {
+  if (undefined === jbody) {
     return m_ERR_CODE.ERR_API;
   }
 
@@ -76,15 +76,15 @@ async function music163(keyword) {
 
   try {
     response = await fetch(url, { method: "POST", headers, body });
+
+    if (200 === response.status) {
+      jbody = await response.json();
+    }
   } catch (e) {
-    return m_ERR_CODE.ERR_API;
+    // do nothing
   }
 
-  if (200 === response.status) {
-    jbody = await response.json();
-  }
-
-  if (!jbody) {
+  if (undefined === jbody) {
     return m_ERR_CODE.ERR_API;
   }
 
