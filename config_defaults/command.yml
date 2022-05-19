@@ -264,16 +264,6 @@ tools:
       description: 掷骰子
       entrance:
         - ^roll
-    quote:
-      type: command
-      show: false
-      weights: 9699
-      name: 伟大的升华
-      usage: null
-      revert: false
-      description: null
-      entrance:
-        - ^伟大的升华
     feedback:
       type: command
       show: true
