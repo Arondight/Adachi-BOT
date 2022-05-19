@@ -70,8 +70,8 @@ const chamber = defineComponent({
     let chamberTimestamp = 0;
 
     if (chamberDetails.length > 0) {
-      if (Object.prototype.hasOwnProperty.call(chamberDetails[0], "timestamp")) {
-        chamberTimestamp = chamberDetails[0]["timestamp"];
+      if ("timestamp" in chamberDetails[0]) {
+        chamberTimestamp = chamberDetails[0].timestamp;
       }
     }
 
@@ -82,7 +82,7 @@ const chamber = defineComponent({
       let validCount = 0;
       for (const details of chamberDetails) {
         for (const property of chamberProperties) {
-          if (Object.prototype.hasOwnProperty.call(details, property)) {
+          if (property in details) {
             validCount++;
           }
         }

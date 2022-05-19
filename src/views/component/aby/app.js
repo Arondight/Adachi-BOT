@@ -165,11 +165,11 @@ export default defineComponent({
 
     for (const [key, value] of Object.entries(params.data)) {
       if (key.endsWith("_rank")) {
-        value.forEach((v) =>
-          Object.prototype.hasOwnProperty.call(v, "avatar_icon") && !shown_avatars.includes(v.avatar_icon)
-            ? shown_avatars.push(v.avatar_icon)
-            : 0
-        );
+        value.forEach((v) => {
+          if ("string" === typeof v.avatar_icon && !shown_avatars.includes(v.avatar_icon)) {
+            shown_avatars.push(v.avatar_icon);
+          }
+        });
       }
     }
     const randomAvatar = Math.floor(Math.random() * shown_avatars.length);

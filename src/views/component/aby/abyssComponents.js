@@ -56,15 +56,18 @@ const characterShowbox = defineComponent({
     const prefix = propsValue.prefix || "";
     const suffix = propsValue.suffix || "";
     const htmlClass = propsValue.htmlClass || "";
-    const label =
-      showType === "revealRank"
-        ? Object.prototype.hasOwnProperty.call(propsValue.data, "value")
-          ? prefix + propsValue.data.value.toString() + suffix
-          : ""
-        : Object.prototype.hasOwnProperty.call(propsValue.data, "level")
-        ? prefix + propsValue.data.level.toString() + suffix
-        : "";
     const additionalClass = htmlClass;
+    let label = "";
+
+    if ("revealRank" === showType) {
+      if ("string" === typeof propsValue.data.value) {
+        label = prefix + propsValue.data.value.toString() + suffix;
+      }
+    } else {
+      if ("string" === typeof propsValue.data.level) {
+        label = prefix + propsValue.data.level.toString() + suffix;
+      }
+    }
 
     return {
       avatarIcon,
