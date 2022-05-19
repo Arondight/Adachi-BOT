@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const template = html` <div class="gacha-box">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.38 423.17">
     <defs>
@@ -64,6 +64,7 @@ export default defineComponent({
     isStat: Boolean,
   },
   setup(props) {
+    const propsValue = unref(props);
     // noinspection NonAsciiCharacters
     const typeMapping = {
       角色: "character",
@@ -76,13 +77,17 @@ export default defineComponent({
     };
 
     let item_props = {};
-    const imageType = typeMapping[props.data.item_type] || "character";
-    const imageName = props.data.item_name;
-    const itemTypeImage = props.data.type;
-    const itemRarity = rarityMapping[props.data.star] || "Four";
+    const imageType = typeMapping[propsValue.data.item_type] || "character";
+    const imageName = propsValue.data.item_name;
+    const itemTypeImage = propsValue.data.type;
+    const itemRarity = rarityMapping[propsValue.data.star] || "Four";
     const itemLabel =
-      props.data.star === 5 ? "「" + props.data.times + "抽」" : props.isStat ? "「" + props.data.count + "次」" : "";
-    const iconType = props.data.item_type === "角色" ? "element" : "type";
+      propsValue.data.star === 5
+        ? "「" + propsValue.data.times + "抽」"
+        : propsValue.isStat
+        ? "「" + propsValue.data.count + "次」"
+        : "";
+    const iconType = propsValue.data.item_type === "角色" ? "element" : "type";
     // 临时用来处理图像格式不同的问题
     const extName = imageType === "character" ? "webp" : "png";
     item_props.item_type = imageType;

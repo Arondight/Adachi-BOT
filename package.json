@@ -65,6 +65,7 @@
     "pretty-bytes": "6.0.0",
     "puppeteer": "14.1.0",
     "random-float": "3.0.0",
+    "semver": "7.3.7",
     "systeminformation": "5.11.15",
     "yargs": "17.5.1"
   },

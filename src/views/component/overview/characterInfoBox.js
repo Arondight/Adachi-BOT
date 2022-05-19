@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const constellTemplate = html`
   <div v-if="constellContent !== ''" class="info-title constellation-order">{{constellCounts}}</div>
   <div v-if="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>
@@ -103,7 +103,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const params = props.data;
+    const propsValue = unref(props);
+    const params = propsValue.data;
 
     const charImageFilename = params.id + ".png";
     const charImageUrl = `http://localhost:9934/resources/Version2/character/${charImageFilename}`;

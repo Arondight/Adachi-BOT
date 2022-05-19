@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const template = html`<div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>
@@ -74,25 +74,27 @@ export default defineComponent({
     getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}`,
   },
   setup(props) {
-    const params = props.data;
+    const propsValue = unref(props);
+    const params = propsValue.data;
+    const rarity = parseInt(params.rarity) || 4;
     const decoStripContent = "WEAPON INFORMATION - ".repeat(4);
-    let weaponInfo = {};
     const weaponTitle = params.title + "・" || "";
-    weaponInfo.weaponFullName = weaponTitle + params.name;
     const weaponImageFilename = params.name + ".png";
     const weaponImageUrl = `http://localhost:9934/resources/Version2/weapon/${weaponImageFilename}`;
-    weaponInfo.accessMethod = params["access"] || "暂无信息";
-    const rarity = parseInt(params.rarity) || 4;
-    weaponInfo.rarity = "★".repeat(rarity);
-    weaponInfo.baseATK = params.baseATK;
-    weaponInfo.ascensionProp = params.mainStat || "暂无信息";
-    weaponInfo.ascensionValue = params.mainValue || "暂无信息";
-    weaponInfo.description = params.introduce || "暂无信息";
-    weaponInfo.limitedTimeAscensionMaterials = params.ascensionMaterials[0] || [];
-    weaponInfo.allDayAscensionMaterials = params.ascensionMaterials[1] || [];
-    weaponInfo.weekdays = params.time || "【】";
-    weaponInfo.skillName = params.skillName || "武器特殊效果";
-    weaponInfo.skillEffect = params.skillContent || "暂无信息";
+    const weaponInfo = {
+      weaponFullName: weaponTitle + params.name,
+      accessMethod: params["access"] || "暂无信息",
+      rarity: "★".repeat(rarity),
+      baseATK: params.baseATK,
+      ascensionProp: params.mainStat || "暂无信息",
+      ascensionValue: params.mainValue || "暂无信息",
+      description: params.introduce || "暂无信息",
+      limitedTimeAscensionMaterials: params.ascensionMaterials[0] || [],
+      allDayAscensionMaterials: params.ascensionMaterials[1] || [],
+      weekdays: params.time || "【】",
+      skillName: params.skillName || "武器特殊效果",
+      skillEffect: params.skillContent || "暂无信息",
+    };
 
     return {
       decoStripContent,

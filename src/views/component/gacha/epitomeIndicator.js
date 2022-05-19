@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const template = html`
   <div class="epitome">
     <div class="epitome-status">
@@ -33,7 +33,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    let epitomizedPath = props.data;
+    const propsValue = unref(props);
+    const epitomizedPath = propsValue.data;
 
     epitomizedPath.fate = epitomizedPath.fate > 2 ? 0 : epitomizedPath.fate;
 

@@ -1,7 +1,7 @@
 import { html, toReadableDate } from "../common/utils.js";
 import { characterShowbox } from "./abyssComponents.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 
 const chamberTemplate = html`
   <div class="container-vertical container-chamber-info">
@@ -61,13 +61,14 @@ const chamber = defineComponent({
     },
   },
   setup(props) {
-    const chamber = props.chamber;
-    const chamberIndex = props.index;
+    const propsValue = unref(props);
+    const chamber = propsValue.chamber;
+    const chamberIndex = propsValue.index;
     const chamberStars = chamber.star || 0;
     const chamberStarCount = "*".repeat(chamberStars);
     const chamberDetails = chamber.battles || [{}, {}];
-
     let chamberTimestamp = 0;
+
     if (chamberDetails.length > 0) {
       if (Object.prototype.hasOwnProperty.call(chamberDetails[0], "timestamp")) {
         chamberTimestamp = chamberDetails[0]["timestamp"];
@@ -118,8 +119,9 @@ export default defineComponent({
     data: Object,
   },
   setup(props) {
-    const params = props.data;
-    let floorInfo = {};
+    const propsValue = unref(props);
+    const params = propsValue.data;
+    const floorInfo = {};
     floorInfo.floorIndex = params.index || "X";
     floorInfo.chambers = params.levels;
 

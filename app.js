@@ -1,6 +1,7 @@
 import { fork } from "child_process";
 import figlet from "figlet";
 import path from "path";
+import semver from "semver";
 import url from "url";
 import "#utils/config";
 
@@ -46,6 +47,10 @@ function hello() {
   log(m_LOG_TYPE.INFO);
 }
 
+function quit() {
+  process.kill(process.pid, "SIGTERM");
+}
+
 function runBot() {
   log(m_LOG_TYPE.INFO, `正在从 ${mBot.path} 拉起${mBot.name}。`);
 
@@ -53,7 +58,7 @@ function runBot() {
   mBot.process.on("exit", () => {
     if (false === mPostRunning) {
       log(m_LOG_TYPE.ERROR, `${mBot.name}异常退出！`);
-      process.kill(process.pid, "SIGTERM");
+      quit();
     }
   });
 }
@@ -105,6 +110,11 @@ async function doPost() {
 (async function main() {
   for (const signal of ["SIGHUP", "SIGINT", "SIGTERM"]) {
     process.on(signal, () => doPost().then((n) => process.exit(n)));
+  }
+
+  if (!semver.satisfies(process.versions.node, global.package.engines.node)) {
+    log(m_LOG_TYPE.ERROR, `当前 Node.JS 版本（${process.versions.node}）不满足 ${global.package.engines.node}！`);
+    quit();
   }
 
   hello();

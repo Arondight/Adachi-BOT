@@ -1,6 +1,6 @@
 import { getParams, html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const barTemplate = html`
   <div class="container-bar">
     <p class="bar-title">命之座</p>
@@ -72,7 +72,8 @@ const artifactBox = defineComponent({
   },
   template: artifactBoxTemplate,
   setup(props) {
-    const params = props.data;
+    const propsValue = unref(props);
+    const params = propsValue.data;
     const artifactPosition = {
       1: "生之花",
       2: "死之羽",

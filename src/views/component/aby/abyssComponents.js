@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 
 const titleTemplate = html`
   <div class="title-content">
@@ -44,23 +44,25 @@ const characterShowbox = defineComponent({
     htmlClass: String,
   },
   setup(props) {
+    const propsValue = unref(props);
     const rarityClassMap = {
       5: "star-five",
       4: "star-four",
     };
-    const showType = props.showType;
-    const avatarIcon = showType === "revealRank" ? encodeURI(props.data.avatar_icon) : encodeURI(props.data.icon);
-    const rarity = rarityClassMap[props.data.rarity] || "star-four";
-    const prefix = props.prefix || "";
-    const suffix = props.suffix || "";
-    const htmlClass = props.htmlClass || "";
+    const showType = propsValue.showType;
+    const avatarIcon =
+      showType === "revealRank" ? encodeURI(propsValue.data.avatar_icon) : encodeURI(propsValue.data.icon);
+    const rarity = rarityClassMap[propsValue.data.rarity] || "star-four";
+    const prefix = propsValue.prefix || "";
+    const suffix = propsValue.suffix || "";
+    const htmlClass = propsValue.htmlClass || "";
     const label =
       showType === "revealRank"
-        ? Object.prototype.hasOwnProperty.call(props.data, "value")
-          ? prefix + props.data.value.toString() + suffix
+        ? Object.prototype.hasOwnProperty.call(propsValue.data, "value")
+          ? prefix + propsValue.data.value.toString() + suffix
           : ""
-        : Object.prototype.hasOwnProperty.call(props.data, "level")
-        ? prefix + props.data.level.toString() + suffix
+        : Object.prototype.hasOwnProperty.call(propsValue.data, "level")
+        ? prefix + propsValue.data.level.toString() + suffix
         : "";
     const additionalClass = htmlClass;
 

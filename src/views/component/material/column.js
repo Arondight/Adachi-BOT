@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const materialTemplate = html` <div class="unit">
   <div class="top-box">
     <div class="ascension-name">{{ ascensionName }}</div>
@@ -36,10 +36,11 @@ const materialUnit = defineComponent({
     },
   },
   setup(props) {
-    const params = props.data;
+    const propsValue = unref(props);
+    const params = propsValue.data;
 
     let ascensionName = "";
-    if (props.type === "weapon") {
+    if (propsValue.type === "weapon") {
       const de = params.ascension[0].split("的");
       const zhi = params.ascension[0].split("之");
       const arr = de.length === 1 ? zhi : de;
@@ -52,7 +53,7 @@ const materialUnit = defineComponent({
     return {
       params,
       ascensionName,
-      itemType: props.type || "character",
+      itemType: propsValue.type || "character",
     };
   },
 });
