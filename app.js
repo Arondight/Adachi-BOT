@@ -112,12 +112,13 @@ async function doPost() {
     process.on(signal, () => doPost().then((n) => process.exit(n)));
   }
 
+  hello();
+
   if (!semver.satisfies(process.versions.node, global.package.engines.node)) {
     log(m_LOG_TYPE.ERROR, `当前 Node.JS 版本（${process.versions.node}）不满足 ${global.package.engines.node}！`);
     quit();
   }
 
-  hello();
   runServer();
   runBot();
 })();
