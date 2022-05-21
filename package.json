@@ -71,14 +71,14 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
-    "eslint": "8.15.0",
+    "eslint": "8.16.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
     "eslint-plugin-sort-exports": "0.6.0",
     "eslint-plugin-vue": "9.0.1",
     "eslint-plugin-yml": "1.0.0",
-    "npm-check-updates": "13.0.1",
+    "npm-check-updates": "13.0.3",
     "prettier": "2.6.2"
   }
 }
