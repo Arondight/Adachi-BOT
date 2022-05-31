@@ -55,18 +55,13 @@ const characterShowbox = defineComponent({
     const rarity = rarityClassMap[propsValue.data.rarity] || "star-four";
     const prefix = propsValue.prefix || "";
     const suffix = propsValue.suffix || "";
-    const htmlClass = propsValue.htmlClass || "";
-    const additionalClass = htmlClass;
+    const additionalClass = propsValue.htmlClass || "";
     let label = "";
 
     if ("revealRank" === showType) {
-      if ("string" === typeof propsValue.data.value) {
-        label = prefix + propsValue.data.value.toString() + suffix;
-      }
+      label = prefix + propsValue.data.value.toString() + suffix;
     } else {
-      if ("string" === typeof propsValue.data.level) {
-        label = prefix + propsValue.data.level.toString() + suffix;
-      }
+      label = prefix + propsValue.data.level.toString() + suffix;
     }
 
     return {
