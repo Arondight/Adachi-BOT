@@ -8,11 +8,11 @@ import { getWordByRegex } from "#utils/tools";
 // 如果注释中的链接失效，尝试在米游社中搜索用户“好多梨”。
 const mUrls = {
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  talent: getUrl("/2022/03/29/75833613/69d523a33403d6ad92e4affd24efac3c_6498559115690701376.png"),
+  talent: getUrl("/2022/05/31/75833613/15ed9d9ddf7aa2e6ed638ac623846548_4019914425340888455.png"),
   // https://bbs.mihoyo.com/ys/obc/content/1187/detail
-  weapon: getUrl("/2022/03/29/75833613/bbae33c9be2a1c4fa6523986cdb55508_5702485684285015782.png"),
+  weapon: getUrl("/2022/05/31/75833613/4a01137a0cd8b9eb212319aa952b9cf3_5317419317205257645.png"),
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  weekly: getUrl("/2022/03/29/75833613/7cef666b6a5fa3f12785e6e4406a060f_4832769786132969938.png"),
+  weekly: getUrl("/2022/05/31/75833613/0d97057efabd5bab16806d08263d80b2_5396071723803751186.png"),
 };
 
 function getUrl(p) {
