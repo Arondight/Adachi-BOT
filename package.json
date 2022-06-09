@@ -57,7 +57,7 @@
     "md5": "2.3.0",
     "moment": "2.29.3",
     "moment-timezone": "0.5.34",
-    "node-fetch": "3.2.5",
+    "node-fetch": "3.2.6",
     "node-schedule": "2.1.0",
     "oicq": "2.2.3",
     "p-limit": "4.0.0",
