@@ -63,15 +63,15 @@
     "p-limit": "4.0.0",
     "pm2": "5.2.0",
     "pretty-bytes": "6.0.0",
-    "puppeteer": "14.4.0",
+    "puppeteer": "14.4.1",
     "random-float": "3.0.0",
     "semver": "7.3.7",
-    "systeminformation": "5.11.20",
+    "systeminformation": "5.11.21",
     "yargs": "17.5.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
-    "eslint": "8.17.0",
+    "eslint": "8.18.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
