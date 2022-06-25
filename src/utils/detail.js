@@ -152,7 +152,7 @@ async function abyDetail(uid, server, userID, schedule_type, bot) {
   }
 
   if (undefined === data.max_floor || "0-0" === data.max_floor) {
-    throw detailError("您似乎未挑战深境螺旋。");
+    throw detailError("此账号未挑战深境螺旋。");
   }
 
   if (Array.isArray(data.floors) && 0 === data.floors.length) {
