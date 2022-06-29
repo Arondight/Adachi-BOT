@@ -125,7 +125,7 @@ async function getLink(name, type = "weapon") {
 async function getMaterialName(link) {
   const url = `${mHoneyUrl}/${link}`;
   const page = await mBrowser.newPage();
-  let name;
+  let name = null;
 
   try {
     await page.goto(encodeURI(url), { waitUntil: "domcontentloaded" });
@@ -144,7 +144,7 @@ async function getMaterialName(link) {
 async function getMaterialTime(name) {
   const url = `${mBwikiUrl}/${name}`;
   const page = await mBrowser.newPage();
-  let time;
+  let time = null;
 
   try {
     await page.goto(encodeURI(url), { waitUntil: "domcontentloaded" });
@@ -360,9 +360,22 @@ async function getCharData(name, page) {
     ...(await handle.$x(".//div[contains(@class, 'skill_desc_layout')]"))
   );
 
-  handle = (await page.$x("//div[contains(@class, 'homepage_index_cont')]"))[1];
-  const face = await page.evaluate((e) => e.getAttribute("href"), (await handle.$x("./div/div[5]/a"))[0]);
-  const id = parseInt(face.match(/\d+/)[0]);
+  handle = (await page.$x("//div[contains(@class, 'homepage_index_cont')]")).slice(-1)[0];
+  let faceHandler;
+
+  for (const e of await handle.$x("./div/div[contains(@class, 'gallery_content_cont')]")) {
+    if ("face" === (await page.evaluate((e) => e.textContent, (await e.$x("./a/span"))[0])).toLowerCase()) {
+      faceHandler = (await e.$x("./a"))[0];
+      break;
+    }
+  }
+
+  let id = null;
+
+  if (undefined !== faceHandler) {
+    id = parseInt((await page.evaluate((e) => e.getAttribute("href"), faceHandler)).match(/\d+/)[0]);
+  }
+
   const time = await getMaterialTime(talentMaterials[0]);
 
   return {
@@ -525,7 +538,7 @@ async function getData(name, link, type = "weapon") {
 
   const url = `${mHoneyUrl}/${link}`;
   const page = await mBrowser.newPage();
-  let data;
+  let data = {};
 
   try {
     await page.goto(encodeURI(url), { waitUntil: "domcontentloaded" });
