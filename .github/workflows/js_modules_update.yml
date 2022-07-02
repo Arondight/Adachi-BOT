@@ -1,4 +1,4 @@
-name: Update Vue.js in dev branch
+name: Update JavaScript modules in dev branch
 
 on:
   workflow_dispatch: null
@@ -7,14 +7,14 @@ on:
     - cron: "0 21 * * *"
 
 jobs:
-  vue_update:
+  js_modules_update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: dev
-      - name: Update Vue.js
+      - name: Update JavaScript modules
         run: ./data/js/update.sh
       - name: Config git
         run: |
@@ -25,7 +25,7 @@ jobs:
           if [[ -n $(git status --porcelain) ]]
           then
             git add .
-            git commit -m 'Update Vue.js'
+            git commit -m 'Update JavaScript modules'
             git push
           else
             echo "Nothing to commit."

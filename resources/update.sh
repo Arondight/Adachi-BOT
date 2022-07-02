@@ -323,7 +323,7 @@ function dealFile()
 
     if [[ -n "$msg" ]]
     then
-      echo -e "${msg}\t${file}"
+      echo -e "${msg}\t${file##${RDIR}/}"
     fi
 
     if [[ -n "$cmd" ]]
@@ -523,7 +523,7 @@ function syncCustom()
 
   for file in "${files[@]}"
   do
-    rpath="${file##${CUSTOM_RES}}"
+    rpath="${file##${CUSTOM_RES}/}"
     thisdir="${RDIR}/$(dirname ${rpath})"
 
     if [[ 'README.txt' == $(basename "$rpath") ]]
@@ -537,12 +537,10 @@ function syncCustom()
   done
 }
 
-function listXML()
+function cleanXML()
 {
   local files=($(find "$RDIR" -type f))
   local hasXML=0
-
-  echo 'Search and delete XML files ...'
 
   # 阿里云 OSS 请求不到的资源会返回一个 XML 文件，删除这些垃圾文件
   dealXML 'rm -f {}' 'Delete' "${files[@]}"
@@ -573,6 +571,6 @@ function listXML()
   getThumb
 
   syncCustom
-  listXML
+  cleanXML
 }
 

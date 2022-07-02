@@ -4,11 +4,22 @@ RDIR=$(dirname $(readlink -f "$0"))
 CURL=('curl' '-sL')
 
 typeset -A LOCPATH=(
-  ['https://cn.vuejs.org/js/vue.js']="${RDIR}/vue2.js"
-  ['https://cn.vuejs.org/js/vue.min.js']="${RDIR}/vue2.min.js"
-  ['https://unpkg.com/vue@next/dist/vue.global.js']="${RDIR}/vue3.global.js"
-  ['https://unpkg.com/vue@next/dist/vue.global.prod.js']="${RDIR}/vue3.global.prod.js"
-  ['https://unpkg.com/lodash@latest/lodash.min.js']="${RDIR}/lodash.min.js"
+  ['https://cn.vuejs.org/js/vue.js']=\
+"${RDIR}/vue2.js"
+  ['https://cn.vuejs.org/js/vue.min.js']=\
+"${RDIR}/vue2.min.js"
+  ['https://unpkg.com/vue@next/dist/vue.global.js']=\
+"${RDIR}/vue3.global.js"
+  ['https://unpkg.com/vue@next/dist/vue.global.prod.js']=\
+"${RDIR}/vue3.global.prod.js"
+  ['https://unpkg.com/moment/min/moment.min.js']=\
+"${RDIR}/moment.min.js"
+  ['https://unpkg.com/moment/min/moment.min.js.map']=\
+"${RDIR}/moment.min.js.map"
+  ['https://unpkg.com/moment-timezone/builds/moment-timezone-with-data.min.js']=\
+"${RDIR}/moment-timezone-with-data.min.js"
+  ['https://unpkg.com/lodash@latest/lodash.min.js']=\
+"${RDIR}/lodash.min.js"
 )
 
 function check()

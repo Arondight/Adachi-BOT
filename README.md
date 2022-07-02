@@ -22,8 +22,8 @@
 
 > 请不要在你的 Fork 中开启下面的 workflow ！它们对你没有任何帮助。
 >
-> 1. `Update Node.js modules in dev branch`
-> 2. `Update Vue.js in dev branch`
+> 1. `Update JavaScript modules in dev branch`
+> 2. `Update Node.js modules in dev branch`
 > 3. `Update resources in dev branch`
 
 ## 使用

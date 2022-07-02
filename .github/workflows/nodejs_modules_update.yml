@@ -7,7 +7,7 @@ on:
     - cron: "0 22 * * *"
 
 jobs:
-  module_update:
+  nodejs_modules_update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
