@@ -3,6 +3,7 @@ import { characterShowbox } from "./abyssComponents.js";
 
 const { defineComponent } = window.Vue;
 const lodash = window._;
+const moment = window.moment;
 
 const unfulfilledTemplate = html`
   <div class="container-vertical container-chamber-info">
@@ -53,21 +54,21 @@ const briefingTemplate = html` <div class="card container-vertical container-flo
     </div>
     <div class="briefing-floor-duration">
       <div class="brief-start-time">
-        <span class="date">{{formatDate(new Date(startTime * 1000), "YY/mm/dd")}}</span>
-        <span>{{formatDate(new Date(startTime * 1000), "HH")}}</span>
+        <span class="date">{{formatDate(new Date(startTime * 1000), "YY/MM/DD")}}</span>
+        <span>{{formatDate(new Date(startTime * 1000), "hh")}}</span>
         <span class="kerning">:</span>
-        <span>{{formatDate(new Date(startTime * 1000), "MM")}}</span>
+        <span>{{formatDate(new Date(startTime * 1000), "mm")}}</span>
         <span class="kerning">:</span>
-        <span>{{formatDate(new Date(startTime * 1000), "SS")}}</span>
+        <span>{{formatDate(new Date(startTime * 1000), "ss")}}</span>
       </div>
       <div class="brief-end-time">
         -
-        <span class="date">{{formatDate(new Date(endTime * 1000), "YY/mm/dd")}}</span>
-        <span>{{formatDate(new Date(endTime * 1000), "HH")}}</span>
+        <span class="date">{{formatDate(new Date(endTime * 1000), "YY/MM/DD")}}</span>
+        <span>{{formatDate(new Date(endTime * 1000), "hh")}}</span>
         <span class="kerning">:</span>
-        <span>{{formatDate(new Date(endTime * 1000), "MM")}}</span>
+        <span>{{formatDate(new Date(endTime * 1000), "mm")}}</span>
         <span class="kerning">:</span>
-        <span>{{formatDate(new Date(endTime * 1000), "SS")}}</span>
+        <span>{{formatDate(new Date(endTime * 1000), "ss")}}</span>
       </div>
     </div>
   </div>
@@ -95,7 +96,7 @@ export default defineComponent({
     data: Object,
   },
   methods: {
-    formatDate: (date, format) => toReadableDate(date, format),
+    formatDate: (date, format) => moment(date).tz("Asia/Shanghai").format(format),
     getRarityClass: (rarity) => {
       const rarityClassMap = {
         5: "star-five",

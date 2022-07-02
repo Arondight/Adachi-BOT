@@ -1,5 +1,7 @@
-import { html, toReadableDate } from "../common/utils.js";
+import { html } from "../common/utils.js";
 import { characterShowbox } from "./abyssComponents.js";
+
+const moment = window.moment;
 
 const { defineComponent, unref } = window.Vue;
 
@@ -9,13 +11,13 @@ const chamberTemplate = html`
       <div class="chamber-indicator">{{floorIndex}}<span>-</span>{{chamberIndex}}</div>
       <div class="chamber-stars">{{chamberStarCount}}</div>
       <div class="chamber-time" v-if="chamberTimestamp != 0">
-        <p>{{formatDate(new Date(chamberTimestamp * 1000), "YY/mm/dd")}}</p>
+        <p>{{formatDate(new Date(chamberTimestamp * 1000), "YY/MM/DD")}}</p>
         <p>
-          <span>{{formatDate(new Date(chamberTimestamp * 1000), "HH")}}</span>
+          <span>{{formatDate(new Date(chamberTimestamp * 1000), "hh")}}</span>
           <span class="kerning">:</span>
-          <span>{{formatDate(new Date(chamberTimestamp * 1000), "MM")}}</span>
+          <span>{{formatDate(new Date(chamberTimestamp * 1000), "mm")}}</span>
           <span class="kerning">:</span>
-          <span>{{formatDate(new Date(chamberTimestamp * 1000), "SS")}}</span>
+          <span>{{formatDate(new Date(chamberTimestamp * 1000), "ss")}}</span>
         </p>
       </div>
     </div>
@@ -57,7 +59,7 @@ const chamber = defineComponent({
   },
   methods: {
     formatDate(date, format) {
-      return toReadableDate(date, format);
+      return moment(date).tz("Asia/Shanghai").format(format);
     },
   },
   setup(props) {

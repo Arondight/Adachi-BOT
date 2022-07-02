@@ -1,5 +1,7 @@
-import { getParams, html, toReadableDate } from "../common/utils.js";
+import { getParams, html } from "../common/utils.js";
 import { challengeTitle, characterShowbox } from "./abyssComponents.js";
+
+const moment = window.moment;
 
 const { defineComponent, defineAsyncComponent, unref } = window.Vue;
 const avatarTemplate = html`
@@ -124,21 +126,21 @@ export default defineComponent({
     sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),
   },
   setup() {
-    function formatDate(date, format) {
-      return toReadableDate(date, format);
-    }
-
     const params = getParams(window.location.href);
     const playerUid = params.uid;
 
-    let abyssBriefings = {};
-
-    abyssBriefings.startTime = formatDate(new Date(params.data.start_time * 1000), "YYYY/mm/dd");
-    abyssBriefings.endTime = formatDate(new Date(params.data.end_time * 1000), "YYYY/mm/dd");
-    abyssBriefings.totalBattleTimes = params.data.total_battle_times || 0;
-    abyssBriefings.maxFloor = params.data.max_floor || "8-3";
-    abyssBriefings.totalStar = params.data.total_star || 0;
-    abyssBriefings.revealRank = params.data.reveal_rank || [];
+    const abyssBriefings = {
+      startTime: moment(new Date(params.data.start_time * 1000))
+        .tz("Asia/Shanghai")
+        .format("YYYY/MM/DD"),
+      endTime: moment(new Date(params.data.end_time * 1000))
+        .tz("Asia/Shanghai")
+        .format("YYYY/MM/DD"),
+      totalBattleTimes: params.data.total_battle_times || 0,
+      maxFloor: params.data.max_floor || "8-3",
+      totalStar: params.data.total_star || 0,
+      revealRank: params.data.reveal_rank || [],
+    };
 
     const defeat_rank = params.data.defeat_rank || [];
     const damage_rank = params.data.damage_rank || [];
