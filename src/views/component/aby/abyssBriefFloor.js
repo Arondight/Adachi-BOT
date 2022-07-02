@@ -1,4 +1,4 @@
-import { html, toReadableDate } from "../common/utils.js";
+import { html } from "../common/utils.js";
 import { characterShowbox } from "./abyssComponents.js";
 
 const { defineComponent } = window.Vue;
