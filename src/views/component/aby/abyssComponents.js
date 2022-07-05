@@ -42,6 +42,7 @@ const characterShowbox = defineComponent({
     suffix: String,
     showType: String,
     htmlClass: String,
+    characterName: [String, undefined],
   },
   setup(props) {
     const propsValue = unref(props);
@@ -51,7 +52,17 @@ const characterShowbox = defineComponent({
     };
     const showType = propsValue.showType;
     const avatarIcon =
-      showType === "revealRank" ? encodeURI(propsValue.data.avatar_icon) : encodeURI(propsValue.data.icon);
+      showType === "revealRank"
+        ? encodeURI(
+            propsValue.characterName
+              ? `/resources/Version2/thumb/character/${propsValue.characterName}.png`
+              : propsValue.data.avatar_icon
+          )
+        : encodeURI(
+            propsValue.characterName
+              ? `/resources/Version2/thumb/character/${propsValue.characterName}.png`
+              : propsValue.data.icon
+          );
     const rarity = rarityClassMap[propsValue.data.rarity] || "star-four";
     const prefix = propsValue.prefix || "";
     const suffix = propsValue.suffix || "";

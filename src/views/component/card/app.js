@@ -58,7 +58,11 @@ const template = html`
           :subtitle="characters.length < stats.avatar_number ? '仅展示米游社人物展柜中的至多8个人物' : !1"
         />
         <div class="container-character-box main-content">
-          <CharacterBox v-for="character in characters" :data="character" />
+          <CharacterBox
+            v-for="character in characters"
+            :data="character"
+            :characterName="getCharacterName(character.id)"
+          />
         </div>
       </div>
       <!-- 数据 container 结束 -->
@@ -85,6 +89,7 @@ export default defineComponent({
     const targetHasCostume = params.avatars[randomAvatarOrder]["costumes"].length !== 0;
     const costumeName = targetHasCostume ? params.avatars[randomAvatarOrder]["costumes"][0]["name"] : "";
     const qqid = params.qqid || "";
+    const charactersMap = params.character;
 
     const ye = { 10000005: "空", 10000007: "荧" };
     const name = ye[target.id] || target.name;
@@ -181,6 +186,9 @@ export default defineComponent({
     const characters = params.avatars || [];
     const homeComfort = Math.max(...params.homes.map((home) => home.comfort_num || 0));
 
+    const getCharacterName = (characterID) =>
+      charactersMap.filter((character) => character.id === characterID)[0].name || "";
+
     return {
       playerUid: uid,
       playerNickname: nickname,
@@ -193,6 +201,8 @@ export default defineComponent({
       homeComfort: "number" === typeof homeComfort && -Infinity !== homeComfort ? homeComfort : "暂无数据",
       hasLevelInfo,
       hasPlayerNameInfo,
+      charactersMap,
+      getCharacterName,
     };
   },
 });

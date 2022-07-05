@@ -29,6 +29,7 @@ const chamberTemplate = html`
           :prefix="'Lv.'"
           :suffix="''"
           :data="character"
+          :characterName="getCharacterName(character.id)"
         />
       </div>
       <div class="second-half">
@@ -38,6 +39,7 @@ const chamberTemplate = html`
           :prefix="'Lv.'"
           :suffix="''"
           :data="character"
+          :characterName="getCharacterName(character.id)"
         />
       </div>
     </div>
@@ -53,6 +55,7 @@ const chamber = defineComponent({
     chamber: Object,
     floorIndex: Number,
     index: Number,
+    charactersMap: Array,
   },
   components: {
     characterShowbox,
@@ -69,6 +72,7 @@ const chamber = defineComponent({
     const chamberStars = chamber.star || 0;
     const chamberStarCount = "*".repeat(chamberStars);
     const chamberDetails = chamber.battles || [{}, {}];
+    const charactersMap = propsValue.charactersMap;
     let chamberTimestamp = 0;
 
     if (chamberDetails.length > 0) {
@@ -94,19 +98,28 @@ const chamber = defineComponent({
       }
     }
 
+    const getCharacterName = (id) => charactersMap.filter((character) => character.id === id)[0].name;
+
     return {
       chamberIndex,
       chamberStarCount,
       isValidChamberData,
       chamberDetails,
       chamberTimestamp,
+      getCharacterName,
     };
   },
 });
 
 const template = html`
   <div class="card container-vertical container-floor-info">
-    <chamber v-for="i in 3" :chamber="floorInfo.chambers[i-1] || {}" :floorIndex="floorInfo.floorIndex" :index="i" />
+    <chamber
+      v-for="i in 3"
+      :chamber="floorInfo.chambers[i-1] || {}"
+      :floorIndex="floorInfo.floorIndex"
+      :index="i"
+      :charactersMap="charactersMap"
+    />
   </div>
 `;
 
@@ -119,6 +132,7 @@ export default defineComponent({
   },
   props: {
     data: Object,
+    charactersMap: Array,
   },
   setup(props) {
     const propsValue = unref(props);

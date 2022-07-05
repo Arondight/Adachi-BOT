@@ -1,7 +1,7 @@
 import { html } from "../common/utils.js";
 import { characterShowbox } from "./abyssComponents.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 const lodash = window._;
 const moment = window.moment;
 
@@ -19,6 +19,7 @@ const unfulfilledTemplate = html`
         :prefix="'Lv.'"
         :suffix="''"
         :data="avatar"
+        :characterName="getCharacterName(avatar.id)"
       />
     </div>
   </div>
@@ -32,15 +33,21 @@ const unfulfilledChamberShowbox = defineComponent({
   },
   props: {
     data: Object,
+    charactersMap: Array,
   },
   setup(props) {
+    const propsValue = unref(props);
     const avatars = lodash.compact(lodash.flatten(lodash.map(props.data.battles, "avatars")));
     const stars = props.data.star || 1;
     const starText = "*".repeat(stars);
+    const charactersMap = propsValue.charactersMap;
+
+    const getCharacterName = (id) => charactersMap.filter((character) => character.id === id)[0].name;
 
     return {
       avatars,
       starText,
+      getCharacterName,
     };
   },
 });
@@ -76,14 +83,14 @@ const briefingTemplate = html` <div class="card container-vertical container-flo
   <div class="container-revealed-briefing">
     <img
       v-for="avatar in avatars"
-      :src="avatar.icon"
+      :src="getAvatarThumbUrl(avatar.id) ? encodeURI(getAvatarThumbUrl(avatar.id)) : avatar.icon"
       class="avatar-rounded-briefing"
       :class="getRarityClass(avatar.rarity)"
       alt="图片加载失败"
     />
   </div>
 
-  <unfulfilledChamberShowbox v-for="chamber in chambers" :data="chamber" />
+  <unfulfilledChamberShowbox v-for="chamber in chambers" :data="chamber" :charactersMap="charactersMap" />
 </div>`;
 
 export default defineComponent({
@@ -94,6 +101,7 @@ export default defineComponent({
   },
   props: {
     data: Object,
+    charactersMap: Array,
   },
   methods: {
     formatDate: (date, format) => moment(date).tz("Asia/Shanghai").format(format),
@@ -112,6 +120,8 @@ export default defineComponent({
     const chambers = [];
     const timestamps = [];
     let avatars = [];
+    const charactersMap = props.charactersMap || [];
+
     for (const chamber of floor.levels) {
       const { index, star, battles } = chamber;
       for (const battle of battles) {
@@ -124,6 +134,11 @@ export default defineComponent({
       }
     }
 
+    const getAvatarName = (id) => charactersMap.filter((character) => character.id === id)[0].name;
+
+    const getAvatarThumbUrl = (id) =>
+      getAvatarName(id) ? `/resources/Version2/thumb/character/${getAvatarName(id)}.png` : undefined;
+
     return {
       floor,
       floorIndex,
@@ -132,6 +147,7 @@ export default defineComponent({
       startTime: timestamps[0],
       endTime: timestamps[timestamps.length - 1],
       avatars: lodash.uniqBy(avatars, "id"),
+      getAvatarThumbUrl,
     };
   },
 });

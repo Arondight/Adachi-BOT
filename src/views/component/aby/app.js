@@ -8,7 +8,7 @@ const avatarTemplate = html`
   <div v-if="isValidData" class="container-character-rounded" :class="className">
     <p class="sub-title">{{title}}</p>
     <img
-      :src="sideImageToFront(value[0]['avatar_icon'])"
+      :src="getCharacterThumbImage(characterName) ? getCharacterThumbImage(characterName) : (sideImageToFront(value[0]['avatar_icon']))"
       class="avatar-rounded"
       :class="getRarityClass(value[0]['rarity'])"
       alt="图片加载失败"
@@ -21,9 +21,11 @@ const avatarBox = defineComponent({
   template: avatarTemplate,
   props: {
     data: Object,
+    characterName: [String, undefined],
   },
   methods: {
     sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),
+    getCharacterThumbImage: (characterName) => `/resources/Version2/thumb/character/${characterName}.png`,
     getRarityClass(rarity) {
       const rarityClassMap = {
         5: "star-five",
@@ -53,7 +55,7 @@ const avatarBox = defineComponent({
 });
 const template = html` <div class="container-abyss">
   <div class="card container-namecard">
-    <img v-cloak class="user-avatar" :src="sideImageToFront(userAvatar)" alt="Error" />
+    <img v-cloak class="user-avatar" :src="userAvatarUrl" alt="Error" />
     <p class="uid-title"><span class="uid">{{playerUid}}</span>的深渊战绩</p>
     <p class="time">{{abyssBriefings.startTime}} - {{abyssBriefings.endTime}}</p>
   </div>
@@ -79,6 +81,7 @@ const template = html` <div class="container-abyss">
           :prefix="''"
           :suffix="'次'"
           :showType="'revealRank'"
+          :characterName="getCharacterName(character.avatar_id)"
         />
       </div>
       <div v-else class="container-vertical">
@@ -88,7 +91,11 @@ const template = html` <div class="container-abyss">
     <div class="container-vertical battle-rank">
       <div class="banner-title"><p>战斗数据榜</p></div>
       <div v-if="hasRankingData" class="container-overview">
-        <avatarBox v-for="data in characterRankings" :data="data" />
+        <avatarBox
+          v-for="data in characterRankings"
+          :data="data"
+          :characterName="getCharacterName(data.value[0].avatar_id)"
+        />
       </div>
       <div v-else class="container-vertical">
         <div class="missing-data-placeholder">暂无数据</div>
@@ -100,10 +107,10 @@ const template = html` <div class="container-abyss">
   <div v-if="isFullDataset" class="container-vertical container-abyss-floors">
     <!-- 最后一层的完整数据 -->
     <challengeTitle :title="'最近战斗'" />
-    <abyssFloor :data="abyssLastFloor" />
+    <abyssFloor :data="abyssLastFloor" :charactersMap="charactersMap" />
     <!-- 其他层的 briefing -->
     <challengeTitle :title="'其他战斗'" />
-    <abyssBriefFloor v-for="floor in abyssFloors" :data="floor" />
+    <abyssBriefFloor v-for="floor in abyssFloors" :data="floor" :charactersMap="charactersMap" />
   </div>
 
   <p v-if="isFullDataset" class="credit full-dataset">Created by Adachi-BOT</p>
@@ -122,12 +129,10 @@ export default defineComponent({
     abyssFloor,
     abyssBriefFloor,
   },
-  methods: {
-    sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),
-  },
   setup() {
     const params = getParams(window.location.href);
     const playerUid = params.uid;
+    const charactersMap = params.character;
 
     const abyssBriefings = {
       startTime: moment(new Date(params.data.start_time * 1000))
@@ -169,7 +174,7 @@ export default defineComponent({
       if (key.endsWith("_rank")) {
         value.forEach((v) => {
           if ("string" === typeof v.avatar_icon && !shown_avatars.includes(v.avatar_icon)) {
-            shown_avatars.push(v.avatar_icon);
+            shown_avatars.push({ url: v.avatar_icon, avatarID: v.avatar_id });
           }
         });
       }
@@ -177,13 +182,20 @@ export default defineComponent({
     const randomAvatar = Math.floor(Math.random() * shown_avatars.length);
     const userAvatar =
       shown_avatars.length !== 0
-        ? encodeURI(shown_avatars[randomAvatar])
+        ? shown_avatars[randomAvatar]
         : encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
 
     const abyssFloors = params.data.floors.sort((a, b) => b.index - a.index).slice(0, 4);
     const abyssLastFloor = abyssFloors.shift();
     const isFullDataset =
       abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
+
+    const sideImageToFront = (imageURL) => encodeURI(imageURL.replace(/_side/gi, ""));
+    const getCharacterName = (characterID) => charactersMap.filter((c) => c.id === characterID)[0].name;
+
+    const userAvatarUrl = getCharacterName(userAvatar.avatarID)
+      ? `/resources/Version2/thumb/character/${getCharacterName(userAvatar.avatarID)}.png`
+      : sideImageToFront(userAvatar.url);
 
     return {
       playerUid,
@@ -194,6 +206,9 @@ export default defineComponent({
       isFullDataset,
       abyssFloors,
       abyssLastFloor,
+      charactersMap,
+      getCharacterName,
+      userAvatarUrl,
     };
   },
 });
