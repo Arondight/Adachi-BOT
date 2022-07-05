@@ -10,12 +10,12 @@ async function Plugin(msg) {
 
   switch (true) {
     case hasEntrance(msg.text, "character", "character"):
-      if (guess.length > 0 && false !== checkAuth(msg, "character")) {
+      if (guess.length > 0 && checkAuth(msg, "character")) {
         doCharacter(msg, 1 === guess.length ? guess[0] : name, true, guess);
       }
       break;
     case hasEntrance(msg.text, "character", "others_character"):
-      if (guess.length > 0 && false !== checkAuth(msg, "others_character")) {
+      if (guess.length > 0 && checkAuth(msg, "others_character")) {
         doCharacter(msg, 1 === guess.length ? guess[0] : name, false, guess);
       }
       break;

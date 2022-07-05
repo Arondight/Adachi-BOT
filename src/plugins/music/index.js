@@ -5,12 +5,12 @@ import { hasEntrance } from "#utils/config";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "music", "music"):
-      if (false !== checkAuth(msg, "music")) {
+      if (checkAuth(msg, "music")) {
         doMusic(msg);
       }
       break;
     case hasEntrance(msg.text, "music", "music_source"):
-      if (false !== checkAuth(msg, "music_source")) {
+      if (checkAuth(msg, "music_source")) {
         doMusicSource(msg);
       }
       break;

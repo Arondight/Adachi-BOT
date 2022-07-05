@@ -119,6 +119,91 @@
  *
  *
  * ==========================================================================
+ * global.authority
+ * --------------------------------------------------------------------------
+ * {
+ *   setting: {
+ *     artifact_auth: [ 'artifacts', 'strengthen', 'dungeons' ],
+ *     character_overview_auth: [ 'info', 'material', 'weapon', 'talent', 'weekly' ],
+ *     feedback_auth: [ 'feedback' ],
+ *     fun_auth: [ 'menu', 'prophecy', 'roll' ],
+ *     gacha_auth: [ 'gacha', 'pool', 'select', 'select-nothing', 'select-what' ],
+ *     music_auth: [ 'music', 'music_source' ],
+ *     mys_news_auth: [ '米游社新闻推送' ],
+ *     query_gameinfo_auth: [
+ *       'save',
+ *       'change',
+ *       'aby',
+ *       'lastaby',
+ *       'card',
+ *       'package',
+ *       'character',
+ *       'others_character'
+ *     ],
+ *     rating_auth: [ 'rating' ],
+ *     reply_auth: [ '响应消息' ]
+ *   },
+ *   default: {
+ *     artifact_auth: true,
+ *     character_overview_auth: true,
+ *     feedback_auth: true,
+ *     fun_auth: true,
+ *     gacha_auth: true,
+ *     music_auth: true,
+ *     rating_auth: true,
+ *     mys_news_auth: true,
+ *     reply_auth: true
+ *   },
+ *   function: {
+ *     artifacts: 'artifact_auth',
+ *     strengthen: 'artifact_auth',
+ *     dungeons: 'artifact_auth',
+ *     info: 'character_overview_auth',
+ *     material: 'character_overview_auth',
+ *     weapon: 'character_overview_auth',
+ *     talent: 'character_overview_auth',
+ *     weekly: 'character_overview_auth',
+ *     feedback: 'feedback_auth',
+ *     menu: 'fun_auth',
+ *     prophecy: 'fun_auth',
+ *     roll: 'fun_auth',
+ *     gacha: 'gacha_auth',
+ *     pool: 'gacha_auth',
+ *     select: 'gacha_auth',
+ *     'select-nothing': 'gacha_auth',
+ *     'select-what': 'gacha_auth',
+ *     music: 'music_auth',
+ *     music_source: 'music_auth',
+ *     '米游社新闻推送': 'mys_news_auth',
+ *     save: 'query_gameinfo_auth',
+ *     change: 'query_gameinfo_auth',
+ *     aby: 'query_gameinfo_auth',
+ *     lastaby: 'query_gameinfo_auth',
+ *     card: 'query_gameinfo_auth',
+ *     package: 'query_gameinfo_auth',
+ *     character: 'query_gameinfo_auth',
+ *     others_character: 'query_gameinfo_auth',
+ *     rating: 'rating_auth',
+ *     '响应消息': 'reply_auth'
+ *   }
+ * }
+ * --------------------------------------------------------------------------
+ * ../../config/authority.yml
+ * --------------------------------------------------------------------------
+ * default:
+ *   artifact_auth: on
+ *   character_overview_auth: on
+ *   feedback_auth: on
+ *   fun_auth: on
+ *   gacha_auth: on
+ *   music_auth: on
+ *   rating_auth: on
+ *   mys_news_auth: on
+ *   reply_auth: on
+ * ==========================================================================
+ *
+ *
+ * ==========================================================================
  * global.config
  * --------------------------------------------------------------------------
  * {
@@ -404,15 +489,30 @@ global.oicqdir = global.datadir;
 global.configdir = path.resolve(global.rootdir, "config");
 global.configdefdir = path.resolve(global.rootdir, "config_defaults");
 
+global.innerAuthName = { reply: "响应消息", mysNews: "米游社新闻推送" };
+
 global.all = {};
 global.artifacts = {};
+global.authority = {
+  setting: {
+    artifact_auth: ["artifacts", "strengthen", "dungeons"],
+    character_overview_auth: ["info", "material", "weapon", "talent", "weekly"],
+    feedback_auth: ["feedback"],
+    fun_auth: ["menu", "prophecy", "roll"],
+    gacha_auth: ["gacha", "pool", "select", "select-nothing", "select-what"],
+    music_auth: ["music", "music_source"],
+    mys_news_auth: [global.innerAuthName.mysNews],
+    query_gameinfo_auth: ["save", "change", "aby", "lastaby", "card", "package", "character", "others_character"],
+    rating_auth: ["rating"],
+    reply_auth: [global.innerAuthName.reply],
+  },
+};
 global.command = {};
 global.config = { mysNewsTypeAll: ["announcement", "event", "information"] };
 global.cookies = [];
 global.eggs = {};
 global.greeting = {};
 global.info = {};
-global.innerAuthName = { reply: "响应消息", mysNews: "米游社新闻推送" };
 global.master = {};
 global.menu = {};
 global.names = {};
@@ -420,6 +520,7 @@ global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "packag
 global.prophecy = {};
 
 const mArtifacts = loadYML("artifacts");
+const mAuthority = loadYML("authority");
 const mCommand = loadYML("command");
 const mCookies = loadYML("cookies");
 const mEggs = loadYML("pool_eggs");
@@ -653,6 +754,50 @@ function makeUsage(obj) {
   obj.usage = text;
 }
 
+// global.authority.default     ->  authority: isOn (boolean)
+// global.authority.setting     ->  authority: array of function (string)
+// global.authority.function    ->  function: authority (string)
+function readAuthority() {
+  // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
+  const defaultConfig = {
+    // 圣遗物权限
+    artifact_auth: "off",
+    // 游戏数据权限
+    character_overview_auth: "off",
+    // 带话权限
+    feedback_auth: "off",
+    // 娱乐功能权限
+    fun_auth: "off",
+    // 抽卡权限
+    gacha_auth: "off",
+    // 点歌权限
+    music_auth: "off",
+    // 评分权限
+    rating_auth: "off",
+    // 米游社新闻推送
+    mys_news_auth: "off",
+    // 消息响应
+    reply_auth: "on",
+  };
+  const defaultAuth = Object.assign({}, defaultConfig, mAuthority.default || {});
+
+  // 转换为 boolean
+  Object.keys(defaultAuth).forEach((k) => {
+    if (!["on", "off"].includes(defaultAuth[k])) {
+      defaultAuth[k] = defaultConfig[k] || "off";
+    }
+
+    defaultAuth[k] = "on" === defaultAuth[k];
+  });
+
+  global.authority.default = defaultAuth;
+  global.authority.function = {};
+
+  Object.keys(global.authority.setting).forEach((k) =>
+    global.authority.setting[k].forEach((f) => (global.authority.function[f] = k))
+  );
+}
+
 // global.config
 function readSetting() {
   // 此为配置文件中没有对应字段或者用户配置了无效的值时，对应字段的默认值
@@ -810,6 +955,7 @@ function readSetting() {
   );
 }
 
+// global.cookies:              ->  array of cookie (string)
 function readCookies() {
   if (lodash.hasIn(mCookies, "cookies")) {
     switch (true) {
@@ -854,12 +1000,12 @@ function readProphecy() {
   global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
 }
 
-// global.names.character       ->  names (lowercase): character (string, lowercase)
-// global.names.weapon          ->  names (lowercase): weapon (string, lowercase)
-// global.names.all             ->  names (lowercase): name (string, lowercase)
-// global.names.characterNames  ->  { name: simhash } (name lowercase)
-// global.names.weaponNames     ->  { name: simhash } (name lowercase)
-// global.names.allNames        ->  { name: simhash } (name lowercase)
+// global.names.character       ->  array of character (string, lowercase)
+// global.names.weapon          ->  array of weapon (string, lowercase)
+// global.names.all             ->  array of name (string, lowercase)
+// global.names.characterAlias  ->  name (lowercase): alias (string, lowercase)
+// global.names.weaponAlias     ->  name (lowercase): alias (string, lowercase)
+// global.names.allAlias        ->  name (lowercase): alias (string, lowercase)
 function readNames() {
   function getSection(s) {
     return lodash.reduce(
@@ -1109,6 +1255,7 @@ function getUsage() {
 
 function readConfig() {
   // 不要改变调用顺序
+  readAuthority();
   readSetting();
   readCookies();
   readGreeting();

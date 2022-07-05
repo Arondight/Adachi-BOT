@@ -5,7 +5,7 @@ import { hasEntrance } from "#utils/config";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "card", "card"):
-      if (false !== checkAuth(msg, "card")) {
+      if (checkAuth(msg, "card")) {
         doCard(msg);
       }
       break;

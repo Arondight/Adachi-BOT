@@ -21,17 +21,17 @@ async function Plugin(msg) {
 
   switch (true) {
     case hasEntrance(msg.text, "artifacts", "artifacts"):
-      if ((undefined === text || guess.length > 0) && false !== checkAuth(msg, "artifacts")) {
+      if ((undefined === text || guess.length > 0) && checkAuth(msg, "artifacts")) {
         doArtifacts(msg, 1 === guess.length ? guess[0] : text);
       }
       break;
     case hasEntrance(msg.text, "artifacts", "strengthen"):
-      if (false !== checkAuth(msg, "strengthen")) {
+      if (checkAuth(msg, "strengthen")) {
         doStrengthen(msg);
       }
       break;
     case hasEntrance(msg.text, "artifacts", "dungeons"):
-      if (false !== checkAuth(msg, "dungeons")) {
+      if (checkAuth(msg, "dungeons")) {
         msg.bot.say(msg.sid, domainInfo(), msg.type, msg.uid, false, "\n");
       }
       break;

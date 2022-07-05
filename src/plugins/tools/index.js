@@ -8,22 +8,22 @@ import { hasEntrance } from "#utils/config";
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "tools", "menu"):
-      if (false !== checkAuth(msg, "menu")) {
+      if (checkAuth(msg, "menu")) {
         menu(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "prophecy"):
-      if (false !== checkAuth(msg, "prophecy")) {
+      if (checkAuth(msg, "prophecy")) {
         prophecy(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "roll"):
-      if (false !== checkAuth(msg, "roll")) {
+      if (checkAuth(msg, "roll")) {
         roll(msg);
       }
       break;
     case hasEntrance(msg.text, "tools", "feedback"):
-      if (false !== checkAuth(msg, "feedback")) {
+      if (checkAuth(msg, "feedback")) {
         feedback(msg);
       }
       break;

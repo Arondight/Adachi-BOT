@@ -10,7 +10,7 @@ async function Plugin(msg) {
         "number of attributes": doRating2,
       };
 
-      if (false !== checkAuth(msg, "rating")) {
+      if (checkAuth(msg, "rating")) {
         handler["number of attributes"](msg);
       }
       break;

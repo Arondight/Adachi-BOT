@@ -47,25 +47,27 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
 }
 
 // 返回值：
-//    true:      有权限
-//    false:     没权限
-//    undefined: 没设置权限
+//    true:   有权限
+//    false:  没权限
 function checkAuth(msg, func, report = true) {
-  const uauth = hasAuth(msg.uid, func);
-  const gauth = hasAuth(msg.sid, func);
+  function getAuth() {
+    const uauth = hasAuth(msg.uid, func);
+    const gauth = hasAuth(msg.sid, func);
 
-  if (undefined === uauth && undefined === gauth) {
-    return undefined;
-  }
-
-  if (false === uauth || false === gauth) {
-    if (true === report && undefined !== msg.bot) {
-      msg.bot.say(msg.sid, `您当前无【${global.command.functions.name[func]}】权限。`, msg.type, msg.uid, true);
+    if (undefined === uauth && undefined === gauth) {
+      return true === global.authority.default[global.authority.function[func]];
     }
-    return false;
+
+    return false !== uauth && false !== gauth;
   }
 
-  return true;
+  const res = getAuth();
+
+  if (false === res && true === report && undefined !== msg.bot) {
+    msg.bot.say(msg.sid, `您当前无【${global.command.functions.name[func]}】权限。`, msg.type, msg.uid, true);
+  }
+
+  return res;
 }
 
 export { checkAuth, setAuth };

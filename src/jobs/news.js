@@ -112,10 +112,8 @@ async function mysNewsNotice(withImg = true) {
     const message = n.filter((c) => "string" === typeof c && "" !== c).join("\n");
 
     for (const bot of global.bots) {
-      const ms = bot.boardcast(
-        message,
-        "group",
-        (c) => false !== checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)
+      const ms = bot.boardcast(message, "group", (c) =>
+        checkAuth({ sid: c.group_id }, global.innerAuthName.mysNews, false)
       );
       await new Promise((resolve) => setTimeout(resolve, ms));
     }

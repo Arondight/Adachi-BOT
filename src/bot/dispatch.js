@@ -127,10 +127,7 @@ function doNoticeGroupIncrease(msg, bot) {
     bot.say(msg.group_id, global.greeting.hello, "group");
   } else {
     // 如果有新群友，尝试向新群友问好
-    if (
-      global.config.groupGreetingNew &&
-      false !== checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)
-    ) {
+    if (global.config.groupGreetingNew && checkAuth({ uid: msg.group_id }, global.innerAuthName.reply, false)) {
       bot.say(msg.group_id, global.greeting.new, "group", msg.user_id);
     }
   }
@@ -150,10 +147,9 @@ function doSystemOnline(bot) {
   // 尝试通知群
   if (1 === global.config.groupHello) {
     bot.gl.forEach((group) => {
-      const greeting =
-        false !== checkAuth({ sid: group.group_id }, global.innerAuthName.reply, false)
-          ? global.greeting.online
-          : global.greeting.die;
+      const greeting = checkAuth({ sid: group.group_id }, global.innerAuthName.reply, false)
+        ? global.greeting.online
+        : global.greeting.die;
 
       if ("string" === typeof greeting) {
         // 群通知不需要 @

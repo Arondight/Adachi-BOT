@@ -1,47 +1,38 @@
 import { gachaUpdate } from "#jobs/gacha";
-import { parse } from "#plugins/master/parse";
 import { setAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 
 async function Plugin(msg) {
-  switch (true) {
-    case hasEntrance(msg.text, "master", "feedback_auth"):
-      setAuth(msg, ["feedback"], ...parse(msg.text, "feedback_auth"));
+  function parse(text, func) {
+    const id = parseInt(text.match(/[0-9]+/g)[0]);
+    const isOn = text.includes(global.all.functions.options[func].on);
+
+    return [id, isOn];
+  }
+
+  const all = [
+    "artifact_auth",
+    "character_overview_auth",
+    "feedback_auth",
+    "fun_auth",
+    "gacha_auth",
+    "music_auth",
+    "mys_news_auth",
+    "query_gameinfo_auth",
+    "rating_auth",
+    "reply_auth",
+  ];
+
+  if (hasEntrance(msg.text, "master", "refresh_wish_detail")) {
+    msg.bot.say(msg.sid, `卡池内容${gachaUpdate() ? "已刷新" : "刷新失败"}。`, msg.type, msg.uid, true);
+    return;
+  }
+
+  for (const auth of all) {
+    if (hasEntrance(msg.text, "master", auth)) {
+      setAuth(msg, global.authority.setting[auth] || [], ...parse(msg.text, auth));
       break;
-    case hasEntrance(msg.text, "master", "music_auth"):
-      setAuth(msg, ["music", "music_source"], ...parse(msg.text, "music_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "gacha_auth"):
-      setAuth(msg, ["gacha", "pool", "select", "select-nothing", "select-what"], ...parse(msg.text, "gacha_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "artifact_auth"):
-      setAuth(msg, ["artifacts", "strengthen", "dungeons"], ...parse(msg.text, "artifact_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "rating_auth"):
-      setAuth(msg, ["rating"], ...parse(msg.text, "rating_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "query_gameinfo_auth"):
-      setAuth(
-        msg,
-        ["save", "change", "aby", "lastaby", "card", "package", "character", "others_character"],
-        ...parse(msg.text, "query_gameinfo_auth")
-      );
-      break;
-    case hasEntrance(msg.text, "master", "character_overview_auth"):
-      setAuth(msg, ["info", "material", "weapon", "talent", "weekly"], ...parse(msg.text, "character_overview_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "fun_auth"):
-      setAuth(msg, ["menu", "prophecy", "roll"], ...parse(msg.text, "fun_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "reply_auth"):
-      setAuth(msg, global.innerAuthName.reply, ...parse(msg.text, "reply_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "mys_news_auth"):
-      setAuth(msg, global.innerAuthName.mysNews, ...parse(msg.text, "mys_news_auth"));
-      break;
-    case hasEntrance(msg.text, "master", "refresh_wish_detail"):
-      msg.bot.say(msg.sid, `卡池内容${gachaUpdate() ? "已刷新" : "刷新失败"}。`, msg.type, msg.uid, true);
-      break;
+    }
   }
 }
 
