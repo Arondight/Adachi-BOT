@@ -147,7 +147,9 @@ function remove(dbName, key, ...data) {
 
   if (!obj) {
     return false;
-  } else if (Array.isArray(obj)) {
+  }
+
+  if (Array.isArray(obj)) {
     value = lodash.reject(obj, predicate);
   } else {
     value = obj;
@@ -205,16 +207,10 @@ function get(dbName, key, ...data) {
     return obj;
   }
 
-  if (!obj) {
-    result = undefined;
-  } else if (!Array.isArray(obj)) {
-    if (lodash.isEqual(obj, Object.assign({}, obj, predicate))) {
-      result = obj;
-    } else {
-      result = undefined;
-    }
-  } else {
+  if (Array.isArray(obj)) {
     result = merge(...lodash.chain(obj).filter(predicate).reverse().value());
+  } else if (lodash.isEqual(obj, Object.assign({}, obj, predicate))) {
+    result = lodash.cloneDeep(obj);
   }
 
   return lodash.isEmpty(result) ? undefined : result;

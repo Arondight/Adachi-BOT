@@ -30,12 +30,20 @@ async function doCard(msg) {
     }
   }
 
-  const data = db.get("info", "user", { uid });
-  const qqid = "" === args ? msg.uid : msg.text.includes("[CQ:at") ? parseInt(msg.text.match(/\d+/g)[0]) : undefined;
+  let qqid;
 
-  if (undefined !== qqid) {
-    data.qqid = qqid;
+  if (msg.text.includes("[CQ:at")) {
+    qqid = parseInt(msg.text.match(/\d+/g)[0]);
   }
+
+  if ("" === args) {
+    qqid = msg.uid;
+  }
+
+  const data = Object.assign(db.get("info", "user", { uid }), {
+    character: global.info.character.map((c) => ({ id: c.id, name: c.name })),
+    qqid,
+  });
 
   render(msg, data, "genshin-card");
 }
