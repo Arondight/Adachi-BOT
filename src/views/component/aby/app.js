@@ -183,7 +183,7 @@ export default defineComponent({
     const userAvatar =
       shown_avatars.length !== 0
         ? shown_avatars[randomAvatar]
-        : encodeURI("http://localhost:9934/resources/paimon/paimon_logo.jpg");
+        : {url: "http://localhost:9934/resources/paimon/paimon_logo.jpg", avatarID: undefined};
 
     const abyssFloors = params.data.floors.sort((a, b) => b.index - a.index).slice(0, 4);
     const abyssLastFloor = abyssFloors.shift();
@@ -191,10 +191,10 @@ export default defineComponent({
       abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
 
     const sideImageToFront = (imageURL) => encodeURI(imageURL.replace(/_side/gi, ""));
-    const getCharacterName = (characterID) => charactersMap.filter((c) => c.id === characterID)[0].name;
+    const getCharacterName = (characterID) => (charactersMap.filter((c) => c.id === characterID)[0] || {}).name || undefined;
 
     const userAvatarUrl = getCharacterName(userAvatar.avatarID)
-      ? `/resources/Version2/thumb/character/${getCharacterName(userAvatar.avatarID)}.png`
+      ? encodeURI(`/resources/Version2/thumb/character/${getCharacterName(userAvatar.avatarID)}.png`)
       : sideImageToFront(userAvatar.url);
 
     return {

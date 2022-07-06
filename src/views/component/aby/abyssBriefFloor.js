@@ -134,7 +134,7 @@ export default defineComponent({
       }
     }
 
-    const getAvatarName = (id) => charactersMap.filter((character) => character.id === id)[0].name;
+    const getAvatarName = (id) => (charactersMap.filter((character) => character.id === id)[0] || {}).name || undefined;
 
     const getAvatarThumbUrl = (id) =>
       getAvatarName(id) ? `/resources/Version2/thumb/character/${getAvatarName(id)}.png` : undefined;

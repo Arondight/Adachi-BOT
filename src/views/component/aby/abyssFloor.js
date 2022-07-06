@@ -98,7 +98,8 @@ const chamber = defineComponent({
       }
     }
 
-    const getCharacterName = (id) => charactersMap.filter((character) => character.id === id)[0].name;
+    const getCharacterName = (id) =>
+      (charactersMap.filter((character) => character.id === id)[0] || {}).name || undefined;
 
     return {
       chamberIndex,
