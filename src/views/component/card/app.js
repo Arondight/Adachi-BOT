@@ -6,7 +6,7 @@ const lodash = window._;
 
 const template = html`
   <div class="card-container">
-    <img class="avatar" :src="namecardAvatar" v-costume="namecardAvatarBackupImg" />
+    <img class="avatar" :src="namecardAvatarBackupImg" v-costume="namecardAvatar" />
     <div class="namecard-container" :style="{'background': nameCard}">
       <div class="player-info-container">
         <p v-if="hasPlayerNameInfo" class="player-name">{{ playerNickname }}</p>
