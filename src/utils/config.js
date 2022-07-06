@@ -502,7 +502,7 @@ global.authority = {
     gacha_auth: ["gacha", "pool", "select", "select-nothing", "select-what"],
     music_auth: ["music", "music_source"],
     mys_news_auth: [global.innerAuthName.mysNews],
-    query_gameinfo_auth: ["save", "change", "aby", "lastaby", "card", "package", "character", "others_character"],
+    query_gameinfo_auth: ["save", "aby", "lastaby", "card", "package", "character", "others_character"],
     rating_auth: ["rating"],
     reply_auth: [global.innerAuthName.reply],
   },
