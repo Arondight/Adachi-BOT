@@ -32,12 +32,12 @@ const charBoxTemplate = html` <div class="character-box">
       {{ data.constellationNum }}
     </div>
   </div>
-  <!-- TODO: 使用 onerror 自动重定向未及时抓取的服装 -->
   <img
     v-if="hasCostume"
     class="main"
-    :src="costumePath"
+    :src="characterThumbUrl"
     :style="{ 'background-image': 'url(' + starBackground + ')' }"
+    v-costume="costumePath"
     alt="ERROR"
   />
   <img

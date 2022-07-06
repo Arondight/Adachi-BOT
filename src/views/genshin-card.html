@@ -25,7 +25,31 @@
     <script type="module">
       import App from "./component/card/app.js";
 
-      Vue.createApp(App).mount("#app");
+      const isImageExists = function (urlString) {
+        return new Promise((resolve) => {
+          let img = new Image();
+          img.onload = function () {
+            if (this.complete === true) {
+              resolve(true);
+              img = null;
+            }
+          };
+          img.onerror= function () {
+            resolve(false);
+            img = null;
+          };
+          img.src = urlString;
+        });
+      };
+
+      Vue.createApp(App)
+        .directive("costume", async function (el, binding) {
+          let isExist = await isImageExists(binding.value);
+          if (isExist) {
+            el.src = binding.value;
+          }
+        })
+        .mount("#app");
     </script>
   </body>
 </html>

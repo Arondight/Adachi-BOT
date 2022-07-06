@@ -6,7 +6,7 @@ const lodash = window._;
 
 const template = html`
   <div class="card-container">
-    <img class="avatar" :src="namecardAvatar" />
+    <img class="avatar" :src="namecardAvatar" v-costume="namecardAvatarBackupImg" />
     <div class="namecard-container" :style="{'background': nameCard}">
       <div class="player-info-container">
         <p v-if="hasPlayerNameInfo" class="player-name">{{ playerNickname }}</p>
@@ -102,6 +102,7 @@ export default defineComponent({
       : encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
 
     const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=5&nk=${qqid}` : character;
+    const namecardAvatarBackupImg = encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
 
     const filterOfferingName = (string) => string.replace(/等级$/, "");
 
@@ -195,6 +196,7 @@ export default defineComponent({
       playerLevel: level,
       nameCard,
       namecardAvatar,
+      namecardAvatarBackupImg,
       characters,
       explorations,
       stats: params.stats,
