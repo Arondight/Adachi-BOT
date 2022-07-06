@@ -187,7 +187,7 @@ export default defineComponent({
     const homeComfort = Math.max(...params.homes.map((home) => home.comfort_num || 0));
 
     const getCharacterName = (characterID) =>
-      (charactersMap.filter((character) => character.id === characterID)[0] || {}).name || undefined;
+      (charactersMap.filter((character) => character.id === characterID)[0] || {}).name;
 
     return {
       playerUid: uid,

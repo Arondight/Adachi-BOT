@@ -134,10 +134,10 @@ export default defineComponent({
       }
     }
 
-    const getAvatarName = (id) => (charactersMap.filter((character) => character.id === id)[0] || {}).name || undefined;
+    const getAvatarName = (id) => (charactersMap.filter((character) => character.id === id)[0] || {}).name;
 
     const getAvatarThumbUrl = (id) =>
-      getAvatarName(id) ? `/resources/Version2/thumb/character/${getAvatarName(id)}.png` : undefined;
+      getAvatarName(id) ? encodeURI(`/resources/Version2/thumb/character/${getAvatarName(id)}.png`) : undefined;
 
     return {
       floor,
