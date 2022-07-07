@@ -123,21 +123,30 @@ export default defineComponent({
     const charactersMap = props.charactersMap || [];
 
     for (const chamber of floor.levels) {
-      const { index, star, battles } = chamber;
+      const { index, star, battles } = chamber || {};
+
       for (const battle of battles) {
-        const { timestamp, avatars: chamberAvatars } = battle;
+        const { timestamp, avatars: chamberAvatars } = battle || {};
         timestamps.push(timestamp);
         avatars = avatars.concat(chamberAvatars);
       }
+
       if (3 !== star) {
         chambers.push({ index, star, battles });
       }
     }
 
-    const getAvatarName = (id) => (charactersMap.filter((character) => character.id === id)[0] || {}).name;
+    function getAvatarThumbUrl(id) {
+      function getAvatarName(id) {
+        return (charactersMap.filter((character) => character.id === id)[0] || {}).name;
+      }
 
-    const getAvatarThumbUrl = (id) =>
-      getAvatarName(id) ? encodeURI(`/resources/Version2/thumb/character/${getAvatarName(id)}.png`) : undefined;
+      const name = getAvatarName(id);
+
+      if (name) {
+        return `/resources/Version2/thumb/character/${name}.png`;
+      }
+    }
 
     return {
       floor,

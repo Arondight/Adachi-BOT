@@ -86,6 +86,7 @@ const chamber = defineComponent({
 
     if (chamberDetails.length === 2) {
       let validCount = 0;
+
       for (const details of chamberDetails) {
         for (const property of chamberProperties) {
           if (property in details) {
@@ -93,12 +94,15 @@ const chamber = defineComponent({
           }
         }
       }
+
       if (validCount === 6) {
         isValidChamberData = true;
       }
     }
 
-    const getCharacterName = (id) => (charactersMap.filter((character) => character.id === id)[0] || {}).name;
+    function getCharacterName(id) {
+      return (charactersMap.filter((character) => character.id === id)[0] || {}).name;
+    }
 
     return {
       chamberIndex,
