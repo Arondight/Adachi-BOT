@@ -137,11 +137,7 @@ export default defineComponent({
     }
 
     function getAvatarThumbUrl(id) {
-      function getAvatarName(id) {
-        return (charactersMap.filter((character) => character.id === id)[0] || {}).name;
-      }
-
-      const name = getAvatarName(id);
+      const { name } = charactersMap.filter((character) => character.id === id)[0] || {};
 
       if (name) {
         return `/resources/Version2/thumb/character/${name}.png`;
