@@ -1,16 +1,19 @@
 /* ========================================================================== *
  * 因为 oicq 维护的兼容 API 有问题，所以在此重新实现。另外添加了一些自己的封装。
+ * 对齐 oicq 至 v2.3 。
  * ========================================================================== */
 import lodash from "lodash";
 import querystring from "querystring";
 import { genDmMessageId } from "oicq/lib/message/message.js";
 import { matchBracket } from "#utils/tools";
 
+// lib/message/message.ts: escapeCQInside
 const mCQ = {
   "&#91;": "[",
   "&#93;": "]",
   "&amp;": "&",
 };
+// lib/message/message.ts: escapeCQInside
 const mCQInside = {
   "&": "&amp;",
   ",": "&#44;",
@@ -18,6 +21,7 @@ const mCQInside = {
   "]": "&#93;",
 };
 
+// lib/message/elements.ts: qs
 function qs(text, sep = ",", equal = "=") {
   const ret = {};
 
@@ -46,6 +50,7 @@ function qs(text, sep = ",", equal = "=") {
   return ret;
 }
 
+// lib/message/message.ts: toCqcode
 // BREAKING 参数已改变
 function toCqcode(msg = {}) {
   const isQuote = lodash.hasIn(msg, "source.message");
@@ -76,6 +81,7 @@ function toCqcode(msg = {}) {
   return cqcode;
 }
 
+// lib/message/elements.ts: fromCqcode
 function fromCqcode(text = "") {
   const elems = [];
   const items = [];
