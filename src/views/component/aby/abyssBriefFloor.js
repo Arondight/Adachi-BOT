@@ -86,7 +86,7 @@ const briefingTemplate = html` <div class="card container-vertical container-flo
       :src="getAvatarThumbUrl(avatar.id) ? encodeURI(getAvatarThumbUrl(avatar.id)) : avatar.icon"
       class="avatar-rounded-briefing"
       :class="getRarityClass(avatar.rarity)"
-      alt="图片加载失败"
+      :alt="getAvatarName(avatar.id) ? getAvatarName(avatar.id) : 'Err'"
     />
   </div>
 
@@ -144,6 +144,14 @@ export default defineComponent({
       }
     }
 
+    function getAvatarName(id) {
+      const { name } = charactersMap.filter((character) => character.id === id)[0] || {};
+
+      if (name) {
+        return name;
+      }
+    }
+
     return {
       floor,
       floorIndex,
@@ -153,6 +161,7 @@ export default defineComponent({
       endTime: timestamps[timestamps.length - 1],
       avatars: lodash.uniqBy(avatars, "id"),
       getAvatarThumbUrl,
+      getAvatarName,
     };
   },
 });

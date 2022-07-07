@@ -28,7 +28,7 @@ const challengeTitle = defineComponent({
 
 const showboxTemplate = html`
   <div class="container-character" :class="additionalClass">
-    <img class="avatar-face" :class="rarity" :src="avatarIcon" alt="加载图片失败" />
+    <img class="avatar-face" :class="rarity" :src="avatarIcon" :alt="characterName ? characterName : 'Err'" />
     <p class="showbox-label">{{label}}</p>
   </div>
 `;

@@ -520,3 +520,8 @@ img.avatar-rounded-briefing {
   width: 100%;
   padding: 0 10px 5px 0;
 }
+
+img {
+  color: #888;
+  font-size: 12px;
+}
