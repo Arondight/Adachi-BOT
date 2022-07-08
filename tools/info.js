@@ -506,11 +506,17 @@ async function getWeaponData(name, page) {
 
   for (const i1 of [2, 3]) {
     for (const i2 of [7, 15].concat(rarity > 2 ? [21] : [])) {
-      ascensionMaterials[1].push(
-        await getMaterialName(
+      let name = "";
+
+      try {
+        name = await getMaterialName(
           await page.evaluate((e) => e.getAttribute("href"), (await handle.$x(`./tbody/tr[${i2}]/td[4]/a[${i1}]`))[0])
-        )
-      );
+        );
+      } catch (e) {
+        // do nothing
+      }
+
+      ascensionMaterials[1].push(name);
     }
   }
 
