@@ -27,19 +27,11 @@
 
       function isImageExists(urlString) {
         return new Promise((resolve) => {
-          let img = new Image();
+          const img = new Image();
 
-          img.onload = () => {
-            if (this.complete === true) {
-              img = null;
-              resolve(true);
-            }
-          };
-          img.onerror = () => {
-            img = null;
-            resolve(false);
-          };
           img.src = urlString;
+          img.onload = () => true === img.complete && resolve(true);
+          img.onerror = () => resolve(false);
         });
       }
 
