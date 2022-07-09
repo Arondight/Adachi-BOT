@@ -49,7 +49,7 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
 // 返回值：
 //    true:   有权限
 //    false:  没权限
-function checkAuth(msg, func, report = true) {
+function checkAuth(msg, func, report = true, checkMaster = false) {
   function getAuth() {
     const uauth = hasAuth(msg.uid, func);
     const gauth = hasAuth(msg.sid, func);
@@ -61,7 +61,7 @@ function checkAuth(msg, func, report = true) {
     return false !== uauth && false !== gauth;
   }
 
-  const res = getAuth();
+  const res = (false === checkMaster && global.config.masters.includes(msg.uid)) || getAuth();
 
   if (false === res && true === report && undefined !== msg.bot) {
     msg.bot.say(msg.sid, `您当前无【${global.command.functions.name[func]}】权限。`, msg.type, msg.uid, true);
