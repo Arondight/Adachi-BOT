@@ -1,10 +1,11 @@
 import { html } from "../common/utils.js";
 
 const { defineComponent, unref } = window.Vue;
-const constellTemplate = html`
-  <div v-if="constellContent !== ''" class="info-title constellation-order">{{constellCounts}}</div>
-  <div v-if="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>
-`;
+
+const constellTemplate = html`<div v-if="constellContent !== ''" class="info-title constellation-order">
+    {{constellCounts}}
+  </div>
+  <div v-if="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>`;
 const constellBox = defineComponent({
   name: "constellBox",
   props: {
@@ -13,8 +14,7 @@ const constellBox = defineComponent({
   },
   template: constellTemplate,
 });
-
-const template = html` <div class="container-overview-infos">
+const template = html`<div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>
   </div>
@@ -105,7 +105,6 @@ export default defineComponent({
   setup(props) {
     const propsValue = unref(props);
     const params = propsValue.data;
-
     const charImageFilename = params.id + ".png";
     const charImageUrl = `http://localhost:9934/resources/Version2/character/${charImageFilename}`;
     const charTitle = params.title.trim() === "" ? "" : params.title + "・" || "";

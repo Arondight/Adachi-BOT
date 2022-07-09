@@ -1,7 +1,8 @@
 import { html } from "../common/utils.js";
 
 const { defineComponent, unref } = window.Vue;
-const template = html` <div class="gacha-box">
+
+const template = html`<div class="gacha-box">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.38 423.17">
     <defs>
       <linearGradient id="Five" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -75,8 +76,6 @@ export default defineComponent({
       4: "Four",
       3: "Three",
     };
-
-    let item_props = {};
     const imageType = typeMapping[propsValue.data.item_type] || "character";
     const imageName = propsValue.data.item_name;
     const itemTypeImage = propsValue.data.type;
@@ -90,17 +89,15 @@ export default defineComponent({
     const iconType = propsValue.data.item_type === "角色" ? "element" : "type";
     // 临时用来处理图像格式不同的问题
     const extName = imageType === "character" ? "webp" : "png";
-    item_props.item_type = imageType;
-    item_props.image_url = encodeURI(
-      `http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.${extName}`
-    );
-    item_props.item_rarity = itemRarity;
-    item_props.item_type_image = encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage}.png`);
-    item_props.item_rarity_image = encodeURI(`http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`);
-    item_props.item_label = itemLabel;
-
-    return {
-      item_props,
+    const item_props = {
+      item_type: imageType,
+      image_url: encodeURI(`http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.${extName}`),
+      item_rarity: itemRarity,
+      item_type_image: encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage}.png`),
+      item_rarity_image: encodeURI(`http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`),
+      item_label: itemLabel,
     };
+
+    return { item_props };
   },
 });

@@ -1,34 +1,29 @@
 import { getParams, html } from "../common/utils.js";
 
 const { defineComponent, unref } = window.Vue;
-const barTemplate = html`
-  <div class="container-bar">
-    <p class="bar-title">命之座</p>
-    <div class="bar-full constellation">
-      <div
-        class="bar-dot"
-        v-for="i in 7"
-        :class="(i > constellationNum + 1 && i != 7 && i != 1) ? 'dot-show' : 'dot-hide'"
-      ></div>
-      <div
-        class="bar-progress"
-        :class="constellationNum == 6 ? 'max' : 'normal'"
-        :style="{width: getWidth(constellationNum, 6, 300)}"
-      ></div>
-    </div>
-    <p class="bar-details">{{constellationNum}}<span>/</span>6</p>
-    <p class="bar-title">好感度</p>
-    <div class="bar-full fetter">
-      <div
-        class="bar-dot"
-        v-for="i in 11"
-        :class="(i > fetter + 1 && i != 11 && i != 1) ? 'dot-show' : 'dot-hide'"
-      ></div>
-      <div class="bar-progress normal" :style="{width: getWidth(fetter, 10, 300)}"></div>
-    </div>
-    <p class="bar-details">{{fetter}}<span>/</span>10</p>
+
+const barTemplate = html`<div class="container-bar">
+  <p class="bar-title">命之座</p>
+  <div class="bar-full constellation">
+    <div
+      class="bar-dot"
+      v-for="i in 7"
+      :class="(i > constellationNum + 1 && i != 7 && i != 1) ? 'dot-show' : 'dot-hide'"
+    ></div>
+    <div
+      class="bar-progress"
+      :class="constellationNum == 6 ? 'max' : 'normal'"
+      :style="{width: getWidth(constellationNum, 6, 300)}"
+    ></div>
   </div>
-`;
+  <p class="bar-details">{{constellationNum}}<span>/</span>6</p>
+  <p class="bar-title">好感度</p>
+  <div class="bar-full fetter">
+    <div class="bar-dot" v-for="i in 11" :class="(i > fetter + 1 && i != 11 && i != 1) ? 'dot-show' : 'dot-hide'"></div>
+    <div class="bar-progress normal" :style="{width: getWidth(fetter, 10, 300)}"></div>
+  </div>
+  <p class="bar-details">{{fetter}}<span>/</span>10</p>
+</div>`;
 const barInfos = defineComponent({
   name: "barInfos",
   template: barTemplate,
@@ -50,9 +45,7 @@ const barInfos = defineComponent({
     };
   },
 });
-
-const artifactBoxTemplate = html`
-  <div class="box-title artifact-position">{{position}}</div>
+const artifactBoxTemplate = html`<div class="box-title artifact-position">{{position}}</div>
   <div v-if="!isEmpty" class="info-content artifact-content">
     <img class="artifact-icon" :class="rarityClass" :src="iconUrl" :alt="name" />
     <div class="artifact-details">
@@ -63,8 +56,7 @@ const artifactBoxTemplate = html`
   </div>
   <div v-else class="info-content empty-artifact-content">
     <div class="artifact-empty">暂未装备</div>
-  </div>
-`;
+  </div>`;
 const artifactBox = defineComponent({
   name: "artifactBox",
   props: {
@@ -107,7 +99,7 @@ const artifactBox = defineComponent({
     };
   },
 });
-const template = html` <div class="background" :class="charElementType">
+const template = html`<div class="background" :class="charElementType">
   <img class="svg" :src="elementSvgSrc" />
   <div class="container-deco-strip">{{ decoStripContent }}</div>
   <div class="container-character-infos">
@@ -149,7 +141,6 @@ const template = html` <div class="background" :class="charElementType">
   </div>
   <div class="credit">Created by Adachi-BOT</div>
 </div>`;
-
 export default defineComponent({
   name: "genshinCharacter",
   template: template,
@@ -174,37 +165,22 @@ export default defineComponent({
     const elementSvgSrc = encodeURI(`http://localhost:9934/resources/Version2/elements/${charElementType}.svg`);
     const uid = params.uid;
     const character = params.data || {};
-    let characterInfo = {};
-
-    characterInfo.id = character.id || "";
-    characterInfo.level = params.data.level || 1;
     const costumes = character.costumes || [];
     const characterHasCostume = costumes.length !== 0;
-    characterInfo.hasCostume = characterHasCostume;
-    characterInfo.costumeName = characterHasCostume ? character.costumes[0]["name"] : "";
-    characterInfo.imagePath = characterHasCostume
-      ? encodeURI(`http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`)
-      : encodeURI("http://localhost:9934/resources/Version2/character/" + characterInfo.id + ".png");
-    characterInfo.imageFilename = characterHasCostume
-      ? `${character.costumes[0]["name"]}.png`
-      : `${characterInfo.id}.png`;
     const decoStripContent = "CHARACTER INFORMATION - ".repeat(4);
-    characterInfo.charName = character.name || "";
-    characterInfo.constellationNum = character.constellationNum || 0;
-    characterInfo.fetter = character.fetter || 0;
-
-    let artifacts = [];
-
-    for (let i = 0; i < 5; ++i) {
-      const info = character.artifact.find((el) => el.pos === i + 1);
-      artifacts[i] = info
-        ? character.artifact.find((el) => el.pos === i + 1)
-        : { name: "empty", icon: "empty", pos: i + 1, rarity: "empty", level: "empty" };
-    }
-
-    characterInfo.artifacts = artifacts;
-
-    let weaponInfo = {};
+    const characterInfo = {
+      id: character.id || "",
+      level: params.data.level || 1,
+      hasCostume: characterHasCostume,
+      costumeName: characterHasCostume ? character.costumes[0]["name"] : "",
+      imagePath: characterHasCostume
+        ? encodeURI(`http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`)
+        : encodeURI("http://localhost:9934/resources/Version2/character/" + character.id || "" + ".png"),
+      imageFilename: characterHasCostume ? `${character.costumes[0]["name"]}.png` : `${character.id || ""}.png`,
+      charName: character.name || "",
+      constellationNum: character.constellationNum || 0,
+      fetter: character.fetter || 0,
+    };
     const weaponTypeToString = {
       sword: "单手剑",
       claymore: "双手剑",
@@ -212,14 +188,12 @@ export default defineComponent({
       bow: "弓",
       catalyst: "法器",
     };
-
     const weaponType = character.weapon.icon || "sword_sword";
     const weaponName = character.weapon.name || "";
     const weaponRarity = character.weapon.rarity || 4;
     const weaponAffixLevel = character.weapon.affix_level || "1";
     const weaponDesc = character.weapon.desc || "暂无描述";
     const weaponLevel = character.weapon.level || 1;
-
     const rarityString = {
       5: "rarity-five",
       4: "rarity-four",
@@ -227,16 +201,28 @@ export default defineComponent({
       2: "rarity-two",
       1: "rarity-one",
     };
+    const weaponInfo = {
+      name: weaponName,
+      type: weaponTypeToString[weaponType.split("_").slice(-2)[0].toLowerCase()],
+      imageUrl: encodeURI(`http://localhost:9934/resources/Version2/thumb/weapon/${weaponName}.png`),
+      imageName: `${weaponName}.png`,
+      rarityClass: rarityString[weaponRarity] || "rarity-four",
+      rarity: "★".repeat(weaponRarity) || "★★★★",
+      affixLevel: weaponAffixLevel,
+      desc: weaponDesc,
+      level: weaponLevel,
+    };
+    const artifacts = [];
 
-    weaponInfo.name = weaponName;
-    weaponInfo.type = weaponTypeToString[weaponType.split("_").slice(-2)[0].toLowerCase()];
-    weaponInfo.imageUrl = encodeURI(`http://localhost:9934/resources/Version2/thumb/weapon/${weaponName}.png`);
-    weaponInfo.imageName = `${weaponName}.png`;
-    weaponInfo.rarityClass = rarityString[weaponRarity] || "rarity-four";
-    weaponInfo.rarity = "★".repeat(weaponRarity) || "★★★★";
-    weaponInfo.affixLevel = weaponAffixLevel;
-    weaponInfo.desc = weaponDesc;
-    weaponInfo.level = weaponLevel;
+    for (let i = 0; i < 5; ++i) {
+      const info = character.artifact.find((el) => el.pos === i + 1);
+
+      artifacts[i] = info
+        ? character.artifact.find((el) => el.pos === i + 1)
+        : { name: "empty", icon: "empty", pos: i + 1, rarity: "empty", level: "empty" };
+    }
+
+    characterInfo.artifacts = artifacts;
 
     return {
       charElementType,

@@ -1,7 +1,8 @@
 import { getParams, html } from "../common/utils.js";
 
 const { defineComponent, defineAsyncComponent } = window.Vue;
-const template = html` <div class="background" :class="backgroundStyle">
+
+const template = html`<div class="background" :class="backgroundStyle">
   <img class="svg" :src="elementSvgSrc" v-if="itemType === 'character'" />
   <characterInfoBox v-if="itemType === 'character'" :data="params" />
   <weaponInfoBox v-if="itemType === 'weapon'" :data="params" />
@@ -19,7 +20,6 @@ export default defineComponent({
   },
   setup: function () {
     const params = getParams(window.location.href);
-
     // noinspection NonAsciiCharacters
     const typeMap = {
       角色: "character",
@@ -43,13 +43,10 @@ export default defineComponent({
       火: "pyro",
     };
     const itemType = typeMap[params.type] || "weapon";
-
     const charElementType = itemType === "character" ? elementMap[params.element.slice()[0]] || "anemo" : "";
     const itemRarity = rarityMap[params.rarity] || "4";
-
     const backgroundStyle =
       itemType === "character" ? "character-" + charElementType : "weapon-" + itemRarity + "-stars";
-
     const elementSvgSrc =
       itemType === "character" ? `http://localhost:9934/resources/Version2/elements/${charElementType}.svg` : "";
 

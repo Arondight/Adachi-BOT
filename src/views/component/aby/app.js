@@ -2,20 +2,18 @@ import { getParams, html } from "../common/utils.js";
 import { challengeTitle, characterShowbox } from "./abyssComponents.js";
 
 const moment = window.moment;
-
 const { defineComponent, defineAsyncComponent, unref } = window.Vue;
-const avatarTemplate = html`
-  <div v-if="isValidData" class="container-character-rounded" :class="className">
-    <p class="sub-title">{{title}}</p>
-    <img
-      :src="getCharacterThumbImage(characterName) ? getCharacterThumbImage(characterName) : (sideImageToFront(value[0]['avatar_icon']))"
-      class="avatar-rounded"
-      :class="getRarityClass(value[0]['rarity'])"
-      :alt="characterName ? characterName : 'Err'"
-    />
-    <p class="avatar-value">{{value[0]['value']}}</p>
-  </div>
-`;
+
+const avatarTemplate = html`<div v-if="isValidData" class="container-character-rounded" :class="className">
+  <p class="sub-title">{{title}}</p>
+  <img
+    :src="getCharacterThumbImage(characterName) ? getCharacterThumbImage(characterName) : (sideImageToFront(value[0]['avatar_icon']))"
+    class="avatar-rounded"
+    :class="getRarityClass(value[0]['rarity'])"
+    :alt="characterName ? characterName : 'Err'"
+  />
+  <p class="avatar-value">{{value[0]['value']}}</p>
+</div>`;
 const avatarBox = defineComponent({
   name: "avatarBox",
   template: avatarTemplate,
@@ -53,7 +51,9 @@ const avatarBox = defineComponent({
     };
   },
 });
-const template = html` <div class="container-abyss">
+const abyssFloor = defineAsyncComponent(() => import("./abyssFloor.js"));
+const abyssBriefFloor = defineAsyncComponent(() => import("./abyssBriefFloor.js"));
+const template = html`<div class="container-abyss">
   <div class="card container-namecard">
     <img v-cloak class="user-avatar" :src="userAvatarUrl" alt="Error" />
     <p class="uid-title"><span class="uid">{{playerUid}}</span>的深渊战绩</p>
@@ -116,9 +116,6 @@ const template = html` <div class="container-abyss">
   <p v-if="isFullDataset" class="credit full-dataset">Created by Adachi-BOT</p>
 </div>`;
 
-const abyssFloor = defineAsyncComponent(() => import("./abyssFloor.js"));
-const abyssBriefFloor = defineAsyncComponent(() => import("./abyssBriefFloor.js"));
-
 export default defineComponent({
   name: "genshinAbyss",
   template: template,
@@ -133,7 +130,6 @@ export default defineComponent({
     const params = getParams(window.location.href);
     const playerUid = params.uid;
     const charactersMap = params.character;
-
     const abyssBriefings = {
       startTime: moment(new Date(params.data.start_time * 1000))
         .tz("Asia/Shanghai")
@@ -146,20 +142,17 @@ export default defineComponent({
       totalStar: params.data.total_star || 0,
       revealRank: params.data.reveal_rank || [],
     };
-
     const defeat_rank = params.data.defeat_rank || [];
     const damage_rank = params.data.damage_rank || [];
     const take_damage_rank = params.data.take_damage_rank || [];
     const energy_skill_rank = params.data.energy_skill_rank || [];
     const normal_skill_rank = params.data.normal_skill_rank || [];
-
     const hasRankingData =
       defeat_rank.length !== 0 ||
       damage_rank.length !== 0 ||
       take_damage_rank.length !== 0 ||
       energy_skill_rank.length !== 0 ||
       normal_skill_rank.length !== 0;
-
     const characterRankings = [
       { title: "最多击破", className: "defeat-rank", value: defeat_rank },
       { title: "最强一击", className: "damage-rank", value: damage_rank },
@@ -167,8 +160,7 @@ export default defineComponent({
       { title: "元素爆发次数", className: "burst-rank", value: energy_skill_rank },
       { title: "元素战技释放数", className: "skill-rank", value: normal_skill_rank },
     ];
-
-    let shown_avatars = [];
+    const shown_avatars = [];
 
     for (const [key, value] of Object.entries(params.data)) {
       if (key.endsWith("_rank")) {
@@ -179,20 +171,18 @@ export default defineComponent({
         });
       }
     }
+
     const randomAvatar = Math.floor(Math.random() * shown_avatars.length);
     const userAvatar =
       shown_avatars.length !== 0
         ? shown_avatars[randomAvatar]
         : { url: "http://localhost:9934/resources/paimon/paimon_logo.jpg" };
-
     const abyssFloors = params.data.floors.sort((a, b) => b.index - a.index).slice(0, 4);
     const abyssLastFloor = abyssFloors.shift();
     const isFullDataset =
       abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
-
     const sideImageToFront = (imageURL) => encodeURI(imageURL.replace(/_side/gi, ""));
     const getCharacterName = (characterID) => (charactersMap.filter((c) => c.id === characterID)[0] || {}).name;
-
     const userAvatarUrl = getCharacterName(userAvatar.avatarID)
       ? encodeURI(`/resources/Version2/thumb/character/${getCharacterName(userAvatar.avatarID)}.png`)
       : sideImageToFront(userAvatar.url);

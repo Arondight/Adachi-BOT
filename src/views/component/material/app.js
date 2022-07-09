@@ -2,6 +2,7 @@ import { getParams, html } from "../common/utils.js";
 import MaterialColumn from "./column.js";
 
 const { defineComponent } = window.Vue;
+
 const template = html`<div class="material">
   <div class="outer">
     <img v-for="i in 4" :src="starBASE64" class="corner-star" :class="'star' + i" alt="ERROR" />

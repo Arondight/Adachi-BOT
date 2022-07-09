@@ -2,6 +2,7 @@ import { getParams, html, toReadableDate } from "../common/utils.js";
 import gachaBox from "./gacha-box.js";
 
 const { defineComponent, defineAsyncComponent } = window.Vue;
+
 const containerTemplate = html`<div class="gacha-title">
     <span class="deco-username">@{{ userName }}</span>在<span class="deco-time">{{ userDrawTime }}</span>抽取了<span
       class="deco-type"
@@ -71,13 +72,12 @@ export default defineComponent({
     const [wishType, showEpitomizedPath] = get_wish_type(params.type);
     const drawCount = params.data.length;
     const isStatisticalData = params.data.length > 10;
-
     let gachaDataToShow =
       params.data.length > 10
         ? params.five.concat(params.count.sort((x, y) => quickSortByRarity(x, y)).filter((item) => item.star < 5))
         : params.data.sort((x, y) => quickSortByRarity(x, y));
-
     const compactGachaData = gachaDataToShow.filter((item) => item.star > 3);
+    const epitomizedPath = params.path;
 
     if (params.type !== "eggs" && gachaDataToShow.length > 10) {
       if (compactGachaData.length >= 9) {
@@ -90,15 +90,16 @@ export default defineComponent({
             type: "sword",
           },
         ];
+
         gachaDataToShow = compactGachaData.concat(threeStarItems);
       } else {
         const gachaStem = gachaDataToShow.slice(0, 9);
         const gachaResidue = gachaDataToShow.slice(9).reduce(reducer);
+
         gachaDataToShow = gachaStem.concat(gachaResidue);
       }
     }
 
-    let epitomizedPath = params.path;
     epitomizedPath.hasPath = Object.keys(epitomizedPath.course).length !== 0;
 
     return {

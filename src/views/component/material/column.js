@@ -1,7 +1,8 @@
 import { html } from "../common/utils.js";
 
 const { defineComponent, unref } = window.Vue;
-const materialTemplate = html` <div class="unit">
+
+const materialTemplate = html`<div class="unit">
   <div class="top-box">
     <div class="ascension-name">{{ ascensionName }}</div>
     <div class="materials-list">
@@ -32,21 +33,24 @@ const materialUnit = defineComponent({
     itemImage: (name, itemType) => `http://localhost:9934/resources/Version2/thumb/${itemType}/${name}.png`,
     rarityClass: (rarity) => {
       const rarities = [undefined, "one-star", "two-star", "three-star", "four-star", "five-star"];
+
       return rarities[rarity] || "four-star";
     },
   },
   setup(props) {
     const propsValue = unref(props);
     const params = propsValue.data;
-
     let ascensionName = "";
+
     if (propsValue.type === "weapon") {
       const de = params.ascension[0].split("的");
       const zhi = params.ascension[0].split("之");
       const arr = de.length === 1 ? zhi : de;
+
       ascensionName = arr[0];
     } else {
       const regExp = new RegExp(/「(.*?)」/g);
+
       ascensionName = regExp.exec(params.ascension[0])[0];
     }
 
@@ -57,7 +61,6 @@ const materialUnit = defineComponent({
     };
   },
 });
-
 const materialColumnTemplate = html`<div class="material-column">
   <div class="title" v-html="title"></div>
   <materialUnit v-for="d in data" :data="d" :type="type" />
@@ -78,6 +81,7 @@ export default defineComponent({
     const title = `<div class="title-text">${props.day}${props.type === "weapon" ? "武器" : "角色"}素材${
       "今日" === props.day ? "<p class='tips'>（每天凌晨四点刷新）</p>" : ""
     }</div>`;
+
     return { title };
   },
 });

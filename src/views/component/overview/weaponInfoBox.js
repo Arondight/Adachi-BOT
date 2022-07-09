@@ -1,6 +1,7 @@
 import { html } from "../common/utils.js";
 
 const { defineComponent, unref } = window.Vue;
+
 const template = html`<div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>

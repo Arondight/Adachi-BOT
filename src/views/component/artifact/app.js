@@ -1,8 +1,8 @@
 import { getParams, html } from "../common/utils.js";
 
 const { defineComponent } = window.Vue;
-const template = html`
-  <p class="title absolute-position">{{artifactData.name}}</p>
+
+const template = html`<p class="title absolute-position">{{artifactData.name}}</p>
   <p class="position absolute-position">{{artifactData.position}}</p>
   <img class="artifact-image absolute-position" :src="artifactData.imageLink" />
   <div class="container-main-stats absolute-position">
@@ -13,8 +13,7 @@ const template = html`
   <p class="level absolute-position">+{{artifactData.level}}</p>
   <ul class="container-sub-properties absolute-position">
     <li class="sub-property" v-for="property in artifactData.subProps">{{property.name}}+{{property.data}}</li>
-  </ul>
-`;
+  </ul>`;
 
 export default defineComponent({
   name: "genshinArtifact",
