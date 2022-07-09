@@ -24,7 +24,7 @@ function initDB() {
 }
 
 async function initBrowser() {
-  global.bots.logger.debug(`正在从 ${renderPath} 拉起浏览器实例。`);
+  global.bots.logger.debug(`浏览器：正在从 ${renderPath} 拉起实例。`);
   await renderOpen();
 }
 

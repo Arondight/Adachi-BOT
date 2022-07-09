@@ -777,7 +777,7 @@ function readAuthority() {
     // 米游社新闻推送
     mys_news_auth: "off",
     // 消息响应
-    reply_auth: "on",
+    reply_auth: "off",
   };
   const defaultAuth = Object.assign({}, defaultConfig, mAuthority.default || {});
 

@@ -35,6 +35,12 @@ function report() {
     global.bots.logger.debug(`配置：${text}`);
   }
 
+  function getDefaultAuth(on = true) {
+    return Object.entries(global.authority.default)
+      .map(([k, v]) => on === v && k)
+      .filter((c) => "boolean" !== typeof c);
+  }
+
   log(`加载了 ${global.cookies.length} 条 Cookie 。`);
   log(`登录账号 ${global.config.accounts.map((c) => c.qq).join(" 、 ")} 。`);
   log(`管理者已设置为 ${global.config.masters.join(" 、 ")} 。`);
@@ -72,6 +78,8 @@ function report() {
   log(`清理数据库 info 中超过 ${global.config.dbInfoEffectTime} 小时的记录。`);
   log(`${1 === global.config.viewDebug ? "" : "不"}使用前端调试模式。`);
   log(`${1 === global.config.saveImage ? "" : "不"}保存图片。`);
+  getDefaultAuth(true).forEach((c) => log(`默认打开的权限：${c}`));
+  getDefaultAuth(false).forEach((c) => log(`默认关闭的权限：${c}`));
 }
 
 async function run() {
