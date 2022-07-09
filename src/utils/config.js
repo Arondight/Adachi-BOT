@@ -1229,8 +1229,8 @@ function readCommand() {
 // global.all.function
 // global.all.functions.options
 // global.all.functions.entrance
-// global.all.function
-// global.all.functions.entrance
+// global.all.functions.revert
+// global.all.functions.type
 function getAll() {
   function merge(o, p, o1, o2) {
     o[p] = {};
@@ -1242,6 +1242,8 @@ function getAll() {
 
   global.all.functions = {};
   global.all.functions.options = Object.assign({}, global.command.functions.options, global.master.functions.options);
+  global.all.functions.revert = Object.assign({}, global.command.functions.revert, global.master.functions.revert);
+  global.all.functions.type = Object.assign({}, global.command.functions.type, global.master.functions.type);
   merge(global.all, "function", global.command.function, global.master.function);
   merge(global.all.functions, "entrance", global.command.functions.entrance, global.master.functions.entrance);
 }
