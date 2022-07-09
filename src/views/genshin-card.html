@@ -30,17 +30,21 @@
           const img = new Image();
 
           img.src = urlString;
-          img.onload = () => true === img.complete && resolve(true);
+          img.onload = () => resolve(true === img.complete);
           img.onerror = () => resolve(false);
         });
       }
 
       Vue.createApp(App)
-        .directive("costume", async (el, binding) => {
-          if (await isImageExists(binding.value)) {
-            el.src = binding.value;
-          }
-        })
+        .directive("costume", (el, binding) =>
+          isImageExists(binding.value)
+            .then((res) => {
+              if (true === res) {
+                el.src = binding.value;
+              }
+            })
+            .catch((e) => console.error(e))
+        )
         .mount("#app");
     </script>
   </body>
