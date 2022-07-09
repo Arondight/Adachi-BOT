@@ -172,11 +172,13 @@ export default defineComponent({
       id: character.id || "",
       level: params.data.level || 1,
       hasCostume: characterHasCostume,
-      costumeName: characterHasCostume ? character.costumes[0]["name"] : "",
-      imagePath: characterHasCostume
-        ? encodeURI(`http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`)
-        : encodeURI("http://localhost:9934/resources/Version2/character/" + character.id || "" + ".png"),
-      imageFilename: characterHasCostume ? `${character.costumes[0]["name"]}.png` : `${character.id || ""}.png`,
+      costumeName: true === characterHasCostume ? character.costumes[0]["name"] : "",
+      imagePath:
+        true === characterHasCostume
+          ? encodeURI(`http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`)
+          : encodeURI(`http://localhost:9934/resources/Version2/character/${character.id || ""}.png`),
+      imageFilename:
+        true === characterHasCostume ? `${character.costumes[0]["name"]}.png` : `${character.id || ""}.png`,
       charName: character.name || "",
       constellationNum: character.constellationNum || 0,
       fetter: character.fetter || 0,
