@@ -36,7 +36,7 @@
     "list": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 list bot",
     "info": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 info bot",
     "monit": "cross-env-shell PM2_HOME=$INIT_CWD/bot.pm2/ npx pm2 monit bot",
-    "code-check": "npx eslint ./.github/ ./*.js ./src/ ./tools/ ./config_defaults/",
+    "code-check": "npx eslint ./.github/ ./*.js ./src/ ./tools/ ./config_defaults/ ./resources_custom/",
     "code-format": "npx prettier --config ./.prettierrc.json -uw ./*.js ./*.md ./.*.json ./*.json ./src/ ./tools/ ./docs/ ./resources_custom/",
     "tool-db": "node ./tools/db.js",
     "tool-info": "node ./tools/info.js",
@@ -72,6 +72,7 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
     "eslint": "8.19.0",
+    "eslint-plugin-check-json-value": "1.0.2",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",

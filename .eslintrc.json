@@ -10,7 +10,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["sort-exports", "import", "node", "promise"],
+  "plugins": ["sort-exports", "import", "node", "promise", "check-json-value"],
   "rules": {
     "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
     "sort-imports": [
@@ -22,7 +22,15 @@
         "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
       }
     ],
-    "vue/comment-directive": 0
+    "vue/comment-directive": 0,
+    "check-json-value/json-value": [
+      "error",
+      {
+        "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+        "path": "access",
+        "values": ["^(祈愿|商城|纪行|探索|锻造|活动|联动)$"]
+      }
+    ]
   },
   "overrides": [
     {
@@ -33,6 +41,10 @@
     {
       "files": ["*.html"],
       "plugins": ["vue"]
+    },
+    {
+      "files": ["*.json"],
+      "plugins": ["check-json-value"]
     }
   ]
 }
