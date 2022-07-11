@@ -66,13 +66,13 @@
     "puppeteer": "15.3.2",
     "random-float": "3.0.0",
     "semver": "7.3.7",
-    "systeminformation": "5.11.24",
+    "systeminformation": "5.11.25",
     "yargs": "17.5.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
     "eslint": "8.19.0",
-    "eslint-plugin-check-json-value": "1.0.3",
+    "eslint-plugin-check-json-value": "1.1.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
