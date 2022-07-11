@@ -31,15 +31,16 @@
     ],
     "check-json-value/json-value": [
       "error",
-      [ {
-        "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-        "path": "access",
-        "values": ["^(祈愿|商城|纪行|探索|锻造|活动|联动)$"]
+      [
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "access",
+          "values": ["^(祈愿|商城|纪行|探索|锻造|活动|联动)$"]
         },
         {
-        "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-        "path": "time",
-        "values": [".*"]
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "time",
+          "values": [".*"]
         }
       ]
     ]
