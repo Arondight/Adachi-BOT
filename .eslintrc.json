@@ -28,13 +28,100 @@
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[0][3]",
+          "values": [".+"],
+          "if": [
+            {
+              "path": "type",
+              "values": ["^武器$"]
+            },
+            {
+              "path": "rarity",
+              "values": ["^[3-5]$"]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[1][5]",
+          "values": [".+"],
+          "if": [
+            {
+              "path": "type",
+              "values": ["^武器$"]
+            },
+            {
+              "path": "rarity",
+              "values": ["^[3-5]$"]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[0][2]",
+          "values": [".+"],
+          "if": [
+            {
+              "path": "type",
+              "values": ["^武器$"]
+            },
+            {
+              "path": "rarity",
+              "values": ["^[1-2]$"]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[1][3]",
+          "values": [".+"],
+          "if": [
+            {
+              "path": "type",
+              "values": ["^武器$"]
+            },
+            {
+              "path": "rarity",
+              "values": ["^[1-2]$"]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[4]",
+          "values": [".+"],
+          "if": [
+            {
+              "path": "type",
+              "values": ["^角色$"]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "baseATK",
+          "values": ["^\\d{3}$"]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
           "path": "rarity",
-          "values": ["^[3-5]$"]
+          "values": ["^[1-5]$"]
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
           "path": "time",
           "values": ["^【(周././.)|(每日)】$"]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "title",
+          "values": ["^(单手剑)|(双手剑)|(弓)|(法器)|(长柄武器)$"],
+          "if": [
+            {
+              "path": "type",
+              "values": ["^武器$"]
+            }
+          ]
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
