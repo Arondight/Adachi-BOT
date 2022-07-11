@@ -5,7 +5,7 @@
     "node": true,
     "jest": true
   },
-  "extends": ["eslint:recommended", "plugin:json/recommended", "plugin:vue/essential"],
+  "extends": ["eslint:recommended", "plugin:vue/essential"],
   "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module"
@@ -28,8 +28,18 @@
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "rarity",
+          "values": ["^[3-5]$"]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
           "path": "time",
-          "values": [".*"]
+          "values": ["^【(周././.)|(每日)】$"]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "type",
+          "values": ["^(角色)|(武器)$"]
         }
       ]
     ],

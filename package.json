@@ -74,7 +74,6 @@
     "eslint": "8.19.0",
     "eslint-plugin-check-json-value": "1.1.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-json": "3.1.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.0.0",
     "eslint-plugin-sort-exports": "0.7.0",
