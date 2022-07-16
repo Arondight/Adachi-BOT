@@ -180,25 +180,18 @@ export default defineComponent({
         : { url: "http://localhost:9934/resources/paimon/paimon_logo.jpg" };
     const abyssFloors = params.data.floors.sort((a, b) => b.index - a.index).slice(0, 4);
     const abyssLastFloor = abyssFloors.shift();
-    // 以防米忽悠抽风，暂时保留原判断逻辑
-    // const isFullDataset =
-    //   abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
     const sideImageToFront = (imageURL) => encodeURI(imageURL.replace(/_side/gi, ""));
     const getCharacterName = (characterID) => (charactersMap.filter((c) => c.id === characterID)[0] || {}).name;
     const userAvatarUrl = getCharacterName(userAvatar.avatarID)
       ? encodeURI(`/resources/Version2/thumb/character/${getCharacterName(userAvatar.avatarID)}.png`)
       : sideImageToFront(userAvatar.url);
-
+    // 以防米忽悠抽风，暂时保留原判断逻辑
+    // const isFullDataset =
+    //   abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
     const isFullDataset =
-      0 !== abyssFloors.length
-        ? lodash.hasIn(abyssFloors[0], "levels")
-          ? !lodash.isEmpty(abyssFloors[0]["levels"])
-            ? lodash.hasIn(abyssFloors[0]["levels"][0], "battles")
-              ? !lodash.isEmpty(abyssFloors[0]["levels"][0]["battles"])
-              : false
-            : false
-          : false
-        : false;
+      abyssFloors.length > 0 &&
+      lodash.hasIn(abyssFloors, "[0].levels.battles") &&
+      !lodash.isEmpty(abyssFloors[0].levels[0].battles);
 
     return {
       playerUid,
