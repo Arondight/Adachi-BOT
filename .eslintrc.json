@@ -266,12 +266,537 @@
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "birthday",
+          "values": [
+            {
+              "type": "string",
+              "value": "^\\d+?月\\d+?日$",
+              "ignoreCase": false
+            },
+            {
+              "type": "null",
+              "value": null,
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "constellationName",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+座$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "constellations[{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 6,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "cv",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+?\\s|\\s.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "cvCN",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "cvJP",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "element",
+          "values": [
+            {
+              "type": "string",
+              "value": "^[风岩水火冰雷草]元素$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "id",
+          "values": [
+            {
+              "type": "number",
+              "value": "^\\d{8}$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "introduce",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.*$",
+              "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "levelUpMaterials[{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 4,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "mainStat",
+          "values": [
+            {
+              "type": "string",
+              "value": "^元素(精通|充能效率)$",
+              "ignoreCase": false
+            },
+            {
+              "type": "string",
+              "value": "^(攻击|防御)力$",
+              "ignoreCase": false
+            },
+            {
+              "type": "string",
+              "value": "^治疗加成$",
+              "ignoreCase": false
+            },
+            {
+              "type": "string",
+              "value": "^生命值$",
+              "ignoreCase": false
+            },
+            {
+              "type": "string",
+              "value": "^([风岩水火冰雷草]元素|物理)伤害加成$",
+              "ignoreCase": false
+            },
+            {
+              "type": "string",
+              "value": "^暴击(率|伤害)$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[3-5]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "mainStat",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[12]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "mainValue",
+          "values": [
+            {
+              "type": "string",
+              "value": "^[0-9.]+?%?$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[3-5]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "mainValue",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[12]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "name",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "passiveDesc",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "passiveTitle",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
           "path": "rarity",
           "values": [
             {
               "type": "number",
               "value": "^[1-5]$",
               "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "skillContent",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[3-5]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "skillContent",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[12]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "skillName",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[3-5]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "skillName",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[12]$",
+                  "ignoreCase": false
+                }
+              ]
             }
           ]
         },
@@ -303,6 +828,29 @@
                 {
                   "type": "string",
                   "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "title",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
                   "ignoreCase": false
                 }
               ]
