@@ -272,10 +272,38 @@
               "type": "string",
               "value": "^\\d+?月\\d+?日$",
               "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
             },
             {
-              "type": "null",
-              "value": null,
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^(?!旅行者)$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "birthday",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
               "ignoreCase": false
             }
           ],
@@ -286,6 +314,16 @@
                 {
                   "type": "string",
                   "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^旅行者$",
                   "ignoreCase": false
                 }
               ]
@@ -651,6 +689,49 @@
                   "ignoreCase": false
                 }
               ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^(?!旅行者)$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "passiveDesc",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^旅行者$",
+                  "ignoreCase": false
+                }
+              ]
             }
           ]
         },
@@ -671,6 +752,49 @@
                 {
                   "type": "string",
                   "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^(?!旅行者)$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "passiveTitle",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^旅行者$",
                   "ignoreCase": false
                 }
               ]
@@ -851,6 +975,49 @@
                 {
                   "type": "string",
                   "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^(?!旅行者)$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "title",
+          "values": [
+            {
+              "type": "string",
+              "value": "^$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^旅行者$",
                   "ignoreCase": false
                 }
               ]
