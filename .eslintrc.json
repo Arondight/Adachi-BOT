@@ -11,177 +11,6 @@
     "sourceType": "module"
   },
   "plugins": ["check-json-value", "import", "node", "promise", "sort-exports"],
-  "rules": {
-    "check-json-value/json-lint": [
-      "error",
-      {
-        "lint": true
-      }
-    ],
-    "check-json-value/json-value": [
-      "error",
-      [
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "access",
-          "values": ["^(祈愿|商城|纪行|探索|锻造|活动|联动)$"]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "ascensionMaterials[0][COUNTER1]",
-          "values": ["^.+?(的|之).+$"],
-          "if": [
-            {
-              "path": "type",
-              "values": ["^武器$"]
-            },
-            {
-              "path": "rarity",
-              "values": ["^[3-5]$"]
-            }
-          ],
-          "for": [
-            {
-              "replace": "COUNTER1",
-              "start": 0,
-              "end": 4,
-              "step": 1
-            }
-          ]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "ascensionMaterials[1][COUNTER1]",
-          "values": ["^.{4,}$"],
-          "if": [
-            {
-              "path": "type",
-              "values": ["^武器$"]
-            },
-            {
-              "path": "rarity",
-              "values": ["^[3-5]$"]
-            }
-          ],
-          "for": [
-            {
-              "replace": "COUNTER1",
-              "start": 0,
-              "end": 5,
-              "step": 1
-            }
-          ]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "ascensionMaterials[0][COUNTER1]",
-          "values": ["^.+?(的|之).+$"],
-          "if": [
-            {
-              "path": "type",
-              "values": ["^武器$"]
-            },
-            {
-              "path": "rarity",
-              "values": ["^[12]$"]
-            }
-          ],
-          "for": [
-            {
-              "replace": "COUNTER1",
-              "start": 0,
-              "end": 3,
-              "step": 1
-            }
-          ]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "ascensionMaterials[1][COUNTER1]",
-          "values": ["^.{4,}$"],
-          "if": [
-            {
-              "path": "type",
-              "values": ["^武器$"]
-            },
-            {
-              "path": "rarity",
-              "values": ["^[12]$"]
-            }
-          ],
-          "for": [
-            {
-              "replace": "COUNTER1",
-              "start": 0,
-              "end": 4,
-              "step": 1
-            }
-          ]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "ascensionMaterials[COUNTER1]",
-          "values": ["^.{4,}$"],
-          "if": [
-            {
-              "path": "type",
-              "values": ["^角色$"]
-            }
-          ],
-          "for": [
-            {
-              "replace": "COUNTER1",
-              "start": 0,
-              "end": 5,
-              "step": 1
-            }
-          ]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "baseATK",
-          "values": ["^\\d{3}$"]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "rarity",
-          "values": ["^[1-5]$"]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "time",
-          "values": ["^【(周././.)|(每日)】$"]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "title",
-          "values": ["^(单手剑)|(双手剑)|(弓)|(法器)|(长柄武器)$"],
-          "if": [
-            {
-              "path": "type",
-              "values": ["^武器$"]
-            }
-          ]
-        },
-        {
-          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
-          "path": "type",
-          "values": ["^(角色)|(武器)$"]
-        }
-      ]
-    ],
-    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
-    "sort-imports": [
-      "error",
-      {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": true,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
-      }
-    ],
-    "vue/comment-directive": 0
-  },
   "overrides": [
     {
       "files": ["*.yaml", "*.yml"],
@@ -196,5 +25,302 @@
       "files": ["*.json"],
       "plugins": ["check-json-value"]
     }
-  ]
+  ],
+  "rules": {
+    "sort-exports/sort-exports": ["error", { "sortDir": "asc" }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
+      }
+    ],
+    "vue/comment-directive": 0,
+    "check-json-value/json-lint": [
+      "error",
+      {
+        "lint": true
+      }
+    ],
+    "check-json-value/json-value": [
+      "error",
+      [
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "access",
+          "values": [
+            {
+              "type": "string",
+              "value": "^(祈愿|商城|纪行|探索|锻造|活动|联动)$",
+              "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[0][{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+?(的|之).+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[3-5]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 4,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[1][{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.{4,}$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[3-5]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 5,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[0][{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+?(的|之).+$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[12]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 3,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[1][{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.{4,}$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            },
+            {
+              "path": "rarity",
+              "values": [
+                {
+                  "type": "number",
+                  "value": "^[12]$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 4,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "ascensionMaterials[{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.{4,}$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 5,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "baseATK",
+          "values": [
+            {
+              "type": "number",
+              "value": "^\\d{3}$",
+              "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "rarity",
+          "values": [
+            {
+              "type": "number",
+              "value": "^[1-5]$",
+              "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "time",
+          "values": [
+            {
+              "type": "string",
+              "value": "^【(周././.)|(每日)】$",
+              "ignoreCase": false
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "title",
+          "values": [
+            {
+              "type": "string",
+              "value": "^(单手剑)|(双手剑)|(弓)|(法器)|(长柄武器)$",
+              "ignoreCase": false
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^武器$",
+                  "ignoreCase": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "type",
+          "values": [
+            {
+              "type": "string",
+              "value": "^(角色)|(武器)$",
+              "ignoreCase": false
+            }
+          ]
+        }
+      ]
+    ]
+  }
 }
