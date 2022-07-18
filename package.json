@@ -57,7 +57,7 @@
     "md5": "2.3.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.34",
-    "node-fetch": "3.2.8",
+    "node-fetch": "3.2.9",
     "node-schedule": "2.1.0",
     "oicq": "2.3.1",
     "p-limit": "4.0.0",
@@ -70,7 +70,7 @@
     "yargs": "17.5.1"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "3.2.0",
+    "@trivago/prettier-plugin-sort-imports": "3.3.0",
     "eslint": "8.20.0",
     "eslint-plugin-check-json-value": "2.1.0",
     "eslint-plugin-import": "2.26.0",
