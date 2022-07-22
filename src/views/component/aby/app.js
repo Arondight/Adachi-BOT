@@ -190,7 +190,7 @@ export default defineComponent({
     //   abyssFloors.length > 0 && Array.isArray(abyssFloors[0].levels) && abyssFloors[0].levels.length > 0;
     const isFullDataset =
       abyssFloors.length > 0 &&
-      lodash.hasIn(abyssFloors, "[0].levels.battles") &&
+      lodash.hasIn(lodash.first(lodash.first(abyssFloors)["levels"]), "battles") &&
       !lodash.isEmpty(abyssFloors[0].levels[0].battles);
 
     return {
