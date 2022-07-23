@@ -31,7 +31,6 @@
     "sort-imports": [
       "error",
       {
-        "ignoreCase": false,
         "ignoreDeclarationSort": true,
         "ignoreMemberSort": false,
         "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
@@ -53,8 +52,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^(祈愿|商城|纪行|探索|锻造|活动|联动)$",
-              "ignoreCase": false
+              "value": "^(祈愿|商城|纪行|探索|锻造|活动|联动)$"
             }
           ]
         },
@@ -64,8 +62,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+?(的|之).+$",
-              "ignoreCase": false
+              "value": "^.+?(的|之).+$"
             }
           ],
           "if": [
@@ -74,8 +71,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             },
@@ -84,8 +80,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[3-5]$",
-                  "ignoreCase": false
+                  "value": "^[3-5]$"
                 }
               ]
             }
@@ -105,8 +100,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.{4,}$",
-              "ignoreCase": false
+              "value": "^.{4,}$"
             }
           ],
           "if": [
@@ -115,8 +109,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             },
@@ -125,8 +118,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[3-5]$",
-                  "ignoreCase": false
+                  "value": "^[3-5]$"
                 }
               ]
             }
@@ -146,8 +138,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+?(的|之).+$",
-              "ignoreCase": false
+              "value": "^.+?(的|之).+$"
             }
           ],
           "if": [
@@ -156,8 +147,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             },
@@ -166,8 +156,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[12]$",
-                  "ignoreCase": false
+                  "value": "^[12]$"
                 }
               ]
             }
@@ -187,8 +176,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.{4,}$",
-              "ignoreCase": false
+              "value": "^.{4,}$"
             }
           ],
           "if": [
@@ -197,8 +185,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             },
@@ -207,8 +194,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[12]$",
-                  "ignoreCase": false
+                  "value": "^[12]$"
                 }
               ]
             }
@@ -228,8 +214,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.{4,}$",
-              "ignoreCase": false
+              "value": "^.{4,}$"
             }
           ],
           "if": [
@@ -238,8 +223,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -259,8 +243,7 @@
           "values": [
             {
               "type": "number",
-              "value": "^\\d{3}$",
-              "ignoreCase": false
+              "value": "^\\d{3}$"
             }
           ]
         },
@@ -270,8 +253,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^\\d+?月\\d+?日$",
-              "ignoreCase": false
+              "value": "^\\d+?月\\d+?日$"
             }
           ],
           "if": [
@@ -280,8 +262,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -290,8 +271,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^(?!旅行者)$",
-                  "ignoreCase": false
+                  "value": "^(?!旅行者)$"
                 }
               ]
             }
@@ -303,8 +283,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -313,8 +292,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -323,8 +301,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^旅行者$",
-                  "ignoreCase": false
+                  "value": "^旅行者$"
                 }
               ]
             }
@@ -336,8 +313,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+座$",
-              "ignoreCase": false
+              "value": "^.+座$"
             }
           ],
           "if": [
@@ -346,8 +322,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -359,8 +334,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -369,8 +343,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -390,8 +363,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+?\\s|\\s.+$",
-              "ignoreCase": false
+              "value": "^.+?\\s|\\s.+$"
             }
           ],
           "if": [
@@ -400,8 +372,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -413,8 +384,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -423,8 +393,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -436,8 +405,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -446,8 +414,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -459,8 +426,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^[风岩水火冰雷草]元素$",
-              "ignoreCase": false
+              "value": "^[风岩水火冰雷草]元素$"
             }
           ],
           "if": [
@@ -469,8 +435,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -482,8 +447,7 @@
           "values": [
             {
               "type": "number",
-              "value": "^\\d{8}$",
-              "ignoreCase": false
+              "value": "^\\d{8}$"
             }
           ],
           "if": [
@@ -492,8 +456,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -505,8 +468,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.*$",
-              "ignoreCase": false
+              "value": "^.*$"
             }
           ]
         },
@@ -516,8 +478,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -526,8 +487,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             }
@@ -547,33 +507,27 @@
           "values": [
             {
               "type": "string",
-              "value": "^元素(精通|充能效率)$",
-              "ignoreCase": false
+              "value": "^元素(精通|充能效率)$"
             },
             {
               "type": "string",
-              "value": "^(攻击|防御)力$",
-              "ignoreCase": false
+              "value": "^(攻击|防御)力$"
             },
             {
               "type": "string",
-              "value": "^治疗加成$",
-              "ignoreCase": false
+              "value": "^治疗加成$"
             },
             {
               "type": "string",
-              "value": "^生命值$",
-              "ignoreCase": false
+              "value": "^生命值$"
             },
             {
               "type": "string",
-              "value": "^([风岩水火冰雷草]元素|物理)伤害加成$",
-              "ignoreCase": false
+              "value": "^([风岩水火冰雷草]元素|物理)伤害加成$"
             },
             {
               "type": "string",
-              "value": "^暴击(率|伤害)$",
-              "ignoreCase": false
+              "value": "^暴击(率|伤害)$"
             }
           ],
           "if": [
@@ -582,8 +536,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[3-5]$",
-                  "ignoreCase": false
+                  "value": "^[3-5]$"
                 }
               ]
             }
@@ -595,8 +548,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -605,8 +557,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[12]$",
-                  "ignoreCase": false
+                  "value": "^[12]$"
                 }
               ]
             }
@@ -618,8 +569,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^[0-9.]+?%?$",
-              "ignoreCase": false
+              "value": "^[0-9.]+?%?$"
             }
           ],
           "if": [
@@ -628,8 +578,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[3-5]$",
-                  "ignoreCase": false
+                  "value": "^[3-5]$"
                 }
               ]
             }
@@ -641,8 +590,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -651,8 +599,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[12]$",
-                  "ignoreCase": false
+                  "value": "^[12]$"
                 }
               ]
             }
@@ -664,8 +611,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ]
         },
@@ -675,8 +621,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -685,8 +630,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -695,8 +639,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^(?!旅行者)$",
-                  "ignoreCase": false
+                  "value": "^(?!旅行者)$"
                 }
               ]
             }
@@ -708,8 +651,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -718,8 +660,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -728,8 +669,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^旅行者$",
-                  "ignoreCase": false
+                  "value": "^旅行者$"
                 }
               ]
             }
@@ -741,8 +681,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -751,8 +690,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -761,8 +699,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^(?!旅行者)$",
-                  "ignoreCase": false
+                  "value": "^(?!旅行者)$"
                 }
               ]
             }
@@ -774,8 +711,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -784,8 +720,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -794,8 +729,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^旅行者$",
-                  "ignoreCase": false
+                  "value": "^旅行者$"
                 }
               ]
             }
@@ -807,8 +741,7 @@
           "values": [
             {
               "type": "number",
-              "value": "^[1-5]$",
-              "ignoreCase": false
+              "value": "^[1-5]$"
             }
           ]
         },
@@ -818,8 +751,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -828,8 +760,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             },
@@ -838,8 +769,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[3-5]$",
-                  "ignoreCase": false
+                  "value": "^[3-5]$"
                 }
               ]
             }
@@ -851,8 +781,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -861,8 +790,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[12]$",
-                  "ignoreCase": false
+                  "value": "^[12]$"
                 }
               ]
             }
@@ -874,8 +802,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -884,8 +811,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             },
@@ -894,8 +820,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[3-5]$",
-                  "ignoreCase": false
+                  "value": "^[3-5]$"
                 }
               ]
             }
@@ -907,8 +832,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -917,8 +841,7 @@
               "values": [
                 {
                   "type": "number",
-                  "value": "^[12]$",
-                  "ignoreCase": false
+                  "value": "^[12]$"
                 }
               ]
             }
@@ -930,8 +853,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^【(周././.)|(每日)】$",
-              "ignoreCase": false
+              "value": "^【(周././.)|(每日)】$"
             }
           ]
         },
@@ -941,8 +863,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^(单手剑)|(双手剑)|(弓)|(法器)|(长柄武器)$",
-              "ignoreCase": false
+              "value": "^(单手剑)|(双手剑)|(弓)|(法器)|(长柄武器)$"
             }
           ],
           "if": [
@@ -951,8 +872,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^武器$",
-                  "ignoreCase": false
+                  "value": "^武器$"
                 }
               ]
             }
@@ -964,8 +884,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^.+$",
-              "ignoreCase": false
+              "value": "^.+$"
             }
           ],
           "if": [
@@ -974,8 +893,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -984,8 +902,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^(?!旅行者)$",
-                  "ignoreCase": false
+                  "value": "^(?!旅行者)$"
                 }
               ]
             }
@@ -997,8 +914,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^$",
-              "ignoreCase": false
+              "value": "^$"
             }
           ],
           "if": [
@@ -1007,8 +923,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^角色$",
-                  "ignoreCase": false
+                  "value": "^角色$"
                 }
               ]
             },
@@ -1017,8 +932,7 @@
               "values": [
                 {
                   "type": "string",
-                  "value": "^旅行者$",
-                  "ignoreCase": false
+                  "value": "^旅行者$"
                 }
               ]
             }
@@ -1030,8 +944,7 @@
           "values": [
             {
               "type": "string",
-              "value": "^(角色)|(武器)$",
-              "ignoreCase": false
+              "value": "^(角色)|(武器)$"
             }
           ]
         }
