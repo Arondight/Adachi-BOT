@@ -24,7 +24,7 @@
 
 settings:
   #
-  # 以下为示例，executable 和 command 仅关心标准输出
+  # 以下为演示用的默认问答列表
   #
   -
     match:
