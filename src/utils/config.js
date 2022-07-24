@@ -796,6 +796,8 @@ function readAuthority() {
     rating_auth: "off",
     // 米游社新闻推送
     mys_news_auth: "off",
+    // 问答权限
+    qa_auth: "off",
     // 消息响应
     reply_auth: "off",
   };
