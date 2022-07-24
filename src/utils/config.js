@@ -988,7 +988,7 @@ function readCookies() {
     }
   }
 
-  global.cookies = global.cookies.filter((e, i) => global.cookies.indexOf(e) == i);
+  global.cookies = global.cookies.filter((e, i) => global.cookies.indexOf(e) === i);
 }
 
 function readGreeting() {
