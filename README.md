@@ -11,8 +11,8 @@
 ### 文档
 
 1. 常见问题请参阅 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 。
-2. 制作资源文件请查阅[《资源文件制作指引》](docs/资源文件制作指引.md)。
-3. 开发插件请查阅[《插件开发指引》](docs/插件开发指引.md)。
+2. 制作资源文件请查阅[《资源文件制作指引》](https://github.com/Arondight/Adachi-BOT/blob/master/docs/%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%88%B6%E4%BD%9C%E6%8C%87%E5%BC%95.md)。
+3. 开发插件请查阅[《插件开发指引》](https://github.com/Arondight/Adachi-BOT/blob/master/docs/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95.md)。
 
 ### 开发
 
@@ -131,10 +131,10 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 
 然后需要编辑以下文件，根据注释填入合适的配置。
 
-| 文件                                       | 作用          |
-| ------------------------------------------ | ------------- |
-| [setting.yml](config_defaults/setting.yml) | 基本配置选项  |
-| [cookies.yml](config_defaults/cookies.yml) | 米游社 Cookie |
+| 文件                                                                                           | 作用          |
+| ---------------------------------------------------------------------------------------------- | ------------- |
+| [setting.yml](https://github.com/Arondight/Adachi-BOT/blob/master/config_defaults/setting.yml) | 基本配置选项  |
+| [cookies.yml](https://github.com/Arondight/Adachi-BOT/blob/master/config_defaults/cookies.yml) | 米游社 Cookie |
 
 > 1. 你也可以从 `./config_defaults/` 下复制更多的文件到 `./config/` 来进行自定义配置。但是有些配置文件如果你不想自己维护，那就不要把它们放到 `./config/` 下。请详细阅读相关配置文件中注释的说明。
 > 2. 你可以在 [yamlchecker.com](https://yamlchecker.com/) 网站上检查你写的配置文件语法是否正确，只需要将配置文件的内容复制到文本框中即可。
@@ -193,7 +193,7 @@ npm run restart
 
 ### 所有功能
 
-> 具体命令请查看[这里](config_defaults/command.yml)，一些只供管理者使用的主人命令请查看[这里](config_defaults/command_master.yml)。
+> 具体命令请查看[这里](https://github.com/Arondight/Adachi-BOT/blob/master/config_defaults/command.yml)，一些只供管理者使用的主人命令请查看[这里](https://github.com/Arondight/Adachi-BOT/blob/master/config_defaults/command_master.yml)。
 
 | 功能                                | 形式     | 配置选项 | 命令开关 | 管理者命令 |
 | ----------------------------------- | -------- | -------- | -------- | ---------- |
@@ -234,14 +234,14 @@ npm run restart
 
 感谢以下人员以及未提及的[贡献者](https://github.com/Arondight/Adachi-BOT/graphs/contributors)们，你们让一切变得更好了。
 
-| 人员                                            | 贡献                                                  |
-| ----------------------------------------------- | ----------------------------------------------------- |
-| [490720818](https://github.com/490720818)       | [网页部分](src/views)的维护，编写了深渊查询的原始版本 |
-| [Mark9804](https://github.com/Mark9804)         | [网页部分](src/views)的主程，贡献了诸多资源文件       |
-| [SilveryStar](https://github.com/SilveryStar)   | 编写了项目的原始版本，提供了大量资源文件              |
-| [Xm798](https://github.com/Xm798)               | 贡献了诸多资源文件                                    |
-| [buzhibujuelb](https://github.com/buzhibujuelb) | 添加了武器定轨机制，美化了抽卡效果                    |
-| [ixCiel](https://github.com/ixCiel)             | 优化了 Cookie 池使用逻辑                              |
+| 人员                                            | 贡献                                                                                                      |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [490720818](https://github.com/490720818)       | [网页部分](https://github.com/Arondight/Adachi-BOT/tree/master/src/views)的维护，编写了深渊查询的原始版本 |
+| [Mark9804](https://github.com/Mark9804)         | [网页部分](https://github.com/Arondight/Adachi-BOT/tree/master/src/views)的主程，贡献了诸多资源文件       |
+| [SilveryStar](https://github.com/SilveryStar)   | 编写了项目的原始版本，提供了大量资源文件                                                                  |
+| [Xm798](https://github.com/Xm798)               | 贡献了诸多资源文件                                                                                        |
+| [buzhibujuelb](https://github.com/buzhibujuelb) | 添加了武器定轨机制，美化了抽卡效果                                                                        |
+| [ixCiel](https://github.com/ixCiel)             | 优化了 Cookie 池使用逻辑                                                                                  |
 
 ### 第三方网站
 
@@ -255,4 +255,4 @@ npm run restart
 
 ## 许可
 
-[MIT License](LICENSE) 。
+[MIT License](https://github.com/Arondight/Adachi-BOT/blob/master/LICENSE) 。
