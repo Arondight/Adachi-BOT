@@ -52,7 +52,17 @@ async function doCache(url, dir) {
 
 async function getCache(url, dir, encoding = null) {
   const filepath = await doCache(url, dir);
-  return filepath ? fs.readFileSync(filepath, { encoding }) : undefined;
+  let context;
+
+  if ("string" === typeof filepath && "" !== filepath) {
+    try {
+      context = fs.readFileSync(filepath, { encoding });
+    } catch (e) {
+      // do nothing
+    }
+  }
+
+  return context;
 }
 
 export { getCache };

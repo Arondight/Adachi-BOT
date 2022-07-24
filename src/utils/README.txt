@@ -48,6 +48,8 @@
   getDS                   获得用于请求官方 API 的 DS 字段的值
 
 ./file.js
+  absPath                 计算绝对路径
+  base64                  获得文件内容的 Base64 编码
   du                      统计文件或文件目录的空间占用
   ls                      递归获取文件目录的内容
   mkdir                   创建文件目录
@@ -84,6 +86,7 @@
   getWordByRegex          根据正则获取匹配的子串
   guessPossibleNames      猜测字符串数组中哪些元素等价于某个名字
   hamming                 计算两个 simhash 的汉明距离
+  iconvConvert            编码转换
   isPossibleName          猜测字符串数组是否有元素等价于某个名字
   matchBracket            获得匹配的闭括号
   randomString            返回随机字符串

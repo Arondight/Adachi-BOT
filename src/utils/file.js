@@ -52,4 +52,36 @@ function du(filepath) {
   return size;
 }
 
-export { du, ls, mkdir, readlink };
+function base64(filepath) {
+  let context;
+
+  if ("string" === typeof filepath && "" !== filepath) {
+    try {
+      context = fs.readFileSync(filepath, { encoding: "base64" });
+    } catch (e) {
+      // do nothing
+    }
+  }
+
+  return context;
+}
+
+function absPath(filepath, base) {
+  if ("string" !== typeof base) {
+    base = global.rootdir;
+  }
+
+  let result = filepath;
+
+  try {
+    if (!path.isAbsolute(filepath)) {
+      result = path.resolve(base, ...filepath.split(/[\\/]/));
+    }
+  } catch (e) {
+    // do nothing
+  }
+
+  return result;
+}
+
+export { absPath, base64, du, ls, mkdir, readlink };

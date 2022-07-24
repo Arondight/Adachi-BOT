@@ -10,5 +10,7 @@
 # 4. 优先选用查询账户自身的 Cookie 。
 #
 cookies:
+  # 以下两条 Cookie 为示例，均已过期，请删除后替换为其他可用 Cookie
   #- UM_distinctid=...; _ga=...; _gid=...; CNZZDATA1275023096=...; _MHYUUID=...; ltoken=...; ltuid=...; cookie_token=...; account_id=...
-  - null
+  - UM_distinctid=17b345cbbcc54-07edcc8fb97d4c-7868796f-fa000-17b345cbbcd5f2; _ga=GA1.2.77253786.1628671098; _gid=GA1.2.254788433.1628671098; CNZZDATA1275023096=1535640357-1628667665-|1628667665; _gat=1; _MHYUUID=9f18013c-38fa-468b-9a05-65d43030ac89; ltoken=baeam9FtB1wnVJLvqP3oDGbdHek56IY2uyvVHZqJ; ltuid=240917654; cookie_token=OvcUTZmQpfGq0mTv4xOZIYOPqrS5BqWL2wt3h1dP; account_id=240917654
+  - UM_distinctid=17b351800dd35d-08ef723ca8cd33-7868796f-144000-17b351800dedb5; CNZZDATA1275023096=1897512521-1628678465-|1628678465; _MHYUUID=c08118b8-bbcb-42db-b894-e5145269088d; _ga=GA1.2.40817947.1628683372; _gid=GA1.2.605332367.1628683372; ltoken=luxTzlEMaXu6igUCYkwhRc3NawHbvk2kzXXgVUAc; ltuid=126611901; cookie_token=UHAG5WKkah52UxaycuGk5s2gU0l4RmhiUW2HrjdF; account_id=126611901

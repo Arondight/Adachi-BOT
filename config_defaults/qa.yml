@@ -1,0 +1,51 @@
+# ==============================================================================
+# 此为项目的问答列表配置。
+# ==============================================================================
+# 1. 将此文件复制到 ../config/ 下进行修改，不要直接修改此文件。
+# 2. 每次更新时关注此文件的变更，在 ../config/ 下的同名文件中体现变更。
+# ==============================================================================
+# settings:
+#   -
+#     match:                    # 入口（正则表达式，全局唯一）
+#       - string
+#     ignoreCase: boolean       # 是否忽略大小写匹配
+#     type: string              # 类型（ text 、 image 、 executable 、 command ）
+#     reply: string             # 回复的内容，如何解释根据类型而异
+# ==============================================================================
+# 类型：
+#
+# 1. text：       一段文本
+# 2. image：      图片文件的路径，如果是相对路径，以此配置文件的目录为基准
+# 3. executable： 可执行文件的路径，如果是相对路径，以此配置文件的目录为基准
+# 4. command：    命令
+# ==============================================================================
+
+settings:
+  #
+  # 以下为示例，executable 和 command 仅关心标准输出
+  #
+  -
+    match:
+      - Adachi-BOT\s?是什么意思
+    ignoreCase: true
+    type: text
+    reply: 我也不知道呢……
+  -
+    match:
+      - ^刻(猫{2}|晴)是谁
+      - 谁是最(好|棒)的牛杂师傅
+    ignoreCase: false
+    type: image
+    reply: ../resources/Version2/thumb/character/刻晴.png
+  -
+    match:
+      - Adachi-BOT\s?上游有更新吗
+    ignoreCase: true
+    type: executable
+    reply: ../scripts/is_there_an_update_available.sh
+  -
+    match:
+      - 今天是?(哪天|(周|星期)几|几号)
+    ignoreCase: false
+    type: command
+    reply: date +"%Y年%m月%d日（%Z），星期%u" | sed "s|6$|六|; s|7$|日|; s|$|。|"

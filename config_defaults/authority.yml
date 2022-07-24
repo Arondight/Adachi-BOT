@@ -47,3 +47,6 @@ default:
   # 消息响应
   # on:打开、 off:关闭
   reply_auth: on
+  # 问答
+  # on:打开、 off:关闭
+  qa_auth: on
