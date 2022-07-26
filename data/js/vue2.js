@@ -1,5 +1,5 @@
 /*!
- * Vue.js v2.7.7
+ * Vue.js v2.7.8
  * (c) 2014-2022 Evan You
  * Released under the MIT License.
  */
@@ -1007,7 +1007,7 @@
                   // #7981: for accessor properties without setter
                   return;
               }
-              else if (isRef(value) && !isRef(newVal)) {
+              else if (!shallow && isRef(value) && !isRef(newVal)) {
                   value.value = newVal;
                   return;
               }
@@ -2283,7 +2283,19 @@
       var exposeCalled = false;
       return {
           get attrs() {
-              return initAttrsProxy(vm);
+              if (!vm._attrsProxy) {
+                  var proxy = (vm._attrsProxy = {});
+                  def(proxy, '_v_attr_proxy', true);
+                  syncSetupProxy(proxy, vm.$attrs, emptyObject, vm, '$attrs');
+              }
+              return vm._attrsProxy;
+          },
+          get listeners() {
+              if (!vm._listenersProxy) {
+                  var proxy = (vm._listenersProxy = {});
+                  syncSetupProxy(proxy, vm.$listeners, emptyObject, vm, '$listeners');
+              }
+              return vm._listenersProxy;
           },
           get slots() {
               return initSlotsProxy(vm);
@@ -2304,20 +2316,12 @@
           }
       };
   }
-  function initAttrsProxy(vm) {
-      if (!vm._attrsProxy) {
-          var proxy = (vm._attrsProxy = {});
-          def(proxy, '_v_attr_proxy', true);
-          syncSetupAttrs(proxy, vm.$attrs, emptyObject, vm);
-      }
-      return vm._attrsProxy;
-  }
-  function syncSetupAttrs(to, from, prev, instance) {
+  function syncSetupProxy(to, from, prev, instance, type) {
       var changed = false;
       for (var key in from) {
           if (!(key in to)) {
               changed = true;
-              defineProxyAttr(to, key, instance);
+              defineProxyAttr(to, key, instance, type);
           }
           else if (from[key] !== prev[key]) {
               changed = true;
@@ -2331,12 +2335,12 @@
       }
       return changed;
   }
-  function defineProxyAttr(proxy, key, instance) {
+  function defineProxyAttr(proxy, key, instance, type) {
       Object.defineProperty(proxy, key, {
           enumerable: true,
           configurable: true,
           get: function () {
-              return instance.$attrs[key];
+              return instance[type][key];
           }
       });
   }
@@ -2357,16 +2361,26 @@
       }
   }
   /**
-   * @internal use manual type def
+   * @internal use manual type def because public setup context type relies on
+   * legacy VNode types
    */
   function useSlots() {
       return getContext().slots;
   }
   /**
-   * @internal use manual type def
+   * @internal use manual type def because public setup context type relies on
+   * legacy VNode types
    */
   function useAttrs() {
       return getContext().attrs;
+  }
+  /**
+   * Vue 2 only
+   * @internal use manual type def because public setup context type relies on
+   * legacy VNode types
+   */
+  function useListeners() {
+      return getContext().listeners;
   }
   function getContext() {
       if (!currentInstance) {
@@ -2968,12 +2982,19 @@
       if (vm._attrsProxy) {
           // force update if attrs are accessed and has changed since it may be
           // passed to a child component.
-          if (syncSetupAttrs(vm._attrsProxy, attrs, (prevVNode.data && prevVNode.data.attrs) || emptyObject, vm)) {
+          if (syncSetupProxy(vm._attrsProxy, attrs, (prevVNode.data && prevVNode.data.attrs) || emptyObject, vm, '$attrs')) {
               needsForceUpdate = true;
           }
       }
       vm.$attrs = attrs;
-      vm.$listeners = listeners || emptyObject;
+      // update listeners
+      listeners = listeners || emptyObject;
+      var prevListeners = vm.$options._parentListeners;
+      if (vm._listenersProxy) {
+          syncSetupProxy(vm._listenersProxy, listeners, prevListeners || emptyObject, vm, '$listeners');
+      }
+      vm.$listeners = vm.$options._parentListeners = listeners;
+      updateComponentListeners(vm, listeners, prevListeners);
       // update props
       if (propsData && vm.$options.props) {
           toggleObserving(false);
@@ -2988,11 +3009,6 @@
           // keep a copy of raw propsData
           vm.$options.propsData = propsData;
       }
-      // update listeners
-      listeners = listeners || emptyObject;
-      var oldListeners = vm.$options._parentListeners;
-      vm.$options._parentListeners = listeners;
-      updateComponentListeners(vm, listeners, oldListeners);
       // resolve slots + force update if has children
       if (needsForceUpdate) {
           vm.$slots = resolveSlots(renderChildren, parentVnode.context);
@@ -3941,7 +3957,7 @@
   /**
    * Note: also update dist/vue.runtime.mjs when adding new exports to this file.
    */
-  var version = '2.7.7';
+  var version = '2.7.8';
   /**
    * @internal type is manually declared in <root>/types/v3-define-component.d.ts
    */
@@ -3987,6 +4003,7 @@
     getCurrentInstance: getCurrentInstance,
     useSlots: useSlots,
     useAttrs: useAttrs,
+    useListeners: useListeners,
     mergeDefaults: mergeDefaults,
     nextTick: nextTick,
     set: set,
@@ -10937,10 +10954,7 @@
               // check if this is a component in <script setup>
               var bindings = state.options.bindings;
               if (maybeComponent && bindings && bindings.__isScriptSetup !== false) {
-                  tag =
-                      checkBindingType(bindings, el.tag) ||
-                          checkBindingType(bindings, camelize(el.tag)) ||
-                          checkBindingType(bindings, capitalize(camelize(el.tag)));
+                  tag = checkBindingType(bindings, el.tag);
               }
               if (!tag)
                   tag = "'".concat(el.tag, "'");
@@ -10957,9 +10971,29 @@
       }
   }
   function checkBindingType(bindings, key) {
-      var type = bindings[key];
-      if (type && type.startsWith('setup')) {
-          return key;
+      var camelName = camelize(key);
+      var PascalName = capitalize(camelName);
+      var checkType = function (type) {
+          if (bindings[key] === type) {
+              return key;
+          }
+          if (bindings[camelName] === type) {
+              return camelName;
+          }
+          if (bindings[PascalName] === type) {
+              return PascalName;
+          }
+      };
+      var fromConst = checkType("setup-const" /* BindingTypes.SETUP_CONST */) ||
+          checkType("setup-reactive-const" /* BindingTypes.SETUP_REACTIVE_CONST */);
+      if (fromConst) {
+          return fromConst;
+      }
+      var fromMaybeRef = checkType("setup-let" /* BindingTypes.SETUP_LET */) ||
+          checkType("setup-ref" /* BindingTypes.SETUP_REF */) ||
+          checkType("setup-maybe-ref" /* BindingTypes.SETUP_MAYBE_REF */);
+      if (fromMaybeRef) {
+          return fromMaybeRef;
       }
   }
   // hoist static sub-trees out
