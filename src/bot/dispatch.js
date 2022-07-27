@@ -56,7 +56,7 @@ async function doPossibleCommand(msg, plugins, type, bot) {
     }
   }
 
-  async function doPlugin(msg) {
+  function doPlugin(msg) {
     const regexPool = { ...global.command.regex, ...global.master.regex };
     const enableList = { ...global.command.enable, ...global.master.enable };
 
