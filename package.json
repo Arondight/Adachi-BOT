@@ -58,7 +58,7 @@
     "md5": "2.3.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.34",
-    "node-fetch": "3.2.9",
+    "node-fetch": "3.2.10",
     "node-schedule": "2.1.0",
     "oicq": "2.3.1",
     "p-limit": "4.0.0",
@@ -80,7 +80,7 @@
     "eslint-plugin-sort-exports": "0.7.0",
     "eslint-plugin-vue": "9.3.0",
     "eslint-plugin-yml": "1.1.0",
-    "npm-check-updates": "16.0.3",
+    "npm-check-updates": "16.0.4",
     "prettier": "2.7.1"
   }
 }
