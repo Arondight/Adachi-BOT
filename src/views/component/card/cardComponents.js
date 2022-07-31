@@ -117,11 +117,10 @@ const ExplorationBox = defineComponent({
   setup(props) {
     function getIconUri(rawUri) {
       const icon_filename = rawUri.split("_").slice(-1)[0].split(".").slice(0)[0];
-      const iconUri = logo_mapping[icon_filename.toLowerCase()]
+
+      return logo_mapping[icon_filename.toLowerCase()]
         ? encodeURI(`http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`)
         : rawUri;
-
-      return iconUri;
     }
 
     const logo_mapping = {
