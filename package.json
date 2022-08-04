@@ -67,7 +67,7 @@
     "puppeteer": "16.0.0",
     "random-float": "3.0.0",
     "semver": "7.3.7",
-    "systeminformation": "5.12.2",
+    "systeminformation": "5.12.3",
     "yargs": "17.5.1"
   },
   "devDependencies": {
