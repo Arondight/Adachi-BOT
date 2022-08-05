@@ -83,7 +83,7 @@ function getBase(uid, cookie) {
     (c) =>
       new Promise((resolve, reject) => {
         try {
-          reject(
+          resolve(
             resolve(`${c}?${new URLSearchParams(query)}`, {
               method: "GET",
               headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
