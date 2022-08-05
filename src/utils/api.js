@@ -1,7 +1,7 @@
 import fs from "fs";
 import lodash from "lodash";
+import fetch from "node-fetch";
 import path from "path";
-import fetch from "sync-fetch";
 import { getDS } from "#utils/ds";
 
 // XXX 之所以会有两个 API 域名，是因为米哈游在两个 API 域名之间反复横跳 :)
@@ -58,20 +58,11 @@ function getEmoticons() {
 
 function getAbyDetail(role_id, schedule_type, server, cookie) {
   const query = { role_id, schedule_type, server };
-  const promises = m_API.FETCH_ABY_DETAIL.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          resolve(
-            fetch(`${c}?${new URLSearchParams(query)}`, {
-              method: "GET",
-              headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_ABY_DETAIL.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);
@@ -79,20 +70,11 @@ function getAbyDetail(role_id, schedule_type, server, cookie) {
 
 function getBase(uid, cookie) {
   const query = { uid };
-  const promises = m_API.FETCH_ROLE_ID.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          reject(
-            resolve(`${c}?${new URLSearchParams(query)}`, {
-              method: "GET",
-              headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_ROLE_ID.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);
@@ -100,21 +82,12 @@ function getBase(uid, cookie) {
 
 function getIndex(role_id, server, cookie) {
   const query = { role_id, server };
-  const promises = m_API.FETCH_ROLE_INDEX.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          resolve(
-            fetch(`${c}?${new URLSearchParams(query)}`, {
-              method: "GET",
-              qs: query,
-              headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_ROLE_INDEX.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      qs: query,
+      headers: { ...m_HEADERS, DS: getDS(query), Cookie: cookie },
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);
@@ -122,67 +95,40 @@ function getIndex(role_id, server, cookie) {
 
 function getCharacters(role_id, server, character_ids, cookie) {
   const body = { character_ids, role_id, server };
-  const promises = m_API.FETCH_ROLE_CHARACTERS.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          resolve(
-            fetch(c, {
-              method: "POST",
-              json: true,
-              body: JSON.stringify(body),
-              headers: {
-                ...m_HEADERS,
-                DS: getDS(undefined, JSON.stringify(body)),
-                Cookie: cookie,
-                "content-type": "application/json",
-              },
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_ROLE_CHARACTERS.map((c) =>
+    fetch(c, {
+      method: "POST",
+      json: true,
+      body: JSON.stringify(body),
+      headers: {
+        ...m_HEADERS,
+        DS: getDS(undefined, JSON.stringify(body)),
+        Cookie: cookie,
+        "content-type": "application/json",
+      },
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);
 }
 
 function getGachaList() {
-  const promises = m_API.FETCH_GACHA_LIST.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          resolve(
-            fetch(c, {
-              method: "GET",
-              headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_GACHA_LIST.map((c) =>
+    fetch(c, {
+      method: "GET",
+      headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);
 }
 
 function getGachaDetail(gachaID) {
-  const promises = m_API.FETCH_GACHA_DETAIL.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          resolve(
-            fetch(c.replace("{}", gachaID), {
-              method: "GET",
-              headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_GACHA_DETAIL.map((c) =>
+    fetch(c.replace("{}", gachaID), {
+      method: "GET",
+      headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);
@@ -190,21 +136,12 @@ function getGachaDetail(gachaID) {
 
 function getMysNews(type = 1) {
   const query = { gids: 2, page_size: 10, type };
-  const promises = m_API.FETCH_MYS_NEWS.map(
-    (c) =>
-      new Promise((resolve, reject) => {
-        try {
-          resolve(
-            fetch(`${c}?${new URLSearchParams(query)}`, {
-              method: "GET",
-              qs: query,
-              headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
-            }).json()
-          );
-        } catch (e) {
-          reject(e);
-        }
-      })
+  const promises = m_API.FETCH_MYS_NEWS.map((c) =>
+    fetch(`${c}?${new URLSearchParams(query)}`, {
+      method: "GET",
+      qs: query,
+      headers: lodash.pick(m_HEADERS, ["DS", "Cookie"]),
+    }).then((res) => res.json())
   );
 
   return Promise.any(promises);

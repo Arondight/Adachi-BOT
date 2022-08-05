@@ -1,19 +1,19 @@
 import lodash from "lodash";
-import fetch from "sync-fetch";
+import fetch from "node-fetch";
 import { imageOcr } from "#plugins/rating/data";
 import { findIndexOf } from "#plugins/rating/findIndexOf";
 
-function doImageOcr(msg) {
+async function doImageOcr(msg) {
   const source = msg.text.match(/\[CQ:image,type=.*?,file=.+?]/);
   const [url] = /(?<=url=).+(?=])/.exec(source) || [];
 
-  return imageOcr(msg, url);
+  return await imageOcr(msg, url);
 }
 
 // 使用可莉特调的 API 计算分数并发送
-function doRating(msg) {
+async function doRating(msg) {
   const headers = { "Content-Type": "application/json" };
-  const prop = doImageOcr(msg);
+  const prop = await doImageOcr(msg);
   let report, response, ret;
 
   if (undefined === prop) {
@@ -23,13 +23,13 @@ function doRating(msg) {
   try {
     // { "total_score": 700.4420866489831, "total_percent": "77.83", "main_score": 0,
     //   "main_percent": "0.00", "sub_score": 700.4420866489831, "sub_percent": "77.83" }
-    response = fetch("https://api.genshin.pub/api/v1/relic/rate", {
+    response = await fetch("https://api.genshin.pub/api/v1/relic/rate", {
       method: "POST",
       headers,
       body: JSON.stringify(prop),
     });
 
-    ret = response.json();
+    ret = await response.json();
 
     if (400 === response.status) {
       if (lodash.hasIn(ret, "code") && 50003 === ret.code) {
@@ -59,8 +59,8 @@ function doRating(msg) {
 }
 
 // 本地计算词条数并发送
-function doRating2(msg) {
-  const prop = doImageOcr(msg);
+async function doRating2(msg) {
+  const prop = await doImageOcr(msg);
   let report;
 
   if (undefined === prop) {
