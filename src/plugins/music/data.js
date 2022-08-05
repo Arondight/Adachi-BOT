@@ -1,6 +1,6 @@
 import lodash from "lodash";
-import fetch from "node-fetch";
 import querystring from "querystring";
+import fetch from "sync-fetch";
 import db from "#utils/database";
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
@@ -16,7 +16,7 @@ const m_ERR_MSG = Object.freeze({
   [m_ERR_CODE.ERR_API]: "歌曲查询出错",
 });
 
-async function musicQQ(keyword) {
+function musicQQ(keyword) {
   const url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp";
   const query = { w: keyword };
   const headers = {
@@ -27,10 +27,10 @@ async function musicQQ(keyword) {
   let jbody;
 
   try {
-    response = await fetch(`${url}?${new URLSearchParams(query)}`, { method: "GET", headers });
+    response = fetch(`${url}?${new URLSearchParams(query)}`, { method: "GET", headers });
 
     if (200 === response.status) {
-      jbody = await response.text();
+      jbody = response.text();
     }
   } catch (e) {
     // do nothing
@@ -55,7 +55,7 @@ async function musicQQ(keyword) {
   return m_ERR_CODE.ERR_404;
 }
 
-async function music163(keyword) {
+function music163(keyword) {
   const url = "https://music.163.com/api/search/get/";
   const form = {
     s: keyword,
@@ -75,10 +75,10 @@ async function music163(keyword) {
   let jbody;
 
   try {
-    response = await fetch(url, { method: "POST", headers, body });
+    response = fetch(url, { method: "POST", headers, body });
 
     if (200 === response.status) {
-      jbody = await response.json();
+      jbody = response.json();
     }
   } catch (e) {
     // do nothing
@@ -95,7 +95,7 @@ async function music163(keyword) {
   return m_ERR_CODE.ERR_404;
 }
 
-async function musicID(text, source) {
+function musicID(text, source) {
   const args = filterWordsByRegex(text, ...global.command.functions.entrance.music);
   const worker = {
     [global.all.functions.options.music_source.qq || "qq"]: musicQQ,
@@ -106,7 +106,7 @@ async function musicID(text, source) {
     return m_ERR_CODE.ERR_SRC;
   }
 
-  return await worker[source](args);
+  return worker[source](args);
 }
 
 function musicSrc(text, id) {

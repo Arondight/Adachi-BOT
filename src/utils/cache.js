@@ -1,8 +1,8 @@
 import { once } from "events";
 import fs from "fs";
 import md5 from "md5";
-import fetch from "node-fetch";
 import path from "path";
+import fetch from "sync-fetch";
 import util from "util";
 import { du, mkdir } from "#utils/file";
 
@@ -17,7 +17,7 @@ async function isCached(url, dir) {
 
   if (fs.existsSync(filepath)) {
     try {
-      response = await fetch(url, { method: "HEAD" });
+      response = fetch(url, { method: "HEAD" });
 
       return !(200 !== response.status || du(filepath) !== parseInt(response.headers.get("Content-length")));
     } catch (e) {
@@ -35,11 +35,12 @@ async function doCache(url, dir) {
     try {
       const stream = fs.createWriteStream(filepath);
       const writeFilePromise = util.promisify(fs.writeFile);
+      const response = fetch(url);
+      const buffer = response.arrayBuffer();
 
-      await fetch(url)
-        .then((r) => r.arrayBuffer())
-        .then((r) => writeFilePromise(filepath, Buffer.from(r)))
-        .then(() => stream.end());
+      writeFilePromise(filepath, Buffer.from(buffer))
+        .then(() => stream.end())
+        .catch((e) => global.bots.logger.error(`错误：写入 ${filepath} 失败，因为“${e}”。`));
       await once(stream, "finish");
     } catch (e) {
       global.bots.logger.error(`错误：拉取 ${url} 失败，因为“${e}”。`);
