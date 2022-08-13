@@ -266,15 +266,27 @@ artifacts:
   -
     id: 20
     rarity: 5
-    icon: null
+    icon: 15023
     suit: 辰砂往生录
     names: [ 生灵之华, 潜光片羽, 阳辔之遗, 结契之刻, 虺雷之姿 ]
   -
     id: 21
     rarity: 5
-    icon: null
+    icon: 15024
     suit: 来歆余响
     names: [ 魂香之花, 垂玉之叶, 祝祀之凭, 涌泉之盏, 浮溯之钰 ]
+  -
+    id: 22
+    rarity: 5
+    icon: null
+    suit: 深林的记忆
+    names: [ 迷宫的游人, 翠蔓的智者, 贤智的定期, 迷误者之灯, 月桂的宝冠 ]
+  -
+    id: 23
+    rarity: 5
+    icon: null
+    suit: 饰金之梦
+    names: [ 梦中的铁花, 裁断的翎羽, 沉金的岁月, 如蜜的终宴, 沙王的投影 ]
 
 #
 # 副本掉落设置。别名 alias 忽略大小写。
@@ -333,5 +345,10 @@ domains:
   -
     id: 10
     name: 岩中幽谷
-    alias: [ ]
+    alias: [ 防御本 ]
     product: [ 20, 21 ]
+  -
+    id: 11
+    name: 新副本
+    alias: [ ]
+    product: [ 22, 23 ]

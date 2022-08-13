@@ -359,6 +359,35 @@
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "constellations[{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.*元素(战技|爆发).*$"
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$"
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 2,
+              "end": 5,
+              "step": 2
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
           "path": "cv",
           "values": [
             {
