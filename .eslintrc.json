@@ -375,6 +375,15 @@
                   "value": "^角色$"
                 }
               ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^(?!埃洛伊)$"
+                }
+              ]
             }
           ],
           "for": [
