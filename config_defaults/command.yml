@@ -231,7 +231,7 @@ tools:
     - ^(help|roll|菜单|管理(命令|功能)|求签|占卜)\s*$
     - ^(今天)?[吃喝]什么\s*$
     - ^roll\s*[+-]?\d+\s*$
-    - ^带(个)?话\s*.+$
+    - ^带(个)?话\s*.+
   functions:
     menu:
       type: command
@@ -423,7 +423,7 @@ rating:
   enable: true
   weights: 9199
   regex:
-    - ^评分\s*\[CQ:image,type=.*?,file=.*$
+    - ^评分\s*\[CQ:image,type=.*?,file=.*
   functions:
     rating:
       type: command
