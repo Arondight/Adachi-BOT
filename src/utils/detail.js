@@ -324,7 +324,7 @@ async function characterDetail(uid, server, character_ids, guess = false, bot) {
     promises = queryList.map((c) => limit(() => getCharacters(uid, server, Array.isArray(c) ? c : [c], cookie)));
     (await Promise.allSettled(promises)).forEach(
       (c) =>
-        "fulfilled" === c.status && 0 === c.value.retcode && (data.avatars = data.avatars.concat(c.value.data.avatars))
+        "fulfilled" === c.status && 0 === c.value.retcode && (data.avatars = [...data.avatars, ...c.value.data.avatars])
     );
   }
 

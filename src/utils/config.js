@@ -1202,7 +1202,7 @@ function readEggs() {
     global.eggs.type = {};
     global.eggs.star = {};
 
-    global.info.character.concat(global.info.weapon).forEach((c) => {
+    [...global.info.character, ...global.info.weapon].forEach((c) => {
       // 只要五星
       if ("string" === typeof c.type && 5 === parseInt(c.rarity) && "祈愿" === c.access) {
         global.eggs.type[c.name] = c.type;
@@ -1259,7 +1259,7 @@ function readMaterial() {
     .each((k) => (global.material[k] = []))
     .value();
 
-  global.info.character.concat(global.info.weapon).forEach((c) =>
+  [...global.info.character, ...global.info.weapon].forEach((c) =>
     Object.keys(keyFromZhou).forEach((zhou) => {
       if (undefined !== c.time && "string" === typeof c.time && c.time.includes(zhou)) {
         keyFromZhou[zhou].forEach((k) => global.material[k].push(c.name.toString().toLowerCase()));

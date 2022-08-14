@@ -496,7 +496,7 @@ async function getWeaponData(name, page) {
     mainValue += "%";
   }
 
-  for (const i of [7, 12, 18].concat(rarity > 2 ? [24] : [])) {
+  for (const i of [...[7, 12, 18], ...(rarity > 2 ? [24] : [])]) {
     ascensionMaterials[0].push(
       await getMaterialName(
         await page.evaluate((e) => e.getAttribute("href"), (await handle.$x(`./tbody/tr[${i}]/td[4]/a[1]`))[0])
@@ -505,7 +505,7 @@ async function getWeaponData(name, page) {
   }
 
   for (const i1 of [2, 3]) {
-    for (const i2 of [7, 15].concat(rarity > 2 ? [21] : [])) {
+    for (const i2 of [...[7, 15], ...(rarity > 2 ? [21] : [])]) {
       let name = "";
 
       try {

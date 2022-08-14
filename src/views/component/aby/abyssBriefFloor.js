@@ -123,7 +123,7 @@ export default defineComponent({
       for (const battle of battles) {
         const { timestamp, avatars: chamberAvatars } = battle || {};
         timestamps.push(timestamp);
-        avatars = avatars.concat(chamberAvatars);
+        avatars = [...avatars, ...chamberAvatars];
       }
 
       if (3 !== star) {
