@@ -224,9 +224,9 @@ function gachaTimes(userID, nickname, times = 10) {
 
   gachaResults.forEach((c) => {
     if ("武器" === c.item_type) {
-      c.type = (global.info.weapon.filter((c) => c.name === c.item_name)[0] || {}).title;
+      c.type = (global.info.weapon.filter((cc) => cc.name === c.item_name)[0] || {}).title;
     } else {
-      c.type = (global.info.character.filter((c) => c.name === c.item_name)[0] || {}).element;
+      c.type = (global.info.character.filter((cc) => cc.name === c.item_name)[0] || {}).element;
     }
 
     result.data.push(c);

@@ -113,7 +113,7 @@ export default defineComponent({
 
     function explorationReducer(curr, next) {
       // 当 curr 为 object 时无法 spread，需要转换为 array
-      const currentArray = [...curr];
+      const currentArray = [...(Array.isArray(curr) ? curr : [curr])];
       const currentArea = currentArray.pop();
       const {
         name: currentName,
