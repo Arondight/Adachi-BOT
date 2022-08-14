@@ -14,6 +14,10 @@ function parse(types, items) {
     if (Object.keys(types).includes(item.type)) {
       item.type = types[item.type];
       item.rarity = item.rank;
+
+      if (undefined === item.beta) {
+        item.beta = false;
+      }
     }
 
     parsed.push(lodash.pick(item, ["id", "name", "type", "rarity", "beta"]));
