@@ -93,7 +93,7 @@ export default defineComponent({
       item_type: imageType,
       image_url: encodeURI(`http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.${extName}`),
       item_rarity: itemRarity,
-      item_type_image: encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage}.png`),
+      item_type_image: encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage || "风元素"}.png`),
       item_rarity_image: encodeURI(`http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`),
       item_label: itemLabel,
     };

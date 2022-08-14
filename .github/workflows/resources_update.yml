@@ -16,6 +16,10 @@ jobs:
           ref: dev
       - name: Update resources
         run: ./resources/update.sh
+      - name: Install node modules
+        run: npm install
+      - name: Update material.json
+        run: npm run tool-material
       - name: Config git
         run: |
           git config user.name 'github-actions'

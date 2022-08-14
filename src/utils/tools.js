@@ -106,7 +106,7 @@ function filterWordsByRegex(text, ...rest) {
 // 英文数字空格分割，中文按字分割
 function segment(text) {
   const regex = /\b(\w|\d)+?\b/g;
-  return [].concat(text.match(regex)).concat([...(text.replace(regex, "").replace(/\s/g, "") || [])]);
+  return [...text.match(regex), ...[...(text.replace(regex, "").replace(/\s/g, "") || [])]];
 }
 
 function simhash(text) {

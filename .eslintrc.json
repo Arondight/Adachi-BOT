@@ -359,6 +359,44 @@
         },
         {
           "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "constellations[{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.*元素(战技|爆发).*$"
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$"
+                }
+              ]
+            },
+            {
+              "path": "name",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^(?!埃洛伊)$"
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 2,
+              "end": 5,
+              "step": 2
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
           "path": "cv",
           "values": [
             {
@@ -844,6 +882,35 @@
                   "value": "^[12]$"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "file": "resources(_custom)?/Version2/info/docs/.+\\.json",
+          "path": "talentMaterials[{{COUNTER1}}]",
+          "values": [
+            {
+              "type": "string",
+              "value": "^.+?的.+$"
+            }
+          ],
+          "if": [
+            {
+              "path": "type",
+              "values": [
+                {
+                  "type": "string",
+                  "value": "^角色$"
+                }
+              ]
+            }
+          ],
+          "for": [
+            {
+              "replace": "{{COUNTER1}}",
+              "start": 0,
+              "end": 3,
+              "step": 1
             }
           ]
         },

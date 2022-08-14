@@ -60,4 +60,17 @@ function toReadableDate(date, format) {
   return str;
 }
 
-export { getParams, html, toReadableDate };
+function toReadableElem(elem) {
+  const name = {
+    anemo: "风元素",
+    cryo: "冰元素",
+    electro: "雷元素",
+    geo: "岩元素",
+    hydro: "水元素",
+    pyro: "火元素",
+  };
+
+  return name[String(elem).toLowerCase()] || "风元素";
+}
+
+export { getParams, html, toReadableDate, toReadableElem };

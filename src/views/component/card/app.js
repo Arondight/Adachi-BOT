@@ -113,7 +113,7 @@ export default defineComponent({
 
     function explorationReducer(curr, next) {
       // 当 curr 为 object 时无法 spread，需要转换为 array
-      const currentArray = [].concat(curr);
+      const currentArray = [...(Array.isArray(curr) ? curr : [curr])];
       const currentArea = currentArray.pop();
       const {
         name: currentName,
@@ -178,9 +178,9 @@ export default defineComponent({
     const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=5&nk=${qqid}` : character;
     const namecardAvatarBackupImg = encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
     const filterOfferingName = (string) => string.replace(/等级$/, "");
-    const explorations = []
-      .concat(lodash.orderBy(params.explorations, "id", "asc").map((exploration) => getExplorationData(exploration)))
-      .reduce(explorationReducer);
+    const explorations = [
+      ...lodash.orderBy(params.explorations, "id", "asc").map((exploration) => getExplorationData(exploration)),
+    ].reduce(explorationReducer);
     const characters = params.avatars || [];
     const homeComfort = Math.max(...params.homes.map((home) => home.comfort_num || 0));
 

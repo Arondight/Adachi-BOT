@@ -1,12 +1,7 @@
-import fs from "fs";
 import lodash from "lodash";
-import path from "path";
 import db from "#utils/database";
 import { getRandomInt } from "#utils/tools";
 
-const mConfigdir = path.resolve(global.rootdir, "resources", "Version2", "wish", "config");
-const mElement = JSON.parse(fs.readFileSync(path.resolve(mConfigdir, "character.json")));
-const mTypes = JSON.parse(fs.readFileSync(path.resolve(mConfigdir, "weapon.json")));
 let mFive, mFour, mIsUp;
 
 function getChoiceData(userID, choice = 301) {
@@ -228,7 +223,12 @@ function gachaTimes(userID, nickname, times = 10) {
   };
 
   gachaResults.forEach((c) => {
-    c.type = ("武器" === c.item_type ? mTypes : mElement)[c.item_name];
+    if ("武器" === c.item_type) {
+      c.type = (global.info.weapon.filter((cc) => cc.name === c.item_name)[0] || {}).title;
+    } else {
+      c.type = (global.info.character.filter((cc) => cc.name === c.item_name)[0] || {}).element;
+    }
+
     result.data.push(c);
   });
 
