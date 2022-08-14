@@ -18,24 +18,14 @@
   "element": "雷元素",
   "id": 10000068,
   "introduce": "神出鬼没的旅行百货商人，最喜欢亮闪闪的摩拉。",
-  "levelUpMaterials": [
-    "劫波莲",
-    "褪色红绸",
-    "镶边红绸",
-    "织金红绸"
-  ],
+  "levelUpMaterials": ["劫波莲", "褪色红绸", "镶边红绸", "织金红绸"],
   "mainStat": "生命值",
   "mainValue": "24.0%",
   "name": "多莉",
   "passiveDesc": "合成角色与武器培养素材时，有25%的概率返还部分合成材料。",
   "passiveTitle": "意外订单",
   "rarity": 4,
-  "talentMaterials": [
-    "???",
-    "???",
-    "???",
-    "血玉之枝"
-  ],
+  "talentMaterials": ["???", "???", "???", "血玉之枝"],
   "time": "【周二/五/日】",
   "title": "梦园藏金",
   "type": "角色"
