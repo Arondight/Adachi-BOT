@@ -40,19 +40,10 @@ const materialUnit = defineComponent({
   setup(props) {
     const propsValue = unref(props);
     const params = propsValue.data;
-    let ascensionName = "";
-
-    if (propsValue.type === "weapon") {
-      const de = params.ascension[0].split("的");
-      const zhi = params.ascension[0].split("之");
-      const arr = de.length === 1 ? zhi : de;
-
-      ascensionName = arr[0];
-    } else {
-      const regExp = new RegExp(/「(.*?)」/g);
-
-      ascensionName = regExp.exec(params.ascension[0])[0];
-    }
+    const de = params.ascension[0].split("的");
+    const zhi = params.ascension[0].split("之");
+    const arr = de.length === 1 ? zhi : de;
+    const ascensionName = arr[0] || "";
 
     return {
       params,
