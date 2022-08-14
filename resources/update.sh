@@ -225,6 +225,8 @@ API2_AREA='Version2/area'
 API2_ARTIFACT='Version2/artifact'
 API2_ARTIFACT_OTHER='Version2/artifact/other'
 API2_CHARACTER='Version2/character'
+API2_COMPONENTS='Version2/components'
+API2_FRAMES='Version2/frames'
 API2_INFO_DOCS='Version2/info/docs'
 API2_INFO_IMAGE='Version2/info/image'
 API2_INFO_OTHER='Version2/info/other'
@@ -248,6 +250,13 @@ API2_ARTIFACT_OTHER_FILES=(
 )
 API2_ARTIFACT_FILES=(
   'artifact.yml'
+)
+API2_COMPONENTS_FILES=(
+  'namecard-top.svg'
+  'title-decoration.svg'
+)
+API2_FRAMES_FILES=(
+  'namecard-middle.svg'
 )
 API2_MODULE_FILES=(
   'artifact.png'
@@ -439,6 +448,16 @@ function getArea()
   fetch "$API2_AREA" 1 '.png' "${AREAS[@]}"
 }
 
+function getComponents()
+{
+  fetch "$API2_COMPONENTS" 1 '' "${API2_COMPONENTS_FILES[@]}"
+}
+
+function getFrames()
+{
+  fetch "$API2_FRAMES" 1 '' "${API2_FRAMES_FILES[@]}"
+}
+
 function getGacha()
 {
   fetch "$API_GACHA_ITEMS" 1 '' "${API_GACHA_ITEMS_FILES[@]}"
@@ -575,6 +594,8 @@ function cleanXML()
 
   getOtherFiles
   getArea
+  getComponents
+  getFrames
   getGacha
   getMoudle
   getNameCard
