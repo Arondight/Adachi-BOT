@@ -503,8 +503,8 @@ function getInfo()
     done
   done
 
-  #fetch "$API2_INFO_DOCS" 1 '.json' "${CHARS[@]}"
-  #fetch "$API2_INFO_DOCS" 1 '.json' "${WEAPONS[@]}"
+  fetch "$API2_INFO_DOCS" 1 '.json' "${CHARS[@]}"
+  fetch "$API2_INFO_DOCS" 1 '.json' "${WEAPONS[@]}"
   fetch "$API2_INFO_OTHER" 0 '' "${files[@]}"
   fetch "$API2_INFO_IMAGE" 1 '.png' "${MATERIALS[@]}"
 }
