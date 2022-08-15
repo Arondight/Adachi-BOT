@@ -1,7 +1,7 @@
 @font-face {
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
   font-family: GenshinUsedFont;
   font-display: swap;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
 * {
@@ -11,18 +11,18 @@
 
 html,
 body {
-  width: 1286px;
-  font-family: GenshinUsedFont, monospace;
-  color: #fff;
   -webkit-text-stroke: 0.018em currentColor;
+  width: 1286px;
+  color: #fff;
+  font-family: GenshinUsedFont, monospace;
 }
 
 #particles-js {
   position: fixed;
   z-index: -999;
+  background: linear-gradient(45deg, #272b38, #2b2b35);
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(45deg, #272b38, #2b2b35);
 }
 
 #app {
@@ -32,35 +32,35 @@ body {
 }
 
 .gacha-title {
-  overflow-wrap: anywhere;
-  font-size: 35px;
-  text-shadow: 0 0 6px #333333;
+  align-self: flex-start;
+  z-index: 999;
   margin-top: 20px;
   margin-left: 40px;
   width: 1120px;
-  z-index: 999;
-  align-self: flex-start;
+  font-size: 35px;
+  text-shadow: 0 0 6px #333333;
+  overflow-wrap: anywhere;
 }
 
 .container-gacha-box {
+  grid-column-gap: 10px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-column-gap: 10px;
-  align-items: center;
   grid-auto-rows: 570px;
+  align-items: center;
   margin-top: 20px;
 }
 
 .gacha-box {
-  height: 100%;
-  width: 112px;
   display: flex;
-  align-items: center;
-  background-size: 112px 652px;
-  background-position: center;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-image: url("http://localhost:9934/resources/gacha/items/gacha-background.png");
+  background-position: center;
+  background-size: 112px 652px;
+  width: 112px;
+  height: 100%;
 }
 
 .item-image {
@@ -100,10 +100,10 @@ svg {
 .frame,
 .halo {
   fill: none;
+  transform: translate(-8px, -35px) scale(0.82);
+  transform-origin: 50% 50%;
   width: 108px;
   height: 484px;
-  transform-origin: 50% 50%;
-  transform: translate(-8px, -35px) scale(0.82);
 }
 
 .frame {
@@ -142,18 +142,16 @@ svg {
 }
 
 .container-item-image.character {
-  height: 464px;
-  margin-top: 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  margin-top: 5px;
+  height: 464px;
 }
 
 .container-item-props {
-  position: absolute;
-  width: 112px;
-  height: 484px;
   display: grid;
+  position: absolute;
   grid-template-rows: 271px 26px 46px 65px 8px 21px 75px;
   grid-template-areas:
     "."
@@ -164,17 +162,19 @@ svg {
     "rarity"
     ".";
   justify-items: center;
+  width: 112px;
+  height: 484px;
 }
 
 .item-label {
-  grid-area: label;
-  font-size: 20px;
-  width: 112px;
   display: flex;
+  grid-area: label;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   background: #5a5a5acc;
+  width: 112px;
+  font-size: 20px;
 }
 
 .item-type-image {
@@ -192,23 +192,23 @@ svg {
   display: grid;
   grid-template-columns: max-content 1fr;
   grid-template-areas: "epitome credit";
-  width: 1220px;
-  justify-items: end;
   align-items: end;
-  font-size: 20px;
+  justify-items: end;
   margin-bottom: 20px;
+  width: 1220px;
+  font-size: 20px;
   text-shadow: 0 0 6px #333333;
 }
 
 .epitome {
-  grid-area: epitome;
+  grid-column-gap: 4px;
   display: grid;
+  grid-template-columns: auto 70px auto;
   grid-template-areas:
     "status status status"
     "label progress data";
-  grid-template-columns: auto 70px auto;
+  grid-area: epitome;
   align-items: center;
-  grid-column-gap: 4px;
   text-shadow: 0 0 6px #333333;
 }
 
@@ -235,21 +235,21 @@ svg {
 }
 
 .bar-full {
-  width: 70px;
-  height: 10px;
-  border: 1px solid #ede8e1;
-  border-radius: 5px;
   box-sizing: border-box;
   box-shadow: 0 0 6px #333333;
+  border: 1px solid #ede8e1;
+  border-radius: 5px;
   background-color: #282b3738;
+  width: 70px;
+  height: 10px;
 }
 
 .bar-progress {
-  height: 6px;
-  margin-left: 2px;
   box-sizing: border-box;
-  background-color: #ede8e1;
+  margin-left: 2px;
   border-radius: 5px;
+  background-color: #ede8e1;
+  height: 6px;
 }
 
 .credit {
