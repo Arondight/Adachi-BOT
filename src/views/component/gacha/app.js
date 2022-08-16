@@ -62,7 +62,7 @@ export default defineComponent({
         item_name: "已折叠的三星武器",
         item_type: "武器",
         star: 3,
-        type: "sword",
+        type: "单手剑",
       };
     }
 
@@ -87,7 +87,7 @@ export default defineComponent({
             item_name: "已折叠的三星武器",
             item_type: "武器",
             star: 3,
-            type: "sword",
+            type: "单手剑",
           },
         ];
 
