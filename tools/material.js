@@ -4,8 +4,8 @@ import fetch from "node-fetch";
 import path from "path";
 import "#utils/config";
 
-const file = path.resolve(global.rootdir, "resources", "Version2", "info", "image", "material.json");
-const api = "https://api.ambr.top/v2/CHS/material/";
+const mFile = path.resolve(global.rootdir, "resources", "Version2", "info", "image", "material.json");
+const mApi = "https://api.ambr.top/v2/CHS/material/";
 
 function parse(types, items) {
   const parsed = [];
@@ -29,10 +29,10 @@ function parse(types, items) {
 (async function main() {
   const data = { types: [], items: [] };
 
-  try {
-    process.stdout.write(`正在从 ${api} 获取数据 ...\t`);
+  process.stdout.write(`拉取 ${mApi} ...\t`);
 
-    const response = await fetch(api, { method: "GET" });
+  try {
+    const response = await fetch(mApi, { method: "GET" });
 
     if (200 === response.status) {
       const jbody = await response.json();
@@ -53,15 +53,16 @@ function parse(types, items) {
   }
 
   console.log("成功");
+  process.stdout.write(`写入 ${mFile} ...\t`);
 
   try {
-    process.stdout.write(`正在写入 ${file} ...\t`);
-    fs.writeFileSync(file, JSON.stringify(data, null, 2));
-    console.log("成功");
+    fs.writeFileSync(mFile, JSON.stringify(data, null, 2));
   } catch (e) {
     console.log("失败");
     return -1;
   }
+
+  console.log("成功");
 
   return 0;
 })()
