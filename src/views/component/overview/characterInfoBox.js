@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent, unref } = window.Vue;
+const { defineComponent, unref, inject } = window.Vue;
 
 const constellTemplate = html`<div v-if="constellContent !== ''" class="info-title constellation-order">
     {{constellCounts}}
@@ -14,6 +14,7 @@ const constellBox = defineComponent({
   },
   template: constellTemplate,
 });
+
 const template = html`<div class="container-overview-infos">
   <div class="container-deco-strip">
     <div class="deco-strip">{{ decoStripContent }}</div>
@@ -59,20 +60,38 @@ const template = html`<div class="container-overview-infos">
         <span>升</span><span>级</span><span>材</span><span>料</span>
       </p>
       <div class="table-materials all-day-materials">
-        <img class="materials" v-for="item in charInfo.levelUpMaterials" :src="getMaterialUrl(item)" :alt="item" />
+        <img
+          class="materials"
+          :class="getMaterialRarityBackground(item)"
+          v-for="item in charInfo.levelUpMaterials"
+          :src="getMaterialUrl(item)"
+          :alt="item"
+        />
       </div>
       <p class="info-title table-materials material-title">
         <span>天</span><span>赋</span><span>材</span><span>料</span>
       </p>
       <div class="table-materials limited-time-materials">
-        <img class="materials" v-for="item in charInfo.talentMaterials" :src="getMaterialUrl(item)" :alt="item" />
+        <img
+          class="materials"
+          :class="getMaterialRarityBackground(item)"
+          v-for="item in charInfo.talentMaterials"
+          :src="getMaterialUrl(item)"
+          :alt="item"
+        />
         <p class="info-weekdays">{{ charInfo.weekdays }}</p>
       </div>
       <p class="info-title table-materials material-title">
         <span>突</span><span>破</span><span>材</span><span>料</span>
       </p>
       <div class="table-materials all-day-materials">
-        <img class="materials" v-for="item in charInfo.ascensionMaterials" :src="getMaterialUrl(item)" :alt="item" />
+        <img
+          class="materials"
+          :class="getMaterialRarityBackground(item)"
+          v-for="item in charInfo.ascensionMaterials"
+          :src="getMaterialUrl(item)"
+          :alt="item"
+        />
       </div>
     </div>
   </div>
@@ -102,6 +121,7 @@ export default defineComponent({
       return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
     },
   },
+  inject: ["materialMap"],
   setup(props) {
     const propsValue = unref(props);
     const params = propsValue.data;
@@ -111,6 +131,7 @@ export default defineComponent({
     const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
     const rarity = parseInt(params.rarity) || 4;
     const showPassive = false;
+    const materialMap = inject("materialMap");
 
     const charInfo = {
       ascensionMaterials: params.ascensionMaterials || [],
@@ -138,6 +159,13 @@ export default defineComponent({
       [2, 4].forEach((i) => charInfo.constellationEffects.splice(i, 0, ""));
     }
 
+    const getMaterialRarityBackground = (materialNameString) => {
+      const rarity = materialMap.items.find((material) => material.name === materialNameString)?.rarity;
+      const rarities = [undefined, "one-star", "two-star", "three-star", "four-star", "five-star"];
+
+      return rarity ? rarities[rarity] : "four-star";
+    };
+
     return {
       decoStripContent,
       charTitle,
@@ -145,6 +173,7 @@ export default defineComponent({
       charImageUrl,
       charInfo,
       showPassive,
+      getMaterialRarityBackground,
     };
   },
 });

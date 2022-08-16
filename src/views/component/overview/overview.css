@@ -79,6 +79,31 @@ body,
   background: linear-gradient(#d0d6a5, #998462);
 }
 
+.materials.five-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/5-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.four-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/4-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.three-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/3-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.two-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/2-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.one-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/1-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
 .weapon-four-stars {
   background: linear-gradient(#cfb0d6, hsl(229deg 18% 52%));
   /* 备选 */
