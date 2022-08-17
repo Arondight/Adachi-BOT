@@ -1,28 +1,28 @@
 /*字体：思源黑体，Genshin Abyss*/
 
 @font-face {
+  src: url("../../../../data/font/Genshin-Abyss.ttf");
   /* 用来显示渊星的自创字体，符号是星号"*" */
   font-family: "Genshin Abyss";
   font-display: swap;
-  src: url("../../../../data/font/Genshin-Abyss.ttf");
 }
 
 @font-face {
+  src: url("../../../../data/font/SourceHanSansSC-Regular.otf");
   font-family: "Source Han Sans CN";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSansSC-Regular.otf");
 }
 
 @font-face {
+  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
   font-family: "Source Han Serif SC Regular Subset";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
 }
 
 @font-face {
+  src: url("../../../../data/font/Khaenriah.otf");
   font-family: "Khaenriah";
   font-display: swap;
-  src: url("../../../../data/font/Khaenriah.otf");
 }
 
 * {
@@ -32,21 +32,21 @@
 
 html,
 body {
-  width: 428px;
-  background: #faf2e7;
-  letter-spacing: 0.05em;
-  font-family: "Source Han Sans CN", sans-serif;
-  color: #d9c291;
   -webkit-text-stroke: 0.018em currentColor;
   margin: 0;
+  background: #faf2e7;
   padding: 0;
+  width: 428px;
+  color: #d9c291;
+  font-family: "Source Han Sans CN", sans-serif;
+  letter-spacing: 0.05em;
 }
 
 .container-vertical,
 .card {
   display: grid;
-  width: 100%;
   place-items: center;
+  width: 100%;
 }
 
 .container-vertical {
@@ -54,59 +54,59 @@ body {
 }
 
 .container-abyss {
-  padding: 10px;
-  display: grid;
-  grid-auto-flow: row;
-  justify-items: center;
   grid-gap: 10px;
+  display: grid;
   grid-template-areas:
     "player-namecard"
     "data-digest";
+  grid-auto-flow: row;
+  justify-items: center;
+  padding: 10px;
 }
 
 .card {
-  background: linear-gradient(135deg, #141a2a, #393d46);
-  border-radius: 10px;
   z-index: 1;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #141a2a, #393d46);
 }
 
 .container-namecard {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   width: 408px;
   height: 253px;
-  justify-content: flex-end;
 }
 
 .container-namecard:before,
 .container-namecard:after {
-  content: "";
   position: absolute;
+  border-radius: 10px;
   width: 408px;
   height: 253px;
-  border-radius: 10px;
+  content: "";
 }
 
 .container-namecard:before {
-  background: url("../../../../resources/Version2/backgrounds/strip-4px.svg");
   opacity: 0.33;
   z-index: 1;
+  background: url("../../../../resources/Version2/backgrounds/strip-4px.svg");
 }
 
 .container-namecard:after {
+  z-index: 2;
   background: url("../../../../resources/Version2/frames/rounded-inner-with-stars.svg") no-repeat center;
   background-size: 96%;
-  z-index: 2;
 }
 
 .user-avatar {
+  z-index: 3;
+  margin-bottom: 6px;
+  border: 5px solid #efeae3;
+  border-radius: 50%;
+  background-color: #d19e7a;
   width: 128px;
   height: 128px;
-  background-color: #d19e7a;
-  z-index: 3;
-  border-radius: 50%;
-  border: 5px solid #efeae3;
-  margin-bottom: 6px;
 }
 
 .uid {
@@ -140,13 +140,13 @@ body {
 }
 
 .briefing {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
     "title-battletimes title-maxfloor title-totalstar"
     "data-battletimes data-maxfloor data-totalstar";
   justify-items: center;
+  width: 100%;
 }
 
 .briefing-title {
@@ -171,22 +171,22 @@ body {
 
 .abyss-star,
 .chamber-stars {
-  font-family: "Genshin Abyss", sans-serif;
-  color: #ede7d9;
   transform: translateY(-0.03em);
+  color: #ede7d9;
+  font-family: "Genshin Abyss", sans-serif;
 }
 
 .abyss-star {
   position: relative;
   bottom: 4px;
-  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
   font-size: 34px;
+  text-shadow: 0 0 10px hsla(41, 37%, 89%, 0.43);
 }
 
 .chamber-stars {
   position: relative;
-  text-shadow: 0 0 6px hsla(41, 37%, 89%, 0.15);
   font-size: 20px;
+  text-shadow: 0 0 6px hsla(41, 37%, 89%, 0.15);
 }
 
 .chamber-stars.inline {
@@ -204,39 +204,39 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  font-size: 24px;
   background: #ffffff2b;
   width: 100%;
+  font-size: 24px;
 }
 
 .banner-title:before {
-  content: "THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS";
+  -webkit-text-stroke: unset;
+  display: flex;
   position: absolute;
-  font-family: "Khaenriah", serif;
-  font-size: 10px;
-  font-weight: 100;
+  flex-direction: column;
+  align-items: center;
   opacity: 0.3;
   z-index: -1;
   width: 408px;
   overflow: hidden;
+  content: "THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS THE WORLD OPENS ITSELF BEFORE THOSE WITH NOBLE HEARTS";
+  font-weight: 100;
+  font-size: 10px;
+  font-family: "Khaenriah", serif;
   white-space: nowrap;
-  -webkit-text-stroke: unset;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .banner-title > p {
-  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
   transform: translateY(-0.06em);
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .container-reveal-rank {
   display: grid;
   grid-template-columns: repeat(4, max-content);
-  width: 100%;
-  justify-items: center;
   justify-content: space-evenly;
+  justify-items: center;
+  width: 100%;
 }
 
 .container-character,
@@ -255,9 +255,9 @@ body {
 }
 
 .avatar-face {
-  width: 100%;
-  border-radius: 10px 10px 10px 0;
   align-self: start;
+  border-radius: 10px 10px 10px 0;
+  width: 100%;
 }
 
 .star-five {
@@ -271,8 +271,8 @@ body {
 }
 
 .showbox-label {
-  color: #000;
   transform: translateY(-0.06em);
+  color: #000;
 }
 
 .container-vertical.battle-rank {
@@ -280,21 +280,21 @@ body {
 }
 
 .container-overview {
+  grid-row-gap: 10px;
   display: grid;
+  grid-template-columns: repeat(6, 1fr);
   grid-template-areas:
     "defeat-rank defeat-rank damage-rank damage-rank take-damage-rank take-damage-rank"
     ". burst-rank burst-rank skill-rank skill-rank .";
-  grid-template-columns: repeat(6, 1fr);
-  width: 100%;
-  justify-items: center;
   justify-content: space-evenly;
-  grid-row-gap: 10px;
+  justify-items: center;
+  width: 100%;
 }
 
 .avatar-rounded {
+  border-radius: 50%;
   width: 64px;
   height: 64px;
-  border-radius: 50%;
 }
 
 .avatar-value {
@@ -302,8 +302,8 @@ body {
 }
 
 .sub-title {
-  font-size: 12px;
   padding: 4px 0;
+  font-size: 12px;
 }
 
 .defeat-rank {
@@ -332,8 +332,8 @@ body {
 }
 
 .container-floor-info {
-  padding-top: 10px;
   box-sizing: border-box;
+  padding-top: 10px;
 }
 
 .container-abyss-floors {
@@ -345,12 +345,12 @@ body {
 }
 
 .title-content {
-  display: grid;
-  width: 365px;
-  grid-template-areas: "arrow-left main-title arrow-right";
-  grid-template-columns: 1fr min-content 1fr;
-  place-items: center;
   grid-column-gap: 5px;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-areas: "arrow-left main-title arrow-right";
+  place-items: center;
+  width: 365px;
 }
 
 .arrow-left {
@@ -360,23 +360,23 @@ body {
 
 .arrow-right {
   grid-area: arrow-right;
-  transform: scaleX(-1);
   justify-self: start;
+  transform: scaleX(-1);
 }
 
 .abyss-chamber-type-title {
+  color: #484848;
   font-size: 24px;
   text-align: center;
   white-space: nowrap;
-  color: #484848;
 }
 
 .abyss-chamber-title {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
-  padding: 0 10px;
   box-sizing: border-box;
+  padding: 0 10px;
 }
 
 .abyss-chamber-title:before {
@@ -385,8 +385,8 @@ body {
 
 .chamber-indicator {
   justify-self: start;
-  font-size: 20px;
   transform: translateY(-0.05em);
+  font-size: 20px;
 }
 
 .chamber-indicator > span {
@@ -395,19 +395,19 @@ body {
 }
 
 .chamber-time {
-  font-size: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-self: end;
+  font-size: 10px;
 }
 
 .kerning {
-  margin-left: 0.06em;
-  margin-right: 0.06em;
   /*处理冒号不垂直居中的问题*/
   position: relative;
   top: -0.1em;
+  margin-right: 0.06em;
+  margin-left: 0.06em;
 }
 
 .chamber-details {
@@ -416,25 +416,25 @@ body {
 }
 
 .chamber-details.valid {
+  grid-row-gap: 15px;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
     "firsthalf"
     "secondhalf";
-  grid-row-gap: 15px;
   align-items: center;
-  padding: 10px 0;
-  box-sizing: border-box;
   justify-items: start;
+  box-sizing: border-box;
+  padding: 10px 0;
 }
 
 .chamber-details.unfulfilled {
+  grid-row-gap: 15px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-row-gap: 15px;
   place-items: center;
-  padding: 10px 0;
   box-sizing: border-box;
+  padding: 10px 0;
 }
 
 .first-half,
@@ -442,16 +442,16 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
+  box-sizing: border-box;
   padding: 0 10px;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .chamber-details.invalid {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .container-character.chamber-character {
@@ -462,10 +462,10 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
+  box-sizing: border-box;
+  background: #ffffff2b;
   padding: 0 10px;
   width: 100%;
-  background: #ffffff2b;
-  box-sizing: border-box;
   font-size: 20px;
 }
 
@@ -478,8 +478,8 @@ body {
 
 .brief-start-time,
 .brief-end-time {
-  white-space: nowrap;
   font-size: 10px;
+  white-space: nowrap;
 }
 
 .date:after {
@@ -497,17 +497,17 @@ body {
 
 .container-revealed-briefing {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 10px 0;
   max-width: 396px;
 }
 
 img.avatar-rounded-briefing {
-  width: 40px;
-  height: 40px;
   margin: 0 4.75px;
   border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 
 .credit {
@@ -516,9 +516,9 @@ img.avatar-rounded-briefing {
 }
 
 .credit.partial {
-  text-align: end;
-  width: 100%;
   padding: 0 10px 5px 0;
+  width: 100%;
+  text-align: end;
 }
 
 img {

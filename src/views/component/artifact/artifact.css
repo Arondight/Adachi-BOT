@@ -1,7 +1,7 @@
 @font-face {
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
   font-family: GenshinUsedFont;
   font-display: swap;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
 * {
@@ -11,11 +11,11 @@
 
 html,
 body {
-  font-family: GenshinUsedFont, monospace;
+  -webkit-text-stroke: 0.018em currentColor;
   width: 746px;
   height: 769px;
   color: white;
-  -webkit-text-stroke: 0.018em currentColor;
+  font-family: GenshinUsedFont, monospace;
 }
 
 body {
@@ -33,16 +33,16 @@ body {
 }
 
 .position {
-  font-size: 28px;
   top: 100px;
+  font-size: 28px;
 }
 
 .artifact-image {
+  top: 260px;
+  left: 571px;
+  transform: translate(-50%, -50%);
   width: 320px;
   height: 320px;
-  left: 571px;
-  top: 260px;
-  transform: translate(-50%, -50%);
 }
 
 .container-main-stats {
@@ -66,8 +66,8 @@ body {
 
 .level {
   top: 478px;
-  font-size: 31px;
   width: 84px;
+  font-size: 31px;
   text-align: center;
 }
 

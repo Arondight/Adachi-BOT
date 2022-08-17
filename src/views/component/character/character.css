@@ -1,19 +1,19 @@
 @font-face {
+  src: url("../../../../data/font/SourceHanSerifSC-Heavy.otf");
   font-family: "Source Han Serif SC Heavy";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSerifSC-Heavy.otf");
 }
 
 @font-face {
+  src: url("../../../../data/font/SourceHanSansSC-Regular.otf");
   font-family: "Source Han Sans SC";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSansSC-Regular.otf");
 }
 
 @font-face {
+  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
   font-family: "Source Han Serif SC Regular Subset";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
 }
 
 * {
@@ -24,28 +24,28 @@
 html,
 body,
 #app {
+  -webkit-text-stroke: 0.018em currentColor;
   width: 720px;
   overflow-x: hidden;
-  -webkit-text-stroke: 0.018em currentColor;
-  letter-spacing: 0.01em;
   font-family: "Source Han Serif SC Heavy", serif;
+  letter-spacing: 0.01em;
 }
 
 .background {
-  width: 720px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: -1;
+  width: 720px;
+  height: 100%;
 }
 
 .svg {
   position: absolute;
-  width: 1000px;
   transform: translate(0, -180px);
   opacity: 0.33;
   filter: brightness(0.95);
+  width: 1000px;
 }
 
 .anemo {
@@ -83,113 +83,113 @@ body,
 }
 
 .container-character-infos {
+  grid-row-gap: 30px;
   display: grid;
   align-items: center;
+  justify-items: center;
   z-index: 2;
   margin-top: 68px;
-  justify-items: center;
-  grid-row-gap: 30px;
   min-width: 480px;
 }
 
 /* noinspection DuplicatedCode */
 .container-deco-strip {
+  display: flex;
   position: absolute;
   top: 30px;
-  font-family: "Source Han Serif SC Regular Subset", serif;
-  color: hsl(42deg 27% 18%);
-  opacity: 0.11;
-  white-space: nowrap;
-  width: 800px;
-  overflow: hidden;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0.11;
+  width: 800px;
+  overflow: hidden;
+  color: hsl(42deg 27% 18%);
+  font-family: "Source Han Serif SC Regular Subset", serif;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .info-title,
 .page-title {
-  letter-spacing: 0.05em;
+  width: 100%;
   color: #715257;
   font-size: 44px;
+  letter-spacing: 0.05em;
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
-  width: 100%;
 }
 
 .page-title {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .page-title > span {
-  letter-spacing: 0.05em;
   margin-right: 8px;
+  letter-spacing: 0.05em;
 }
 
 .profile-image {
+  border-radius: 50%;
+  background: #d19e7a;
   width: 300px;
   height: 300px;
-  background: #d19e7a;
-  border-radius: 50%;
 }
 
 .character-level-ring {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
   backdrop-filter: blur(4px) brightness(0.95);
-  border-radius: 50%;
   box-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  border-radius: 50%;
+  padding: 8px;
 }
 
 .container-bar {
+  grid-column-gap: 10px;
+  grid-row-gap: 5px;
   display: grid;
   grid-template-columns: max-content auto max-content;
   align-items: center;
-  grid-column-gap: 10px;
-  grid-row-gap: 5px;
 }
 
 .bar-title,
 .bar-details {
   color: #ede8e1;
-  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
-  letter-spacing: 0.05em;
   font-size: 24px;
+  letter-spacing: 0.05em;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .bar-full {
-  height: 10px;
-  background-color: #00000038;
-  border-radius: 5px;
-  width: 300px;
   display: grid;
   grid-auto-flow: column;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  background-color: #00000038;
+  width: 300px;
+  height: 10px;
 }
 
 .dot-show {
-  height: 4px;
-  width: 4px;
-  background-color: #ede8e1;
-  border-radius: 50%;
   box-shadow: 0 0 3px rgb(0 0 0 / 39%);
+  border-radius: 50%;
+  background-color: #ede8e1;
+  width: 4px;
+  height: 4px;
 }
 
 .dot-hide {
-  height: 0;
   width: 4px;
+  height: 0;
 }
 
 .bar-progress {
   position: absolute;
-  height: 10px;
   border-radius: 5px;
+  height: 10px;
 }
 
 .bar-progress.normal {
@@ -208,21 +208,21 @@ body,
 }
 
 .split-title {
-  color: #715257;
-  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
-  font-size: 40px;
   margin-bottom: 20px;
+  color: #715257;
+  font-size: 40px;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
 }
 
 .artifact-table,
 .weapon-table {
-  display: grid;
-  grid-template-columns: 91px auto;
-  width: 465px;
-  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
   grid-row-gap: 10px;
-  align-items: stretch;
+  display: grid;
   grid-template-rows: minmax(70px, 1fr);
+  grid-template-columns: 91px auto;
+  align-items: stretch;
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
+  width: 465px;
 }
 
 .artifact-content {
@@ -231,9 +231,9 @@ body,
 }
 
 .artifact-icon {
+  border-radius: 8px;
   width: 64px;
   height: 64px;
-  border-radius: 8px;
 }
 
 .rarity-five {
@@ -254,14 +254,14 @@ body,
 }
 
 .artifact-details {
+  grid-column-gap: 6px;
+  grid-row-gap: 2px;
   display: grid;
   grid-template-areas:
     "name level"
     "rarity rarity";
-  font-size: 20px;
-  grid-column-gap: 6px;
   align-items: end;
-  grid-row-gap: 2px;
+  font-size: 20px;
 }
 
 .artifact-name {
@@ -270,18 +270,18 @@ body,
 
 .artifact-level,
 .weapon-affix {
-  position: relative;
-  font-size: 14px;
-  color: #7d796d;
-  text-shadow: none;
-  background: #ede8e1;
-  border-radius: 4px;
-  padding: 0 3px;
-  bottom: 2px;
-  height: 16px;
   display: flex;
+  position: relative;
+  bottom: 2px;
   align-items: center;
+  border-radius: 4px;
+  background: #ede8e1;
+  padding: 0 3px;
   width: fit-content;
+  height: 16px;
+  color: #7d796d;
+  font-size: 14px;
+  text-shadow: none;
 }
 
 .artifact-level {
@@ -296,65 +296,65 @@ body,
 .info-content {
   display: flex;
   align-items: center;
-  font-size: 24px;
   padding: 0 6px;
+  font-size: 24px;
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .box-title {
-  background: #ede8e1;
-  color: #7d796d;
-  min-width: 79px;
   justify-content: center;
+  background: #ede8e1;
+  min-width: 79px;
+  color: #7d796d;
 }
 
 .info-content {
   background: rgba(237, 232, 225, 0.11);
-  color: #ede8e1;
-  word-break: break-all;
-  text-align: justify;
   padding: 12px 16px;
+  color: #ede8e1;
+  text-align: justify;
+  word-break: break-all;
 }
 
 .artifact-content {
+  grid-column-gap: 12px;
   display: grid;
   justify-items: start;
-  grid-column-gap: 12px;
 }
 
 .container-weapon-info {
+  grid-column-gap: 12px;
   display: grid;
   grid-template-columns: max-content auto;
-  grid-column-gap: 12px;
   justify-items: start;
 }
 
 .weapon-level-ring {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 4px;
-  border-radius: 8px;
+  align-items: center;
   backdrop-filter: blur(4px) brightness(0.95);
   box-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  border-radius: 8px;
+  padding: 4px;
 }
 
 .weapon-icon {
+  border-radius: 8px;
   width: 56px;
   height: 56px;
-  border-radius: 8px;
 }
 
 .weapon-details {
+  grid-column-gap: 6px;
   display: grid;
+  grid-template-columns: min-content auto;
   grid-template-areas:
     "name affix"
     "rarity rarity"
     "description description";
-  font-size: 20px;
-  grid-column-gap: 6px;
   align-items: end;
-  grid-template-columns: min-content auto;
+  font-size: 20px;
 }
 .weapon-name {
   white-space: nowrap;
@@ -385,14 +385,14 @@ body,
 
 .weapon-desc {
   grid-area: description;
-  border-top: 1px solid #ede8e1;
   margin-top: 4px;
+  border-top: 1px solid #ede8e1;
 }
 
 .credit {
-  color: #ede8e1;
-  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
-  letter-spacing: 0.05em;
   align-self: end;
   margin: 20px 10px 10px 0;
+  color: #ede8e1;
+  letter-spacing: 0.05em;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }

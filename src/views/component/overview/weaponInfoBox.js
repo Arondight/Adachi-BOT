@@ -1,6 +1,6 @@
 import { html } from "../common/utils.js";
 
-const { defineComponent, unref } = window.Vue;
+const { defineComponent, unref, inject } = window.Vue;
 
 const template = html`<div class="container-overview-infos">
   <div class="container-deco-strip">
@@ -32,6 +32,7 @@ const template = html`<div class="container-overview-infos">
       <div class="table-materials limited-time-materials">
         <img
           class="materials"
+          :class="getMaterialRarityBackground(item)"
           v-for="item in weaponInfo.limitedTimeAscensionMaterials"
           :src="getMaterialUrl(item)"
           :alt="item"
@@ -44,6 +45,7 @@ const template = html`<div class="container-overview-infos">
       <div class="table-materials all-day-materials">
         <img
           class="materials"
+          :class="getMaterialRarityBackground(item)"
           v-for="item in weaponInfo.allDayAscensionMaterials"
           :src="getMaterialUrl(item)"
           :alt="item"
@@ -74,6 +76,7 @@ export default defineComponent({
     },
     getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}`,
   },
+  inject: ["materialMap"],
   setup(props) {
     const propsValue = unref(props);
     const params = propsValue.data;
@@ -96,6 +99,14 @@ export default defineComponent({
       skillName: params.skillName || "武器特殊效果",
       skillEffect: params.skillContent || "暂无信息",
     };
+    const materialMap = inject("materialMap");
+
+    const getMaterialRarityBackground = (materialNameString) => {
+      const rarity = materialMap.items.find((material) => material.name === materialNameString)?.rarity;
+      const rarities = [undefined, "one-star", "two-star", "three-star", "four-star", "five-star"];
+
+      return rarity ? rarities[rarity] : "four-star";
+    };
 
     return {
       decoStripContent,
@@ -103,6 +114,7 @@ export default defineComponent({
       weaponImageFilename,
       weaponImageUrl,
       weaponInfo,
+      getMaterialRarityBackground,
     };
   },
 });

@@ -25,7 +25,12 @@
     <script type="module">
       import App from "./component/overview/app.js";
 
-      Vue.createApp(App).mount("#app");
+      fetch("/resources/Version2/info/image/material.json")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          Vue.createApp(App).provide("materialMap", data).mount("#app");
+        });
     </script>
   </body>
 </html>

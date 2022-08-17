@@ -1,7 +1,7 @@
 @font-face {
+  src: url("../../../../data/font/HYWenHei-85W.ttf");
   font-family: GenshinUsedFont;
   font-display: swap;
-  src: url("../../../../data/font/HYWenHei-85W.ttf");
 }
 
 * {
@@ -14,18 +14,18 @@ img {
 }
 
 html {
-  height: 100%;
-  width: 768px;
-  background-color: rgb(246, 242, 238);
-  font-family: GenshinUsedFont, monospace;
   -webkit-text-stroke: 0.018em currentColor;
+  background-color: rgb(246, 242, 238);
+  width: 768px;
+  height: 100%;
   color: #333;
+  font-family: GenshinUsedFont, monospace;
 }
 
 .material {
   position: relative;
-  height: 100%;
   padding: 12px;
+  height: 100%;
 }
 
 .outer {
@@ -42,24 +42,24 @@ html {
 
 .corner-star {
   position: absolute;
-  width: 14px;
   z-index: 1;
+  width: 14px;
 }
 
 .outer-circle {
   position: absolute;
-  width: 21px;
-  height: 21px;
   border: 1px solid #333;
   background-color: rgb(246, 242, 238);
+  width: 21px;
+  height: 21px;
 }
 
 .inner-circle {
   position: absolute;
-  width: 7px;
-  height: 7px;
   border: 1px solid #333;
   background-color: rgb(246, 242, 238);
+  width: 7px;
+  height: 7px;
 }
 
 .star1,
@@ -112,44 +112,44 @@ html {
 
 .outer-circle1,
 .inner-circle1 {
-  border-radius: 0 0 100% 0;
   border-top: none;
   border-left: none;
+  border-radius: 0 0 100% 0;
 }
 
 .outer-circle2,
 .inner-circle2 {
-  border-radius: 0 0 0 100%;
   border-top: none;
   border-right: none;
+  border-radius: 0 0 0 100%;
 }
 
 .outer-circle3,
 .inner-circle3 {
-  border-radius: 0 100% 0 0;
   border-bottom: none;
   border-left: none;
+  border-radius: 0 100% 0 0;
 }
 
 .outer-circle4,
 .inner-circle4 {
-  border-radius: 100% 0 0 0;
-  border-bottom: none;
   border-right: none;
+  border-bottom: none;
+  border-radius: 100% 0 0 0;
 }
 
 .content {
-  margin-top: 4px;
+  grid-column-gap: 30px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 30px;
+  margin-top: 4px;
 }
 
 .author {
   position: absolute;
-  font-size: 15px;
   right: 36px;
   bottom: 21px;
+  font-size: 15px;
 }
 
 .material-column {
@@ -159,14 +159,14 @@ html {
 }
 
 .title {
+  margin-bottom: 20px;
   background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjI2IiBoZWlnaHQ9IjM3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMTYuOTI4IDM2LjI1aC0xNU05LjQyNCAxLjI1aDE1IiBzdHJva2U9IiMyRTNENTQiLz48cGF0aCBkPSJNMjI1LjIxNyA5LjExYy0zLjc3Ny0uMjItNC45MDMtMS41MDctNS4zMjUtNS4zMjYtLjIgMy44NDUtMS4zMjMgNS4wNzYtNS4zMjYgNS4zMjUgMy44NjQuMTQ5IDUuMDcyIDEuNDY5IDUuMzI2IDUuMzI2LjQ1LTMuNjg4IDEuNTk5LTQuOTA1IDUuMzI1LTUuMzI2ek0xMS42NSAyNy4zMjRDNy44NzMgMjcuMTA2IDYuNzQ4IDI1LjgxOCA2LjMyNSAyMmMtLjIgMy44NDUtMS4zMjIgNS4wNzYtNS4zMjUgNS4zMjUgMy44NjMuMTQ5IDUuMDcxIDEuNDY5IDUuMzI1IDUuMzI1LjQ1MS0zLjY4OCAxLjYtNC45MDQgNS4zMjUtNS4zMjV6IiBmaWxsPSIjMkUzRDU0IiBzdHJva2U9IiMyRTNENTQiIHN0cm9rZS13aWR0aD0iLjUiLz48cGF0aCBkPSJNMjIyLjQyNiAyOS43NTJ2LTE1TTIyMi42NzYgMzBoLTUuNmwtLjQuNFYzNk0yMjAuMTc2IDI3VjE3TTEzLjY3NiAzLjVoMTBNMy45MjYgNi43NDh2MTVNMy42NzYgN2g1LjZsLjQtLjRWMSIgc3Ryb2tlPSIjMkUzRDU0Ii8+PHBhdGggZD0iTTEzLjY3NSAzLjVoLTcuNXY4TTYuMTc2IDEwLjV2MTAiIHN0cm9rZT0iIzJFM0Q1NCIvPjxwYXRoIHN0cm9rZT0iIzJFM0Q1NCIgZD0iTTYuMTc2IDMuNWgyMTR2MzBoLTIxNHoiLz48L3N2Zz4=")
     no-repeat center;
   background-size: 100%;
-  height: 32px;
   width: 195px;
-  text-align: center;
+  height: 32px;
   font-size: 15px;
-  margin-bottom: 20px;
+  text-align: center;
 }
 
 .title-text {
@@ -175,9 +175,9 @@ html {
 }
 
 .tips {
-  white-space: nowrap;
-  font-size: 10px;
   margin-top: 9px;
+  font-size: 10px;
+  white-space: nowrap;
 }
 
 .unit {
@@ -192,12 +192,12 @@ html {
 
 .ascension-name {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 30px;
-  min-width: 64px;
+  align-items: center;
   border-radius: 4px;
   background-color: rgb(73, 96, 131);
+  min-width: 64px;
+  height: 30px;
   color: rgb(234, 229, 216);
   font-size: 13px;
 }
@@ -207,10 +207,10 @@ html {
 }
 
 .materials {
+  margin-left: 4px;
+  border-radius: 4px;
   width: 30px;
   height: 30px;
-  border-radius: 4px;
-  margin-left: 4px;
 }
 
 .container-item {
@@ -220,49 +220,64 @@ html {
     "banner";
   justify-items: center;
   border-radius: 4px;
-  overflow: hidden;
   width: 64px;
   height: 64px;
+  overflow: hidden;
 }
 
 .item-image {
+  grid-area: image / image / banner / banner;
   width: 64px;
   height: 64px;
-  grid-area: image / image / banner / banner;
 }
 
 .item-name-banner {
-  grid-area: banner;
-  color: white;
-  font-size: 10px;
-  height: 14px;
-  width: 100%;
-  text-shadow: 0 0 4px #33333378;
-  background: #3333338c;
   display: flex;
+  grid-area: banner;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #3333338c;
+  width: 100%;
+  height: 14px;
+  color: white;
+  font-size: 10px;
+  text-shadow: 0 0 4px #33333378;
 }
 
-.item-image.five-star {
+.item-image.five-star,
+.materials.five-star {
   background: url("http://localhost:9934/resources/Version2/thumb/stars/5-Star.png") no-repeat center;
   background-size: 100%;
 }
 
-.item-image.four-star {
+.item-image.four-star,
+.materials.four-star {
   background: url("http://localhost:9934/resources/Version2/thumb/stars/4-Star.png") no-repeat center;
   background-size: 100%;
 }
 
-.item-image.three-star {
+.item-image.three-star,
+.materials.three-star {
   background: url("http://localhost:9934/resources/Version2/thumb/stars/3-Star.png") no-repeat center;
   background-size: 100%;
 }
 
+.item-image.two-star,
+.materials.two-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/2-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.item-image.one-star,
+.materials.one-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/1-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
 .item-list {
+  grid-gap: 4px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 4px;
   align-items: stretch;
 }

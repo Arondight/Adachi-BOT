@@ -1,19 +1,19 @@
 @font-face {
+  src: url("../../../../data/font/SourceHanSerifSC-Heavy.otf");
   font-family: "Source Han Serif SC Heavy";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSerifSC-Heavy.otf");
 }
 
 @font-face {
+  src: url("../../../../data/font/SourceHanSansSC-Regular.otf");
   font-family: "Source Han Sans SC";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSansSC-Regular.otf");
 }
 
 @font-face {
+  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
   font-family: "Source Han Serif SC Regular Subset";
   font-display: swap;
-  src: url("../../../../data/font/SourceHanSerifSC-Regular-Subset.otf");
 }
 
 * {
@@ -24,27 +24,27 @@
 html,
 body,
 #app {
+  -webkit-text-stroke: 0.018em currentColor;
   width: 800px;
   overflow-x: hidden;
-  -webkit-text-stroke: 0.018em currentColor;
   letter-spacing: 0.01em;
 }
 
 .background {
-  width: 800px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: -1;
+  width: 800px;
+  height: 100%;
 }
 
 .svg {
   position: absolute;
-  width: 1100px;
   transform: translate(0, -250px);
   opacity: 0.33;
   filter: brightness(0.95);
+  width: 1100px;
 }
 
 .character-anemo {
@@ -79,6 +79,31 @@ body,
   background: linear-gradient(#d0d6a5, #998462);
 }
 
+.materials.five-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/5-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.four-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/4-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.three-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/3-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.two-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/2-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
+.materials.one-star {
+  background: url("http://localhost:9934/resources/Version2/thumb/stars/1-Star.png") no-repeat center;
+  background-size: 100%;
+}
+
 .weapon-four-stars {
   background: linear-gradient(#cfb0d6, hsl(229deg 18% 52%));
   /* 备选 */
@@ -92,56 +117,56 @@ body,
 }
 
 .container-overview-infos {
-  width: 100%;
+  grid-row-gap: 30px;
   display: grid;
   align-items: center;
+  justify-items: center;
   z-index: 2;
   margin-top: 68px;
-  justify-items: center;
-  grid-row-gap: 30px;
+  width: 100%;
 }
 
 .container-deco-strip {
+  display: flex;
   position: absolute;
   top: 30px;
-  font-family: "Source Han Serif SC Regular Subset", serif;
-  color: hsl(42deg 27% 18%);
-  opacity: 0.11;
-  white-space: nowrap;
-  width: 800px;
-  overflow: hidden;
-  display: flex;
   flex-direction: column;
   align-items: center;
-  letter-spacing: -0.02em;
+  opacity: 0.11;
   z-index: -1;
+  width: 800px;
+  overflow: hidden;
+  color: hsl(42deg 27% 18%);
+  font-family: "Source Han Serif SC Regular Subset", serif;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .info-name {
-  font-family: "Source Han Serif SC Heavy", serif;
   color: #715257;
   font-size: 44px;
+  font-family: "Source Han Serif SC Heavy", serif;
   text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .profile-image {
+  box-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  border: 8px solid #efeae3;
+  border-radius: 50%;
+  background: #d19e7a;
   width: 300px;
   height: 300px;
-  background: #d19e7a;
-  border-radius: 50%;
-  border: 8px solid #efeae3;
-  box-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .char-infos,
 .weapon-infos {
-  display: grid;
-  width: 580px;
-  grid-template-columns: minmax(max-content, 100px) auto minmax(max-content, 100px) auto;
-  font-family: "Source Han Serif SC Heavy", serif;
-  font-size: 24px;
   grid-row-gap: 7px;
+  display: grid;
+  grid-template-columns: minmax(max-content, 100px) auto minmax(max-content, 100px) auto;
   backdrop-filter: blur(4px);
+  width: 580px;
+  font-size: 24px;
+  font-family: "Source Han Serif SC Heavy", serif;
 }
 
 .char-infos {
@@ -177,44 +202,44 @@ body,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
   box-sizing: border-box;
-  text-shadow: 0 1px 4px rgb(0 0 0 / 30%);
   box-shadow: 0 3px 12px 0 rgb(0 0 0 / 6%);
+  padding: 0 10px;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 30%);
 }
 
 .info-title {
   background: #ede8e1;
   color: #7d796d;
-  font-family: "Source Han Serif SC Heavy", serif;
   font-size: 24px;
+  font-family: "Source Han Serif SC Heavy", serif;
 }
 
 .info-content {
   background: rgba(237, 232, 225, 0.11);
   color: #ede8e1;
-  word-break: break-all;
   text-align: justify;
+  word-break: break-all;
 }
 
 .container-introduction {
-  width: 580px;
-  font-family: "Source Han Serif SC Heavy", serif;
   border-top: 1px solid #ede8e1;
   border-bottom: 1px solid #ede8e1;
+  width: 580px;
+  min-height: 4em;
   color: #ede8e1;
   font-size: 23px;
-  min-height: 4em;
-  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
+  font-family: "Source Han Serif SC Heavy", serif;
   text-align: justify;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .introduction:before {
+  position: absolute;
+  transform: translateX(-1.1em);
   content: "“";
   color: #ede8e1;
   font-size: 24px;
-  position: absolute;
-  transform: translateX(-1.1em);
 }
 
 .introduction:after {
@@ -224,18 +249,18 @@ body,
 }
 
 .container-passive-talent {
-  margin-top: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1em;
 }
 
 .passive-talent.title {
+  margin-bottom: 2px;
   /* text-decoration: dotted 的阴影有点问题 */
   border-bottom: 2px dotted #ede8e1;
   width: fit-content;
   height: 1.5em;
-  margin-bottom: 2px;
 }
 
 .passive-talent.content {
@@ -243,12 +268,12 @@ body,
 }
 
 .credit {
-  font-family: "Source Han Serif SC Heavy", serif;
-  color: #ede8e1;
-  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
-  letter-spacing: 0.05em;
   align-self: end;
   margin: 20px 10px 10px 0;
+  color: #ede8e1;
+  font-family: "Source Han Serif SC Heavy", serif;
+  letter-spacing: 0.05em;
+  text-shadow: 0 3px 6px rgb(0 0 0 / 25%);
 }
 
 .container-vertical {
@@ -258,20 +283,20 @@ body,
 }
 
 .split-title {
+  margin-bottom: 20px;
   color: #715257;
+  font-size: 40px;
   font-family: "Source Han Serif SC Heavy", serif;
   text-shadow: 0 1px 2px rgb(0 0 0 / 25%);
-  font-size: 40px;
-  margin-bottom: 20px;
 }
 
 .char-progression-table {
+  grid-row-gap: 10px;
   display: grid;
   grid-template-columns: max-content auto;
-  font-family: "Source Han Serif SC Heavy", serif;
-  width: 580px;
   filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
-  grid-row-gap: 10px;
+  width: 580px;
+  font-family: "Source Han Serif SC Heavy", serif;
 }
 
 img.materials {
@@ -284,18 +309,18 @@ img.materials {
 }
 
 .all-day-materials {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 50px;
   grid-column-gap: 10px;
-  padding-left: 20px;
+  display: grid;
+  grid-auto-columns: 50px;
+  grid-auto-flow: column;
   background: rgba(237, 232, 225, 0.11);
+  padding-left: 20px;
 }
 
 .table-materials {
-  min-height: 70px;
   display: flex;
   align-items: center;
+  min-height: 70px;
 }
 
 .material-title {
@@ -303,37 +328,37 @@ img.materials {
 }
 
 .limited-time-materials {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(50px, max-content);
-  color: #ede8e1;
   grid-column-gap: 10px;
-  padding-left: 20px;
+  display: grid;
+  grid-auto-columns: minmax(50px, max-content);
+  grid-auto-flow: column;
   background: rgba(237, 232, 225, 0.11);
+  padding-left: 20px;
+  color: #ede8e1;
 }
 
 .info-weekdays {
   min-width: 200px;
-  text-align: end;
   font-size: 24px;
+  text-align: end;
 }
 
 .constellation-table {
+  grid-row-gap: 10px;
   display: grid;
-  width: 580px;
   grid-template-columns: 50px auto;
   grid-auto-rows: minmax(70px, max-content);
-  grid-row-gap: 10px;
   filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
+  width: 580px;
 }
 
 .info-content.constellations {
+  -webkit-text-stroke: 0.036em currentColor;
   display: flex;
   align-items: center;
   padding: 6px 10px;
-  font-family: "Source Han Sans SC", sans-serif;
   font-size: 20px;
-  -webkit-text-stroke: 0.036em currentColor;
+  font-family: "Source Han Sans SC", sans-serif;
 }
 
 .constellation-order {
@@ -341,13 +366,13 @@ img.materials {
 }
 
 .weapon-skill-content {
-  width: 580px;
-  padding: 6px 10px;
-  font-family: "Source Han Sans SC", sans-serif;
-  font-size: 20px;
-  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
   -webkit-text-stroke: 0.036em currentColor;
   display: block;
+  filter: drop-shadow(0 3px 6px rgb(0 0 0 / 25%));
+  padding: 6px 10px;
+  width: 580px;
+  font-size: 20px;
+  font-family: "Source Han Sans SC", sans-serif;
   overflow-wrap: anywhere;
 }
 
