@@ -1,36 +1,39 @@
 {
   "types": [
     "锻造用矿石",
-    "食物",
     "食材",
-    "蒙德区域特产",
     "素材",
+    "蒙德区域特产",
     "璃月区域特产",
     "稻妻区域特产",
+    "须弥区域特产",
     "药剂",
     "角色培养素材",
     "武器突破素材",
     "任务道具",
     "天赋培养素材",
+    "天赋培养素材",
     "冒险道具",
     "消耗品",
     "小道具",
-    "须弥区域特产",
-    "天赋培养素材"
+    "稀有货币",
+    "通用货币",
+    "角色经验素材",
+    "武器强化素材"
   ],
   "items": [
     {
-      "id": 100001,
-      "name": "苹果",
-      "type": "食物",
-      "rarity": 1,
+      "id": 201,
+      "name": "原石",
+      "type": "稀有货币",
+      "rarity": 5,
       "beta": false
     },
     {
-      "id": 100002,
-      "name": "日落果",
-      "type": "食物",
-      "rarity": 1,
+      "id": 202,
+      "name": "摩拉",
+      "type": "通用货币",
+      "rarity": 3,
       "beta": false
     },
     {
@@ -587,67 +590,96 @@
       "beta": false
     },
     {
-      "id": 101212,
-      "name": "星蕈",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
       "id": 101213,
       "name": "树王圣体菇",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101214,
       "name": "帕蒂沙兰",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101215,
       "name": "月莲",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101216,
       "name": "香辛果",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101217,
       "name": "劫波莲",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101218,
       "name": "墩墩桃",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101219,
       "name": "须弥蔷薇",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101228,
       "name": "毗波耶",
       "type": "素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
+    },
+    {
+      "id": 104001,
+      "name": "流浪者的经验",
+      "type": "characterEXPMaterial"
+    },
+    {
+      "id": 104002,
+      "name": "冒险家的经验",
+      "type": "characterEXPMaterial"
+    },
+    {
+      "id": 104003,
+      "name": "大英雄的经验",
+      "type": "characterEXPMaterial"
+    },
+    {
+      "id": 104011,
+      "name": "精锻用杂矿",
+      "type": "武器强化素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 104012,
+      "name": "精锻用良矿",
+      "type": "武器强化素材",
+      "rarity": 2,
+      "beta": false
+    },
+    {
+      "id": 104013,
+      "name": "精锻用魔矿",
+      "type": "武器强化素材",
+      "rarity": 3,
+      "beta": false
     },
     {
       "id": 104101,
@@ -1078,66 +1110,66 @@
     },
     {
       "id": 104329,
-      "name": "???",
+      "name": "「诤言」的教导",
       "type": "天赋培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104330,
-      "name": "???",
+      "name": "「诤言」的指引",
       "type": "天赋培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104331,
-      "name": "???",
+      "name": "「诤言」的哲学",
       "type": "天赋培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104332,
-      "name": "???",
+      "name": "「巧思」的教导",
       "type": "天赋培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104333,
-      "name": "???",
+      "name": "「巧思」的指引",
       "type": "天赋培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104334,
-      "name": "???",
+      "name": "「巧思」的哲学",
       "type": "天赋培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104335,
-      "name": "???",
+      "name": "「笃行」的教导",
       "type": "天赋培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104336,
-      "name": "???",
+      "name": "「笃行」的指引",
       "type": "天赋培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104337,
-      "name": "???",
+      "name": "「笃行」的哲学",
       "type": "天赋培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 107001,
@@ -1166,1308 +1198,6 @@
       "type": "冒险道具",
       "rarity": 1,
       "beta": false
-    },
-    {
-      "id": 108003,
-      "name": "渔人吐司",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108006,
-      "name": "提瓦特煎蛋",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108009,
-      "name": "烤肉排",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108010,
-      "name": "侦察骑士烤肉！",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108013,
-      "name": "野菇鸡肉串",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108014,
-      "name": "果香串烤",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108017,
-      "name": "火火肉酱面",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108018,
-      "name": "魔法肉酱面",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108021,
-      "name": "萝卜时蔬汤",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108024,
-      "name": "庄园烤松饼",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108027,
-      "name": "炸萝卜丸子",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108030,
-      "name": "满足沙拉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108033,
-      "name": "甜甜花酿鸡",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108036,
-      "name": "北地烟熏鸡",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108039,
-      "name": "白汁时蔬烩肉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108040,
-      "name": "辣味时蔬烩肉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108043,
-      "name": "烤蘑菇披萨",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108044,
-      "name": "提神醒脑披萨",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108047,
-      "name": "蒙德土豆饼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108048,
-      "name": "爪爪土豆饼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108051,
-      "name": "嘟嘟莲海鲜羹",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108054,
-      "name": "黄油松茸",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108057,
-      "name": "「堆高高」",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108058,
-      "name": "「蒙德往事」",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108061,
-      "name": "冷肉拼盘",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108064,
-      "name": "蜜酱胡萝卜煎肉",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108067,
-      "name": "蟹黄火腿焗时蔬",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108070,
-      "name": "翡玉什锦袋",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108073,
-      "name": "中原杂碎",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108076,
-      "name": "水煮黑背鲈",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108079,
-      "name": "松鼠鱼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108082,
-      "name": "杏仁豆腐",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108085,
-      "name": "香嫩椒椒鸡",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108088,
-      "name": "珍珠翡翠白玉汤",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108091,
-      "name": "松茸酿肉卷",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108094,
-      "name": "摩拉肉",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108097,
-      "name": "蒙德烤鱼",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108100,
-      "name": "爆炒肉片",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108103,
-      "name": "黄金蟹",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108106,
-      "name": "水晶虾",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108109,
-      "name": "烤吃虎鱼",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108112,
-      "name": "风神杂烩菜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108113,
-      "name": "真·风神杂烩菜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108114,
-      "name": "至高的智慧（生活）",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108115,
-      "name": "鱼香吐司",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108116,
-      "name": "提瓦特焦蛋",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108117,
-      "name": "祝圣交响乐",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108118,
-      "name": "厚云朵松饼",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108121,
-      "name": "莲子禽蛋羹",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108124,
-      "name": "仙跳墙",
-      "type": "食物",
-      "rarity": 5,
-      "beta": false
-    },
-    {
-      "id": 108127,
-      "name": "金丝虾球",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108130,
-      "name": "轻策农家菜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108133,
-      "name": "来来菜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108134,
-      "name": "绝对不是下酒菜",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108135,
-      "name": "万民堂水煮鱼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108136,
-      "name": "江湖百味",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108137,
-      "name": "「美梦」",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108138,
-      "name": "炝炒肉片",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108139,
-      "name": "乾坤摩拉肉",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108140,
-      "name": "没有未来菜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108143,
-      "name": "山珍热卤面",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108144,
-      "name": "山珍凉卤面",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108145,
-      "name": "绝境求生烤鱼",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108146,
-      "name": "伍玖叁式营养餐",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108147,
-      "name": "圣水",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108148,
-      "name": "大碗茶",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108149,
-      "name": "冰钩钩果汁",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108150,
-      "name": "树莓薄荷饮",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108151,
-      "name": "苹果酿",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108154,
-      "name": "腌笃鲜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108157,
-      "name": "扣三丝",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108160,
-      "name": "天枢肉",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108163,
-      "name": "莲花酥",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108166,
-      "name": "月亮派",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108169,
-      "name": "冒险家蛋堡",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108172,
-      "name": "北地苹果焖肉",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108173,
-      "name": "文火慢炖腌笃鲜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108174,
-      "name": "摇·滚·鸡！",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108175,
-      "name": "极致一钓",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108178,
-      "name": "蟹黄豆腐",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108181,
-      "name": "明月蛋",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108184,
-      "name": "干锅腊肉",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108187,
-      "name": "干炒鱼河",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108190,
-      "name": "素鲍鱼",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108193,
-      "name": "岩港三鲜",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108196,
-      "name": "清炒虾仁",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108199,
-      "name": "米窝窝",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108200,
-      "name": "幽幽大行军",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108203,
-      "name": "四方和平",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108206,
-      "name": "稠汁蔬菜炖肉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108209,
-      "name": "黄油煎鱼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108212,
-      "name": "绝云锅巴",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108213,
-      "name": "盛世太平",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108214,
-      "name": "「林之梦」",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108224,
-      "name": "鲜虾脆薯盏",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108227,
-      "name": "薄荷果冻",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108230,
-      "name": "凉拌薄荷",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108233,
-      "name": "兽肉薄荷卷",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108234,
-      "name": "审判的晚宴",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108237,
-      "name": "大黄金吮指鸡",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108240,
-      "name": "脆脆鸡腿堡",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108243,
-      "name": "香浓土豆泥",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108244,
-      "name": "「自有方圆」",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108245,
-      "name": "骇浪派",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108248,
-      "name": "鸡豆花",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108251,
-      "name": "金枪鱼寿司",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108254,
-      "name": "三彩团子",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108257,
-      "name": "饭团",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108260,
-      "name": "刺身拼盘",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108263,
-      "name": "兽骨拉面",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108266,
-      "name": "鸟蛋烧",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108269,
-      "name": "干烧香鱼",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108272,
-      "name": "黄油蟹蟹",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108275,
-      "name": "串串三味",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108278,
-      "name": "味噌汤",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108281,
-      "name": "渡来禽肉",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108284,
-      "name": "绯樱饼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108287,
-      "name": "绀田煮",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108290,
-      "name": "市井杂煮",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108293,
-      "name": "什锦炒面",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108296,
-      "name": "蟹黄壳壳烧",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108299,
-      "name": "绯樱天妇罗",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108300,
-      "name": "「红炉一点雪」",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108301,
-      "name": "雨奇晴好",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108302,
-      "name": "夏祭游鱼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108303,
-      "name": "头晕回避术・改",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108304,
-      "name": "特制风味烤蘑菇披萨",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108305,
-      "name": "团子牛奶",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108308,
-      "name": "米饭布丁",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108311,
-      "name": "红烩兽肉",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108314,
-      "name": "文心豆腐",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108317,
-      "name": "辣肉窝窝头",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108320,
-      "name": "活力喵饭",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108323,
-      "name": "甜虾寿司",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108326,
-      "name": "鸟蛋寿司",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108329,
-      "name": "蛋包饭",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108332,
-      "name": "日落鲷鱼烧",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108335,
-      "name": "多多烧",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108338,
-      "name": "蒲烧鳗肉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108339,
-      "name": "饱腹感凝胶",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108340,
-      "name": "「奇策」",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108341,
-      "name": "永恒的信仰",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108344,
-      "name": "鲜鱼炖萝卜",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108347,
-      "name": "若竹煮",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108350,
-      "name": "树莓水馒头",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108353,
-      "name": "荞麦面",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108354,
-      "name": "「暖意」",
-      "type": "食物",
-      "rarity": 1,
-      "beta": false
-    },
-    {
-      "id": 108357,
-      "name": "鳗肉茶泡饭",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108360,
-      "name": "五宝腌菜",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108363,
-      "name": "绯樱虾仙贝",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108364,
-      "name": "强者之道",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108365,
-      "name": "常胜传说",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108368,
-      "name": "丰年有余",
-      "type": "食物",
-      "rarity": 4,
-      "beta": false
-    },
-    {
-      "id": 108371,
-      "name": "龙须面",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108372,
-      "name": "连心面",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108373,
-      "name": "云遮玉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108376,
-      "name": "山家烧",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108379,
-      "name": "乌冬面",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108380,
-      "name": "福内乌冬",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108383,
-      "name": "炸肉排三明治",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108386,
-      "name": "紫苑云霓",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108387,
-      "name": "「静寂闲雅」",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108388,
-      "name": "蛋包饭圆舞曲",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108389,
-      "name": "沾露虾仁",
-      "type": "食物",
-      "rarity": 3,
-      "beta": false
-    },
-    {
-      "id": 108390,
-      "name": "唯一的真相",
-      "type": "食物",
-      "rarity": 2,
-      "beta": false
-    },
-    {
-      "id": 108393,
-      "name": "黄油鸡",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108396,
-      "name": "烤肉卷",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108399,
-      "name": "雨林沙拉",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108402,
-      "name": "马萨拉芝士球",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108405,
-      "name": "杂菇荟萃",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108408,
-      "name": "口袋饼",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108411,
-      "name": "绿汁脆球",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108414,
-      "name": "薄荷豆汤",
-      "type": "食物",
-      "rarity": 1,
-      "beta": true
-    },
-    {
-      "id": 108417,
-      "name": "兽米香香",
-      "type": "食物",
-      "rarity": 4,
-      "beta": true
-    },
-    {
-      "id": 108420,
-      "name": "米圆塔",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108423,
-      "name": "兰巴德鱼卷",
-      "type": "食物",
-      "rarity": 1,
-      "beta": true
-    },
-    {
-      "id": 108426,
-      "name": "咖喱虾",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108429,
-      "name": "唐杜尔烤鸡",
-      "type": "食物",
-      "rarity": 4,
-      "beta": true
-    },
-    {
-      "id": 108432,
-      "name": "土豆船",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108435,
-      "name": "奶酱鲜鱼",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108436,
-      "name": "巡林官精选",
-      "type": "食物",
-      "rarity": 2,
-      "beta": true
-    },
-    {
-      "id": 108437,
-      "name": "憧憬",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108438,
-      "name": "摩拉急速来",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108441,
-      "name": "肉肉烤蘑菇披萨",
-      "type": "食物",
-      "rarity": 4,
-      "beta": true
-    },
-    {
-      "id": 108444,
-      "name": "日落莓莓茶",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
-    },
-    {
-      "id": 108447,
-      "name": "奶香菌菇脆塔",
-      "type": "食物",
-      "rarity": 3,
-      "beta": true
     },
     {
       "id": 110001,
@@ -2544,7 +1274,7 @@
       "name": "香辛料",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 111006,
@@ -2593,7 +1323,7 @@
       "name": "治草药剂",
       "type": "药剂",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 111013,
@@ -2642,7 +1372,7 @@
       "name": "丛林精油",
       "type": "药剂",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112002,
@@ -3069,63 +1799,63 @@
       "name": "失活菌核",
       "type": "角色培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112063,
       "name": "休眠菌核",
       "type": "角色培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112064,
       "name": "茁壮菌核",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112065,
       "name": "褪色红绸",
       "type": "角色培养素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112066,
       "name": "镶边红绸",
       "type": "角色培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112067,
       "name": "织金红绸",
       "type": "角色培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112068,
       "name": "混沌容器",
       "type": "角色培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112069,
       "name": "混沌模块",
       "type": "角色培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112070,
       "name": "混沌锚栓",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113001,
@@ -3370,14 +2100,14 @@
       "name": "蕈王钩喙",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113037,
       "name": "藏雷野实",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114001,
@@ -3633,94 +2363,94 @@
     },
     {
       "id": 114037,
-      "name": "???",
+      "name": "谧林涓露的铜符",
       "type": "武器突破素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114038,
-      "name": "???",
+      "name": "谧林涓露的铁符",
       "type": "武器突破素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114039,
-      "name": "???",
+      "name": "谧林涓露的银符",
       "type": "武器突破素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114040,
-      "name": "???",
+      "name": "谧林涓露的金符",
       "type": "武器突破素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114041,
-      "name": "???",
+      "name": "绿洲花园的追忆",
       "type": "武器突破素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114042,
-      "name": "???",
+      "name": "绿洲花园的恩惠",
       "type": "武器突破素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114043,
-      "name": "???",
+      "name": "绿洲花园的哀思",
       "type": "武器突破素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114044,
-      "name": "???",
+      "name": "绿洲花园的真谛",
       "type": "武器突破素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114045,
-      "name": "???",
+      "name": "烈日威权的残响",
       "type": "武器突破素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114046,
-      "name": "???",
+      "name": "烈日威权的余光",
       "type": "武器突破素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114047,
-      "name": "???",
+      "name": "烈日威权的梦想",
       "type": "武器突破素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114048,
-      "name": "???",
+      "name": "烈日威权的旧日",
       "type": "武器突破素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 120011,
       "name": "枯萎的苦舍桓",
       "type": "任务道具",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220001,
@@ -3972,56 +2702,56 @@
       "name": "「森林书」",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220057,
       "name": "草神瞳共鸣石",
       "type": "消耗品",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220058,
       "name": "草之寻宝罗盘",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220059,
       "name": "「王树瑞佑」",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220060,
       "name": "试验型超燃灯",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220062,
       "name": "迷你仙灵·苔绿",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220065,
       "name": "鱼线稳定器",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220066,
       "name": "老旧的诗琴",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     }
   ]
 }
