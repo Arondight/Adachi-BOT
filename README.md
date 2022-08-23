@@ -240,6 +240,7 @@ npm run restart
 | [Mark9804](https://github.com/Mark9804)         | [网页部分](https://github.com/Arondight/Adachi-BOT/tree/master/src/views)的主程，贡献了诸多资源文件       |
 | [SilveryStar](https://github.com/SilveryStar)   | 编写了项目的原始版本，提供了大量资源文件                                                                  |
 | [Xm798](https://github.com/Xm798)               | 贡献了诸多资源文件                                                                                        |
+| [BTMuli](https://github.com/BTMuli)             | 贡献了诸多资源文件                                                                                        |
 | [buzhibujuelb](https://github.com/buzhibujuelb) | 添加了武器定轨机制，美化了抽卡效果                                                                        |
 | [ixCiel](https://github.com/ixCiel)             | 优化了 Cookie 池使用逻辑                                                                                  |
 
