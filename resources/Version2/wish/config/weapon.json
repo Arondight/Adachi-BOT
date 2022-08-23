@@ -29,6 +29,7 @@
     "辰砂之纺锤":"sword",
     "波乱月白经津":"sword",
     "笼钓瓶一心":"sword",
+    "原木刀":"sword",
     "训练大剑":"claymore",
     "佣兵重剑":"claymore",
     "沐浴龙血的剑":"claymore",
@@ -55,6 +56,7 @@
     "衔珠海皇": "claymore",
     "恶王丸":"claymore",
     "赤角石溃杵":"claymore",
+    "森林王器":"claymore",
     "新手长枪":"polearm",
     "铁尖枪":"polearm",
     "黑缨枪":"polearm",
@@ -78,6 +80,7 @@
     "渔获":"polearm",
     "薙草之稻光":"polearm",
     "息灾":"polearm",
+    "贯月矢":"polearm",
     "学徒笔记":"catalyst",
     "口袋魔导书":"catalyst",
     "异世界行记":"catalyst",
@@ -104,6 +107,7 @@
     "不灭月华":"catalyst",
     "神乐之真意":"catalyst",
     "证誓之明瞳":"catalyst",
+    "盈满之实":"catalyst",
     "猎弓":"bow",
     "历练的猎弓":"bow",
     "信使":"bow",
@@ -132,5 +136,8 @@
     "掠食者":"bow",
     "曚云之月":"bow",
     "冬极白星":"bow",
-    "若水":"bow"
+    "若水":"bow",
+    "王下近侍":"bow",
+    "竭泽":"bow",
+    "猎人之径":"bow"
 }
