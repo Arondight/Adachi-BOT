@@ -96,7 +96,7 @@ export default defineComponent({
         const gachaStem = gachaDataToShow.slice(0, 9);
         const gachaResidue = gachaDataToShow.slice(9).reduce(reducer);
 
-        gachaDataToShow = [...gachaStem, ...gachaResidue];
+        gachaDataToShow = [...gachaStem, gachaResidue];
       }
     }
 
