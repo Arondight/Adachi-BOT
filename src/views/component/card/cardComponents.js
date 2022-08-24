@@ -132,6 +132,7 @@ const ExplorationBox = defineComponent({
       daoqi: "inazuma",
       enkanomiya: "enkanomiya",
       chasmsmaw: "chasm",
+      xumi: "sumeru",
     };
     const areaLogo = getIconUri(props.data.iconUrl);
 
