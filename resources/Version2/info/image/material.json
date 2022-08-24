@@ -639,6 +639,27 @@
       "beta": false
     },
     {
+      "id": 101220,
+      "name": "赤念果",
+      "type": "须弥区域特产",
+      "rarity": 1,
+      "beta": true
+    },
+    {
+      "id": 101221,
+      "name": "枣椰",
+      "type": "食材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
+      "id": 101225,
+      "name": "圣金虫",
+      "type": "须弥区域特产",
+      "rarity": 1,
+      "beta": true
+    },
+    {
       "id": 101228,
       "name": "毗波耶",
       "type": "素材",
@@ -1858,6 +1879,27 @@
       "beta": false
     },
     {
+      "id": 112071,
+      "name": "破缺棱晶",
+      "type": "角色培养素材",
+      "rarity": 2,
+      "beta": true
+    },
+    {
+      "id": 112072,
+      "name": "混浊棱晶",
+      "type": "角色培养素材",
+      "rarity": 3,
+      "beta": true
+    },
+    {
+      "id": 112073,
+      "name": "辉光棱晶",
+      "type": "角色培养素材",
+      "rarity": 4,
+      "beta": true
+    },
+    {
       "id": 113001,
       "name": "飓风之种",
       "type": "角色培养素材",
@@ -2108,6 +2150,20 @@
       "type": "角色培养素材",
       "rarity": 4,
       "beta": false
+    },
+    {
+      "id": 113038,
+      "name": "永续机芯",
+      "type": "角色培养素材",
+      "rarity": 4,
+      "beta": true
+    },
+    {
+      "id": 113039,
+      "name": "导光四面体",
+      "type": "角色培养素材",
+      "rarity": 4,
+      "beta": true
     },
     {
       "id": 114001,
@@ -2752,6 +2808,27 @@
       "type": "小道具",
       "rarity": 4,
       "beta": false
+    },
+    {
+      "id": 220067,
+      "name": "？？？",
+      "type": "小道具",
+      "rarity": 4,
+      "beta": true
+    },
+    {
+      "id": 220069,
+      "name": "赤沙石板",
+      "type": "小道具",
+      "rarity": 4,
+      "beta": true
+    },
+    {
+      "id": 220074,
+      "name": "？？？",
+      "type": "小道具",
+      "rarity": 4,
+      "beta": true
     }
   ]
 }

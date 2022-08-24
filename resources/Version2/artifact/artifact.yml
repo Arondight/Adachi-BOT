@@ -72,7 +72,7 @@ domains:
     product: [ 18, 19 ]
   - name: "岩中幽谷"
     product: [ 20, 21 ]
-  - name: "缘觉塔	"
+  - name: "缘觉塔"
     product: [ 22, 23 ]
 
 suitNames:
