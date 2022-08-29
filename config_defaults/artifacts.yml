@@ -349,6 +349,6 @@ domains:
     product: [ 20, 21 ]
   -
     id: 11
-    name: 新副本
-    alias: [ ]
+    name: 缘觉塔
+    alias: [ 草本, 精通本 ]
     product: [ 22, 23 ]
