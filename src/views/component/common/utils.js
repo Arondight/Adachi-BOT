@@ -68,6 +68,7 @@ function toReadableElem(elem) {
     geo: "岩元素",
     hydro: "水元素",
     pyro: "火元素",
+    dendro: "草元素",
   };
 
   return name[String(elem).toLowerCase()] || "风元素";
