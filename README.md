@@ -16,6 +16,8 @@
 
 ### 开发
 
+> 运行命令 `npm run install-dev` 以安装开发者模块。
+
 1. 代码提交前运行 `npm run code-check` 进行检查确保无报错，并运行 `npm run code-format` 进行格式化。
 2. 代码自测完毕后发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 合入 `dev` 分支。
 3. 新功能添加或者功能修改请先发起 [Issue](https://github.com/Arondight/Adachi-BOT/issues) 询问我的意愿，根据沟通结果选择合入本项目或者提交到你账户下的一个 Fork 。漏洞修复无需事先沟通，直接发起 [Pull request](https://github.com/Arondight/Adachi-BOT/pulls) 并描述清楚问题即可。
@@ -99,7 +101,7 @@ echo 'export PUPPETEER_EXECUTABLE_PATH="/usr/lib64/chromium-browser/chromium-bro
 echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"' | tee -a ~/.bashrc
 source ~/.bashrc
 
-npm install
+npm run install-prod
 ```
 
 > 1. 其中 `/usr/lib64/chromium-browser/chromium-browser` 是你的 Chromium 浏览器 ELF 文件路径，而**非启动脚本或其链接**的路径，具体请参照 [FAQ](https://github.com/Arondight/Adachi-BOT/issues?q=label%3Adocumentation) 中的[《Linux 下如何找到 Chromium 的二进制 ELF 文件路径》](https://github.com/Arondight/Adachi-BOT/issues/465)。
@@ -110,13 +112,13 @@ npm install
 这需要你的系统有访问国际互联网的能力，如果可以访问，直接执行以下命令。
 
 ```sh
-npm install
+npm run install-prod
 ```
 
 如果无法访问，那么你需要通过任意合法途径获得一个可以访问国际互联网的 `http` 代理，然后执行以下命令。
 
 ```sh
-npm_config_proxy=http://<代理地址>:<代理端口> npm install
+npm_config_proxy=http://<代理地址>:<代理端口> npm run install-prod
 ```
 
 > 注意使用此方法安装 Chromium ，你需要自行解决它的运行依赖问题（例如缺少动态库）。
@@ -171,8 +173,7 @@ cp -iv ./config_defaults/{setting,cookies}.yml ./config/
 #### 进行更新
 
 ```sh
-git pull -p
-npm install
+npm run update
 ```
 
 #### 查看配置文件变更

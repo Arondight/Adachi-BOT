@@ -2,10 +2,23 @@ import fs from "fs";
 import lodash from "lodash";
 import fetch from "node-fetch";
 import path from "path";
+import sharp from "sharp";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import "#utils/config";
 import { mkdir } from "#utils/file";
+
+// FIXME just a test dir
+const mRESDIR = mkdir(path.resolve(global.rootdir, "resdir"));
+const dir = {
+  char: mkdir(path.resolve(mRESDIR, "character")),
+  weapon: mkdir(path.resolve(mRESDIR, "weapon")),
+  doc: mkdir(path.resolve(mRESDIR, "info", "doc")),
+  material: mkdir(path.resolve(mRESDIR, "material")),
+};
+
+// XXX is it ok?
+const mWebpOpts = { lossless: true };
 
 const mElemCN = {
   electric: "雷元素",
@@ -26,19 +39,20 @@ const mDayOfWeekCN = {
   sunday: "日",
 };
 
-const mApiPrefix = "https://api.ambr.top/v2";
+const mAmbrTop = "https://api.ambr.top";
+const mAPIv2 = `${mAmbrTop}/v2`;
 const mApi = {
   character: {
-    info: `${mApiPrefix}/chs/avatar`,
-    curve: `${mApiPrefix}/static/avatarCurve`,
+    info: `${mAPIv2}/chs/avatar`,
+    curve: `${mAPIv2}/static/avatarCurve`,
   },
   weapon: {
-    info: `${mApiPrefix}/chs/weapon`,
-    curve: `${mApiPrefix}/static/weaponCurve`,
-    manual: `${mApiPrefix}/CHS/manualWeapon`,
+    info: `${mAPIv2}/chs/weapon`,
+    curve: `${mAPIv2}/static/weaponCurve`,
+    manual: `${mAPIv2}/CHS/manualWeapon`,
   },
   material: {
-    info: `${mApiPrefix}/CHS/material`,
+    info: `${mAPIv2}/CHS/material`,
   },
 };
 const mData = {
@@ -56,11 +70,34 @@ const mData = {
   },
 };
 
+async function pngUrlToWebpFile(url, file) {
+  let buffer;
+
+  try {
+    buffer = Buffer.from(await getBinBuffer(url));
+  } catch (e) {
+    return;
+  }
+
+  process.stdout.write(`转换 ${file} ...\t`);
+
+  try {
+    await sharp(buffer).webp(mWebpOpts).toFile(file);
+    console.log("成功");
+  } catch (e) {
+    console.log("失败");
+  }
+}
+
 function tagColorToSpan(text) {
   return text.replaceAll(/<color=#\w+?>/g, '<span class="desc-number recolor">').replaceAll("</color>", "</span>");
 }
 
-function getMaterialNameByID(id) {
+function getMaterialIdByName(name) {
+  return (mData.material.info.filter((c) => String(c.name) === name)[0] || {}).id;
+}
+
+function getMaterialNameById(id) {
   return (mData.material.info.filter((c) => String(c.id) === id)[0] || {}).name;
 }
 
@@ -86,6 +123,33 @@ function getAscensionFromData(data) {
   }
 
   return ascension;
+}
+
+async function getBinBuffer(url, slient = false) {
+  let error;
+
+  if (false === slient) {
+    process.stdout.write(`拉取 ${url} ...\t`);
+  }
+
+  try {
+    const response = await fetch(url, { method: "GET" });
+
+    if (200 === response.status) {
+      console.log("成功");
+      return await response.arrayBuffer();
+    }
+  } catch (e) {
+    error = e;
+  }
+
+  if (false === slient) {
+    console.log("失败");
+  }
+
+  if (undefined !== error) {
+    throw error;
+  }
 }
 
 async function getJsonObj(url, callback = (e) => e, slient = false) {
@@ -137,9 +201,10 @@ async function getData() {
         item.element = mElemCN[item.element.toLowerCase()];
         item.rarity = item.rank;
         item.type = data.types[item.weaponType];
+        item.icon = item.icon.match(/(?<=UI_AvatarIcon_)\w+/)[0];
 
         if (!("旅行者" === item.name && "风元素" !== item.element)) {
-          parsed.push(lodash.pick(item, ["birthday", "element", "id", "name", "rarity", "type"]));
+          parsed.push(lodash.pick(item, ["birthday", "element", "icon", "id", "name", "rarity", "type"]));
         }
       }
     }
@@ -162,7 +227,8 @@ async function getData() {
       if (Object.keys(data.types).includes(item.type)) {
         item.rarity = item.rank;
         item.type = data.types[item.type];
-        parsed.push(lodash.pick(item, ["id", "name", "rarity", "type"]));
+        item.icon = item.icon.match(/(?<=UI_EquipIcon_)\w+/)[0];
+        parsed.push(lodash.pick(item, ["icon", "id", "name", "rarity", "type"]));
       }
     }
 
@@ -208,7 +274,7 @@ async function parseCharInfo(name) {
 
   try {
     const { id } = item;
-    const api = `${mApiPrefix}/CHS/avatar/${id}`;
+    const api = `${mAPIv2}/CHS/avatar/${id}`;
     const data = await getJsonObj(api, (e) => e, true);
     const info = {
       access: "",
@@ -217,7 +283,6 @@ async function parseCharInfo(name) {
       birthday: `${data.birthday[0]}月${data.birthday[1]}日`,
       constellationName: data.fetter.constellation,
       constellations: "",
-      cv: `${data.fetter.cv.CHS} | ${data.fetter.cv.JP}`,
       cvCN: data.fetter.cv.CHS,
       cvJP: data.fetter.cv.JP,
       element: mElemCN[data.element.toLowerCase()],
@@ -253,7 +318,7 @@ async function parseCharInfo(name) {
         const rarity = parseInt(data.ascension[id]);
 
         if (num === ascensionMaterialsIdx[i][0] && rarity === ascensionMaterialsIdx[i][1]) {
-          info.ascensionMaterials[i] = getMaterialNameByID(id);
+          info.ascensionMaterials[i] = getMaterialNameById(id);
         }
       }
     }
@@ -287,7 +352,7 @@ async function parseCharInfo(name) {
         const rarity = parseInt(data.ascension[id]);
 
         if (num === levelUpMaterialsIdx[i][0] && rarity === levelUpMaterialsIdx[i][1]) {
-          info.levelUpMaterials[i] = getMaterialNameByID(id);
+          info.levelUpMaterials[i] = getMaterialNameById(id);
         }
       }
     }
@@ -331,11 +396,11 @@ async function parseCharInfo(name) {
     aTalentMaterial = info.talentMaterials[0];
 
     for (let i = 0; i < info.talentMaterials.length; ++i) {
-      info.talentMaterials[i] = getMaterialNameByID(info.talentMaterials[i]);
+      info.talentMaterials[i] = getMaterialNameById(info.talentMaterials[i]);
     }
 
     // info.time
-    const materialInfo = await getJsonObj(`${mApiPrefix}/CHS/material/${aTalentMaterial}`, (e) => e, true);
+    const materialInfo = await getJsonObj(`${mAPIv2}/CHS/material/${aTalentMaterial}`, (e) => e, true);
     const days = Object.values(Object.values(materialInfo.source).filter((c) => undefined !== c.days)[0].days).map(
       (c) => mDayOfWeekCN[c.toLowerCase()]
     );
@@ -365,7 +430,7 @@ async function parseWeaponInfo(name) {
 
   try {
     const { id } = item;
-    const api = `${mApiPrefix}/CHS/weapon/${id}`;
+    const api = `${mAPIv2}/CHS/weapon/${id}`;
     const data = await getJsonObj(api, (e) => e, true);
     const info = {
       access: "",
@@ -509,7 +574,7 @@ async function parseWeaponInfo(name) {
 
     for (let i = 0; i < info.ascensionMaterials.length; ++i) {
       for (let j = 0; j < info.ascensionMaterials[i].length; ++j) {
-        info.ascensionMaterials[i][j] = getMaterialNameByID(info.ascensionMaterials[i][j]);
+        info.ascensionMaterials[i][j] = getMaterialNameById(info.ascensionMaterials[i][j]);
       }
     }
 
@@ -574,7 +639,7 @@ async function parseWeaponInfo(name) {
     }
 
     // info.time
-    const materialInfo = await getJsonObj(`${mApiPrefix}/CHS/material/${aUpgradeMaterial}`, (e) => e, true);
+    const materialInfo = await getJsonObj(`${mAPIv2}/CHS/material/${aUpgradeMaterial}`, (e) => e, true);
     const days = Object.values(Object.values(materialInfo.source).filter((c) => undefined !== c.days)[0].days).map(
       (c) => mDayOfWeekCN[c.toLowerCase()]
     );
@@ -589,9 +654,65 @@ async function parseWeaponInfo(name) {
   }
 }
 
+async function getMaterialImg(name) {
+  const icondir = mkdir(path.resolve(dir.material, "icon"));
+  const file = path.resolve(icondir, `${name}.webp`);
+
+  if (!fs.existsSync(file)) {
+    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`, file);
+  }
+}
+
+async function getCharRes(info) {
+  const item = (mData.character.info.filter((c) => c.name === info.name) || [])[0];
+  const icondir = mkdir(path.resolve(dir.char, "icon"));
+  const carddir = mkdir(path.resolve(dir.char, "namecard"));
+  let file;
+
+  // icon
+  file = path.resolve(icondir, `${item.name}.webp`);
+
+  if (!fs.existsSync(file)) {
+    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/UI_AvatarIcon_${item.icon}.png`, file);
+  }
+
+  // namecard
+  file = path.resolve(carddir, `${item.name}.webp`);
+
+  if (!fs.existsSync(file)) {
+    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/namecard/UI_NameCardPic_${item.icon}_P.png`, file);
+  }
+
+  // material
+  for (const e of [...info.ascensionMaterials, ...info.levelUpMaterials, ...info.talentMaterials]) {
+    if ("string" === typeof e) {
+      await getMaterialImg(e);
+    }
+  }
+}
+
+async function getWeaponRes(info) {
+  const item = (mData.weapon.info.filter((c) => c.name === info.name) || [])[0];
+  const icondir = mkdir(path.resolve(dir.weapon, "icon"));
+  let file;
+
+  // icon
+  file = path.resolve(icondir, `${item.name}.webp`);
+
+  if (!fs.existsSync(file)) {
+    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/UI_EquipIcon_${item.icon}.png`, file);
+  }
+
+  // material
+  for (const e of lodash.flatten(info.ascensionMaterials)) {
+    if ("string" === typeof e) {
+      await getMaterialImg(e);
+    }
+  }
+}
+
 function writeData(name, data = {}) {
-  const dir = mkdir(path.resolve(global.rootdir, "resources_custom", "Version2", "info", "docs"));
-  const file = path.resolve(dir, `${name}.json`);
+  const file = path.resolve(dir.doc, `${name}.json`);
   let old = {};
 
   process.stdout.write(`写入文件 ${file} ……\t`);
@@ -653,6 +774,12 @@ function writeData(name, data = {}) {
       }
 
       writeData(n, info);
+
+      if ("角色" === info.type) {
+        await getCharRes(info);
+      } else {
+        await getWeaponRes(info);
+      }
     } catch (e) {
       console.log(`为【${n}】生成描述文件失败，跳过。\n错误的详细信息见下。\n${e.stack}`);
       errcode = -1;
