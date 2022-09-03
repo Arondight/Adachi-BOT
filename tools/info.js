@@ -554,17 +554,15 @@ async function parseWeaponInfo(name) {
       for (let j = 0; j < ascensionMaterialsIdx[i].length; ++j) {
         for (const [id, num] of Object.entries(ascension.upgrade)) {
           const rarity = parseInt(data.ascension[id]);
+          const border = ascensionMaterialsIdx[1].length / 2;
 
-          if (num === ascensionMaterialsIdx[i][j][0] && rarity === ascensionMaterialsIdx[i][j][1]) {
-            if (
-              !(
-                j > 0 &&
-                0 !== j % (ascensionMaterialsIdx[1].length / 2) &&
-                1 !== id - info.ascensionMaterials[i][j - 1]
-              )
-            ) {
-              info.ascensionMaterials[i][j] = id;
-            }
+          if (
+            num === ascensionMaterialsIdx[i][j][0] &&
+            rarity === ascensionMaterialsIdx[i][j][1] &&
+            (0 === i || j % border === id % border)
+          ) {
+            info.ascensionMaterials[i][j] = id;
+            break;
           }
         }
       }
