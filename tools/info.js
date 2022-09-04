@@ -12,29 +12,34 @@ import { mkdir } from "#utils/file";
 const mRESDIR = mkdir(path.resolve(global.rootdir, "resdir"));
 const dir = {
   char: mkdir(path.resolve(mRESDIR, "character")),
-  weapon: mkdir(path.resolve(mRESDIR, "weapon")),
   doc: mkdir(path.resolve(mRESDIR, "info", "doc")),
   material: mkdir(path.resolve(mRESDIR, "material")),
+  weapon: mkdir(path.resolve(mRESDIR, "weapon")),
 };
 
 /**
  * @namespace mWebpOpts
  * @type {object}
- * @property {number} quality - 压缩质量，偏重质量 90 (max 100)
- * @property {number} effort - 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
  * @property {number} alphaQuality - 透明通道压缩质量 (max 100)
+ * @property {number} effort - 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
+ * @property {number} quality - 压缩质量，偏重质量 90 (max 100)
  * @property {boolean} smartSubsample - 自动 YUV 4:2:0 子采样
  */
-const mWebpOpts = { quality: 90, effort: 6, alphaQuality: 95, smartSubsample: true };
+const mWebpOpts = {
+  alphaQuality: 95,
+  effort: 6,
+  quality: 90,
+  smartSubsample: true,
+};
 
 const mElemCN = {
   electric: "雷元素",
+  fire: "火元素",
+  grass: "草元素",
+  ice: "冰元素",
+  rock: "岩元素",
   water: "水元素",
   wind: "风元素",
-  ice: "冰元素",
-  fire: "火元素",
-  rock: "岩元素",
-  grass: "草元素",
 };
 const mDayOfWeekCN = {
   monday: "一",
@@ -722,7 +727,7 @@ function writeData(name, data = {}) {
 
   process.stdout.write(`写入文件 ${file} ……\t`);
 
-  if (undefined === data || 0 == Object.keys(data)) {
+  if (undefined === data || 0 === Object.keys(data)) {
     console.log("数据错误。");
     return;
   }
