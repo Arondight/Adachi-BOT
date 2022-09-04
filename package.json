@@ -43,7 +43,7 @@
     "tool-material": "node ./tools/material.js",
     "tool-status": "node ./tools/status.js",
     "tool-view": "node ./tools/view.js",
-    "install-dev": "npx cross-env-shell npm_config_sharp_binary_host='https://npmmirror.com/mirrors/sharp' npm_config_sharp_libvips_binary_host='https://npmmirror.com/mirrors/sharp-libvips' npm install --include dev",
+    "install-dev": "npm run install-prod && npx cross-env-shell npm_config_sharp_binary_host='https://npmmirror.com/mirrors/sharp' npm_config_sharp_libvips_binary_host='https://npmmirror.com/mirrors/sharp-libvips' npm install --include dev",
     "install-prod": "npm install --omit dev",
     "update": "git pull && npm run install-prod",
     "update-modules": "npx ncu -u && npm update"
