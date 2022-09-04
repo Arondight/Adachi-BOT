@@ -45,7 +45,7 @@
     "tool-view": "node ./tools/view.js",
     "install-dev": "npx cross-env-shell npm_config_sharp_binary_host='https://npmmirror.com/mirrors/sharp' npm_config_sharp_libvips_binary_host='https://npmmirror.com/mirrors/sharp-libvips' npm install",
     "install-prod": "npm install --omit=dev",
-    "update": "git pull -p && npm run install-prod",
+    "update": "git pull && npm run install-prod",
     "update-modules": "npx ncu -u; npm update"
   },
   "dependencies": {
