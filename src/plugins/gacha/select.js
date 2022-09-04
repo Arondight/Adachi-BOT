@@ -1,6 +1,8 @@
 import { init } from "#plugins/gacha/init";
 import db from "#utils/database";
 
+("use strict");
+
 function doSelect(msg, name = undefined) {
   init(msg.uid);
 

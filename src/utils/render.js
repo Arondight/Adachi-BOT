@@ -4,6 +4,8 @@ import path from "path";
 import puppeteer from "puppeteer";
 import { mkdir } from "#utils/file";
 
+("use strict");
+
 // selector: 截图的页面元素。遵循 CSS 选择器语法。
 // hello:    耗时操作是否给提示
 // scale:    截图时的缩放比例。在纵横方向上各应使用多少屏幕实际像素来绘制单个CSS像素。效果约等同于 devicePixelRatio 。
@@ -14,8 +16,8 @@ import { mkdir } from "#utils/file";
 // scale    -> view (string): scale (number)
 // hello    -> view (string): delete (boolean)
 //
-// 如果没有设置则使用 mSettingsDefault 中的默认值
-const mSettings = {
+// 如果没有设置则使用 m_SETTINGS_DEF 中的默认值
+const m_SETTINGS = Object.freeze({
   selector: {},
   hello: {
     "genshin-aby": true,
@@ -33,14 +35,14 @@ const mSettings = {
     "genshin-artifact": true,
     "genshin-gacha": true,
   },
-};
-const mSettingsDefault = {
+});
+const m_SETTINGS_DEF = Object.freeze({
   selector: "body",
   hello: false,
   scale: 1.5,
   delete: false,
-};
-const mRenderPath = puppeteer.executablePath();
+});
+const m_RENDER_PATH = Object.freeze(puppeteer.executablePath());
 
 async function renderOpen() {
   if (undefined === global.browser) {
@@ -73,13 +75,13 @@ async function render(msg, data, name) {
   const recordDir = path.resolve(global.datadir, "record");
   let binary;
 
-  if ((mSettings.hello[name] || mSettingsDefault.hello) && global.config.warnTimeCosts && undefined !== msg.bot) {
+  if ((m_SETTINGS.hello[name] || m_SETTINGS_DEF.hello) && global.config.warnTimeCosts && undefined !== msg.bot) {
     msg.bot.say(msg.sid, "正在绘图，请稍等……", msg.type, msg.uid, true);
   }
 
   // 抽卡信息太多时减少缩放比
   if ("genshin-gacha" === name && Array.isArray(data.data) && data.data.length > 10) {
-    mSettings.scale["genshin-gacha"] = 1;
+    m_SETTINGS.scale["genshin-gacha"] = 1;
   }
 
   try {
@@ -100,7 +102,7 @@ async function render(msg, data, name) {
     }
 
     const page = await global.browser.newPage();
-    const scale = mSettings.scale[name] || mSettingsDefault.scale;
+    const scale = m_SETTINGS.scale[name] || m_SETTINGS_DEF.scale;
 
     // 只在机器人发送图片时设置 viewport
     if (undefined !== msg.bot) {
@@ -119,7 +121,7 @@ async function render(msg, data, name) {
     const param = { data: new Buffer.from(dataStr, "utf8").toString("base64") };
     await page.goto(`http://localhost:9934/src/views/${name}.html?${new URLSearchParams(param)}`);
 
-    const html = await page.$(mSettings.selector[name] || mSettingsDefault.selector, { waitUntil: "networkidle0" });
+    const html = await page.$(m_SETTINGS.selector[name] || m_SETTINGS_DEF.selector, { waitUntil: "networkidle0" });
     binary = await html.screenshot({
       encoding: "binary",
       type: "jpeg",
@@ -141,7 +143,7 @@ async function render(msg, data, name) {
   if (binary) {
     const base64 = new Buffer.from(binary, "utf8").toString("base64");
     const imageCQ = `[CQ:image,type=image,file=base64://${base64}]`;
-    const toDelete = undefined === mSettings.delete[name] ? mSettingsDefault.delete : mSettings.delete[name];
+    const toDelete = undefined === m_SETTINGS.delete[name] ? m_SETTINGS_DEF.delete : m_SETTINGS.delete[name];
     const record = path.resolve(mkdir(path.resolve(recordDir, name)), `${msg.sid}.jpeg`);
 
     if (undefined !== msg.bot) {
@@ -154,4 +156,4 @@ async function render(msg, data, name) {
   }
 }
 
-export { render, renderClose, renderOpen, mRenderPath as renderPath };
+export { render, renderClose, renderOpen, m_RENDER_PATH as renderPath };

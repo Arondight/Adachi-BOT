@@ -1,6 +1,8 @@
 import md5 from "md5";
 import { randomString } from "#utils/tools";
 
+("use strict");
+
 function getQueryParam(data) {
   let arr = [];
 

@@ -5,6 +5,8 @@ import semver from "semver";
 import url from "url";
 import "#utils/config";
 
+("use strict");
+
 const m_ME = path.basename(url.fileURLToPath(import.meta.url || ""));
 
 let mPostRunning = false;

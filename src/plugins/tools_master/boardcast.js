@@ -1,6 +1,8 @@
 import { hasEntrance } from "#utils/config";
 import { filterWordsByRegex } from "#utils/tools";
 
+("use strict");
+
 function boardcast(msg) {
   const text = filterWordsByRegex(
     msg.text,

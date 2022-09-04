@@ -1,3 +1,4 @@
+"use strict";
 // item -> { type: "", name: "", value: "" }
 function findIndexOf(item) {
   function indexOf(type) {

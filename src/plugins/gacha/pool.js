@@ -1,6 +1,8 @@
 import { init } from "#plugins/gacha/init";
 import db from "#utils/database";
 
+("use strict");
+
 function isPool(poolID, name) {
   return Array.isArray(global.all.functions.options.pool[poolID])
     ? global.all.functions.options.pool[poolID].includes(name)

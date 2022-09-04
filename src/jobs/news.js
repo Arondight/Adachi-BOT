@@ -5,6 +5,8 @@ import { checkAuth } from "#utils/auth";
 import { getCache } from "#utils/cache";
 import db from "#utils/database";
 
+("use strict");
+
 function initDB() {
   for (const t of global.config.mysNewsTypeAll) {
     if (!db.includes("news", "timestamp", { type: t })) {

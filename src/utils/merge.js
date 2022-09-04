@@ -5,6 +5,8 @@
 import kindOf from "kind-of";
 import lodash from "lodash";
 
+("use strict");
+
 function isObject(o) {
   return "object" === kindOf(o) || "function" === kindOf(o);
 }

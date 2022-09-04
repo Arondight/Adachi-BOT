@@ -4,6 +4,8 @@ import fetch from "node-fetch";
 import path from "path";
 import "#utils/config";
 
+("use strict");
+
 function parse(types, items) {
   const parsed = [];
 

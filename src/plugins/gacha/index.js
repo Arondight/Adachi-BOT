@@ -6,6 +6,8 @@ import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 import { guessPossibleNames } from "#utils/tools";
 
+("use strict");
+
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "gacha", "pool"): {

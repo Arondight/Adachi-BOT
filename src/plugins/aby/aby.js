@@ -3,6 +3,8 @@ import { abyDetail, baseDetail, handleDetailError } from "#utils/detail";
 import { getID } from "#utils/id";
 import { render } from "#utils/render";
 
+("use strict");
+
 async function doAby(msg, schedule_type = 1) {
   let dbInfo = getID(msg.text, msg.uid, false); // UID
 

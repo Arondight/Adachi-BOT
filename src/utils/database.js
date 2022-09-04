@@ -3,6 +3,8 @@ import path from "path";
 import { LowJSONCacheSync } from "#utils/lowdb";
 import { merge } from "#utils/merge";
 
+("use strict");
+
 // 无需加锁
 const mDatabase = {};
 

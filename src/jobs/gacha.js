@@ -2,6 +2,8 @@ import lodash from "lodash";
 import { getGachaDetail, getGachaList } from "#utils/api";
 import db from "#utils/database";
 
+("use strict");
+
 async function parseGachaData(gachaID) {
   let res;
 

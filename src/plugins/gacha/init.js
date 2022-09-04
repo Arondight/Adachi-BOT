@@ -1,5 +1,7 @@
 import db from "#utils/database";
 
+("use strict");
+
 function init(uid) {
   if (!db.includes("gacha", "user", { userID: uid })) {
     db.push("gacha", "user", {

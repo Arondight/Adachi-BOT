@@ -1,6 +1,8 @@
 import { getInfo } from "#utils/api";
 import { render } from "#utils/render";
 
+("use strict");
+
 function getNotFoundText(name, guess = []) {
   let notFoundText = `查询失败，未知的名称${name}。`;
 

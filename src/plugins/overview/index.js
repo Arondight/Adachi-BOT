@@ -4,6 +4,8 @@ import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 import { guessPossibleNames } from "#utils/tools";
 
+("use strict");
+
 async function Plugin(msg) {
   const name = getName(msg.text);
   const guess = guessPossibleNames(name, global.names.all);

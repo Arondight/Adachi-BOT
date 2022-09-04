@@ -3,6 +3,8 @@ import fetch from "node-fetch";
 import { imageOcr } from "#plugins/rating/data";
 import { findIndexOf } from "#plugins/rating/findIndexOf";
 
+("use strict");
+
 async function doImageOcr(msg) {
   const source = msg.text.match(/\[CQ:image,type=.*?,file=.+?]/);
   const [url] = /(?<=url=).+(?=])/.exec(source) || [];

@@ -2,6 +2,8 @@ import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
 
+("use strict");
+
 function loadYML(name) {
   const filename = `${name}.yml`;
   let filepath = path.resolve(global.configdir, filename);

@@ -3,6 +3,8 @@ import { init } from "#plugins/artifacts/init";
 import db from "#utils/database";
 import { render } from "#utils/render";
 
+("use strict");
+
 function doArtifacts(msg, text = undefined) {
   let id;
   let data;

@@ -8,6 +8,8 @@ import { getGroupOfStranger } from "#utils/oicq";
 import { iconvConvert } from "#utils/tools";
 import { getRandomInt } from "#utils/tools";
 
+("use strict");
+
 // 无需加锁
 const mTimestamp = {};
 

@@ -1,6 +1,8 @@
 import fetch from "node-fetch";
 import { findIndexOf } from "#plugins/rating/findIndexOf";
 
+("use strict");
+
 function adjustProp(obj, bot) {
   function log(type, item, before, after) {
     bot.logger.debug(`评分：调整属性 ${type}：${item} （ ${before} -> ${after} ）`);

@@ -5,6 +5,8 @@ import { getAbyDetail, getBase, getCharacters, getIndex } from "#utils/api";
 import { getCookie, tryToWarnInvalidCookie } from "#utils/cookie";
 import db from "#utils/database";
 
+("use strict");
+
 function detailError(message, cache = false, master = false, message_master = "") {
   return { detail: true, message, cache, master, message_master };
 }

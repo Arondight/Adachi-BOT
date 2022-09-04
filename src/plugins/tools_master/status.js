@@ -7,7 +7,9 @@ import puppeteer from "puppeteer";
 import si from "systeminformation";
 import { du } from "#utils/file";
 
-const mUnknown = "未知";
+("use strict");
+
+const m_UNKNOWN_CN = Object.freeze("未知");
 
 let mBrowserVer;
 let mCPU;
@@ -40,7 +42,7 @@ try {
 }
 
 if (undefined === mBrowserVer) {
-  mBrowserVer = mUnknown;
+  mBrowserVer = m_UNKNOWN_CN;
 }
 
 async function status(msg = {}) {
@@ -49,15 +51,15 @@ async function status(msg = {}) {
   const mem = await si.mem();
   const time = await si.time();
 
-  const cpuBrand = lodash.hasIn(mCPU, "brand") ? mCPU.brand : mUnknown;
-  const cpuManufacturer = lodash.hasIn(mCPU, "manufacturer") ? mCPU.manufacturer : mUnknown;
-  const cpuSpeed = lodash.hasIn(mCPU, "speed") ? mCPU.speed : mUnknown;
-  const osArch = lodash.hasIn(mOS, "arch") ? mOS.arch : mUnknown;
-  const osDistro = lodash.hasIn(mOS, "distro") ? mOS.distro : mUnknown;
-  const osKernel = lodash.hasIn(mOS, "kernel") ? mOS.kernel : mUnknown;
-  const osPlatform = lodash.hasIn(mOS, "platform") ? mOS.platform : mUnknown;
-  const versionsNodeJS = lodash.hasIn(mVersions, "node") ? mVersions.node : mUnknown;
-  const versionsNpm = lodash.hasIn(mVersions, "npm") ? mVersions.npm : mUnknown;
+  const cpuBrand = lodash.hasIn(mCPU, "brand") ? mCPU.brand : m_UNKNOWN_CN;
+  const cpuManufacturer = lodash.hasIn(mCPU, "manufacturer") ? mCPU.manufacturer : m_UNKNOWN_CN;
+  const cpuSpeed = lodash.hasIn(mCPU, "speed") ? mCPU.speed : m_UNKNOWN_CN;
+  const osArch = lodash.hasIn(mOS, "arch") ? mOS.arch : m_UNKNOWN_CN;
+  const osDistro = lodash.hasIn(mOS, "distro") ? mOS.distro : m_UNKNOWN_CN;
+  const osKernel = lodash.hasIn(mOS, "kernel") ? mOS.kernel : m_UNKNOWN_CN;
+  const osPlatform = lodash.hasIn(mOS, "platform") ? mOS.platform : m_UNKNOWN_CN;
+  const versionsNodeJS = lodash.hasIn(mVersions, "node") ? mVersions.node : m_UNKNOWN_CN;
+  const versionsNpm = lodash.hasIn(mVersions, "npm") ? mVersions.npm : m_UNKNOWN_CN;
 
   const data = {
     操作系统: `${osPlatform}（${osDistro}）`,

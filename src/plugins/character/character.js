@@ -5,6 +5,8 @@ import { baseDetail, characterDetail, handleDetailError, indexDetail } from "#ut
 import { getID, getUID } from "#utils/id";
 import { render } from "#utils/render";
 
+("use strict");
+
 function getCharacter(uid, character) {
   const { avatars } = db.get("info", "user", { uid }) || {};
   return avatars ? avatars.find((e) => e.name === character) : false;

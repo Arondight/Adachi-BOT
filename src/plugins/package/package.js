@@ -4,6 +4,8 @@ import { getID } from "#utils/id";
 import { render } from "#utils/render";
 import { filterWordsByRegex } from "#utils/tools";
 
+("use strict");
+
 async function doPackage(msg) {
   const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.package);
   let dbInfo = getID(msg.text, msg.uid, false); // UID

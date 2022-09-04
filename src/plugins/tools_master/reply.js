@@ -1,6 +1,8 @@
 import { getGroupOfStranger } from "#utils/oicq";
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
+("use strict");
+
 function doReply(msg, id, text, type) {
   // 送话无法 @
   msg.bot.say(id, `主人让我送个话：\n${text}`, type);

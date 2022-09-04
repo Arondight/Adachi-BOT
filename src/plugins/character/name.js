@@ -1,5 +1,7 @@
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
+("use strict");
+
 function getName(text) {
   let character = filterWordsByRegex(
     text,

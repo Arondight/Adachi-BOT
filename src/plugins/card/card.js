@@ -4,6 +4,8 @@ import { getID } from "#utils/id";
 import { render } from "#utils/render";
 import { filterWordsByRegex } from "#utils/tools";
 
+("use strict");
+
 async function doCard(msg) {
   const dbInfo = getID(msg.text, msg.uid); // 米游社 ID
   const args = filterWordsByRegex(msg.text, ...global.command.functions.entrance.card);

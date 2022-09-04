@@ -1,5 +1,7 @@
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
+("use strict");
+
 function getText(msg, names) {
   return getWordByRegex(filterWordsByRegex(msg.text, ...names), /\S+/)[0];
 }

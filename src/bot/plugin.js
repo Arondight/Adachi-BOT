@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 
+("use strict");
+
 async function loadPlugins() {
   const plugins = {};
   const enableList = { ...global.command.enable, ...global.master.enable };

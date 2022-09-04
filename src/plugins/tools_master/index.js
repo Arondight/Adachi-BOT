@@ -6,6 +6,8 @@ import { search } from "#plugins/tools_master/search";
 import { status } from "#plugins/tools_master/status";
 import { hasEntrance } from "#utils/config";
 
+("use strict");
+
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "tools_master", "group_boardcast", "private_boardcast"):

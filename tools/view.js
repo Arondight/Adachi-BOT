@@ -7,6 +7,8 @@ import { hideBin } from "yargs/helpers";
 import "#utils/config";
 import { ls } from "#utils/file";
 
+("use strict");
+
 const m_PARAMS_DIR = path.resolve(global.datadir, "record", "last_params");
 
 (async function main() {

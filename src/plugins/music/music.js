@@ -1,6 +1,8 @@
 import { errMsg, musicID, musicSrc } from "#plugins/music/data";
 import db from "#utils/database";
 
+("use strict");
+
 async function doMusic(msg) {
   const data = db.get("music", "source", { ID: msg.uid });
   const src = data ? data.Source : global.all.functions.options.music_source[163] || "163";

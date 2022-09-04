@@ -6,6 +6,8 @@ import path from "path";
 import util from "util";
 import { du, mkdir } from "#utils/file";
 
+("use strict");
+
 function getCachedPath(url, dir) {
   const workdir = dir || path.resolve(global.datadir, "cache");
   return url && path.resolve(mkdir(workdir), md5(url));

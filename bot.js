@@ -6,6 +6,8 @@ import { loadPlugins } from "#bot/plugin";
 import { readConfig } from "#utils/config";
 import { boardcast, say, sayMaster } from "#utils/oicq";
 
+("use strict");
+
 global.bots = [];
 
 function create() {

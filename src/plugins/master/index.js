@@ -2,6 +2,8 @@ import { gachaUpdate } from "#jobs/gacha";
 import { setAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 
+("use strict");
+
 async function Plugin(msg) {
   function parse(text, func) {
     const id = parseInt(text.match(/[0-9]+/g)[0]);

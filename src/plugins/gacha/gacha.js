@@ -2,6 +2,8 @@ import { gachaTimes } from "#plugins/gacha/data";
 import { init } from "#plugins/gacha/init";
 import { render } from "#utils/render";
 
+("use strict");
+
 function doGacha(msg, times = 10) {
   init(msg.uid);
 

@@ -2,6 +2,8 @@ import lodash from "lodash";
 import db from "#utils/database";
 import { getRandomInt } from "#utils/tools";
 
+("use strict");
+
 let mFive, mFour, mIsUp;
 
 function getChoiceData(userID, choice = 301) {

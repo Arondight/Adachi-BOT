@@ -497,6 +497,8 @@ import url from "url";
 import { ls } from "#utils/file";
 import { loadYML } from "#utils/yaml";
 
+("use strict");
+
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -538,18 +540,18 @@ global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "packag
 global.prophecy = {};
 global.qa = {};
 
-const mQa = loadYML("qa");
-const mArtifacts = loadYML("artifacts");
-const mAuthority = loadYML("authority");
-const mCommand = loadYML("command");
-const mCookies = loadYML("cookies");
-const mEggs = loadYML("pool_eggs");
-const mGreeting = loadYML("greeting");
-const mMaster = loadYML("command_master");
-const mMenu = loadYML("menu");
-const mNames = loadYML("names");
-const mProphecy = loadYML("prophecy");
-const mSetting = loadYML("setting");
+const m_QA = Object.freeze(loadYML("qa"));
+const m_ARTIFACTS = Object.freeze(loadYML("artifacts"));
+const m_AUTHORITY = Object.freeze(loadYML("authority"));
+const m_COMMAND = Object.freeze(loadYML("command"));
+const m_COOKIES = Object.freeze(loadYML("cookies"));
+const m_EGGS = Object.freeze(loadYML("pool_eggs"));
+const m_GREETING = Object.freeze(loadYML("greeting"));
+const m_MASTER = Object.freeze(loadYML("command_master"));
+const m_MENU = Object.freeze(loadYML("menu"));
+const m_NAMES = Object.freeze(loadYML("names"));
+const m_PROPHECY = Object.freeze(loadYML("prophecy"));
+const m_SETTING = Object.freeze(loadYML("setting"));
 
 // global[type].enable                -> plugin (lowercase):    is_enabled (boolean)
 // global[type].weights               -> plugin (lowercase):    weights (number)
@@ -801,7 +803,7 @@ function readAuthority() {
     // 消息响应
     reply_auth: "off",
   };
-  const defaultAuth = Object.assign({}, defaultConfig, mAuthority.default || {});
+  const defaultAuth = Object.assign({}, defaultConfig, m_AUTHORITY.default || {});
 
   // 转换为 boolean
   Object.keys(defaultAuth).forEach((k) => {
@@ -869,32 +871,32 @@ function readSetting() {
   };
 
   // 用于兼容旧配置，已经被 accounts 取代
-  const account = mSetting.account;
-  const accounts = mSetting.accounts;
+  const account = m_SETTING.account;
+  const accounts = m_SETTING.accounts;
   // 用于兼容旧配置，已经被 masters 取代
-  const master = mSetting.master;
-  const masters = mSetting.masters;
-  const prefixes = mSetting.prefixes;
-  const atMe = parseInt(mSetting.atMe);
-  const atUser = parseInt(mSetting.atUser);
-  const replyStranger = parseInt(mSetting.replyStranger);
-  const repeatProb = parseInt(parseFloat(mSetting.repeatProb) * 100);
-  const groupHello = parseInt(mSetting.groupHello);
-  const groupGreetingNew = parseInt(mSetting.groupGreetingNew);
-  const friendGreetingNew = parseInt(mSetting.friendGreetingNew);
-  const noticeMysNews = parseInt(mSetting.noticeMysNews);
-  const mysNewsType = Array.isArray(mSetting.mysNewsType) ? mSetting.mysNewsType : [];
-  const characterTryGetDetail = parseInt(mSetting.characterTryGetDetail);
-  const warnTimeCosts = parseInt(mSetting.warnTimeCosts);
-  const requestInterval = parseInt(mSetting.requestInterval);
-  const deleteGroupMsgTime = parseInt(mSetting.deleteGroupMsgTime);
-  const boardcastDelay = parseInt(parseFloat(mSetting.boardcastDelay) * 1000);
-  const cacheAbyEffectTime = parseInt(mSetting.cacheAbyEffectTime);
-  const cacheInfoEffectTime = parseInt(mSetting.cacheInfoEffectTime);
-  const dbAbyEffectTime = parseInt(mSetting.dbAbyEffectTime);
-  const dbInfoEffectTime = parseInt(mSetting.dbInfoEffectTime);
-  const viewDebug = parseInt(mSetting.viewDebug);
-  const saveImage = parseInt(mSetting.saveImage);
+  const master = m_SETTING.master;
+  const masters = m_SETTING.masters;
+  const prefixes = m_SETTING.prefixes;
+  const atMe = parseInt(m_SETTING.atMe);
+  const atUser = parseInt(m_SETTING.atUser);
+  const replyStranger = parseInt(m_SETTING.replyStranger);
+  const repeatProb = parseInt(parseFloat(m_SETTING.repeatProb) * 100);
+  const groupHello = parseInt(m_SETTING.groupHello);
+  const groupGreetingNew = parseInt(m_SETTING.groupGreetingNew);
+  const friendGreetingNew = parseInt(m_SETTING.friendGreetingNew);
+  const noticeMysNews = parseInt(m_SETTING.noticeMysNews);
+  const mysNewsType = Array.isArray(m_SETTING.mysNewsType) ? m_SETTING.mysNewsType : [];
+  const characterTryGetDetail = parseInt(m_SETTING.characterTryGetDetail);
+  const warnTimeCosts = parseInt(m_SETTING.warnTimeCosts);
+  const requestInterval = parseInt(m_SETTING.requestInterval);
+  const deleteGroupMsgTime = parseInt(m_SETTING.deleteGroupMsgTime);
+  const boardcastDelay = parseInt(parseFloat(m_SETTING.boardcastDelay) * 1000);
+  const cacheAbyEffectTime = parseInt(m_SETTING.cacheAbyEffectTime);
+  const cacheInfoEffectTime = parseInt(m_SETTING.cacheInfoEffectTime);
+  const dbAbyEffectTime = parseInt(m_SETTING.dbAbyEffectTime);
+  const dbInfoEffectTime = parseInt(m_SETTING.dbInfoEffectTime);
+  const viewDebug = parseInt(m_SETTING.viewDebug);
+  const saveImage = parseInt(m_SETTING.saveImage);
 
   (function getConfig(...items) {
     items.forEach((o) => {
@@ -979,13 +981,13 @@ function readSetting() {
 
 // global.cookies:              ->  array of cookie (string)
 function readCookies() {
-  if (lodash.hasIn(mCookies, "cookies")) {
+  if (lodash.hasIn(m_COOKIES, "cookies")) {
     switch (true) {
-      case Array.isArray(mCookies.cookies):
-        global.cookies = mCookies.cookies;
+      case Array.isArray(m_COOKIES.cookies):
+        global.cookies = m_COOKIES.cookies;
         break;
-      case "string" === typeof mCookies.cookies:
-        global.cookies = [mCookies.cookies];
+      case "string" === typeof m_COOKIES.cookies:
+        global.cookies = [m_COOKIES.cookies];
         break;
     }
   }
@@ -1002,7 +1004,7 @@ function readGreeting() {
       hello: "大家好。",
       new: "你好。",
     },
-    mGreeting
+    m_GREETING
   );
 }
 
@@ -1012,15 +1014,15 @@ function readMenu() {
   }
 
   global.menu = {};
-  global.menu.eat = mMenu.eat || {};
-  global.menu.drink = mMenu.drink || {};
+  global.menu.eat = m_MENU.eat || {};
+  global.menu.drink = m_MENU.drink || {};
 
   parse(global.menu.eat);
   parse(global.menu.drink);
 }
 
 function readProphecy() {
-  global.prophecy = mProphecy;
+  global.prophecy = m_PROPHECY;
   global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
 }
 
@@ -1033,7 +1035,7 @@ function readProphecy() {
 function readNames() {
   function getSection(s) {
     return lodash.reduce(
-      mNames[s] || {},
+      m_NAMES[s] || {},
       (p, v, k) => {
         (v || (v = [])).push(k);
         v.forEach((c) => (p["string" === typeof c ? c.toLowerCase() : c] = k));
@@ -1072,7 +1074,7 @@ function readArtifacts() {
   function reduce(prop, key = [undefined, undefined], lowercase = [false, false]) {
     if (!key.includes(undefined)) {
       return lodash.reduce(
-        mArtifacts[prop] || [],
+        m_ARTIFACTS[prop] || [],
         (p, v) => {
           let p1 = v[key[0]];
           let p2 = v[key[1]];
@@ -1095,7 +1097,7 @@ function readArtifacts() {
   function deepReduce(prop, key = [undefined, undefined], lowercase = [false, false]) {
     if (!key.includes(undefined)) {
       return lodash.reduce(
-        mArtifacts[prop] || [],
+        m_ARTIFACTS[prop] || [],
         (p, v) => {
           (v[key[0]] || []).forEach((c) => {
             (Array.isArray(c) ? c : [c]).forEach((c) => {
@@ -1120,10 +1122,10 @@ function readArtifacts() {
     }
   }
 
-  global.artifacts.weights = mArtifacts.weights;
-  global.artifacts.values = mArtifacts.values;
-  global.artifacts.props = mArtifacts.props;
-  global.artifacts.path = mArtifacts.path;
+  global.artifacts.weights = m_ARTIFACTS.weights;
+  global.artifacts.values = m_ARTIFACTS.values;
+  global.artifacts.props = m_ARTIFACTS.props;
+  global.artifacts.path = m_ARTIFACTS.path;
   global.artifacts.artifacts = {};
   global.artifacts.artifacts.id = reduce("artifacts", ["suit", "id"], [true, false]);
   global.artifacts.artifacts.rarity = reduce("artifacts", ["id", "rarity"], [false, false]);
@@ -1187,7 +1189,7 @@ function readEggs() {
   global.eggs.type = {};
   global.eggs.star = {};
 
-  ((mEggs || {}).items || []).forEach((c) => {
+  ((m_EGGS || {}).items || []).forEach((c) => {
     if (Array.isArray(c.names) && "string" === typeof c.type) {
       c.names.forEach((n) => {
         if ("string" === typeof n) {
@@ -1214,11 +1216,11 @@ function readEggs() {
 
 // global.qa:   regex -> settings (object)
 function readQa() {
-  if (Array.isArray(mQa?.settings)) {
+  if (Array.isArray(m_QA?.settings)) {
     Object.assign(
       global.qa,
       lodash
-        .chain(mQa.settings)
+        .chain(m_QA.settings)
         .filter(
           (c) =>
             Array.isArray(c?.match) &&
@@ -1271,8 +1273,8 @@ function readMaterial() {
 // global.command
 // global.master
 function readCommand() {
-  getCommand(mCommand, "command");
-  getCommand(mMaster, "master");
+  getCommand(m_COMMAND, "command");
+  getCommand(m_MASTER, "master");
 }
 
 // global.all.function

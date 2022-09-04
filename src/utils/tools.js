@@ -3,7 +3,9 @@ import fnv from "fnv-plus";
 import iconv from "iconv-lite";
 import lodash from "lodash";
 
-const mSimilarityMaxValue = 0.5;
+("use strict");
+
+const m_SIMILARITY_MAX_VALUE = 0.5;
 
 // -1   not a start bracket
 // -2   not found end bracket
@@ -158,7 +160,7 @@ function similarity(s1, s2) {
 function isPossibleName(name, names) {
   if ("string" === typeof name) {
     for (const n of names) {
-      if ("string" === typeof n && similarity(name, n) <= mSimilarityMaxValue) {
+      if ("string" === typeof n && similarity(name, n) <= m_SIMILARITY_MAX_VALUE) {
         return true;
       }
     }
@@ -192,7 +194,7 @@ function guessPossibleNames(name, names) {
           best = n < best ? n : best;
 
           // 使用最佳相似度判断是否相似
-          if (best <= mSimilarityMaxValue) {
+          if (best <= m_SIMILARITY_MAX_VALUE) {
             p[v] = best;
             bestMatch = 0 === best;
           }
@@ -232,5 +234,5 @@ export {
   segment,
   simhash,
   similarity,
-  mSimilarityMaxValue as similarityMaxValue,
+  m_SIMILARITY_MAX_VALUE as similarityMaxValue,
 };

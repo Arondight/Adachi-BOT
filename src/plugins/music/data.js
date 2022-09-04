@@ -4,6 +4,8 @@ import querystring from "querystring";
 import db from "#utils/database";
 import { filterWordsByRegex, getWordByRegex } from "#utils/tools";
 
+("use strict");
+
 const m_ERR_CODE = Object.freeze({
   ERR_SRC: "1",
   ERR_404: "2",

@@ -1,6 +1,8 @@
 import { textOfInvalidCookies } from "#utils/cookie";
 import db from "#utils/database";
 
+("use strict");
+
 function cookiesInvalid(msg) {
   const text = textOfInvalidCookies();
 

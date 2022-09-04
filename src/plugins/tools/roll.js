@@ -1,5 +1,7 @@
 import { getRandomInt } from "#utils/tools";
 
+("use strict");
+
 function roll(msg) {
   let cmd = msg.text.match(/[+-]?[0-9]+/g);
 

@@ -1,5 +1,7 @@
 import { filterWordsByRegex } from "#utils/tools";
 
+("use strict");
+
 function feedback(msg) {
   const info = filterWordsByRegex(msg.text, ...global.command.functions.entrance.feedback);
   const text = `我这就去给主人带个话！如果有重要的反馈和建议可以到这里留言哦：

@@ -1,5 +1,7 @@
 import { JSONFileSync, MemorySync } from "lowdb";
 
+("use strict");
+
 class LowJSONCacheSync {
   constructor(filename) {
     if ("string" === typeof filename && "" !== filename) {

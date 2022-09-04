@@ -1,6 +1,8 @@
 import randomFloat from "random-float";
 import db from "#utils/database";
 
+("use strict");
+
 function randomInt(Min, Max) {
   const range = Max - Min + 1;
   return Min + Math.floor(Math.random() * range);

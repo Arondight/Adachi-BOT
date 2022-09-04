@@ -4,14 +4,16 @@ import fetch from "node-fetch";
 import path from "path";
 import { getDS } from "#utils/ds";
 
+("use strict");
+
 // XXX 之所以会有两个 API 域名，是因为米哈游在两个 API 域名之间反复横跳 :)
 // https://github.com/Arondight/Adachi-BOT/issues/520
 // https://github.com/Arondight/Adachi-BOT/issues/814
-const m_API_DOMAINS = ["api-takumi", "api-takumi-record"].map((c) => `${c}.mihoyo.com`);
-const m_API_PREFIXES = m_API_DOMAINS.map((c) => `https://${c}`);
-const m_API_STATIC_PREFIX = "https://webstatic.mihoyo.com";
-const m_API_BBS_PREFIX = "https://bbs-api.mihoyo.com";
-const m_API = {
+const m_API_DOMAINS = Object.freeze(["api-takumi", "api-takumi-record"].map((c) => `${c}.mihoyo.com`));
+const m_API_PREFIXES = Object.freeze(m_API_DOMAINS.map((c) => `https://${c}`));
+const m_API_STATIC_PREFIX = Object.freeze("https://webstatic.mihoyo.com");
+const m_API_BBS_PREFIX = Object.freeze("https://bbs-api.mihoyo.com");
+const m_API = Object.freeze({
   FETCH_ROLE_ID: m_API_PREFIXES.map((c) => `${c}/game_record/app/card/wapi/getGameRecordCard`),
   FETCH_ROLE_INDEX: m_API_PREFIXES.map((c) => `${c}/game_record/app/genshin/api/index`),
   FETCH_ROLE_CHARACTERS: m_API_PREFIXES.map((c) => `${c}/game_record/app/genshin/api/character`),
@@ -19,8 +21,8 @@ const m_API = {
   FETCH_GACHA_DETAIL: [`${m_API_STATIC_PREFIX}/hk4e/gacha_info/cn_gf01/{}/zh-cn.json`],
   FETCH_ABY_DETAIL: m_API_PREFIXES.map((c) => `${c}/game_record/app/genshin/api/spiralAbyss`),
   FETCH_MYS_NEWS: [`${m_API_BBS_PREFIX}/post/wapi/getNewsList`],
-};
-const m_HEADERS = {
+});
+const m_HEADERS = Object.freeze({
   "User-Agent":
     "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/2.11.1",
   Referer: "https://webstatic.mihoyo.com/",
@@ -28,7 +30,7 @@ const m_HEADERS = {
   "x-rpc-client_type": 5,
   DS: "",
   Cookie: "",
-};
+});
 
 function getInfo(name) {
   const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");

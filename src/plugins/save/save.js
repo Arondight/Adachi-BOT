@@ -1,6 +1,8 @@
 import db from "#utils/database";
 import { getID } from "#utils/id";
 
+("use strict");
+
 function setCacheTimeout(uid, mhyID, bot) {
   if (db.includes("map", "user", { userID: uid })) {
     const { UID: id } = db.get("map", "user", { userID: uid }) || {};

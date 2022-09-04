@@ -5,15 +5,17 @@ import { getCache } from "#utils/cache";
 import { render } from "#utils/render";
 import { getWordByRegex } from "#utils/tools";
 
+("use strict");
+
 // 如果注释中的链接失效，尝试在米游社中搜索用户“好多梨”。
-const mUrls = {
+const m_URL = Object.freeze({
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
   talent: getUrl("/2022/07/12/75833613/dfa899ac62e854a2b3fcde3cf290d67e_4384913260559512486.png"),
   // https://bbs.mihoyo.com/ys/obc/content/1187/detail
   weapon: getUrl("/2022/07/12/75833613/cf8caacae5cfe095a760d5065d5ed39e_813310935669478403.png"),
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
   weekly: getUrl("/2022/07/12/75833613/d252cbb87d69a2f5f679d38f81c2e9f6_8220318949914596754.png"),
-};
+});
 
 function getUrl(p) {
   return `https://uploadstatic.mihoyo.com/ys-obc/${"/" === p[0] ? p.substring(1) : p}`;
@@ -22,7 +24,7 @@ function getUrl(p) {
 async function doMaterial(msg, url) {
   const cacheDir = path.resolve(global.datadir, "image", "material");
 
-  if ([mUrls.talent, mUrls.weapon, mUrls.weekly].includes(url)) {
+  if ([m_URL.talent, m_URL.weapon, m_URL.weekly].includes(url)) {
     const data = await getCache(url, cacheDir, "base64");
     const text = `[CQ:image,type=image,file=base64://${data}]`;
     msg.bot.say(msg.sid, text, msg.type, msg.uid);
@@ -113,4 +115,4 @@ async function doMaterial(msg, url) {
   render(msg, { day, character, weapon }, "genshin-material");
 }
 
-export { doMaterial, mUrls as urls };
+export { doMaterial, m_URL as url };

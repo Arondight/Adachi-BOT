@@ -5,6 +5,8 @@ import "#utils/config";
 import db from "#utils/database";
 import { ls } from "#utils/file";
 
+("use strict");
+
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
     .usage("-d <string> -k <string> [-p <string> --pk <string> --pv <string> --numeric")

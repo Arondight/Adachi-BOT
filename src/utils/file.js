@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 
+("use strict");
+
 function readlink(filepath) {
   if (!path.isAbsolute(filepath)) {
     return path.resolve(global.rootdir, filepath);

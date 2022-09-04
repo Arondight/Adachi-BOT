@@ -2,6 +2,8 @@ import lodash from "lodash";
 import db from "#utils/database";
 import { isGroup } from "#utils/oicq";
 
+("use strict");
+
 function hasAuth(id, func) {
   const data = db.get("authority", "user", { userID: id }) || {};
   return data[func] && true === data[func];

@@ -1,5 +1,7 @@
 import { getRandomInt } from "#utils/tools";
 
+("use strict");
+
 function menu(msg) {
   const { eat, drink } = global.menu;
   const { breakfast, lunch, dinner, snack } = eat;

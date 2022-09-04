@@ -2,6 +2,8 @@ import { doMusic, doMusicSource } from "#plugins/music/music";
 import { checkAuth } from "#utils/auth";
 import { hasEntrance } from "#utils/config";
 
+("use strict");
+
 async function Plugin(msg) {
   switch (true) {
     case hasEntrance(msg.text, "music", "music"):

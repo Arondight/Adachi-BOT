@@ -3,6 +3,8 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import "#utils/config";
 
+("use strict");
+
 const m_DEFAULT_PORT = 9934;
 
 (function main() {

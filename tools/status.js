@@ -3,6 +3,8 @@ import { hideBin } from "yargs/helpers";
 import { status } from "#plugins/tools_master/status";
 import "#utils/config";
 
+("use strict");
+
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
     .help("help")

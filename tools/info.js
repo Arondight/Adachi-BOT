@@ -8,6 +8,8 @@ import { hideBin } from "yargs/helpers";
 import "#utils/config";
 import { mkdir } from "#utils/file";
 
+("use strict");
+
 // FIXME just a test dir
 const m_RESDIR = mkdir(path.resolve(global.rootdir, "resdir"));
 const m_DIR = {
