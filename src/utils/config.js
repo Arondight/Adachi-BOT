@@ -1022,7 +1022,7 @@ function readMenu() {
 }
 
 function readProphecy() {
-  global.prophecy = m_PROPHECY;
+  global.prophecy = { ...m_PROPHECY };
   global.prophecy.data = Array.isArray(global.prophecy.data) ? global.prophecy.data : [];
 }
 
