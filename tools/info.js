@@ -17,8 +17,15 @@ const dir = {
   material: mkdir(path.resolve(mRESDIR, "material")),
 };
 
-// XXX is it ok?
-const mWebpOpts = { lossless: true };
+/**
+ * @namespace mWebpOpts
+ * @type {object}
+ * @property {number} quality - 压缩质量，偏重质量 90 (max 100)
+ * @property {number} effort - 压缩质量，偏重质量 6 (max 6)
+ * @property {number} alphaQuality - 透明通道压缩质量 (max 100)
+ * @property {boolean} smartSubsample - 自动 YUV 4:2:0 子采样
+ */
+const mWebpOpts = { quality: 90, effort: 6, alphaQuality: 95, smartSubsample: true };
 
 const mElemCN = {
   electric: "雷元素",
