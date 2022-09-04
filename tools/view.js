@@ -7,15 +7,7 @@ import { hideBin } from "yargs/helpers";
 import "#utils/config";
 import { ls } from "#utils/file";
 
-const mParamsDir = path.resolve(global.datadir, "record", "last_params");
-const mNames = Object.fromEntries(
-  ls(mParamsDir)
-    .filter((c) => c.match(/\bgenshin-[\w-]+?[.]json$/))
-    .map((c) => {
-      const p = path.parse(c);
-      return [p.name.split("-").slice(1).join("-"), p.name];
-    })
-);
+const m_PARAMS_DIR = path.resolve(global.datadir, "record", "last_params");
 
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
@@ -40,11 +32,19 @@ const mNames = Object.fromEntries(
         required: false,
       },
     });
+  const names = Object.fromEntries(
+    ls(m_PARAMS_DIR)
+      .filter((c) => c.match(/\bgenshin-[\w-]+?[.]json$/))
+      .map((c) => {
+        const p = path.parse(c);
+        return [p.name.split("-").slice(1).join("-"), p.name];
+      })
+  );
 
   if ("string" === typeof argv.name) {
-    if (undefined !== mNames[argv.name]) {
+    if (undefined !== names[argv.name]) {
       const view = `genshin-${argv.name}`;
-      const dataFile = path.resolve(mParamsDir, `${view}.json`);
+      const dataFile = path.resolve(m_PARAMS_DIR, `${view}.json`);
       const viewFile = path.resolve(global.rootdir, "src", "views", `${view}.html`);
 
       for (const f of [dataFile, viewFile]) {
@@ -78,7 +78,7 @@ const mNames = Object.fromEntries(
   }
 
   if (true === argv.list) {
-    const nameList = Object.keys(mNames);
+    const nameList = Object.keys(names);
 
     if (nameList.length > 0) {
       console.log(nameList.join("\n"));

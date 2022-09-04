@@ -9,30 +9,28 @@ import "#utils/config";
 import { mkdir } from "#utils/file";
 
 // FIXME just a test dir
-const mRESDIR = mkdir(path.resolve(global.rootdir, "resdir"));
-const dir = {
-  char: mkdir(path.resolve(mRESDIR, "character")),
-  doc: mkdir(path.resolve(mRESDIR, "info", "doc")),
-  material: mkdir(path.resolve(mRESDIR, "material")),
-  weapon: mkdir(path.resolve(mRESDIR, "weapon")),
+const m_RESDIR = mkdir(path.resolve(global.rootdir, "resdir"));
+const m_DIR = {
+  char: mkdir(path.resolve(m_RESDIR, "character")),
+  doc: mkdir(path.resolve(m_RESDIR, "info", "doc")),
+  material: mkdir(path.resolve(m_RESDIR, "material")),
+  weapon: mkdir(path.resolve(m_RESDIR, "weapon")),
 };
-
 /**
- * @namespace mWebpOpts
+ * @namespace m_WEBP_OPTS
  * @type {object}
  * @property {number} alphaQuality - 透明通道压缩质量 (max 100)
  * @property {number} effort - 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
  * @property {number} quality - 压缩质量，偏重质量 90 (max 100)
  * @property {boolean} smartSubsample - 自动 YUV 4:2:0 子采样
  */
-const mWebpOpts = {
+const m_WEBP_OPTS = {
   alphaQuality: 95,
   effort: 6,
   quality: 90,
   smartSubsample: true,
 };
-
-const mElemCN = {
+const m_ELEM_CN = {
   electric: "雷元素",
   fire: "火元素",
   grass: "草元素",
@@ -41,7 +39,7 @@ const mElemCN = {
   water: "水元素",
   wind: "风元素",
 };
-const mDayOfWeekCN = {
+const m_DAY_OF_WEEK_CN = {
   monday: "一",
   tuesday: "二",
   wednesday: "三",
@@ -50,23 +48,23 @@ const mDayOfWeekCN = {
   saturday: "六",
   sunday: "日",
 };
-
-const mAmbrTop = "https://api.ambr.top";
-const mAPIv2 = `${mAmbrTop}/v2`;
-const mApi = {
+const m_AMBR_TOP = "https://api.ambr.top";
+const m_API_V2 = `${m_AMBR_TOP}/v2`;
+const m_API = {
   character: {
-    info: `${mAPIv2}/chs/avatar`,
-    curve: `${mAPIv2}/static/avatarCurve`,
+    info: `${m_API_V2}/chs/avatar`,
+    curve: `${m_API_V2}/static/avatarCurve`,
   },
   weapon: {
-    info: `${mAPIv2}/chs/weapon`,
-    curve: `${mAPIv2}/static/weaponCurve`,
-    manual: `${mAPIv2}/CHS/manualWeapon`,
+    info: `${m_API_V2}/chs/weapon`,
+    curve: `${m_API_V2}/static/weaponCurve`,
+    manual: `${m_API_V2}/CHS/manualWeapon`,
   },
   material: {
-    info: `${mAPIv2}/CHS/material`,
+    info: `${m_API_V2}/CHS/material`,
   },
 };
+
 const mData = {
   character: {
     info: [],
@@ -94,7 +92,7 @@ async function pngUrlToWebpFile(url, file) {
   process.stdout.write(`转换 ${file} ...\t`);
 
   try {
-    await sharp(buffer).webp(mWebpOpts).toFile(file);
+    await sharp(buffer).webp(m_WEBP_OPTS).toFile(file);
     console.log("成功");
   } catch (e) {
     console.log("失败");
@@ -205,12 +203,12 @@ async function getJsonObj(url, callback = (e) => e, slient = false) {
 }
 
 async function getData() {
-  mData.character.info = await getJsonObj(mApi.character.info, (data) => {
+  mData.character.info = await getJsonObj(m_API.character.info, (data) => {
     const parsed = [];
 
     for (const item of Object.values(data.items)) {
       if (Object.keys(data.types).includes(item.weaponType)) {
-        item.element = mElemCN[item.element.toLowerCase()];
+        item.element = m_ELEM_CN[item.element.toLowerCase()];
         item.rarity = item.rank;
         item.type = data.types[item.weaponType];
         item.icon = item.icon.match(/(?<=UI_AvatarIcon_)\w+/)[0];
@@ -223,7 +221,7 @@ async function getData() {
 
     return parsed;
   });
-  mData.character.curve = await getJsonObj(mApi.character.curve, (data) => {
+  mData.character.curve = await getJsonObj(m_API.character.curve, (data) => {
     const parsed = [];
 
     for (const item of Object.values(data)) {
@@ -232,7 +230,7 @@ async function getData() {
 
     return parsed;
   });
-  mData.weapon.info = await getJsonObj(mApi.weapon.info, (data) => {
+  mData.weapon.info = await getJsonObj(m_API.weapon.info, (data) => {
     const parsed = [];
 
     for (const item of Object.values(data.items)) {
@@ -246,7 +244,7 @@ async function getData() {
 
     return parsed;
   });
-  mData.weapon.curve = await getJsonObj(mApi.weapon.curve, (data) => {
+  mData.weapon.curve = await getJsonObj(m_API.weapon.curve, (data) => {
     const parsed = [];
 
     for (const item of Object.values(data)) {
@@ -255,8 +253,8 @@ async function getData() {
 
     return parsed;
   });
-  mData.weapon.manual = await getJsonObj(mApi.weapon.manual);
-  mData.material.info = await getJsonObj(mApi.material.info, (data) => {
+  mData.weapon.manual = await getJsonObj(m_API.weapon.manual);
+  mData.material.info = await getJsonObj(m_API.material.info, (data) => {
     const parsed = [];
 
     for (const item of Object.values(data.items)) {
@@ -286,7 +284,7 @@ async function parseCharInfo(name) {
 
   try {
     const { id } = item;
-    const api = `${mAPIv2}/CHS/avatar/${id}`;
+    const api = `${m_API_V2}/CHS/avatar/${id}`;
     const data = await getJsonObj(api, (e) => e, true);
     const info = {
       access: "",
@@ -297,7 +295,7 @@ async function parseCharInfo(name) {
       constellations: "",
       cvCN: data.fetter.cv.CHS,
       cvJP: data.fetter.cv.JP,
-      element: mElemCN[data.element.toLowerCase()],
+      element: m_ELEM_CN[data.element.toLowerCase()],
       id: parseInt(data.id),
       introduce: data.fetter.detail,
       levelUpMaterials: [],
@@ -412,9 +410,9 @@ async function parseCharInfo(name) {
     }
 
     // info.time
-    const materialInfo = await getJsonObj(`${mAPIv2}/CHS/material/${aTalentMaterial}`, (e) => e, true);
+    const materialInfo = await getJsonObj(`${m_API_V2}/CHS/material/${aTalentMaterial}`, (e) => e, true);
     const days = Object.values(Object.values(materialInfo.source).filter((c) => undefined !== c.days)[0].days).map(
-      (c) => mDayOfWeekCN[c.toLowerCase()]
+      (c) => m_DAY_OF_WEEK_CN[c.toLowerCase()]
     );
 
     info.time = `【周${days.join("/")}】`;
@@ -442,7 +440,7 @@ async function parseWeaponInfo(name) {
 
   try {
     const { id } = item;
-    const api = `${mAPIv2}/CHS/weapon/${id}`;
+    const api = `${m_API_V2}/CHS/weapon/${id}`;
     const data = await getJsonObj(api, (e) => e, true);
     const info = {
       access: "",
@@ -649,9 +647,9 @@ async function parseWeaponInfo(name) {
     }
 
     // info.time
-    const materialInfo = await getJsonObj(`${mAPIv2}/CHS/material/${aUpgradeMaterial}`, (e) => e, true);
+    const materialInfo = await getJsonObj(`${m_API_V2}/CHS/material/${aUpgradeMaterial}`, (e) => e, true);
     const days = Object.values(Object.values(materialInfo.source).filter((c) => undefined !== c.days)[0].days).map(
-      (c) => mDayOfWeekCN[c.toLowerCase()]
+      (c) => m_DAY_OF_WEEK_CN[c.toLowerCase()]
     );
 
     info.time = `【周${days.join("/")}】`;
@@ -665,32 +663,32 @@ async function parseWeaponInfo(name) {
 }
 
 async function getMaterialImg(name) {
-  const icondir = mkdir(path.resolve(dir.material, "icon"));
+  const icondir = mkdir(path.resolve(m_DIR.material, "icon"));
   const file = path.resolve(icondir, `${name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`, file);
+    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`, file);
   }
 }
 
 async function getCharRes(info) {
   const item = (mData.character.info.filter((c) => c.name === info.name) || [])[0];
-  const icondir = mkdir(path.resolve(dir.char, "icon"));
-  const carddir = mkdir(path.resolve(dir.char, "namecard"));
+  const icondir = mkdir(path.resolve(m_DIR.char, "icon"));
+  const carddir = mkdir(path.resolve(m_DIR.char, "namecard"));
   let file;
 
   // icon
   file = path.resolve(icondir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/UI_AvatarIcon_${item.icon}.png`, file);
+    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/UI_AvatarIcon_${item.icon}.png`, file);
   }
 
   // namecard
   file = path.resolve(carddir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/namecard/UI_NameCardPic_${item.icon}_P.png`, file);
+    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${item.icon}_P.png`, file);
   }
 
   // material
@@ -703,14 +701,14 @@ async function getCharRes(info) {
 
 async function getWeaponRes(info) {
   const item = (mData.weapon.info.filter((c) => c.name === info.name) || [])[0];
-  const icondir = mkdir(path.resolve(dir.weapon, "icon"));
+  const icondir = mkdir(path.resolve(m_DIR.weapon, "icon"));
   let file;
 
   // icon
   file = path.resolve(icondir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${mAmbrTop}/assets/UI/UI_EquipIcon_${item.icon}.png`, file);
+    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/UI_EquipIcon_${item.icon}.png`, file);
   }
 
   // material
@@ -722,7 +720,7 @@ async function getWeaponRes(info) {
 }
 
 function writeData(name, data = {}) {
-  const file = path.resolve(dir.doc, `${name}.json`);
+  const file = path.resolve(m_DIR.doc, `${name}.json`);
   let old = {};
 
   process.stdout.write(`写入文件 ${file} ……\t`);
