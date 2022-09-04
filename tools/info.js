@@ -21,7 +21,7 @@ const dir = {
  * @namespace mWebpOpts
  * @type {object}
  * @property {number} quality - 压缩质量，偏重质量 90 (max 100)
- * @property {number} effort - 压缩质量，偏重质量 6 (max 6)
+ * @property {number} effort - 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
  * @property {number} alphaQuality - 透明通道压缩质量 (max 100)
  * @property {boolean} smartSubsample - 自动 YUV 4:2:0 子采样
  */
