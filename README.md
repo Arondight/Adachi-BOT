@@ -54,7 +54,7 @@ sudo --preserve-env=PATH env n lts
 #### 克隆项目
 
 ```sh
-git clone https://github.com/Arondight/Adachi-BOT.git
+git clone --depth 1 https://github.com/Arondight/Adachi-BOT.git
 cd ./Adachi-BOT/
 ```
 
@@ -64,7 +64,7 @@ cd ./Adachi-BOT/
 如果你访问 GitHub 的速度很慢，那么请使用下面的命令克隆本项目的镜像。
 
 ```
-git clone https://gitcode.net/iSpeller/Adachi-BOT.git
+git clone --depth 1 https://gitcode.net/iSpeller/Adachi-BOT.git
 ```
 
 </details>
