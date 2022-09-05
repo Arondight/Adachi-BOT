@@ -24,7 +24,7 @@ const avatarBox = defineComponent({
   },
   methods: {
     sideImageToFront: (imageURL) => encodeURI(imageURL.replace(/_side/gi, "")),
-    getCharacterThumbImage: (characterName) => `/resources/Version2/thumb/character/${characterName}.png`,
+    getCharacterThumbImage: (characterName) => `/resources/character/icon/${characterName}.webp`,
     getRarityClass(rarity) {
       const rarityClassMap = {
         5: "star-five",
@@ -177,13 +177,13 @@ export default defineComponent({
     const userAvatar =
       shown_avatars.length !== 0
         ? shown_avatars[randomAvatar]
-        : { url: "http://localhost:9934/resources/paimon/paimon_logo.jpg" };
+        : { url: "http://localhost:9934/resources/paimon/icon/派蒙.png" };
     const abyssFloors = params.data.floors.sort((a, b) => b.index - a.index).slice(0, 4);
     const abyssLastFloor = abyssFloors.shift();
     const sideImageToFront = (imageURL) => encodeURI(imageURL.replace(/_side/gi, ""));
     const getCharacterName = (characterID) => (charactersMap.filter((c) => c.id === characterID)[0] || {}).name;
     const userAvatarUrl = getCharacterName(userAvatar.avatarID)
-      ? encodeURI(`/resources/Version2/thumb/character/${getCharacterName(userAvatar.avatarID)}.png`)
+      ? encodeURI(`/resources/character/icon/${getCharacterName(userAvatar.avatarID)}.webp`)
       : sideImageToFront(userAvatar.url);
     // 以防米忽悠抽风，暂时保留原判断逻辑
     // const isFullDataset =

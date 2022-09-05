@@ -1,4 +1,4 @@
-import { getParams, html } from "../common/utils.js";
+import { getParams, html, toReadableElem } from "../common/utils.js";
 
 const { defineComponent, unref } = window.Vue;
 
@@ -161,8 +161,8 @@ export default defineComponent({
   },
   setup() {
     const params = getParams(window.location.href);
-    const charElementType = params.data.element.toLowerCase() || "anemo";
-    const elementSvgSrc = encodeURI(`http://localhost:9934/resources/Version2/elements/${charElementType}.svg`);
+    const charElementType = toReadableElem(params.data.element.toLowerCase() || "anemo");
+    const elementSvgSrc = encodeURI(`http://localhost:9934/resources/element/picture/${charElementType}.svg`);
     const uid = params.uid;
     const character = params.data || {};
     const costumes = character.costumes || [];
@@ -175,8 +175,8 @@ export default defineComponent({
       costumeName: true === characterHasCostume ? character.costumes[0]["name"] : "",
       imagePath:
         true === characterHasCostume
-          ? encodeURI(`http://localhost:9934/resources/Version2/costumes/splashes/${character.costumes[0]["name"]}.png`)
-          : encodeURI(`http://localhost:9934/resources/Version2/character/${character.id || ""}.png`),
+          ? encodeURI(`http://localhost:9934/resources/costume/picture/${character.costumes[0]["name"]}.png`)
+          : encodeURI(`http://localhost:9934/resources/character/picture/${character.id || ""}.png`),
       imageFilename:
         true === characterHasCostume ? `${character.costumes[0]["name"]}.png` : `${character.id || ""}.png`,
       charName: character.name || "",
@@ -206,7 +206,7 @@ export default defineComponent({
     const weaponInfo = {
       name: weaponName,
       type: weaponTypeToString[weaponType.split("_").slice(-2)[0].toLowerCase()],
-      imageUrl: encodeURI(`http://localhost:9934/resources/Version2/thumb/weapon/${weaponName}.png`),
+      imageUrl: encodeURI(`http://localhost:9934/resources/weapon/icon/${weaponName}.webp`),
       imageName: `${weaponName}.png`,
       rarityClass: rarityString[weaponRarity] || "rarity-four",
       rarity: "★".repeat(weaponRarity) || "★★★★",

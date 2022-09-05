@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "常燃火种"],
+  "baseATK": 225.14102152,
+  "birthday": "11月2日",
+  "constellationName": "长杓座",
+  "constellations": [
+    "受到锅巴攻击的敌人，<span class=\"desc-number recolor\">火元素抗性</span>降低15%，持续6秒。",
+    "普通攻击的最后一击会对敌人施加持续2秒的内爆效果，持续时间结束时会发生爆炸，造成75%攻击力的<span class=\"desc-number recolor\">火元素范围伤害</span>。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的持续时间延长40%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素爆发</span>持续期间，队伍中所有角色获得15%<span class=\"desc-number recolor\">火元素伤害加成</span>。"
+  ],
+  "cvCN": "小N",
+  "cvJP": "小泽亚李",
+  "element": "火元素",
+  "id": 10000023,
+  "introduce": "来自璃月、名声在外的少女厨师，对料理之道极具热情，拿手麻辣菜肴堪称一绝。",
+  "levelUpMaterials": ["绝云椒椒", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
+  "mainStat": "元素精通",
+  "mainValue": "96",
+  "name": "香菱",
+  "passiveDesc": "完美烹饪攻击类食物时，有12%概率获得2倍产出。",
+  "passiveTitle": "万民堂大厨",
+  "rarity": 4,
+  "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "东风之爪"],
+  "time": "【周二/五/日】",
+  "title": "万民百味",
+  "type": "角色"
+}

@@ -90,12 +90,12 @@ body {
 .container-namecard:before {
   opacity: 0.33;
   z-index: 1;
-  background: url("../../../../resources/Version2/backgrounds/strip-4px.svg");
+  background: url("../../../../resources/etc/image/strip-4px.svg");
 }
 
 .container-namecard:after {
   z-index: 2;
-  background: url("../../../../resources/Version2/frames/rounded-inner-with-stars.svg") no-repeat center;
+  background: url("../../../../resources/etc/image/rounded-inner-with-stars.svg") no-repeat center;
   background-size: 96%;
 }
 
@@ -261,12 +261,12 @@ body {
 }
 
 .star-five {
-  background: url("../../../../resources/Version2/thumb/stars/5-Star.png") no-repeat center;
+  background: url("../../../../resources/etc/image/5-Star.png") no-repeat center;
   background-size: cover;
 }
 
 .star-four {
-  background: url("../../../../resources/Version2/thumb/stars/4-Star.png") no-repeat center;
+  background: url("../../../../resources/etc/image/4-Star.png") no-repeat center;
   background-size: cover;
 }
 

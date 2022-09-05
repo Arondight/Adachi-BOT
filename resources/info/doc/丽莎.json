@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
+  "baseATK": 231.51293628000002,
+  "birthday": "6月9日",
+  "constellationName": "沙漏座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>长按时，每个命中的敌人都会为丽莎恢复2点元素能量。通过这种方式，一次至多回复10点元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>长按时，具有如下效果：·防御力提升25%；·提高丽莎的抗打断能力。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素爆发</span>攻击时，放出的闪电增加至1~3道。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "丽莎登场时，对附近的敌人施加3层<span class=\"desc-number recolor\">元素战技</span>的引雷效果。该效果每5秒只能触发一次。"
+  ],
+  "cvCN": "钟可",
+  "cvJP": "田中理惠",
+  "element": "雷元素",
+  "id": 10000006,
+  "introduce": "慵懒而博学的图书管理员，须弥教令院「两百年一见」的天才毕业生。",
+  "levelUpMaterials": ["落落莓", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
+  "mainStat": "元素精通",
+  "mainValue": "96",
+  "name": "丽莎",
+  "passiveDesc": "合成药剂时，有20%概率返还部分合成材料。",
+  "passiveTitle": "药剂通识",
+  "rarity": 4,
+  "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "东风之爪"],
+  "time": "【周三/六/日】",
+  "title": "蔷薇魔女",
+  "type": "角色"
+}

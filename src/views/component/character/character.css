@@ -237,19 +237,19 @@ body,
 }
 
 .rarity-five {
-  background: url("../../../../resources/Version2/thumb/stars/5-Star.png") no-repeat center;
+  background: url("../../../../resources/etc/image/5-Star.png") no-repeat center;
   background-size: cover;
 }
 
 .rarity-four {
-  background: url("../../../../resources/Version2/thumb/stars/4-Star.png") no-repeat center;
+  background: url("../../../../resources/etc/image/4-Star.png") no-repeat center;
   background-size: cover;
 }
 
 .rarity-three,
 .rarity-two,
 .rarity-one {
-  background: url("../../../../resources/Version2/thumb/stars/3-Star.png") no-repeat center;
+  background: url("../../../../resources/etc/image/3-Star.png") no-repeat center;
   background-size: cover;
 }
 

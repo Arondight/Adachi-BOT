@@ -5,11 +5,11 @@ import puppeteer from "puppeteer";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import "#utils/config";
-import { ls } from "#utils/file";
+import { ls, mkdir } from "#utils/file";
 
 ("use strict");
 
-const m_PARAMS_DIR = path.resolve(global.datadir, "record", "last_params");
+const m_PARAMS_DIR = Object.freeze(mkdir(path.resolve(global.datadir, "record", "last_params")));
 
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))

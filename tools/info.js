@@ -10,29 +10,32 @@ import { mkdir } from "#utils/file";
 
 ("use strict");
 
-// FIXME just a test dir
-const m_RESDIR = mkdir(path.resolve(global.rootdir, "resdir"));
-const m_DIR = {
+const m_RESDIR = Object.freeze(mkdir(path.resolve(global.rootdir, "resources")));
+const m_DIR = Object.freeze({
   char: mkdir(path.resolve(m_RESDIR, "character")),
   doc: mkdir(path.resolve(m_RESDIR, "info", "doc")),
   material: mkdir(path.resolve(m_RESDIR, "material")),
   weapon: mkdir(path.resolve(m_RESDIR, "weapon")),
-};
-/**
- * @namespace m_WEBP_OPTS
- * @type {object}
- * @property {number} alphaQuality - 透明通道压缩质量 (max 100)
- * @property {number} effort - 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
- * @property {number} quality - 压缩质量，偏重质量 90 (max 100)
- * @property {boolean} smartSubsample - 自动 YUV 4:2:0 子采样
- */
-const m_WEBP_OPTS = {
-  alphaQuality: 95,
-  effort: 6,
-  quality: 90,
-  smartSubsample: true,
-};
-const m_ELEM_CN = {
+});
+const m_WEBP_OPTS = Object.freeze({
+  alphaQuality: 95, // 透明通道压缩质量 (max 100)
+  effort: 6, // 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
+  quality: 90, // 压缩质量，偏重质量 90 (max 100)
+  smartSubsample: true, // 自动 YUV 4:2:0 子采样
+});
+const m_NICK_AMBR_TO_HONEY = Object.freeze({
+  amber: "ambor",
+  heizou: "heizo",
+  jean: "qin",
+  kujousara: "sara",
+  noelle: "noel",
+  shogun: "shougun",
+  thoma: "tohma",
+  traveler: "playerboy",
+  yaemiko: "yae",
+  yanfei: "feiyan",
+});
+const m_ELEM_CN = Object.freeze({
   electric: "雷元素",
   fire: "火元素",
   grass: "草元素",
@@ -40,8 +43,8 @@ const m_ELEM_CN = {
   rock: "岩元素",
   water: "水元素",
   wind: "风元素",
-};
-const m_DAY_OF_WEEK_CN = {
+});
+const m_DAY_OF_WEEK_CN = Object.freeze({
   monday: "一",
   tuesday: "二",
   wednesday: "三",
@@ -49,27 +52,35 @@ const m_DAY_OF_WEEK_CN = {
   friday: "五",
   saturday: "六",
   sunday: "日",
-};
-const m_AMBR_TOP = "https://api.ambr.top";
-const m_API_V2 = `${m_AMBR_TOP}/v2`;
-const m_API = {
+});
+const m_UNKNOWN = Object.freeze("未知");
+const m_YE = Object.freeze("旅行者");
+const m_YE_EN = Object.freeze("Traveler");
+const m_CAO = Object.freeze("草元素");
+const m_CAO_EN = Object.freeze("Grass");
+const m_AMBR_TOP = Object.freeze("https://api.ambr.top");
+const m_HONEY_HUNTER_WORLD_COM = Object.freeze("https://genshin.honeyhunterworld.com");
+const m_API_V2 = Object.freeze(`${m_AMBR_TOP}/v2`);
+const m_API = Object.freeze({
   character: {
     info: `${m_API_V2}/chs/avatar`,
+    infoEn: `${m_API_V2}/en/avatar`,
     curve: `${m_API_V2}/static/avatarCurve`,
   },
   weapon: {
     info: `${m_API_V2}/chs/weapon`,
     curve: `${m_API_V2}/static/weaponCurve`,
-    manual: `${m_API_V2}/CHS/manualWeapon`,
+    manual: `${m_API_V2}/chs/manualWeapon`,
   },
   material: {
-    info: `${m_API_V2}/CHS/material`,
+    info: `${m_API_V2}/chs/material`,
   },
-};
+});
 
 const mData = {
   character: {
     info: [],
+    infoEn: [],
     curve: [],
   },
   weapon: {
@@ -215,8 +226,21 @@ async function getData() {
         item.type = data.types[item.weaponType];
         item.icon = item.icon.match(/(?<=UI_AvatarIcon_)\w+/)[0];
 
-        if (!("旅行者" === item.name && "风元素" !== item.element)) {
+        if (!(m_YE === item.name && m_CAO !== item.element)) {
           parsed.push(lodash.pick(item, ["birthday", "element", "icon", "id", "name", "rarity", "type"]));
+        }
+      }
+    }
+
+    return parsed;
+  });
+  mData.character.infoEn = await getJsonObj(m_API.character.infoEn, (data) => {
+    const parsed = [];
+
+    for (const item of Object.values(data.items)) {
+      if (Object.keys(data.types).includes(item.weaponType)) {
+        if (!(m_YE_EN === item.name && m_CAO_EN !== item.element)) {
+          parsed.push(lodash.pick(item, ["id", "name"]));
         }
       }
     }
@@ -295,8 +319,8 @@ async function parseCharInfo(name) {
       birthday: `${data.birthday[0]}月${data.birthday[1]}日`,
       constellationName: data.fetter.constellation,
       constellations: "",
-      cvCN: data.fetter.cv.CHS,
-      cvJP: data.fetter.cv.JP,
+      cvCN: data.fetter.cv.CHS || m_UNKNOWN,
+      cvJP: data.fetter.cv.JP || m_UNKNOWN,
       element: m_ELEM_CN[data.element.toLowerCase()],
       id: parseInt(data.id),
       introduce: data.fetter.detail,
@@ -304,8 +328,8 @@ async function parseCharInfo(name) {
       mainStat: "",
       mainValue: "",
       name: data.name,
-      passiveDesc: tagColorToSpan("旅行者" !== data.name ? data.talent[6].description : ""),
-      passiveTitle: "旅行者" !== data.name ? data.talent[6].name : "",
+      passiveDesc: tagColorToSpan(m_YE !== data.name ? data.talent[6].description : ""),
+      passiveTitle: m_YE !== data.name ? data.talent[6].name : "",
       rarity: data.rank,
       talentMaterials: [],
       time: "",
@@ -333,6 +357,10 @@ async function parseCharInfo(name) {
           info.ascensionMaterials[i] = getMaterialNameById(id);
         }
       }
+    }
+
+    if (undefined === info.ascensionMaterials[4]) {
+      info.ascensionMaterials[4] = info.ascensionMaterials[3];
     }
 
     // info.baseATK
@@ -387,19 +415,32 @@ async function parseCharInfo(name) {
     }
 
     // info.talentMaterials
-    const talentMaterialsIdx = [
-      // [number, rarity]
-      [3, 2],
-      [21, 3],
-      [38, 4],
-      [6, 5],
-    ];
+    const talentMaterialsIdx =
+      m_YE === data.name
+        ? [
+            // [number, rarity]
+            [3, 2],
+            [6, 3],
+            [6, 4],
+            [6, 5],
+          ]
+        : [
+            // [number, rarity]
+            [3, 2],
+            [21, 3],
+            [38, 4],
+            [6, 5],
+          ];
 
     for (let i = 0; i < talentMaterialsIdx.length; ++i) {
       for (const [id, num] of Object.entries(ascension.talent)) {
         const rarity = parseInt(data.ascension[id]);
 
         if (num === talentMaterialsIdx[i][0] && rarity === talentMaterialsIdx[i][1]) {
+          if (info.talentMaterials.includes(id)) {
+            continue;
+          }
+
           info.talentMaterials[i] = id;
         }
       }
@@ -564,14 +605,17 @@ async function parseWeaponInfo(name) {
 
     for (let i = 0; i < ascensionMaterialsIdx.length; ++i) {
       for (let j = 0; j < ascensionMaterialsIdx[i].length; ++j) {
-        for (const [id, num] of Object.entries(ascension.upgrade)) {
+        const upgrade = Object.entries(ascension.upgrade);
+        const border = ascensionMaterialsIdx[1].length / 2;
+
+        for (let k = 0; k < upgrade.length; ++k) {
+          const [id, num] = upgrade[k];
           const rarity = parseInt(data.ascension[id]);
-          const border = ascensionMaterialsIdx[1].length / 2;
 
           if (
             num === ascensionMaterialsIdx[i][j][0] &&
             rarity === ascensionMaterialsIdx[i][j][1] &&
-            (0 === i || j % border === id % border)
+            (0 === i || j % border === k % border)
           ) {
             info.ascensionMaterials[i][j] = id;
             break;
@@ -601,17 +645,21 @@ async function parseWeaponInfo(name) {
     const { type: mainValue, initValue: mainValueBase } =
       props.filter((c) => "FIGHT_PROP_BASE_ATTACK" !== c.propType)[0] || {};
 
-    info.mainStat = mData.weapon.manual[mainStat];
-    info.mainValue = parseFloat(mData.weapon.curve[90 - 1][mainValue]) * parseFloat(mainValueBase);
+    info.mainStat = data.rank < 3 ? "" : mData.weapon.manual[mainStat];
+    info.mainValue = "";
 
-    if (mainValueBase < 1) {
-      info.mainValue *= 100;
-    }
+    if (data.rank > 2) {
+      info.mainValue = parseFloat(mData.weapon.curve[90 - 1][mainValue]) * parseFloat(mainValueBase);
 
-    info.mainValue = String(info.mainValue);
+      if (mainValueBase < 1) {
+        info.mainValue *= 100;
+      }
 
-    if (mainValueBase < 1) {
-      info.mainValue = `${info.mainValue}%`;
+      info.mainValue = String(info.mainValue);
+
+      if (mainValueBase < 1) {
+        info.mainValue = `${info.mainValue}%`;
+      }
     }
 
     // info.skillContent
@@ -677,6 +725,7 @@ async function getCharRes(info) {
   const item = (mData.character.info.filter((c) => c.name === info.name) || [])[0];
   const icondir = mkdir(path.resolve(m_DIR.char, "icon"));
   const carddir = mkdir(path.resolve(m_DIR.char, "namecard"));
+  const gachadir = mkdir(path.resolve(m_DIR.char, "gacha"));
   let file;
 
   // icon
@@ -690,7 +739,13 @@ async function getCharRes(info) {
   file = path.resolve(carddir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${item.icon}_P.png`, file);
+    let icon = item.icon;
+
+    if ("Yae" === icon) {
+      icon = "Yae1";
+    }
+
+    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${icon}_P.png`, file);
   }
 
   // material
@@ -699,11 +754,47 @@ async function getCharRes(info) {
       await getMaterialImg(e);
     }
   }
+
+  // gacha
+  let { name: nameEn } = (mData.character.infoEn.filter((c) => parseInt(c.id) === info.id) || [])[0];
+
+  if (nameEn.includes(" ") && nameEn.length > 10) {
+    nameEn = nameEn.split(" ").slice(-1)[0];
+  }
+
+  nameEn = nameEn.toLowerCase().replaceAll(/\s/g, "");
+  nameEn = m_NICK_AMBR_TO_HONEY[nameEn] || nameEn;
+  file = path.resolve(gachadir, `${item.name}.webp`);
+
+  if (!fs.existsSync(file)) {
+    try {
+      const gachaId = String(info.id).slice(-3);
+      const gachaImg = Buffer.from(
+        await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`)
+      );
+      let isImg = true;
+
+      try {
+        await sharp(gachaImg).stats();
+      } catch (e) {
+        isImg = false;
+      }
+
+      if (true === isImg) {
+        process.stdout.write(`写入 ${file} ... `);
+        fs.writeFileSync(file, gachaImg);
+        console.log("成功");
+      }
+    } catch (e) {
+      console.log("失败");
+    }
+  }
 }
 
 async function getWeaponRes(info) {
   const item = (mData.weapon.info.filter((c) => c.name === info.name) || [])[0];
   const icondir = mkdir(path.resolve(m_DIR.weapon, "icon"));
+  const gachadir = mkdir(path.resolve(m_DIR.weapon, "gacha"));
   let file;
 
   // icon
@@ -717,6 +808,30 @@ async function getWeaponRes(info) {
   for (const e of lodash.flatten(info.ascensionMaterials)) {
     if ("string" === typeof e) {
       await getMaterialImg(e);
+    }
+  }
+
+  // gacha
+  file = path.resolve(gachadir, `${item.name}.webp`);
+
+  if (!fs.existsSync(file)) {
+    try {
+      const gachaImg = Buffer.from(await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/i_n${item.id}_gacha_icon.webp`));
+      let isImg = true;
+
+      try {
+        await sharp(gachaImg).stats();
+      } catch (e) {
+        isImg = false;
+      }
+
+      if (true === isImg) {
+        process.stdout.write(`写入 ${file} ... `);
+        fs.writeFileSync(file, Buffer.from(gachaImg));
+        console.log("成功");
+      }
+    } catch (e) {
+      console.log("失败");
     }
   }
 }

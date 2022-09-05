@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "阴燃之珠"],
+  "baseATK": 322.89081300000004,
+  "birthday": "6月21日",
+  "constellationName": "琉金座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素爆发</span>的琉金火光持续时间延长4秒。此外，处于宵宫自己的琉金火光影响下的敌人在持续期间内被击败时，宵宫的攻击力提高20%，持续20秒。",
+    "宵宫的<span class=\"desc-number recolor\">火元素伤害</span>造成暴击后的6秒内，宵宫获得25%<span class=\"desc-number recolor\">火元素伤害加成</span>。宵宫处于队伍后台时，同样能获得该效果。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "宵宫自己的琉金火光发生爆炸时，<span class=\"desc-number recolor\">元素战技</span>的冷却时间减少1.2秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "在<span class=\"desc-number recolor\">元素战技</span>的持续期间内，宵宫主动进行普通攻击时，有50%几率发射一枚额外的炽焰箭，造成原本60%的伤害。该伤害视为普通攻击伤害。"
+  ],
+  "cvCN": "金娜",
+  "cvJP": "植田佳奈",
+  "element": "火元素",
+  "id": 10000049,
+  "introduce": "「长野原烟花店」店长，「夏祭的女王」，将人们的愿望寄托于烟花中的能工巧匠。",
+  "levelUpMaterials": ["鸣草", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
+  "mainStat": "暴击率",
+  "mainValue": "19.20%",
+  "name": "宵宫",
+  "passiveDesc": "制作装潢、摆件、景观类摆设时，有100%概率返还部分材料。",
+  "passiveTitle": "炎色配比法",
+  "rarity": 5,
+  "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "龙王之冕"],
+  "time": "【周一/四/日】",
+  "title": "琉焰华舞",
+  "type": "角色"
+}

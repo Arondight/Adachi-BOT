@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
+  "baseATK": 287.01405600000004,
+  "birthday": "3月3日",
+  "constellationName": "三清铃座",
+  "constellations": [
+    "寒病鬼差命中被度厄真符标记的敌人时，为七七恢复2点元素能量。",
+    "对受到<span class=\"desc-number recolor\">冰元素</span>影响的敌人，七七的普通攻击与重击造成的伤害提升15%。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "被度厄真符标记的目标，攻击力下降20%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>时，复苏附近队伍中所有倒下的角色，并将其生命值恢复至50%。该效果每15分钟只能触发一次。"
+  ],
+  "cvCN": "宴宁",
+  "cvJP": "田村由香里",
+  "element": "冰元素",
+  "id": 10000035,
+  "introduce": "药庐「不卜庐」的采药姑娘兼学徒，面色苍白如纸的不死之人。话很少，也没有什么表情。",
+  "levelUpMaterials": ["琉璃袋", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
+  "mainStat": "治疗加成",
+  "mainValue": "22.15%",
+  "name": "七七",
+  "passiveDesc": "在小地图上显示周围的<span class=\"desc-number recolor\">璃月区域特产</span>的位置。",
+  "passiveTitle": "前尘旧忆",
+  "rarity": 5,
+  "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "北风之尾"],
+  "time": "【周一/四/日】",
+  "title": "冻冻回魂夜",
+  "type": "角色"
+}

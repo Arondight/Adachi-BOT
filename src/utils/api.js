@@ -33,24 +33,11 @@ const m_HEADERS = Object.freeze({
 });
 
 function getInfo(name) {
-  const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
+  const dir = path.resolve(global.rootdir, "info", "docs");
 
   return new Promise((resolve, reject) => {
     try {
       const file = path.resolve(dir, `${name}.json`);
-      resolve(JSON.parse(fs.readFileSync(file)));
-    } catch (e) {
-      reject(e);
-    }
-  });
-}
-
-function getEmoticons() {
-  const dir = path.resolve(global.rootdir, "resources", "Version2", "emoticons");
-
-  return new Promise((resolve, reject) => {
-    try {
-      const file = path.resolve(dir, "config.json");
       resolve(JSON.parse(fs.readFileSync(file)));
     } catch (e) {
       reject(e);
@@ -149,14 +136,4 @@ function getMysNews(type = 1) {
   return Promise.any(promises);
 }
 
-export {
-  getAbyDetail,
-  getBase,
-  getCharacters,
-  getEmoticons,
-  getGachaDetail,
-  getGachaList,
-  getIndex,
-  getInfo,
-  getMysNews,
-};
+export { getAbyDetail, getBase, getCharacters, getGachaDetail, getGachaList, getIndex, getInfo, getMysNews };

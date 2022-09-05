@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
+  "baseATK": 244.25677079999997,
+  "birthday": "5月27日",
+  "constellationName": "幻鸦座",
+  "constellations": [
+    "奥兹不在战场上时，也会透过鸦眼守望菲谢尔。在菲谢尔对敌人进行普通攻击时，奥兹会通过鸦眼协同攻击，造成22%攻击力的伤害。",
+    "施放<span class=\"desc-number recolor\">元素战技</span>时，能额外造成200%攻击力的伤害，并使影响范围扩大50%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>时，会对周围的敌人造成222%攻击力的<span class=\"desc-number recolor\">雷元素伤害</span>；技能效果结束时，会为菲谢尔恢复20%生命值。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "奥兹的存在时间延长2秒。此外，奥兹会协同当前场上自己的角色一起攻击，造成菲谢尔30%攻击力的<span class=\"desc-number recolor\">雷元素伤害</span>。"
+  ],
+  "cvCN": "Mace&赵悦程",
+  "cvJP": "内田真礼&增谷康纪",
+  "element": "雷元素",
+  "id": 10000031,
+  "introduce": "自称「断罪之皇女」，与名为奥兹的漆黑夜鸦同行的神秘少女。",
+  "levelUpMaterials": ["小灯草", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
+  "mainStat": "攻击力",
+  "mainValue": "24.00%",
+  "name": "菲谢尔",
+  "passiveDesc": "在蒙德执行探索派遣任务时，消耗的时间缩短25%。",
+  "passiveTitle": "吾之后花园",
+  "rarity": 4,
+  "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "北风的魂匣"],
+  "time": "【周三/六/日】",
+  "title": "断罪皇女！！",
+  "type": "角色"
+}

@@ -26,7 +26,7 @@ body:before {
   top: -10px;
   left: -10px;
   opacity: 0.3;
-  background: url("../../../../resources/Version2/backgrounds/contour-background.svg");
+  background: url("../../../../resources/etc/image/contour-background.svg");
   background-size: cover;
   width: 430px;
   height: calc(100vh + 10px);
@@ -58,7 +58,7 @@ img.avatar {
     "placeholder"
     "player-info";
   place-items: center;
-  -webkit-mask: url("../../../../resources/Version2/masks/namecard-mask.svg");
+  -webkit-mask: url("../../../../resources/etc/image/namecard-mask.svg");
   -webkit-mask-size: 100%;
   margin-top: -50px;
   border-radius: 10px 10px 0 0;

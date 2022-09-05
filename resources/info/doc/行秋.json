@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
+  "baseATK": 201.77733240000003,
+  "birthday": "10月9日",
+  "constellationName": "锦织座",
+  "constellations": [
+    "雨帘剑的最大数量增加1柄。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的持续时间延长3秒；此外，受到剑雨攻击的敌人，<span class=\"desc-number recolor\">水元素抗性</span>降低15%，持续4秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "在<span class=\"desc-number recolor\">元素爆发</span>效果持续期间，<span class=\"desc-number recolor\">元素战技</span>造成的伤害提升50%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素爆发</span>每发动2次剑雨攻击，就大幅增强下一次剑雨攻击，并在命中敌人时为行秋恢复3点元素能量。"
+  ],
+  "cvCN": "唐雅菁",
+  "cvJP": "皆川纯子",
+  "element": "水元素",
+  "id": 10000025,
+  "introduce": "经常能在书摊看到的少年人。手执长剑，胸中常怀侠义之心。",
+  "levelUpMaterials": ["霓裳花", "破损的面具", "污秽的面具", "不祥的面具"],
+  "mainStat": "攻击力",
+  "mainValue": "24.00%",
+  "name": "行秋",
+  "passiveDesc": "合成角色天赋素材时，有25%概率返还部分合成材料。",
+  "passiveTitle": "灵光乍现",
+  "rarity": 4,
+  "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "北风之尾"],
+  "time": "【周三/六/日】",
+  "title": "少年春衫薄",
+  "type": "角色"
+}

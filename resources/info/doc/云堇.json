@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "兽境王器"],
+  "baseATK": 191.15747280000002,
+  "birthday": "5月21日",
+  "constellationName": "虹章座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>的冷却时间减少18%。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>后，附近队伍中所有角色普通攻击造成的伤害提升15%，持续12秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "云堇触发结晶反应后，防御力提升20%，持续12秒。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "处于<span class=\"desc-number recolor\">「飞云旗阵」</span>状态下的角色，普通攻击的攻击速度提升12%。"
+  ],
+  "cvCN": "贺文潇&杨扬",
+  "cvJP": "小岩井小鸟&杨扬",
+  "element": "岩元素",
+  "id": 10000064,
+  "introduce": "集剧作与演唱能力于一身的璃月戏曲名角。风格自成一派，雅致柔美，恰如其人。",
+  "levelUpMaterials": ["琉璃百合", "破损的面具", "污秽的面具", "不祥的面具"],
+  "mainStat": "元素充能效率",
+  "mainValue": "26.67%",
+  "name": "云堇",
+  "passiveDesc": "完美烹饪冒险类食物时，有12%概率获得2倍产出。",
+  "passiveTitle": "清食养性",
+  "rarity": 4,
+  "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "灰烬之心"],
+  "time": "【周二/五/日】",
+  "title": "红毹婵娟",
+  "type": "角色"
+}

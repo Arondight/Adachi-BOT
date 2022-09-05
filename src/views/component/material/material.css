@@ -247,31 +247,31 @@ html {
 
 .item-image.five-star,
 .materials.five-star {
-  background: url("http://localhost:9934/resources/Version2/thumb/stars/5-Star.png") no-repeat center;
+  background: url("http://localhost:9934/resources/etc/image/5-Star.png") no-repeat center;
   background-size: 100%;
 }
 
 .item-image.four-star,
 .materials.four-star {
-  background: url("http://localhost:9934/resources/Version2/thumb/stars/4-Star.png") no-repeat center;
+  background: url("http://localhost:9934/resources/etc/image/4-Star.png") no-repeat center;
   background-size: 100%;
 }
 
 .item-image.three-star,
 .materials.three-star {
-  background: url("http://localhost:9934/resources/Version2/thumb/stars/3-Star.png") no-repeat center;
+  background: url("http://localhost:9934/resources/etc/image/3-Star.png") no-repeat center;
   background-size: 100%;
 }
 
 .item-image.two-star,
 .materials.two-star {
-  background: url("http://localhost:9934/resources/Version2/thumb/stars/2-Star.png") no-repeat center;
+  background: url("http://localhost:9934/resources/etc/image/2-Star.png") no-repeat center;
   background-size: 100%;
 }
 
 .item-image.one-star,
 .materials.one-star {
-  background: url("http://localhost:9934/resources/Version2/thumb/stars/1-Star.png") no-repeat center;
+  background: url("http://localhost:9934/resources/etc/image/1-Star.png") no-repeat center;
   background-size: 100%;
 }
 

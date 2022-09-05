@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "符纹之齿"],
+  "baseATK": 225.14102152,
+  "birthday": "7月24日",
+  "constellationName": "幼鹿座",
+  "constellations": [
+    "鹿野院平藏登场后的5秒内，普通攻击的攻击速度提升15%，并获得1层<span class=\"desc-number recolor\">元素战技</span>的「变格」效果，该效果每10秒最多触发一次。",
+    "<span class=\"desc-number recolor\">元素爆发</span>产生的缉拿风穴的牵引效果获得提升，并将持续时间延长至1秒。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "在一次<span class=\"desc-number recolor\">元素爆发</span>中，「聚风真眼」在第一次爆发后，将为鹿野院平藏恢复9点元素能量，此后每次爆发，都将分别为鹿野院平藏额外恢复1.5点元素能量，一次<span class=\"desc-number recolor\">元素爆发</span>，至多通过这种方式为鹿野院平藏恢复13.5点元素能量。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素战技</span>时，每层「变格」都将为本次元素战技提升4%暴击率。拥有「正论」时，本次元素战技的暴击伤害将提升32%。"
+  ],
+  "cvCN": "林景",
+  "cvJP": "井口祐一",
+  "element": "风元素",
+  "id": 10000059,
+  "introduce": "天领奉行的天才少年侦探，直觉敏锐，心思玲珑。",
+  "levelUpMaterials": ["鬼兜虫", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
+  "mainStat": "风元素伤害加成",
+  "mainValue": "24.00%",
+  "name": "鹿野院平藏",
+  "passiveDesc": "队伍中自己的角色冲刺消耗的体力降低20%。\\n无法与效果完全相同的固有天赋叠加。",
+  "passiveTitle": "在罪之先",
+  "rarity": 4,
+  "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "万劫之真意"],
+  "time": "【周一/四/日】",
+  "title": "心朝乂安",
+  "type": "角色"
+}

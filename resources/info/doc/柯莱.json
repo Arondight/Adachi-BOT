@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["生长碧翡碎屑", "生长碧翡断片", "生长碧翡块", "生长碧翡", "蕈王钩喙"],
+  "baseATK": 199.65335947999998,
+  "birthday": "5月8日",
+  "constellationName": "薮猫座",
+  "constellations": [
+    "柯莱处于队伍后台时，元素充能效率提升20%。",
+    "固有天赋「飞叶迴斜」转变为：<span class=\"desc-number recolor\">飞叶轮</span>返回时，将为角色赋予固有天赋「飞叶迴斜」的「新叶」状态，持续对身边的敌人造成相当于柯莱攻击力40%的<span class=\"desc-number recolor\">草元素伤害</span>，持续3秒。从施放<span class=\"desc-number recolor\">元素战技</span>开始，到此次新叶状态消失前，如果队伍中自己的角色触发了燃烧、原激化、超激化、蔓激化、绽放、超绽放或烈绽放反应，则使此次新叶效果的持续时间延长3秒。新叶效果至多通过这种方式延长一次持续时间；在持续期间再次产生新叶效果时，将移除原有的效果。新叶效果造成的伤害视为元素战技伤害。需要解锁固有天赋「飞叶迴斜」。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>时，将使队伍中附近的所有角色（不包括柯莱自己）的元素精通提升60点，持续12秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">飞叶轮</span>命中时，会产生一个迷你柯里安巴，造成相当于柯莱攻击力200%的<span class=\"desc-number recolor\">草元素伤害</span>。每次施放<span class=\"desc-number recolor\">元素战技</span>至多产生1次迷你柯里安巴。"
+  ],
+  "cvCN": "秦文静",
+  "cvJP": "前川凉子",
+  "element": "草元素",
+  "id": 10000067,
+  "introduce": "活跃于道成林的见习巡林员，热情的言行背后是一颗依旧稍显内向的心。",
+  "levelUpMaterials": ["树王圣体菇", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
+  "mainStat": "攻击力",
+  "mainValue": "24.00%",
+  "name": "柯莱",
+  "passiveDesc": "队伍中自己的角色滑翔消耗的体力降低20%。\\n无法与效果完全相同的固有天赋叠加。",
+  "passiveTitle": "「须弥飞行冠军」",
+  "rarity": 4,
+  "talentMaterials": ["「笃行」的教导", "「笃行」的指引", "「笃行」的哲学", "祸神之禊泪"],
+  "time": "【周三/六/日】",
+  "title": "萃念初蘖",
+  "type": "角色"
+}

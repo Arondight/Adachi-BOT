@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
+  "baseATK": 240.00882496,
+  "birthday": "1月24日",
+  "constellationName": "荆冠座",
+  "constellations": [
+    "罗莎莉亚的攻击造成暴击后，自身攻击速度提升10%，普通攻击造成的伤害提升10%，持续4秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>创造的冰枪持续时间延长4秒。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素战技</span>造成暴击时，为罗莎莉亚自己恢复5点元素能量。每次元素战技至多触发1次该效果。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的攻击会使敌人的物理抗性降低20%，持续10秒。"
+  ],
+  "cvCN": "张安琪",
+  "cvJP": "加隈亚衣",
+  "element": "冰元素",
+  "id": 10000045,
+  "introduce": "除了打扮哪里都不像神职人员的修女。冷淡的言行中透着锐利。总是单独行动。",
+  "levelUpMaterials": ["落落莓", "新兵的徽记", "士官的徽记", "尉官的徽记"],
+  "mainStat": "攻击力",
+  "mainValue": "24.00%",
+  "name": "罗莎莉亚",
+  "passiveDesc": "在夜间（18时至6时），队伍中自己的角色移动速度提高10%。\\n该效果在秘境、征讨领域、深境螺旋中无效，且无法与效果完全相同的固有天赋叠加。",
+  "passiveTitle": "夜行",
+  "rarity": 4,
+  "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "武炼之魂·孤影"],
+  "time": "【周三/六/日】",
+  "title": "棘冠恩典",
+  "type": "角色"
+}

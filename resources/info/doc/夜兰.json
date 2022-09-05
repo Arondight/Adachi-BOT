@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "符纹之齿"],
+  "baseATK": 243.96194960000003,
+  "birthday": "4月20日",
+  "constellationName": "幽客座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>的可使用次数增加1次。",
+    "<span class=\"desc-number recolor\">「玄掷玲珑」</span>协同攻击时，会发射一枚额外的水箭，造成相当于夜兰生命值上限14%的水元素伤害。该效果每1.8秒至多触发一次。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "依照<span class=\"desc-number recolor\">「络命丝」</span>标记敌人的数量，每次标记将在爆发时使队伍中所有角色的生命值上限提升10%，持续25秒。通过这种方式，生命值上限至多获得40%提升。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>后，夜兰将进入「运筹帷幄」状态：夜兰的普通攻击将转为发射特殊的「破局矢」。这种箭矢具有与破局矢近似的特性，造成的伤害视为重击伤害，能造成破局矢156%的伤害。「运筹帷幄」状态至多持续20秒，将在夜兰发射5枚箭矢后移除。"
+  ],
+  "cvCN": "徐慧",
+  "cvJP": "远藤绫",
+  "element": "水元素",
+  "id": 10000060,
+  "introduce": "自称供职于总务司的神秘人士，却又是总务司名录里的「不存在之人」。",
+  "levelUpMaterials": ["星螺", "新兵的徽记", "士官的徽记", "尉官的徽记"],
+  "mainStat": "暴击率",
+  "mainValue": "19.20%",
+  "name": "夜兰",
+  "passiveDesc": "在璃月执行时长为20小时的探索派遣任务时，获得的奖励增加25%。",
+  "passiveTitle": "长考一着",
+  "rarity": 5,
+  "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "鎏金之鳞"],
+  "time": "【周一/四/日】",
+  "title": "兰生幽谷",
+  "type": "角色"
+}

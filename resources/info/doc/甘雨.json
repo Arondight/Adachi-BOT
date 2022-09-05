@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
+  "baseATK": 334.849732,
+  "birthday": "12月2日",
+  "constellationName": "仙麟座",
+  "constellations": [
+    "二段蓄力重击的霜华矢或霜华绽发命中敌人时，会使敌人的<span class=\"desc-number recolor\">冰元素抗性</span>降低15%，持续6秒；此外，命中时会为甘雨恢复2点元素能量。每次二段蓄力重击只能触发一次元素能量恢复效果，无论霜华矢或霜华绽发是否都命中目标。",
+    "<span class=\"desc-number recolor\">元素战技</span>的可使用次数增加1次。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "在<span class=\"desc-number recolor\">元素爆发</span>的领域内，敌人受到的伤害会增加，这个效果会随时间逐步加强。受伤害加成初始为5%，每3秒提升5%，至多提升至25%。离开领域后，效果至多持续3秒。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素战技</span>后30秒内的第一次霜华矢，无需蓄力即可施放。"
+  ],
+  "cvCN": "林簌",
+  "cvJP": "上田丽奈",
+  "element": "冰元素",
+  "id": 10000037,
+  "introduce": "月海亭的秘书，体内流淌着仙兽「麒麟」的血脉。",
+  "levelUpMaterials": ["清心", "骗骗花蜜", "微光花蜜", "原素花蜜"],
+  "mainStat": "暴击伤害",
+  "mainValue": "38.40%",
+  "name": "甘雨",
+  "passiveDesc": "锻造弓类武器时，返还15%消耗的矿石。",
+  "passiveTitle": "藏弓待用",
+  "rarity": 5,
+  "talentMaterials": ["「勤劳」的教导", "「勤劳」的指引", "「勤劳」的哲学", "武炼之魂·孤影"],
+  "time": "【周二/五/日】",
+  "title": "循循守月",
+  "type": "角色"
+}

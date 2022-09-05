@@ -135,7 +135,7 @@ export default defineComponent({
       const { name } = charactersMap.filter((character) => character.id === id)[0] || {};
 
       if ("string" === typeof name) {
-        return `/resources/Version2/thumb/character/${name}.png`;
+        return `/resources/character/icon/${name}.webp`;
       }
     }
 

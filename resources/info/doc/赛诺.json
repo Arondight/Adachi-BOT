@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "藏雷野实"],
+  "baseATK": 318.1072494,
+  "birthday": "1月1日",
+  "constellationName": "金狼座",
+  "constellations": [
+    "施放<span class=\"desc-number recolor\">元素爆发</span>后，赛诺普通攻击的攻击速度提升20%，持续10秒。若施放<span class=\"desc-number recolor\">元素战技</span>时触发了固有天赋「落羽的裁择」的「裁定」效果，将刷新该效果的持续时间。需要解锁固有天赋「落羽的裁择」。",
+    "赛诺的普通攻击命中敌人后，<span class=\"desc-number recolor\">雷元素伤害</span>加成提升10%，持续4秒。该效果每0.1秒至多触发一次，至多叠加5层。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "赛诺处于<span class=\"desc-number recolor\">元素爆发</span>的启途誓使状态下时，触发感电、超导、超载、原激化、超激化、超绽放、雷元素扩散反应后，将为队伍中附近的所有角色（除了赛诺自己）恢复3点元素能量。该效果在一次<span class=\"desc-number recolor\">元素爆发</span>中，至多触发5次。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>或触发固有天赋「落羽的裁择」的「裁定」后，赛诺将获得4层「豺祭」效果。赛诺的普通攻击命中敌人时，将消耗一层「豺祭」效果，并发射一道渡荒之雷。「豺祭」持续8秒，至多叠加8层，并将在元素爆发的启途誓使状态结束后移除。每0.4秒至多通过这种方式发射一道渡荒之雷。需要解锁固有天赋「落羽的裁择」。"
+  ],
+  "cvCN": "未知",
+  "cvJP": "未知",
+  "element": "雷元素",
+  "id": 10000071,
+  "introduce": "？？？",
+  "levelUpMaterials": ["圣金虫", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
+  "mainStat": "暴击伤害",
+  "mainValue": "38.40%",
+  "name": "赛诺",
+  "passiveDesc": "在须弥执行时长为20小时的探索派遣任务时，获得的奖励增加25%。",
+  "passiveTitle": "缄默的惠赐",
+  "rarity": 5,
+  "talentMaterials": ["「诤言」的教导", "「诤言」的指引", "「诤言」的哲学", "凶将之手眼"],
+  "time": "【周一/四/日】",
+  "title": "缄秘的裁遣",
+  "type": "角色"
+}

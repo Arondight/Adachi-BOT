@@ -1,0 +1,18 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": [
+    ["凛风奔狼的始龀", "凛风奔狼的裂齿", "凛风奔狼的断牙", "凛风奔狼的怀乡"],
+    ["晦暗刻像", "夤夜刻像", "幽邃刻像", "史莱姆凝液", "史莱姆清", "史莱姆原浆"]
+  ],
+  "baseATK": 509.605949,
+  "introduce": "",
+  "mainStat": "攻击力",
+  "mainValue": "41.346%",
+  "name": "风信之锋",
+  "rarity": 4,
+  "skillContent": "触发元素反应后的10秒内，攻击力提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，元素精通提升<span class=\"desc-number recolor\">48/60/72/84/96</span>点。",
+  "skillName": "不至之风",
+  "time": "【周二/五/日】",
+  "title": "长柄武器",
+  "type": "武器"
+}

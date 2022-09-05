@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
+  "baseATK": 159.29789399999999,
+  "birthday": "7月5日",
+  "constellationName": "金杯座",
+  "constellations": [
+    "芭芭拉每10秒恢复1点元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>的冷却时间降低15%；技能持续期间，当前场上自己的角色获得15%<span class=\"desc-number recolor\">水元素伤害加成</span>。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "芭芭拉使用重击时，每命中一个敌人，就恢复1点元素能量。通过这种方式，一次至多回复5点元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "芭芭拉处于队伍后台时，队伍中自己的角色倒下时，则立即：·复苏该角色；·将该角色生命值恢复至100%。该效果每15分钟只能触发一次。"
+  ],
+  "cvCN": "宋媛媛",
+  "cvJP": "鬼头明里",
+  "element": "水元素",
+  "id": 10000014,
+  "introduce": "蒙德城的大家都喜欢芭芭拉。「偶像」这个词是她从一本杂志里看到的。",
+  "levelUpMaterials": ["慕风蘑菇", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
+  "mainStat": "生命值",
+  "mainValue": "24.00%",
+  "name": "芭芭拉",
+  "passiveDesc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。",
+  "passiveTitle": "心意♪注入",
+  "rarity": 4,
+  "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "北风之环"],
+  "time": "【周一/四/日】",
+  "title": "闪耀偶像",
+  "type": "角色"
+}

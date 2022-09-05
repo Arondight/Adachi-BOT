@@ -118,7 +118,7 @@ export default defineComponent({
   },
   methods: {
     getMaterialUrl(material) {
-      return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
+      return `http://localhost:9934/resources/material/icon/${material}.webp`;
     },
   },
   inject: ["materialMap"],
@@ -126,7 +126,7 @@ export default defineComponent({
     const propsValue = unref(props);
     const params = propsValue.data;
     const charImageFilename = params.id + ".png";
-    const charImageUrl = `http://localhost:9934/resources/Version2/character/${charImageFilename}`;
+    const charImageUrl = `http://localhost:9934/resources/character/picture/${charImageFilename}`;
     const charTitle = params.title.trim() === "" ? "" : params.title + "・" || "";
     const decoStripContent = "PERSONAL INFORMATION - ".repeat(4);
     const rarity = parseInt(params.rarity) || 4;

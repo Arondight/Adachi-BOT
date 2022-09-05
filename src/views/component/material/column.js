@@ -37,8 +37,8 @@ const materialUnit = defineComponent({
   },
   inject: ["materialMap"],
   methods: {
-    materialImage: (name) => `http://localhost:9934/resources/Version2/info/image/${name}.png`,
-    itemImage: (name, itemType) => `http://localhost:9934/resources/Version2/thumb/${itemType}/${name}.png`,
+    materialImage: (name) => `http://localhost:9934/resources/material/icon/${name}.webp`,
+    itemImage: (name, itemType) => `http://localhost:9934/resources/${itemType}/icon/${name}.png`,
     rarityClass: (rarity) => {
       const rarities = [undefined, "one-star", "two-star", "three-star", "four-star", "five-star"];
 

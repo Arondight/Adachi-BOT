@@ -3,6 +3,7 @@ import lodash from "lodash";
 import fetch from "node-fetch";
 import path from "path";
 import "#utils/config";
+import { mkdir } from "#utils/file";
 
 ("use strict");
 
@@ -26,8 +27,9 @@ function parse(types, items) {
 }
 
 (async function main() {
-  const file = path.resolve(global.rootdir, "resources", "Version2", "info", "image", "material.json");
-  const api = "https://api.ambr.top/v2/CHS/material/";
+  const dir = mkdir(path.resolve(global.rootdir, "resources", "etc", "doc"));
+  const file = path.resolve(dir, "material.json");
+  const api = "https://api.ambr.top/v2/chs/material";
   const data = { types: [], items: [] };
 
   process.stdout.write(`拉取 ${api} ...\t`);

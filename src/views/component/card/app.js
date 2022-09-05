@@ -172,13 +172,13 @@ export default defineComponent({
     const ye = { 10000005: "空", 10000007: "荧" };
     const name = ye[target.id] || target.name;
     const id = 10000007 === target.id ? 10000005 : target.id; // 妹妹名片重定向至哥哥名片
-    const nameCardUrl = encodeURI(`http://localhost:9934/resources/Version2/namecard/${id}.png`);
+    const nameCardUrl = encodeURI(`http://localhost:9934/resources/character/namecard/${id}.webp`);
     const nameCard = `linear-gradient(hsla(0, 0%, 100%, 0) 0%, #fff 100%), url(${nameCardUrl})`;
     const character = targetHasCostume
-      ? encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`)
-      : encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
+      ? encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.png`)
+      : encodeURI(`http://localhost:9934/resources/character/icon/${name}.webp`);
     const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=5&nk=${qqid}` : character;
-    const namecardAvatarBackupImg = encodeURI(`http://localhost:9934/resources/Version2/thumb/character/${name}.png`);
+    const namecardAvatarBackupImg = encodeURI(`http://localhost:9934/resources/character/icon/${name}.webp`);
     const filterOfferingName = (string) => string.replace(/等级$/, "");
     const explorations = [
       ...lodash.orderBy(params.explorations, "id", "asc").map((exploration) => getExplorationData(exploration)),

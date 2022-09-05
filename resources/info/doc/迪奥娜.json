@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "极寒之核"],
+  "baseATK": 212.397192,
+  "birthday": "1月18日",
+  "constellationName": "小猫座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素爆发</span>的效果结束时，为迪奥娜恢复15点元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>造成的伤害提高15%，护盾的伤害吸收量提高15%；此外，命中时，将为附近的当前其他场上角色生成一个伤害吸收量为<span class=\"desc-number recolor\">元素战技</span>50%的护盾，持续5秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "在<span class=\"desc-number recolor\">元素爆发</span>的领域内，迪奥娜的瞄准射击的所需的蓄力时间减少60%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "处在<span class=\"desc-number recolor\">元素爆发</span>领域内的角色，依据生命值获得如下效果：·生命值低于或等于50%时，受治疗加成提升30%；·生命值高于50%时，元素精通提升200。"
+  ],
+  "cvCN": "诺亚",
+  "cvJP": "井泽诗织",
+  "element": "冰元素",
+  "id": 10000039,
+  "introduce": "遗传了稀薄的「非人」血统的少女，「猫尾酒馆」的超人气调酒师。",
+  "levelUpMaterials": ["嘟嘟莲", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"],
+  "mainStat": "冰元素伤害加成",
+  "mainValue": "24.00%",
+  "name": "迪奥娜",
+  "passiveDesc": "完美烹饪恢复类食物时，有12%概率获得2倍产出。",
+  "passiveTitle": "附赠的下酒菜",
+  "rarity": 4,
+  "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "魔王之刃·残片"],
+  "time": "【周一/四/日】",
+  "title": "猫尾特调",
+  "type": "角色"
+}

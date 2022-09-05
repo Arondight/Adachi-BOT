@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "恒常机关之心"],
+  "baseATK": 342.0250874,
+  "birthday": "9月28日",
+  "constellationName": "雪鹤座",
+  "constellations": [
+    "神里绫华的普通攻击或重击对敌人造成<span class=\"desc-number recolor\">冰元素伤害</span>时，有50%的几率使<span class=\"desc-number recolor\">元素战技</span>的冷却时间缩减0.3秒。该效果每0.1秒只能触发一次。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>时，会额外释放两股规模较小的霜见雪关扉，各自能造成原本20%的伤害。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "敌人受到<span class=\"desc-number recolor\">元素爆发</span>的霜见雪关扉造成的伤害后，防御力降低30%，持续6秒。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "每过10秒，神里绫华会获得「薄冰舞踏」，使重击造成的伤害提高298%。薄冰舞踏效果将在重击命中敌人的0.5秒后清除，并重新开始计算时间。"
+  ],
+  "cvCN": "小N",
+  "cvJP": "早见沙织",
+  "element": "冰元素",
+  "id": 10000002,
+  "introduce": "稻妻「社奉行」神里家的大小姐。端庄而文雅，聪慧又坚韧。",
+  "levelUpMaterials": ["绯樱绣球", "破旧的刀镡", "影打刀镡", "名刀镡"],
+  "mainStat": "暴击伤害",
+  "mainValue": "38.40%",
+  "name": "神里绫华",
+  "passiveDesc": "<span class=\"desc-number recolor\">神里流·霰步</span>结束时释放的寒冰命中了敌人时，神里绫华将获得如下效果：\\n·恢复10点体力；\\n·获得18%<span class=\"desc-number recolor\">冰元素伤害加成</span>，持续10秒。",
+  "passiveTitle": "寒天宣命祝词",
+  "rarity": 5,
+  "talentMaterials": ["「风雅」的教导", "「风雅」的指引", "「风雅」的哲学", "血玉之枝"],
+  "time": "【周二/五/日】",
+  "title": "白鹭霜华",
+  "type": "角色"
+}

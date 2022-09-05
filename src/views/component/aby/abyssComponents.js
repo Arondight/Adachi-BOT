@@ -5,13 +5,13 @@ const { defineComponent, unref } = window.Vue;
 const titleTemplate = html`<div class="title-content">
   <img
     class="arrow-left"
-    src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
+    src="http://localhost:9934/resources/etc/image/title-decoration.svg"
     alt="components/title-decoration.svg"
   />
   <div class="abyss-chamber-type-title">{{ title }}</div>
   <img
     class="arrow-right"
-    src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
+    src="http://localhost:9934/resources/etc/image/title-decoration.svg"
     alt="components/title-decoration.svg"
   />
 </div>`;
@@ -46,7 +46,7 @@ const characterShowbox = defineComponent({
     const showType = propsValue.showType;
     const avatarIcon = encodeURI(
       propsValue.characterName
-        ? `/resources/Version2/thumb/character/${propsValue.characterName}.png`
+        ? `/resources/character/icon/${propsValue.characterName}.webp`
         : showType === "revealRank"
         ? propsValue.data.avatar_icon
         : propsValue.data.icon

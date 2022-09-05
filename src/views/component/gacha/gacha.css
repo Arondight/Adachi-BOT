@@ -56,7 +56,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("http://localhost:9934/resources/gacha/items/gacha-background.png");
+  background-image: url("http://localhost:9934/resources/etc/image/gacha-background.png");
   background-position: center;
   background-size: 112px 652px;
   width: 112px;
@@ -64,7 +64,7 @@ body {
 }
 
 .item-image {
-  -webkit-mask-image: url("http://localhost:9934/resources/Version2/masks/gacha-card.svg");
+  -webkit-mask-image: url("http://localhost:9934/resources/etc/image/gacha-card.svg");
   -webkit-mask-position: center;
   -webkit-mask-size: 108px 470px;
   -webkit-mask-repeat: no-repeat;

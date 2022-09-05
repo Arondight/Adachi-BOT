@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "净水之心"],
+  "baseATK": 301.3647568,
+  "birthday": "7月20日",
+  "constellationName": "鲸天座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>的冷却时间降低20%。",
+    "处于断流效果影响下的敌人被击败时，为达达利亚恢复4点元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "每4秒，场上存在达达利亚自身施加的断流效果时，若达达利亚当前处于<span class=\"desc-number recolor\">元素战技</span>的近战状态，则触发断流·斩；否则，触发断流·闪。通过此命之座触发的断流·斩与断流·闪不受这两种断流各自的触发间隔限制，也不会影响其触发间隔。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "在近战状态下施放<span class=\"desc-number recolor\">元素爆发</span>时，清除<span class=\"desc-number recolor\">元素战技</span>的冷却时间。该效果会在回到远程状态后触发。"
+  ],
+  "cvCN": "鱼冻",
+  "cvJP": "木村良平",
+  "element": "水元素",
+  "id": 10000033,
+  "introduce": "愚人众执行官第十一位，「公子」，其战绩威名远扬。",
+  "levelUpMaterials": ["星螺", "新兵的徽记", "士官的徽记", "尉官的徽记"],
+  "mainStat": "水元素伤害加成",
+  "mainValue": "28.80%",
+  "name": "达达利亚",
+  "passiveDesc": "队伍中自己的角色<span class=\"desc-number recolor\">普通攻击</span>等级提高1级。",
+  "passiveTitle": "诸武精通",
+  "rarity": 5,
+  "talentMaterials": ["「自由」的教导", "「自由」的指引", "「自由」的哲学", "魔王之刃·残片"],
+  "time": "【周一/四/日】",
+  "title": "「公子」",
+  "type": "角色"
+}

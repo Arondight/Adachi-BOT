@@ -4,17 +4,9 @@ const { defineComponent, unref } = window.Vue;
 
 const titleTemplate = html`<div class="container-title">
   <div class="title-content">
-    <img
-      class="arrow-left"
-      src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
-      alt="ERROR"
-    />
+    <img class="arrow-left" src="http://localhost:9934/resources/etc/image/title-decoration.svg" alt="ERROR" />
     <div class="main-title">{{ title }}</div>
-    <img
-      class="arrow-right"
-      src="http://localhost:9934/resources/Version2/components/title-decoration.svg"
-      alt="ERROR"
-    />
+    <img class="arrow-right" src="http://localhost:9934/resources/etc/image/title-decoration.svg" alt="ERROR" />
     <div class="subtitle" v-show="subtitle">{{ subtitle }}</div>
   </div>
 </div>`;
@@ -69,27 +61,23 @@ const CharacterBox = defineComponent({
   },
   setup(props) {
     function getCostume(costumeName) {
-      return encodeURI(`http://localhost:9934/resources/Version2/costumes/avatars/${costumeName}.png`);
+      return encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.png`);
     }
 
     const propsValue = unref(props);
     const characterName = propsValue.characterName;
-    const starBackground = encodeURI(
-      `http://localhost:9934/resources/Version2/thumb/stars/${props.data.rarity}-Star.png`
-    );
-    const element = encodeURI(
-      `http://localhost:9934/resources/gacha/element/${toReadableElem(props.data.element)}.png`
-    );
+    const starBackground = encodeURI(`http://localhost:9934/resources/etc/image/${props.data.rarity}-Star.png`);
+    const element = encodeURI(`http://localhost:9934/resources/element/icon/${toReadableElem(props.data.element)}.png`);
     const hasCostume = props.data.costumes.length !== 0;
     const costumePath = hasCostume ? getCostume(props.data.costumes[0]["name"]) : "";
     const weaponNameLength = props.data.weapon.name.length || 5;
     const additionalStyle = weaponNameLength > 5 ? "font-size: 9px;" : undefined;
     const characterThumbUrl = characterName
       ? "旅行者" !== characterName
-        ? encodeURI(`/resources/Version2/thumb/character/${characterName}.png`)
+        ? encodeURI(`/resources/character/icon/${characterName}.webp`)
         : props.data.icon.match(/PlayerGirl/g)
-        ? encodeURI("/resources/Version2/thumb/character/荧.png")
-        : encodeURI("/resources/Version2/thumb/character/空.png")
+        ? encodeURI("/resources/character/icon/荧.webp")
+        : encodeURI("/resources/character/icon/空.webp")
       : props.data.icon;
 
     return { starBackground, element, hasCostume, costumePath, additionalStyle, characterThumbUrl };
@@ -121,7 +109,7 @@ const ExplorationBox = defineComponent({
       const icon_filename = rawUri.split("_").slice(-1)[0].split(".").slice(0)[0];
 
       return logo_mapping[icon_filename.toLowerCase()]
-        ? encodeURI(`http://localhost:9934/resources/Version2/area/${logo_mapping[icon_filename.toLowerCase()]}.png`)
+        ? encodeURI(`http://localhost:9934/resources/area/icon/${logo_mapping[icon_filename.toLowerCase()]}.png`)
         : rawUri;
     }
 

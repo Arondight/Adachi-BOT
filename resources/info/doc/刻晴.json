@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "雷光棱镜"],
+  "baseATK": 322.89081300000004,
+  "birthday": "11月20日",
+  "constellationName": "金紫定垂座",
+  "constellations": [
+    "雷楔存在期间再次施放<span class=\"desc-number recolor\">元素战技</span>时，在刻晴消失与出现的位置造成50%攻击力的<span class=\"desc-number recolor\">雷元素范围伤害</span>。",
+    "刻晴普通攻击与重击命中受到<span class=\"desc-number recolor\">雷元素</span>影响的敌人时，有50%几率产生一个元素微粒。该效果每5秒只能触发一次。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "刻晴触发<span class=\"desc-number recolor\">雷元素相关反应</span>后的10秒内，攻击力提升25%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "进行普通攻击、重击、施放元素战技或元素爆发时，刻晴获得6%<span class=\"desc-number recolor\">雷元素伤害加成</span>，持续8秒。由普通攻击、重击、元素战技或元素爆发引起的效果分别独立存在。"
+  ],
+  "cvCN": "谢莹",
+  "cvJP": "喜多村英梨",
+  "element": "雷元素",
+  "id": 10000042,
+  "introduce": "璃月七星之一，玉衡星。对「帝君一言而决的璃月」颇有微词——但实际上，神挺欣赏她这样的人。",
+  "levelUpMaterials": ["石珀", "骗骗花蜜", "微光花蜜", "原素花蜜"],
+  "mainStat": "暴击伤害",
+  "mainValue": "38.40%",
+  "name": "刻晴",
+  "passiveDesc": "在璃月执行探索派遣任务时，消耗的时间缩短25%。",
+  "passiveTitle": "总务土地",
+  "rarity": 5,
+  "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "北风之环"],
+  "time": "【周一/四/日】",
+  "title": "霆霓快雨",
+  "type": "角色"
+}

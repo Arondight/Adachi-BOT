@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "晶凝之华"],
+  "baseATK": 342.0250874,
+  "birthday": "10月25日",
+  "constellationName": "浪沫座",
+  "constellations": [
+    "消耗<span class=\"desc-number recolor\">元素战技</span>的冷酷之心效果后，优菈的物理伤害加成提高30%，持续6秒，每消耗一层冷酷之心，都会使这个效果的持续时间延长6秒，最多不会超过18秒。",
+    "缩短<span class=\"desc-number recolor\">元素战技</span>长按的冷却时间，使其降低至与点按的冷却时间相同。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "对生命值低于50%的敌人，光降之剑造成的伤害提高25%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素爆发</span>创造的光降之剑立即获得5层能量。普通攻击、元素战技或元素爆发造成伤害使其积蓄能量层数时，有50%的概率额外获得一层。"
+  ],
+  "cvCN": "子音",
+  "cvJP": "佐藤利奈",
+  "element": "冰元素",
+  "id": 10000051,
+  "introduce": "古老家族出身的「浪花骑士」，西风骑士团游击小队队长。身为旧贵族后裔却加入了堪称死对头的西风骑士团，该事件至今仍是蒙德一大谜团。",
+  "levelUpMaterials": ["蒲公英籽", "破损的面具", "污秽的面具", "不祥的面具"],
+  "mainStat": "暴击伤害",
+  "mainValue": "38.40%",
+  "name": "优菈",
+  "passiveDesc": "合成角色天赋素材时，有10%概率获得2倍产出。",
+  "passiveTitle": "贵族的自省",
+  "rarity": 5,
+  "talentMaterials": ["「抗争」的教导", "「抗争」的指引", "「抗争」的哲学", "龙王之冕"],
+  "time": "【周二/五/日】",
+  "title": "浪沫的旋舞",
+  "type": "角色"
+}

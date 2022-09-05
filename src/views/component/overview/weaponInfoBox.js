@@ -72,7 +72,7 @@ export default defineComponent({
   },
   methods: {
     getMaterialUrl(material) {
-      return `http://localhost:9934/resources/Version2/info/image/${material}.png`;
+      return `http://localhost:9934/resources/material/icon/${material}.webp`;
     },
     getStructuredContent: (text) => `${text.replace(/\\n/g, "<br>")}`,
   },
@@ -84,7 +84,7 @@ export default defineComponent({
     const decoStripContent = "WEAPON INFORMATION - ".repeat(4);
     const weaponTitle = params.title + "・" || "";
     const weaponImageFilename = params.name + ".png";
-    const weaponImageUrl = `http://localhost:9934/resources/Version2/weapon/${weaponImageFilename}`;
+    const weaponImageUrl = `http://localhost:9934/resources/weapon/picture/${weaponImageFilename}`;
     const weaponInfo = {
       weaponFullName: weaponTitle + params.name,
       accessMethod: params["access"] || "暂无信息",

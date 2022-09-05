@@ -480,8 +480,8 @@
  * --------------------------------------------------------------------------
  * 数组中元素的数据结构与原文件一致，以字段 rarity 降序。
  * --------------------------------------------------------------------------
- * ../../resources/Version2/info/docs/<角色名>.json
- * ../../resources/Version2/info/docs/<武器名>.json
+ * ../../resources/info/doc/<角色名>.json
+ * ../../resources/info/doc/<武器名>.json
  * --------------------------------------------------------------------------
  * 请直接查看文件内容。
  * ==========================================================================
@@ -1143,14 +1143,14 @@ function readArtifacts() {
 // Call after readNames()
 //
 // global.info.character    -> array of { access, ascensionMaterials, baseATK, birthday, constellationName,
-//                                        constellations, cv, cvCN, cvJP, element, id, introduce, levelUpMaterials,
+//                                        constellations, cvCN, cvJP, element, id, introduce, levelUpMaterials,
 //                                        mainStat, mainValue, name, passiveDesc, passiveTitle, rarity,
 //                                        talentMaterials, time, title, type }, sorted by rarity
 // global.info.weapon       -> array of { access, ascensionMaterials, baseATK, introduce, mainStat, mainValue, name,
 //                                        rarity, skillContent, skillName, time, title, type }, sorted by rarity
 function readInfo() {
   const names = Object.values(global.names.allAlias);
-  const dir = path.resolve(global.rootdir, "resources", "Version2", "info", "docs");
+  const dir = path.resolve(global.rootdir, "resources", "info", "doc");
   const info = ls(dir)
     .filter((c) => {
       const p = path.parse(c);

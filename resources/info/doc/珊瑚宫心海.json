@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "排异之露"],
+  "baseATK": 234.39481640000002,
+  "birthday": "2月22日",
+  "constellationName": "眠龙座",
+  "constellations": [
+    "处于<span class=\"desc-number recolor\">元素爆发</span>的仪来羽衣状态下时，珊瑚宫心海普通攻击的最后一击会额外释放一只游鱼，造成相当于珊瑚宫心海生命值上限30%的<span class=\"desc-number recolor\">水元素伤害</span>。该伤害不被视为普通攻击伤害。",
+    "基于珊瑚宫心海的生命值上限，珊瑚宫心海对生命值低于或等于50%的角色，通过以下途径进行治疗的回复量获得提升：·<span class=\"desc-number recolor\">元素战技</span>的化海月：生命值上限的4.5%·<span class=\"desc-number recolor\">元素爆发</span>的普通攻击与重击：生命值上限的0.6%。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "处于<span class=\"desc-number recolor\">元素爆发</span>的仪来羽衣状态下时，珊瑚宫心海普通攻击的攻击速度提升10%，并会在普通攻击命中敌人时，恢复0.8点元素能量。该效果每0.2秒至多触发一次。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "处于<span class=\"desc-number recolor\">元素爆发</span>的仪来羽衣状态下时，珊瑚宫心海的普通攻击和重击对生命值高于或等于80%的角色进行治疗时，将获得40%<span class=\"desc-number recolor\">水元素伤害加成</span>，持续4秒。"
+  ],
+  "cvCN": "龟娘",
+  "cvJP": "三森铃子",
+  "element": "水元素",
+  "id": 10000054,
+  "introduce": "海祇岛的「现人神巫女」，统管海祇岛各项事宜的少女。",
+  "levelUpMaterials": ["珊瑚真珠", "浮游干核", "浮游幽核", "浮游晶化核"],
+  "mainStat": "水元素伤害加成",
+  "mainValue": "28.80%",
+  "name": "珊瑚宫心海",
+  "passiveDesc": "队伍中自己的角色游泳消耗的体力降低20%。\\n无法与效果完全相同的固有天赋叠加。",
+  "passiveTitle": "海祇姬君",
+  "rarity": 5,
+  "talentMaterials": ["「浮世」的教导", "「浮世」的指引", "「浮世」的哲学", "狱火之蝶"],
+  "time": "【周一/四/日】",
+  "title": "真珠之智",
+  "type": "角色"
+}

@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["燃愿玛瑙碎屑", "燃愿玛瑙断片", "燃愿玛瑙块", "燃愿玛瑙", "未熟之玉"],
+  "baseATK": 240.00882496,
+  "birthday": "7月28日",
+  "constellationName": "法兽座",
+  "constellations": [
+    "烟绯进行重击时，每持有一枚丹火印，都会提高烟绯在咏唱期间的抗打断能力，并额外降低本次重击10%的体力消耗。",
+    "烟绯的重击对于生命值低于50%的敌人，暴击率提高20%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>时：生成一个伤害吸收量等于生命值上限45%的护盾，持续15秒。该护盾对<span class=\"desc-number recolor\">火元素伤害</span>有250%的吸收效果。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "烟绯持有的丹火印最大数量增加一枚。"
+  ],
+  "cvCN": "苏子芜",
+  "cvJP": "花守由美里",
+  "element": "火元素",
+  "id": 10000048,
+  "introduce": "活跃在璃月港的知名律法咨询师，混有仙兽血脉的精明少女。",
+  "levelUpMaterials": ["夜泊石", "寻宝鸦印", "藏银鸦印", "攫金鸦印"],
+  "mainStat": "火元素伤害加成",
+  "mainValue": "24.00%",
+  "name": "烟绯",
+  "passiveDesc": "在小地图上显示周围的<span class=\"desc-number recolor\">璃月区域特产</span>的位置。",
+  "passiveTitle": "博闻强记",
+  "rarity": 4,
+  "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "血玉之枝"],
+  "time": "【周三/六/日】",
+  "title": "智明无邪",
+  "type": "角色"
+}

@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["坚牢黄玉碎屑", "坚牢黄玉断片", "坚牢黄玉块", "坚牢黄玉", "玄岩之塔"],
+  "baseATK": 251.13729899999998,
+  "birthday": "9月13日",
+  "constellationName": "白垩之子座",
+  "constellations": [
+    "阿贝多的<span class=\"desc-number recolor\">元素战技</span>生成的刹那之花绽放时，为阿贝多自己回复1.2点元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>的刹那之花绽放时，会为阿贝多赋予生灭计数效果，持续30秒：·施放<span class=\"desc-number recolor\">元素爆发</span>时，清除所有生灭计数效果，并根据清除的层数，提高元素爆发的爆发伤害与生灭之花造成的伤害；·每层生灭计数，会提高等同于阿贝多防御力的30%的伤害；·该效果至多叠加4次。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "处于阳华的领域中的队伍中当前场上角色，造成的下落攻击伤害提高30%。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "处在阳华的领域中的队伍中当前场上角色，若处于结晶反应产生的护盾庇护下，造成的伤害提高17%。"
+  ],
+  "cvCN": "Mace",
+  "cvJP": "野岛健儿",
+  "element": "岩元素",
+  "id": 10000038,
+  "introduce": "西风骑士团首席炼金术士兼调查小队队长，被称做「白垩之子」的天才。",
+  "levelUpMaterials": ["塞西莉亚花", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
+  "mainStat": "岩元素伤害加成",
+  "mainValue": "28.80%",
+  "name": "阿贝多",
+  "passiveDesc": "合成武器突破素材时，有10%概率获得2倍产出。",
+  "passiveTitle": "天才的发现",
+  "rarity": 5,
+  "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "吞天之鲸·只角"],
+  "time": "【周三/六/日】",
+  "title": "白垩之子",
+  "type": "角色"
+}

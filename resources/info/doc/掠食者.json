@@ -1,0 +1,18 @@
+{
+  "access": "联动",
+  "ascensionMaterials": [
+    ["鸣神御灵的明惠", "鸣神御灵的欢喜", "鸣神御灵的亲爱", "鸣神御灵的勇武"],
+    ["黯淡棱镜", "水晶棱镜", "偏光棱镜", "牢固的箭簇", "锐利的箭簇", "历战的箭簇"]
+  ],
+  "baseATK": 509.605949,
+  "introduce": "设计风格相当独特的弓，应该不属于这个世界。",
+  "mainStat": "攻击力",
+  "mainValue": "41.346%",
+  "name": "掠食者",
+  "rarity": 4,
+  "skillContent": "<span class=\"desc-number recolor\">仅在以下平台生效：</span><span class=\"desc-number recolor\">\"PlayStation Network\"</span>对敌人造成冰元素伤害后，普通攻击与重击造成的伤害提高10%，该效果持续6秒，至多叠加2次；此外，埃洛伊装备掠食者时，攻击力提升66点。",
+  "skillName": "强力攻击",
+  "time": "【周二/五/日】",
+  "title": "弓",
+  "type": "武器"
+}

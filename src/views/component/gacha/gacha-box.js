@@ -86,15 +86,15 @@ export default defineComponent({
         : propsValue.isStat
         ? "「" + propsValue.data.count + "次」"
         : "";
-    const iconType = propsValue.data.item_type === "角色" ? "element" : "type";
+    const iconPath = propsValue.data.item_type === "角色" ? "element/icon" : "weapon/type";
     // 临时用来处理图像格式不同的问题
     const extName = imageType === "character" ? "webp" : "png";
     const item_props = {
       item_type: imageType,
-      image_url: encodeURI(`http://localhost:9934/resources/Version2/wish/${imageType}/${imageName}.${extName}`),
+      image_url: encodeURI(`http://localhost:9934/resources/${imageType}/gacha/${imageName}.${extName}`),
       item_rarity: itemRarity,
-      item_type_image: encodeURI(`http://localhost:9934/resources/gacha/${iconType}/${itemTypeImage || "风元素"}.png`),
-      item_rarity_image: encodeURI(`http://localhost:9934/resources/gacha/items/${itemRarity}Star.png`),
+      item_type_image: encodeURI(`http://localhost:9934/resources/${iconPath}/${itemTypeImage || "风元素"}.png`),
+      item_rarity_image: encodeURI(`http://localhost:9934/resources/etc/image/${itemRarity}Star.png`),
       item_label: itemLabel,
     };
 

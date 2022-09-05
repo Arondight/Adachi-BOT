@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["自在松石碎屑", "自在松石断片", "自在松石块", "自在松石", "未熟之玉"],
+  "baseATK": 349.20043780000003,
+  "birthday": "4月17日",
+  "constellationName": "金翅鹏王座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>的可使用次数增加1次。",
+    "处于队伍后台时，魈自己的元素充能效率提高25%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "魈的生命值低于50%时，获得100%防御力提升。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "在<span class=\"desc-number recolor\">元素爆发</span>状态下，下落攻击命中至少2个敌人时，<span class=\"desc-number recolor\">元素战技</span>立刻获得1次可使用次数，并且在接下来1秒内，可以无视冷却时间施放元素战技。"
+  ],
+  "cvCN": "kinsen",
+  "cvJP": "松冈祯丞",
+  "element": "风元素",
+  "id": 10000026,
+  "introduce": "守护璃月的仙人，「夜叉」。美号「降魔大圣」，妙称「护法夜叉大将」。",
+  "levelUpMaterials": ["清心", "史莱姆凝液", "史莱姆清", "史莱姆原浆"],
+  "mainStat": "暴击率",
+  "mainValue": "19.20%",
+  "name": "魈",
+  "passiveDesc": "队伍中自己的角色攀爬消耗的体力降低20%。\\n无法与效果完全相同的固有天赋叠加。",
+  "passiveTitle": "神通·空中自在法",
+  "rarity": 5,
+  "talentMaterials": ["「繁荣」的教导", "「繁荣」的指引", "「繁荣」的哲学", "武炼之魂·孤影"],
+  "time": "【周一/四/日】",
+  "title": "护法夜叉",
+  "type": "角色"
+}

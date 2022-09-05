@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["最胜紫晶碎屑", "最胜紫晶断片", "最胜紫晶块", "最胜紫晶", "龙嗣伪鳍"],
+  "baseATK": 339.6332956,
+  "birthday": "6月27日",
+  "constellationName": "仙狐座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素爆发</span>每引发一次天狐霆雷，都会为八重神子自己恢复8点元素能量。",
+    "<span class=\"desc-number recolor\">杀生樱</span>创造时的初始位阶提升至贰阶，位阶上限提升至肆阶，攻击范围提升60%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">杀生樱</span>的落雷命中敌人后，队伍中附近的所有角色获得20%<span class=\"desc-number recolor\">雷元素伤害加成</span>，持续5秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">杀生樱</span>在攻击时无视敌人60%的防御力。"
+  ],
+  "cvCN": "杜冥鸦",
+  "cvJP": "佐仓绫音",
+  "element": "雷元素",
+  "id": 10000058,
+  "introduce": "鸣神大社的宫司大人，兼任「八重堂」总编。艳丽动人的外表下藏着令人意想不到的聪慧与狡黠。",
+  "levelUpMaterials": ["海灵芝", "破旧的刀镡", "影打刀镡", "名刀镡"],
+  "mainStat": "暴击率",
+  "mainValue": "19.20%",
+  "name": "八重神子",
+  "passiveDesc": "合成角色天赋素材时，有25%概率额外产生一份地区相同的其他随机天赋素材，等阶与合成所消耗的素材相同。",
+  "passiveTitle": "野狐说禅",
+  "rarity": 5,
+  "talentMaterials": ["「天光」的教导", "「天光」的指引", "「天光」的哲学", "万劫之真意"],
+  "time": "【周三/六/日】",
+  "title": "浮世笑百姿",
+  "type": "角色"
+}

@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["涤净青金碎屑", "涤净青金断片", "涤净青金块", "涤净青金", "导光四面体"],
+  "baseATK": 212.397192,
+  "birthday": "1月1日",
+  "constellationName": "箭盾座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素爆发</span>的赤冕祝祷状态持续时间延长3秒。",
+    "<span class=\"desc-number recolor\">元素战技</span>命中敌人时，坎蒂丝的生命值上限提升20%，持续15秒。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "缩短<span class=\"desc-number recolor\">元素战技</span>长按的冷却时间，使其降低至与点按的冷却时间相同。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "处于<span class=\"desc-number recolor\">元素爆发</span>的赤冕祝祷状态下的当前场上角色（不包括坎蒂丝自己），在普通攻击对敌人造成元素伤害时，将释放衍潮冲击，造成相当于坎蒂丝生命值上限15%<span class=\"desc-number recolor\">水元素范围伤害</span>。该效果每2.3秒至多触发一次，造成的伤害视为元素爆发伤害。"
+  ],
+  "cvCN": "未知",
+  "cvJP": "未知",
+  "element": "水元素",
+  "id": 10000072,
+  "introduce": "？？？",
+  "levelUpMaterials": ["赤念果", "褪色红绸", "镶边红绸", "织金红绸"],
+  "mainStat": "生命值",
+  "mainValue": "24.00%",
+  "name": "坎蒂丝",
+  "passiveDesc": "队伍中自己的角色攀爬消耗的体力降低20%。\\n无法与效果完全相同的固有天赋叠加。",
+  "passiveTitle": "向拂晓的初光",
+  "rarity": 4,
+  "talentMaterials": ["「诤言」的教导", "「诤言」的指引", "「诤言」的哲学", "祸神之禊泪"],
+  "time": "【周一/四/日】",
+  "title": "浮金的誓愿",
+  "type": "角色"
+}

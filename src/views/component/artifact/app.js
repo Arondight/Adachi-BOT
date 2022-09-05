@@ -9,7 +9,7 @@ const template = html`<p class="title absolute-position">{{artifactData.name}}</
     <p class="main-stat">{{artifactData.mainStatText}}</p>
     <p class="main-value">{{artifactData.mainValue}}</p>
   </div>
-  <img class="rarity absolute-position" src="http://localhost:9934/resources/item/rarity.png" />
+  <img class="rarity absolute-position" src="http://localhost:9934/resources/etc/image/rarity.png" />
   <p class="level absolute-position">+{{artifactData.level}}</p>
   <ul class="container-sub-properties absolute-position">
     <li class="sub-property" v-for="property in artifactData.subProps">{{property.name}}+{{property.data}}</li>
@@ -20,7 +20,7 @@ export default defineComponent({
   template: template,
   setup() {
     function getLink(id, slotPosition) {
-      return "http://localhost:9934/resources/Version2/artifact/" + id + "/" + slotPosition + ".png";
+      return "http://localhost:9934/resources/artifact/icon/" + id + "/" + slotPosition + ".png";
     }
 
     const params = getParams(window.location.href);
