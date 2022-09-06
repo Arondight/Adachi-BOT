@@ -60,6 +60,7 @@ const m_CAO = Object.freeze("草元素");
 const m_CAO_EN = Object.freeze("Grass");
 const m_AMBR_TOP = Object.freeze("https://api.ambr.top");
 const m_HONEY_HUNTER_WORLD_COM = Object.freeze("https://genshin.honeyhunterworld.com");
+const m_PROJECT_CELESTIA_COM = Object.freeze("https://www.projectcelestia.com");
 const m_API_V2 = Object.freeze(`${m_AMBR_TOP}/v2`);
 const m_API = Object.freeze({
   character: {
@@ -769,22 +770,11 @@ async function getCharRes(info) {
   if (!fs.existsSync(file)) {
     try {
       const gachaId = String(info.id).slice(-3);
-      const gachaImg = Buffer.from(
-        await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`)
-      );
-      let isImg = true;
+      const gachaImg = await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`);
 
-      try {
-        await sharp(gachaImg).stats();
-      } catch (e) {
-        isImg = false;
-      }
-
-      if (true === isImg) {
-        process.stdout.write(`写入 ${file} ... `);
-        fs.writeFileSync(file, gachaImg);
-        console.log("成功");
-      }
+      process.stdout.write(`写入 ${file} ... `);
+      await sharp(Buffer.from(gachaImg)).resize({ fit: sharp.fit.fill, width: 320, heigth: 1024 }).toFile(file);
+      console.log("成功");
     } catch (e) {
       console.log("失败");
     }
@@ -816,20 +806,20 @@ async function getWeaponRes(info) {
 
   if (!fs.existsSync(file)) {
     try {
-      const gachaImg = Buffer.from(await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/i_n${item.id}_gacha_icon.webp`));
-      let isImg = true;
+      const gachaImg = await getBinBuffer(
+        `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`
+      );
 
-      try {
-        await sharp(gachaImg).stats();
-      } catch (e) {
-        isImg = false;
+      process.stdout.write(`写入 ${file} ... `);
+      const image = sharp(Buffer.from(gachaImg));
+      const { width, height } = await image.metadata();
+
+      if (width > 320) {
+        await image.extract({ left: (width - 320) / 2, top: 0, width: 320, height });
       }
 
-      if (true === isImg) {
-        process.stdout.write(`写入 ${file} ... `);
-        fs.writeFileSync(file, Buffer.from(gachaImg));
-        console.log("成功");
-      }
+      await image.resize({ fit: sharp.fit.fill, width: 320, heigth: 1024 }).toFile(file);
+      console.log("成功");
     } catch (e) {
       console.log("失败");
     }
