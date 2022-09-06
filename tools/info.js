@@ -773,7 +773,7 @@ async function getCharRes(info) {
       const gachaImg = await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`);
 
       process.stdout.write(`写入 ${file} ... `);
-      await sharp(Buffer.from(gachaImg)).resize({ fit: sharp.fit.fill, width: 320, heigth: 1024 }).toFile(file);
+      await sharp(Buffer.from(gachaImg)).resize({ fit: sharp.fit.fill, width: 320, height: 1024 }).toFile(file);
       console.log("成功");
     } catch (e) {
       console.log("失败");
@@ -818,7 +818,7 @@ async function getWeaponRes(info) {
         await image.extract({ left: (width - 320) / 2, top: 0, width: 320, height });
       }
 
-      await image.resize({ fit: sharp.fit.fill, width: 320, heigth: 1024 }).toFile(file);
+      await image.resize({ fit: sharp.fit.fill, width: 320, height: 1024 }).toFile(file);
       console.log("成功");
     } catch (e) {
       console.log("失败");
