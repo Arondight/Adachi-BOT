@@ -41,7 +41,7 @@
     "tool-db": "node ./tools/db.js",
     "tool-material": "node ./tools/material.js",
     "tool-resize": "node ./tools/resize.js",
-    "tool-resources": "node tools/resources.js",
+    "tool-resources": "node ./tools/resources.js",
     "tool-status": "node ./tools/status.js",
     "tool-view": "node ./tools/view.js",
     "tool-webp": "node ./tools/webp.js",
