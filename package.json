@@ -85,7 +85,7 @@
     "eslint-plugin-promise": "6.0.1",
     "eslint-plugin-sort-exports": "0.7.0",
     "eslint-plugin-vue": "9.4.0",
-    "eslint-plugin-yml": "1.1.0",
+    "eslint-plugin-yml": "1.2.0",
     "npm-check-updates": "16.1.0",
     "postcss": "^8.4.16",
     "prettier": "2.7.1",
