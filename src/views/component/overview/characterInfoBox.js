@@ -5,7 +5,7 @@ const { defineComponent, unref, inject } = window.Vue;
 const constellTemplate = html`<div v-if="constellContent !== ''" class="info-title constellation-order">
     {{constellCounts}}
   </div>
-  <div v-if="constellContent !== ''" class="info-content constellations">{{constellContent}}</div>`;
+  <div v-if="constellContent !== ''" class="info-content constellations" v-html="getPlainText(constellContent)"></div>`;
 const constellBox = defineComponent({
   name: "constellBox",
   props: {
@@ -13,6 +13,10 @@ const constellBox = defineComponent({
     constellContent: String,
   },
   template: constellTemplate,
+  methods: {
+    getPlainText: (htmlString) =>
+      htmlString.replaceAll(/<[^>]*>|<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ""),
+  },
 });
 
 const template = html`<div class="container-overview-infos">
@@ -35,11 +39,11 @@ const template = html`<div class="container-overview-infos">
     <p class="info-title"><span>稀</span><span>有</span><span>度</span></p>
     <p class="info-content">{{ charInfo.rarity }}</p>
     <p class="info-title"><span>基</span><span>础</span><span>攻</span><span>击</span></p>
-    <p class="info-content baseATK">{{ charInfo.baseATK }}</p>
+    <p class="info-content baseATK">{{ parseInt(charInfo.baseATK) }}</p>
     <p class="info-title"><span>突</span><span>破</span><span>属</span><span>性</span></p>
     <p class="info-content">{{ charInfo.ascensionProp }}</p>
     <p class="info-title"><span>突</span><span>破</span><span>加</span><span>成</span></p>
-    <p class="info-content">{{ charInfo.ascensionValue }}</p>
+    <p class="info-content">{{ parseValue(charInfo.ascensionValue) }}</p>
   </div>
   <div class="container-introduction">
     <div class="container-intro-info">
@@ -166,6 +170,14 @@ export default defineComponent({
       return rarity ? rarities[rarity] : "four-star";
     };
 
+    function parseValue(valueString) {
+      if (valueString.endsWith("%")) {
+        return parseFloat(valueString.replace(/%/g, "")).toFixed(1) + "%";
+      } else {
+        return parseInt(valueString);
+      }
+    }
+
     return {
       decoStripContent,
       charTitle,
@@ -174,6 +186,7 @@ export default defineComponent({
       charInfo,
       showPassive,
       getMaterialRarityBackground,
+      parseValue,
     };
   },
 });

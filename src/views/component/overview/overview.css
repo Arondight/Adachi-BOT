@@ -47,31 +47,31 @@ body,
   width: 1100px;
 }
 
-.character-anemo {
+.character-风元素 {
   background: linear-gradient(#a5d6c7, #629988);
 }
 
-.character-cryo {
+.character-冰元素 {
   background: linear-gradient(#a3d2e6, #5c8e9c);
 }
 
-.character-dendro {
+.character-草元素 {
   background: linear-gradient(#b5cfa3, #7a855b);
 }
 
-.character-electro {
+.character-雷元素 {
   background: linear-gradient(#cfb0d6, #5b6282);
 }
 
-.character-geo {
+.character-岩元素 {
   background: linear-gradient(#e8d29b, #93666d);
 }
 
-.character-hydro {
+.character-水元素 {
   background: linear-gradient(#7eb6de, #5f6999);
 }
 
-.character-pyro {
+.character-火元素 {
   background: linear-gradient(#f2d09d, #a3615a);
 }
 

@@ -29,7 +29,6 @@
       fetch("/resources/etc/doc/material.json")
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           Vue.createApp(App).provide("materialMap", data).mount("#app");
         });
     </script>
