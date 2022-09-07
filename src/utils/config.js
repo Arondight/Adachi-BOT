@@ -10,6 +10,18 @@
  * ==========================================================================
  *
  * ==========================================================================
+ * configdir
+ * --------------------------------------------------------------------------
+ * '/path/to/Adachi-BOT/config'
+ * ==========================================================================
+ *
+ * ==========================================================================
+ * configdefdir
+ * --------------------------------------------------------------------------
+ * '/path/to/Adachi-BOT/config_defaults'
+ * ==========================================================================
+ *
+ * ==========================================================================
  * datadir
  * --------------------------------------------------------------------------
  * '/path/to/Adachi-BOT/data'
@@ -22,15 +34,9 @@
  * ==========================================================================
  *
  * ==========================================================================
- * configdir
+ * resdir
  * --------------------------------------------------------------------------
- * '/path/to/Adachi-BOT/config'
- * ==========================================================================
- *
- * ==========================================================================
- * configdefdir
- * --------------------------------------------------------------------------
- * '/path/to/Adachi-BOT/config_defaults'
+ * '/path/to/Adachi-BOT/resources'
  * ==========================================================================
  *
  * ==========================================================================
@@ -502,17 +508,19 @@ import { loadYML } from "#utils/yaml";
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-global.rootdir = path.resolve(__dirname, "..", "..");
-global.datadir = path.resolve(global.rootdir, "data");
-global.oicqdir = global.datadir;
-global.configdir = path.resolve(global.rootdir, "config");
-global.configdefdir = path.resolve(global.rootdir, "config_defaults");
+global.rootdir = Object.freeze(path.resolve(__dirname, "..", ".."));
 
-global.innerAuthName = { reply: "响应消息", mysNews: "米游社新闻推送", qa: "问答权限" };
+global.configdefdir = Object.freeze(path.resolve(global.rootdir, "config_defaults"));
+global.configdir = Object.freeze(path.resolve(global.rootdir, "config"));
+global.datadir = Object.freeze(path.resolve(global.rootdir, "data"));
+global.oicqdir = global.datadir;
+global.resdir = Object.freeze(path.resolve(global.rootdir, "resources"));
+
+global.innerAuthName = Object.freeze({ reply: "响应消息", mysNews: "米游社新闻推送", qa: "问答权限" });
 
 global.all = {};
 global.artifacts = {};
-global.authority = {
+global.authority = Object.freeze({
   setting: {
     artifact_auth: ["artifacts", "strengthen", "dungeons"],
     character_overview_auth: ["info", "material", "weapon", "talent", "weekly"],
@@ -526,9 +534,9 @@ global.authority = {
     rating_auth: ["rating"],
     reply_auth: [global.innerAuthName.reply],
   },
-};
+});
 global.command = {};
-global.config = { mysNewsTypeAll: ["announcement", "event", "information"] };
+global.config = Object.freeze({ mysNewsTypeAll: ["announcement", "event", "information"] });
 global.cookies = [];
 global.eggs = {};
 global.greeting = {};
@@ -536,7 +544,7 @@ global.info = {};
 global.master = {};
 global.menu = {};
 global.names = {};
-global.package = JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json")));
+global.package = Object.freeze(JSON.parse(fs.readFileSync(path.resolve(global.rootdir, "package.json"))));
 global.prophecy = {};
 global.qa = {};
 
