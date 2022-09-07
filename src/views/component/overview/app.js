@@ -3,10 +3,10 @@ import { getParams, html } from "../common/utils.js";
 const { defineComponent, defineAsyncComponent } = window.Vue;
 
 const template = html`<div class="background" :class="backgroundStyle">
-    <img class="svg" :src="elementSvgSrc" v-if="'角色' === itemType" />
-    <characterInfoBox v-if="'角色' === itemType" :data="params" />
-    <weaponInfoBox v-if="'武器' === itemType" :data="params" />
-    <div class="credit">Created by Adachi-BOT</div>
+  <img class="svg" :src="elementSvgSrc" v-if="'角色' === itemType" />
+  <characterInfoBox v-if="'角色' === itemType" :data="params" />
+  <weaponInfoBox v-if="'武器' === itemType" :data="params" />
+  <div class="credit">Created by Adachi-BOT</div>
 </div>`;
 const characterInfoBox = defineAsyncComponent(() => import("./characterInfoBox.js"));
 const weaponInfoBox = defineAsyncComponent(() => import("./weaponInfoBox.js"));
