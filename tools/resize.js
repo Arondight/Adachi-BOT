@@ -8,7 +8,7 @@ import { hideBin } from "yargs/helpers";
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
     .usage("-f <string> -w <string> -h <string>")
-    .example("-f ./resources/character/gacha/刻晴.webp -w 320 -h 1024")
+    .example("-f ./resources/character/gacha/刻晴.webp -w 320 -h 1024 -c")
     .help("help")
     .version(false)
     .options({
@@ -40,9 +40,16 @@ import { hideBin } from "yargs/helpers";
         requiresArg: true,
         required: false,
       },
+      crop: {
+        alias: "c",
+        type: "boolean",
+        description: "如果长或宽小于原图则首先裁剪",
+        requiresArg: false,
+        required: false,
+      },
     });
 
-  const { file } = argv;
+  const { file, crop } = argv;
 
   if (!fs.existsSync(file)) {
     console.error(`错误：文件 ${file} 不存在。`);
@@ -57,14 +64,16 @@ import { hideBin } from "yargs/helpers";
   const heightTo = argv.height || height;
 
   // 裁剪
-  if (widthTo < width) {
-    console.log(`width: ${width} -> ${widthTo}`);
-    await image.extract({ left: (width - widthTo) / 2, top: 0, width: widthTo, height });
-  }
+  if (true === crop) {
+    if (widthTo < width) {
+      console.log(`width: ${width} -> ${widthTo}`);
+      await image.extract({ left: (width - widthTo) / 2, top: 0, width: widthTo, height });
+    }
 
-  if (heightTo < height) {
-    console.log(`heigth: ${height} -> ${heightTo}`);
-    await image.extract({ left: 0, top: (height - heightTo) / 2, width, height: heightTo });
+    if (heightTo < height) {
+      console.log(`heigth: ${height} -> ${heightTo}`);
+      await image.extract({ left: 0, top: (height - heightTo) / 2, width, height: heightTo });
+    }
   }
 
   // 缩放

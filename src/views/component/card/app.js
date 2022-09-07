@@ -173,7 +173,7 @@ export default defineComponent({
     const nameCardUrl = encodeURI(`http://localhost:9934/resources/character/namecard/${name}.webp`);
     const nameCard = `linear-gradient(hsla(0, 0%, 100%, 0) 0%, #fff 100%), url(${nameCardUrl})`;
     const character = targetHasCostume
-      ? encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.png`)
+      ? encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.webp`)
       : encodeURI(`http://localhost:9934/resources/character/icon/${name}.webp`);
     const namecardAvatar = "" !== qqid ? `https://q1.qlogo.cn/g?b=qq&s=5&nk=${qqid}` : character;
     const namecardAvatarBackupImg = encodeURI(`http://localhost:9934/resources/character/icon/${name}.webp`);

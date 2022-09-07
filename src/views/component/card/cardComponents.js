@@ -61,7 +61,7 @@ const CharacterBox = defineComponent({
   },
   setup(props) {
     function getCostume(costumeName) {
-      return encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.png`);
+      return encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.webp`);
     }
 
     const propsValue = unref(props);
