@@ -105,31 +105,28 @@ async function run() {
         bot.on(e, () => resolve());
       }
 
-      if ("string" === typeof bot.account.password) {
-        bot.on("system.login.slider", () =>
-          process.stdin.once("data", (input) => {
-            bot.submitSlider(input.toString());
-            resolve();
-          })
-        );
-        bot.on("system.login.device", () => {
-          bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
-          bot.sendSmsCode();
-          process.stdin.once("data", (input) => {
-            bot.submitSmsCode(input.toString());
-            resolve();
-          });
+      bot.on("system.login.device", () => {
+        bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
+        bot.sendSmsCode();
+        process.stdin.once("data", (input) => {
+          bot.submitSmsCode(input.toString());
+          resolve();
         });
-      } else {
-        bot.on("system.login.qrcode", () => {
-          bot.logger.mark("手机扫码完成后按下回车键继续。");
-          process.stdin.once("data", () => {
-            bot.login();
-            resolve();
-          });
+      });
+      bot.on("system.login.slider", () => {
+        bot.logger.mark("输入滑动验证码请求中的 ticket 后按下回车键继续。");
+        process.stdin.once("data", (input) => {
+          bot.submitSlider(input.toString());
+          resolve();
         });
-      }
-
+      });
+      bot.on("system.login.qrcode", () => {
+        bot.logger.mark("手机扫码完成后按下回车键继续。");
+        process.stdin.once("data", () => {
+          bot.login();
+          resolve();
+        });
+      });
       bot.login(bot.account.password);
     });
   }
