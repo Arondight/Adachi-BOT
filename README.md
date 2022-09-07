@@ -26,7 +26,7 @@
 >
 > 1. `Update JavaScript modules in dev branch`
 > 2. `Update Node.js modules in dev branch`
-> 3. `Update resources in dev branch`
+> 3. `Update material.json in dev branch`
 
 ## 使用
 
@@ -55,7 +55,6 @@ sudo --preserve-env=PATH env n lts
 
 ```sh
 git clone --depth 1 https://github.com/Arondight/Adachi-BOT.git
-cd ./Adachi-BOT/
 ```
 
 <details>
@@ -71,7 +70,7 @@ git clone --depth 1 https://gitcode.net/iSpeller/Adachi-BOT.git
 
 #### 安装依赖模块
 
-你需要使用 `npm` 命令安装所需的依赖模块，但是因为 [Puppeteer](https://github.com/puppeteer/puppeteer.git) 在安装过程中具有特殊性，所以整个安装过程有了两种思路，你可以在下面的安装方法中任选其一。
+你需要使用 `npm` 命令安装所需的依赖模块，但是因为 [Puppeteer](https://github.com/puppeteer/puppeteer.git) 在安装过程中具有特殊性，所以整个安装过程有了两种思路，进入本项目所在的目录 `./Adachi-BOT/` 后，你可以在下面的安装方法中任选其一。
 
 ##### 其一，（推荐）使用系统自带的 Chromium
 
@@ -125,7 +124,7 @@ npm_config_proxy=http://<代理地址>:<代理端口> npm run install-prod
 
 ### 配置
 
-首次配置，进入本项目所在的目录 `./Adachi-BOT/`，执行以下命令从 `./config_defaults/` 下复制默认配置文件 `setting.yml` 和 `cookies.yml` 到 `./config/` 中。
+首次配置，进入本项目所在的目录 `./Adachi-BOT/` ，执行以下命令从 `./config_defaults/` 下复制默认配置文件 `setting.yml` 和 `cookies.yml` 到 `./config/` 中。
 
 ```sh
 cp -iv ./config_defaults/{setting,cookies}.yml ./config/
