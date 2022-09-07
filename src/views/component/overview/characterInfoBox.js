@@ -5,7 +5,7 @@ const { defineComponent, unref, inject } = window.Vue;
 const constellTemplate = html`<div v-if="constellContent !== ''" class="info-title constellation-order">
     {{constellCounts}}
   </div>
-  <div v-if="constellContent !== ''" class="info-content constellations" v-html="getPlainText(constellContent)"></div>`;
+  <div v-if="constellContent !== ''" class="info-content constellations">{{ getPlainText(constellContent) }}</div>`;
 const constellBox = defineComponent({
   name: "constellBox",
   props: {
