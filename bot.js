@@ -113,9 +113,10 @@ async function run() {
           })
         );
         bot.on("system.login.device", () => {
-          bot.logger.info("在浏览器中打开网址，手机扫码完成后按下回车键继续。");
-          process.stdin.once("data", () => {
-            bot.login();
+          bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
+          bot.sendSmsCode();
+          process.stdin.once("data", (input) => {
+            bot.submitSmsCode(input.toString());
             resolve();
           });
         });
