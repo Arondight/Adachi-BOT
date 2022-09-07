@@ -520,7 +520,7 @@ global.innerAuthName = Object.freeze({ reply: "响应消息", mysNews: "米游�
 
 global.all = {};
 global.artifacts = {};
-global.authority = Object.freeze({
+global.authority = {
   setting: {
     artifact_auth: ["artifacts", "strengthen", "dungeons"],
     character_overview_auth: ["info", "material", "weapon", "talent", "weekly"],
@@ -534,7 +534,7 @@ global.authority = Object.freeze({
     rating_auth: ["rating"],
     reply_auth: [global.innerAuthName.reply],
   },
-});
+};
 global.command = {};
 global.config = Object.freeze({ mysNewsTypeAll: ["announcement", "event", "information"] });
 global.cookies = [];
