@@ -38,7 +38,7 @@ settings:
       - 谁是最(好|棒)的牛杂师傅
     ignoreCase: false
     type: image
-    reply: ../resources/Version2/thumb/character/刻晴.png
+    reply: ../resources/character/picture/10000042.png
   -
     match:
       - Adachi-BOT\s*(上游)?有?更新了?吗
