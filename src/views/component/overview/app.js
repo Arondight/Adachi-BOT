@@ -36,7 +36,7 @@ export default defineComponent({
       const charElementType = params.element || "风元素";
 
       backgroundStyle = `character-${charElementType}`;
-      elementSvgSrc = `http://localhost:9934/resources/elements/picture/${charElementType}.svg`;
+      elementSvgSrc = `http://localhost:9934/resources/element/picture/${charElementType}.svg`;
     }
 
     return {
