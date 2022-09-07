@@ -161,8 +161,10 @@ export default defineComponent({
   },
   setup() {
     const params = getParams(window.location.href);
-    const charElementType = toReadableElem(params.data.element.toLowerCase() || "anemo");
-    const elementSvgSrc = encodeURI(`http://localhost:9934/resources/element/picture/${charElementType}.svg`);
+    const charElementType = params.data.element.toLowerCase() || "anemo";
+    const elementSvgSrc = encodeURI(
+      `http://localhost:9934/resources/element/picture/${toReadableElem(charElementType)}.svg`
+    );
     const uid = params.uid;
     const character = params.data || {};
     const costumes = character.costumes || [];

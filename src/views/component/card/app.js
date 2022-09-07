@@ -169,10 +169,8 @@ export default defineComponent({
     const costumeName = targetHasCostume ? params.avatars[randomAvatarOrder]["costumes"][0]["name"] : "";
     const qqid = params.qqid || "";
     const charactersMap = params.character;
-    const ye = { 10000005: "空", 10000007: "荧" };
-    const name = ye[target.id] || target.name;
-    const id = 10000007 === target.id ? 10000005 : target.id; // 妹妹名片重定向至哥哥名片
-    const nameCardUrl = encodeURI(`http://localhost:9934/resources/character/namecard/${id}.webp`);
+    const name = target.name;
+    const nameCardUrl = encodeURI(`http://localhost:9934/resources/character/namecard/${name}.webp`);
     const nameCard = `linear-gradient(hsla(0, 0%, 100%, 0) 0%, #fff 100%), url(${nameCardUrl})`;
     const character = targetHasCostume
       ? encodeURI(`http://localhost:9934/resources/costume/icon/${costumeName}.png`)
