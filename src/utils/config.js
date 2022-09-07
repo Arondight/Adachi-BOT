@@ -536,7 +536,7 @@ global.authority = {
   },
 };
 global.command = {};
-global.config = Object.freeze({ mysNewsTypeAll: ["announcement", "event", "information"] });
+global.config = { mysNewsTypeAll: ["announcement", "event", "information"] };
 global.cookies = [];
 global.eggs = {};
 global.greeting = {};
