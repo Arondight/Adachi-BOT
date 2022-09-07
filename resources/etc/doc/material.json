@@ -436,6 +436,13 @@
       "beta": false
     },
     {
+      "id": 100096,
+      "name": "秃秃豆",
+      "type": "食材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
       "id": 100584,
       "name": "深邃之血",
       "type": "任务道具",
