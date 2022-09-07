@@ -238,7 +238,7 @@ async function say(
         }
         case "private": {
           if (isFriend(bot, id)) {
-            bot.sendPrivateMsg(id, fromCqcode(msg));
+            await bot.sendPrivateMsg(id, fromCqcode(msg));
             return;
           }
 
@@ -254,7 +254,7 @@ async function say(
             throw `未找到陌生人 ${id} 所在的群组`;
           }
 
-          bot.sendTempMsg(gid, id, fromCqcode(msg));
+          await bot.sendTempMsg(gid, id, fromCqcode(msg));
           break;
         }
       }
