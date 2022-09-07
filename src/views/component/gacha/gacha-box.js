@@ -88,10 +88,9 @@ export default defineComponent({
         : "";
     const iconPath = propsValue.data.item_type === "角色" ? "element/icon" : "weapon/type";
     // 临时用来处理图像格式不同的问题
-    const extName = imageType === "character" ? "webp" : "png";
     const item_props = {
       item_type: imageType,
-      image_url: encodeURI(`http://localhost:9934/resources/${imageType}/gacha/${imageName}.${extName}`),
+      image_url: encodeURI(`http://localhost:9934/resources/${imageType}/gacha/${imageName}.webp`),
       item_rarity: itemRarity,
       item_type_image: encodeURI(`http://localhost:9934/resources/${iconPath}/${itemTypeImage || "风元素"}.png`),
       item_rarity_image: encodeURI(`http://localhost:9934/resources/etc/image/${itemRarity}Star.png`),
