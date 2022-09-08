@@ -59,7 +59,7 @@ function parse(types, items) {
   process.stdout.write(`写入 ${file} ...\t`);
 
   try {
-    fs.writeFileSync(file, JSON.stringify(data, null, 2));
+    fs.writeFileSync(file, JSON.stringify(data, null, 2) + "\n");
   } catch (e) {
     console.log("失败");
     return -1;
