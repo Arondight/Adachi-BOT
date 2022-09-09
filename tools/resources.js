@@ -2,11 +2,11 @@ import fs from "fs";
 import lodash from "lodash";
 import fetch from "node-fetch";
 import path from "path";
-import sharp from "sharp";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import "#utils/config";
 import { mkdir } from "#utils/file";
+import { imgMeta, toWebp, toWebpFile, webpOpt, webpPos } from "#utils/sharp";
 
 ("use strict");
 
@@ -16,12 +16,6 @@ const m_DIR = Object.freeze({
   doc: mkdir(path.resolve(m_RESDIR, "info", "doc")),
   material: mkdir(path.resolve(m_RESDIR, "material")),
   weapon: mkdir(path.resolve(m_RESDIR, "weapon")),
-});
-const m_WEBP_OPTS = Object.freeze({
-  alphaQuality: 95, // 透明通道压缩质量 (max 100)
-  effort: 6, // 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
-  quality: 90, // 压缩质量，偏重质量 90 (max 100)
-  smartSubsample: true, // 自动 YUV 4:2:0 子采样
 });
 const m_NICK_AMBR_TO_HONEY = Object.freeze({
   amber: "ambor",
@@ -94,7 +88,30 @@ const mData = {
   },
 };
 
-async function pngUrlToWebpFile(url, file) {
+async function imgToWebpFile(
+  buffer,
+  file,
+  width = { resize: webpOpt.NONE, size: 0 },
+  height = { resize: webpOpt.NONE, size: 0 },
+  position = webpPos.CENTER
+) {
+  process.stdout.write(`转换 ${file} ...\t`);
+
+  try {
+    await toWebpFile(buffer, file, width, height, position);
+    console.log("成功");
+  } catch (e) {
+    console.log("失败");
+  }
+}
+
+async function remoteImgToWebpFile(
+  url,
+  file,
+  width = { resize: webpOpt.NONE, size: 0 },
+  height = { resize: webpOpt.NONE, size: 0 },
+  position = webpPos.CENTER
+) {
   let buffer;
 
   try {
@@ -103,14 +120,7 @@ async function pngUrlToWebpFile(url, file) {
     return;
   }
 
-  process.stdout.write(`转换 ${file} ...\t`);
-
-  try {
-    await sharp(buffer).webp(m_WEBP_OPTS).toFile(file);
-    console.log("成功");
-  } catch (e) {
-    console.log("失败");
-  }
+  return imgToWebpFile(buffer, file, width, height, position);
 }
 
 function tagColorToSpan(text) {
@@ -718,8 +728,49 @@ async function getMaterialImg(name) {
   const file = path.resolve(icondir, `${name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`, file);
+    await remoteImgToWebpFile(
+      `${m_AMBR_TOP}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`,
+      file,
+      { resize: webpOpt.RESIZE, size: 256 },
+      { resize: webpOpt.RESIZE, size: 256 },
+      webpPos.CENTER
+    );
   }
+}
+
+async function getGachaImg(url, file, position = webpPos.CENTER) {
+  let gachaImg = await getBinBuffer(url);
+  const { width, height } = await imgMeta(gachaImg);
+  const [widthTo, heightTo] = [320, 1024];
+
+  if (width > widthTo || height > heightTo) {
+    const [xs, ys] = [widthTo / width, heightTo / height];
+
+    let [x, y] = [widthTo, heightTo];
+
+    if (xs < ys) {
+      y = height * xs;
+    }
+
+    if (ys < xs) {
+      x = width * ys;
+    }
+
+    gachaImg = await toWebp(
+      gachaImg,
+      { resize: webpOpt.RESIZE, size: x },
+      { resize: webpOpt.RESIZE, size: y },
+      webpPos.CENTER
+    );
+  }
+
+  await imgToWebpFile(
+    gachaImg,
+    file,
+    { resize: webpOpt.CROP, size: 320 },
+    { resize: webpOpt.CROP, size: 1024 },
+    position
+  );
 }
 
 async function getCharRes(info) {
@@ -733,7 +784,13 @@ async function getCharRes(info) {
   file = path.resolve(icondir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/UI_AvatarIcon_${item.icon}.png`, file);
+    await remoteImgToWebpFile(
+      `${m_AMBR_TOP}/assets/UI/UI_AvatarIcon_${item.icon}.png`,
+      file,
+      { resize: webpOpt.RESIZE, size: 256 },
+      { resize: webpOpt.RESIZE, size: 256 },
+      webpPos.CENTER
+    );
   }
 
   // namecard
@@ -746,7 +803,13 @@ async function getCharRes(info) {
       icon = "Yae1";
     }
 
-    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${icon}_P.png`, file);
+    await remoteImgToWebpFile(
+      `${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${icon}_P.png`,
+      file,
+      { resize: webpOpt.RESIZE, size: 840 },
+      { resize: webpOpt.RESIZE, size: 400 },
+      webpPos.CENTER
+    );
   }
 
   // material
@@ -768,16 +831,9 @@ async function getCharRes(info) {
   file = path.resolve(gachadir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    try {
-      const gachaId = String(info.id).slice(-3);
-      const gachaImg = await getBinBuffer(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`);
+    const gachaId = String(info.id).slice(-3);
 
-      process.stdout.write(`写入 ${file} ... `);
-      await sharp(Buffer.from(gachaImg)).resize({ fit: sharp.fit.fill, width: 320, height: 1024 }).toFile(file);
-      console.log("成功");
-    } catch (e) {
-      console.log("失败");
-    }
+    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`, file, webpPos.BOTTOM);
   }
 }
 
@@ -791,7 +847,13 @@ async function getWeaponRes(info) {
   file = path.resolve(icondir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await pngUrlToWebpFile(`${m_AMBR_TOP}/assets/UI/UI_EquipIcon_${item.icon}.png`, file);
+    await remoteImgToWebpFile(
+      `${m_AMBR_TOP}/assets/UI/UI_EquipIcon_${item.icon}.png`,
+      file,
+      { resize: webpOpt.RESIZE, size: 256 },
+      { resize: webpOpt.RESIZE, size: 256 },
+      webpPos.CENTER
+    );
   }
 
   // material
@@ -805,24 +867,11 @@ async function getWeaponRes(info) {
   file = path.resolve(gachadir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    try {
-      const gachaImg = await getBinBuffer(
-        `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`
-      );
-
-      process.stdout.write(`写入 ${file} ... `);
-      const image = sharp(Buffer.from(gachaImg));
-      const { width, height } = await image.metadata();
-
-      if (width > 320) {
-        await image.extract({ left: (width - 320) / 2, top: 0, width: 320, height });
-      }
-
-      await image.resize({ fit: sharp.fit.fill, width: 320, height: 1024 }).toFile(file);
-      console.log("成功");
-    } catch (e) {
-      console.log("失败");
-    }
+    await getGachaImg(
+      `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`,
+      file,
+      webpPos.CENTER
+    );
   }
 }
 

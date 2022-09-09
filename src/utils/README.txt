@@ -80,6 +80,13 @@
 ./render.js
   render                  使用无头浏览器截图
 
+./sharp.js
+  imgMeta                 获得图片属性
+  toWebp                  Buffer 转换为 WebP
+  toWebpFile              Buffer 转换为 WebP 文件
+  webpOpt                 转换为 WebP 时的选项
+  webpPos                 转换为 WebP 时的基准位置
+
 ./tools.js
   filterWordsByRegex      根据正则过滤匹配的子串
   getRandomInt            返回随机整数
