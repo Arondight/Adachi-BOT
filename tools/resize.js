@@ -78,7 +78,13 @@ import { hideBin } from "yargs/helpers";
 
   // 缩放
   console.log(`size: ${width}x${height} -> ${widthTo}x${heightTo}`);
-  await image.resize({ fit: sharp.fit.outside, position: sharp.position.bottom, gravity: sharp.gravity.south, width: widthTo, height: heightTo });
+  await image.resize({
+    fit: sharp.fit.outside,
+    position: sharp.position.bottom,
+    gravity: sharp.gravity.south,
+    width: widthTo,
+    height: heightTo,
+  });
 
   // 写入
   await image.toFile(output);
