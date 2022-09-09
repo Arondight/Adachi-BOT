@@ -164,8 +164,8 @@ export default defineComponent({
     const hasLevelInfo = params.level !== -1;
     const hasPlayerNameInfo = params.nickname !== "";
     const randomAvatarOrder = Math.floor(Math.random() * params.avatars.length);
-    const target = params.avatars[randomAvatarOrder];
-    const targetHasCostume = params.avatars[randomAvatarOrder]["costumes"].length !== 0;
+    const target = params?.avatars.length > 0 ? params.avatars[randomAvatarOrder] : { costumes: [] };
+    const targetHasCostume = target?.costumes.length !== 0;
     const costumeName = targetHasCostume ? params.avatars[randomAvatarOrder]["costumes"][0]["name"] : "";
     const qqid = params.qqid || "";
     const charactersMap = params.character;
