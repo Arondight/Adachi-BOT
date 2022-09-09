@@ -912,7 +912,7 @@ function writeData(name, data = {}) {
     .options({
       name: {
         alias: "n",
-        type: "string",
+        type: "array",
         description: "名称",
         requiresArg: true,
         required: true,

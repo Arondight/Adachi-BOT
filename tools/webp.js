@@ -1,14 +1,14 @@
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { toWebpFile } from "#utils/sharp";
 
 ("use strict");
 
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
-    .usage("-f <string> -w <string> -h <string>")
+    .usage("-f <string>")
     .example("-f ./resources/character/gacha/刻晴.png")
     .help("help")
     .alias("help", "h")
@@ -19,30 +19,30 @@ import { hideBin } from "yargs/helpers";
         type: "array",
         description: "图片文件路径列表",
         requiresArg: true,
-        required: false,
+        required: true,
       },
     });
 
   const { filelist } = argv;
 
-  if (!Array.isArray(filelist)) {
-    console.error("错误：空图片文件路径列表。");
-    return -1;
-  }
-
-  for (const f of filelist) {
+  for (const f of filelist.filter((c) => "" !== c)) {
     if (!fs.existsSync(f)) {
       console.error(`警告：文件 ${f} 不存在。`);
       continue;
     }
 
-    const data = fs.readFileSync(f);
-    const image = sharp(Buffer.from(data));
     const pathInfo = path.parse(f);
     const output = path.resolve(pathInfo.dir, `${pathInfo.name}.webp`);
+    const data = fs.readFileSync(f);
 
-    console.log(`${path.basename(f)} -> ${path.basename(output)}`);
-    await image.webp({ lossless: true }).toFile(output);
+    process.stdout.write(`转换 ${output} ... `);
+
+    try {
+      await toWebpFile(data, output);
+      console.log("成功");
+    } catch (e) {
+      console.log("失败");
+    }
   }
 
   return 0;

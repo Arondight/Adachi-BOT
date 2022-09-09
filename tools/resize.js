@@ -7,8 +7,9 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
 
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
-    .usage("-f <string> -w <string> -h <string>")
+    .usage("-f <string> -w <number> -h <number>")
     .example("-f ./resources/character/gacha/刻晴.webp -w 320 -h 1024 -c -p bottom")
+    .example("-f ./resources/weapon/gacha/天空之刃.webp -w 320 -h 1024 -c -p center")
     .help("help")
     .version(false)
     .options({
@@ -17,7 +18,7 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
         type: "string",
         description: "图片文件路径",
         requiresArg: true,
-        required: false,
+        required: true,
       },
       output: {
         alias: "o",
@@ -52,7 +53,7 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
         type: "string",
         choices: ["center", "top", "left", "bottom", "right", "top_left", "top_right", "bottom_left", "bottom_right"],
         default: "center",
-        description: "此选项为裁剪和填充的基准",
+        description: "此选项为裁剪和填充的基准位置",
         requiresArg: true,
         required: false,
       },
