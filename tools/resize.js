@@ -71,7 +71,7 @@ import { hideBin } from "yargs/helpers";
     }
 
     if (heightTo < height) {
-      console.log(`heigth: ${height} -> ${heightTo}`);
+      console.log(`height: ${height} -> ${heightTo}`);
       await image.extract({ left: 0, top: (height - heightTo) / 2, width, height: heightTo });
     }
   }
