@@ -1237,7 +1237,7 @@ function readQa() {
             "" !== c?.reply &&
             ["text", "image", "executable", "command"].includes(c?.type)
         )
-        .map((c) => Object.assign(c, { ignoreCase: !!c.ignoreCase }))
+        .map((c) => Object.assign(c, { ignoreCase: !!c.ignoreCase, master: !!c.master }))
         .reduce((p, v) => {
           v.match.forEach((c) => (p[c] = lodash.omit(v, "match")));
           return p;

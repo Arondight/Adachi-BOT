@@ -9,6 +9,7 @@
 #     match:                    # 入口（正则表达式，全局唯一）
 #       - string
 #     ignoreCase: boolean       # 是否忽略大小写匹配
+#     master: boolean           # 是否只能由管理员执行
 #     type: string              # 类型（ text 、 image 、 executable 、 command ）
 #     reply: string             # 回复的内容，如何解释根据类型而异
 # ==============================================================================
@@ -30,6 +31,7 @@ settings:
     match:
       - Adachi-BOT\s*是什么
     ignoreCase: true
+    master: false
     type: text
     reply: 我也不知道呢……
   -
@@ -37,17 +39,20 @@ settings:
       - 刻(猫{2}|晴)是谁
       - 谁是最(好|棒)的牛杂师傅
     ignoreCase: false
+    master: false
     type: image
     reply: ../resources/character/picture/10000042.png
   -
     match:
       - Adachi-BOT\s*(上游)?有?更新了?吗
     ignoreCase: true
+    master: true
     type: executable
     reply: ../scripts/is_there_an_update_available.sh
   -
     match:
       - (今天|现在)是?(哪天|(周|星期)几|几号)
     ignoreCase: false
+    master: false
     type: command
     reply: date +"%Y年%m月%d日（%Z），星期%u" | sed "s|6$|六|; s|7$|日|; s|$|。|"

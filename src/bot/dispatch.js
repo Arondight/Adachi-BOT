@@ -24,6 +24,11 @@ async function doPossibleCommand(msg, plugins, type, bot) {
       const id = "group" === type ? msg.group_id : msg.user_id;
 
       if (r.test(msg.raw_message)) {
+        if (true === option.master && !global.config.masters.includes(msg.user_id)) {
+          bot.say("group" === type ? msg.group_id : msg.user_id, "此问答功能仅供管理者使用。", type, msg.user_id);
+          break;
+        }
+
         let cmd;
 
         switch (option.type) {
