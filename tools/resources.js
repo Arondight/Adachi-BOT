@@ -961,8 +961,7 @@ function writeData(name, data = {}) {
   }
 
   if (failedNames.length > 0) {
-    console.error(`以下角色或武器生成资源文件失败。\n${failedNames.join("、")}`);
-    console.log(`使用以下命令再次尝试拉取：npm run tool-resources -- -n ${failedNames.join(" ")}`);
+    console.error(`以下角色或武器生成资源文件失败。\n${failedNames.join(" ")}`);
   } else {
     console.log("已完成。");
   }
