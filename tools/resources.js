@@ -741,12 +741,11 @@ async function getMaterialImg(name) {
   }
 }
 
-async function getGachaImg(url, file, position = webpPos.CENTER) {
-  let gachaImg = await getBinBuffer(url);
-  const { width, height } = await imgMeta(gachaImg);
-  const [widthTo, heightTo] = [320, 1024];
+function resize(from = [0, 0], to = [0, 0]) {
+  const [width, height] = from;
+  const [widthTo, heightTo] = to;
 
-  if (width > widthTo || height > heightTo) {
+  if (width !== widthTo || height !== heightTo) {
     const [xs, ys] = [widthTo / width, heightTo / height];
 
     let [x, y] = [widthTo, heightTo];
@@ -759,6 +758,30 @@ async function getGachaImg(url, file, position = webpPos.CENTER) {
       x = width * ys;
     }
 
+    return [x, y];
+  }
+
+  return to;
+}
+
+async function getGachaImg(url, file, isChar = true, size = [320, 1024], position = webpPos.BOTTOM) {
+  let gachaImg = await getBinBuffer(url);
+  const { width, height } = await imgMeta(gachaImg);
+  const [widthTo, heightTo] = size;
+  const [x, y] = resize([width, height], [widthTo, heightTo]);
+  let needResize = false;
+
+  if (true === isChar) {
+    if (width > widthTo || height > heightTo) {
+      needResize = true;
+    }
+  } else {
+    if (width !== widthTo || height !== heightTo) {
+      needResize = true;
+    }
+  }
+
+  if (true === needResize) {
     gachaImg = await toWebp(
       gachaImg,
       true,
@@ -772,8 +795,8 @@ async function getGachaImg(url, file, position = webpPos.CENTER) {
     gachaImg,
     file,
     false,
-    { resize: webpOpt.CROP, size: 320 },
-    { resize: webpOpt.CROP, size: 1024 },
+    { resize: webpOpt.CROP, size: widthTo },
+    { resize: webpOpt.CROP, size: heightTo },
     position
   );
 }
@@ -840,7 +863,7 @@ async function getCharRes(info) {
   if (!fs.existsSync(file)) {
     const gachaId = String(info.id).slice(-3);
 
-    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`, file, webpPos.BOTTOM);
+    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`, file);
   }
 }
 
@@ -878,6 +901,8 @@ async function getWeaponRes(info) {
     await getGachaImg(
       `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`,
       file,
+      false,
+      [540, 1024],
       webpPos.CENTER
     );
   }
