@@ -224,6 +224,7 @@
  *   groupGreetingNew: 1,
  *   friendGreetingNew: 1,
  *   noticeMysNews: 1,
+ *   noticeMysNewsWithinHours: 24,
  *   mysNewsType: [],
  *   characterTryGetDetail: 1,
  *   requestInterval: 0,
@@ -253,6 +254,7 @@
  * groupGreetingNew: 1
  * friendGreetingNew: 1
  * noticeMysNews: 1
+ * noticeMysNewsWithinHours: 24,
  * mysNewsType: []
  * characterTryGetDetail: 1
  * requestInterval: 0
@@ -852,6 +854,8 @@ function readSetting() {
     friendGreetingNew: 0,
     // 不推送米游社新闻
     noticeMysNews: 0,
+    // 推送不限时间的米游社新闻
+    noticeMysNewsWithinHours: 0,
     // 无米游社新闻推送类型
     mysNewsType: [],
     // 角色查询不尝试拉取数据
@@ -893,6 +897,7 @@ function readSetting() {
   const groupGreetingNew = parseInt(m_SETTING.groupGreetingNew);
   const friendGreetingNew = parseInt(m_SETTING.friendGreetingNew);
   const noticeMysNews = parseInt(m_SETTING.noticeMysNews);
+  const noticeMysNewsWithinHours = parseInt(m_SETTING.noticeMysNewsWithinHours);
   const mysNewsType = Array.isArray(m_SETTING.mysNewsType) ? m_SETTING.mysNewsType : [];
   const characterTryGetDetail = parseInt(m_SETTING.characterTryGetDetail);
   const warnTimeCosts = parseInt(m_SETTING.warnTimeCosts);
@@ -932,6 +937,7 @@ function readSetting() {
     { groupGreetingNew },
     { friendGreetingNew },
     { noticeMysNews },
+    { noticeMysNewsWithinHours },
     { mysNewsType },
     { characterTryGetDetail },
     { warnTimeCosts },
