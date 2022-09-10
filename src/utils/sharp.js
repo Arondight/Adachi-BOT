@@ -3,9 +3,9 @@ import sharp from "sharp";
 ("use strict");
 
 const m_WEBP_OPTS = Object.freeze({
-  alphaQuality: 100, // 透明通道压缩质量 (max 100)
+  alphaQuality: 90, // 透明通道压缩质量 (max 100)
   effort: 6, // 允许 sharp 使用的 CPU 资源量，偏重质量 6 (max 6)
-  quality: 100, // 压缩质量，偏重质量 90 (max 100)
+  quality: 95, // 压缩质量，偏重质量 90 (max 100)
   smartSubsample: true, // 自动 YUV 4:2:0 子采样
 });
 const m_WEBP_ADJUST_OPT = Object.freeze({
@@ -28,11 +28,12 @@ async function imgMeta(buffer) {
 async function toWebpFile(
   buffer,
   file,
+  lossless = true,
   width = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   position = m_WEBP_ADJUST_POS.CENTER
 ) {
-  await sharp(Buffer.from(await toWebp(buffer, width, height, position))).toFile(file);
+  await sharp(Buffer.from(await toWebp(buffer, lossless, width, height, position, lossless))).toFile(file);
 }
 
 // position: 或操作连接的几个位置，上、下、左、右、左上、左下、右上、右下
@@ -41,6 +42,7 @@ async function toWebpFile(
 // 错误则抛出异常
 async function toWebp(
   buffer,
+  lossless = false,
   width = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   position = m_WEBP_ADJUST_POS.CENTER
@@ -109,7 +111,7 @@ async function toWebp(
     });
   }
 
-  return await image.webp(m_WEBP_OPTS).toBuffer();
+  return await image.webp(true === lossless ? { lossless: true } : m_WEBP_OPTS).toBuffer();
 }
 
 export { imgMeta, toWebp, toWebpFile, m_WEBP_ADJUST_OPT as webpOpt, m_WEBP_ADJUST_POS as webpPos };

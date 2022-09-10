@@ -27,6 +27,14 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
         requiresArg: true,
         required: false,
       },
+      lossless: {
+        alias: "l",
+        type: "boolean",
+        default: false,
+        description: "无损",
+        requiresArg: false,
+        required: false,
+      },
       width: {
         alias: "w",
         type: "number",
@@ -87,6 +95,7 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
     await toWebpFile(
       data,
       output,
+      argv.lossless,
       { resize, size: argv.width },
       { resize, size: argv.height },
       webpPosOfReadable[position]

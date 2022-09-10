@@ -91,6 +91,7 @@ const mData = {
 async function imgToWebpFile(
   buffer,
   file,
+  lossless = true,
   width = { resize: webpOpt.NONE, size: 0 },
   height = { resize: webpOpt.NONE, size: 0 },
   position = webpPos.CENTER
@@ -98,7 +99,7 @@ async function imgToWebpFile(
   process.stdout.write(`转换 ${file} ...\t`);
 
   try {
-    await toWebpFile(buffer, file, width, height, position);
+    await toWebpFile(buffer, file, lossless, width, height, position);
     console.log("成功");
   } catch (e) {
     console.log("失败");
@@ -108,6 +109,7 @@ async function imgToWebpFile(
 async function remoteImgToWebpFile(
   url,
   file,
+  lossless = true,
   width = { resize: webpOpt.NONE, size: 0 },
   height = { resize: webpOpt.NONE, size: 0 },
   position = webpPos.CENTER
@@ -120,7 +122,7 @@ async function remoteImgToWebpFile(
     return;
   }
 
-  return imgToWebpFile(buffer, file, width, height, position);
+  return imgToWebpFile(buffer, file, lossless, width, height, position);
 }
 
 function tagColorToSpan(text) {
@@ -731,6 +733,7 @@ async function getMaterialImg(name) {
     await remoteImgToWebpFile(
       `${m_AMBR_TOP}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`,
       file,
+      false,
       { resize: webpOpt.RESIZE, size: 256 },
       { resize: webpOpt.RESIZE, size: 256 },
       webpPos.CENTER
@@ -758,6 +761,7 @@ async function getGachaImg(url, file, position = webpPos.CENTER) {
 
     gachaImg = await toWebp(
       gachaImg,
+      true,
       { resize: webpOpt.RESIZE, size: x },
       { resize: webpOpt.RESIZE, size: y },
       webpPos.CENTER
@@ -767,6 +771,7 @@ async function getGachaImg(url, file, position = webpPos.CENTER) {
   await imgToWebpFile(
     gachaImg,
     file,
+    false,
     { resize: webpOpt.CROP, size: 320 },
     { resize: webpOpt.CROP, size: 1024 },
     position
@@ -787,6 +792,7 @@ async function getCharRes(info) {
     await remoteImgToWebpFile(
       `${m_AMBR_TOP}/assets/UI/UI_AvatarIcon_${item.icon}.png`,
       file,
+      false,
       { resize: webpOpt.RESIZE, size: 256 },
       { resize: webpOpt.RESIZE, size: 256 },
       webpPos.CENTER
@@ -806,6 +812,7 @@ async function getCharRes(info) {
     await remoteImgToWebpFile(
       `${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${icon}_P.png`,
       file,
+      false,
       { resize: webpOpt.RESIZE, size: 840 },
       { resize: webpOpt.RESIZE, size: 400 },
       webpPos.CENTER
@@ -850,6 +857,7 @@ async function getWeaponRes(info) {
     await remoteImgToWebpFile(
       `${m_AMBR_TOP}/assets/UI/UI_EquipIcon_${item.icon}.png`,
       file,
+      false,
       { resize: webpOpt.RESIZE, size: 256 },
       { resize: webpOpt.RESIZE, size: 256 },
       webpPos.CENTER
@@ -927,7 +935,7 @@ function writeData(name, data = {}) {
   }
 
   let errcode = 0;
-  const failed_list = [];
+  const failedNames = [];
 
   for (const n of argv.name.filter((c) => "" !== c)) {
     try {
@@ -947,14 +955,17 @@ function writeData(name, data = {}) {
       }
     } catch (e) {
       console.log(`为【${n}】生成描述文件失败，跳过。\n错误的详细信息见下。\n${e.stack}`);
-      failed_list.push(n);
+      failedNames.push(n);
       errcode = -1;
     }
   }
 
-  if (0 < failed_list.length) {
-    console.error(`\x1b[31m 以下角色或武器生成资源文件失败：${failed_list.join("、")} \x1b[0m`);
+  if (failedNames.length > 0) {
+    console.error(`以下角色或武器生成资源文件失败。\n${failedNames.join("\n")}`);
+  } else {
+    console.log("已完成。");
   }
+
   return errcode;
 })()
   .then((n) => process.exit("number" === typeof n ? n : 0))

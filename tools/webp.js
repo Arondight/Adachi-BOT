@@ -21,6 +21,14 @@ import { toWebpFile } from "#utils/sharp";
         requiresArg: true,
         required: true,
       },
+      lossless: {
+        alias: "l",
+        type: "boolean",
+        default: false,
+        description: "无损",
+        requiresArg: false,
+        required: false,
+      },
     });
 
   const { filelist } = argv;
@@ -38,7 +46,7 @@ import { toWebpFile } from "#utils/sharp";
     process.stdout.write(`转换 ${output} ... `);
 
     try {
-      await toWebpFile(data, output);
+      await toWebpFile(data, output, argv.lossless);
       console.log("成功");
     } catch (e) {
       console.log("失败");
