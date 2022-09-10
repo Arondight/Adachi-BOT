@@ -33,7 +33,7 @@ async function toWebpFile(
   height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   position = m_WEBP_ADJUST_POS.CENTER
 ) {
-  await sharp(Buffer.from(await toWebp(buffer, lossless, width, height, position, lossless))).toFile(file);
+  await sharp(Buffer.from(await toWebp(buffer, lossless, width, height, position))).toFile(file);
 }
 
 // position: 或操作连接的几个位置，上、下、左、右、左上、左下、右上、右下
