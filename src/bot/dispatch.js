@@ -21,11 +21,11 @@ async function doPossibleCommand(msg, plugins, type, bot) {
 
     for (const [regex, option] of Object.entries(global.qa)) {
       const r = new RegExp(regex, true === option.ignoreCase ? "i" : undefined);
-      const id = "group" === type ? msg.group_id : msg.user_id;
+      const id = "group" === type ? msg.gid : msg.uid;
 
       if (r.test(msg.raw_message)) {
         if (true === option.master && !global.config.masters.includes(msg.user_id)) {
-          bot.say("group" === type ? msg.group_id : msg.user_id, "此问答功能仅供管理者使用。", type, msg.user_id);
+          bot.say(msg.sid, "此问答功能仅供管理者使用。", type, msg.uid);
           break;
         }
 
@@ -33,13 +33,13 @@ async function doPossibleCommand(msg, plugins, type, bot) {
 
         switch (option.type) {
           case "text":
-            bot.say(id, option.reply, type, msg.user_id);
+            bot.say(id, option.reply, type, msg.uid);
             break;
           case "image": {
             const image = absPath(option.reply, global.configdefdir);
             const imageCQ = `[CQ:image,type=image,file=base64://${base64(image)}]`;
 
-            bot.say(id, imageCQ, type, msg.user_id);
+            bot.say(id, imageCQ, type, msg.uid);
             break;
           }
           case "executable":
@@ -52,9 +52,11 @@ async function doPossibleCommand(msg, plugins, type, bot) {
 
         if ("string" === typeof cmd) {
           const encoding = os.type().includes("Windows") ? "cp936" : "utf8";
+          const command = iconvConvert(cmd, encoding, "utf8");
+          const options = { encoding: "binary", env: { USER_ID: msg.uid, USER_NAME: msg.name, MSG_TEXT: msg.text } };
 
-          exec(iconvConvert(cmd, encoding, "utf8"), { encoding: "binary" }, (err, stdout, stderr) => {
-            bot.say(id, iconvConvert(null === err ? stdout : stderr, encoding), type, msg.user_id);
+          exec(command, options, (err, stdout, stderr) => {
+            bot.say(id, iconvConvert(null === err ? stdout : stderr, encoding), type, msg.uid);
           });
         }
 
@@ -73,8 +75,8 @@ async function doPossibleCommand(msg, plugins, type, bot) {
 
       if (enableList[plugin] && r.test(msg.raw_message)) {
         // 只允许管理者执行主人命令
-        if (global.master.enable[plugin] && !global.config.masters.includes(msg.user_id)) {
-          bot.say("group" === type ? msg.group_id : msg.user_id, "不能使用管理命令。", type, msg.user_id);
+        if (global.master.enable[plugin] && !global.config.masters.includes(msg.uid)) {
+          bot.say(msg.sid, "不能使用管理命令。", type, msg.uid);
           return true;
         }
 
@@ -82,8 +84,8 @@ async function doPossibleCommand(msg, plugins, type, bot) {
           return true;
         }
 
-        if (global.config.requestInterval < msg.time - (mTimestamp[msg.user_id] || (mTimestamp[msg.user_id] = 0))) {
-          mTimestamp[msg.user_id] = msg.time;
+        if (global.config.requestInterval < msg.time - (mTimestamp[msg.uid] || (mTimestamp[msg.uid] = 0))) {
+          mTimestamp[msg.uid] = msg.time;
           // 参数 bot 为了兼容可能存在的旧插件
           plugins[plugin].run(msg, bot);
           return true;
