@@ -28,7 +28,7 @@ async function imgMeta(buffer) {
 async function toWebpFile(
   buffer,
   file,
-  lossless = true,
+  lossless = false,
   width = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   position = m_WEBP_ADJUST_POS.CENTER
