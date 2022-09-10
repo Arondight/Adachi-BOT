@@ -927,6 +927,7 @@ function writeData(name, data = {}) {
   }
 
   let errcode = 0;
+  const failed_list = [];
 
   for (const n of argv.name.filter((c) => "" !== c)) {
     try {
@@ -946,10 +947,14 @@ function writeData(name, data = {}) {
       }
     } catch (e) {
       console.log(`为【${n}】生成描述文件失败，跳过。\n错误的详细信息见下。\n${e.stack}`);
+      failed_list.push(n);
       errcode = -1;
     }
   }
 
+  if (0 < failed_list.length) {
+    console.error(`\x1b[31m 以下角色或武器生成资源文件失败：${failed_list.join("、")} \x1b[0m`);
+  }
   return errcode;
 })()
   .then((n) => process.exit("number" === typeof n ? n : 0))
