@@ -3,7 +3,7 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
 
-"use strict";
+("use strict");
 
 (async function main() {
   const { argv } = yargs(hideBin(process.argv))
