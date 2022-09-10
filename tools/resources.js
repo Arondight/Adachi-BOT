@@ -741,30 +741,29 @@ async function getMaterialImg(name) {
   }
 }
 
-function resize(from = [0, 0], to = [0, 0]) {
-  const [width, height] = from;
-  const [widthTo, heightTo] = to;
+async function getGachaImg(url, file, isChar = true, size = [320, 1024], position = webpPos.BOTTOM) {
+  function resize(from = [0, 0], to = [0, 0]) {
+    const [width, height] = from;
+    const [widthTo, heightTo] = to;
 
-  if (width !== widthTo || height !== heightTo) {
-    const [xs, ys] = [widthTo / width, heightTo / height];
+    if (width !== widthTo || height !== heightTo) {
+      const [xs, ys] = [widthTo / width, heightTo / height];
+      let [x, y] = [widthTo, heightTo];
 
-    let [x, y] = [widthTo, heightTo];
+      if (xs < ys) {
+        y = height * xs;
+      }
 
-    if (xs < ys) {
-      y = height * xs;
+      if (ys < xs) {
+        x = width * ys;
+      }
+
+      return [x, y];
     }
 
-    if (ys < xs) {
-      x = width * ys;
-    }
-
-    return [x, y];
+    return to;
   }
 
-  return to;
-}
-
-async function getGachaImg(url, file, isChar = true, size = [320, 1024], position = webpPos.BOTTOM) {
   let gachaImg = await getBinBuffer(url);
   const { width, height } = await imgMeta(gachaImg);
   const [widthTo, heightTo] = size;
