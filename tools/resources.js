@@ -770,14 +770,8 @@ async function getGachaImg(url, file, isChar = true, size = [320, 1024], positio
   const [x, y] = resize([width, height], [widthTo, heightTo]);
   let needResize = false;
 
-  if (true === isChar) {
-    if (width > widthTo || height > heightTo) {
-      needResize = true;
-    }
-  } else {
-    if (width !== widthTo || height !== heightTo) {
-      needResize = true;
-    }
+  if (true === isChar && (width > widthTo || height > heightTo)) {
+    needResize = true;
   }
 
   if (true === needResize) {
@@ -793,7 +787,7 @@ async function getGachaImg(url, file, isChar = true, size = [320, 1024], positio
   await imgToWebpFile(
     gachaImg,
     file,
-    false,
+    !isChar, // XXX change this if weapon doesn't from www.projectcelestia.com
     { resize: webpOpt.CROP, size: widthTo },
     { resize: webpOpt.CROP, size: heightTo },
     position
@@ -901,7 +895,7 @@ async function getWeaponRes(info) {
       `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`,
       file,
       false,
-      [540, 1024],
+      [320, 1024],
       webpPos.CENTER
     );
   }

@@ -9,7 +9,6 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
   const { argv } = yargs(hideBin(process.argv))
     .usage("-f <string> -w <number> -h <number>")
     .example("-f ./resources/character/gacha/刻晴.webp -w 320 -h 1024 -c -p bottom")
-    .example("-f ./resources/weapon/gacha/天空之刃.webp -w 320 -h 1024 -c -p center")
     .help("help")
     .version(false)
     .options({
