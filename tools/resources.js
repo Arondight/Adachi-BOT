@@ -96,7 +96,7 @@ async function imgToWebpFile(
   height = { resize: webpOpt.NONE, size: 0 },
   position = webpPos.CENTER
 ) {
-  process.stdout.write(`转换 ${file} ...\t`);
+  process.stdout.write(`转换 ${file} ……\t`);
 
   try {
     await toWebpFile(buffer, file, lossless, width, height, position);
@@ -165,7 +165,7 @@ async function getBinBuffer(url, slient = false) {
   let error;
 
   if (false === slient) {
-    process.stdout.write(`拉取 ${url} ...\t`);
+    process.stdout.write(`拉取 ${url} ……\t`);
   }
 
   try {
@@ -192,7 +192,7 @@ async function getJsonObj(url, callback = (e) => e, slient = false) {
   let error;
 
   if (false === slient) {
-    process.stdout.write(`拉取 ${url} ...\t`);
+    process.stdout.write(`拉取 ${url} ……\t`);
   }
 
   try {
