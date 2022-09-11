@@ -768,13 +768,8 @@ async function getGachaImg(url, file, isChar = true, size = [320, 1024], positio
   const { width, height } = await imgMeta(gachaImg);
   const [widthTo, heightTo] = size;
   const [x, y] = resize([width, height], [widthTo, heightTo]);
-  let needResize = false;
 
   if (true === isChar && (width > widthTo || height > heightTo)) {
-    needResize = true;
-  }
-
-  if (true === needResize) {
     gachaImg = await toWebp(
       gachaImg,
       true,
