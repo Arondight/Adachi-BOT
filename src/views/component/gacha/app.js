@@ -59,7 +59,7 @@ export default defineComponent({
     function reducer(prev, current) {
       return {
         count: prev.count + current.count || 0,
-        item_name: "已折叠的三星武器",
+        item_name: "三星堆",
         item_type: "武器",
         star: 3,
         type: "单手剑",
@@ -84,7 +84,7 @@ export default defineComponent({
         const threeStarItems = [
           {
             count: params.item_nums.three || 0,
-            item_name: "已折叠的三星武器",
+            item_name: "三星堆",
             item_type: "武器",
             star: 3,
             type: "单手剑",
