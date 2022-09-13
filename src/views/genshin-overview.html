@@ -25,11 +25,12 @@
     <div id="app"></div>
     <script type="module">
       import App from "./component/overview/app.js";
+      const app = Vue.createApp(App);
 
       fetch("/resources/etc/doc/material.json")
         .then((res) => res.json())
         .then((data) => {
-          Vue.createApp(App).provide("materialMap", data).mount("#app");
+          app.provide("materialMap", data).mount("#app");
         });
     </script>
   </body>
