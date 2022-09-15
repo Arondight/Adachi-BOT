@@ -25,17 +25,6 @@ async function imgMeta(buffer) {
   return await sharp(Buffer.from(buffer)).metadata();
 }
 
-async function toWebpFile(
-  buffer,
-  file,
-  lossless = false,
-  width = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
-  height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
-  position = m_WEBP_ADJUST_POS.CENTER
-) {
-  await sharp(Buffer.from(await toWebp(buffer, lossless, width, height, position))).toFile(file);
-}
-
 // position: 或操作连接的几个位置，上、下、左、右、左上、左下、右上、右下
 //           上: m_WEBP_ADJUST_POS.TOP
 //           左上: m_WEBP_ADJUST_POS.LEFT | m_WEBP_ADJUST_POS.TOP
@@ -45,73 +34,103 @@ async function toWebp(
   lossless = false,
   width = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
   height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
-  position = m_WEBP_ADJUST_POS.CENTER
+  position = m_WEBP_ADJUST_POS.CENTER,
+  preserving = false
 ) {
-  const image = sharp(Buffer.from(buffer));
-  const { width: imgWidth, height: imgHeight } = await image.metadata();
-  const widthTo = parseInt(width.size > 0 ? width.size : imgWidth);
-  const heightTo = parseInt(height.size > 0 ? height.size : imgHeight);
-  const transparent = Object.freeze({ r: 0, g: 0, b: 0, alpha: 0 });
-
-  if (m_WEBP_ADJUST_OPT.CROP === width.resize) {
-    const diff = Math.abs(widthTo - imgWidth);
-    let left = Math.round(diff / 2);
-    let right = left;
-
-    if (0 !== (m_WEBP_ADJUST_POS.LEFT & position)) {
-      left = 0;
-      right = diff;
-    }
-
-    if (0 !== (m_WEBP_ADJUST_POS.RIGHT & position)) {
-      left = diff;
-      right = 0;
-    }
-
-    if (widthTo < imgWidth) {
-      await image.extract({ left, top: 0, width: widthTo, height: imgHeight });
-    }
-
-    if (widthTo > imgWidth) {
-      await image.extend({ top: 0, left, bottom: 0, right, background: transparent });
-    }
-  }
-
-  if (m_WEBP_ADJUST_OPT.CROP === height.resize) {
-    const diff = Math.abs(heightTo - imgHeight);
-    let top = Math.round(diff / 2);
-    let bottom = top;
-
-    if (0 !== (m_WEBP_ADJUST_POS.TOP & position)) {
-      top = 0;
-      bottom = diff;
-    }
-
-    if (0 !== (m_WEBP_ADJUST_POS.BOTTOM & position)) {
-      top = diff;
-      bottom = 0;
-    }
-
-    if (heightTo < imgHeight) {
-      await image.extract({ left: 0, top, width: imgWidth, height: heightTo });
-    }
-
-    if (heightTo > imgHeight) {
-      await image.extend({ top, left: 0, bottom, right: 0, background: transparent });
-    }
-  }
-
-  if (m_WEBP_ADJUST_OPT.RESIZE === width.resize || m_WEBP_ADJUST_OPT.RESIZE === height.resize) {
+  async function resize(image) {
     await image.resize({
-      fit: sharp.fit.outside,
+      fit: sharp.fit.cover,
       position: sharp.position.bottom,
-      gravity: sharp.gravity.south,
-      width: widthTo,
-      height: heightTo,
+      width: width.size,
+      height: height.size,
     });
   }
 
+  async function adjust(image) {
+    const { width: imgWidth, height: imgHeight } = await image.metadata();
+    const widthTo = parseInt(width.size > 0 ? width.size : imgWidth);
+    const heightTo = parseInt(height.size > 0 ? height.size : imgHeight);
+    const transparent = Object.freeze({ r: 0, g: 0, b: 0, alpha: 0 });
+
+    if (m_WEBP_ADJUST_OPT.CROP === width.resize) {
+      const diff = Math.abs(widthTo - imgWidth);
+      let left = Math.round(diff / 2);
+      let right = left;
+
+      if (0 !== (m_WEBP_ADJUST_POS.LEFT & position)) {
+        left = 0;
+        right = diff;
+      }
+
+      if (0 !== (m_WEBP_ADJUST_POS.RIGHT & position)) {
+        left = diff;
+        right = 0;
+      }
+
+      if (widthTo < imgWidth) {
+        await image.extract({ left, top: 0, width: widthTo, height: imgHeight });
+      }
+
+      if (widthTo > imgWidth) {
+        await image.extend({ top: 0, left, bottom: 0, right, background: transparent });
+      }
+    }
+
+    if (m_WEBP_ADJUST_OPT.CROP === height.resize) {
+      const diff = Math.abs(heightTo - imgHeight);
+      let top = Math.round(diff / 2);
+      let bottom = top;
+
+      if (0 !== (m_WEBP_ADJUST_POS.TOP & position)) {
+        top = 0;
+        bottom = diff;
+      }
+
+      if (0 !== (m_WEBP_ADJUST_POS.BOTTOM & position)) {
+        top = diff;
+        bottom = 0;
+      }
+
+      if (heightTo < imgHeight) {
+        await image.extract({ left: 0, top, width: imgWidth, height: heightTo });
+      }
+
+      if (heightTo > imgHeight) {
+        await image.extend({ top, left: 0, bottom, right: 0, background: transparent });
+      }
+    }
+
+    if (m_WEBP_ADJUST_OPT.RESIZE === width.resize || m_WEBP_ADJUST_OPT.RESIZE === height.resize) {
+      await image.resize({
+        fit: sharp.fit.outside,
+        position: sharp.position.bottom,
+        width: widthTo,
+        height: heightTo,
+      });
+    }
+  }
+
+  const image = sharp(Buffer.from(buffer));
+
+  if (true === preserving) {
+    await resize(image);
+  } else {
+    await adjust(image);
+  }
+
   return await image.webp(true === lossless ? { lossless: true } : m_WEBP_OPTS).toBuffer();
+}
+
+async function toWebpFile(
+  buffer,
+  file,
+  lossless = false,
+  width = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
+  height = { resize: m_WEBP_ADJUST_OPT.NONE, size: 0 },
+  position = m_WEBP_ADJUST_POS.CENTER,
+  preserving = false
+) {
+  await sharp(Buffer.from(await toWebp(buffer, lossless, width, height, position, preserving))).toFile(file);
 }
 
 export { imgMeta, toWebp, toWebpFile, m_WEBP_ADJUST_OPT as webpOpt, m_WEBP_ADJUST_POS as webpPos };

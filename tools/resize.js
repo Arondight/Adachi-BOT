@@ -64,7 +64,14 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
         requiresArg: true,
         required: false,
       },
-    });
+      preserving: {
+        alias: "P",
+        type: "boolean",
+        description: "保持比例",
+        requiresArg: false,
+        required: false,
+      },
+    }).conflicts("crop", "preserving");
 
   const webpPosOfReadable = {
     center: webpPos.CENTER,
@@ -77,7 +84,7 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
     bottom_left: webpPos.BOTTOM | webpPos.LEFT,
     bottom_right: webpPos.BOTTOM | webpPos.RIGHT,
   };
-  const { file, crop, position } = argv;
+  const { file, crop, position, preserving } = argv;
   const resize = true === crop ? webpOpt.CROP : webpOpt.RESIZE;
 
   if (!fs.existsSync(file)) {
@@ -97,7 +104,8 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
       argv.lossless,
       { resize, size: argv.width },
       { resize, size: argv.height },
-      webpPosOfReadable[position]
+      webpPosOfReadable[position],
+      preserving
     );
     console.log("成功");
   } catch (e) {
