@@ -56,7 +56,7 @@ const materialUnit = defineComponent({
     const ascensionName = arr[0] || "";
 
     const getMaterialRarityBackground = (materialNameString) => {
-      const rarity = materialMap.items.find((material) => material.name === materialNameString)?.rarity;
+      const rarity = materialMap[materialNameString] || 4;
       const rarities = [undefined, "one-star", "two-star", "three-star", "four-star", "five-star"];
 
       return rarity ? rarities[rarity] : "four-star";

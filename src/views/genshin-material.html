@@ -15,14 +15,28 @@
   <body>
     <div id="app"></div>
     <script type="module">
+      import { getParams } from "./component/common/utils.js";
       import App from "./component/material/app.js";
 
-      const app = Vue.createApp(App);
+      const params = getParams(window.location.href);
+      const characterMaterial = params.character.data.map((el) => el.ascension).flat();
+      const weaponMaterial = params.weapon.data.map((el) => el.ascension).flat();
+      const materials = [...characterMaterial, ...weaponMaterial];
+
+      const app = Vue.createApp(App, {
+        data: params,
+      });
 
       fetch("/resources/etc/doc/material.json")
         .then((res) => res.json())
         .then((data) => {
-          app.provide("materialMap", data).mount("#app");
+          const filteredData = {};
+          data.items
+            .filter((item) => materials.includes(item.name))
+            .forEach((item) => {
+              filteredData[item.name] = item.rarity;
+            });
+          app.provide("materialMap", filteredData).mount("#app");
         });
     </script>
   </body>

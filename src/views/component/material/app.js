@@ -1,7 +1,7 @@
-import { getParams, html } from "../common/utils.js";
+import { html } from "../common/utils.js";
 import MaterialColumn from "./column.js";
 
-const { defineComponent } = window.Vue;
+const { defineComponent, unref } = window.Vue;
 
 const template = html`<div class="material">
   <div class="outer">
@@ -24,10 +24,13 @@ export default defineComponent({
   components: {
     MaterialColumn,
   },
-  setup() {
+  props: {
+    data: Object,
+  },
+  setup(props) {
     const starBASE64 =
       "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMjkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI4LjU2OCAxNC42MjNjLTkuNzQxLS41NjQtMTIuNjQ0LTMuODg0LTEzLjczNC0xMy43MzQtLjUxNCA5LjkxNy0zLjQxIDEzLjA5Mi0xMy43MzMgMTMuNzM0IDkuOTYzLjM4MyAxMy4wNzkgMy43ODcgMTMuNzMzIDEzLjczNCAxLjE2My05LjUxMSA0LjEyNi0xMi42NDkgMTMuNzM0LTEzLjczNHoiIGZpbGw9IiMyRTNENTQiIHN0cm9rZT0iIzJFM0Q1NCIvPjwvc3ZnPg==";
-    const params = getParams(window.location.href);
+    const params = unref(props.data);
     const day = params.day;
     const character = params.character.data;
     const weapon = params.weapon.data;
