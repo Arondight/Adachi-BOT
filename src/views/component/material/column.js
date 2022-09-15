@@ -23,7 +23,7 @@ const materialTemplate = html`<div class="unit">
         :class="rarityClass(item.rarity)"
         :alt="item.name"
       />
-      <div class="item-name-banner" >{{item.name}}</div>
+      <div class="item-name-banner">{{item.name}}</div>
     </div>
   </div>
 </div>`;
