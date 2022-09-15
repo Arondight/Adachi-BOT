@@ -31,11 +31,9 @@
         .then((res) => res.json())
         .then((data) => {
           const filteredData = {};
-          data.items
-            .filter((item) => materials.includes(item.name))
-            .forEach((item) => {
-              filteredData[item.name] = item.rarity;
-            });
+          materials.forEach((material) => {
+            filteredData[material] = data.items.find((el) => el.name === material).rarity;
+          });
           app.provide("materialMap", filteredData).mount("#app");
         });
     </script>
