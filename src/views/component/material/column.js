@@ -16,14 +16,14 @@ const materialTemplate = html`<div class="unit">
     </div>
   </div>
   <div class="item-list">
-    <div class="container-item" v-for="item in params.list">
+    <div class="container-item" v-for="item in list">
       <img
         class="item-image"
         :src="itemImage(item.name, itemType)"
         :class="rarityClass(item.rarity)"
         :alt="item.name"
       />
-      <div class="item-name-banner" v-if="itemType === 'weapon'">{{item.name}}</div>
+      <div class="item-name-banner" >{{item.name}}</div>
     </div>
   </div>
 </div>`;
@@ -51,19 +51,18 @@ const materialUnit = defineComponent({
 
     const params = propsValue.data;
     const de = params.ascension[0].split("的");
-    const zhi = params.ascension[0].split("之");
-    const arr = de.length === 1 ? zhi : de;
+    const arr = de.length === 1 ? params.ascension[0].split("之") : de;
     const ascensionName = arr[0] || "";
 
     const getMaterialRarityBackground = (materialNameString) => {
       const rarity = materialMap[materialNameString] || 4;
       const rarities = [undefined, "one-star", "two-star", "three-star", "four-star", "five-star"];
 
-      return rarity ? rarities[rarity] : "four-star";
+      return rarities[rarity];
     };
 
     return {
-      params,
+      list: params.list,
       ascensionName,
       itemType: propsValue.type || "character",
       materialMap,
