@@ -71,7 +71,8 @@ import { toWebpFile, webpOpt, webpPos } from "#utils/sharp";
         requiresArg: false,
         required: false,
       },
-    }).conflicts("crop", "preserving");
+    })
+    .conflicts("crop", "preserving");
 
   const webpPosOfReadable = {
     center: webpPos.CENTER,
