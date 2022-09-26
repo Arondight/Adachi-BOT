@@ -18,6 +18,12 @@
     "小道具",
     "稀有货币",
     "通用货币",
+    "挑战结算道具",
+    "高级兑换券",
+    "普通兑换券",
+    "限定祈愿道具",
+    "祈愿道具",
+    "七国徽印",
     "角色经验素材",
     "武器强化素材"
   ],
@@ -33,6 +39,111 @@
       "id": 202,
       "name": "摩拉",
       "type": "通用货币",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 203,
+      "name": "创世结晶",
+      "type": "稀有货币",
+      "rarity": 5,
+      "beta": false
+    },
+    {
+      "id": 204,
+      "name": "洞天宝钱",
+      "type": "稀有货币",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 210,
+      "name": "原粹精珀（废弃）",
+      "type": "挑战结算道具",
+      "rarity": 2,
+      "beta": false
+    },
+    {
+      "id": 211,
+      "name": "原粹树脂（废弃）",
+      "type": "挑战结算道具",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 221,
+      "name": "无主的星辉",
+      "type": "高级兑换券",
+      "rarity": 5,
+      "beta": false
+    },
+    {
+      "id": 222,
+      "name": "无主的星尘",
+      "type": "普通兑换券",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 223,
+      "name": "纠缠之缘",
+      "type": "限定祈愿道具",
+      "rarity": 5,
+      "beta": false
+    },
+    {
+      "id": 224,
+      "name": "相遇之缘",
+      "type": "祈愿道具",
+      "rarity": 5,
+      "beta": false
+    },
+    {
+      "id": 301,
+      "name": "火之印",
+      "type": "七国徽印",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 302,
+      "name": "水之印",
+      "type": "七国徽印",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 303,
+      "name": "草之印",
+      "type": "七国徽印",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 304,
+      "name": "雷之印",
+      "type": "七国徽印",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 305,
+      "name": "风之印",
+      "type": "七国徽印",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 306,
+      "name": "冰之印",
+      "type": "七国徽印",
+      "rarity": 3,
+      "beta": false
+    },
+    {
+      "id": 307,
+      "name": "岩之印",
+      "type": "七国徽印",
       "rarity": 3,
       "beta": false
     },
@@ -440,7 +551,7 @@
       "name": "秃秃豆",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 100584,
@@ -650,21 +761,21 @@
       "name": "赤念果",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101221,
       "name": "枣椰",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101225,
       "name": "圣金虫",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101228,
@@ -1890,21 +2001,21 @@
       "name": "破缺棱晶",
       "type": "角色培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112072,
       "name": "混浊棱晶",
       "type": "角色培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112073,
       "name": "辉光棱晶",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113001,
@@ -2163,14 +2274,14 @@
       "name": "永续机芯",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113039,
       "name": "导光四面体",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114001,
@@ -2818,24 +2929,24 @@
     },
     {
       "id": 220067,
-      "name": "？？？",
+      "name": "蹦蹦庆典拉炮",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220069,
       "name": "赤沙石板",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220074,
-      "name": "？？？",
+      "name": "缥锦机关·留云",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     }
   ]
 }
