@@ -2284,6 +2284,27 @@
       "beta": false
     },
     {
+      "id": 113040,
+      "name": "灭诤草蔓",
+      "type": "角色培养素材",
+      "rarity": 4,
+      "beta": true
+    },
+    {
+      "id": 113041,
+      "name": "？？？",
+      "type": "角色培养素材",
+      "rarity": 5,
+      "beta": true
+    },
+    {
+      "id": 113042,
+      "name": "？？？",
+      "type": "角色培养素材",
+      "rarity": 5,
+      "beta": true
+    },
+    {
       "id": 114001,
       "name": "高塔孤王的破瓦",
       "type": "武器突破素材",
