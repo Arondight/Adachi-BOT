@@ -19,7 +19,7 @@ const m_URL = Object.freeze({
 });
 
 function getUrl(p) {
-  return `https://uploadstatic.mihoyo.com/ys-obc/${"/" === p[0] ? p.substring(1) : p}`;
+  return `https://uploadstatic.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
 }
 
 async function doMaterial(msg, url) {
