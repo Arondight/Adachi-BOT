@@ -8,13 +8,14 @@ import { getWordByRegex } from "#utils/tools";
 ("use strict");
 
 // 如果注释中的链接失效，尝试在米游社中搜索用户“好多梨”。
+// 周本图，包括天赋、武器、世界BOSS
 const m_URL = Object.freeze({
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  talent: getUrl("/2022/07/12/75833613/dfa899ac62e854a2b3fcde3cf290d67e_4384913260559512486.png"),
+  talent: getUrl("/2022/09/28/75833613/7dd84fc0c362454388657aa4500072a4_5765589602624912314.png"),
   // https://bbs.mihoyo.com/ys/obc/content/1187/detail
-  weapon: getUrl("/2022/07/12/75833613/cf8caacae5cfe095a760d5065d5ed39e_813310935669478403.png"),
+  weapon: getUrl("/2022/09/28/75833613/43a36f7300eeb17767fd8e708cedd708_6341294669712434358.png"),
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  weekly: getUrl("/2022/07/12/75833613/d252cbb87d69a2f5f679d38f81c2e9f6_8220318949914596754.png"),
+  weekly: getUrl("/2022/09/28/75833613/2b51fe5722a73b14891224d7b57d86fa_7881678352326384999.png"),
 });
 
 function getUrl(p) {
