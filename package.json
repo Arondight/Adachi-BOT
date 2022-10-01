@@ -74,7 +74,7 @@
     "random-float": "3.0.0",
     "semver": "7.3.7",
     "systeminformation": "5.12.6",
-    "yargs": "17.5.1"
+    "yargs": "17.6.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "3.3.0",
