@@ -18,8 +18,9 @@ const m_URL = Object.freeze({
   weekly: getUrl("/2022/09/28/75833613/2b51fe5722a73b14891224d7b57d86fa_7881678352326384999.png"),
 });
 
+// 这边是路径前缀，改完需自行测试，确保路径正确
 function getUrl(p) {
-  return `https://uploadstatic.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
+  return `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
 }
 
 async function doMaterial(msg, url) {
