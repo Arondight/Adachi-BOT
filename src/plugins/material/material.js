@@ -7,20 +7,19 @@ import { getWordByRegex } from "#utils/tools";
 
 ("use strict");
 
-// 如果注释中的链接失效，尝试在米游社中搜索用户“好多梨”。
+// 观测枢最底部“角色天赋材料周常表”入口
 // 周本图，包括天赋、武器、世界BOSS
 const m_URL = Object.freeze({
-  // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  talent: getUrl("/2022/09/28/75833613/7dd84fc0c362454388657aa4500072a4_5765589602624912314.png"),
-  // https://bbs.mihoyo.com/ys/obc/content/1187/detail
-  weapon: getUrl("/2022/09/28/75833613/43a36f7300eeb17767fd8e708cedd708_6341294669712434358.png"),
-  // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  weekly: getUrl("/2022/09/28/75833613/2b51fe5722a73b14891224d7b57d86fa_7881678352326384999.png"),
+  // 角色天赋
+  talent: getUrl("/2022/09/28/75833613/7fa4f61ddfe112f45e1ca3a35c9b92d2_5978218192327487057.png"),
+  // 武器素材
+  weapon: getUrl("/2022/09/28/75833613/31f4887f10f3ef55224b489edbe5a906_8568941919684533373.png"),
+  // boss 周本
+  weekly: getUrl("/2022/09/28/75833613/eb33cb712bab6991876c1ba590eecf3d_5898987548354516514.png"),
 });
 
-// 这边是路径前缀，改完需自行测试，确保路径正确
 function getUrl(p) {
-  return `https://upload-bbs.mihoyo.com/upload/${"/" === p[0] ? p.substring(1) : p}`;
+  return `https://uploadstatic.mihoyo.com/ys-obc/${"/" === p[0] ? p.substring(1) : p}`;
 }
 
 async function doMaterial(msg, url) {
