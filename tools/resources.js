@@ -741,7 +741,7 @@ async function getMaterialImg(name) {
   }
 }
 
-async function getGachaImg(url, file, isChar = true, size = [320, 1024], position = webpPos.BOTTOM) {
+async function getGachaImg(url, file, lossless = true, isChar = true, size = [320, 1024], position = webpPos.BOTTOM) {
   function resize(from = [0, 0], to = [0, 0]) {
     const [width, height] = from;
     const [widthTo, heightTo] = to;
@@ -758,7 +758,7 @@ async function getGachaImg(url, file, isChar = true, size = [320, 1024], positio
         x = width * ys;
       }
 
-      return [x, y];
+      return [Math.floor(x), Math.floor(y)];
     }
 
     return to;
@@ -769,20 +769,32 @@ async function getGachaImg(url, file, isChar = true, size = [320, 1024], positio
   const [widthTo, heightTo] = size;
   const [x, y] = resize([width, height], [widthTo, heightTo]);
 
-  if (true === isChar && (width > widthTo || height > heightTo)) {
-    gachaImg = await toWebp(
-      gachaImg,
-      true,
-      { resize: webpOpt.RESIZE, size: x },
-      { resize: webpOpt.RESIZE, size: y },
-      webpPos.CENTER
-    );
+  if (true === isChar) {
+    if (width > widthTo || height > heightTo) {
+      gachaImg = await toWebp(
+        gachaImg,
+        true,
+        { resize: webpOpt.RESIZE, size: x },
+        { resize: webpOpt.RESIZE, size: y },
+        webpPos.CENTER
+      );
+    }
+  } else {
+    if (width !== widthTo || height !== heightTo) {
+      gachaImg = await toWebp(
+        gachaImg,
+        true,
+        { resize: webpOpt.CROP, size: x },
+        { resize: webpOpt.CROP, size: y },
+        webpPos.CENTER
+      );
+    }
   }
 
   await imgToWebpFile(
     gachaImg,
     file,
-    !isChar, // XXX change this if weapon doesn't from www.projectcelestia.com
+    lossless,
     { resize: webpOpt.CROP, size: widthTo },
     { resize: webpOpt.CROP, size: heightTo },
     position
@@ -851,7 +863,7 @@ async function getCharRes(info) {
   if (!fs.existsSync(file)) {
     const gachaId = String(info.id).slice(-3);
 
-    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`, file);
+    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`, file, false);
   }
 }
 
@@ -886,13 +898,26 @@ async function getWeaponRes(info) {
   file = path.resolve(gachadir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await getGachaImg(
+    const urls = [
       `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`,
-      file,
-      false,
-      [320, 1024],
-      webpPos.CENTER
-    );
+      `${m_HONEY_HUNTER_WORLD_COM}/img/i_n${item.id}_gacha_icon.webp`,
+    ];
+    const losslessIdx = 1;
+    let ok = false;
+
+    for (let i = 0; i < urls.length; ++i) {
+      try {
+        await getGachaImg(urls[i], file, i >= losslessIdx, false, [320, 1024], webpPos.CENTER);
+        ok = true;
+        break;
+      } catch (e) {
+        // do nothing
+      }
+    }
+
+    if (!ok) {
+      throw Error(`Failed to get gacha image.`);
+    }
   }
 }
 
