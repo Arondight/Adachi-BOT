@@ -784,8 +784,8 @@ async function getGachaImg(url, file, lossless = true, isChar = true, size = [32
       gachaImg = await toWebp(
         gachaImg,
         true,
-        { resize: webpOpt.CROP, size: x },
-        { resize: webpOpt.CROP, size: y },
+        { resize: webpOpt.CROP, size: widthTo },
+        { resize: webpOpt.CROP, size: heightTo },
         webpPos.CENTER
       );
     }
