@@ -70,14 +70,14 @@
     "p-limit": "4.0.0",
     "pm2": "5.2.2",
     "pretty-bytes": "6.0.0",
-    "puppeteer": "18.2.1",
+    "puppeteer": "19.0.0",
     "random-float": "3.0.0",
     "semver": "7.3.8",
     "systeminformation": "5.12.6",
     "yargs": "17.6.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "3.3.0",
+    "@trivago/prettier-plugin-sort-imports": "3.3.1",
     "eslint": "8.25.0",
     "eslint-plugin-check-json-value": "2.1.2",
     "eslint-plugin-import": "2.26.0",
