@@ -63,7 +63,7 @@
     "lowdb": "3.0.0",
     "md5": "2.3.0",
     "moment": "2.29.4",
-    "moment-timezone": "0.5.37",
+    "moment-timezone": "0.5.38",
     "node-fetch": "3.2.10",
     "node-schedule": "2.1.0",
     "oicq": "2.3.1",
@@ -73,7 +73,7 @@
     "puppeteer": "19.0.0",
     "random-float": "3.0.0",
     "semver": "7.3.8",
-    "systeminformation": "5.12.6",
+    "systeminformation": "5.12.7",
     "yargs": "17.6.0"
   },
   "devDependencies": {
