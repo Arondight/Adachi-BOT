@@ -1,5 +1,4 @@
 import { execSync } from "child_process";
-import lodash from "lodash";
 import moment from "moment";
 import path from "path";
 import pb from "pretty-bytes";
@@ -51,15 +50,15 @@ async function status(msg = {}) {
   const mem = await si.mem();
   const time = await si.time();
 
-  const cpuBrand = lodash.hasIn(mCPU, "brand") ? mCPU.brand : m_UNKNOWN_CN;
-  const cpuManufacturer = lodash.hasIn(mCPU, "manufacturer") ? mCPU.manufacturer : m_UNKNOWN_CN;
-  const cpuSpeed = lodash.hasIn(mCPU, "speed") ? mCPU.speed : m_UNKNOWN_CN;
-  const osArch = lodash.hasIn(mOS, "arch") ? mOS.arch : m_UNKNOWN_CN;
-  const osDistro = lodash.hasIn(mOS, "distro") ? mOS.distro : m_UNKNOWN_CN;
-  const osKernel = lodash.hasIn(mOS, "kernel") ? mOS.kernel : m_UNKNOWN_CN;
-  const osPlatform = lodash.hasIn(mOS, "platform") ? mOS.platform : m_UNKNOWN_CN;
-  const versionsNodeJS = lodash.hasIn(mVersions, "node") ? mVersions.node : m_UNKNOWN_CN;
-  const versionsNpm = lodash.hasIn(mVersions, "npm") ? mVersions.npm : m_UNKNOWN_CN;
+  const cpuBrand = mCPU.brand || m_UNKNOWN_CN;
+  const cpuManufacturer = mCPU.manufacturer || m_UNKNOWN_CN;
+  const cpuSpeed = mCPU.speed || m_UNKNOWN_CN;
+  const osArch = mOS.arch || m_UNKNOWN_CN;
+  const osDistro = mOS.distro || m_UNKNOWN_CN;
+  const osKernel = mOS.kernel || m_UNKNOWN_CN;
+  const osPlatform = mOS.platform || m_UNKNOWN_CN;
+  const versionsNodeJS = mVersions.node || m_UNKNOWN_CN;
+  const versionsNpm = mVersions.npm || m_UNKNOWN_CN;
 
   const data = {
     操作系统: `${osPlatform}（${osDistro}）`,
@@ -86,7 +85,7 @@ async function status(msg = {}) {
     )
     .join("\n");
 
-  if (lodash.hasIn(msg, "bot.say")) {
+  if ("function" === typeof msg?.bot?.say) {
     msg.bot.say(msg.sid, text, msg.type, msg.uid, false, "\n");
   }
 
