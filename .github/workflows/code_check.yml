@@ -19,8 +19,8 @@ jobs:
           check_output="${check_output//'%'/'%25'}"
           check_output="${check_output//$'\n'/'%0A'}"
           check_output="${check_output//$'\r'/'%0D'}"
-          echo ::set-output name=check_output::"$check_output"
-          echo ::set-output name=check_failed::"$check_failed"
+          echo check_output="$check_output" >> $GITHUB_OUTPUT
+          echo check_failed="$check_failed" >> $GITHUB_OUTPUT
       - name: Comment if check failed
         uses: peter-evans/commit-comment@v1
         if: ${{ 'true' == steps.check-code.outputs.check_failed }}
