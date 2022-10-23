@@ -813,7 +813,7 @@ function readAuthority() {
     // 消息响应
     reply_auth: "off",
   };
-  const defaultAuth = Object.assign({}, defaultConfig, m_AUTHORITY.default || {});
+  const defaultAuth = { ...defaultConfig, ...(m_AUTHORITY.default || {}) };
 
   // 转换为 boolean
   Object.keys(defaultAuth).forEach((k) => {
@@ -1069,7 +1069,7 @@ function readNames() {
 
   global.names.characterAlias = getSection("character");
   global.names.weaponAlias = getSection("weapon");
-  global.names.allAlias = Object.assign({}, global.names.characterAlias, global.names.weaponAlias);
+  global.names.allAlias = { ...global.names.characterAlias, ...global.names.weaponAlias };
   global.names.character = getNames(global.names.characterAlias);
   global.names.weapon = getNames(global.names.weaponAlias);
   global.names.all = getNames(global.names.allAlias);
@@ -1309,9 +1309,9 @@ function getAll() {
   }
 
   global.all.functions = {};
-  global.all.functions.options = Object.assign({}, global.command.functions.options, global.master.functions.options);
-  global.all.functions.revert = Object.assign({}, global.command.functions.revert, global.master.functions.revert);
-  global.all.functions.type = Object.assign({}, global.command.functions.type, global.master.functions.type);
+  global.all.functions.options = { ...global.command.functions.options, ...global.master.functions.options };
+  global.all.functions.revert = { ...global.command.functions.revert, ...global.master.functions.revert };
+  global.all.functions.type = { ...global.command.functions.type, ...global.master.functions.type };
   merge(global.all, "function", global.command.function, global.master.function);
   merge(global.all.functions, "entrance", global.command.functions.entrance, global.master.functions.entrance);
 }

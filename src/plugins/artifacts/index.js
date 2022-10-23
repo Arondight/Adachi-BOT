@@ -14,7 +14,7 @@ async function Plugin(msg) {
   const guess = guessPossibleNames(
     text,
     lodash
-      .chain(Object.assign({}, global.artifacts.domains.alias, global.artifacts.domains.name))
+      .chain({ ...global.artifacts.domains.alias, ...global.artifacts.domains.name })
       .toPairs()
       .flatten()
       .uniq()

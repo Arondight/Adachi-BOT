@@ -129,7 +129,7 @@ function includes(dbName, key, ...data) {
         return true;
       }
     } else {
-      if (lodash.isEqual(obj, Object.assign({}, obj, predicate))) {
+      if (lodash.isEqual(obj, { ...obj, ...predicate })) {
         return true;
       }
     }
@@ -211,7 +211,7 @@ function get(dbName, key, ...data) {
 
   if (Array.isArray(obj)) {
     result = merge(...lodash.chain(obj).filter(predicate).reverse().value());
-  } else if (lodash.isEqual(obj, Object.assign({}, obj, predicate))) {
+  } else if (lodash.isEqual(obj, { ...obj, ...predicate })) {
     result = lodash.cloneDeep(obj);
   }
 

@@ -30,7 +30,7 @@ async function mysNewsUpdate() {
 
   initDB();
 
-  const ids = Object.assign({}, ...global.config.mysNewsTypeAll.map((c, i) => ({ [c]: i + 1 })));
+  const ids = { ...global.config.mysNewsTypeAll.map((c, i) => ({ [c]: i + 1 })) };
   const record = {};
 
   for (const t of Object.keys(ids)) {
