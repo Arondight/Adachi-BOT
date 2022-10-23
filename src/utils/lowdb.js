@@ -1,4 +1,4 @@
-import { JSONFileSync, MemorySync } from "lowdb";
+import { JSONFileSync, MemorySync } from "lowdb/node";
 
 ("use strict");
 
