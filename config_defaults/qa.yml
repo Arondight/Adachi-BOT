@@ -79,7 +79,7 @@ settings:
     master: false
     type: command
     platform: null
-    reply: echo "你好"
+    reply: echo 你好。
   -
     match:
       - (今天|现在)是?(哪天|(周|星期)几|几号)
