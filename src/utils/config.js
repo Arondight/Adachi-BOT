@@ -1048,8 +1048,12 @@ function readProphecy() {
 // global.names.allAlias        ->  name (lowercase): alias (string, lowercase)
 function readNames() {
   function getSection(s) {
+    function getExtra(o) {
+      return lodash.merge(...o.map((c) => ({ [c.name]: [] })));
+    }
+
     return lodash.reduce(
-      m_NAMES[s] || {},
+      { ...getExtra(global.info[s]), ...(m_NAMES[s] || {}) },
       (p, v, k) => {
         (v || (v = [])).push(k);
         v.forEach((c) => (p["string" === typeof c ? c.toLowerCase() : c] = k));
@@ -1163,12 +1167,11 @@ function readArtifacts() {
 // global.info.weapon       -> array of { access, ascensionMaterials, baseATK, introduce, mainStat, mainValue, name,
 //                                        rarity, skillContent, skillName, time, title, type }, sorted by rarity
 function readInfo() {
-  const names = Object.values(global.names.allAlias);
   const dir = path.resolve(global.rootdir, "resources", "info", "doc");
   const info = ls(dir)
     .filter((c) => {
       const p = path.parse(c);
-      return ".json" === p.ext && names.includes(p.name);
+      return ".json" === p.ext;
     })
     .map((c) => {
       const p = path.parse(c);
@@ -1328,9 +1331,9 @@ function readConfig() {
   readGreeting();
   readMenu();
   readProphecy();
-  readNames();
   readArtifacts();
   readInfo();
+  readNames();
   readEggs();
   readQa();
   readMaterial();
