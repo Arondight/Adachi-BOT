@@ -60,7 +60,7 @@
     "js-yaml": "4.1.0",
     "kind-of": "6.0.3",
     "lodash": "4.17.21",
-    "lowdb": "5.0.3",
+    "lowdb": "5.0.5",
     "md5": "2.3.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.38",
@@ -74,7 +74,7 @@
     "puppeteer": "19.1.0",
     "random-float": "3.0.0",
     "semver": "7.3.8",
-    "systeminformation": "5.12.7",
+    "systeminformation": "5.12.8",
     "yargs": "17.6.0"
   },
   "devDependencies": {
