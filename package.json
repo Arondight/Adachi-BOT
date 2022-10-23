@@ -70,6 +70,7 @@
     "p-limit": "4.0.0",
     "pm2": "5.2.2",
     "pretty-bytes": "6.0.0",
+    "process": "0.11.10",
     "puppeteer": "19.1.0",
     "random-float": "3.0.0",
     "semver": "7.3.8",

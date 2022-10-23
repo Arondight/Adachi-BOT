@@ -11,6 +11,8 @@
 #     ignoreCase: boolean       # 是否忽略大小写匹配
 #     master: boolean           # 是否只能由管理员执行
 #     type: string              # 类型（ text 、 image 、 executable 、 command ）
+#     platform:                 # 当 type 为 executable 或 command 时指定操作系统，如果不存在或为 null 匹配所有操作系统
+#       - string
 #     reply: string             # 回复的内容，如何解释根据类型而异
 # ==============================================================================
 # type 的合法取值见下表。
@@ -23,6 +25,15 @@
 # | executable | 可执行文件的路径，如果是相对路径，以此配置文件的目录为基准 |
 # | command    | 命令                                                       |
 # +------------+------------------------------------------------------------+
+# ==============================================================================
+# platform 的合法取值可以为。
+#
+# 1. null
+# 2. ("aix" | "android" | "darwin" | "freebsd" | "haiku" | "linux" | "openbsd" | "sunos" | "win32" | "cygwin" | "netbsd")[]
+#
+# https://nodejs.org/api/process.html#process_process_platform
+#
+# 另外需要根据操作系统的差异来改变本文件的编码（默认为 UTF8 ）。
 # ==============================================================================
 # 当 type 是 executable 或 command 时，会向子进程传递三个环境变量。
 #
@@ -63,10 +74,28 @@ settings:
     reply: ../scripts/is_there_an_update_available.sh
   -
     match:
+      - ^你好$
+    ignoreCase: false
+    master: false
+    type: command
+    platform: null
+    reply: echo "你好"
+  -
+    match:
       - (今天|现在)是?(哪天|(周|星期)几|几号)
     ignoreCase: false
     master: false
     type: command
+    platform:
+      - aix
+      - android
+      - darwin
+      - freebsd
+      - linux
+      - openbsd
+      - sunos
+      - cygwin
+      - netbsd
     reply: date +"%Y年%m月%d日（%Z），星期%u" | sed "s|6$|六|; s|7$|日|; s|$|。|"
   -
     match:
@@ -74,4 +103,14 @@ settings:
     ignoreCase: false
     master: false
     type: command
+    platform:
+      - aix
+      - android
+      - darwin
+      - freebsd
+      - linux
+      - openbsd
+      - sunos
+      - cygwin
+      - netbsd
     reply: echo "我听到 ${USER_NAME}（${USER_ID}）说了“${MSG_TEXT}”，如果需要查阅使用方法，需要说“help”！"

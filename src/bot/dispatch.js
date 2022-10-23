@@ -1,6 +1,7 @@
 import { exec } from "child_process";
 import lodash from "lodash";
 import os from "os";
+import { platform } from "process";
 import { checkAuth } from "#utils/auth";
 import { absPath, base64 } from "#utils/file";
 import { isGroupBan, toCqcode } from "#utils/oicq";
@@ -26,6 +27,15 @@ async function doPossibleCommand(msg, plugins, type, bot) {
       if (r.test(msg.raw_message)) {
         if (true === option.master && !global.config.masters.includes(msg.user_id)) {
           bot.say(msg.sid, "此问答功能仅供管理者使用。", type, msg.uid);
+          break;
+        }
+
+        const osMatch =
+          undefined === option.platform ||
+          null === option.platform ||
+          (Array.isArray(option.platform) && option.platform.includes(platform));
+
+        if (false === osMatch) {
           break;
         }
 
