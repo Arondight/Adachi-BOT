@@ -52,11 +52,11 @@ settings:
   #
   -
     match:
-      - Adachi-BOT\s*是什么
+      - 在吗[？?]*$
     ignoreCase: true
     master: false
     type: text
-    reply: 我也不知道呢……
+    reply: 我在哦。
   -
     match:
       - 刻(猫{2}|晴)是谁
@@ -67,14 +67,14 @@ settings:
     reply: ../resources/character/picture/10000042.png
   -
     match:
-      - Adachi-BOT\s*(上游)?有?更新了?吗
+      - (上游)?有?更新了?吗[？?]*$
     ignoreCase: true
     master: true
     type: executable
     reply: ../scripts/is_there_an_update_available.sh
   -
     match:
-      - ^你好$
+      - ^你好[.。!！]*$
     ignoreCase: false
     master: false
     type: command
