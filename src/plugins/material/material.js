@@ -7,15 +7,18 @@ import { getWordByRegex } from "#utils/tools";
 
 ("use strict");
 
-// 观测枢最底部“角色天赋材料周常表”入口
-// 周本图，包括天赋、武器、世界BOSS
+// 观测枢最底部“索引分类”中“WIKI索引”，点击“角色天赋材料周常表”和“武器突破材料周常表”
+// https://bbs.mihoyo.com/ys/strategy/
 const m_URL = Object.freeze({
   // 角色天赋
-  talent: getUrl("/2022/09/28/75833613/7fa4f61ddfe112f45e1ca3a35c9b92d2_5978218192327487057.png"),
+  // https://bbs.mihoyo.com/ys/obc/content/1226/detail
+  talent: getUrl("/2022/10/13/75833613/25f724446b2ca7667aaff7638baa8240_8990270834497776161.png"),
   // 武器素材
-  weapon: getUrl("/2022/09/28/75833613/31f4887f10f3ef55224b489edbe5a906_8568941919684533373.png"),
-  // boss 周本
-  weekly: getUrl("/2022/09/28/75833613/eb33cb712bab6991876c1ba590eecf3d_5898987548354516514.png"),
+  // https://bbs.mihoyo.com/ys/obc/content/1187/detail
+  weapon: getUrl("/2022/10/13/75833613/2e8dbac2ca65c6752fad93ef3c27990b_8978158381690391867.png"),
+  // 周本掉落
+  // https://bbs.mihoyo.com/ys/obc/content/1226/detail
+  weekly: getUrl("/2022/10/13/75833613/7cf877114c7229273ae493b51620aba2_4373087575235336466.png"),
 });
 
 function getUrl(p) {

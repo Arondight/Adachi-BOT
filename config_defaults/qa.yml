@@ -31,8 +31,6 @@
 # 1. null
 # 2. ("aix" | "android" | "darwin" | "freebsd" | "haiku" | "linux" | "openbsd" | "sunos" | "win32" | "cygwin" | "netbsd")[]
 #
-# https://nodejs.org/api/process.html#process_process_platform
-#
 # 另外需要根据操作系统的差异来改变本文件的编码（默认为 UTF8 ）。
 # ==============================================================================
 # 当 type 是 executable 或 command 时，会向子进程传递三个环境变量。

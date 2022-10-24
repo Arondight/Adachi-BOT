@@ -99,8 +99,8 @@ function isYe(name) {
 }
 
 /***
- * @param id id string
- * @param lang "zh" or "en"
+ * @param {string} id - id text from ambr.top API.
+ * @param {string} lang - "zh" or "en".
  */
 function nameOfYe(id, lang = "zh") {
   const langId = Object.freeze(["zh", "en"]).indexOf(lang) || 0;
