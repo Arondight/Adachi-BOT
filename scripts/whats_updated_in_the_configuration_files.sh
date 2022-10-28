@@ -1,8 +1,13 @@
 RDIR=$(dirname $(readlink -f "$0"))
 SKIPLIST=(
+  'authority.yml'
   'cookies.yml'
   'greeting.yml'
   'menu.yml'
+  'names.yml'
+  'pool_eggs.yml'
+  'prophecy.yml'
+  'qa.yml'
 )
 
 source "${RDIR}/config.sh"
