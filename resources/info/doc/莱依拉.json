@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "永续机芯"],
+  "baseATK": 216.64513184,
+  "birthday": "12月19日",
+  "constellationName": "夜莺座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>的安眠帷幕护盾的伤害吸收量提高20%。此外，施放元素战技时，将为队伍中附近不处于安眠帷幕护盾庇护下的所有角色生成伤害吸收量为安眠帷幕护盾35%的护盾，该护盾持续12秒，对<span class=\"desc-number recolor\">冰元素伤害</span>有250%的吸收效果。",
+    "<span class=\"desc-number recolor\">元素战技</span>发射的飞星命中敌人时，为莱依拉恢复1点能量。每枚飞星至多通过这种方式为莱依拉恢复一次能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素战技</span>开始发射一轮飞星时，将为附近的队伍中所有角色赋予「启明」效果，使普通攻击与重击造成的伤害提升，提升值相当于莱依拉生命值上限的5%。「启明」效果至多持续3秒，将在造成普通攻击或重击伤害后的0.05秒后移除。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素战技</span>的飞星造成的伤害提升40%，<span class=\"desc-number recolor\">元素爆发</span>的星光弹造成的伤害提升40%。此外，元素战技产生晚星的间隔时间减少20%。"
+  ],
+  "cvCN": "侯小菲",
+  "cvJP": "富田美忧",
+  "element": "冰元素",
+  "id": 10000074,
+  "introduce": "专攻理论星相学的梨多梵谛学院学生。时常梦游，长期缺觉，饱受睡眠问题困扰。",
+  "levelUpMaterials": ["月莲", "导能绘卷", "封魔绘卷", "禁咒绘卷"],
+  "mainStat": "生命值",
+  "mainValue": "24.00%",
+  "name": "莱依拉",
+  "passiveDesc": "合成角色天赋素材时，有10%概率获得2倍产出。",
+  "passiveTitle": "叠影的梦兆",
+  "rarity": 4,
+  "talentMaterials": ["「巧思」的教导", "「巧思」的指引", "「巧思」的哲学", "？？？"],
+  "time": "【周二/五/日】",
+  "title": "绮思晚星",
+  "type": "角色"
+}
