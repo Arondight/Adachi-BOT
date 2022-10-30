@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["生长碧翡碎屑", "生长碧翡断片", "生长碧翡块", "生长碧翡", "灭诤草蔓"],
+  "baseATK": 298.972975,
+  "birthday": "10月27日",
+  "constellationName": "智慧主座",
+  "constellations": [
+    "展开<span class=\"desc-number recolor\">摩耶之殿</span>计算队伍中特定元素类型的角色数量时，额外计入火元素、雷元素、水元素的角色各1名。",
+    "处于纳西妲自身施加的<span class=\"desc-number recolor\">蕴种印</span>状态下的敌人，将受到以下效果影响：·燃烧、绽放、超绽放、烈绽放反应伤害能够造成暴击，暴击率固定为20%，暴击伤害固定为100%；·受到原激化、超激化、蔓激化反应影响后的8秒内，防御力降低30%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "附近处于<span class=\"desc-number recolor\">元素战技</span>的蕴种印状态下的敌人数量为1/2/3/4或更多时，纳西妲的元素精通提升100/120/140/160点。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "施放<span class=\"desc-number recolor\">元素爆发</span>后，纳西妲的普通攻击或重击命中处于<span class=\"desc-number recolor\">元素战技</span>的蕴种印状态下的敌人时，将对该敌人及其所处连结中的所有敌人释放灭净三业·业障除，基于纳西妲攻击力的200%与元素精通的400%，造成<span class=\"desc-number recolor\">草元素伤害</span>。灭净三业·业障除造成的伤害视为元素战技伤害，每0.2秒至多触发一次。该效果至多持续10秒，将在纳西妲释放6次灭净三业·业障除后移除。"
+  ],
+  "cvCN": "花玲",
+  "cvJP": "田村由加莉",
+  "element": "草元素",
+  "id": 10000073,
+  "introduce": "深居净善宫的笼中之鸟，只能在梦中将世界尽收眼底。",
+  "levelUpMaterials": ["劫波莲", "蕈兽孢子", "荧光孢粉", "孢囊晶尘"],
+  "mainStat": "元素精通",
+  "mainValue": "115.2",
+  "name": "纳西妲",
+  "passiveDesc": "纳西妲能够通过<span class=\"desc-number recolor\">所闻遍计</span>，与一定范围内的部分采集物进行交互。\\n或许还有其他的效果…",
+  "passiveTitle": "诸相随念净行",
+  "rarity": 5,
+  "talentMaterials": ["「巧思」的教导", "「巧思」的指引", "「巧思」的哲学", "？？？"],
+  "time": "【周二/五/日】",
+  "title": "白草净华",
+  "type": "角色"
+}
