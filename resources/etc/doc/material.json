@@ -624,6 +624,76 @@
       "beta": false
     },
     {
+      "id": 101101,
+      "name": "北陆单手剑原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101102,
+      "name": "北陆弓原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101103,
+      "name": "北陆双手剑原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101104,
+      "name": "北陆法器原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101105,
+      "name": "北陆长柄武器原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101111,
+      "name": "央陆单手剑原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101112,
+      "name": "央陆弓原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101113,
+      "name": "央陆双手剑原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101114,
+      "name": "央陆法器原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
+      "id": 101115,
+      "name": "央陆长柄武器原胚",
+      "type": "素材",
+      "rarity": 4,
+      "beta": false
+    },
+    {
       "id": 101201,
       "name": "鬼兜虫",
       "type": "稻妻区域特产",
@@ -2302,28 +2372,28 @@
       "name": "灭诤草蔓",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113041,
-      "name": "？？？",
+      "name": "傀儡的悬丝",
       "type": "角色培养素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113042,
-      "name": "？？？",
+      "name": "无心的渊镜",
       "type": "角色培养素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113043,
-      "name": "？？？",
+      "name": "空行的虚铃",
       "type": "角色培养素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114001,
@@ -2670,10 +2740,10 @@
     },
     {
       "id": 120127,
-      "name": "？？？",
+      "name": "初生白枝",
       "type": "任务道具",
-      "rarity": 1,
-      "beta": true
+      "rarity": 5,
+      "beta": false
     },
     {
       "id": 220001,
