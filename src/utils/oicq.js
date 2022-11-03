@@ -67,7 +67,7 @@ function toCqcode(msg = {}) {
 
   (msg.message || []).forEach((c) => {
     if ("text" === c.type) {
-      cqcode += c.text;
+      cqcode += c.text.replaceAll(/(\r\n|\r)/g, "\n");
       return;
     }
 
