@@ -91,6 +91,6 @@
     "postcss": "^8.4.18",
     "prettier": "2.7.1",
     "prettier-plugin-css-order": "^1.3.0",
-    "sharp": "0.31.1"
+    "sharp": "0.31.2"
   }
 }
