@@ -12,13 +12,13 @@ import { getWordByRegex } from "#utils/tools";
 const m_URL = Object.freeze({
   // 角色天赋
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  talent: getUrl("/2022/10/13/75833613/25f724446b2ca7667aaff7638baa8240_8990270834497776161.png"),
+  talent: getUrl("/2022/11/02/75833613/33abe74e7d9a726317c8e35f1ea16d6b_5405833439823368117.png"),
   // 武器素材
   // https://bbs.mihoyo.com/ys/obc/content/1187/detail
-  weapon: getUrl("/2022/10/13/75833613/2e8dbac2ca65c6752fad93ef3c27990b_8978158381690391867.png"),
+  weapon: getUrl("/2022/11/02/75833613/bdb0f92e4a5ba578c19db1dc04dc24d2_1956175768159653123.png"),
   // 周本掉落
   // https://bbs.mihoyo.com/ys/obc/content/1226/detail
-  weekly: getUrl("/2022/10/13/75833613/7cf877114c7229273ae493b51620aba2_4373087575235336466.png"),
+  weekly: getUrl("/2022/11/02/75833613/54ce710a06f4b6adf2a7543beb020b75_7892771804697073162.png"),
 });
 
 function getUrl(p) {
