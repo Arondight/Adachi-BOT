@@ -866,17 +866,23 @@
     {
       "id": 104001,
       "name": "流浪者的经验",
-      "type": "characterEXPMaterial"
+      "type": "角色经验素材",
+      "rarity": 2,
+      "beta": false
     },
     {
       "id": 104002,
       "name": "冒险家的经验",
-      "type": "characterEXPMaterial"
+      "type": "角色经验素材",
+      "rarity": 3,
+      "beta": false
     },
     {
       "id": 104003,
       "name": "大英雄的经验",
-      "type": "characterEXPMaterial"
+      "type": "角色经验素材",
+      "rarity": 4,
+      "beta": false
     },
     {
       "id": 104011,
