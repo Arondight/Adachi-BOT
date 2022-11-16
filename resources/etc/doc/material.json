@@ -864,6 +864,146 @@
       "beta": false
     },
     {
+      "id": 101301,
+      "name": "桦木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101302,
+      "name": "萃华木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101303,
+      "name": "松木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101304,
+      "name": "却砂木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101305,
+      "name": "竹节",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101307,
+      "name": "垂香木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101308,
+      "name": "杉木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101309,
+      "name": "梦见木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101310,
+      "name": "枫木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101311,
+      "name": "孔雀木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101312,
+      "name": "御伽木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101313,
+      "name": "辉木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101314,
+      "name": "业果木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101315,
+      "name": "证悟木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101316,
+      "name": "刺葵木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101317,
+      "name": "柽木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101401,
+      "name": "布匹",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101402,
+      "name": "红色染料",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101403,
+      "name": "黄色染料",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
+      "id": 101404,
+      "name": "蓝色染料",
+      "type": "素材",
+      "rarity": 1,
+      "beta": false
+    },
+    {
       "id": 104001,
       "name": "流浪者的经验",
       "type": "角色经验素材",
