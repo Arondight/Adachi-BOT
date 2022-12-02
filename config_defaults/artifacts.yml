@@ -287,6 +287,18 @@ artifacts:
     icon: null
     suit: 饰金之梦
     names: [ 梦中的铁花, 裁断的翎羽, 沉金的岁月, 如蜜的终宴, 沙王的投影 ]
+  -
+    id: 24
+    rarity: 5
+    icon: null
+    suit: 沙上楼阁史话
+    names: [ 众王之都的开端, 黄金邦国的结末, 失落迷途的机芯, 迷醉长梦的守护, 流沙贵嗣的遗宝 ]
+  -
+    id: 25
+    rarity: 5
+    icon: null
+    suit: 乐园遗落之花
+    names: [ 月女的华彩, 谢落的筵席, 凝结的时刻, 守秘的魔瓶, 紫晶的花冠 ]
 
 #
 # 副本掉落设置。别名 alias 忽略大小写。
@@ -352,3 +364,8 @@ domains:
     name: 缘觉塔
     alias: [ 草本, 精通本 ]
     product: [ 22, 23 ]
+  -
+    id: 12
+    name: 新副本
+    alias: [ 新副本 ]
+    product: [ 24, 25 ]
