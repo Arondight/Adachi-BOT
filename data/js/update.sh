@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-RDIR=$(dirname $(readlink -f "$0"))
+RDIR="$(dirname "$(readlink -f "$0")")"
+typeset -r RDIR
+
 CURL=('curl' '-sL')
+typeset -r CURL
 
 typeset -A LOCPATH=(
   ['https://unpkg.com/vue@2/dist/vue.js']=\
@@ -41,7 +44,7 @@ function dealFile()
   local type="$1" && shift
   local cmd="$1" && shift
   local msg="$1" && shift
-  local files=($@)
+  local files=("$@")
   local found=0
 
   for file in "${files[@]}"
@@ -66,7 +69,7 @@ function dealFile()
     then
       if ( echo "$cmd" | grep '{}' >/dev/null 2>&1 )
       then
-        cmd=$(echo "$cmd" | sed "s|{}|${file}|g")
+        cmd=${cmd//{}/"$file"}
         env -iS "bash -c '$cmd'"
       else
         env -iS "$cmd" "$file"

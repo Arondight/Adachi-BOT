@@ -1,4 +1,8 @@
-RDIR=$(dirname $(readlink -f "$0"))
+#!/usr/bin/env bash
+
+RDIR="$(dirname "$(readlink -f "$0")")"
+typeset -r RDIR
+
 SKIPLIST=(
   'authority.yml'
   'cookies.yml'
@@ -9,12 +13,13 @@ SKIPLIST=(
   'prophecy.yml'
   'qa.yml'
 )
+typeset -ar SKIPLIST
 
+# shellcheck source=/dev/null
 source "${RDIR}/config.sh"
 
 {
-  configs=($(find "$CONFIG_DIR" -type f -name '*.yml' \
-    | xargs -I {} basename {}))
+  mapfile -t configs < <(find "$CONFIG_DIR" -type f -name '*.yml' -exec basename {} \;)
 
   for config in "${configs[@]}"
   do
