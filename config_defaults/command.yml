@@ -420,7 +420,8 @@ package:
         - ^uid
 
 rating:
-  enable: true
+  # https://github.com/Arondight/Adachi-BOT/discussions/961
+  enable: false
   weights: 9199
   regex:
     - ^评分\s*\[CQ:image,type=.*?,file=.*
