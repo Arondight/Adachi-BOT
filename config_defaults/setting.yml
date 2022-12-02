@@ -21,6 +21,7 @@ accounts:
     #password: null
     password: zhimakaimen
     # 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
+    # 当前因为 oicq 协议老旧的问题请使用 iPad 登录
     platform: 5
 # 此选项已弃用，但仍生效，建议使用 accounts
 #account:
