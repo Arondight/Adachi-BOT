@@ -48,7 +48,8 @@
     "install-dev": "npm run install-prod && npx cross-env-shell npm_config_sharp_binary_host='https://npmmirror.com/mirrors/sharp' npm_config_sharp_libvips_binary_host='https://npmmirror.com/mirrors/sharp-libvips' npm install --include dev",
     "install-prod": "npm install --omit dev",
     "update": "git pull && npm run install-prod",
-    "update-modules": "npx ncu -u && npm update"
+    "update-modules": "npx ncu -u && npm update",
+    "postinstall": "npx patch-package --patch-dir ./.patches"
   },
   "dependencies": {
     "cross-env": "7.0.3",
@@ -68,6 +69,7 @@
     "node-schedule": "2.1.0",
     "oicq": "2.3.1",
     "p-limit": "4.0.0",
+    "patch-package": "6.5.0",
     "pm2": "5.2.2",
     "pretty-bytes": "6.0.0",
     "process": "0.11.10",
