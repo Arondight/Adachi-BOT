@@ -49,7 +49,9 @@ async function doMaterial(msg, url) {
   const character = { type: "character", data: [] };
   const weapon = { type: "weapon", data: [] };
   const items = {
-    character: global.info.character.filter((c) => (global.material[materialList[dayOfWeek]] || []).includes(c.name)),
+    character: global.info.character.filter((c) =>
+      (("旅行者" !== c.name && global.material[materialList[dayOfWeek]]) || []).includes(c.name)
+    ),
     weapon: global.info.weapon.filter((c) => (global.material[materialList[dayOfWeek]] || []).includes(c.name)),
   };
   const ascensions = { character: [], weapon: [] };
