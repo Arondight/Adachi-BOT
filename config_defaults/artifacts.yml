@@ -366,6 +366,6 @@ domains:
     product: [ 22, 23 ]
   -
     id: 12
-    name: 新副本
-    alias: [ 新副本 ]
+    name: 赤金的城墟
+    alias: [ 金本, 赤金本, 绽放本 ]
     product: [ 24, 25 ]
