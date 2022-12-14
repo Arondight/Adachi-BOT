@@ -218,6 +218,7 @@
  *   prefixes: [ null ],
  *   atMe: 1,
  *   atUser: 1,
+ *   checkMasterAuth: 0,
  *   replyStranger: 1,
  *   repeatProb: 1,
  *   groupHello: 1,
@@ -248,6 +249,7 @@
  *   - 987654321
  * atMe: 1
  * atUser: 1
+ * checkMasterAuth: 0,
  * replyStranger: 1
  * repeatProb: 1
  * groupHello: 1
@@ -842,6 +844,8 @@ function readSetting() {
     atMe: 0,
     // 群聊回复时不 @ 用户
     atUser: 0,
+    // 不检查管理员的权限
+    checkMasterAuth: 0,
     // 不回复陌生人消息
     replyStranger: 0,
     // 不复读群消息
@@ -891,6 +895,7 @@ function readSetting() {
   const prefixes = m_SETTING.prefixes;
   const atMe = parseInt(m_SETTING.atMe);
   const atUser = parseInt(m_SETTING.atUser);
+  const checkMasterAuth = parseInt(m_SETTING.checkMasterAuth);
   const replyStranger = parseInt(m_SETTING.replyStranger);
   const repeatProb = parseInt(parseFloat(m_SETTING.repeatProb) * 100);
   const groupHello = parseInt(m_SETTING.groupHello);
@@ -931,6 +936,7 @@ function readSetting() {
     },
     { atMe },
     { atUser },
+    { checkMasterAuth },
     { replyStranger },
     { repeatProb },
     { groupHello },

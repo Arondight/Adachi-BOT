@@ -58,7 +58,7 @@ function setAuth(msg, funcs = [], id, isOn, report = true) {
 // 返回值：
 //    true:   有权限
 //    false:  没权限
-function checkAuth(msg, func, report = true, checkMaster = false) {
+function checkAuth(msg, func, report = true) {
   function getAuth() {
     const uauth = hasAuth(msg.uid, func);
     const gauth = hasAuth(msg.sid, func);
@@ -70,6 +70,7 @@ function checkAuth(msg, func, report = true, checkMaster = false) {
     return false !== uauth && false !== gauth;
   }
 
+  const checkMaster = 1 === global.config.checkMasterAuth;
   const res = (false === checkMaster && global.config.masters.includes(msg.uid)) || getAuth();
   let name = global.command.functions.name[func];
 

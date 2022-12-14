@@ -62,15 +62,14 @@ function iconvConvert(text, to = "utf8", from = "binary") {
 }
 
 function randomString(length) {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  let result = "";
+  const pool = Object.freeze("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+  const chars = [];
 
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    chars.push(pool.charAt(Math.floor(Math.random() * pool.length)));
   }
 
-  return result;
+  return chars.join("");
 }
 
 function getRandomInt(boundary) {

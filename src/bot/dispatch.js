@@ -16,7 +16,7 @@ const mTimestamp = {};
 
 async function doPossibleCommand(msg, plugins, type, bot) {
   async function doQa(msg) {
-    if (false === checkAuth(msg, global.innerAuthName.qa, false)) {
+    if (!checkAuth(msg, global.innerAuthName.qa, false)) {
       return;
     }
 
@@ -182,7 +182,7 @@ async function doPossibleCommand(msg, plugins, type, bot) {
   msg.groupOfStranger = groupOfStranger;
 
   // 不响应消息则当做一条已经指派插件的命令返回
-  if (false === checkAuth(msg, global.innerAuthName.reply, false)) {
+  if (!checkAuth(msg, global.innerAuthName.reply, false)) {
     return true;
   }
 
