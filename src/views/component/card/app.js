@@ -38,8 +38,8 @@ const template = html`<div class="card-container">
       <p>{{ stats.electroculus_number }}</p>
       <p>华丽宝箱</p>
       <p>{{ stats.luxurious_chest_number }}</p>
-      <p v-if="stats.dendroculus_number">草神瞳数</p>
-      <p v-if="stats.dendroculus_number">{{ stats.dendroculus_number }}</p>
+      <p>草神瞳数</p>
+      <p>{{ stats.dendroculus_number }}</p>
       <p>奇馈宝箱</p>
       <p>{{ stats.magic_chest_number }}</p>
       <p>洞天仙力</p>
