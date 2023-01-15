@@ -81,7 +81,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.0.0",
-    "eslint": "8.31.0",
+    "eslint": "8.32.0",
     "eslint-plugin-check-json-value": "2.1.2",
     "eslint-plugin-import": "2.27.4",
     "eslint-plugin-node": "11.1.0",
