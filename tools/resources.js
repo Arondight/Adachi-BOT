@@ -19,6 +19,7 @@ const m_DIR = Object.freeze({
 });
 const m_NICK_AMBR_TO_HONEY = Object.freeze({
   amber: "ambor",
+  alhaitham: "alhatham",
   heizou: "heizo",
   jean: "qin",
   kujousara: "sara",
