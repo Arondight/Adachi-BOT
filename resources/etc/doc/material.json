@@ -567,7 +567,7 @@
       "name": "神秘的肉",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 100584,
@@ -861,7 +861,7 @@
       "name": "沙脂蛹",
       "type": "须弥区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101225,
@@ -2282,21 +2282,21 @@
       "name": "残毁的横脊",
       "type": "角色培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112075,
       "name": "密固的横脊",
       "type": "角色培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112076,
       "name": "锲纹的横脊",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113001,
@@ -2597,7 +2597,7 @@
       "name": "苍砾蕊羽",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114001,
@@ -3276,7 +3276,7 @@
       "name": "魔瓶镇灵·利露帕尔",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220074,

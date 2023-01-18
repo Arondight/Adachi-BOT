@@ -19,6 +19,7 @@ const m_DIR = Object.freeze({
 });
 const m_NICK_AMBR_TO_HONEY = Object.freeze({
   amber: "ambor",
+  alhaitham: "alhatham",
   heizou: "heizo",
   jean: "qin",
   kujousara: "sara",
@@ -940,6 +941,7 @@ async function getWeaponRes(info) {
     const urls = [
       `${m_PROJECT_CELESTIA_COM}/static/images/UI_Gacha_EquipIcon_${item.icon}.webp`,
       `${m_HONEY_HUNTER_WORLD_COM}/img/i_n${item.id}_gacha_icon.webp`,
+      `${m_HONEY_HUNTER_WORLD_COM}/img/i_n${item.id}.webp`,
     ];
     const losslessIdx = 1;
     let ok = false;
