@@ -1,5 +1,5 @@
 diff --git a/node_modules/oicq/lib/core/device.js b/node_modules/oicq/lib/core/device.js
-index ffadc63..57da54d 100644
+index ffadc63..e6c434d 100644
 --- a/node_modules/oicq/lib/core/device.js
 +++ b/node_modules/oicq/lib/core/device.js
 @@ -34,7 +34,7 @@ function generateImei(uin) {
@@ -57,30 +57,34 @@ index ffadc63..57da54d 100644
  exports.generateShortDevice = generateShortDevice;
  /** 生成完整设备信息 */
  function generateFullDevice(d) {
-@@ -104,16 +143,19 @@ var Platform;
+@@ -103,18 +142,21 @@ var Platform;
+     Platform[Platform["iMac"] = 4] = "iMac";
      Platform[Platform["iPad"] = 5] = "iPad";
  })(Platform = exports.Platform || (exports.Platform = {}));
++// XXX Here update device informations based on mirai
++// https://github.com/mamoe/mirai/blob/e7bcb190a7662350211897b29314bad0f332e6d9/mirai-core/src/commonMain/kotlin/utils/MiraiProtocolInternal.kt
  const mobile = {
-+    // XXX Here update device informations based on mirai
-+    // https://github.com/mamoe/mirai/blob/c9d1d386b16e886ad63eb51e6baf7270fcf2fa7b/mirai-core/src/commonMain/kotlin/utils/MiraiProtocolInternal.kt
      id: "com.tencent.mobileqq",
 -    name: "A8.8.80.7400",
 -    version: "8.8.80.7400",
 -    ver: "8.8.80",
 -    sign: Buffer.from([166, 183, 69, 191, 36, 162, 194, 119, 82, 119, 22, 246, 243, 110, 182, 141]),
-+    name: "A8.9.15.9425",
-+    version: "8.9.15.9425",
-+    ver: "8.9.15",
++    name: "A8.9.23.9425",
++    version: "8.9.23.9425",
++    ver: "8.9.23",
 +    sign: Buffer.from([0xA6, 0xB7, 0x45, 0xBF, 0x24, 0xA2, 0xC2, 0x77, 0x52, 0x77, 0x16, 0xF6, 0xF3, 0x6E, 0xB6, 0x8D]),
      buildtime: 1640921786,
-     appid: 16,
+-    appid: 16,
 -    subid: 537113159,
 -    bitmap: 184024956,
 -    sigmap: 34869472,
-+    subid: 537138832,
+-    sdkver: "6.0.0.2494",
++    appid: 19,
++    subid: 537143097,
 +    bitmap: 150470524,
 +    sigmap: 16724722,
 +    subsigmap: 0x10400,
-     sdkver: "6.0.0.2494",
++    sdkver: "6.0.0.2530",
      display: "Android",
  };
+ const watch = {
