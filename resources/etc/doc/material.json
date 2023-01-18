@@ -3284,6 +3284,13 @@
       "type": "小道具",
       "rarity": 4,
       "beta": false
+    },
+    {
+      "id": 220078,
+      "name": "绮筵之鼓",
+      "type": "小道具",
+      "rarity": 4,
+      "beta": true
     }
   ]
 }
