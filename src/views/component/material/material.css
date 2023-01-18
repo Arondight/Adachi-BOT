@@ -232,17 +232,22 @@ html {
 }
 
 .item-name-banner {
-  display: flex;
+  /* display: flex; */
   grid-area: banner;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
   background: #3333338c;
   width: 100%;
   height: 14px;
+  overflow: hidden;
   color: white;
   font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  text-overflow: ellipsis;
   text-shadow: 0 0 4px #33333378;
+  white-space: nowrap;
 }
 
 .item-image.five-star,
