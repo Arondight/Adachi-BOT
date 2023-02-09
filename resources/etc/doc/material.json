@@ -570,6 +570,13 @@
       "beta": false
     },
     {
+      "id": 100098,
+      "name": "咖啡豆",
+      "type": "食材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
       "id": 100584,
       "name": "深邃之血",
       "type": "任务道具",
