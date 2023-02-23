@@ -17,9 +17,10 @@ const m_DIR = Object.freeze({
   material: mkdir(path.resolve(m_RESDIR, "material")),
   weapon: mkdir(path.resolve(m_RESDIR, "weapon")),
 });
+// 3.5
 const m_NICK_AMBR_TO_HONEY = Object.freeze({
-  amber: "ambor",
   alhaitham: "alhatham",
+  amber: "ambor",
   heizou: "heizo",
   jean: "qin",
   kujousara: "sara",
@@ -68,6 +69,7 @@ const m_API = Object.freeze({
     info: `${m_API_V2}/chs/avatar`,
     infoEn: `${m_API_V2}/en/avatar`,
     curve: `${m_API_V2}/static/avatarCurve`,
+    ui: `${m_AMBR_TOP}/assets/UI`,
   },
   weapon: {
     info: `${m_API_V2}/chs/weapon`,
@@ -771,7 +773,7 @@ async function getMaterialImg(name) {
 
   if (!fs.existsSync(file)) {
     await remoteImgToWebpFile(
-      `${m_AMBR_TOP}/assets/UI/UI_ItemIcon_${getMaterialIdByName(name)}.png`,
+      `${m_API.character.ui}/UI_ItemIcon_${getMaterialIdByName(name)}.png`,
       file,
       false,
       { resize: webpOpt.RESIZE, size: 256 },
@@ -853,7 +855,7 @@ async function getCharRes(info) {
 
   if (!fs.existsSync(file)) {
     await remoteImgToWebpFile(
-      `${m_AMBR_TOP}/assets/UI/UI_AvatarIcon_${item.icon}.png`,
+      `${m_API.character.ui}/UI_AvatarIcon_${item.icon}.png`,
       file,
       false,
       { resize: webpOpt.RESIZE, size: 256 },
@@ -896,14 +898,15 @@ async function getCharRes(info) {
     nameEn = nameEn.split(" ").slice(-1)[0];
   }
 
-  nameEn = nameEn.toLowerCase().replaceAll(/\s/g, "");
-  nameEn = m_NICK_AMBR_TO_HONEY[nameEn] || nameEn;
+  const nameEnShort = nameEn.toLowerCase().replaceAll(/\s/g, "");
+  const nameEnHoney = m_NICK_AMBR_TO_HONEY[nameEnShort] || nameEnShort;
+
   file = path.resolve(gachadir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
     const gachaId = String(info.id).slice(-3);
 
-    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEn}_${gachaId}_gacha_card.webp`, file, false);
+    await getGachaImg(`${m_HONEY_HUNTER_WORLD_COM}/img/${nameEnHoney}_${gachaId}_gacha_card.webp`, file, false);
   }
 }
 
@@ -918,7 +921,7 @@ async function getWeaponRes(info) {
 
   if (!fs.existsSync(file)) {
     await remoteImgToWebpFile(
-      `${m_AMBR_TOP}/assets/UI/UI_EquipIcon_${item.icon}.png`,
+      `${m_API.character.ui}/UI_EquipIcon_${item.icon}.png`,
       file,
       false,
       { resize: webpOpt.RESIZE, size: 256 },
