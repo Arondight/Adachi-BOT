@@ -1,0 +1,18 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": [
+    ["狮牙斗士的枷锁", "狮牙斗士的铁链", "狮牙斗士的镣铐", "狮牙斗士的理想"],
+    ["残毁的横脊", "密固的横脊", "锲纹的横脊", "浮游干核", "浮游幽核", "浮游晶化核"]
+  ],
+  "baseATK": 564.7837344,
+  "introduce": "",
+  "mainStat": "元素精通",
+  "mainValue": "110.256",
+  "name": "饰铁之花",
+  "rarity": 4,
+  "skillContent": "元素战技命中敌人或触发元素反应后的8秒内，攻击力提升<span class=\"desc-number recolor\">12%/15%/18%/21%/24%</span>，元素精通提升<span class=\"desc-number recolor\">48/60/72/84/96</span>点。",
+  "skillName": "风与花的密语",
+  "time": "【周三/六/日】",
+  "title": "双手剑",
+  "type": "武器"
+}

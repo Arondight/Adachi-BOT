@@ -1,0 +1,18 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": [
+    ["烈日威权的残响", "烈日威权的余光", "烈日威权的梦想", "烈日威权的旧日"],
+    ["残毁的横脊", "密固的横脊", "锲纹的横脊", "褪色红绸", "镶边红绸", "织金红绸"]
+  ],
+  "baseATK": 608.0745972,
+  "introduce": "",
+  "mainStat": "暴击率",
+  "mainValue": "33.0768%",
+  "name": "苇海信标",
+  "rarity": 5,
+  "skillContent": "元素战技命中敌人后，攻击力提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>，持续8秒；受到伤害后，攻击力提升<span class=\"desc-number recolor\">20%/25%/30%/35%/40%</span>，持续8秒。上述2种效果角色处于队伍后台时也能触发。此外，不处于护盾庇护下时，生命值上限提高<span class=\"desc-number recolor\">32%/40%/48%/56%/64%</span>。",
+  "skillName": "沙海守望",
+  "time": "【周三/六/日】",
+  "title": "双手剑",
+  "type": "武器"
+}

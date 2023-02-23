@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["哀叙冰玉碎屑", "哀叙冰玉断片", "哀叙冰玉块", "哀叙冰玉", "苍砾蕊羽"],
+  "baseATK": 223.0170516,
+  "birthday": "8月11日",
+  "constellationName": "林鸽座",
+  "constellations": [
+    "<span class=\"desc-number recolor\">元素战技</span>产生的灵风状态能使<span class=\"desc-number recolor\">元素爆发</span>的鹰翎状态恢复生命值的间隔降低，降低比例等同于灵风状态提供的攻击速度提升比例。",
+    "<span class=\"desc-number recolor\">元素战技</span>的霜流矢首次命中敌人时，或是冰星信标命中敌人时，将产生1层固有天赋「速射牵制」的侦明效果。需要解锁固有天赋「速射牵制」。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "米卡自己的<span class=\"desc-number recolor\">元素爆发</span>的鹰翎状态为队伍中的角色进行治疗时，将为米卡恢复3点元素能量。通过一次施放元素爆发产生的鹰翎状态，至多恢复5次元素能量。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "<span class=\"desc-number recolor\">元素战技</span>灵风状态下的侦明效果叠加层数上限提升1层。需要解锁固有天赋「速射牵制」。此外，处于灵风状态下的当前场上角色，其物理伤害的暴击伤害提高60%。"
+  ],
+  "cvCN": "未知",
+  "cvJP": "未知",
+  "element": "冰元素",
+  "id": 10000080,
+  "introduce": "平凡家庭出身的年轻骑士，在小队中担任「前进测绘员」一职。为人低调，谨小慎微。",
+  "levelUpMaterials": ["钩钩果", "新兵的徽记", "士官的徽记", "尉官的徽记"],
+  "mainStat": "生命值",
+  "mainValue": "24.00%",
+  "name": "米卡",
+  "passiveDesc": "在小地图上显示周围的<span class=\"desc-number recolor\">蒙德区域特产</span>的位置。",
+  "passiveTitle": "勘界定标",
+  "rarity": 4,
+  "talentMaterials": ["「诗文」的教导", "「诗文」的指引", "「诗文」的哲学", "无心的渊镜"],
+  "time": "【周三/六/日】",
+  "title": "晴霜的标绘",
+  "type": "角色"
+}
