@@ -64,7 +64,7 @@
     "lowdb": "5.1.0",
     "md5": "2.3.0",
     "moment": "2.29.4",
-    "moment-timezone": "0.5.40",
+    "moment-timezone": "0.5.41",
     "node-fetch": "3.3.0",
     "node-schedule": "2.1.1",
     "oicq": "2.3.1",
