@@ -9,10 +9,11 @@
     "须弥区域特产",
     "药剂",
     "角色培养素材",
+    "角色突破素材",
     "武器突破素材",
+    "角色与武器培养素材",
     "任务道具",
-    "天赋培养素材",
-    "天赋培养素材",
+    "角色天赋素材",
     "冒险道具",
     "消耗品",
     "小道具",
@@ -574,7 +575,7 @@
       "name": "咖啡豆",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 100584,
@@ -1069,224 +1070,224 @@
     {
       "id": 104101,
       "name": "璀璨原钻碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104102,
       "name": "璀璨原钻断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104103,
       "name": "璀璨原钻块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104104,
       "name": "璀璨原钻",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104111,
       "name": "燃愿玛瑙碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104112,
       "name": "燃愿玛瑙断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104113,
       "name": "燃愿玛瑙块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104114,
       "name": "燃愿玛瑙",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104121,
       "name": "涤净青金碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104122,
       "name": "涤净青金断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104123,
       "name": "涤净青金块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104124,
       "name": "涤净青金",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104131,
       "name": "生长碧翡碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104132,
       "name": "生长碧翡断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104133,
       "name": "生长碧翡块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104134,
       "name": "生长碧翡",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104141,
       "name": "最胜紫晶碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104142,
       "name": "最胜紫晶断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104143,
       "name": "最胜紫晶块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104144,
       "name": "最胜紫晶",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104151,
       "name": "自在松石碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104152,
       "name": "自在松石断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104153,
       "name": "自在松石块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104154,
       "name": "自在松石",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104161,
       "name": "哀叙冰玉碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104162,
       "name": "哀叙冰玉断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104163,
       "name": "哀叙冰玉块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104164,
       "name": "哀叙冰玉",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104171,
       "name": "坚牢黄玉碎屑",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104172,
       "name": "坚牢黄玉断片",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104173,
       "name": "坚牢黄玉块",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104174,
       "name": "坚牢黄玉",
-      "type": "角色培养素材",
+      "type": "角色突破素材",
       "rarity": 5,
       "beta": false
     },
@@ -1300,259 +1301,259 @@
     {
       "id": 104301,
       "name": "「自由」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104302,
       "name": "「自由」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104303,
       "name": "「自由」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104304,
       "name": "「抗争」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104305,
       "name": "「抗争」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104306,
       "name": "「抗争」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104307,
       "name": "「诗文」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104308,
       "name": "「诗文」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104309,
       "name": "「诗文」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104310,
       "name": "「繁荣」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104311,
       "name": "「繁荣」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104312,
       "name": "「繁荣」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104313,
       "name": "「勤劳」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104314,
       "name": "「勤劳」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104315,
       "name": "「勤劳」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104316,
       "name": "「黄金」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104317,
       "name": "「黄金」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104318,
       "name": "「黄金」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104319,
       "name": "智识之冕",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 5,
       "beta": false
     },
     {
       "id": 104320,
       "name": "「浮世」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104321,
       "name": "「浮世」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104322,
       "name": "「浮世」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104323,
       "name": "「风雅」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104324,
       "name": "「风雅」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104325,
       "name": "「风雅」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104326,
       "name": "「天光」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104327,
       "name": "「天光」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104328,
       "name": "「天光」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104329,
       "name": "「诤言」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104330,
       "name": "「诤言」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104331,
       "name": "「诤言」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104332,
       "name": "「巧思」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104333,
       "name": "「巧思」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104334,
       "name": "「巧思」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 104335,
       "name": "「笃行」的教导",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 104336,
       "name": "「笃行」的指引",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 104337,
       "name": "「笃行」的哲学",
-      "type": "天赋培养素材",
+      "type": "角色天赋素材",
       "rarity": 4,
       "beta": false
     },
@@ -1783,525 +1784,525 @@
     {
       "id": 112002,
       "name": "史莱姆凝液",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112003,
       "name": "史莱姆清",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112004,
       "name": "史莱姆原浆",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112005,
       "name": "破损的面具",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112006,
       "name": "污秽的面具",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112007,
       "name": "不祥的面具",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112008,
       "name": "导能绘卷",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112009,
       "name": "封魔绘卷",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112010,
       "name": "禁咒绘卷",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112011,
       "name": "牢固的箭簇",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112012,
       "name": "锐利的箭簇",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112013,
       "name": "历战的箭簇",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112014,
       "name": "沉重号角",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112015,
       "name": "黑铜号角",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112016,
       "name": "黑晶号角",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112017,
       "name": "晦暗刻像",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112018,
       "name": "夤夜刻像",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112019,
       "name": "幽邃刻像",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112020,
       "name": "地脉的旧枝",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112021,
       "name": "地脉的枯叶",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112022,
       "name": "地脉的新芽",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112023,
       "name": "混沌装置",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112024,
       "name": "混沌回路",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112025,
       "name": "混沌炉心",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112026,
       "name": "雾虚花粉",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112027,
       "name": "雾虚草囊",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112028,
       "name": "雾虚灯芯",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112029,
       "name": "猎兵祭刀",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112030,
       "name": "特工祭刀",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112031,
       "name": "督察长祭刀",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112032,
       "name": "新兵的徽记",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112033,
       "name": "士官的徽记",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112034,
       "name": "尉官的徽记",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112035,
       "name": "寻宝鸦印",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112036,
       "name": "藏银鸦印",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112037,
       "name": "攫金鸦印",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112038,
       "name": "骗骗花蜜",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112039,
       "name": "微光花蜜",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112040,
       "name": "原素花蜜",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112041,
       "name": "脆弱的骨片",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112042,
       "name": "结实的骨片",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112043,
       "name": "石化的骨片",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112044,
       "name": "破旧的刀镡",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112045,
       "name": "影打刀镡",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112046,
       "name": "名刀镡",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112047,
       "name": "混沌机关",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112048,
       "name": "混沌枢纽",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112049,
       "name": "混沌真眼",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112050,
       "name": "黯淡棱镜",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112051,
       "name": "水晶棱镜",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112052,
       "name": "偏光棱镜",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112053,
       "name": "浮游干核",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112054,
       "name": "浮游幽核",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112055,
       "name": "浮游晶化核",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112056,
       "name": "隐兽指爪",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112057,
       "name": "隐兽利爪",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112058,
       "name": "隐兽鬼爪",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112059,
       "name": "蕈兽孢子",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112060,
       "name": "荧光孢粉",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112061,
       "name": "孢囊晶尘",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112062,
       "name": "失活菌核",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112063,
       "name": "休眠菌核",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112064,
       "name": "茁壮菌核",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112065,
       "name": "褪色红绸",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 1,
       "beta": false
     },
     {
       "id": 112066,
       "name": "镶边红绸",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112067,
       "name": "织金红绸",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112068,
       "name": "混沌容器",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112069,
       "name": "混沌模块",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112070,
       "name": "混沌锚栓",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112071,
       "name": "破缺棱晶",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112072,
       "name": "混浊棱晶",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112073,
       "name": "辉光棱晶",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
     {
       "id": 112074,
       "name": "残毁的横脊",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 2,
       "beta": false
     },
     {
       "id": 112075,
       "name": "密固的横脊",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 3,
       "beta": false
     },
     {
       "id": 112076,
       "name": "锲纹的横脊",
-      "type": "角色培养素材",
+      "type": "角色与武器培养素材",
       "rarity": 4,
       "beta": false
     },
@@ -3297,7 +3298,7 @@
       "name": "绮筵之鼓",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     }
   ]
 }
