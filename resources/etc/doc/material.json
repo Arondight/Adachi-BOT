@@ -872,6 +872,20 @@
       "beta": false
     },
     {
+      "id": 101223,
+      "name": "悼灵花",
+      "type": "须弥区域特产",
+      "rarity": 1,
+      "beta": true
+    },
+    {
+      "id": 101224,
+      "name": "万相石",
+      "type": "须弥区域特产",
+      "rarity": 1,
+      "beta": true
+    },
+    {
       "id": 101225,
       "name": "圣金虫",
       "type": "须弥区域特产",
@@ -2307,6 +2321,27 @@
       "beta": false
     },
     {
+      "id": 112077,
+      "name": "来自何处的待放之花",
+      "type": "角色与武器培养素材",
+      "rarity": 2,
+      "beta": true
+    },
+    {
+      "id": 112078,
+      "name": "何人所珍藏之花",
+      "type": "角色与武器培养素材",
+      "rarity": 3,
+      "beta": true
+    },
+    {
+      "id": 112079,
+      "name": "漫游者的盛放之花",
+      "type": "角色与武器培养素材",
+      "rarity": 4,
+      "beta": true
+    },
+    {
       "id": 113001,
       "name": "飓风之种",
       "type": "角色培养素材",
@@ -2606,6 +2641,34 @@
       "type": "角色培养素材",
       "rarity": 4,
       "beta": false
+    },
+    {
+      "id": 113045,
+      "name": "常暗圆环",
+      "type": "角色培养素材",
+      "rarity": 4,
+      "beta": true
+    },
+    {
+      "id": 113046,
+      "name": "？？？",
+      "type": "角色培养素材",
+      "rarity": 5,
+      "beta": true
+    },
+    {
+      "id": 113047,
+      "name": "？？？",
+      "type": "角色培养素材",
+      "rarity": 5,
+      "beta": true
+    },
+    {
+      "id": 113048,
+      "name": "？？？",
+      "type": "角色培养素材",
+      "rarity": 5,
+      "beta": true
     },
     {
       "id": 114001,
