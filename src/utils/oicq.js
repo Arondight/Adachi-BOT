@@ -4,7 +4,7 @@
  * ========================================================================== */
 import lodash from "lodash";
 import querystring from "querystring";
-import { genDmMessageId } from "oicq/lib/message/message.js";
+import { genDmMessageId } from "icqq/lib/message/message.js";
 import { matchBracket } from "#utils/tools";
 
 ("use strict");

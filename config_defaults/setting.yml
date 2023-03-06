@@ -17,7 +17,7 @@ accounts:
   -
     # QQ 号码
     qq: 123456789
-    # QQ 明文密码，为空（ null ）则使用扫码登录，推荐使用扫码登录
+    # QQ 明文密码，为空（ null ）则使用扫码登录，推荐使用密码登录
     #password: null
     password: zhimakaimen
     # 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad

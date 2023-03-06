@@ -1,5 +1,5 @@
+import { createClient } from "icqq";
 import lodash from "lodash";
-import { createClient } from "oicq";
 import { dispatch } from "#bot/dispatch";
 import { init } from "#bot/init";
 import { loadPlugins } from "#bot/plugin";
@@ -16,7 +16,9 @@ function create() {
   }
 
   for (const account of global.config.accounts) {
-    const bot = createClient(account.qq, { platform: account.platform, log_level: "debug", data_dir: global.oicqdir });
+    // https://github.com/icqqjs/icqq#%E4%B8%8Eoicq2%E7%9A%84%E5%B7%AE%E5%BC%82
+    //const bot = createClient(account.qq, { platform: account.platform, log_level: "debug", data_dir: global.oicqdir });
+    const bot = createClient({ platform: account.platform, log_level: "debug", data_dir: global.oicqdir });
 
     bot.account = account;
     bot.boardcast = boardcast.bind(null, bot);
@@ -105,21 +107,14 @@ async function run() {
         bot.on(e, () => resolve());
       }
 
-      bot.on("system.login.device", () => {
-        bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
-        bot.sendSmsCode();
-        process.stdin.once("data", (input) => {
-          bot.submitSmsCode(input.toString());
-          resolve();
-        });
-      });
       bot.on("system.login.slider", () => {
         bot.logger.mark("输入滑动验证码请求中的 ticket 后按下回车键继续。");
         process.stdin.once("data", (input) => {
-          bot.submitSlider(input.toString());
+          bot.submitSlider(input.toString().trim());
           resolve();
         });
       });
+
       bot.on("system.login.qrcode", () => {
         bot.logger.mark("手机扫码完成后按下回车键继续。");
         process.stdin.once("data", () => {
@@ -127,7 +122,30 @@ async function run() {
           resolve();
         });
       });
-      bot.login(bot.account.password);
+
+      bot.on("system.login.device", (e) => {
+        console.log("输入证方式（1：短信验证；2：扫码验证）。");
+        process.stdin.once("data", (input) => {
+          if ("1" === input.toString().trim()) {
+            bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
+            bot.sendSmsCode();
+            process.stdin.once("data", (input) => {
+              bot.submitSmsCode(input.toString().trim());
+              resolve();
+            });
+          } else {
+            console.log("扫码完成后回车继续：" + e.url);
+            process.stdin.once("data", () => {
+              bot.login();
+              resolve();
+            });
+          }
+        });
+      });
+
+      // https://github.com/icqqjs/icqq#%E4%B8%8Eoicq2%E7%9A%84%E5%B7%AE%E5%BC%82
+      //bot.login(bot.account.password);
+      bot.login(bot.account.qq, bot.account.password);
     });
   }
 }
