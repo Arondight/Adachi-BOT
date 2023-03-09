@@ -124,7 +124,7 @@ async function run() {
       });
 
       bot.on("system.login.device", (e) => {
-        console.log("输入证方式（1：短信验证；2：扫码验证）。");
+        bot.logger.mark("输入证方式（1：短信验证；2：扫码验证）。");
         process.stdin.once("data", (input) => {
           if ("1" === input.toString().trim()) {
             bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
@@ -134,7 +134,7 @@ async function run() {
               resolve();
             });
           } else {
-            console.log("扫码完成后回车继续：" + e.url);
+            bot.logger.mark(`扫码完成后回车继续：${e.url}`);
             process.stdin.once("data", () => {
               bot.login();
               resolve();
