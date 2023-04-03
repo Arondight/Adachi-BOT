@@ -1,0 +1,31 @@
+{
+  "access": "祈愿",
+  "ascensionMaterials": ["生长碧翡碎屑", "生长碧翡断片", "生长碧翡块", "生长碧翡", "灭诤草蔓"],
+  "baseATK": 233.6369112,
+  "birthday": "7月9日",
+  "constellationName": "天堂鸟座",
+  "constellations": [
+    "施放<span class=\"desc-number recolor\">元素战技</span>后的3秒内，卡维的<span class=\"desc-number recolor\">草元素抗性</span>提升50%，受治疗加成提升25%。",
+    "在<span class=\"desc-number recolor\">元素爆发</span>持续期间，卡维普通攻击的攻击速度提升15%。",
+    "<span class=\"desc-number recolor\">元素爆发</span>的技能等级提高3级。至多提升至15级。",
+    "卡维触发绽放反应产生的草原核在迸发时造成的伤害提升60%。",
+    "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
+    "在<span class=\"desc-number recolor\">元素爆发</span>持续期间，卡维的普通攻击、重击或下落攻击命中敌人时，将在敌人的位置释放天园之光，造成卡维攻击力61.8%的<span class=\"desc-number recolor\">草元素范围伤害</span>，并使影响范围内的所有草原核迸发。该效果每3秒最多触发一次。"
+  ],
+  "cvCN": "未知",
+  "cvJP": "未知",
+  "element": "草元素",
+  "id": 10000081,
+  "introduce": "须弥著名建筑设计师，对太多事物抱有过度关怀心。美学主义者，为现实所困扰。",
+  "levelUpMaterials": ["悼灵花", "蕈兽孢子", "荧光孢粉", "孢囊晶尘"],
+  "mainStat": "元素精通",
+  "mainValue": "96",
+  "name": "卡维",
+  "passiveDesc": "制作景观、建筑、庭院类摆设时，有100%概率返还部分材料。",
+  "passiveTitle": "预算师的技艺",
+  "rarity": 4,
+  "talentMaterials": ["「巧思」的教导", "「巧思」的指引", "「巧思」的哲学", "？？？"],
+  "time": "【周二/五/日】",
+  "title": "天穹之镜",
+  "type": "角色"
+}

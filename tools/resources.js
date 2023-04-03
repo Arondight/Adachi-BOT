@@ -17,10 +17,11 @@ const m_DIR = Object.freeze({
   material: mkdir(path.resolve(m_RESDIR, "material")),
   weapon: mkdir(path.resolve(m_RESDIR, "weapon")),
 });
-// 3.5
+// 3.6
 const m_NICK_AMBR_TO_HONEY = Object.freeze({
   alhaitham: "alhatham",
   amber: "ambor",
+  baizhu: "baizhuer",
   heizou: "heizo",
   jean: "qin",
   kujousara: "sara",
