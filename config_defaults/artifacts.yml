@@ -299,6 +299,18 @@ artifacts:
     icon: null
     suit: 乐园遗落之花
     names: [ 月女的华彩, 谢落的筵席, 凝结的时刻, 守秘的魔瓶, 紫晶的花冠 ]
+  -
+    id: 26
+    rarity: 5
+    icon: null
+    suit: 水仙之梦
+    names: [ 旅途中的鲜花, 坏巫师的羽杖, 水仙的时时刻刻, 勇者们的茶会, 恶龙的单片镜 ]
+  -
+    id: 27
+    rarity: 5
+    icon: null
+    suit: 花海甘露之光
+    names: [ 灵光源起之蕊, 琦色灵彩之羽, 久远花落之时, 无边酣乐之筵, 灵光明烁之心 ]
 
 #
 # 副本掉落设置。别名 alias 忽略大小写。
@@ -369,3 +381,8 @@ domains:
     name: 赤金的城墟
     alias: [ 金本, 赤金本, 绽放本 ]
     product: [ 24, 25 ]
+  -
+    id: 13
+    name: 熔铁的孤塞
+    alias: [ 熔铁本, 熔铁孤塞, 熔铁孤塞本 ]
+    product: [ 26, 27 ]
