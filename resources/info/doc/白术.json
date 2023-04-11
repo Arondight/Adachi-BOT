@@ -12,8 +12,8 @@
     "<span class=\"desc-number recolor\">元素战技</span>的技能等级提高3级。至多提升至15级。",
     "<span class=\"desc-number recolor\">元素爆发</span>的灵气脉造成的伤害提高，提升值相当于白术生命值上限的8%。此外，<span class=\"desc-number recolor\">游丝徵灵</span>或游丝徵灵·切在命中敌人时，有100%概率产生<span class=\"desc-number recolor\">元素爆发</span>的无郤气护盾，该效果每个游丝徵灵或游丝徵灵·切只能触发一次。"
   ],
-  "cvCN": "未知",
-  "cvJP": "未知",
+  "cvCN": "秦且歌",
+  "cvJP": "游佐浩二",
   "element": "草元素",
   "id": 10000082,
   "introduce": "药庐「不卜庐」的主人，随身悬着名为「长生」的白蛇。精于药石，深于城府。",
@@ -24,7 +24,7 @@
   "passiveDesc": "白术处于队伍中时，与部分采集物交互能够为队伍中自己的当前场上角色恢复生命值，回复量基于白术生命值上限的2.5%。",
   "passiveTitle": "味草之滋",
   "rarity": 5,
-  "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "？？？"],
+  "talentMaterials": ["「黄金」的教导", "「黄金」的指引", "「黄金」的哲学", "生长天地之蕨草"],
   "time": "【周三/六/日】",
   "title": "遵生合和",
   "type": "角色"

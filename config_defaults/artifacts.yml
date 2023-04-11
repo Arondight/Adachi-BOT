@@ -379,10 +379,10 @@ domains:
   -
     id: 12
     name: 赤金的城墟
-    alias: [ 金本, 赤金本, 绽放本 ]
+    alias: [ 绽放本 ]
     product: [ 24, 25 ]
   -
     id: 13
     name: 熔铁的孤塞
-    alias: [ 熔铁本, 熔铁孤塞, 熔铁孤塞本 ]
+    alias: [ 熔铁本 ]
     product: [ 26, 27 ]
