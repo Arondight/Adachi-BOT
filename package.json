@@ -16,7 +16,7 @@
     "genshin-impact"
   ],
   "engines": {
-    "node": ">=16.17.0"
+    "node": ">16.6.0"
   },
   "imports": {
     "#bot/*": "./src/bot/*.js",
