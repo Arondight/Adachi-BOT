@@ -74,7 +74,7 @@
     "process": "0.11.10",
     "puppeteer": "20.2.0",
     "random-float": "3.0.0",
-    "semver": "7.5.0",
+    "semver": "7.5.1",
     "systeminformation": "5.17.12",
     "yargs": "17.7.2"
   },
