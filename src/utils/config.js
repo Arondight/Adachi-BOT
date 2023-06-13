@@ -975,8 +975,8 @@ function readSetting() {
       option.password = option.password.toString();
     }
 
-    // 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad
-    if (![1, 2, 3, 4, 5].includes(option.platform)) {
+    // 1:安卓手机、 2:aPad 、 3:安卓手表、 4:MacOS 、 5:iPad 、 6:旧安卓
+    if (![1, 2, 3, 4, 5, 6].includes(option.platform)) {
       option.platform = defaultConfig.platform;
     }
   }
