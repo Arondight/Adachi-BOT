@@ -17,13 +17,14 @@ const m_DIR = Object.freeze({
   material: mkdir(path.resolve(m_RESDIR, "material")),
   weapon: mkdir(path.resolve(m_RESDIR, "weapon")),
 });
-// 3.6
+// 3.7
 const m_NICK_AMBR_TO_HONEY = Object.freeze({
   alhaitham: "alhatham",
   amber: "ambor",
   baizhu: "baizhuer",
   heizou: "heizo",
   jean: "qin",
+  kirara: "momoka",
   kujousara: "sara",
   noelle: "noel",
   shogun: "shougun",
@@ -148,13 +149,7 @@ async function remoteImgToWebpFile(
   height = { resize: webpOpt.NONE, size: 0 },
   position = webpPos.CENTER
 ) {
-  let buffer;
-
-  try {
-    buffer = Buffer.from(await getBinBuffer(url));
-  } catch (e) {
-    return;
-  }
+  const buffer = Buffer.from(await getBinBuffer(url));
 
   return imgToWebpFile(buffer, file, lossless, width, height, position);
 }
@@ -773,14 +768,18 @@ async function getMaterialImg(name) {
   const file = path.resolve(icondir, `${name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await remoteImgToWebpFile(
-      `${m_API.character.ui}/UI_ItemIcon_${getMaterialIdByName(name)}.png`,
-      file,
-      false,
-      { resize: webpOpt.RESIZE, size: 256 },
-      { resize: webpOpt.RESIZE, size: 256 },
-      webpPos.CENTER
-    );
+    try {
+      await remoteImgToWebpFile(
+        `${m_API.character.ui}/UI_ItemIcon_${getMaterialIdByName(name)}.png`,
+        file,
+        false,
+        { resize: webpOpt.RESIZE, size: 256 },
+        { resize: webpOpt.RESIZE, size: 256 },
+        webpPos.CENTER
+      );
+    } catch (e) {
+      // do nothing
+    }
   }
 }
 
@@ -846,6 +845,7 @@ async function getGachaImg(url, file, lossless = true, isChar = true, size = [32
 
 async function getCharRes(info) {
   const item = (mData.character.info.filter((c) => c.name === info.name) || [])[0];
+  const itemEn = (mData.character.infoEn.filter((c) => parseInt(c.id) === info.id) || [])[0];
   const icondir = mkdir(path.resolve(m_DIR.char, "icon"));
   const carddir = mkdir(path.resolve(m_DIR.char, "namecard"));
   const gachadir = mkdir(path.resolve(m_DIR.char, "gacha"));
@@ -875,14 +875,21 @@ async function getCharRes(info) {
       icon = "Yae1";
     }
 
-    await remoteImgToWebpFile(
-      `${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${icon}_P.png`,
-      file,
-      false,
-      { resize: webpOpt.RESIZE, size: 840 },
-      { resize: webpOpt.RESIZE, size: 400 },
-      webpPos.CENTER
-    );
+    for (const e of [icon, itemEn.name].map((c) => `${m_AMBR_TOP}/assets/UI/namecard/UI_NameCardPic_${c}_P.png`)) {
+      try {
+        await remoteImgToWebpFile(
+          e,
+          file,
+          false,
+          { resize: webpOpt.RESIZE, size: 840 },
+          { resize: webpOpt.RESIZE, size: 400 },
+          webpPos.CENTER
+        );
+        break;
+      } catch (e) {
+        // do nothing
+      }
+    }
   }
 
   // material
@@ -893,7 +900,7 @@ async function getCharRes(info) {
   }
 
   // gacha
-  let { name: nameEn } = (mData.character.infoEn.filter((c) => parseInt(c.id) === info.id) || [])[0];
+  let nameEn = itemEn.name || "";
 
   if (nameEn.includes(" ") && nameEn.length > 10) {
     nameEn = nameEn.split(" ").slice(-1)[0];
@@ -921,14 +928,18 @@ async function getWeaponRes(info) {
   file = path.resolve(icondir, `${item.name}.webp`);
 
   if (!fs.existsSync(file)) {
-    await remoteImgToWebpFile(
-      `${m_API.character.ui}/UI_EquipIcon_${item.icon}.png`,
-      file,
-      false,
-      { resize: webpOpt.RESIZE, size: 256 },
-      { resize: webpOpt.RESIZE, size: 256 },
-      webpPos.CENTER
-    );
+    try {
+      await remoteImgToWebpFile(
+        `${m_API.character.ui}/UI_EquipIcon_${item.icon}.png`,
+        file,
+        false,
+        { resize: webpOpt.RESIZE, size: 256 },
+        { resize: webpOpt.RESIZE, size: 256 },
+        webpPos.CENTER
+      );
+    } catch (e) {
+      // do nothing
+    }
   }
 
   // material
