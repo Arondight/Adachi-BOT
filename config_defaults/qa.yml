@@ -85,15 +85,8 @@ settings:
     master: false
     type: command
     platform:
-      - aix
-      - android
       - darwin
-      - freebsd
       - linux
-      - openbsd
-      - sunos
-      - cygwin
-      - netbsd
     reply: date +"%Y年%m月%d日（%Z），星期%u" | sed "s|6$|六|; s|7$|日|; s|$|。|"
   -
     match:
@@ -102,13 +95,6 @@ settings:
     master: false
     type: command
     platform:
-      - aix
-      - android
       - darwin
-      - freebsd
       - linux
-      - openbsd
-      - sunos
-      - cygwin
-      - netbsd
     reply: echo "我听到 ${USER_NAME}（${USER_ID}）说了“${MSG_TEXT}”，如果需要查阅使用方法，需要说“help”！"
