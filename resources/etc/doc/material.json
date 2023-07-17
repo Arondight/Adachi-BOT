@@ -1076,6 +1076,34 @@
       "beta": false
     },
     {
+      "id": 101318,
+      "name": "悬铃木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
+      "id": 101319,
+      "name": "椴木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
+      "id": 101320,
+      "name": "白梣木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
+      "id": 101321,
+      "name": "香柏木",
+      "type": "素材",
+      "rarity": 1,
+      "beta": true
+    },
+    {
       "id": 101401,
       "name": "布匹",
       "type": "素材",
