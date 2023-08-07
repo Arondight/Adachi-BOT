@@ -88,7 +88,7 @@
     "eslint-plugin-sort-exports": "0.8.0",
     "eslint-plugin-vue": "9.16.1",
     "eslint-plugin-yml": "1.8.0",
-    "npm-check-updates": "16.10.17",
+    "npm-check-updates": "16.10.18",
     "postcss": "^8.4.27",
     "prettier": "3.0.1",
     "prettier-plugin-css-order": "^2.0.0",
