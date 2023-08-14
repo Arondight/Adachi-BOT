@@ -7,6 +7,7 @@
     "璃月区域特产",
     "稻妻区域特产",
     "须弥区域特产",
+    "枫丹区域特产",
     "药剂",
     "角色培养素材",
     "角色突破素材",
@@ -28,8 +29,7 @@
     "七国徽印",
     "角色经验素材",
     "武器强化素材",
-    "挑战结算道具",
-    "枫丹区域特产"
+    "挑战结算道具"
   ],
   "items": [
     {
@@ -583,7 +583,7 @@
       "name": "发酵果实汁",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 100584,
@@ -667,7 +667,7 @@
       "name": "萃凝晶",
       "type": "锻造用矿石",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101101,
@@ -919,49 +919,49 @@
       "name": "久雨莲",
       "type": "素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101231,
       "name": "茉洁草",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101232,
       "name": "苍晶螺",
       "type": "枫丹区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101233,
       "name": "海露花",
       "type": "枫丹区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101234,
       "name": "汐藻",
       "type": "食材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101235,
       "name": "柔灯铃",
       "type": "枫丹区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101236,
       "name": "虹彩蔷薇",
       "type": "枫丹区域特产",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101301,
@@ -1080,28 +1080,28 @@
       "name": "悬铃木",
       "type": "素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101319,
       "name": "椴木",
       "type": "素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101320,
       "name": "白梣木",
       "type": "素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101321,
       "name": "香柏木",
       "type": "素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 101401,
@@ -1668,63 +1668,63 @@
       "name": "「公平」的教导",
       "type": "角色天赋素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104339,
       "name": "「公平」的指引",
       "type": "角色天赋素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104340,
       "name": "「公平」的哲学",
       "type": "角色天赋素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104341,
       "name": "「正义」的教导",
       "type": "角色天赋素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104342,
       "name": "「正义」的指引",
       "type": "角色天赋素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104343,
       "name": "「正义」的哲学",
       "type": "角色天赋素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104344,
       "name": "「秩序」的教导",
       "type": "角色天赋素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104345,
       "name": "「秩序」的指引",
       "type": "角色天赋素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 104346,
       "name": "「秩序」的哲学",
       "type": "角色天赋素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 107001,
@@ -2501,84 +2501,84 @@
       "name": "异海凝珠",
       "type": "角色与武器培养素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112081,
       "name": "异海之块",
       "type": "角色与武器培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112082,
       "name": "异色结晶石",
       "type": "角色与武器培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112083,
       "name": "啮合齿轮",
       "type": "角色与武器培养素材",
       "rarity": 1,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112084,
       "name": "机关正齿轮",
       "type": "角色与武器培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112085,
       "name": "奇械机芯齿轮",
       "type": "角色与武器培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112086,
       "name": "浊水的一滴",
       "type": "角色与武器培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112087,
       "name": "浊水的一掬",
       "type": "角色与武器培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112088,
       "name": "初生的浊水幻灵",
       "type": "角色与武器培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112089,
       "name": "隙间之核",
       "type": "角色与武器培养素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112090,
       "name": "外世突触",
       "type": "角色与武器培养素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 112091,
       "name": "异界生命核",
       "type": "角色与武器培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113001,
@@ -2921,21 +2921,21 @@
       "name": "奇械发条备件·歌裴莉娅",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113050,
       "name": "奇械发条备件·科培琉司",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 113051,
       "name": "帝皇的决断",
       "type": "角色培养素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114001,
@@ -3278,84 +3278,84 @@
       "name": "悠古弦音的残章",
       "type": "武器突破素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114050,
       "name": "悠古弦音的断章",
       "type": "武器突破素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114051,
       "name": "悠古弦音的乐章",
       "type": "武器突破素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114052,
       "name": "悠古弦音的回响",
       "type": "武器突破素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114053,
       "name": "纯圣露滴的滤渣",
       "type": "武器突破素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114054,
       "name": "纯圣露滴的凝华",
       "type": "武器突破素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114055,
       "name": "纯圣露滴的醴泉",
       "type": "武器突破素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114056,
       "name": "纯圣露滴的真粹",
       "type": "武器突破素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114057,
       "name": "无垢之海的苦盏",
       "type": "武器突破素材",
       "rarity": 2,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114058,
       "name": "无垢之海的酒盏",
       "type": "武器突破素材",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114059,
       "name": "无垢之海的银杯",
       "type": "武器突破素材",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 114060,
       "name": "无垢之海的金杯",
       "type": "武器突破素材",
       "rarity": 5,
-      "beta": true
+      "beta": false
     },
     {
       "id": 120011,
@@ -3719,28 +3719,28 @@
       "name": "水神瞳共鸣石",
       "type": "消耗品",
       "rarity": 3,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220087,
       "name": "水之寻宝罗盘",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220088,
       "name": "晶蝶诱捕装置",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     },
     {
       "id": 220089,
       "name": "借动式鼓风装置",
       "type": "小道具",
       "rarity": 4,
-      "beta": true
+      "beta": false
     }
   ]
 }
